@@ -12,7 +12,9 @@
 	<artifactId>switchboardapp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>switchboardapp</name>
-	<description>Demo project for Spring Boot</description>
+	<description>A web service that enables the creation of video streams
+		between devices located on different subnets with minimal configuration.
+	</description>
 
 	<properties>
 		<java.version>11</java.version>
