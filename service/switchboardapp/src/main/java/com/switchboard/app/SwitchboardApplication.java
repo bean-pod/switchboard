@@ -1,13 +1,13 @@
-package com.switchboard.switchboardapp;
+package com.switchboard.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SwitchboardappApplication {
+public class SwitchboardApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SwitchboardappApplication.class, args);
+		SpringApplication.run(SwitchboardApplication.class, args);
 	}
 
 }
