@@ -1,0 +1,216 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: 'Switchboard API'
+  description: 'API for the switchboard service'
+    
+servers:
+  - url: https://placeholder.com/v1/
+    description: Test environment
+  
+paths:
+  /senders:
+    get:
+      operationId: getSenders
+      description: Get a list of available senders
+      tags:
+        - Senders
+      responses:
+        '200':
+          description: Successful retrieval of sender list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SenderUuids'
+    post:
+      operationId: createSender
+      description: Create a new sender client
+      tags:
+        - Senders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Sender'
+      responses:
+        '200':
+          description: Successful creation the sender
+  /senders/{uuid}:
+    get:
+      operationId: getSenderById
+      description: Retrieve a specific sender
+      tags:
+        - Senders
+      parameters:
+        - $ref: '#/components/parameters/SenderId'
+      responses:
+        '200':
+          description: Successful retrieval of the sender
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sender'
+    put:
+      operationId: updateSender
+      description: Update a sender's definition
+      tags:
+        - Senders
+      parameters:
+        - $ref: '#/components/parameters/SenderId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Sender'
+      responses:
+        '200':
+          description: Successful update of the sender
+    delete:
+      operationId: deleteSender
+      description: Delete a sender
+      tags:
+        - Senders
+      parameters: 
+        - $ref: '#/components/parameters/SenderId'
+      responses:
+        '200':
+          description: Successful deletion of the sender
+          
+  /receivers:
+    get:
+      operationId: getReceivers
+      description: Get a list of available receivers
+      tags:
+        - Receivers
+      responses:
+        '200':
+          description: Successful retrieval of receiver list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReceiverUuids'
+    post:
+      operationId: createReceiver
+      description: Create a new receiver client
+      tags:
+        - Receivers
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Receiver'
+      responses:
+        '200':
+          description: Successful creation of the receiver
+  /receivers/{uuid}:
+    get:
+      operationId: getReceiverById
+      description: Retrieve a specific receiver
+      tags:
+        - Receivers
+      parameters: 
+        - $ref: '#/components/parameters/ReceiverId'
+      responses:
+        '200':
+          description: Successful retrieval of the receiver
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Receiver'
+    put:
+      operationId: updateReceiver
+      description: Update a receiver's definition
+      tags:
+        - Receivers
+      parameters: 
+        - $ref: '#/components/parameters/ReceiverId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Receiver'
+      responses:
+        '200':
+          description: Successful update of the receiver
+    delete:
+      operationId: deleteReceiver
+      description: Delete a receiver
+      tags:
+        - Receivers
+      parameters: 
+        - $ref: '#/components/parameters/ReceiverId'
+      responses:
+        '200':
+          description: Successful deletion of the receiver
+
+components:
+  schemas:
+    SenderUuids:
+      description: A list of UUIDs
+      type: array
+      items:
+        type: string
+      example: ['0e4e430f-8b9c-47da-b9af-7ef9cfb13e9e']
+    Sender:
+      description: A client that sends a video stream
+      properties:
+        displayName:
+          type: string
+          example: 'Camera 1B'
+        ip:
+          type: string
+          example: '120.45.43.24'
+        port:
+          type: string
+          example: '31507'
+        serialNumber:
+          type: string
+          example: 'BtmC8ckj'
+    ReceiverUuids:
+      description: A list of Receiver UUIDs
+      type: array
+      items:
+        type: string
+      example: ['1ea52153-c196-4cc6-8d9f-714248abf31c']
+    Receiver:
+      description: A client that receives a video stream
+      properties:
+        displayName:
+          type: string
+          example: 'Decoder 3F'
+        ip:
+          type: string
+          example: '45.100.56.135'
+        port:
+          type: string
+          example: '16591'
+        serialNumber:
+          type: string
+          example: 'v7BM3ejS'
+  parameters:
+    SenderId:
+      in: path
+      name: uuid
+      required: true
+      description: The UUID of a sender
+      schema:
+        type: string
+        example: '0e4e430f-8b9c-47da-b9af-7ef9cfb13e9e'
+    ReceiverId:
+      in: path
+      name: uuid
+      required: true
+      description: The UUID of a receiver
+      schema:
+        type: string
+        example: '1ea52153-c196-4cc6-8d9f-714248abf31c'
+
+tags:
+  - name: Senders
+    description: Senders endpoints
+  - name: Receivers
+    description: Receivers endpoints
