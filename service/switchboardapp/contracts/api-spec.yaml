@@ -9,153 +9,153 @@ servers:
     description: Test environment
 
 paths:
-  /senders:
+  /Encoders:
     get:
-      operationId: getSenders
-      description: Get a list of available senders
+      operationId: getEncoders
+      description: Get a list of available encoders
       tags:
-        - Senders
+        - Encoders
       responses:
         '200':
-          description: Successful retrieval of sender list
+          description: Successful retrieval of encoder list
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SenderUuids'
+                $ref: '#/components/schemas/EncoderUuids'
     post:
-      operationId: createSender
-      description: Create a new sender client
+      operationId: createEncoder
+      description: Create a new encoder client
       tags:
-        - Senders
+        - Encoders
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateSenderRequest'
+              $ref: '#/components/schemas/CreateEncoderRequest'
       responses:
         '200':
-          description: Successful creation the sender
-  /senders/{uuid}:
+          description: Successful creation the encoder
+  /Encoders/{uuid}:
     get:
-      operationId: getSenderById
-      description: Retrieve a specific sender
+      operationId: getEncoderById
+      description: Retrieve a specific encoder
       tags:
-        - Senders
+        - Encoders
       parameters:
-        - $ref: '#/components/parameters/SenderId'
+        - $ref: '#/components/parameters/EncoderId'
       responses:
         '200':
-          description: Successful retrieval of the sender
+          description: Successful retrieval of the encoder
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Sender'
+                $ref: '#/components/schemas/Encoder'
     put:
-      operationId: updateSender
-      description: Update a sender's definition
+      operationId: updateEncoder
+      description: Update a encoder's definition
       tags:
-        - Senders
+        - Encoders
       parameters:
-        - $ref: '#/components/parameters/SenderId'
+        - $ref: '#/components/parameters/EncoderId'
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Sender'
+              $ref: '#/components/schemas/Encoder'
       responses:
         '200':
-          description: Successful update of the sender
+          description: Successful update of the Encoder
     delete:
-      operationId: deleteSender
-      description: Delete a sender
+      operationId: deleteEncoder
+      description: Delete a encoder
       tags:
-        - Senders
+        - Encoders
       parameters:
-        - $ref: '#/components/parameters/SenderId'
+        - $ref: '#/components/parameters/EncoderId'
       responses:
         '200':
-          description: Successful deletion of the sender
+          description: Successful deletion of the encoder
 
-  /receivers:
+  /Decoders:
     get:
-      operationId: getReceivers
-      description: Get a list of available receivers
+      operationId: getDecoders
+      description: Get a list of available decoders
       tags:
-        - Receivers
+        - Decoders
       responses:
         '200':
-          description: Successful retrieval of receiver list
+          description: Successful retrieval of decoder list
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ReceiverUuids'
+                $ref: '#/components/schemas/DecoderUuids'
     post:
-      operationId: createReceiver
-      description: Create a new receiver client
+      operationId: createDecoder
+      description: Create a new decoder client
       tags:
-        - Receivers
+        - Decoders
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateReceiverRequest'
+              $ref: '#/components/schemas/CreateDecoderRequest'
       responses:
         '200':
-          description: Successful creation of the receiver
-  /receivers/{uuid}:
+          description: Successful creation of the decoder
+  /Decoders/{uuid}:
     get:
-      operationId: getReceiverById
-      description: Retrieve a specific receiver
+      operationId: getDecoderById
+      description: Retrieve a specific decoder
       tags:
-        - Receivers
+        - Decoders
       parameters:
-        - $ref: '#/components/parameters/ReceiverId'
+        - $ref: '#/components/parameters/DecoderId'
       responses:
         '200':
-          description: Successful retrieval of the receiver
+          description: Successful retrieval of the decoder
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Receiver'
+                $ref: '#/components/schemas/Decoder'
     put:
-      operationId: updateReceiver
-      description: Update a receiver's definition
+      operationId: updateDecoder
+      description: Update a decoder's definition
       tags:
-        - Receivers
+        - Decoders
       parameters:
-        - $ref: '#/components/parameters/ReceiverId'
+        - $ref: '#/components/parameters/DecoderId'
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Receiver'
+              $ref: '#/components/schemas/Decoder'
       responses:
         '200':
-          description: Successful update of the receiver
+          description: Successful update of the decoder
     delete:
-      operationId: deleteReceiver
-      description: Delete a receiver
+      operationId: deleteDecoder
+      description: Delete a decoder
       tags:
-        - Receivers
+        - Decoders
       parameters:
-        - $ref: '#/components/parameters/ReceiverId'
+        - $ref: '#/components/parameters/DecoderId'
       responses:
         '200':
-          description: Successful deletion of the receiver
+          description: Successful deletion of the decoder
 
 components:
   schemas:
-    SenderUuids:
+    EncoderUuids:
       description: A list of UUIDs
       type: array
       items:
         type: string
       example: ['0e4e430f-8b9c-47da-b9af-7ef9cfb13e9e']
-    Sender:
+    Encoder:
       description: A client that sends a video stream
       properties:
         displayName:
@@ -170,7 +170,7 @@ components:
         serialNumber:
           type: string
           example: 'BtmC8ckj'
-    CreateSenderRequest:
+    CreateEncoderRequest:
       description: A client that sends a video stream
       properties:
         displayName:
@@ -179,13 +179,13 @@ components:
         serialNumber:
           type: string
           example: 'BtmC8ckj'
-    ReceiverUuids:
-      description: A list of Receiver UUIDs
+    DecoderUuids:
+      description: A list of decoder UUIDs
       type: array
       items:
         type: string
       example: ['1ea52153-c196-4cc6-8d9f-714248abf31c']
-    Receiver:
+    Decoder:
       description: A client that receives a video stream
       properties:
         displayName:
@@ -200,8 +200,8 @@ components:
         serialNumber:
           type: string
           example: 'v7BM3ejS'
-    CreateReceiverRequest:
-      description: Body for the creation of a Receiver object
+    CreateDecoderRequest:
+      description: Body for the creation of a decoder object
       properties:
         displayName:
           type: string
@@ -210,25 +210,25 @@ components:
           type: string
           example: 'v7BM3ejS'
   parameters:
-    SenderId:
+    EncoderId:
       in: path
       name: uuid
       required: true
-      description: The UUID of a sender
+      description: The UUID of a Encoder
       schema:
         type: string
         example: '0e4e430f-8b9c-47da-b9af-7ef9cfb13e9e'
-    ReceiverId:
+    DecoderId:
       in: path
       name: uuid
       required: true
-      description: The UUID of a receiver
+      description: The UUID of a decoder
       schema:
         type: string
         example: '1ea52153-c196-4cc6-8d9f-714248abf31c'
 
 tags:
-  - name: Senders
-    description: Senders endpoints
-  - name: Receivers
-    description: Receivers endpoints
+  - name: Encoders
+    description: Encoders endpoints
+  - name: Decoders
+    description: Decoders endpoints
