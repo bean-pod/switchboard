@@ -1,6 +1,7 @@
 package com.switchboard.app.controller;
 
 import org.openapitools.api.ReceiversApi;
+import org.openapitools.model.CreateReceiverRequest;
 import org.openapitools.model.Receiver;
 import org.springframework.http.ResponseEntity;
 
@@ -14,7 +15,7 @@ public class ReceiversController implements ReceiversApi {
     }
 
     @Override
-    public ResponseEntity<Void> createReceiver(@Valid Receiver receiver) {
+    public ResponseEntity<Void> createReceiver(@Valid CreateReceiverRequest createReceiverRequest) {
         return null;
     }
 

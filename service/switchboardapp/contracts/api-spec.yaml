@@ -3,11 +3,11 @@ info:
   version: 1.0.0
   title: 'Switchboard API'
   description: 'API for the switchboard service'
-    
+
 servers:
   - url: https://placeholder.com/v1/
     description: Test environment
-  
+
 paths:
   /senders:
     get:
@@ -32,7 +32,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Sender'
+              $ref: '#/components/schemas/CreateSenderRequest'
       responses:
         '200':
           description: Successful creation the sender
@@ -72,12 +72,12 @@ paths:
       description: Delete a sender
       tags:
         - Senders
-      parameters: 
+      parameters:
         - $ref: '#/components/parameters/SenderId'
       responses:
         '200':
           description: Successful deletion of the sender
-          
+
   /receivers:
     get:
       operationId: getReceivers
@@ -101,7 +101,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Receiver'
+              $ref: '#/components/schemas/CreateReceiverRequest'
       responses:
         '200':
           description: Successful creation of the receiver
@@ -111,7 +111,7 @@ paths:
       description: Retrieve a specific receiver
       tags:
         - Receivers
-      parameters: 
+      parameters:
         - $ref: '#/components/parameters/ReceiverId'
       responses:
         '200':
@@ -125,7 +125,7 @@ paths:
       description: Update a receiver's definition
       tags:
         - Receivers
-      parameters: 
+      parameters:
         - $ref: '#/components/parameters/ReceiverId'
       requestBody:
         required: true
@@ -141,7 +141,7 @@ paths:
       description: Delete a receiver
       tags:
         - Receivers
-      parameters: 
+      parameters:
         - $ref: '#/components/parameters/ReceiverId'
       responses:
         '200':
@@ -170,6 +170,15 @@ components:
         serialNumber:
           type: string
           example: 'BtmC8ckj'
+    CreateSenderRequest:
+      description: A client that sends a video stream
+      properties:
+        displayName:
+          type: string
+          example: 'Camera 1B'
+        serialNumber:
+          type: string
+          example: 'BtmC8ckj'
     ReceiverUuids:
       description: A list of Receiver UUIDs
       type: array
@@ -188,6 +197,15 @@ components:
         port:
           type: string
           example: '16591'
+        serialNumber:
+          type: string
+          example: 'v7BM3ejS'
+    CreateReceiverRequest:
+      description: Body for the creation of a Receiver object
+      properties:
+        displayName:
+          type: string
+          example: 'Decoder 3F'
         serialNumber:
           type: string
           example: 'v7BM3ejS'

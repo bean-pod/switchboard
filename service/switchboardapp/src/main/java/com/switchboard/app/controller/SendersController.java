@@ -1,13 +1,12 @@
 package com.switchboard.app.controller;
 
 import org.openapitools.api.SendersApi;
+import org.openapitools.model.CreateSenderRequest;
 import org.openapitools.model.Sender;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.context.request.NativeWebRequest;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 public class SendersController implements SendersApi {
     @Override
@@ -16,7 +15,7 @@ public class SendersController implements SendersApi {
     }
 
     @Override
-    public ResponseEntity<Void> createSender(@Valid Sender sender) {
+    public ResponseEntity<Void> createSender(@Valid CreateSenderRequest createSenderRequest) {
         return null;
     }
 
