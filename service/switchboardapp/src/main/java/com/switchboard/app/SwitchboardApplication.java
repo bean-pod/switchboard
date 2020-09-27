@@ -8,6 +8,7 @@ public class SwitchboardApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SwitchboardApplication.class, args);
+
 	}
 
 }
