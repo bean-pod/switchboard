@@ -1,13 +1,17 @@
 package com.switchboard.app.device;
 
 import com.switchboard.app.encoder.Encoder;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter@Setter
 public class Device {
 
     @Id
@@ -19,6 +23,6 @@ public class Device {
 
     private String Status;
 
-    @OneToOne(mappedBy = "device")
+    @OneToOne(mappedBy = "device", cascade = CascadeType.ALL)
     private Encoder encoder;
 }

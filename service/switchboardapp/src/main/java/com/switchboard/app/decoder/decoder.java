@@ -1,4 +1,4 @@
-package com.switchboard.app.encoder;
+package com.switchboard.app.decoder;
 
 import com.switchboard.app.device.Device;
 import lombok.AllArgsConstructor;
@@ -11,8 +11,8 @@ import javax.persistence.*;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter@Setter
-public class Encoder {
+@Setter@Getter
+public class decoder {
 
     @Id
     @Column(name = "serial_number")
