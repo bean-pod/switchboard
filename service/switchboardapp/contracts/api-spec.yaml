@@ -1,0 +1,234 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: 'Switchboard API'
+  description: 'API for the switchboard service'
+
+servers:
+  - url: https://placeholder.com/v1/
+    description: Test environment
+
+paths:
+  /Encoders:
+    get:
+      operationId: getEncoders
+      description: Get a list of available encoders
+      tags:
+        - Encoders
+      responses:
+        '200':
+          description: Successful retrieval of encoder list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EncoderUuids'
+    post:
+      operationId: createEncoder
+      description: Create a new encoder client
+      tags:
+        - Encoders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEncoderRequest'
+      responses:
+        '200':
+          description: Successful creation the encoder
+  /Encoders/{uuid}:
+    get:
+      operationId: getEncoderById
+      description: Retrieve a specific encoder
+      tags:
+        - Encoders
+      parameters:
+        - $ref: '#/components/parameters/EncoderId'
+      responses:
+        '200':
+          description: Successful retrieval of the encoder
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Encoder'
+    put:
+      operationId: updateEncoder
+      description: Update a encoder's definition
+      tags:
+        - Encoders
+      parameters:
+        - $ref: '#/components/parameters/EncoderId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Encoder'
+      responses:
+        '200':
+          description: Successful update of the Encoder
+    delete:
+      operationId: deleteEncoder
+      description: Delete a encoder
+      tags:
+        - Encoders
+      parameters:
+        - $ref: '#/components/parameters/EncoderId'
+      responses:
+        '200':
+          description: Successful deletion of the encoder
+
+  /Decoders:
+    get:
+      operationId: getDecoders
+      description: Get a list of available decoders
+      tags:
+        - Decoders
+      responses:
+        '200':
+          description: Successful retrieval of decoder list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DecoderUuids'
+    post:
+      operationId: createDecoder
+      description: Create a new decoder client
+      tags:
+        - Decoders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDecoderRequest'
+      responses:
+        '200':
+          description: Successful creation of the decoder
+  /Decoders/{uuid}:
+    get:
+      operationId: getDecoderById
+      description: Retrieve a specific decoder
+      tags:
+        - Decoders
+      parameters:
+        - $ref: '#/components/parameters/DecoderId'
+      responses:
+        '200':
+          description: Successful retrieval of the decoder
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Decoder'
+    put:
+      operationId: updateDecoder
+      description: Update a decoder's definition
+      tags:
+        - Decoders
+      parameters:
+        - $ref: '#/components/parameters/DecoderId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Decoder'
+      responses:
+        '200':
+          description: Successful update of the decoder
+    delete:
+      operationId: deleteDecoder
+      description: Delete a decoder
+      tags:
+        - Decoders
+      parameters:
+        - $ref: '#/components/parameters/DecoderId'
+      responses:
+        '200':
+          description: Successful deletion of the decoder
+
+components:
+  schemas:
+    EncoderUuids:
+      description: A list of UUIDs
+      type: array
+      items:
+        type: string
+      example: ['0e4e430f-8b9c-47da-b9af-7ef9cfb13e9e']
+    Encoder:
+      description: A client that sends a video stream
+      properties:
+        displayName:
+          type: string
+          example: 'Camera 1B'
+        ip:
+          type: string
+          example: '120.45.43.24'
+        port:
+          type: string
+          example: '31507'
+        serialNumber:
+          type: string
+          example: 'BtmC8ckj'
+    CreateEncoderRequest:
+      description: A client that sends a video stream
+      properties:
+        displayName:
+          type: string
+          example: 'Camera 1B'
+        serialNumber:
+          type: string
+          example: 'BtmC8ckj'
+    DecoderUuids:
+      description: A list of decoder UUIDs
+      type: array
+      items:
+        type: string
+      example: ['1ea52153-c196-4cc6-8d9f-714248abf31c']
+    Decoder:
+      description: A client that receives a video stream
+      properties:
+        displayName:
+          type: string
+          example: 'Decoder 3F'
+        ip:
+          type: string
+          example: '45.100.56.135'
+        port:
+          type: string
+          example: '16591'
+        serialNumber:
+          type: string
+          example: 'v7BM3ejS'
+    CreateDecoderRequest:
+      description: Body for the creation of a decoder object
+      properties:
+        displayName:
+          type: string
+          example: 'Decoder 3F'
+        serialNumber:
+          type: string
+          example: 'v7BM3ejS'
+  parameters:
+    EncoderId:
+      in: path
+      name: uuid
+      required: true
+      description: The UUID of a Encoder
+      schema:
+        type: string
+        example: '0e4e430f-8b9c-47da-b9af-7ef9cfb13e9e'
+    DecoderId:
+      in: path
+      name: uuid
+      required: true
+      description: The UUID of a decoder
+      schema:
+        type: string
+        example: '1ea52153-c196-4cc6-8d9f-714248abf31c'
+
+tags:
+  - name: Encoders
+    description: Encoders endpoints
+  - name: Decoders
+    description: Decoders endpoints
