@@ -1,6 +1,5 @@
-package com.switchboard.app.decoder;
+package com.switchboard.app.domain;
 
-import com.switchboard.app.device.Device;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,12 +10,12 @@ import javax.persistence.*;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter@Getter
-public class decoder {
+@Getter@Setter
+public class Encoder {
 
     @Id
     @Column(name = "serial_number")
-    private String serialNumber;
+    private Long serialNumber;
 
     @OneToOne
     @JoinColumn(name="serial_number")

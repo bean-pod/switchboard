@@ -1,6 +1,5 @@
-package com.switchboard.app.device;
+package com.switchboard.app.domain;
 
-import com.switchboard.app.encoder.Encoder;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +15,7 @@ public class Device {
 
     @Id
     @Column(name = "serial_number")
-    private String serialNumber;
+    private Long serialNumber;
 
     @Column(name = "display_name")
     private String DisplayName;
