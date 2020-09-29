@@ -2,6 +2,7 @@ package com.switchboard.app.controller;
 
 import com.switchboard.app.dao.impl.DeviceDaoImpl;
 import com.switchboard.app.domain.Device;
+import com.switchboard.app.exceptions.DeviceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,15 +41,16 @@ public class DeviceController {
     }
 
     @GetMapping("/device/{serialNumber}")
-    public EntityModel<Device> retrieveDevice(@PathVariable long serialNumber) throws Exception {
+    public EntityModel<Device> retrieveDevice(@PathVariable long serialNumber){
 
         Optional<Device> device =service.findDevice(serialNumber);
         if(!device.isPresent()){
-            throw new Exception("serial number-"+serialNumber);
+            throw new DeviceNotFoundException("serial number-"+serialNumber);
         }
+
         EntityModel<Device> resource = EntityModel.of(device.get());
         WebMvcLinkBuilder linkto = linkTo(methodOn(this.getClass()).retrieveAllDevices());
-        resource.add(linkto.withRel("all-users"));
+        resource.add(linkto.withRel("all-devices"));
         return resource;
     }
 

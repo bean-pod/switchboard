@@ -19,5 +19,10 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
        return new ResponseEntity<Object>(exceptionResponse, exceptionResponse.getStatus());
     }
 
+    @ExceptionHandler(DeviceNotFoundException.class)
+    public final ResponseEntity<Object>  handleUserNotFoundException(Exception ex, WebRequest request){
+        ExceptionResponse exceptionResponse = new ExceptionResponse(HttpStatus.NOT_FOUND, ex.getMessage(), "The device was not found");
+        return new ResponseEntity<Object>(exceptionResponse, exceptionResponse.getStatus());
+    }
 
 }
