@@ -19,12 +19,12 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
-public class DecodersController{
+public class DecoderController {
 
     @Autowired
     DecoderDaoImpl service;
 
-    @PostMapping("/Decoder")
+    @PostMapping("/decoder")
     public ResponseEntity createDecoder(@RequestBody @Valid Decoder decoder){
 
         Decoder savedDecoder = service.addDecoder(decoder);

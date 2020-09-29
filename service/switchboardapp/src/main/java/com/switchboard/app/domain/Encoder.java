@@ -17,7 +17,7 @@ public class Encoder {
     @Column(name = "serial_number")
     private Long serialNumber;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="serial_number")
     @MapsId
     private Device device;

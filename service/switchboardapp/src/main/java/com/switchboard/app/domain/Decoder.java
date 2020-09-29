@@ -17,8 +17,8 @@ public class Decoder {
     @Column(name = "serial_number")
     private Long serialNumber;
 
-    @OneToOne
-    @JoinColumn(name="serial_number")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="serial_number" )
     @MapsId
     private Device device;
 }

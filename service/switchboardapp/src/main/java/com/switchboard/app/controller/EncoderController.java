@@ -19,12 +19,12 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-public class EncodersController {
+public class EncoderController {
 
     @Autowired
     EncoderDaoImpl service;
 
-    @GetMapping("/encoders")
+    @GetMapping("/encoder")
     public List<Encoder> retrieveAllEncoders(){
         return service.getEncoders();
     }
