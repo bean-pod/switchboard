@@ -1,7 +1,7 @@
 # General info
 <!--Delete or put N/A for any irrelevant sections-->
 
-**Issue Number**: <!--Issue Number-->
+**Issue number**: <!--Issue Number-->
 
 **Task description**: 
 
