@@ -1,4 +1,10 @@
 package com.switchboard.app.dao;
 
-public class EncoderDao {
+import com.switchboard.app.domain.Decoder;
+import com.switchboard.app.domain.Encoder;
+
+public interface EncoderDao {
+
+    Encoder addEncoder(Encoder encoder);
+
 }

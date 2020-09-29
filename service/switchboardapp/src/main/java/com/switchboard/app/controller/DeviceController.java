@@ -26,20 +26,6 @@ public class DeviceController {
     @Autowired
     DeviceDaoImpl service;
 
-
-    @PostMapping("/device")
-    public ResponseEntity createDevice(@RequestBody @Valid Device device){
-
-        Optional<Device> deviceLookup = service.findDevice(device.getSerialNumber());
-        if(deviceLookup.isPresent()){
-            throw new DeviceAlreadyExistsException("serial number-"+device.getSerialNumber());
-        }
-        Device savedDevice = service.addDevice(device);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().
-                path("/{serialNumber}").buildAndExpand(savedDevice.getSerialNumber()).toUri();
-        return ResponseEntity.created(location).build();
-    }
-
     @GetMapping("/device")
     public List<Device> retrieveAllDevices(){
         return service.getDevices();
@@ -57,6 +43,19 @@ public class DeviceController {
         WebMvcLinkBuilder linkto = linkTo(methodOn(this.getClass()).retrieveAllDevices());
         resource.add(linkto.withRel("all-devices"));
         return resource;
+    }
+
+    @PostMapping("/device")
+    public ResponseEntity createDevice(@RequestBody @Valid Device device){
+
+        Optional<Device> deviceLookup = service.findDevice(device.getSerialNumber());
+        if(deviceLookup.isPresent()){
+            throw new DeviceAlreadyExistsException("serial number-"+device.getSerialNumber());
+        }
+        Device savedDevice = service.addDevice(device);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().
+                path("/{serialNumber}").buildAndExpand(savedDevice.getSerialNumber()).toUri();
+        return ResponseEntity.created(location).build();
     }
 
 }
