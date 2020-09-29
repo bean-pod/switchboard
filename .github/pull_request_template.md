@@ -15,13 +15,13 @@
 
 # Testing
 
-**Test coverage:** 
+**Test coverage:** :
 <!-- Unit tested/manual testing only/ Some actual metrics -->
 
 # Additional notes
 
-**Note to reviewers**
+**Note to reviewers**:
 <!-- Special instructions for testing this code-->
 
-**To do before merging**
+**To do before merging**:
 - [ ] Edit Changelog(if necessary)
