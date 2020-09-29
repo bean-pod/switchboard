@@ -15,6 +15,9 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 @RestController
 public class DeviceController {
 
@@ -37,14 +40,16 @@ public class DeviceController {
     }
 
     @GetMapping("/device/{serialNumber}")
-    public EntityModel<Device> retrieveDevice(@PathVariable long serialNumber){
+    public EntityModel<Device> retrieveDevice(@PathVariable long serialNumber) throws Exception {
 
         Optional<Device> device =service.findDevice(serialNumber);
         if(!device.isPresent()){
-            throw new DeviceNotFoundException("serial number-"+serialNumber);
+            throw new Exception("serial number-"+serialNumber);
         }
         EntityModel<Device> resource = EntityModel.of(device.get());
-        WebMvcLinkBuilder linkto = linkto(methodOn(this.getClass()))
+        WebMvcLinkBuilder linkto = linkTo(methodOn(this.getClass()).retrieveAllDevices());
+        resource.add(linkto.withRel("all-users"));
+        return resource;
     }
 
 }
