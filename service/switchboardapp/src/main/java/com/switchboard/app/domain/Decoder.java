@@ -1,5 +1,6 @@
 package com.switchboard.app.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,8 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter@Getter
+@JsonIgnoreProperties({"hibernateLazyIntializer","handler","device"})
+
 public class Decoder {
 
     @Id
