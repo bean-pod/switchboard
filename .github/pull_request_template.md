@@ -15,7 +15,7 @@
 
 # Testing
 
-**Test coverage** :
+**Test coverage**:
 <!-- Unit tested/manual testing only/ Some actual metrics -->
 
 # Additional notes
