@@ -20,8 +20,14 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(DeviceNotFoundException.class)
-    public final ResponseEntity<Object>  handleUserNotFoundException(Exception ex, WebRequest request){
+    public final ResponseEntity<Object>  handleDeviceNotFoundException(Exception ex, WebRequest request){
         ExceptionResponse exceptionResponse = new ExceptionResponse(HttpStatus.NOT_FOUND, ex.getMessage(), "The device was not found");
+        return new ResponseEntity<Object>(exceptionResponse, exceptionResponse.getStatus());
+    }
+
+    @ExceptionHandler(DeviceAlreadyExistsException.class)
+    public final ResponseEntity<Object>  handleDeviceAlreadyExistsException(Exception ex, WebRequest request){
+        ExceptionResponse exceptionResponse = new ExceptionResponse(HttpStatus.CONFLICT, ex.getMessage(), "The device already exists, change primary key");
         return new ResponseEntity<Object>(exceptionResponse, exceptionResponse.getStatus());
     }
 

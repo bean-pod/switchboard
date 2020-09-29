@@ -2,6 +2,7 @@ package com.switchboard.app.controller;
 
 import com.switchboard.app.dao.impl.DeviceDaoImpl;
 import com.switchboard.app.domain.Device;
+import com.switchboard.app.exceptions.DeviceAlreadyExistsException;
 import com.switchboard.app.exceptions.DeviceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,10 @@ public class DeviceController {
     @PostMapping("/device")
     public ResponseEntity createDevice(@RequestBody @Valid Device device){
 
+        Optional<Device> deviceLookup = service.findDevice(device.getSerialNumber());
+        if(deviceLookup.isPresent()){
+            throw new DeviceAlreadyExistsException("serial number-"+device.getSerialNumber());
+        }
         Device savedDevice = service.addDevice(device);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().
                 path("/{serialNumber}").buildAndExpand(savedDevice.getSerialNumber()).toUri();
