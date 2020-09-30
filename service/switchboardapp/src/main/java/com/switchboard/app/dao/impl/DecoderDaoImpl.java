@@ -8,6 +8,8 @@ import com.switchboard.app.repository.DeviceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class DecoderDaoImpl implements DecoderDao {
 
@@ -18,5 +20,10 @@ public class DecoderDaoImpl implements DecoderDao {
     @Override
     public Decoder addDecoder(Decoder decoder) {
         return decoderRepository.save(decoder);
+    }
+
+    @Override
+    public List<Decoder> getDecoders() {
+        return decoderRepository.findAll();
     }
 }

@@ -4,6 +4,7 @@ import com.switchboard.app.dao.impl.DeviceDaoImpl;
 import com.switchboard.app.domain.Device;
 import com.switchboard.app.exceptions.DeviceAlreadyExistsException;
 import com.switchboard.app.exceptions.DeviceNotFoundException;
+import org.openapitools.api.DecodersApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
-public class DeviceController {
+public class DeviceController implements DecodersApi {
 
     @Autowired
     DeviceDaoImpl service;

@@ -11,7 +11,7 @@ servers:
 paths:
   /Encoders:
     get:
-      operationId: getEncoders
+      operationId: retrieveAllEncoders
       description: Get a list of available encoders
       tags:
         - Encoders
