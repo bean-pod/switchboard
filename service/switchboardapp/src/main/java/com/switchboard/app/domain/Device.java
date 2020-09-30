@@ -22,7 +22,7 @@ public class Device {
 
     private String Status;
 
-    @OneToOne(mappedBy = "device", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "device")
     private Encoder encoder;
 
 //    @OneToOne(mappedBy = "device", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

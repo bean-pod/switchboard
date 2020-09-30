@@ -40,20 +40,33 @@ public class EncoderController {
     @PostMapping("/encoder")
     public ResponseEntity createEncoder(@RequestBody Encoder encoder){
 
-        Optional<Device> deviceOptional= deviceService.findDevice(encoder.getSerialNumber());
-        if(!deviceOptional.isPresent()){
-            throw new DeviceNotFoundException("serial number-"+encoder.getSerialNumber());
-        }
-        Device device = deviceOptional.get();
-        //System.out.println(device);
-        encoder.setDevice(device);
-        System.out.println(encoder);
-        //logger.info("This is the device->{}",device.getSerialNumber());
-        Encoder savedEncoder = encoderService.addEncoder(encoder);
+        //To do: get the DisplayName, Status from the post request
+        Device tempDevice = new Device(encoder.getSerialNumber(),"D1","Running",encoder);
+        encoder.setDevice(tempDevice);
+        System.out.println(encoder.getSerialNumber());
+        System.out.println(encoder.getDevice());
+        System.out.println(encoder.getDevice().getDisplayName());
+        //  encoderRepository.saveAndFlush(encoder);
+        Encoder savedEncoder = encoderRepository.save(encoder);
+
 //        URI location = ServletUriComponentsBuilder.fromCurrentRequest().
 //                path("/{serialNumber}").buildAndExpand(savedEncoder.getSerialNumber()).toUri();
-//        return ResponseEntity.created(location).build();
-        return new ResponseEntity("Hello", HttpStatus.CREATED);
+        return ResponseEntity.ok(HttpStatus.OK);//ResponseEntity.created(location).build();
+        //// -----------
+//        Optional<Device> deviceOptional= deviceService.findDevice(encoder.getSerialNumber());
+//        if(!deviceOptional.isPresent()){
+//            throw new DeviceNotFoundException("serial number-"+encoder.getSerialNumber());
+//        }
+//        Device device = deviceOptional.get();
+//        //System.out.println(device);
+//        encoder.setDevice(device);
+//        System.out.println(encoder);
+//        //logger.info("This is the device->{}",device.getSerialNumber());
+//        Encoder savedEncoder = encoderService.addEncoder(encoder);
+////        URI location = ServletUriComponentsBuilder.fromCurrentRequest().
+////                path("/{serialNumber}").buildAndExpand(savedEncoder.getSerialNumber()).toUri();
+////        return ResponseEntity.created(location).build();
+//        return new ResponseEntity("Hello", HttpStatus.CREATED);
     }
 //    @Override
 //    public ResponseEntity<List<String>> getEncoders() {
