@@ -1,10 +1,7 @@
 package com.switchboard.app.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -12,6 +9,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter@Setter
+@ToString
 @JsonIgnoreProperties({"hibernateLazyIntializer","handler","encoder","decoder"})
 public class Device {
 
@@ -24,7 +22,7 @@ public class Device {
 
     private String Status;
 
-    @OneToOne(mappedBy = "device")
+    @OneToOne(mappedBy = "device", fetch = FetchType.LAZY)
     private Encoder encoder;
 
 //    @OneToOne(mappedBy = "device", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

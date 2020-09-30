@@ -1,8 +1,13 @@
 package com.switchboard.app.controller;
+import com.switchboard.app.dao.impl.DeviceDaoImpl;
 import com.switchboard.app.dao.impl.EncoderDaoImpl;
 import com.switchboard.app.domain.Device;
 import com.switchboard.app.domain.Encoder;
+import com.switchboard.app.exceptions.DeviceNotFoundException;
+import com.switchboard.app.repository.DecoderRepository;
 import com.switchboard.app.repository.EncoderRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,35 +16,44 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class EncoderController {
 
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Autowired
-    EncoderDaoImpl service;
+    EncoderDaoImpl encoderService;
 //
     @Autowired
    EncoderRepository encoderRepository;
 
+    @Autowired
+    DeviceDaoImpl deviceService;
+
     @GetMapping("/encoder")
     public List<Encoder> retrieveAllEncoders(){
-        return service.getEncoders();
+        return encoderService.getEncoders();
     }
 
     @PostMapping("/encoder")
-    public ResponseEntity createEncoder(@RequestBody @Valid Encoder encoder){
+    public ResponseEntity createEncoder(@RequestBody Encoder encoder){
 
-        Device tempDevice = new Device(encoder.getSerialNumber(),"D1","Running",encoder);
-        encoder.setDevice(tempDevice);
-        System.out.println(encoder.getSerialNumber());
-        System.out.println(encoder.getDevice());
-        System.out.println(encoder.getDevice().getDisplayName());
-      //  encoderRepository.saveAndFlush(encoder);
-        Encoder savedEncoder = encoderRepository.save(encoder);
-
+        Optional<Device> deviceOptional= deviceService.findDevice(encoder.getSerialNumber());
+        if(!deviceOptional.isPresent()){
+            throw new DeviceNotFoundException("serial number-"+encoder.getSerialNumber());
+        }
+        Device device = deviceOptional.get();
+        //System.out.println(device);
+        encoder.setDevice(device);
+        System.out.println(encoder);
+        //logger.info("This is the device->{}",device.getSerialNumber());
+        Encoder savedEncoder = encoderService.addEncoder(encoder);
 //        URI location = ServletUriComponentsBuilder.fromCurrentRequest().
 //                path("/{serialNumber}").buildAndExpand(savedEncoder.getSerialNumber()).toUri();
-        return ResponseEntity.ok(HttpStatus.OK);//ResponseEntity.created(location).build();
+//        return ResponseEntity.created(location).build();
+        return new ResponseEntity("Hello", HttpStatus.CREATED);
     }
 //    @Override
 //    public ResponseEntity<List<String>> getEncoders() {
