@@ -39,10 +39,9 @@ public class EncoderController {
 
     @PostMapping("/encoder")
     public ResponseEntity createEncoder(@RequestBody Encoder encoder){
-
+        Optional<Device> deviceOptional = deviceService.findDevice(encoder.getSerialNumber());
         //To do: get the DisplayName, Status from the post request
-        Device tempDevice = new Device(encoder.getSerialNumber(),"D1","Running",encoder);
-        encoder.setDevice(tempDevice);
+        encoder.setDevice(deviceOptional.get());
         System.out.println(encoder.getSerialNumber());
         System.out.println(encoder.getDevice());
         System.out.println(encoder.getDevice().getDisplayName());
