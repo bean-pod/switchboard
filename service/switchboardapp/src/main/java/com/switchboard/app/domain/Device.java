@@ -24,9 +24,9 @@ public class Device {
 
     private String Status;
 
-    @OneToOne(mappedBy = "device", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "device")
     private Encoder encoder;
 
-    @OneToOne(mappedBy = "device", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Decoder decoder;
+//    @OneToOne(mappedBy = "device", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private Decoder decoder;
 }
