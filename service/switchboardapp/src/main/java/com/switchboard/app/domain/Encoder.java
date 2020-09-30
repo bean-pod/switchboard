@@ -19,6 +19,6 @@ public class Encoder {
 
     @OneToOne(cascade  = CascadeType.ALL)
     @JoinColumn(name="serial_number", referencedColumnName = "serial_number")
-    //@MapsId
+    @MapsId
     private Device device;
 }
