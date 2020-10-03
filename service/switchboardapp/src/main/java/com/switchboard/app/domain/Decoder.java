@@ -18,7 +18,7 @@ public class Decoder {
 
     @Id
     @Column(name = "serial_number")
-    private Long serialNumber;
+    private String serialNumber;
 
     @OneToOne(cascade  = CascadeType.ALL)
     @JoinColumn(name="serial_number", referencedColumnName = "serial_number")

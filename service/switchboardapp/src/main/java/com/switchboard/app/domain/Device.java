@@ -15,7 +15,7 @@ public class Device {
 
     @Id
     @Column(name = "serial_number")
-    private Long serialNumber;
+    private String serialNumber;
 
     @Column(name = "display_name")
     private String DisplayName;

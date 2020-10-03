@@ -8,6 +8,6 @@ import java.util.Optional;
 public interface DeviceDao {
 
     Device addDevice(Device device);
-    Optional<Device> findDevice(long serialNumber);
+    Optional<Device> findDevice(String serialNumber);
     List<Device> getDevices();
 }

@@ -22,7 +22,7 @@ public class DeviceDaoImpl implements DeviceDao {
     }
 
     @Override
-    public Optional<Device> findDevice(long serialNumber) {
+    public Optional<Device> findDevice(String serialNumber) {
         return deviceRepository.findById(serialNumber);
     }
 

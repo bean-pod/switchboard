@@ -26,7 +26,6 @@ public class EncoderController {
 
     @Autowired
     EncoderDaoImpl encoderService;
-//
 
     @Autowired
     DeviceDaoImpl deviceService;
