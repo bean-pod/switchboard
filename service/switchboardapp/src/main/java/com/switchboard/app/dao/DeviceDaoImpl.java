@@ -1,5 +1,5 @@
 package com.switchboard.app.dao;
-import com.switchboard.app.domain.Device;
+import com.switchboard.app.domain.DeviceEntity;
 import com.switchboard.app.repository.DeviceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,15 +14,15 @@ public class DeviceDaoImpl  {
     @Autowired
     DeviceRepository deviceRepository;
 
-    public Device save(Device device) {
+    public DeviceEntity save(DeviceEntity device) {
         return deviceRepository.save(device);
     }
 
-    public Optional<Device> findDevice(String serialNumber) {
+    public Optional<DeviceEntity> findDevice(String serialNumber) {
         return deviceRepository.findDeviceBySerialNumber(serialNumber);
     }
 
-    public List<Device> getDevices() {
+    public List<DeviceEntity> getDevices() {
         return deviceRepository.findAll();
     }
 }

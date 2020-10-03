@@ -6,12 +6,12 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-@Entity
+@Entity(name = "Device")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonIgnoreProperties({"hibernateLazyIntializer","handler","encoder","decoder"})
-public class Device {
+@JsonIgnoreProperties({"hibernateLazyIntializer","handler","encoderEntity","decoderEntity"})
+public class DeviceEntity {
 
     @Id
     @NotNull
@@ -25,8 +25,8 @@ public class Device {
     private String Status;
 
     @OneToOne(mappedBy = "device")
-    private Encoder encoder;
+    private EncoderEntity encoderEntity;
 
     @OneToOne(mappedBy = "device", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Decoder decoder;
+    private DecoderEntity decoderEntity;
 }

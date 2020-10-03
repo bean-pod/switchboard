@@ -2,8 +2,8 @@ package com.switchboard.app.controller;
 
 import com.switchboard.app.dao.DecoderDaoImpl;
 import com.switchboard.app.dao.DeviceDaoImpl;
-import com.switchboard.app.domain.Decoder;
-import com.switchboard.app.domain.Device;
+import com.switchboard.app.domain.DecoderEntity;
+import com.switchboard.app.domain.DeviceEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.ResponseEntity;
@@ -27,18 +27,18 @@ public class DecoderController {
     DeviceDaoImpl deviceService;
 
     @GetMapping("/decoder")
-    public List<Decoder> retrieveAllDecoders(){
+    public List<DecoderEntity> retrieveAllDecoders(){
         return decoderService.getDecoders();
     }
 
     @PostMapping("/decoder")
-    public ResponseEntity createDecoder(@RequestBody @Valid Decoder decoder){
-        Optional<Device> deviceOptional = deviceService.findDevice(decoder.getSerialNumber());
-        decoder.setDevice(deviceOptional.get());
+    public ResponseEntity createDecoder(@RequestBody @Valid DecoderEntity decoderEntity){
+        Optional<DeviceEntity> deviceOptional = deviceService.findDevice(decoderEntity.getSerialNumber());
+        decoderEntity.setDevice(deviceOptional.get());
 
-        Decoder savedDecoder = decoderService.save(decoder);
+        DecoderEntity savedDecoderEntity = decoderService.save(decoderEntity);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().
-                path("/{serialNumber}").buildAndExpand(savedDecoder.getSerialNumber()).toUri();
+                path("/{serialNumber}").buildAndExpand(savedDecoderEntity.getSerialNumber()).toUri();
 
         return ResponseEntity.created(location).build();
     }

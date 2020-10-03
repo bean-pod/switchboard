@@ -1,7 +1,7 @@
 package com.switchboard.app.controller;
 
 import com.switchboard.app.dao.DeviceDaoImpl;
-import com.switchboard.app.domain.Device;
+import com.switchboard.app.domain.DeviceEntity;
 import com.switchboard.app.exceptions.DeviceAlreadyExistsException;
 import com.switchboard.app.exceptions.DeviceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,32 +26,32 @@ public class DeviceController {
     DeviceDaoImpl service;
 
     @GetMapping("/device")
-    public List<Device> retrieveAllDevices(){
+    public List<DeviceEntity> retrieveAllDevices(){
         return service.getDevices();
     }
 
     @GetMapping("/device/{serialNumber}")
-    public EntityModel<Device> retrieveDevice(@PathVariable @Valid String serialNumber){
+    public EntityModel<DeviceEntity> retrieveDevice(@PathVariable @Valid String serialNumber){
 
-        Optional<Device> device =service.findDevice(serialNumber);
+        Optional<DeviceEntity> device =service.findDevice(serialNumber);
         if(!device.isPresent()){
             throw new DeviceNotFoundException("serial number-"+serialNumber);
         }
 
-        EntityModel<Device> resource = EntityModel.of(device.get());
+        EntityModel<DeviceEntity> resource = EntityModel.of(device.get());
         WebMvcLinkBuilder linkto = linkTo(methodOn(this.getClass()).retrieveAllDevices());
         resource.add(linkto.withRel("all-devices"));
         return resource;
     }
 
     @PostMapping("/device")
-    public ResponseEntity createDevice(@RequestBody @Valid Device device){
+    public ResponseEntity createDevice(@RequestBody @Valid DeviceEntity device){
 
-        Optional<Device> deviceLookup = service.findDevice(device.getSerialNumber());
+        Optional<DeviceEntity> deviceLookup = service.findDevice(device.getSerialNumber());
         if(deviceLookup.isPresent()){
             throw new DeviceAlreadyExistsException("serial number-"+device.getSerialNumber());
         }
-        Device savedDevice = service.save(device);
+        DeviceEntity savedDevice = service.save(device);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().
                 path("/{serialNumber}").buildAndExpand(savedDevice.getSerialNumber()).toUri();
         return ResponseEntity.created(location).build();

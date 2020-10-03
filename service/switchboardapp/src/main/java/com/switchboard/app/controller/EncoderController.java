@@ -1,8 +1,8 @@
 package com.switchboard.app.controller;
 import com.switchboard.app.dao.DeviceDaoImpl;
 import com.switchboard.app.dao.EncoderDaoImpl;
-import com.switchboard.app.domain.Device;
-import com.switchboard.app.domain.Encoder;
+import com.switchboard.app.domain.DeviceEntity;
+import com.switchboard.app.domain.EncoderEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,17 +24,17 @@ public class EncoderController {
     DeviceDaoImpl deviceService;
 
     @GetMapping("/encoder")
-    public List<Encoder> retrieveAllEncoders(){
+    public List<EncoderEntity> retrieveAllEncoders(){
         return encoderService.getEncoders();
     }
 
     @PostMapping("/encoder")
-    public ResponseEntity createEncoder(@RequestBody @Valid Encoder encoder){
-        Optional<Device> deviceOptional = deviceService.findDevice(encoder.getSerialNumber());
-        encoder.setDevice(deviceOptional.get());
-        Encoder savedEncoder = encoderService.save(encoder);
+    public ResponseEntity createEncoder(@RequestBody @Valid EncoderEntity encoderEntity){
+        Optional<DeviceEntity> deviceOptional = deviceService.findDevice(encoderEntity.getSerialNumber());
+        encoderEntity.setDevice(deviceOptional.get());
+        EncoderEntity savedEncoderEntity = encoderService.save(encoderEntity);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().
-                path("/{serialNumber}").buildAndExpand(savedEncoder.getSerialNumber()).toUri();
+                path("/{serialNumber}").buildAndExpand(savedEncoderEntity.getSerialNumber()).toUri();
         return ResponseEntity.created(location).build();
     }
 }

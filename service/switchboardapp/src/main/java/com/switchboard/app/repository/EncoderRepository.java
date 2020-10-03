@@ -1,15 +1,15 @@
 package com.switchboard.app.repository;
 
-import com.switchboard.app.domain.Encoder;
+import com.switchboard.app.domain.EncoderEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface EncoderRepository extends JpaRepository<Encoder,String> {
+public interface EncoderRepository extends JpaRepository<EncoderEntity,String> {
 
-    Encoder save(Encoder decoder);
-    List<Encoder> findAll();
+    EncoderEntity save(EncoderEntity decoder);
+    List<EncoderEntity> findAll();
 
 }

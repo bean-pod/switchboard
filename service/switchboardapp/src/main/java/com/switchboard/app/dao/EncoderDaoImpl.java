@@ -1,5 +1,5 @@
 package com.switchboard.app.dao;
-import com.switchboard.app.domain.Encoder;
+import com.switchboard.app.domain.EncoderEntity;
 import com.switchboard.app.repository.EncoderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,11 +12,11 @@ public class EncoderDaoImpl {
     @Autowired
     EncoderRepository encoderRepository;
 
-    public Encoder save(Encoder encoder) {
-        return encoderRepository.save(encoder);
+    public EncoderEntity save(EncoderEntity encoderEntity) {
+        return encoderRepository.save(encoderEntity);
     }
 
-    public List<Encoder> getEncoders() {
+    public List<EncoderEntity> getEncoders() {
         return encoderRepository.findAll();
     }
 

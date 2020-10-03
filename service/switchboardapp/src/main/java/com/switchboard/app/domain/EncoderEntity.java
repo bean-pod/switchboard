@@ -6,12 +6,12 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-@Entity
+@Entity(name = "Encoder")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonIgnoreProperties({"hibernateLazyIntializer","handler","device"})
-public class Encoder {
+@JsonIgnoreProperties({"hibernateLazyIntializer","handler"})
+public class EncoderEntity {
 
     @Id
     @NotNull
@@ -21,5 +21,5 @@ public class Encoder {
     @OneToOne(cascade  = CascadeType.ALL)
     @JoinColumn(name="serial_number", referencedColumnName = "serial_number")
     @MapsId
-    private Device device;
+    private DeviceEntity device;
 }
