@@ -1,6 +1,4 @@
-package com.switchboard.app.dao.impl;
-
-import com.switchboard.app.dao.DecoderDao;
+package com.switchboard.app.dao;
 import com.switchboard.app.domain.Decoder;
 import com.switchboard.app.domain.Device;
 import com.switchboard.app.repository.DecoderRepository;
@@ -11,18 +9,16 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class DecoderDaoImpl implements DecoderDao {
+public class DecoderDaoImpl {
 
     //Connect to the database
     @Autowired
     DecoderRepository decoderRepository;
 
-    @Override
-    public Decoder addDecoder(Decoder decoder) {
-        return decoderRepository.save(decoder);
+    public Decoder save(Decoder decoder) {
+      return  decoderRepository.save(decoder);
     }
 
-    @Override
     public List<Decoder> getDecoders() {
         return decoderRepository.findAll();
     }

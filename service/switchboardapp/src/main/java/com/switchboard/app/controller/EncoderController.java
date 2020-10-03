@@ -1,15 +1,10 @@
 package com.switchboard.app.controller;
-import com.switchboard.app.dao.impl.DeviceDaoImpl;
-import com.switchboard.app.dao.impl.EncoderDaoImpl;
+import com.switchboard.app.dao.DeviceDaoImpl;
+import com.switchboard.app.dao.EncoderDaoImpl;
 import com.switchboard.app.domain.Device;
 import com.switchboard.app.domain.Encoder;
-import com.switchboard.app.exceptions.DeviceNotFoundException;
-import com.switchboard.app.repository.DecoderRepository;
-import com.switchboard.app.repository.EncoderRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -20,10 +15,8 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@Slf4j
 public class EncoderController {
-
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
-
     @Autowired
     EncoderDaoImpl encoderService;
 
@@ -39,7 +32,7 @@ public class EncoderController {
     public ResponseEntity createEncoder(@RequestBody @Valid Encoder encoder){
         Optional<Device> deviceOptional = deviceService.findDevice(encoder.getSerialNumber());
         encoder.setDevice(deviceOptional.get());
-        Encoder savedEncoder = encoderService.addEncoder(encoder);
+        Encoder savedEncoder = encoderService.save(encoder);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().
                 path("/{serialNumber}").buildAndExpand(savedEncoder.getSerialNumber()).toUri();
         return ResponseEntity.created(location).build();

@@ -1,10 +1,9 @@
 package com.switchboard.app.controller;
 
-import com.switchboard.app.dao.impl.DecoderDaoImpl;
-import com.switchboard.app.dao.impl.DeviceDaoImpl;
+import com.switchboard.app.dao.DecoderDaoImpl;
+import com.switchboard.app.dao.DeviceDaoImpl;
 import com.switchboard.app.domain.Decoder;
 import com.switchboard.app.domain.Device;
-import com.switchboard.app.domain.Encoder;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.ResponseEntity;
@@ -17,7 +16,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 public class DecoderController {
@@ -38,7 +36,7 @@ public class DecoderController {
         Optional<Device> deviceOptional = deviceService.findDevice(decoder.getSerialNumber());
         decoder.setDevice(deviceOptional.get());
 
-        Decoder savedDecoder = decoderService.addDecoder(decoder);
+        Decoder savedDecoder = decoderService.save(decoder);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().
                 path("/{serialNumber}").buildAndExpand(savedDecoder.getSerialNumber()).toUri();
 

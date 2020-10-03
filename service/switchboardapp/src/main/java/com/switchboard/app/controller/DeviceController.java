@@ -1,10 +1,9 @@
 package com.switchboard.app.controller;
 
-import com.switchboard.app.dao.impl.DeviceDaoImpl;
+import com.switchboard.app.dao.DeviceDaoImpl;
 import com.switchboard.app.domain.Device;
 import com.switchboard.app.exceptions.DeviceAlreadyExistsException;
 import com.switchboard.app.exceptions.DeviceNotFoundException;
-import org.openapitools.api.DecodersApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +11,6 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.swing.text.html.parser.Entity;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
@@ -53,7 +51,7 @@ public class DeviceController {
         if(deviceLookup.isPresent()){
             throw new DeviceAlreadyExistsException("serial number-"+device.getSerialNumber());
         }
-        Device savedDevice = service.addDevice(device);
+        Device savedDevice = service.save(device);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().
                 path("/{serialNumber}").buildAndExpand(savedDevice.getSerialNumber()).toUri();
         return ResponseEntity.created(location).build();
