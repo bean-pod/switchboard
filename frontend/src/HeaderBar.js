@@ -4,9 +4,9 @@ import {
   Toolbar
 } from "@material-ui/core"
 
-function App() {
+function HeaderBar() {
   return (
-    <div className="App">
+    <div className="HeaderBar">
       <AppBar position="static">
         <Toolbar></Toolbar>
         </AppBar>
@@ -14,4 +14,4 @@ function App() {
   );
 }
 
-export default App;
+export default HeaderBar;
