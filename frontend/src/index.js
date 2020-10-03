@@ -4,9 +4,24 @@ import './index.css';
 import HeaderBar from './HeaderBar';
 import * as serviceWorker from './serviceWorker';
 
+import {
+  Breadcrumbs, 
+  Typography,
+  Link, 
+  Box,
+} from "@material-ui/core"
+
 ReactDOM.render(
   <React.StrictMode>
     <HeaderBar />
+    <Box padding="2em">
+      <Breadcrumbs aria-label="breadcrumb">
+        <Link color="inherit" href="/" >
+          Home
+        </Link>
+        <Typography color="textPrimary">Devices</Typography>
+      </Breadcrumbs>
+    </Box>
   </React.StrictMode>,
   document.getElementById('root')
 );
