@@ -36,7 +36,7 @@ public class EncoderController {
     }
 
     @PostMapping("/encoder")
-    public ResponseEntity createEncoder(@RequestBody Encoder encoder){
+    public ResponseEntity createEncoder(@RequestBody @Valid Encoder encoder){
         Optional<Device> deviceOptional = deviceService.findDevice(encoder.getSerialNumber());
         encoder.setDevice(deviceOptional.get());
         Encoder savedEncoder = encoderService.addEncoder(encoder);

@@ -34,7 +34,7 @@ public class DecoderController {
     }
 
     @PostMapping("/decoder")
-    public ResponseEntity createDecoder(@RequestBody Decoder decoder){
+    public ResponseEntity createDecoder(@RequestBody @Valid Decoder decoder){
         Optional<Device> deviceOptional = deviceService.findDevice(decoder.getSerialNumber());
         decoder.setDevice(deviceOptional.get());
 

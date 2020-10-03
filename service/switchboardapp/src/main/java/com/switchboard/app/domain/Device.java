@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Data
@@ -13,10 +14,12 @@ import javax.persistence.*;
 public class Device {
 
     @Id
+    @NotNull
     @Column(name = "serial_number")
     private String serialNumber;
 
     @Column(name = "display_name")
+    @NotNull
     private String DisplayName;
 
     private String Status;

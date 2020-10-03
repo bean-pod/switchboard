@@ -33,7 +33,7 @@ public class DeviceController implements DecodersApi {
     }
 
     @GetMapping("/device/{serialNumber}")
-    public EntityModel<Device> retrieveDevice(@PathVariable String serialNumber){
+    public EntityModel<Device> retrieveDevice(@PathVariable @Valid String serialNumber){
 
         Optional<Device> device =service.findDevice(serialNumber);
         if(!device.isPresent()){
