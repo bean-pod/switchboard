@@ -26,6 +26,7 @@ Developed as a Concordia University Capstone project.
 * From the project root `cd /frontend/`
 * Run the command `npm install` to install the node package manager (npm)
 * Run the command `npm install @material-ui/core` to install Material UI
+* Run the command `npm install @material-ui/icons` to install Material UI icons
 
 #### Running the front end
 * To run the front-end, you have two options 
