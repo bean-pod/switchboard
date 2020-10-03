@@ -6,10 +6,9 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter@Setter
-@ToString
 @JsonIgnoreProperties({"hibernateLazyIntializer","handler","encoder","decoder"})
 public class Device {
 

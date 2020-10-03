@@ -1,17 +1,14 @@
 package com.switchboard.app.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter@Getter
 @JsonIgnoreProperties({"hibernateLazyIntializer","handler","device"})
 
 public class Decoder {

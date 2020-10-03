@@ -39,8 +39,6 @@ public class EncoderController {
     public ResponseEntity createEncoder(@RequestBody Encoder encoder){
         Optional<Device> deviceOptional = deviceService.findDevice(encoder.getSerialNumber());
         encoder.setDevice(deviceOptional.get());
-
-        //  encoderRepository.saveAndFlush(encoder);
         Encoder savedEncoder = encoderService.addEncoder(encoder);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().
                 path("/{serialNumber}").buildAndExpand(savedEncoder.getSerialNumber()).toUri();
