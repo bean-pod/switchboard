@@ -22,7 +22,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
-public class DeviceController implements DecodersApi {
+public class DeviceController {
 
     @Autowired
     DeviceDaoImpl service;
