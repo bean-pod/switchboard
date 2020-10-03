@@ -11,3 +11,25 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* Text Style Classes */
+.flexContents {
+  display: 'flex';
+  justify-content: space-between;
+}
+.alignRight{
+  position: absolute;
+  top: 0.5em;
+  right: 0;
+}
+.headerTitle {
+  font-size: 24px;
+}
+.paddedText {
+  padding: 0.8em;
+}
+
+/* Background Color Classes */
+.darkGrey {
+  background-color: #373737;
+}
