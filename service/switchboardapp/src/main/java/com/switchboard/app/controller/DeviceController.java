@@ -5,10 +5,10 @@ import com.switchboard.app.domain.DeviceEntity;
 import com.switchboard.app.exceptions.DeviceAlreadyExistsException;
 import com.switchboard.app.exceptions.DeviceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
@@ -26,16 +26,16 @@ public class DeviceController {
     DeviceDaoImpl service;
 
     @GetMapping("/device")
-    public List<DeviceEntity> retrieveAllDevices(){
+    public List<DeviceEntity> retrieveAllDevices() {
         return service.getDevices();
     }
 
     @GetMapping("/device/{serialNumber}")
-    public EntityModel<DeviceEntity> retrieveDevice(@PathVariable @Valid String serialNumber){
+    public EntityModel<DeviceEntity> retrieveDevice(@PathVariable @Valid String serialNumber) {
 
-        Optional<DeviceEntity> device =service.findDevice(serialNumber);
-        if(!device.isPresent()){
-            throw new DeviceNotFoundException("serial number-"+serialNumber);
+        Optional<DeviceEntity> device = service.findDevice(serialNumber);
+        if (!device.isPresent()) {
+            throw new DeviceNotFoundException("serial number-" + serialNumber);
         }
 
         EntityModel<DeviceEntity> resource = EntityModel.of(device.get());
@@ -45,11 +45,11 @@ public class DeviceController {
     }
 
     @PostMapping("/device")
-    public ResponseEntity createDevice(@RequestBody @Valid DeviceEntity device){
+    public ResponseEntity createDevice(@RequestBody @Valid DeviceEntity device) {
 
         Optional<DeviceEntity> deviceLookup = service.findDevice(device.getSerialNumber());
-        if(deviceLookup.isPresent()){
-            throw new DeviceAlreadyExistsException("serial number-"+device.getSerialNumber());
+        if (deviceLookup.isPresent()) {
+            throw new DeviceAlreadyExistsException("serial number-" + device.getSerialNumber());
         }
         DeviceEntity savedDevice = service.save(device);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().

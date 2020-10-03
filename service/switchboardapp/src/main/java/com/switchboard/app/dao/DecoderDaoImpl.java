@@ -1,4 +1,5 @@
 package com.switchboard.app.dao;
+
 import com.switchboard.app.domain.DecoderEntity;
 import com.switchboard.app.repository.DecoderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ public class DecoderDaoImpl {
     DecoderRepository decoderRepository;
 
     public DecoderEntity save(DecoderEntity decoderEntity) {
-      return  decoderRepository.save(decoderEntity);
+        return decoderRepository.save(decoderEntity);
     }
 
     public List<DecoderEntity> getDecoders() {

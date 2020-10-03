@@ -5,17 +5,17 @@ import com.switchboard.app.dao.DeviceDaoImpl;
 import com.switchboard.app.domain.DecoderEntity;
 import com.switchboard.app.domain.DeviceEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
-
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @RestController
 public class DecoderController {
@@ -27,12 +27,12 @@ public class DecoderController {
     DeviceDaoImpl deviceService;
 
     @GetMapping("/decoder")
-    public List<DecoderEntity> retrieveAllDecoders(){
+    public List<DecoderEntity> retrieveAllDecoders() {
         return decoderService.getDecoders();
     }
 
     @PostMapping("/decoder")
-    public ResponseEntity createDecoder(@RequestBody @Valid DecoderEntity decoderEntity){
+    public ResponseEntity createDecoder(@RequestBody @Valid DecoderEntity decoderEntity) {
         Optional<DeviceEntity> deviceOptional = deviceService.findDevice(decoderEntity.getSerialNumber());
         decoderEntity.setDevice(deviceOptional.get());
 

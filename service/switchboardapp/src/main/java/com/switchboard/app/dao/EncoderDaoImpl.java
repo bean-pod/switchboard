@@ -1,4 +1,5 @@
 package com.switchboard.app.dao;
+
 import com.switchboard.app.domain.EncoderEntity;
 import com.switchboard.app.repository.EncoderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
