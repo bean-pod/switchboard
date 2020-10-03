@@ -42,7 +42,6 @@ public class EncoderController {
         Encoder savedEncoder = encoderService.addEncoder(encoder);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().
                 path("/{serialNumber}").buildAndExpand(savedEncoder.getSerialNumber()).toUri();
-
         return ResponseEntity.created(location).build();
     }
 }

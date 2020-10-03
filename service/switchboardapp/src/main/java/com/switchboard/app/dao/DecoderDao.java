@@ -10,7 +10,6 @@ import java.util.Optional;
 
 public interface DecoderDao {
 
-//    Decoder addDao(Decoder decoder);
     Decoder addDecoder(Decoder decoder);
     List<Decoder> getDecoders();
 
