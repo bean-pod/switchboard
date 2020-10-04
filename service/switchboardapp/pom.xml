@@ -18,13 +18,17 @@
 
     <properties>
         <java.version>11</java.version>
-        <springfox-version>2.8.0</springfox-version>
         <openapi-generator-version>4.3.1</openapi-generator-version>
         <spring-hateoas-version>1.1.2.RELEASE</spring-hateoas-version>
         <openapi-jackson-nullable-version>0.2.1</openapi-jackson-nullable-version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>1.4.8</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
