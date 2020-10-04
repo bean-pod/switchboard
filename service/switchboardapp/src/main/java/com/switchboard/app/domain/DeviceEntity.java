@@ -29,6 +29,6 @@ public class DeviceEntity {
     @OneToOne(mappedBy = "device")
     private EncoderEntity encoderEntity;
 
-    @OneToOne(mappedBy = "device", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "device")
     private DecoderEntity decoderEntity;
 }
