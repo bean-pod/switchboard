@@ -21,4 +21,4 @@ jobs:
           java-version: 1.8
       - name: Build with Maven
         run: mvn clean install
-        working-directory: service/switchboardapp
+        working-directory: ./service/switchboardapp
