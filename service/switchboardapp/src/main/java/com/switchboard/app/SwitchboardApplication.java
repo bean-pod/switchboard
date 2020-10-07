@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SwitchboardApplication {
 
     public static void main(String[] args) {
-        System.out.println("test github actions");
+        System.out.println("test github action");
         SpringApplication.run(SwitchboardApplication.class, args);
     }
 
