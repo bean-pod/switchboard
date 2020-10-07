@@ -69,7 +69,7 @@ paths:
         '200':
           description: Successful creation the encoder
 
-  /encoders/{uuid}:
+  /encoder/{uuid}:
     get:
       operationId: getEncoderById
       description: Retrieve a specific encoder
@@ -139,7 +139,7 @@ paths:
         '200':
           description: Successful creation of the decoder
 
-  /Decoders/{uuid}:
+  /decoder/{uuid}:
     get:
       operationId: getDecoderById
       description: Retrieve a specific decoder
