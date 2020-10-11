@@ -28,8 +28,31 @@ code {
 .paddedText {
   padding: 0.8em;
 }
+.buttonText {
+  color: white;
+  padding: 1em;
+  border: 0px;
+  border-radius: 2em;
+  margin: 0.4em;
+  text-transform: uppercase;
+}
 
 /* Background Color Classes */
 .darkGrey {
   background-color: #373737;
+}
+.lightGrey {
+  background-color: #d3d3d3;
+}
+.green {
+  background-color: #59bc31;
+}
+.yellow {
+  background-color: #fec300;
+}
+.red {
+  background-color: #ea5757;
+}
+.blue {
+  background-color: #01b2fe;
 }

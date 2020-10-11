@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import HeaderBar from './HeaderBar';
 import * as serviceWorker from './serviceWorker';
+import DeviceList from './DeviceList';
 
 import {
   Breadcrumbs, 
@@ -21,6 +22,9 @@ ReactDOM.render(
         </Link>
         <Typography color="textPrimary">Devices</Typography>
       </Breadcrumbs>
+    </Box>
+    <Box padding="2em">
+      <DeviceList />
     </Box>
   </React.StrictMode>,
   document.getElementById('root')
