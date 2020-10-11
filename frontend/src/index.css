@@ -25,16 +25,23 @@ code {
 .headerTitle {
   font-size: 24px;
 }
+.title {
+  font-size: 40px;
+  vertical-align: bottom;
+}
 .paddedText {
   padding: 0.8em;
 }
 .buttonText {
+  display: inline-flex;
+  /* vertical-align: top; */
+  align-items: center;;
+  text-transform: uppercase;
   color: white;
   padding: 1em;
   border: 0px;
   border-radius: 2em;
   margin: 0.4em;
-  text-transform: uppercase;
 }
 
 /* Background Color Classes */

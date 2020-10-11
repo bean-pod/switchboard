@@ -10,6 +10,8 @@ import {
     TableBody,
     Typography
 } from "@material-ui/core"
+import SwapHorizIcon from '@material-ui/icons/SwapHoriz';
+import AddSharpIcon from '@material-ui/icons/AddSharp';
 // imports for material ui & etc
 
 function importData() {
@@ -21,13 +23,13 @@ function DeviceList() {
     return (
         <Container>
             <Box class="flexContents">
-                <span class="paddedText headerTitle">My Devices</span>
+                <span class="paddedText title">My Devices</span>
                 <span >
-                    <Button class="green buttonText" disableElevation>
-                        Stream
+                    <Button class="green buttonText">
+                        <SwapHorizIcon /> Stream
                     </Button>
                     <Button class="blue buttonText">
-                        Add Device
+                        <AddSharpIcon /> Add Device
                     </Button>
                 </span>
             </Box>
