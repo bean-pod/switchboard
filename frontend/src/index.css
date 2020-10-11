@@ -12,15 +12,24 @@ code {
     monospace;
 }
 
+.headerArea {
+  /* margin-top: 1em; */
+  margin-bottom: 3em;
+}
+
 /* Text Style Classes */
 .flexContents {
   display: 'flex';
   justify-content: space-between;
 }
-.alignRight{
+.alignRight {
   position: absolute;
   top: 0.5em;
   right: 0.2em;
+}
+.alignRightFloat {
+  position: relative;
+  float: right;
 }
 .headerTitle {
   font-size: 24px;
@@ -42,6 +51,20 @@ code {
   border: 0px;
   border-radius: 2em;
   margin: 0.4em;
+}
+.statusText {
+  color: white;
+  text-align: center;
+  padding: 0.3em;
+  width: 90px;
+  border-radius: 0.2em;
+}
+.statusOfflineText {
+  color: black;
+  text-align: center;
+  padding: 0.3em;
+  width: 90px;
+  border-radius: 0.2em;
 }
 
 /* Background Color Classes */
