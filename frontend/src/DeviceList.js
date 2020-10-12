@@ -1,8 +1,12 @@
 import React from 'react';
 import {
+    AppBar,
     Box,
     Button,
+    Collapse,
     Container,
+    Tab,
+    Tabs,
     Table,
     TableHead,
     TableRow,
@@ -21,14 +25,14 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 // temporary row
 const rows = [
-    createTemp(1, "Test", "1:23:456:789", 0, "123:456", 480), // test green
-    createTemp(2, "Temp 2", "1:32:456:789", 1, "132:456", 480), // test yellow
-    createTemp(3, "Temp 3", "1:42:356:789", 2, "142:456", 480), // test red
-    createTemp(4, "Temp 4", "1:52:356:789", 3, "152:456", 480) // test grey
+    createTemp(1, "Test", "1:23:456:789", 0, "123:456", 480, ["one", "onee"]), // test green
+    createTemp(2, "Temp 2", "1:32:456:789", 1, "132:456", 480, ["two", "twoo"]), // test yellow
+    createTemp(3, "Temp 3", "1:42:356:789", 2, "142:456", 480, ["three", "threee"]), // test red
+    createTemp(4, "Temp 4", "1:52:356:789", 3, "152:456", 480, ["four", "fourr"]) // test grey
 ];
 
-function createTemp(id, name, mac, status, ip, port) {
-    return {id, name, mac, status, ip, port};
+function createTemp(id, name, mac, status, ip, port, extras) {
+    return {id, name, mac, status, ip, port, extras};
 }
 function getStatusStyle(status) {
     if(status == 0) {
@@ -63,9 +67,9 @@ function importData() {
     // get data from the database
 }
 
-function DeviceList() {
+function TitleBox(){
     return (
-        <Container>
+        <React.Fragment>
             <Box class="flexContents headerArea">
                 <span class="paddedText title">My Devices</span>
                 <span class="alignRightFloat">
@@ -77,10 +81,32 @@ function DeviceList() {
                     </Button>
                 </span>
             </Box>
+        </React.Fragment>
+    );
+}
+
+// tabs. decide on sender or receiver table
+function ContentsTable() {
+    return(
+        <React.Fragment>
+            <AppBar position="static">
+                
+            </AppBar>
+            <TableRows />
+        </React.Fragment>
+    );
+}
+
+function TableRows() {
+    const [open, setOpen] = React.useState(false);
+
+    return (
+        <React.Fragment>
             <Box>
                 <Table>
                     <TableHead>
                         <TableRow>
+                            {/* <TableCell></TableCell> */}
                             <TableCell>Name</TableCell>
                             <TableCell>MAC Address</TableCell>
                             <TableCell>Status</TableCell>
@@ -92,6 +118,11 @@ function DeviceList() {
                     <TableBody>
                         {rows.map((row) =>(
                             <TableRow key={row.id}>
+                                {/* <TableCell>
+                                    <IconButton onClick={() => setOpen(!open)}>
+                                        {open? <ExpandMoreIcon /> : <ExpandLessIcon />}
+                                    </IconButton>
+                                </TableCell> */}
                                 <TableCell>{row.name}</TableCell>
                                 <TableCell>{row.mac}</TableCell>
                                 <TableCell>
@@ -111,6 +142,16 @@ function DeviceList() {
                     </TableBody>
                 </Table>
             </Box>
+        </React.Fragment>
+    );
+}
+
+// combine the fragments
+function DeviceList() {
+    return (
+        <Container>
+            <TitleBox />
+            <ContentsTable />
         </Container>
     );
 }
