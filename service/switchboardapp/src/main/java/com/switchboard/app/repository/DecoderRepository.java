@@ -1,7 +1,6 @@
 package com.switchboard.app.repository;
 
 import com.switchboard.app.domain.DecoderEntity;
-import com.switchboard.app.domain.DeviceEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

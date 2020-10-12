@@ -4,7 +4,6 @@ import com.switchboard.app.dao.DecoderDaoImpl;
 import com.switchboard.app.dao.DeviceDaoImpl;
 import com.switchboard.app.domain.DecoderEntity;
 import com.switchboard.app.domain.DeviceEntity;
-import com.switchboard.app.domain.EncoderEntity;
 import com.switchboard.app.exceptions.DeviceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
@@ -42,12 +41,12 @@ public class DecoderController {
         Optional<DecoderEntity> decoder = decoderService.findDecoder(serialNumber);
 
         if (decoder.isEmpty()) {
-            throw new DeviceNotFoundException("serial number-" + serialNumber + "/Encoder");
+            throw new DeviceNotFoundException("serial number-" + serialNumber + "/Decoder");
         }
 
         EntityModel<DecoderEntity> resource = EntityModel.of(decoder.get());
-        WebMvcLinkBuilder linkto = linkTo(methodOn(this.getClass()).retrieveAllDecoders());
-        resource.add(linkto.withRel("all-decoders"));
+        WebMvcLinkBuilder linkTo = linkTo(methodOn(this.getClass()).retrieveAllDecoders());
+        resource.add(linkTo.withRel("all-decoders"));
         return resource;
     }
 
@@ -56,7 +55,7 @@ public class DecoderController {
         Optional<DeviceEntity> deviceOptional = deviceService.findDevice(decoderEntity.getSerialNumber());
 
         if(deviceOptional.isEmpty()){
-            throw new DeviceNotFoundException("serial number-" + decoderEntity.getSerialNumber() + "/Encoder");
+            throw new DeviceNotFoundException("serial number-" + decoderEntity.getSerialNumber() + "/Decoder");
         }
 
         decoderEntity.setDevice(deviceOptional.get());

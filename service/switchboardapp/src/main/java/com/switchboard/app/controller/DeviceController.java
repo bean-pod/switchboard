@@ -7,7 +7,6 @@ import com.switchboard.app.exceptions.DeviceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -36,13 +35,13 @@ public class DeviceController {
     public EntityModel<DeviceEntity> retrieveDevice(@PathVariable @Valid String serialNumber) {
 
         Optional<DeviceEntity> device = service.findDevice(serialNumber);
-        if (!device.isPresent()) {
+        if (device.isEmpty()) {
             throw new DeviceNotFoundException("serial number-" + serialNumber);
         }
 
         EntityModel<DeviceEntity> resource = EntityModel.of(device.get());
-        WebMvcLinkBuilder linkto = linkTo(methodOn(this.getClass()).retrieveAllDevices());
-        resource.add(linkto.withRel("all-devices"));
+        WebMvcLinkBuilder linkTo = linkTo(methodOn(this.getClass()).retrieveAllDevices());
+        resource.add(linkTo.withRel("all-devices"));
         return resource;
     }
 

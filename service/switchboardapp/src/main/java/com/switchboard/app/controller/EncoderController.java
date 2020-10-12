@@ -41,19 +41,23 @@ public class EncoderController {
 
         Optional<EncoderEntity> encoder = encoderService.findEncoder(serialNumber);
 
-        if (!encoder.isPresent()) {
+        if (encoder.isEmpty()) {
             throw new DeviceNotFoundException("serial number-" + serialNumber + "/Encoder");
         }
 
         EntityModel<EncoderEntity> resource = EntityModel.of(encoder.get());
-        WebMvcLinkBuilder linkto = linkTo(methodOn(this.getClass()).retrieveAllEncoders());
-        resource.add(linkto.withRel("all-encoders"));
+        WebMvcLinkBuilder linkTo = linkTo(methodOn(this.getClass()).retrieveAllEncoders());
+        resource.add(linkTo.withRel("all-encoders"));
         return resource;
     }
 
     @PostMapping("/encoder")
     public ResponseEntity createEncoder(@RequestBody @Valid EncoderEntity encoderEntity) {
         Optional<DeviceEntity> deviceOptional = deviceService.findDevice(encoderEntity.getSerialNumber());
+
+        if(deviceOptional.isEmpty()){
+            throw new DeviceNotFoundException("serial number-" + encoderEntity.getSerialNumber() + "/Encoder");
+        }
         encoderEntity.setDevice(deviceOptional.get());
         EncoderEntity savedEncoderEntity = encoderService.save(encoderEntity);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().
@@ -64,7 +68,7 @@ public class EncoderController {
     @DeleteMapping("/encoder/{serialNumber}")
     @Transactional
     public ResponseEntity deleteEncoder(@PathVariable String serialNumber){
-        Long response = encoderService.deleteEncoder(serialNumber);
+        long response = encoderService.deleteEncoder(serialNumber);
         if(response!=1){
             throw new DeviceNotFoundException("serial number-" + serialNumber);
         }
