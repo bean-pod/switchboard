@@ -5,17 +5,22 @@ import {
   IconButton,
   Badge
 } from "@material-ui/core"
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import NotificationsIcon from '@material-ui/icons/Notifications';
+import {
+  AccountCircle,
+  Notifications,
+  Menu
+ } from '@material-ui/icons/';
 
 function HeaderBar() {
+  
   return (
     <div className="HeaderBar">
       <AppBar position="static">
         <Toolbar class="darkGrey paddedText headerTitle flexContents">
-          Switchboard
+            <IconButton edge="start" color="inherit" aria-label="menu"><Menu/></IconButton>
+            Switchboard
           <span class="alignRight">
-            <IconButton color="inherit"><NotificationsIcon /></IconButton>
+            <IconButton color="inherit"><Notifications /></IconButton>
             <IconButton color="inherit"><AccountCircle /></IconButton>
           </span>     
         </Toolbar>
