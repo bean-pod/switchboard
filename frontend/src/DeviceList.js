@@ -91,9 +91,14 @@ function ContentsTable() {
     return (
         <React.Fragment>
             <AppBar position="static">
-
+                <Tabs  aria-label="simple tabs">
+                    <Tab label="Senders" />
+                    <Tab label="Receivers" />
+                </Tabs>
             </AppBar>
+            
             <DevicesTable />
+
         </React.Fragment>
     );
 }
