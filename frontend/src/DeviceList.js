@@ -5,6 +5,7 @@ import {
     Button,
     Collapse,
     Container,
+    makeStyles,
     Tab,
     Tabs,
     Table,
@@ -13,15 +14,20 @@ import {
     TableCell,
     TableBody,
     TableSortLabel,
+    Typography,
     IconButton
 } from "@material-ui/core"
-// icons
-import SwapHorizIcon from '@material-ui/icons/SwapHoriz';
-import AddSharpIcon from '@material-ui/icons/AddSharp';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import SearchIcon from '@material-ui/icons/Search';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+
+import{
+    SwapHoriz,
+    AddSharp,
+    ExpandLess,
+    ExpandMore,
+    Search,
+    MoreVert
+} from '@material-ui/icons/';
+
+import PropTypes from "prop-types";
 // imports for material ui & etc
 
 // temporary row
@@ -83,10 +89,10 @@ function TitleBox() {
                 <span class="paddedText title">My Devices</span>
                 <span class="alignRightFloat">
                     <Button class="green buttonText">
-                        <SwapHorizIcon /> Stream
+                        <SwapHoriz /> Stream
                     </Button>
                     <Button class="blue buttonText">
-                        <AddSharpIcon /> Add Device
+                        <AddSharp /> Add Device
                     </Button>
                 </span>
             </Box>
@@ -96,17 +102,30 @@ function TitleBox() {
 
 // tabs. decide on sender or receiver table
 function ContentsTable() {
+    const [value, setValue] = React.useState(0);
+  
+    const handleChange = (event, newValue) => {
+      setValue(newValue);
+    };
     return (
         <React.Fragment>
             <AppBar position="static">
-                <Tabs class="darkGrey" aria-label="simple tabs">
-                    <Tab label="Senders" />
-                    <Tab label="Receivers" />
+                <Tabs class="darkGrey" 
+                 variant="fullWidth"
+                 value={value}
+                 onChange={handleChange}
+                 aria-label="simple tabs">
+
+                    <LinkTab label="Senders" {...a11yProps(0)} />
+                    <LinkTab label="Receivers" {...a11yProps(1)} />
                 </Tabs>
             </AppBar>
-            
-            <DevicesTable />
-
+            <TabPanel value={value} index={0}>
+                <DevicesTable />
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+                Page Two
+            </TabPanel>
         </React.Fragment>
     );
 }
@@ -119,7 +138,7 @@ function SingleTableRow(row) {
             <TableRow key={row.id}>
                 <TableCell style={{width: 1, padding: 0, paddingLeft: 5}}>
                     <IconButton onClick={() => setOpen(!open)}>
-                        {open ? <ExpandMoreIcon /> : <ExpandLessIcon />}
+                        {open ? <ExpandMore /> : <ExpandLess />}
                     </IconButton>
                 </TableCell>
                 <TableCell>{row.name}</TableCell>
@@ -133,7 +152,7 @@ function SingleTableRow(row) {
                 <TableCell>{row.port}</TableCell>
                 <TableCell align="center">
                     <IconButton>
-                        <MoreVertIcon />
+                        <MoreVert />
                     </IconButton>
                 </TableCell>
             </TableRow>
@@ -209,5 +228,93 @@ function DeviceList() {
         </Container>
     );
 }
+
+
+function TabPanel(props) {
+    const { children, value, index, ...other } = props;
+  
+    return (
+      <div
+        role="tabpanel"
+        hidden={value !== index}
+        id={`nav-tabpanel-${index}`}
+        aria-labelledby={`nav-tab-${index}`}
+        {...other}
+      >
+        {value === index && (
+          <Box p={3}>
+            <Typography>{children}</Typography>
+          </Box>
+        )}
+      </div>
+    );
+  }
+  
+  TabPanel.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.any.isRequired,
+    value: PropTypes.any.isRequired
+  };
+  
+  function a11yProps(index) {
+    return {
+      id: `nav-tab-${index}`,
+      "aria-controls": `nav-tabpanel-${index}`
+    };
+  }
+  
+  function LinkTab(props) {
+    return (
+      <Tab
+        component="a"
+        onClick={(event) => {
+          event.preventDefault();
+        }}
+        {...props}
+      />
+    );
+  }
+  
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      flexGrow: 1,
+      backgroundColor: theme.palette.background.paper
+    }
+  }));
+  
+  function NavTabs() {
+    const classes = useStyles();
+    const [value, setValue] = React.useState(0);
+  
+    const handleChange = (event, newValue) => {
+      setValue(newValue);
+    };
+  
+    return (
+      <div className={classes.root}>
+        <AppBar position="static">
+          <Tabs
+            variant="fullWidth"
+            value={value}
+            onChange={handleChange}
+            aria-label="nav tabs example"
+          >
+            <LinkTab label="Page One" href="/drafts" {...a11yProps(0)} />
+            <LinkTab label="Page Two" href="/trash" {...a11yProps(1)} />
+            <LinkTab label="Page Three" href="/spam" {...a11yProps(2)} />
+          </Tabs>
+        </AppBar>
+        <TabPanel value={value} index={0}>
+          <DevicesTable />
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          Page Two
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          Page Three
+        </TabPanel>
+      </div>
+    );
+  }
 
 export default DeviceList;
