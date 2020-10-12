@@ -31,4 +31,8 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<Object>(exceptionResponse, exceptionResponse.getStatus());
     }
 
-}
+    @ExceptionHandler(DeviceReferencedException.class)
+    public final ResponseEntity<Object> handleDeviceReferencedException(Exception ex, WebRequest request) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(HttpStatus.CONFLICT, ex.getMessage(), "The device is being referenced by an encoder or decoder");
+        return new ResponseEntity<Object>(exceptionResponse, exceptionResponse.getStatus());
+    }}

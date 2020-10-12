@@ -4,6 +4,8 @@ import com.switchboard.app.dao.DeviceDaoImpl;
 import com.switchboard.app.domain.DeviceEntity;
 import com.switchboard.app.exceptions.DeviceAlreadyExistsException;
 import com.switchboard.app.exceptions.DeviceNotFoundException;
+import com.switchboard.app.exceptions.DeviceReferencedException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
@@ -20,6 +22,7 @@ import java.util.Optional;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+@Slf4j
 @RestController
 public class DeviceController {
 
@@ -60,11 +63,26 @@ public class DeviceController {
 
     @DeleteMapping("/device/{serialNumber}")
     @Transactional
-    public ResponseEntity deleteDevice(@PathVariable String serialNumber){
+    public ResponseEntity deleteDevice(@PathVariable String serialNumber) {
         Long response = service.deleteDevice(serialNumber);
-        if(response!=1){
+        if (response != 1) {
             throw new DeviceNotFoundException("serial number-" + serialNumber);
         }
-        return ResponseEntity.ok("Device with serial number " + serialNumber+" Deleted");
+        return ResponseEntity.ok("Device with serial number " + serialNumber + " Deleted");
     }
+
+    @PutMapping("/device/{serialNumber}")
+    @Transactional
+    public ResponseEntity updateDevice(@PathVariable String serialNumber, @RequestBody DeviceEntity device) {
+        if (!serialNumber.equals(device.getSerialNumber())) {
+            throw new DeviceReferencedException("serial number-" + serialNumber);
+        }
+        log.info("old serial number {} , new serial number {}", serialNumber,device.getSerialNumber());
+        int response = service.updateDevice(serialNumber, device);
+        if (response != 1) {
+            throw new DeviceNotFoundException("serial number-" + serialNumber);
+        }
+        return ResponseEntity.ok("Device updated");
+    }
+
 }

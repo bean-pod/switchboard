@@ -22,9 +22,9 @@ public class DeviceEntity {
 
     @Column(name = "display_name")
     @NotNull
-    private String DisplayName;
+    private String displayName;
 
-    private String Status;
+    private String status;
 
     @OneToOne(mappedBy = "device", cascade = CascadeType.ALL)
     private EncoderEntity encoderEntity;

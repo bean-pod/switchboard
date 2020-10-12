@@ -30,4 +30,10 @@ public class DeviceDaoImpl {
     public Long deleteDevice(String serialNumber) {
         return deviceRepository.deleteDeviceEntitiesBySerialNumber(serialNumber);
     }
+
+    public int updateDevice(String serialNumber, DeviceEntity deviceEntity){
+       return deviceRepository.updateDevice(serialNumber, deviceEntity.getDisplayName(),
+               deviceEntity.getStatus(),
+               deviceEntity.getSerialNumber());
+    }
 }
