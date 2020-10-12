@@ -99,7 +99,7 @@ function ContentsTable() {
     return (
         <React.Fragment>
             <AppBar position="static">
-                <Tabs  aria-label="simple tabs">
+                <Tabs class="darkGrey" aria-label="simple tabs">
                     <Tab label="Senders" />
                     <Tab label="Receivers" />
                 </Tabs>
@@ -165,11 +165,27 @@ function DevicesTable() {
                     <TableHead>
                         <TableRow>
                             <TableCell style={{width: 1, padding: 0, paddingLeft: 5}}></TableCell>
-                            <TableCell>Name</TableCell>
-                            <TableCell>MAC Address</TableCell>
-                            <TableCell>Status</TableCell>
-                            <TableCell>IP Address</TableCell>
-                            <TableCell>Port</TableCell>
+                            <TableCell>Name
+                                <br /><input type="text" id="nameSearch"/>
+                            </TableCell>
+                            <TableCell>MAC Address
+                            <br /><input type="text" id="macSearch"/>
+                            </TableCell>
+                            <TableCell>Status
+                            <br /><select id="statusSelect">
+                                <option></option>
+                                    <option>Online</option>
+                                    <option>Pending</option>
+                                    <option>Error</option>
+                                    <option>Offline</option>
+                                </select>
+                            </TableCell>
+                            <TableCell>IP Address
+                            <br /><input type="text" id="ipSearch"/>
+                            </TableCell>
+                            <TableCell>Port
+                            <br /><input type="text" id="portSearch"/>
+                            </TableCell>
                             <TableCell align="center">Actions</TableCell>
                         </TableRow>
                     </TableHead>
