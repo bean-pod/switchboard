@@ -4,7 +4,7 @@ import com.switchboard.app.dao.DeviceDaoImpl;
 import com.switchboard.app.dao.EncoderDaoImpl;
 import com.switchboard.app.domain.DeviceEntity;
 import com.switchboard.app.domain.EncoderEntity;
-import com.switchboard.app.exceptions.DeviceNotFoundException;
+import com.switchboard.app.exceptions.BRSException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
@@ -12,7 +12,6 @@ import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
@@ -42,7 +41,7 @@ public class EncoderController {
         Optional<EncoderEntity> encoder = encoderService.findEncoder(serialNumber);
 
         if (encoder.isEmpty()) {
-            throw new DeviceNotFoundException("serial number-" + serialNumber + "/Encoder");
+            throw new BRSException.DeviceNotFoundException("serial number-" + serialNumber + "/Encoder");
         }
 
         EntityModel<EncoderEntity> resource = EntityModel.of(encoder.get());
@@ -56,7 +55,7 @@ public class EncoderController {
         Optional<DeviceEntity> deviceOptional = deviceService.findDevice(encoderEntity.getSerialNumber());
 
         if(deviceOptional.isEmpty()){
-            throw new DeviceNotFoundException("serial number-" + encoderEntity.getSerialNumber() + "/Encoder");
+            throw new BRSException.DeviceNotFoundException("serial number-" + encoderEntity.getSerialNumber() + "/Encoder");
         }
         encoderEntity.setDevice(deviceOptional.get());
         EncoderEntity savedEncoderEntity = encoderService.save(encoderEntity);
@@ -70,7 +69,7 @@ public class EncoderController {
     public ResponseEntity deleteEncoder(@PathVariable String serialNumber){
         long response = encoderService.deleteEncoder(serialNumber);
         if(response!=1){
-            throw new DeviceNotFoundException("serial number-" + serialNumber);
+            throw new BRSException.DeviceNotFoundException("serial number-" + serialNumber);
         }
         return ResponseEntity.ok("Encoder with serial number " + serialNumber+" Deleted");
     }

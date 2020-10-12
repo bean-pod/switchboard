@@ -19,19 +19,19 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<Object>(exceptionResponse, exceptionResponse.getStatus());
     }
 
-    @ExceptionHandler(DeviceNotFoundException.class)
+    @ExceptionHandler(BRSException.DeviceNotFoundException.class)
     public final ResponseEntity<Object> handleDeviceNotFoundException(Exception ex, WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(HttpStatus.NOT_FOUND, ex.getMessage(), "The device was not found");
         return new ResponseEntity<Object>(exceptionResponse, exceptionResponse.getStatus());
     }
 
-    @ExceptionHandler(DeviceAlreadyExistsException.class)
+    @ExceptionHandler(BRSException.DeviceAlreadyExistsException.class)
     public final ResponseEntity<Object> handleDeviceAlreadyExistsException(Exception ex, WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(HttpStatus.CONFLICT, ex.getMessage(), "The device already exists, change primary key");
         return new ResponseEntity<Object>(exceptionResponse, exceptionResponse.getStatus());
     }
 
-    @ExceptionHandler(DeviceReferencedException.class)
+    @ExceptionHandler(BRSException.DeviceReferencedException.class)
     public final ResponseEntity<Object> handleDeviceReferencedException(Exception ex, WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(HttpStatus.CONFLICT, ex.getMessage(), "The device is being referenced by an encoder or decoder");
         return new ResponseEntity<Object>(exceptionResponse, exceptionResponse.getStatus());

@@ -2,9 +2,7 @@ package com.switchboard.app.controller;
 
 import com.switchboard.app.dao.DeviceDaoImpl;
 import com.switchboard.app.domain.DeviceEntity;
-import com.switchboard.app.exceptions.DeviceAlreadyExistsException;
-import com.switchboard.app.exceptions.DeviceNotFoundException;
-import com.switchboard.app.exceptions.DeviceReferencedException;
+import com.switchboard.app.exceptions.BRSException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
@@ -39,7 +37,7 @@ public class DeviceController {
 
         Optional<DeviceEntity> device = service.findDevice(serialNumber);
         if (device.isEmpty()) {
-            throw new DeviceNotFoundException("serial number-" + serialNumber);
+            throw new BRSException.DeviceNotFoundException("serial number-" + serialNumber);
         }
 
         EntityModel<DeviceEntity> resource = EntityModel.of(device.get());
@@ -53,7 +51,7 @@ public class DeviceController {
 
         Optional<DeviceEntity> deviceLookup = service.findDevice(device.getSerialNumber());
         if (deviceLookup.isPresent()) {
-            throw new DeviceAlreadyExistsException("serial number-" + device.getSerialNumber());
+            throw new BRSException.DeviceAlreadyExistsException("serial number-" + device.getSerialNumber());
         }
         DeviceEntity savedDevice = service.save(device);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().
@@ -66,7 +64,7 @@ public class DeviceController {
     public ResponseEntity deleteDevice(@PathVariable String serialNumber) {
         Long response = service.deleteDevice(serialNumber);
         if (response != 1) {
-            throw new DeviceNotFoundException("serial number-" + serialNumber);
+            throw new BRSException.DeviceNotFoundException("serial number-" + serialNumber);
         }
         return ResponseEntity.ok("Device with serial number " + serialNumber + " Deleted");
     }
@@ -75,12 +73,12 @@ public class DeviceController {
     @Transactional
     public ResponseEntity updateDevice(@PathVariable String serialNumber, @RequestBody DeviceEntity device) {
         if (!serialNumber.equals(device.getSerialNumber())) {
-            throw new DeviceReferencedException("serial number-" + serialNumber);
+            throw new BRSException.DeviceReferencedException("serial number-" + serialNumber);
         }
         log.info("old serial number {} , new serial number {}", serialNumber,device.getSerialNumber());
         int response = service.updateDevice(serialNumber, device);
         if (response != 1) {
-            throw new DeviceNotFoundException("serial number-" + serialNumber);
+            throw new BRSException.DeviceNotFoundException("serial number-" + serialNumber);
         }
         return ResponseEntity.ok("Device updated");
     }
