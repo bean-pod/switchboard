@@ -23,12 +23,10 @@ public interface DeviceRepository extends JpaRepository<DeviceEntity, String> {
 
     @Modifying
     @Query("Update Device de set de.status = :status," +
-            " de.displayName = :displayName," +
-            " de.serialNumber = :serialNumber" +
+            " de.displayName = :displayName" +
             " where de.serialNumber = :oldSerialNumber")
     int updateDevice(@Param(value = "oldSerialNumber") String oldSerialNumber,
                      @Param(value = "displayName") String displayName,
-                     @Param(value = "status") String status,
-                     @Param(value = "serialNumber") String serialNumber
+                     @Param(value = "status") String status
     );
 }

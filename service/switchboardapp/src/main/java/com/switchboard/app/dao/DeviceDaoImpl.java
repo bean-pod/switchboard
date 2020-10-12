@@ -33,7 +33,7 @@ public class DeviceDaoImpl {
 
     public int updateDevice(String serialNumber, DeviceEntity deviceEntity){
        return deviceRepository.updateDevice(serialNumber, deviceEntity.getDisplayName(),
-               deviceEntity.getStatus(),
-               deviceEntity.getSerialNumber());
+               deviceEntity.getStatus()
+       );
     }
 }

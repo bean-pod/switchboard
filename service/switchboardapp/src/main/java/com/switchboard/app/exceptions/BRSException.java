@@ -15,8 +15,8 @@ public class BRSException {
         }
     }
 
-    public static class DeviceReferencedException extends RuntimeException {
-        public DeviceReferencedException(String s) {
+    public static class DevicePrimaryKeyRestriction extends RuntimeException {
+        public DevicePrimaryKeyRestriction(String s) {
             super(s);
         }
     }

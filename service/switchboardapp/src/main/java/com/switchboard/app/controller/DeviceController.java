@@ -73,9 +73,8 @@ public class DeviceController {
     @Transactional
     public ResponseEntity updateDevice(@PathVariable String serialNumber, @RequestBody DeviceEntity device) {
         if (!serialNumber.equals(device.getSerialNumber())) {
-            throw new BRSException.DeviceReferencedException("serial number-" + serialNumber);
+            throw new BRSException.DevicePrimaryKeyRestriction("serial number-" + serialNumber);
         }
-        log.info("old serial number {} , new serial number {}", serialNumber,device.getSerialNumber());
         int response = service.updateDevice(serialNumber, device);
         if (response != 1) {
             throw new BRSException.DeviceNotFoundException("serial number-" + serialNumber);

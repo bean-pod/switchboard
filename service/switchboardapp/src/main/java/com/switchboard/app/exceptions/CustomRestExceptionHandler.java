@@ -31,8 +31,8 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<Object>(exceptionResponse, exceptionResponse.getStatus());
     }
 
-    @ExceptionHandler(BRSException.DeviceReferencedException.class)
+    @ExceptionHandler(BRSException.DevicePrimaryKeyRestriction.class)
     public final ResponseEntity<Object> handleDeviceReferencedException(Exception ex, WebRequest request) {
-        ExceptionResponse exceptionResponse = new ExceptionResponse(HttpStatus.CONFLICT, ex.getMessage(), "The device is being referenced by an encoder or decoder");
+        ExceptionResponse exceptionResponse = new ExceptionResponse(HttpStatus.CONFLICT, ex.getMessage(), "Primary Key altering not allowed");
         return new ResponseEntity<Object>(exceptionResponse, exceptionResponse.getStatus());
     }}
