@@ -26,9 +26,9 @@ public class DeviceEntity {
 
     private String Status;
 
-    @OneToOne(mappedBy = "device")
+    @OneToOne(mappedBy = "device", cascade = CascadeType.ALL)
     private EncoderEntity encoderEntity;
 
-    @OneToOne(mappedBy = "device")
+    @OneToOne(mappedBy = "device", cascade = CascadeType.ALL)
     private DecoderEntity decoderEntity;
 }

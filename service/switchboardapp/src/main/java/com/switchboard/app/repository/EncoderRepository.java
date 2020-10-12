@@ -14,5 +14,6 @@ public interface EncoderRepository extends JpaRepository<EncoderEntity,String> {
     EncoderEntity save(EncoderEntity decoder);
     Optional<EncoderEntity> findEncoderBySerialNumber(String serialNumber);
     List<EncoderEntity> findAll();
+    Long deleteEncoderEntityBySerialNumber(String serialNumber);
 
 }

@@ -13,5 +13,5 @@ public interface DeviceRepository extends JpaRepository<DeviceEntity,String> {
     DeviceEntity save(DeviceEntity device);
     List<DeviceEntity> findAll();
     Optional<DeviceEntity> findDeviceBySerialNumber(String serialNumber);
-
+    Long deleteDeviceEntitiesBySerialNumber(String serialNumber);
 }

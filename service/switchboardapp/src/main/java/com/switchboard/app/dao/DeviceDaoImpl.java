@@ -26,4 +26,8 @@ public class DeviceDaoImpl {
     public List<DeviceEntity> getDevices() {
         return deviceRepository.findAll();
     }
+
+    public Long deleteDevice(String serialNumber) {
+        return deviceRepository.deleteDeviceEntitiesBySerialNumber(serialNumber);
+    }
 }

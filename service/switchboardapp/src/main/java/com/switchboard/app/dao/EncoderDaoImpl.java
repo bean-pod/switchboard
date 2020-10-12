@@ -19,11 +19,15 @@ public class EncoderDaoImpl {
         return encoderRepository.save(encoderEntity);
     }
 
+    public Optional<EncoderEntity> findEncoder(String serialNumber) {
+        return encoderRepository.findEncoderBySerialNumber(serialNumber);
+    }
+
     public List<EncoderEntity> getEncoders() {
         return encoderRepository.findAll();
     }
 
-    public Optional<EncoderEntity> findEncoder(String serialNumber) {
-        return encoderRepository.findEncoderBySerialNumber(serialNumber);
+    public long deleteEncoder(String serialNumber) {
+        return encoderRepository.deleteEncoderEntityBySerialNumber(serialNumber);
     }
 }

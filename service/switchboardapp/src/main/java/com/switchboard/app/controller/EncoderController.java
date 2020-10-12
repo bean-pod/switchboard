@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
@@ -58,5 +59,15 @@ public class EncoderController {
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().
                 path("/{serialNumber}").buildAndExpand(savedEncoderEntity.getSerialNumber()).toUri();
         return ResponseEntity.created(location).build();
+    }
+
+    @DeleteMapping("/encoder/{serialNumber}")
+    @Transactional
+    public ResponseEntity deleteEncoder(@PathVariable String serialNumber){
+        Long response = encoderService.deleteEncoder(serialNumber);
+        if(response!=1){
+            throw new DeviceNotFoundException("serial number-" + serialNumber);
+        }
+        return ResponseEntity.ok("Encoder with serial number " + serialNumber+" Deleted");
     }
 }

@@ -7,10 +7,12 @@ import com.switchboard.app.exceptions.DeviceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
@@ -57,4 +59,13 @@ public class DeviceController {
         return ResponseEntity.created(location).build();
     }
 
+    @DeleteMapping("/device/{serialNumber}")
+    @Transactional
+    public ResponseEntity deleteDevice(@PathVariable String serialNumber){
+        Long response = service.deleteDevice(serialNumber);
+        if(response!=1){
+            throw new DeviceNotFoundException("serial number-" + serialNumber);
+        }
+        return ResponseEntity.ok("Device with serial number " + serialNumber+" Deleted");
+    }
 }
