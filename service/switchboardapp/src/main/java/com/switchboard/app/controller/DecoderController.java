@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
@@ -40,7 +41,7 @@ public class DecoderController {
 
         Optional<DecoderEntity> decoder = decoderService.findDecoder(serialNumber);
 
-        if (!decoder.isPresent()) {
+        if (decoder.isEmpty()) {
             throw new DeviceNotFoundException("serial number-" + serialNumber + "/Encoder");
         }
 
@@ -53,8 +54,12 @@ public class DecoderController {
     @PostMapping("/decoder")
     public ResponseEntity createDecoder(@RequestBody @Valid DecoderEntity decoderEntity) {
         Optional<DeviceEntity> deviceOptional = deviceService.findDevice(decoderEntity.getSerialNumber());
-        decoderEntity.setDevice(deviceOptional.get());
 
+        if(deviceOptional.isEmpty()){
+            throw new DeviceNotFoundException("serial number-" + decoderEntity.getSerialNumber() + "/Encoder");
+        }
+
+        decoderEntity.setDevice(deviceOptional.get());
         DecoderEntity savedDecoderEntity = decoderService.save(decoderEntity);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().
                 path("/{serialNumber}").buildAndExpand(savedDecoderEntity.getSerialNumber()).toUri();
@@ -62,4 +67,13 @@ public class DecoderController {
         return ResponseEntity.created(location).build();
     }
 
+    @DeleteMapping("/decoder/{serialNumber}")
+    @Transactional
+    public ResponseEntity deleteDecoder(@PathVariable String serialNumber){
+        Long response = decoderService.deleteDecoder(serialNumber);
+        if(response!=1){
+            throw new DeviceNotFoundException("serial number-" + serialNumber);
+        }
+        return ResponseEntity.ok("Decoder with serial number " + serialNumber+" Deleted");
+    }
 }
