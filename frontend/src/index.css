@@ -66,6 +66,10 @@ code {
   width: 90px;
   border-radius: 0.2em;
 }
+.chevronText{
+  padding-bottom: 0;
+  padding-top: 0;
+}
 
 /* Background Color Classes */
 .darkGrey {
@@ -73,6 +77,9 @@ code {
 }
 .lightGrey {
   background-color: #d3d3d3;
+}
+.lightestGrey{
+  background-color: #f9f9f9;
 }
 .green {
   background-color: #59bc31;
