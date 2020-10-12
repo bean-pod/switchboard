@@ -282,39 +282,4 @@ function TabPanel(props) {
     }
   }));
   
-  function NavTabs() {
-    const classes = useStyles();
-    const [value, setValue] = React.useState(0);
-  
-    const handleChange = (event, newValue) => {
-      setValue(newValue);
-    };
-  
-    return (
-      <div className={classes.root}>
-        <AppBar position="static">
-          <Tabs
-            variant="fullWidth"
-            value={value}
-            onChange={handleChange}
-            aria-label="nav tabs example"
-          >
-            <LinkTab label="Page One" href="/drafts" {...a11yProps(0)} />
-            <LinkTab label="Page Two" href="/trash" {...a11yProps(1)} />
-            <LinkTab label="Page Three" href="/spam" {...a11yProps(2)} />
-          </Tabs>
-        </AppBar>
-        <TabPanel value={value} index={0}>
-          <DevicesTable />
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          Page Two
-        </TabPanel>
-        <TabPanel value={value} index={2}>
-          Page Three
-        </TabPanel>
-      </div>
-    );
-  }
-
 export default DeviceList;
