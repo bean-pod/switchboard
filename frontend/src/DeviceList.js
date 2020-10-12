@@ -32,7 +32,15 @@ const rows = [
     createTemp(4, "Temp 4", "1:52:356:789", 3, "152:456", 480, ["four", "fourr"]) // test grey
 ];
 function createTemp(id, name, mac, status, ip, port, extras) {
-    return { id, name, mac, status, ip, port, extras };
+    return {
+        "id" : id,
+        "name" : name,
+        "mac" : mac,
+        "status" : status,
+        "ip" : ip,
+        "port": port,
+        "extras" : extras
+    }
 }
 
 function getStatusStyle(status) {
