@@ -33,13 +33,14 @@ code {
 }
 .headerTitle {
   font-size: 24px;
+  vertical-align: middle;
 }
 .title {
   font-size: 40px;
   vertical-align: bottom;
 }
 .paddedText {
-  padding: 0.8em;
+  padding: 0.5em;
 }
 .buttonText {
   display: inline-flex;
@@ -72,6 +73,12 @@ code {
 }
 .blackFont {
   color: #000000;
+}
+.hamburger {
+  background-color: inherit;
+  color: inherit;
+  /* margin: 0; */
+  /* padding: 0; */
 }
 
 /* Background Color Classes */

@@ -12,17 +12,18 @@ import {
  } from '@material-ui/icons/';
 
 function HeaderBar() {
-  
   return (
     <div className="HeaderBar">
       <AppBar position="static">
-        <Toolbar class="darkGrey paddedText headerTitle flexContents">
-            <IconButton edge="start" color="inherit" aria-label="menu"><Menu/></IconButton>
-            Switchboard
-          <span class="alignRight">
+        <Toolbar class="darkGrey paddedText flexContents">
+          <IconButton color="inherit" aria-label="menu">
+              <Menu/>
+            </IconButton>
+            <span class="headerTitle">Switchboard</span>
+          <div class="alignRightFloat">
             <IconButton color="inherit"><Notifications /></IconButton>
             <IconButton color="inherit"><AccountCircle /></IconButton>
-          </span>     
+          </div>     
         </Toolbar>
         </AppBar>
     </div>
