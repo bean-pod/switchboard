@@ -29,51 +29,11 @@ import {
 } from '@material-ui/icons/';
 
 import PropTypes from "prop-types";
+import GenerateData from "./SampleData";
 // imports for material ui & etc
 
 // temporary row
-const rows =
-    [
-        [
-            createTemp(1, "Sender 1", "1:23:456:789", 0, "123:456", 480, ["one", "onee"]), // test green
-            createTemp(2, "Sender 2", "1:32:456:789", 1, "132:456", 480, ["two", "twoo"]), // test yellow
-            createTemp(3, "Sender 3", "1:42:356:789", 2, "142:456", 480, ["three", "threee"]), // test red
-            createTemp(4, "Sender 4", "1:52:356:789", 3, "152:456", 480, ["four", "fourr"]), // test grey
-            createTemp(1, "Sender 1", "1:23:456:789", 0, "123:456", 480, ["one", "onee"]), // test green
-            createTemp(2, "Sender 2", "1:32:456:789", 1, "132:456", 480, ["two", "twoo"]), // test yellow
-            createTemp(3, "Sender 3", "1:42:356:789", 2, "142:456", 480, ["three", "threee"]), // test red
-            createTemp(4, "Sender 4", "1:52:356:789", 3, "152:456", 480, ["four", "fourr"]), // test grey
-            createTemp(1, "Sender 1", "1:23:456:789", 0, "123:456", 480, ["one", "onee"]), // test green
-            createTemp(2, "Sender 2", "1:32:456:789", 1, "132:456", 480, ["two", "twoo"]), // test yellow
-            createTemp(3, "Sender 3", "1:42:356:789", 2, "142:456", 480, ["three", "threee"]), // test red
-            createTemp(4, "Sender 4", "1:52:356:789", 3, "152:456", 480, ["four", "fourr"]), // test grey
-            createTemp(1, "Sender 1", "1:23:456:789", 0, "123:456", 480, ["one", "onee"]), // test green
-            createTemp(2, "Sender 2", "1:32:456:789", 1, "132:456", 480, ["two", "twoo"]), // test yellow
-            createTemp(3, "Sender 3", "1:42:356:789", 2, "142:456", 480, ["three", "threee"]), // test red
-            createTemp(4, "Sender 4", "1:52:356:789", 3, "152:456", 480, ["four", "fourr"]), // test grey
-            createTemp(1, "Sender 1", "1:23:456:789", 0, "123:456", 480, ["one", "onee"]), // test green
-            createTemp(2, "Sender 2", "1:32:456:789", 1, "132:456", 480, ["two", "twoo"]), // test yellow
-            createTemp(3, "Sender 3", "1:42:356:789", 2, "142:456", 480, ["three", "threee"]), // test red
-            createTemp(4, "Sender 4", "1:52:356:789", 3, "152:456", 480, ["four", "fourr"]) // test grey
-        ],
-        [
-            createTemp(1, "Receiver 1", "1:23:456:789", 0, "123:456", 480, ["one", "onee"]), // test green
-            createTemp(2, "Receiver 2", "1:32:456:789", 1, "132:456", 480, ["two", "twoo"]), // test yellow
-            createTemp(3, "Receiver 3", "1:42:356:789", 2, "142:456", 480, ["three", "threee"]), // test red
-            createTemp(4, "Receiver 4", "1:52:356:789", 3, "152:456", 480, ["four", "fourr"]) // test grey
-        ]
-    ];
-function createTemp(id, name, mac, status, ip, port, extras) {
-    return {
-        "id": id,
-        "name": name,
-        "mac": mac,
-        "status": status,
-        "ip": ip,
-        "port": port,
-        "extras": extras
-    }
-}
+const rows = GenerateData();
 
 function getStatusStyle(status) {
     if (status == 0) {
