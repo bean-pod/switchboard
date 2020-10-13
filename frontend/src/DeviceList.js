@@ -19,7 +19,7 @@ import {
     IconButton
 } from "@material-ui/core"
 
-import{
+import {
     SwapHoriz,
     AddSharp,
     ExpandLess,
@@ -32,46 +32,46 @@ import PropTypes from "prop-types";
 // imports for material ui & etc
 
 // temporary row
-const rows = 
-[
+const rows =
     [
-    createTemp(1, "Sender 1", "1:23:456:789", 0, "123:456", 480, ["one", "onee"]), // test green
-    createTemp(2, "Sender 2", "1:32:456:789", 1, "132:456", 480, ["two", "twoo"]), // test yellow
-    createTemp(3, "Sender 3", "1:42:356:789", 2, "142:456", 480, ["three", "threee"]), // test red
-    createTemp(4, "Sender 4", "1:52:356:789", 3, "152:456", 480, ["four", "fourr"]), // test grey
-    createTemp(1, "Sender 1", "1:23:456:789", 0, "123:456", 480, ["one", "onee"]), // test green
-    createTemp(2, "Sender 2", "1:32:456:789", 1, "132:456", 480, ["two", "twoo"]), // test yellow
-    createTemp(3, "Sender 3", "1:42:356:789", 2, "142:456", 480, ["three", "threee"]), // test red
-    createTemp(4, "Sender 4", "1:52:356:789", 3, "152:456", 480, ["four", "fourr"]), // test grey
-    createTemp(1, "Sender 1", "1:23:456:789", 0, "123:456", 480, ["one", "onee"]), // test green
-    createTemp(2, "Sender 2", "1:32:456:789", 1, "132:456", 480, ["two", "twoo"]), // test yellow
-    createTemp(3, "Sender 3", "1:42:356:789", 2, "142:456", 480, ["three", "threee"]), // test red
-    createTemp(4, "Sender 4", "1:52:356:789", 3, "152:456", 480, ["four", "fourr"]), // test grey
-    createTemp(1, "Sender 1", "1:23:456:789", 0, "123:456", 480, ["one", "onee"]), // test green
-    createTemp(2, "Sender 2", "1:32:456:789", 1, "132:456", 480, ["two", "twoo"]), // test yellow
-    createTemp(3, "Sender 3", "1:42:356:789", 2, "142:456", 480, ["three", "threee"]), // test red
-    createTemp(4, "Sender 4", "1:52:356:789", 3, "152:456", 480, ["four", "fourr"]), // test grey
-    createTemp(1, "Sender 1", "1:23:456:789", 0, "123:456", 480, ["one", "onee"]), // test green
-    createTemp(2, "Sender 2", "1:32:456:789", 1, "132:456", 480, ["two", "twoo"]), // test yellow
-    createTemp(3, "Sender 3", "1:42:356:789", 2, "142:456", 480, ["three", "threee"]), // test red
-    createTemp(4, "Sender 4", "1:52:356:789", 3, "152:456", 480, ["four", "fourr"]) // test grey
-    ],
-    [
-        createTemp(1, "Receiver 1", "1:23:456:789", 0, "123:456", 480, ["one", "onee"]), // test green
-        createTemp(2, "Receiver 2", "1:32:456:789", 1, "132:456", 480, ["two", "twoo"]), // test yellow
-        createTemp(3, "Receiver 3", "1:42:356:789", 2, "142:456", 480, ["three", "threee"]), // test red
-        createTemp(4, "Receiver 4", "1:52:356:789", 3, "152:456", 480, ["four", "fourr"]) // test grey
-    ]
-];
+        [
+            createTemp(1, "Sender 1", "1:23:456:789", 0, "123:456", 480, ["one", "onee"]), // test green
+            createTemp(2, "Sender 2", "1:32:456:789", 1, "132:456", 480, ["two", "twoo"]), // test yellow
+            createTemp(3, "Sender 3", "1:42:356:789", 2, "142:456", 480, ["three", "threee"]), // test red
+            createTemp(4, "Sender 4", "1:52:356:789", 3, "152:456", 480, ["four", "fourr"]), // test grey
+            createTemp(1, "Sender 1", "1:23:456:789", 0, "123:456", 480, ["one", "onee"]), // test green
+            createTemp(2, "Sender 2", "1:32:456:789", 1, "132:456", 480, ["two", "twoo"]), // test yellow
+            createTemp(3, "Sender 3", "1:42:356:789", 2, "142:456", 480, ["three", "threee"]), // test red
+            createTemp(4, "Sender 4", "1:52:356:789", 3, "152:456", 480, ["four", "fourr"]), // test grey
+            createTemp(1, "Sender 1", "1:23:456:789", 0, "123:456", 480, ["one", "onee"]), // test green
+            createTemp(2, "Sender 2", "1:32:456:789", 1, "132:456", 480, ["two", "twoo"]), // test yellow
+            createTemp(3, "Sender 3", "1:42:356:789", 2, "142:456", 480, ["three", "threee"]), // test red
+            createTemp(4, "Sender 4", "1:52:356:789", 3, "152:456", 480, ["four", "fourr"]), // test grey
+            createTemp(1, "Sender 1", "1:23:456:789", 0, "123:456", 480, ["one", "onee"]), // test green
+            createTemp(2, "Sender 2", "1:32:456:789", 1, "132:456", 480, ["two", "twoo"]), // test yellow
+            createTemp(3, "Sender 3", "1:42:356:789", 2, "142:456", 480, ["three", "threee"]), // test red
+            createTemp(4, "Sender 4", "1:52:356:789", 3, "152:456", 480, ["four", "fourr"]), // test grey
+            createTemp(1, "Sender 1", "1:23:456:789", 0, "123:456", 480, ["one", "onee"]), // test green
+            createTemp(2, "Sender 2", "1:32:456:789", 1, "132:456", 480, ["two", "twoo"]), // test yellow
+            createTemp(3, "Sender 3", "1:42:356:789", 2, "142:456", 480, ["three", "threee"]), // test red
+            createTemp(4, "Sender 4", "1:52:356:789", 3, "152:456", 480, ["four", "fourr"]) // test grey
+        ],
+        [
+            createTemp(1, "Receiver 1", "1:23:456:789", 0, "123:456", 480, ["one", "onee"]), // test green
+            createTemp(2, "Receiver 2", "1:32:456:789", 1, "132:456", 480, ["two", "twoo"]), // test yellow
+            createTemp(3, "Receiver 3", "1:42:356:789", 2, "142:456", 480, ["three", "threee"]), // test red
+            createTemp(4, "Receiver 4", "1:52:356:789", 3, "152:456", 480, ["four", "fourr"]) // test grey
+        ]
+    ];
 function createTemp(id, name, mac, status, ip, port, extras) {
     return {
-        "id" : id,
-        "name" : name,
-        "mac" : mac,
-        "status" : status,
-        "ip" : ip,
+        "id": id,
+        "name": name,
+        "mac": mac,
+        "status": status,
+        "ip": ip,
         "port": port,
-        "extras" : extras
+        "extras": extras
     }
 }
 
@@ -129,18 +129,18 @@ function TitleBox() {
 // tabs. decide on sender or receiver table
 function ContentsTable() {
     const [value, setValue] = React.useState(0);
-  
+
     const handleChange = (event, newValue) => {
-      setValue(newValue);
+        setValue(newValue);
     };
     return (
         <React.Fragment>
             <AppBar position="static">
-                <Tabs class="lightGrey blackFont flexContents" 
-                //  variant="fullWidth"
-                 value={value}
-                 onChange={handleChange}
-                 aria-label="simple tabs">
+                <Tabs class="lightGrey blackFont flexContents"
+                    //  variant="fullWidth"
+                    value={value}
+                    onChange={handleChange}
+                    aria-label="simple tabs">
 
                     <LinkTab label="Senders" {...a11yProps(0)} />
                     <LinkTab label="Receivers" {...a11yProps(1)} />
@@ -162,7 +162,7 @@ function SingleTableRow(row) {
     return (
         <React.Fragment>
             <TableRow key={row.id}>
-                <TableCell style={{width: 1, padding: 0, paddingLeft: 5}}>
+                <TableCell style={{ width: 1, padding: 0, paddingLeft: 5 }}>
                     <IconButton onClick={() => setOpen(!open)}>
                         {open ? <ExpandMore /> : <ExpandLess />}
                     </IconButton>
@@ -194,9 +194,9 @@ function SingleTableRow(row) {
         </React.Fragment>
     );
 }
-function rowExtras(extras){
+function rowExtras(extras) {
     var extraStr = "";
-    for(var i = 0; i < extras.length; i++) {
+    for (var i = 0; i < extras.length; i++) {
         extraStr = extraStr + extras[i] + " ";
     }
     return extraStr;
@@ -207,41 +207,41 @@ function DevicesTable() {
     return (
         <React.Fragment>
             <Box>
-                <TableContainer style={{maxHeight: 500}}>
-                <Table stickyHeader>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell style={{width: 1, padding: 0, paddingLeft: 5}}></TableCell>
-                            <TableCell>Name
-                                <br /><input type="text" id="nameSearch"/>
-                            </TableCell>
-                            <TableCell>MAC Address
-                            <br /><input type="text" id="macSearch"/>
-                            </TableCell>
-                            <TableCell>Status
+                <TableContainer style={{ maxHeight: 500 }}>
+                    <Table stickyHeader>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell style={{ width: 1, padding: 0, paddingLeft: 5 }}></TableCell>
+                                <TableCell>Name
+                                <br /><input type="text" id="nameSearch" />
+                                </TableCell>
+                                <TableCell>MAC Address
+                            <br /><input type="text" id="macSearch" />
+                                </TableCell>
+                                <TableCell>Status
                             <br /><select id="statusSelect">
-                                <option></option>
-                                    <option>Online</option>
-                                    <option>Pending</option>
-                                    <option>Error</option>
-                                    <option>Offline</option>
-                                </select>
-                            </TableCell>
-                            <TableCell>IP Address
-                            <br /><input type="text" id="ipSearch"/>
-                            </TableCell>
-                            <TableCell>Port
-                            <br /><input type="text" id="portSearch"/>
-                            </TableCell>
-                            <TableCell align="center">Actions</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {data.map((row) => (
-                            SingleTableRow(row)
-                        ))}
-                    </TableBody>
-                </Table>
+                                        <option></option>
+                                        <option>Online</option>
+                                        <option>Pending</option>
+                                        <option>Error</option>
+                                        <option>Offline</option>
+                                    </select>
+                                </TableCell>
+                                <TableCell>IP Address
+                            <br /><input type="text" id="ipSearch" />
+                                </TableCell>
+                                <TableCell>Port
+                            <br /><input type="text" id="portSearch" />
+                                </TableCell>
+                                <TableCell align="center">Actions</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {data.map((row) => (
+                                SingleTableRow(row)
+                            ))}
+                        </TableBody>
+                    </Table>
                 </TableContainer>
             </Box>
         </React.Fragment>
@@ -261,54 +261,54 @@ function DeviceList() {
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
-  
+
     return (
-      <div
-        role="tabpanel"
-        hidden={value !== index}
-        id={`nav-tabpanel-${index}`}
-        aria-labelledby={`nav-tab-${index}`}
-        {...other}
-      >
-        {value === index && (
-          <Box p={3}>
-            <Typography>{children}</Typography>
-          </Box>
-        )}
-      </div>
+        <div
+            role="tabpanel"
+            hidden={value !== index}
+            id={`nav-tabpanel-${index}`}
+            aria-labelledby={`nav-tab-${index}`}
+            {...other}
+        >
+            {value === index && (
+                <Box p={3}>
+                    <Typography>{children}</Typography>
+                </Box>
+            )}
+        </div>
     );
-  }
-  
-  TabPanel.propTypes = {
+}
+
+TabPanel.propTypes = {
     children: PropTypes.node,
     index: PropTypes.any.isRequired,
     value: PropTypes.any.isRequired
-  };
-  
-  function a11yProps(index) {
+};
+
+function a11yProps(index) {
     return {
-      id: `nav-tab-${index}`,
-      "aria-controls": `nav-tabpanel-${index}`
+        id: `nav-tab-${index}`,
+        "aria-controls": `nav-tabpanel-${index}`
     };
-  }
-  
-  function LinkTab(props) {
+}
+
+function LinkTab(props) {
     return (
-      <Tab
-        component="a"
-        onClick={(event) => {
-          event.preventDefault();
-        }}
-        {...props}
-      />
+        <Tab
+            component="a"
+            onClick={(event) => {
+                event.preventDefault();
+            }}
+            {...props}
+        />
     );
-  }
-  
-  const useStyles = makeStyles((theme) => ({
+}
+
+const useStyles = makeStyles((theme) => ({
     root: {
-      flexGrow: 1,
-      backgroundColor: theme.palette.background.paper
+        flexGrow: 1,
+        backgroundColor: theme.palette.background.paper
     }
-  }));
-  
+}));
+
 export default DeviceList;
