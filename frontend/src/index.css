@@ -88,6 +88,23 @@ select {
   /* padding: 0; */
 }
 
+/* Scroll bar styling*/
+
+::-webkit-scrollbar{
+  width: 8px;
+}
+
+::-webkit-scrollbar-track{
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb{
+  opacity: 30%;
+  border-radius: 10px;
+  background-color: rgba(0,0,0,0.3);
+  
+}
+
 /* Background Color Classes */
 .darkGrey {
   background-color: #373737;
