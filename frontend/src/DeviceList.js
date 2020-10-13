@@ -6,6 +6,7 @@ import {
     Collapse,
     Container,
     makeStyles,
+    Menu,
     Tab,
     Tabs,
     Table,
@@ -140,16 +141,16 @@ function SingleTableRow(row) {
                 <TableCell>{row.ip}</TableCell>
                 <TableCell>{row.port}</TableCell>
                 <TableCell align="center">
-                    <IconButton>
-                        <MoreVert />
-                    </IconButton>
+                    <ActionMenu />
                 </TableCell>
             </TableRow>
             <TableRow>
                 <TableCell class="chevronText lightestGrey" colspan={7}>
                     <Collapse in={open} timeout="auto" unmountOnExit>
                         <Box margin={2}>
-                            Some extra info: {rowExtras(row.extras)}
+                            <Typography variant="caption">
+                                Some extra info: {rowExtras(row.extras)}
+                            </Typography>
                         </Box>
                     </Collapse>
                 </TableCell>
@@ -164,6 +165,36 @@ function rowExtras(extras) {
     }
     return extraStr;
 }
+function ActionMenu() {
+    // will need updating to function with individual devices
+    const [anchorEl, setAnchorEl] = React.useState(null);
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+    return (
+        <React.Fragment>
+            <IconButton aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+                <MoreVert />
+            </IconButton>
+            <Menu
+                id="simple-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+            >
+                <MenuItem onClick={handleClose}>View details</MenuItem>
+                <MenuItem onClick={handleClose}>Start stream with this as receiver</MenuItem>
+                <MenuItem onClick={handleClose}><span class="warningText">Delete</span></MenuItem>
+            </Menu>
+        </React.Fragment>
+    );
+}
 
 function DevicesTable() {
     var data = rows[arguments[0]];
@@ -176,31 +207,31 @@ function DevicesTable() {
                             <TableRow>
                                 <TableCell style={{ width: 1, padding: 0, paddingLeft: 5 }}></TableCell>
                                 <TableCell>
-                                <Typography variant= "caption"> Name</Typography>
-                                    <TextField variant= "outlined" id= "nameSearch"  size ="small"/>
+                                    <Typography variant="caption">Name</Typography>
+                                    <TextField variant="outlined" id="nameSearch" size="small" />
                                 </TableCell>
                                 <TableCell>
-                                <Typography variant= "caption"> MAC Address</Typography>
-                                    <TextField variant= "outlined" id= "macSearch"  size ="small"/>
+                                    <Typography variant="caption">MAC Address</Typography>
+                                    <TextField variant="outlined" id="macSearch" size="small" />
                                 </TableCell>
-                               <TableCell>
-                                    <Typography variant= "caption"> Status</Typography>
-                                    <Select variant= "outlined" id="statusSelect" fullWidth="true" >
-                                        <MenuItem dense = "true"  value={"Online"}> <Typography variant= "caption">Online</Typography></MenuItem>
-                                        <MenuItem dense = "true" value={"Pending"}> <Typography variant= "caption">Pending</Typography></MenuItem>
-                                        <MenuItem dense = "true" value={"Error"}>   <Typography variant= "caption">Error</Typography></MenuItem>
-                                        <MenuItem dense = "true" value={"Offline"}> <Typography variant= "caption">Offline</Typography></MenuItem>
+                                <TableCell>
+                                    <Typography variant="caption">Status</Typography>
+                                    <Select variant="outlined" id="statusSelect" fullWidth="true" >
+                                        <MenuItem dense="true" value={"Online"}> <Typography variant="caption">Online</Typography></MenuItem>
+                                        <MenuItem dense="true" value={"Pending"}> <Typography variant="caption">Pending</Typography></MenuItem>
+                                        <MenuItem dense="true" value={"Error"}>   <Typography variant="caption">Error</Typography></MenuItem>
+                                        <MenuItem dense="true" value={"Offline"}> <Typography variant="caption">Offline</Typography></MenuItem>
                                     </Select>
                                 </TableCell>
                                 <TableCell>
-                                <Typography variant= "caption"> IP Address</Typography>
-                                    <TextField variant= "outlined" multiline="false" margin="dense" size ="small" id= "ipSearch" />
+                                    <Typography variant="caption">IP Address</Typography>
+                                    <TextField variant="outlined" multiline="false" margin="dense" size="small" id="ipSearch" />
                                 </TableCell>
                                 <TableCell>
-                                <Typography variant= "caption"> Port</Typography>
-                                    <TextField variant= "outlined" id= "portSearch" size ="small"/>
+                                    <Typography variant="caption">Port</Typography>
+                                    <TextField variant="outlined" id="portSearch" size="small" />
                                 </TableCell>
-                                <TableCell align="center"><Typography variant= "caption"> Actions</Typography></TableCell>
+                                <TableCell align="center"><Typography variant="caption">Actions</Typography></TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -224,7 +255,6 @@ function DeviceList() {
         </Container>
     );
 }
-
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
