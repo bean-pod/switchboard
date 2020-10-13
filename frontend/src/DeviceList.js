@@ -185,11 +185,11 @@ function DevicesTable() {
                                 </TableCell>
                                <TableCell>
                                     <Typography variant= "caption"> Status</Typography>
-                                    <Select variant= "outlined" id="statusSelect"  autoWidth="true" >
+                                    <Select variant= "outlined" id="statusSelect" fullWidth="true" >
                                         <MenuItem dense = "true"  value={"Online"}> <Typography variant= "caption">Online</Typography></MenuItem>
-                                        <MenuItem dense = "true" value={"Pending"}><Typography variant= "caption">Pending</Typography></MenuItem>
-                                        <MenuItem dense = "true" value={"Error"}><Typography variant= "caption">Error</Typography></MenuItem>
-                                        <MenuItem dense = "true" value={"Offline"}><Typography variant= "caption">Offline</Typography></MenuItem>
+                                        <MenuItem dense = "true" value={"Pending"}> <Typography variant= "caption">Pending</Typography></MenuItem>
+                                        <MenuItem dense = "true" value={"Error"}>   <Typography variant= "caption">Error</Typography></MenuItem>
+                                        <MenuItem dense = "true" value={"Offline"}> <Typography variant= "caption">Offline</Typography></MenuItem>
                                     </Select>
                                 </TableCell>
                                 <TableCell>
