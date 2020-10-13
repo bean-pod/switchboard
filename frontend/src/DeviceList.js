@@ -12,6 +12,7 @@ import {
     TableHead,
     TableRow,
     TableCell,
+    TableContainer,
     TableBody,
     TableSortLabel,
     Typography,
@@ -34,6 +35,22 @@ import PropTypes from "prop-types";
 const rows = 
 [
     [
+    createTemp(1, "Sender 1", "1:23:456:789", 0, "123:456", 480, ["one", "onee"]), // test green
+    createTemp(2, "Sender 2", "1:32:456:789", 1, "132:456", 480, ["two", "twoo"]), // test yellow
+    createTemp(3, "Sender 3", "1:42:356:789", 2, "142:456", 480, ["three", "threee"]), // test red
+    createTemp(4, "Sender 4", "1:52:356:789", 3, "152:456", 480, ["four", "fourr"]), // test grey
+    createTemp(1, "Sender 1", "1:23:456:789", 0, "123:456", 480, ["one", "onee"]), // test green
+    createTemp(2, "Sender 2", "1:32:456:789", 1, "132:456", 480, ["two", "twoo"]), // test yellow
+    createTemp(3, "Sender 3", "1:42:356:789", 2, "142:456", 480, ["three", "threee"]), // test red
+    createTemp(4, "Sender 4", "1:52:356:789", 3, "152:456", 480, ["four", "fourr"]), // test grey
+    createTemp(1, "Sender 1", "1:23:456:789", 0, "123:456", 480, ["one", "onee"]), // test green
+    createTemp(2, "Sender 2", "1:32:456:789", 1, "132:456", 480, ["two", "twoo"]), // test yellow
+    createTemp(3, "Sender 3", "1:42:356:789", 2, "142:456", 480, ["three", "threee"]), // test red
+    createTemp(4, "Sender 4", "1:52:356:789", 3, "152:456", 480, ["four", "fourr"]), // test grey
+    createTemp(1, "Sender 1", "1:23:456:789", 0, "123:456", 480, ["one", "onee"]), // test green
+    createTemp(2, "Sender 2", "1:32:456:789", 1, "132:456", 480, ["two", "twoo"]), // test yellow
+    createTemp(3, "Sender 3", "1:42:356:789", 2, "142:456", 480, ["three", "threee"]), // test red
+    createTemp(4, "Sender 4", "1:52:356:789", 3, "152:456", 480, ["four", "fourr"]), // test grey
     createTemp(1, "Sender 1", "1:23:456:789", 0, "123:456", 480, ["one", "onee"]), // test green
     createTemp(2, "Sender 2", "1:32:456:789", 1, "132:456", 480, ["two", "twoo"]), // test yellow
     createTemp(3, "Sender 3", "1:42:356:789", 2, "142:456", 480, ["three", "threee"]), // test red
@@ -190,6 +207,7 @@ function DevicesTable() {
     return (
         <React.Fragment>
             <Box>
+                <TableContainer style={{maxHeight: 500}}>
                 <Table stickyHeader>
                     <TableHead>
                         <TableRow>
@@ -224,6 +242,7 @@ function DevicesTable() {
                         ))}
                     </TableBody>
                 </Table>
+                </TableContainer>
             </Box>
         </React.Fragment>
     );
