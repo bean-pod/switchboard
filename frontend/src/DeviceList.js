@@ -119,8 +119,8 @@ function ContentsTable() {
     return (
         <React.Fragment>
             <AppBar position="static">
-                <Tabs class="darkGrey" 
-                 variant="fullWidth"
+                <Tabs class="lightGrey blackFont flexContents" 
+                //  variant="fullWidth"
                  value={value}
                  onChange={handleChange}
                  aria-label="simple tabs">
@@ -186,7 +186,6 @@ function rowExtras(extras){
 }
 
 function DevicesTable() {
-   
     var data = rows[arguments[0]];
     return (
         <React.Fragment>
