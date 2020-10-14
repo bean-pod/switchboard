@@ -12,6 +12,7 @@ import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
@@ -21,8 +22,9 @@ import java.util.Optional;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
-@RestController
 @Slf4j
+@RestController
+@RequestMapping
 public class EncoderController {
     @Autowired
     EncoderDaoImpl encoderService;
@@ -30,12 +32,12 @@ public class EncoderController {
     @Autowired
     DeviceDaoImpl deviceService;
 
-    @GetMapping("/encoder")
+    @GetMapping
     public List<EncoderEntity> retrieveAllEncoders() {
         return encoderService.getEncoders();
     }
 
-    @GetMapping("/encoder/{serialNumber}")
+    @GetMapping("/{serialNumber}")
     public EntityModel<EncoderEntity> retrieveDevice(@PathVariable @Valid String serialNumber) {
 
         Optional<EncoderEntity> encoder = encoderService.findEncoder(serialNumber);
@@ -50,7 +52,7 @@ public class EncoderController {
         return resource;
     }
 
-    @PostMapping("/encoder")
+    @PostMapping
     public ResponseEntity createEncoder(@RequestBody @Valid EncoderEntity encoderEntity) {
         Optional<DeviceEntity> deviceOptional = deviceService.findDevice(encoderEntity.getSerialNumber());
 
@@ -64,7 +66,7 @@ public class EncoderController {
         return ResponseEntity.created(location).build();
     }
 
-    @DeleteMapping("/encoder/{serialNumber}")
+    @DeleteMapping("/{serialNumber}")
     @Transactional
     public ResponseEntity deleteEncoder(@PathVariable String serialNumber){
         long response = encoderService.deleteEncoder(serialNumber);

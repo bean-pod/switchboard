@@ -22,6 +22,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
+@RequestMapping("/decoder")
 public class DecoderController {
 
     @Autowired
@@ -30,12 +31,12 @@ public class DecoderController {
     @Autowired
     DeviceDaoImpl deviceService;
 
-    @GetMapping("/decoder")
+    @GetMapping
     public List<DecoderEntity> retrieveAllDecoders() {
         return decoderService.getDecoders();
     }
 
-    @GetMapping("/decoder/{serialNumber}")
+    @GetMapping("/{serialNumber}")
     public EntityModel<DecoderEntity> retrieveDecoder(@PathVariable @Valid String serialNumber) {
 
         Optional<DecoderEntity> decoder = decoderService.findDecoder(serialNumber);
@@ -50,7 +51,7 @@ public class DecoderController {
         return resource;
     }
 
-    @PostMapping("/decoder")
+    @PostMapping
     public ResponseEntity createDecoder(@RequestBody @Valid DecoderEntity decoderEntity) {
         Optional<DeviceEntity> deviceOptional = deviceService.findDevice(decoderEntity.getSerialNumber());
 
@@ -66,7 +67,7 @@ public class DecoderController {
         return ResponseEntity.created(location).build();
     }
 
-    @DeleteMapping("/decoder/{serialNumber}")
+    @DeleteMapping("/{serialNumber}")
     @Transactional
     public ResponseEntity deleteDecoder(@PathVariable String serialNumber){
         Long response = decoderService.deleteDecoder(serialNumber);

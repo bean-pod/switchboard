@@ -22,17 +22,18 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Slf4j
 @RestController
+@RequestMapping("/device")
 public class DeviceController {
 
     @Autowired
     DeviceDaoImpl service;
 
-    @GetMapping("/device")
+    @GetMapping
     public List<DeviceEntity> retrieveAllDevices() {
         return service.getDevices();
     }
 
-    @GetMapping("/device/{serialNumber}")
+    @GetMapping("/{serialNumber}")
     public EntityModel<DeviceEntity> retrieveDevice(@PathVariable @Valid String serialNumber) {
 
         Optional<DeviceEntity> device = service.findDevice(serialNumber);
@@ -46,7 +47,7 @@ public class DeviceController {
         return resource;
     }
 
-    @PostMapping("/device")
+    @PostMapping
     public ResponseEntity createDevice(@RequestBody @Valid DeviceEntity device) {
 
         Optional<DeviceEntity> deviceLookup = service.findDevice(device.getSerialNumber());
@@ -59,7 +60,7 @@ public class DeviceController {
         return ResponseEntity.created(location).build();
     }
 
-    @DeleteMapping("/device/{serialNumber}")
+    @DeleteMapping("/{serialNumber}")
     @Transactional
     public ResponseEntity deleteDevice(@PathVariable String serialNumber) {
         Long response = service.deleteDevice(serialNumber);
@@ -69,7 +70,7 @@ public class DeviceController {
         return ResponseEntity.ok("Device with serial number " + serialNumber + " Deleted");
     }
 
-    @PutMapping("/device/{serialNumber}")
+    @PutMapping("/{serialNumber}")
     @Transactional
     public ResponseEntity updateDevice(@PathVariable String serialNumber, @RequestBody DeviceEntity device) {
         if (!serialNumber.equals(device.getSerialNumber())) {
