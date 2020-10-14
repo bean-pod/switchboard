@@ -34,6 +34,7 @@ import {
 
 import PropTypes from "prop-types";
 import GenerateData from "./SampleData";
+import generateHeadCells from "./headCells";
 // imports for material ui & etc
 
 // temporary row
@@ -206,31 +207,7 @@ function DevicesTable() {
                         <TableHead>
                             <TableRow>
                                 <TableCell style={{ width: 1, padding: 0, paddingLeft: 5 }}></TableCell>
-                                <TableCell>
-                                    <Typography variant="caption">Name</Typography>
-                                    <TextField variant="outlined" id="nameSearch" size="small" />
-                                </TableCell>
-                                <TableCell>
-                                    <Typography variant="caption">MAC Address</Typography>
-                                    <TextField variant="outlined" id="macSearch" size="small" />
-                                </TableCell>
-                                <TableCell>
-                                    <Typography variant="caption">Status</Typography>
-                                    <Select variant="outlined" id="statusSelect" fullWidth="true" >
-                                        <MenuItem dense="true" value={"Online"}> <Typography variant="caption">Online</Typography></MenuItem>
-                                        <MenuItem dense="true" value={"Pending"}> <Typography variant="caption">Pending</Typography></MenuItem>
-                                        <MenuItem dense="true" value={"Error"}>   <Typography variant="caption">Error</Typography></MenuItem>
-                                        <MenuItem dense="true" value={"Offline"}> <Typography variant="caption">Offline</Typography></MenuItem>
-                                    </Select>
-                                </TableCell>
-                                <TableCell>
-                                    <Typography variant="caption">IP Address</Typography>
-                                    <TextField variant="outlined" multiline="false" margin="dense" size="small" id="ipSearch" />
-                                </TableCell>
-                                <TableCell>
-                                    <Typography variant="caption">Port</Typography>
-                                    <TextField variant="outlined" id="portSearch" size="small" />
-                                </TableCell>
+                                {generateHeadCells()}
                                 <TableCell align="center"><Typography variant="caption">Actions</Typography></TableCell>
                             </TableRow>
                         </TableHead>
