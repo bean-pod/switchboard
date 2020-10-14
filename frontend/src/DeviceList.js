@@ -36,6 +36,8 @@ import PropTypes from "prop-types";
 import GenerateData from "./SampleData";
 import generateHeadCells from "./headCells";
 import ActionMenu from "./ActionMenu";
+import SearchBar from "./devListSearch";
+
 // imports for material ui & etc
 
 // temporary row
@@ -110,7 +112,10 @@ function ContentsTable() {
 
                     <LinkTab label="Senders" {...a11yProps(0)} />
                     <LinkTab label="Receivers" {...a11yProps(1)} />
+                    <Tab disabled></Tab>
+                    {SearchBar()}
                 </Tabs>
+
             </AppBar>
             <TabPanel value={value} index={0}>
                 {DevicesTable(0)}
