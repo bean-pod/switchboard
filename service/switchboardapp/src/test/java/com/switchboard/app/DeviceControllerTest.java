@@ -2,6 +2,7 @@ package com.switchboard.app;
 
 import com.switchboard.app.controller.DeviceController;
 import com.switchboard.app.dao.DeviceDaoImpl;
+import com.switchboard.app.domain.DecoderEntity;
 import com.switchboard.app.domain.DeviceEntity;
 import com.switchboard.app.domain.EncoderEntity;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,8 +14,8 @@ import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertIterableEquals;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 public class DeviceControllerTest {
@@ -49,5 +50,16 @@ public class DeviceControllerTest {
 
         assertFalse(allDevices.isEmpty(),"allDevices list is empty."); //check if an empty list was returned
         assertIterableEquals(listOfDevices, allDevices,"listOfDevices and allDevices lists are not equal."); //check both lists contents
+    }
+
+    //When a device is available in the DB
+    @Test
+    final void testRetrieveDevice(){
+        when(deviceService.findDevice("1")).thenReturn(java.util.Optional.of(device1));
+
+        DeviceEntity actualDevice = deviceController.retrieveDevice("1").getContent();
+
+        assertNotNull(actualDevice, "actualDevice object is null.");
+        assertEquals(device1, actualDevice, "expectedDevice and actualDevice objects are not equal.");
     }
 }
