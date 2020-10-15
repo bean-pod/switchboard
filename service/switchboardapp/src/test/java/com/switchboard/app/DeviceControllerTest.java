@@ -80,6 +80,16 @@ public class DeviceControllerTest {
 
     //When a device is unavailable in the DB
     @Test
+    final void testCreateDevice(){
+        when(deviceService.findDevice("1")).thenReturn(java.util.Optional.of(device1));
+
+        assertThrows(DeviceAlreadyExistsException.class, () -> {
+            deviceController.createDevice(device1);
+        }, "DeviceAlreadyExistsException should have been thrown.");
+    }
+
+    //When a device is unavailable in the DB
+    @Test
     final void testCreateDeviceEmpty() {
         when(deviceService.save(device1)).thenReturn(device1);
 
