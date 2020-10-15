@@ -1,7 +1,7 @@
 package com.switchboard.app.controller;
 
 import com.switchboard.app.dao.DeviceDaoImpl;
-import com.switchboard.app.domain.DeviceEntity;
+import com.switchboard.app.entity.DeviceEntity;
 import com.switchboard.app.exceptions.BRSException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

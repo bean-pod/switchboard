@@ -1,4 +1,4 @@
-package com.switchboard.app.domain;
+package com.switchboard.app.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
@@ -8,13 +8,12 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-@Entity(name = "Decoder")
+@Entity(name = "Encoder")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyIntializer", "handler"})
-
-public class DecoderEntity {
+public class EncoderEntity {
 
     @Id
     @NotNull

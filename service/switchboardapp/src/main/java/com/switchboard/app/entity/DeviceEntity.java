@@ -1,4 +1,4 @@
-package com.switchboard.app.domain;
+package com.switchboard.app.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;

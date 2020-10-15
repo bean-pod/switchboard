@@ -2,8 +2,8 @@ package com.switchboard.app.controller;
 
 import com.switchboard.app.dao.DecoderDaoImpl;
 import com.switchboard.app.dao.DeviceDaoImpl;
-import com.switchboard.app.domain.DecoderEntity;
-import com.switchboard.app.domain.DeviceEntity;
+import com.switchboard.app.entity.DecoderEntity;
+import com.switchboard.app.entity.DeviceEntity;
 import com.switchboard.app.exceptions.BRSException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;

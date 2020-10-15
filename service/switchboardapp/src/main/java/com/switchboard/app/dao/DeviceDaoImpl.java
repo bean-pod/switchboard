@@ -1,6 +1,6 @@
 package com.switchboard.app.dao;
 
-import com.switchboard.app.domain.DeviceEntity;
+import com.switchboard.app.entity.DeviceEntity;
 import com.switchboard.app.repository.DeviceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
