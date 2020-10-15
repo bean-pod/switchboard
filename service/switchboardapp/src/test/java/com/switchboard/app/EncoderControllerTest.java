@@ -19,6 +19,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -100,5 +101,13 @@ public class EncoderControllerTest {
 
         assertEquals(201, response.getStatusCodeValue(), "The status code is not 201.");
         assertEquals(response.getHeaders().get("Location").get(0), "http://localhost/1", "The returned location is incorrect.");
+    }
+
+    //When a device is unavailable in the DB
+    @Test
+    final void testCreateEncoderEmpty(){
+        assertThrows(NoSuchElementException.class, () -> {
+            encoderController.createEncoder(encoder1);
+        }, "NoSuchElementException should have been thrown.");
     }
 }
