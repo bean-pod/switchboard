@@ -1,6 +1,8 @@
 package com.switchboard.app.controller;
 
 import com.switchboard.app.dao.DeviceDaoImpl;
+import com.switchboard.app.dto.DeviceDTO;
+import com.switchboard.app.dto.mapper.DeviceMapper;
 import com.switchboard.app.entity.DeviceEntity;
 import com.switchboard.app.exceptions.BRSException;
 import lombok.extern.slf4j.Slf4j;
@@ -28,23 +30,26 @@ public class DeviceController {
     @Autowired
     DeviceDaoImpl service;
 
+    @Autowired
+    DeviceMapper deviceMapper;
+
     @GetMapping
-    public List<DeviceEntity> retrieveAllDevices() {
-        return service.getDevices();
+    public List<DeviceDTO> retrieveAllDevices() {
+        return(deviceMapper.toDeviceDTOs(service.getDevices()));
     }
 
     @GetMapping("/{serialNumber}")
-    public EntityModel<DeviceEntity> retrieveDevice(@PathVariable @Valid String serialNumber) {
+    public ResponseEntity<EntityModel <DeviceDTO>> retrieveDevice(@PathVariable @Valid String serialNumber) {
 
         Optional<DeviceEntity> device = service.findDevice(serialNumber);
         if (device.isEmpty()) {
             throw new BRSException.DeviceNotFoundException("serial number-" + serialNumber);
         }
-
-        EntityModel<DeviceEntity> resource = EntityModel.of(device.get());
+        EntityModel<DeviceDTO> resource = EntityModel.of(deviceMapper.toDeviceDTO(device.get()));
         WebMvcLinkBuilder linkTo = linkTo(methodOn(this.getClass()).retrieveAllDevices());
         resource.add(linkTo.withRel("all-devices"));
-        return resource;
+        return ResponseEntity.ok(resource);
+
     }
 
     @PostMapping
