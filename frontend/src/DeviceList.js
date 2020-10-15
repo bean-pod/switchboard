@@ -113,7 +113,14 @@ function ContentsTable() {
                     <LinkTab label="Senders" {...a11yProps(0)} />
                     <LinkTab label="Receivers" {...a11yProps(1)} />
                     <Tab disabled></Tab>
-                    {SearchBar()}
+                    <Tab disabled></Tab>
+                        {SearchBar()}
+                    <Box>
+                        <Typography variant="caption" class="paddedText">Sort By</Typography> 
+                        <Select variant="outlined" id="sortBy" fullWidth="true" >
+
+                        </Select>
+                    </Box>
                 </Tabs>
 
             </AppBar>
