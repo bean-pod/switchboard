@@ -5,15 +5,21 @@ import com.switchboard.app.dao.DeviceDaoImpl;
 import com.switchboard.app.domain.DecoderEntity;
 import com.switchboard.app.domain.DeviceEntity;
 import com.switchboard.app.domain.EncoderEntity;
+import com.switchboard.app.exceptions.DeviceAlreadyExistsException;
 import com.switchboard.app.exceptions.DeviceNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.ResponseEntity;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -70,5 +76,21 @@ public class DeviceControllerTest {
         assertThrows(DeviceNotFoundException.class, () -> {
             deviceController.retrieveDevice("NotAvailable");
         }, "DeviceNotFoundException exception should have been thrown.");
+    }
+
+    //When a device is unavailable in the DB
+    @Test
+    final void testCreateDeviceEmpty() {
+        when(deviceService.save(device1)).thenReturn(device1);
+
+        //mock a request
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
+
+        //request response
+        ResponseEntity response = deviceController.createDevice(device1);
+
+        assertEquals(201, response.getStatusCodeValue(), "The status code is not 201.");
+        assertEquals(response.getHeaders().get("Location").get(0), "http://localhost/1", "The returned location is incorrect.");
     }
 }
