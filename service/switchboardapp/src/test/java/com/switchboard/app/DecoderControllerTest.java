@@ -20,6 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -88,9 +89,10 @@ public class DecoderControllerTest {
         }, "DeviceNotFoundException exception should have been thrown.");
     }
 
+    //When a device is available in the DB
     @Test
     final void testCreateDecoder() throws URISyntaxException {
-        when(deviceService.findDevice("1")).thenReturn(java.util.Optional.of(device1));
+        when(deviceService.findDevice("2")).thenReturn(java.util.Optional.of(device1));
         when(decoderService.save(decoder1)).thenReturn(decoder1);
 
         //mock a request
@@ -102,5 +104,13 @@ public class DecoderControllerTest {
 
         assertEquals(201, response.getStatusCodeValue(), "The status code is not 201.");
         assertEquals(response.getHeaders().get("Location").get(0), "http://localhost/1", "The returned location is incorrect.");
+    }
+
+    //When a device is unavailable in the DB
+    @Test
+    final void testCreateDecoderEmpty(){
+        assertThrows(NoSuchElementException.class, () -> {
+            decoderController.createDecoder(decoder1);
+        }, "NoSuchElementException should have been thrown.");
     }
 }
