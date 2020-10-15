@@ -71,4 +71,12 @@ public class EncoderControllerTest {
         assertNotNull(actualEncoder, "actualEncoder object is null.");
         assertEquals(encoder1, actualEncoder, "expectedEncoder and actualEncoder objects are not equal.");
     }
+
+    //When a encoder is unavailable in the DB
+    @Test
+    final void testRetrieveEncoderEmpty(){
+        assertThrows(DeviceNotFoundException.class, () -> {
+            encoderController.retrieveDevice("NotAvailable");
+        }, "DeviceNotFoundException exception should have been thrown.");
+    }
 }
