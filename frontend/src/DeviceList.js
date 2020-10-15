@@ -29,7 +29,8 @@ import {
     ExpandLess,
     ExpandMore,
     Search,
-    MoreVert
+    MoreVert,
+    FilterNone
 } from '@material-ui/icons/';
 
 import PropTypes from "prop-types";
@@ -37,6 +38,7 @@ import GenerateData from "./SampleData";
 import generateHeadCells from "./headCells";
 import ActionMenu from "./ActionMenu";
 import SearchBar from "./devListSearch";
+import DeviceListTabs from "./DeviceListTabs";
 
 // imports for material ui & etc
 
@@ -96,6 +98,7 @@ function TitleBox() {
 
 // tabs. decide on sender or receiver table
 function ContentsTable() {
+    const classes = useStyles();
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event, newValue) => {
@@ -103,27 +106,7 @@ function ContentsTable() {
     };
     return (
         <React.Fragment>
-            <AppBar position="static">
-                <Tabs class="lightGrey blackFont flexContents"
-                    //  variant="fullWidth"
-                    value={value}
-                    onChange={handleChange}
-                    aria-label="simple tabs">
-
-                    <LinkTab label="Senders" {...a11yProps(0)} />
-                    <LinkTab label="Receivers" {...a11yProps(1)} />
-                    <Tab disabled></Tab>
-                    <Tab disabled></Tab>
-                        {SearchBar()}
-                    <Box>
-                        <Typography variant="caption" class="paddedText">Sort By</Typography> 
-                        <Select variant="outlined" id="sortBy" fullWidth="true" >
-
-                        </Select>
-                    </Box>
-                </Tabs>
-
-            </AppBar>
+            {DeviceListTabs(classes, [value, setValue])}
             <TabPanel value={value} index={0}>
                 {DevicesTable(0)}
             </TabPanel>
@@ -219,23 +202,23 @@ function DeviceList() {
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
-
+  
     return (
-        <div
-            role="tabpanel"
-            hidden={value !== index}
-            id={`nav-tabpanel-${index}`}
-            aria-labelledby={`nav-tab-${index}`}
-            {...other}
-        >
-            {value === index && (
-                <Box p={3}>
-                    <Typography>{children}</Typography>
-                </Box>
-            )}
-        </div>
+      <div
+        role="tabpanel"
+        hidden={value !== index}
+        id={`vertical-tabpanel-${index}`}
+        aria-labelledby={`vertical-tab-${index}`}
+        {...other}
+      >
+        {value === index && (
+          <Box p={3}>
+            <Typography>{children}</Typography>
+          </Box>
+        )}
+      </div>
     );
-}
+  }
 
 TabPanel.propTypes = {
     children: PropTypes.node,
@@ -245,28 +228,19 @@ TabPanel.propTypes = {
 
 function a11yProps(index) {
     return {
-        id: `nav-tab-${index}`,
-        "aria-controls": `nav-tabpanel-${index}`
+        id: `vertical-tab-${index}`,
+        'aria-controls': `vertical-tabpanel-${index}`,
     };
-}
-
-function LinkTab(props) {
-    return (
-        <Tab
-            component="a"
-            onClick={(event) => {
-                event.preventDefault();
-            }}
-            {...props}
-        />
-    );
 }
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        flexGrow: 1,
+        // flexGrow: 1,
         backgroundColor: theme.palette.background.paper
-    }
+    },
+    tabs: {
+        borderRight: `1px solid ${theme.palette.divider}`,
+      },
 }));
 
 export default DeviceList;
