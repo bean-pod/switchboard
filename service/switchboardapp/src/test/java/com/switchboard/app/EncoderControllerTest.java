@@ -11,7 +11,12 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.ResponseEntity;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,5 +83,22 @@ public class EncoderControllerTest {
         assertThrows(DeviceNotFoundException.class, () -> {
             encoderController.retrieveDevice("NotAvailable");
         }, "DeviceNotFoundException exception should have been thrown.");
+    }
+
+    //When a device is available in the DB
+    @Test
+    final void testCreateEncoder(){
+        when(deviceService.findDevice("1")).thenReturn(java.util.Optional.of(device1));
+        when(encoderService.save(encoder1)).thenReturn(encoder1);
+
+        //mock a request
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
+
+        //request response
+        ResponseEntity response = encoderController.createEncoder(encoder1);
+
+        assertEquals(201, response.getStatusCodeValue(), "The status code is not 201.");
+        assertEquals(response.getHeaders().get("Location").get(0), "http://localhost/1", "The returned location is incorrect.");
     }
 }
