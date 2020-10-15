@@ -5,8 +5,6 @@ info:
   description: 'API for the switchboard service'
 
 servers:
-  - url: https://placeholder.com/v1/
-    description: Test environment
   - url: http://localhost:8080/v1
     description: Local Enviorment
 
@@ -23,8 +21,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Device'
-
+                $ref: '#/components/schemas/DevicesModel'
     post:
       operationId: createDevice
       description: Create a new device
@@ -35,11 +32,10 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Device'
+              $ref: '#/components/schemas/DeviceModel'
       responses:
         '200':
           description: Successful creation of device
-
 
   /encoder:
     get:
@@ -53,7 +49,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Encoder'
+                $ref: '#/components/schemas/EncodersModel'
     post:
       operationId: createEncoder
       description: Create a new encoder client
@@ -83,7 +79,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Encoder'
+                $ref: '#/components/schemas/EncoderModel'
     put:
       operationId: updateEncoder
       description: Update a encoder's definition
@@ -96,7 +92,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Encoder'
+              $ref: '#/components/schemas/EncoderModel'
       responses:
         '200':
           description: Successful update of the Encoder
@@ -123,7 +119,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Decoder'
+                $ref: '#/components/schemas/DecodersModel'
     post:
       operationId: createDecoder
       description: Create a new decoder client
@@ -139,7 +135,7 @@ paths:
         '200':
           description: Successful creation of the decoder
 
-  /Decoders/{uuid}:
+  /decoders/{uuid}:
     get:
       operationId: getDecoderById
       description: Retrieve a specific decoder
@@ -153,7 +149,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Decoder'
+                $ref: '#/components/schemas/DecoderModel'
     put:
       operationId: updateDecoder
       description: Update a decoder's definition
@@ -166,7 +162,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Decoder'
+              $ref: '#/components/schemas/DecoderModel'
       responses:
         '200':
           description: Successful update of the decoder
@@ -183,7 +179,14 @@ paths:
 
 components:
   schemas:
-    Device:
+    DevicesModel:
+      description: A list of device serial numbers
+      type: array
+      items:
+        type: 'string'
+      example: ['BtmC8ckj']
+
+    DeviceModel:
       description: A device thats either an  encoder or decoder
       properties:
         serialNumber:
@@ -196,21 +199,21 @@ components:
           type: string
           example: 'running'
 
-    EncoderUuids:
+    EncodersModel:
       description: A list of UUIDs
       type: array
       items:
         type: string
       example: ['0e4e430f-8b9c-47da-b9af-7ef9cfb13e9e']
 
-    Encoder:
+    EncoderModel:
       description: A client that sends a video stream
       properties:
         serialNumber:
           type: string
           example: 'BtmC8ckj'
         device:
-          $ref:  '#/components/schemas/Device'
+          $ref:  '#/components/schemas/DeviceModel'
 
     CreateEncoderRequest:
       description: A client that sends a video stream
@@ -219,21 +222,21 @@ components:
           type: string
           example: 'BtmC8ckj'
 
-    DecoderUuids:
+    DecodersModel:
       description: A list of decoder UUIDs
       type: array
       items:
         type: string
       example: ['1ea52153-c196-4cc6-8d9f-714248abf31c']
 
-    Decoder:
+    DecoderModel:
       description: A client that receives a video stream
       properties:
         serialNumber:
           type: string
           example: 'v7BM3ejS'
         device:
-          $ref:  '#/components/schemas/Device'
+          $ref:  '#/components/schemas/DeviceModel'
 
     CreateDecoderRequest:
       description: Body for the creation of a decoder object
