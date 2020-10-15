@@ -4,6 +4,7 @@ import com.switchboard.app.controller.DecoderController;
 import com.switchboard.app.dao.DecoderDaoImpl;
 import com.switchboard.app.domain.DecoderEntity;
 import com.switchboard.app.domain.DeviceEntity;
+import com.switchboard.app.exceptions.DeviceNotFoundException;
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -46,9 +47,31 @@ public class DecoderControllerTest {
 
         when(decoderService.getDecoders()).thenReturn(listOfDecoders);
 
-        List allDecoders = decoderController.retrieveAllDecoders(); //
+        List allDecoders = decoderController.retrieveAllDecoders();
 
-        assertFalse(allDecoders.isEmpty()); //check if an empty list was returned
-        assertIterableEquals(allDecoders, listOfDecoders); //check both lists contents
+        assertFalse(allDecoders.isEmpty(),"allDecoders list is empty."); //check if an empty list was returned
+        assertIterableEquals(listOfDecoders, allDecoders,"listOfDecoders and allDecoders lists are not equal."); //check both lists contents
+    }
+
+    //When a decoder is available in the DB
+    @Test
+    final void testRetrieveDecoder(){
+        DeviceEntity device = new DeviceEntity("2","Decorder #2","Running",null,null);
+        DecoderEntity expectedDecoder = new DecoderEntity("2", device);
+
+        when(decoderService.findDecoder("2")).thenReturn(java.util.Optional.of(expectedDecoder));
+
+        DecoderEntity actualDecoder = decoderController.retrieveDecoder("2").getContent();
+
+        assertNotNull(actualDecoder, "actualDecoder object is null.");
+        assertEquals(expectedDecoder, actualDecoder, "expectedDecoder and actualDecoder objects are not equal.");
+    }
+
+    //When a decoder is unavailable in the DB
+    @Test
+    final void testRetrieveDecoderEmpty(){
+        assertThrows(DeviceNotFoundException.class, () -> {
+            decoderController.retrieveDecoder("NotAvailable");
+        }, "DeviceNotFoundException exception should have been thrown.");
     }
 }
