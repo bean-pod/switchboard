@@ -67,7 +67,7 @@ public class DeviceController {
 
     @DeleteMapping("/{serialNumber}")
     @Transactional
-    public ResponseEntity deleteDevice(@PathVariable String serialNumber) {
+    public ResponseEntity<String> deleteDevice(@PathVariable String serialNumber) {
         Long response = service.deleteDevice(serialNumber);
         if (response != 1) {
             throw new BRSException.DeviceNotFoundException("serial number-" + serialNumber);
@@ -77,13 +77,20 @@ public class DeviceController {
 
     @PutMapping("/{serialNumber}")
     @Transactional
-    public ResponseEntity updateDevice(@PathVariable String serialNumber, @RequestBody DeviceEntity device) {
+    public ResponseEntity<String> updateDevice(@PathVariable String serialNumber, @RequestBody DeviceDTO device) {
+
+        Optional<DeviceEntity> deviceLookup = service.findDevice(device.getSerialNumber());
+        if (deviceLookup.isEmpty()) {
+            throw new BRSException.DeviceNotFoundException("serial number-" + serialNumber);
+        }
+
         if (!serialNumber.equals(device.getSerialNumber())) {
             throw new BRSException.DevicePrimaryKeyRestriction("serial number-" + serialNumber);
         }
         int response = service.updateDevice(serialNumber, device);
+
         if (response != 1) {
-            throw new BRSException.DeviceNotFoundException("serial number-" + serialNumber);
+            throw new BRSException.DeviceNotUpdated("serial number-" + serialNumber);
         }
         return ResponseEntity.ok("Device updated");
     }

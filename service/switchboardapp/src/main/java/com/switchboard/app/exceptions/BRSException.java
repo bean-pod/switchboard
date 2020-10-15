@@ -20,4 +20,11 @@ public class BRSException {
             super(s);
         }
     }
+
+    public static class DeviceNotUpdated extends RuntimeException {
+        public DeviceNotUpdated(String s) {
+            super(s);
+        }
+    }
+
 }
