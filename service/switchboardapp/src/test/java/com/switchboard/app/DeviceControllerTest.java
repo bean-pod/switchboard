@@ -5,6 +5,7 @@ import com.switchboard.app.dao.DeviceDaoImpl;
 import com.switchboard.app.domain.DecoderEntity;
 import com.switchboard.app.domain.DeviceEntity;
 import com.switchboard.app.domain.EncoderEntity;
+import com.switchboard.app.exceptions.DeviceNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -61,5 +62,13 @@ public class DeviceControllerTest {
 
         assertNotNull(actualDevice, "actualDevice object is null.");
         assertEquals(device1, actualDevice, "expectedDevice and actualDevice objects are not equal.");
+    }
+
+    //When a device is unavailable in the DB
+    @Test
+    final void testRetrieveDeviceEmpty(){
+        assertThrows(DeviceNotFoundException.class, () -> {
+            deviceController.retrieveDevice("NotAvailable");
+        }, "DeviceNotFoundException exception should have been thrown.");
     }
 }
