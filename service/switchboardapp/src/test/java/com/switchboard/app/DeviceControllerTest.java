@@ -2,9 +2,7 @@ package com.switchboard.app;
 
 import com.switchboard.app.controller.DeviceController;
 import com.switchboard.app.dao.DeviceDaoImpl;
-import com.switchboard.app.domain.DecoderEntity;
 import com.switchboard.app.domain.DeviceEntity;
-import com.switchboard.app.domain.EncoderEntity;
 import com.switchboard.app.exceptions.DeviceAlreadyExistsException;
 import com.switchboard.app.exceptions.DeviceNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,7 +17,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;

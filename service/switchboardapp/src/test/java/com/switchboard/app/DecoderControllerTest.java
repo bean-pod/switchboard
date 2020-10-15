@@ -15,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,9 +33,6 @@ public class DecoderControllerTest {
 
     @Mock
     DeviceDaoImpl deviceService;
-
-    @Mock
-    ServletUriComponentsBuilder servletUriComponentsBuilder;
 
     //stubbed Objects
     private DeviceEntity device1;
