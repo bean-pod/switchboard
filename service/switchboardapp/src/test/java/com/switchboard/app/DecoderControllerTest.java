@@ -72,7 +72,7 @@ public class DecoderControllerTest {
     //When a decoder is available in the DB
     @Test
     final void testRetrieveDecoder(){
-        when(decoderService.findDecoder("2")).thenReturn(java.util.Optional.of(decoder1));
+        when(decoderService.findDecoder("1")).thenReturn(java.util.Optional.of(decoder1));
 
         DecoderEntity actualDecoder = decoderController.retrieveDecoder("1").getContent();
 
