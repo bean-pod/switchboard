@@ -6,7 +6,6 @@ import com.switchboard.app.dao.DeviceDaoImpl;
 import com.switchboard.app.domain.DecoderEntity;
 import com.switchboard.app.domain.DeviceEntity;
 import com.switchboard.app.exceptions.DeviceNotFoundException;
-import io.swagger.models.Response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -16,18 +15,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.servlet.function.EntityResponse;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
-
-//import static org.junit.Assert.*;
 
 public class DecoderControllerTest {
 
