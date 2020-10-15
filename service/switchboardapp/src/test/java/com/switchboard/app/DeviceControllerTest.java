@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-public class DeviceControllerTest {
+class DeviceControllerTest {
     @InjectMocks
     DeviceController deviceController;
 
@@ -98,6 +98,6 @@ public class DeviceControllerTest {
         ResponseEntity response = deviceController.createDevice(device1);
 
         assertEquals(201, response.getStatusCodeValue(), "The status code is not 201.");
-        assertEquals(response.getHeaders().get("Location").get(0), "http://localhost/1", "The returned location is incorrect.");
+        assertEquals("http://localhost/1", response.getHeaders().get("Location").get(0), "The returned location is incorrect.");
     }
 }

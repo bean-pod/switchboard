@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-public class EncoderControllerTest {
+class EncoderControllerTest {
     @InjectMocks
     EncoderController encoderController;
 
@@ -99,7 +99,7 @@ public class EncoderControllerTest {
         ResponseEntity response = encoderController.createEncoder(encoder1);
 
         assertEquals(201, response.getStatusCodeValue(), "The status code is not 201.");
-        assertEquals(response.getHeaders().get("Location").get(0), "http://localhost/1", "The returned location is incorrect.");
+        assertEquals("http://localhost/1", response.getHeaders().get("Location").get(0), "The returned location is incorrect.");
     }
 
     //When a device is unavailable in the DB
