@@ -27,7 +27,7 @@ public class DecoderDaoImpl {
         return decoderRepository.findAll();
     }
 
-    public Long deleteDecoder(String serialNumber){
+    public Long deleteDecoder(String serialNumber) {
         return decoderRepository.deleteDecoderEntityBySerialNumber(serialNumber);
     }
 

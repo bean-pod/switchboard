@@ -55,7 +55,7 @@ public class DecoderController {
     public ResponseEntity createDecoder(@RequestBody @Valid DecoderEntity decoderEntity) {
         Optional<DeviceEntity> deviceOptional = deviceService.findDevice(decoderEntity.getSerialNumber());
 
-        if(deviceOptional.isEmpty()){
+        if (deviceOptional.isEmpty()) {
             throw new BRSException.DeviceNotFoundException("serial number-" + decoderEntity.getSerialNumber() + "/Decoder");
         }
 
@@ -69,11 +69,11 @@ public class DecoderController {
 
     @DeleteMapping("/{serialNumber}")
     @Transactional
-    public ResponseEntity deleteDecoder(@PathVariable String serialNumber){
+    public ResponseEntity<String> deleteDecoder(@PathVariable String serialNumber) {
         Long response = decoderService.deleteDecoder(serialNumber);
-        if(response!=1){
+        if (response != 1) {
             throw new BRSException.DeviceNotFoundException("serial number-" + serialNumber);
         }
-        return ResponseEntity.ok("Decoder with serial number " + serialNumber+" Deleted");
+        return ResponseEntity.ok("Decoder with serial number " + serialNumber + " Deleted");
     }
 }

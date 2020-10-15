@@ -8,11 +8,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface EncoderRepository extends JpaRepository<EncoderEntity,String> {
+public interface EncoderRepository extends JpaRepository<EncoderEntity, String> {
 
     EncoderEntity save(EncoderEntity decoder);
+
     Optional<EncoderEntity> findEncoderBySerialNumber(String serialNumber);
+
     List<EncoderEntity> findAll();
+
     int deleteEncoderEntityBySerialNumber(String serialNumber);
 
 }

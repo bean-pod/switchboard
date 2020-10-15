@@ -56,7 +56,7 @@ public class EncoderController {
     public ResponseEntity createEncoder(@RequestBody @Valid EncoderEntity encoderEntity) {
         Optional<DeviceEntity> deviceOptional = deviceService.findDevice(encoderEntity.getSerialNumber());
 
-        if(deviceOptional.isEmpty()){
+        if (deviceOptional.isEmpty()) {
             throw new BRSException.DeviceNotFoundException("serial number-" + encoderEntity.getSerialNumber() + "/Encoder");
         }
         encoderEntity.setDevice(deviceOptional.get());
@@ -68,11 +68,11 @@ public class EncoderController {
 
     @DeleteMapping("/{serialNumber}")
     @Transactional
-    public ResponseEntity deleteEncoder(@PathVariable String serialNumber){
+    public ResponseEntity<String> deleteEncoder(@PathVariable String serialNumber) {
         long response = encoderService.deleteEncoder(serialNumber);
-        if(response!=1){
+        if (response != 1) {
             throw new BRSException.DeviceNotFoundException("serial number-" + serialNumber);
         }
-        return ResponseEntity.ok("Encoder with serial number " + serialNumber+" Deleted");
+        return ResponseEntity.ok("Encoder with serial number " + serialNumber + " Deleted");
     }
 }

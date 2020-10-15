@@ -35,11 +35,11 @@ public class DeviceController {
 
     @GetMapping
     public List<DeviceDTO> retrieveAllDevices() {
-        return(deviceMapper.toDeviceDTOs(service.getDevices()));
+        return (deviceMapper.toDeviceDTOs(service.getDevices()));
     }
 
     @GetMapping("/{serialNumber}")
-    public ResponseEntity<EntityModel <DeviceDTO>> retrieveDevice(@PathVariable @Valid String serialNumber) {
+    public ResponseEntity<EntityModel<DeviceDTO>> retrieveDevice(@PathVariable @Valid String serialNumber) {
 
         Optional<DeviceEntity> device = service.findDevice(serialNumber);
         if (device.isEmpty()) {

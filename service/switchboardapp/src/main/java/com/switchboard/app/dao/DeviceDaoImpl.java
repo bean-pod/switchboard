@@ -32,9 +32,9 @@ public class DeviceDaoImpl {
         return deviceRepository.deleteDeviceEntitiesBySerialNumber(serialNumber);
     }
 
-    public int updateDevice(String serialNumber, DeviceDTO deviceEntity){
-       return deviceRepository.updateDevice(serialNumber, deviceEntity.getDisplayName(),
-               deviceEntity.getStatus()
-       );
+    public int updateDevice(String serialNumber, DeviceDTO deviceEntity) {
+        return deviceRepository.updateDevice(serialNumber, deviceEntity.getDisplayName(),
+                deviceEntity.getStatus()
+        );
     }
 }
