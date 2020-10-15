@@ -17,7 +17,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -39,6 +38,7 @@ public class DecoderControllerTest {
     @Mock
     ServletUriComponentsBuilder servletUriComponentsBuilder;
 
+    //stubbed Objects
     private DeviceEntity device1;
     private DecoderEntity decoder1;
 
@@ -47,14 +47,14 @@ public class DecoderControllerTest {
         MockitoAnnotations.initMocks(this); //to be able to initiate decoderController object
 
         //stubbing device and decoder objects
-        device1 = new DeviceEntity("1","Decorder #1","Running",null,null);
+        device1 = new DeviceEntity("1","Decoder #1","Running",null,null);
         decoder1 = new DecoderEntity("1", device1);
     }
 
     @Test
     final void testRetrieveAllDecoders(){
         //stubbing DeviceEntity and DecoderEntity objects
-        DeviceEntity device2 = new DeviceEntity("2","Decorder #2","Failing",null,null);
+        DeviceEntity device2 = new DeviceEntity("2","Decoder #2","Failing",null,null);
         DecoderEntity decoder2 = new DecoderEntity("2", device2);
 
         //Adding stubbed objects to the list that should be returned when getDecoders is called
@@ -91,8 +91,8 @@ public class DecoderControllerTest {
 
     //When a device is available in the DB
     @Test
-    final void testCreateDecoder() throws URISyntaxException {
-        when(deviceService.findDevice("2")).thenReturn(java.util.Optional.of(device1));
+    final void testCreateDecoder() {
+        when(deviceService.findDevice("1")).thenReturn(java.util.Optional.of(device1));
         when(decoderService.save(decoder1)).thenReturn(decoder1);
 
         //mock a request
