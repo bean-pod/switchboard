@@ -146,7 +146,7 @@ function SingleTableRow(row) {
                     </IconButton>
                 </TableCell>
                 <TableCell>{row.name}</TableCell>
-                <TableCell>{row.mac}</TableCell>
+                <TableCell>{row.serial}</TableCell>
                 <TableCell>
                     <div class={getStatusStyle(row.status)}>
                         {getStatusText(row.status)}

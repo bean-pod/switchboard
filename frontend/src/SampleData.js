@@ -1,10 +1,10 @@
 
 class DeviceInfo{
-    constructor(id, name, mac, status, ip, port, extras) {
+    constructor(id, name, serial, status, ip, port, extras) {
 
         this.id =  id;
         this.name = name;
-        this.mac = mac;
+        this.serial = serial;
         this.status =  status;
         this.ip = ip;
         this.port = port;

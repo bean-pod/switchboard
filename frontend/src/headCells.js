@@ -21,7 +21,7 @@ function getHeadCellData(){
     
     return [
          new HeadCell("name", "Name", false, false),
-          new HeadCell("mac", "Mac Address", true, true),
+          new HeadCell("serial", "Serial Number", true, true),
           new HeadCell("status", "Status", false, true),
           new HeadCell("ip", "IP Address", true, true),
           new HeadCell("port", "Port", true, true)
