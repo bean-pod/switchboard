@@ -43,7 +43,7 @@ public class EncoderController {
         Optional<EncoderEntity> encoder = encoderService.findEncoder(serialNumber);
 
         if (encoder.isEmpty()) {
-            throw new BRSException.DeviceNotFoundException("serial number-" + serialNumber + "/Encoder");
+            throw new BRSException.DeviceNotFoundException(serialNumber + "/Encoder");
         }
 
         EntityModel<EncoderEntity> resource = EntityModel.of(encoder.get());
@@ -57,7 +57,7 @@ public class EncoderController {
         Optional<DeviceEntity> deviceOptional = deviceService.findDevice(encoderEntity.getSerialNumber());
 
         if (deviceOptional.isEmpty()) {
-            throw new BRSException.DeviceNotFoundException("serial number-" + encoderEntity.getSerialNumber() + "/Encoder");
+            throw new BRSException.DeviceNotFoundException(encoderEntity.getSerialNumber() + "/Encoder");
         }
         encoderEntity.setDevice(deviceOptional.get());
         EncoderEntity savedEncoderEntity = encoderService.save(encoderEntity);
@@ -71,7 +71,7 @@ public class EncoderController {
     public ResponseEntity<String> deleteEncoder(@PathVariable String serialNumber) {
         long response = encoderService.deleteEncoder(serialNumber);
         if (response != 1) {
-            throw new BRSException.DeviceNotFoundException("serial number-" + serialNumber);
+            throw new BRSException.DeviceNotFoundException(serialNumber);
         }
         return ResponseEntity.ok("Encoder with serial number " + serialNumber + " Deleted");
     }

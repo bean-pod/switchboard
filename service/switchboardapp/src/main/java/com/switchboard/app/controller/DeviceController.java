@@ -33,6 +33,8 @@ public class DeviceController {
     @Autowired
     DeviceMapper deviceMapper;
 
+    private String SN = "serial number-";
+
     @GetMapping
     public List<DeviceDTO> retrieveAllDevices() {
         return (deviceMapper.toDeviceDTOs(service.getDevices()));
@@ -43,7 +45,7 @@ public class DeviceController {
 
         Optional<DeviceEntity> device = service.findDevice(serialNumber);
         if (device.isEmpty()) {
-            throw new BRSException.DeviceNotFoundException("serial number-" + serialNumber);
+            throw new BRSException.DeviceNotFoundException(serialNumber);
         }
         EntityModel<DeviceDTO> resource = EntityModel.of(deviceMapper.toDeviceDTO(device.get()));
         WebMvcLinkBuilder linkTo = linkTo(methodOn(this.getClass()).retrieveAllDevices());
@@ -57,7 +59,7 @@ public class DeviceController {
 
         Optional<DeviceEntity> deviceLookup = service.findDevice(device.getSerialNumber());
         if (deviceLookup.isPresent()) {
-            throw new BRSException.DeviceAlreadyExistsException("serial number-" + device.getSerialNumber());
+            throw new BRSException.DeviceAlreadyExistsException(device.getSerialNumber());
         }
         DeviceEntity savedDevice = service.save(device);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().
@@ -70,7 +72,7 @@ public class DeviceController {
     public ResponseEntity<String> deleteDevice(@PathVariable String serialNumber) {
         Long response = service.deleteDevice(serialNumber);
         if (response != 1) {
-            throw new BRSException.DeviceNotFoundException("serial number-" + serialNumber);
+            throw new BRSException.DeviceNotFoundException(serialNumber);
         }
         return ResponseEntity.ok("Device with serial number " + serialNumber + " Deleted");
     }
@@ -81,16 +83,16 @@ public class DeviceController {
 
         Optional<DeviceEntity> deviceLookup = service.findDevice(device.getSerialNumber());
         if (deviceLookup.isEmpty()) {
-            throw new BRSException.DeviceNotFoundException("serial number-" + serialNumber);
+            throw new BRSException.DeviceNotFoundException(serialNumber);
         }
 
         if (!serialNumber.equals(device.getSerialNumber())) {
-            throw new BRSException.DevicePrimaryKeyRestriction("serial number-" + serialNumber);
+            throw new BRSException.DevicePrimaryKeyRestriction(serialNumber);
         }
         int response = service.updateDevice(serialNumber, device);
 
         if (response != 1) {
-            throw new BRSException.DeviceNotUpdated("serial number-" + serialNumber);
+            throw new BRSException.DeviceNotUpdated(serialNumber);
         }
         return ResponseEntity.ok("Device updated");
     }
