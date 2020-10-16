@@ -19,25 +19,25 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(exceptionResponse, exceptionResponse.getStatus());
     }
 
-    @ExceptionHandler(BRSException.DeviceNotFoundException.class)
+    @ExceptionHandler(ExceptionType.DeviceNotFoundException.class)
     public final ResponseEntity<Object> handleDeviceNotFoundException(Exception ex, WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(HttpStatus.NOT_FOUND, ex.getMessage(), "The device was not found");
         return new ResponseEntity<>(exceptionResponse, exceptionResponse.getStatus());
     }
 
-    @ExceptionHandler(BRSException.DeviceAlreadyExistsException.class)
+    @ExceptionHandler(ExceptionType.DeviceAlreadyExistsException.class)
     public final ResponseEntity<Object> handleDeviceAlreadyExistsException(Exception ex, WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(HttpStatus.CONFLICT, ex.getMessage(), "The device already exists, change primary key");
         return new ResponseEntity<>(exceptionResponse, exceptionResponse.getStatus());
     }
 
-    @ExceptionHandler(BRSException.DevicePrimaryKeyRestriction.class)
+    @ExceptionHandler(ExceptionType.DevicePrimaryKeyRestriction.class)
     public final ResponseEntity<Object> handleDeviceReferencedException(Exception ex, WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(HttpStatus.CONFLICT, ex.getMessage(), "Primary Key altering not allowed");
         return new ResponseEntity<>(exceptionResponse, exceptionResponse.getStatus());
     }
 
-    @ExceptionHandler(BRSException.DeviceNotUpdated.class)
+    @ExceptionHandler(ExceptionType.DeviceNotUpdated.class)
     public final ResponseEntity<Object> DeviceNotUpdated(Exception ex, WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(HttpStatus.CONFLICT, ex.getMessage(), "Device was not updated");
         return new ResponseEntity<>(exceptionResponse, exceptionResponse.getStatus());

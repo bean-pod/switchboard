@@ -1,7 +1,13 @@
 package com.switchboard.app.exceptions;
 
-public class BRSException {
+import org.springframework.stereotype.Component;
 
+@Component
+public class ExceptionType {
+
+    private ExceptionType(){
+        throw new IllegalStateException("Utility class");
+    }
 
     public static class DeviceAlreadyExistsException extends RuntimeException {
         public DeviceAlreadyExistsException(String s) {

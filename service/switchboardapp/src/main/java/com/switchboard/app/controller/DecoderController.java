@@ -4,7 +4,7 @@ import com.switchboard.app.dao.DecoderDaoImpl;
 import com.switchboard.app.dao.DeviceDaoImpl;
 import com.switchboard.app.entity.DecoderEntity;
 import com.switchboard.app.entity.DeviceEntity;
-import com.switchboard.app.exceptions.BRSException;
+import com.switchboard.app.exceptions.ExceptionType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
@@ -42,7 +42,7 @@ public class DecoderController {
         Optional<DecoderEntity> decoder = decoderService.findDecoder(serialNumber);
 
         if (decoder.isEmpty()) {
-            throw new BRSException.DeviceNotFoundException(serialNumber + "/Decoder");
+            throw new ExceptionType.DeviceNotFoundException(serialNumber + "/Decoder");
         }
 
         EntityModel<DecoderEntity> resource = EntityModel.of(decoder.get());
@@ -56,7 +56,7 @@ public class DecoderController {
         Optional<DeviceEntity> deviceOptional = deviceService.findDevice(decoderEntity.getSerialNumber());
 
         if (deviceOptional.isEmpty()) {
-            throw new BRSException.DeviceNotFoundException(decoderEntity.getSerialNumber() + "/Decoder");
+            throw new ExceptionType.DeviceNotFoundException(decoderEntity.getSerialNumber() + "/Decoder");
         }
 
         decoderEntity.setDevice(deviceOptional.get());
@@ -72,7 +72,7 @@ public class DecoderController {
     public ResponseEntity<String> deleteDecoder(@PathVariable String serialNumber) {
         Long response = decoderService.deleteDecoder(serialNumber);
         if (response != 1) {
-            throw new BRSException.DeviceNotFoundException(serialNumber);
+            throw new ExceptionType.DeviceNotFoundException(serialNumber);
         }
         return ResponseEntity.ok("Decoder with serial number " + serialNumber + " Deleted");
     }

@@ -4,7 +4,7 @@ import com.switchboard.app.dao.DeviceDaoImpl;
 import com.switchboard.app.dao.EncoderDaoImpl;
 import com.switchboard.app.entity.DeviceEntity;
 import com.switchboard.app.entity.EncoderEntity;
-import com.switchboard.app.exceptions.BRSException;
+import com.switchboard.app.exceptions.ExceptionType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
@@ -43,7 +43,7 @@ public class EncoderController {
         Optional<EncoderEntity> encoder = encoderService.findEncoder(serialNumber);
 
         if (encoder.isEmpty()) {
-            throw new BRSException.DeviceNotFoundException(serialNumber + "/Encoder");
+            throw new ExceptionType.DeviceNotFoundException(serialNumber + "/Encoder");
         }
 
         EntityModel<EncoderEntity> resource = EntityModel.of(encoder.get());
@@ -57,7 +57,7 @@ public class EncoderController {
         Optional<DeviceEntity> deviceOptional = deviceService.findDevice(encoderEntity.getSerialNumber());
 
         if (deviceOptional.isEmpty()) {
-            throw new BRSException.DeviceNotFoundException(encoderEntity.getSerialNumber() + "/Encoder");
+            throw new ExceptionType.DeviceNotFoundException(encoderEntity.getSerialNumber() + "/Encoder");
         }
         encoderEntity.setDevice(deviceOptional.get());
         EncoderEntity savedEncoderEntity = encoderService.save(encoderEntity);
@@ -71,7 +71,7 @@ public class EncoderController {
     public ResponseEntity<String> deleteEncoder(@PathVariable String serialNumber) {
         long response = encoderService.deleteEncoder(serialNumber);
         if (response != 1) {
-            throw new BRSException.DeviceNotFoundException(serialNumber);
+            throw new ExceptionType.DeviceNotFoundException(serialNumber);
         }
         return ResponseEntity.ok("Encoder with serial number " + serialNumber + " Deleted");
     }
