@@ -24,6 +24,9 @@
         <maven-compiler-plugin-version>3.8.1</maven-compiler-plugin-version>
         <lombok-version>1.18.12</lombok-version>
         <mapstruct-version>1.4.1.Final</mapstruct-version>
+        <sonar.projectKey>bean-pod_switchboard</sonar.projectKey>
+        <sonar.organization>bean-pod</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
     <dependencies>
