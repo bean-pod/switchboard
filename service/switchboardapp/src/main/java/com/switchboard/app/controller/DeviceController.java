@@ -33,8 +33,6 @@ public class DeviceController {
     @Autowired
     DeviceMapper deviceMapper;
 
-    private String SN = "serial number-";
-
     @GetMapping
     public List<DeviceDTO> retrieveAllDevices() {
         return (deviceMapper.toDeviceDTOs(service.getDevices()));

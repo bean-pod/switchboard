@@ -1,8 +1,5 @@
 package com.switchboard.app.exceptions;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class ExceptionType {
 
     private ExceptionType(){

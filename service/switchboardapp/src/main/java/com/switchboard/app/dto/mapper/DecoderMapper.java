@@ -1,4 +1,7 @@
 package com.switchboard.app.dto.mapper;
 
-public class DecoderMapper {
+import org.mapstruct.Mapper;
+
+@Mapper(componentModel = "spring")
+public interface DecoderMapper {
 }
