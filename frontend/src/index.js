@@ -20,7 +20,7 @@ ReactDOM.render(
         <Link color="inherit" href="/" >
           Home
         </Link>
-        <Typography color="textPrimary">Devices</Typography>
+        <Typography component={'span'} color="textPrimary">Devices</Typography>
       </Breadcrumbs>
     </Box>
     <Box padding="2em">

@@ -38,10 +38,10 @@ export default function generateHeadCells(){
                  padding={headCell.padding ?  'default': 'none'}
                  >
                      <TableSortLabel>
-                        <Typography variant="caption"> {headCell.label}</Typography>
+                        <Typography component={'span'} variant="caption"> {headCell.label}</Typography>
                      </TableSortLabel>
                     {headCell.id == "status"? (
-                        <Select variant="outlined" id={headCell.searchID} fullWidth="true" >
+                        <Select variant="outlined" id={headCell.searchID} fullWidth={true} >
                         <MenuItem dense="true" value={"Online"}> <Typography variant="caption">Online</Typography></MenuItem>
                         <MenuItem dense="true" value={"Pending"}> <Typography variant="caption">Pending</Typography></MenuItem>
                         <MenuItem dense="true" value={"Error"}>   <Typography variant="caption">Error</Typography></MenuItem>

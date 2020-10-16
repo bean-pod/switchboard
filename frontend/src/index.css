@@ -26,7 +26,7 @@ select {
 
 /* Text Style Classes */
 .flexContents {
-  display: 'flex';
+  display: flex;
   justify-content: space-between;
 }
 .alignRight {

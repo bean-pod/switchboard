@@ -15,12 +15,12 @@ function HeaderBar() {
   return (
     <div className="HeaderBar">
       <AppBar position="static">
-        <Toolbar class="darkGrey paddedText flexContents">
+        <Toolbar className="darkGrey paddedText flexContents">
           <IconButton color="inherit" aria-label="menu">
               <Menu/>
             </IconButton>
-            <span class="headerTitle">Switchboard</span>
-          <div class="alignRightFloat">
+            <span className="headerTitle">Switchboard</span>
+          <div className="alignRightFloat">
             <IconButton color="inherit"><Notifications /></IconButton>
             <IconButton color="inherit"><AccountCircle /></IconButton>
           </div>     
