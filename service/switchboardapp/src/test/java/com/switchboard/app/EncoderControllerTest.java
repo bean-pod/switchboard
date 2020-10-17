@@ -53,7 +53,7 @@ class EncoderControllerTest {
     }
 
     @BeforeEach
-    void setUp(){
+    void setup(){
         MockitoAnnotations.initMocks(this); //to be able to initiate encoderController object
     }
 

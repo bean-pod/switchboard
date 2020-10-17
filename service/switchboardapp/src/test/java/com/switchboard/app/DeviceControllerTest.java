@@ -43,7 +43,7 @@ class DeviceControllerTest {
     }
 
     @BeforeEach
-    void setUp(){
+    void setup(){
         MockitoAnnotations.initMocks(this);
     }
 
