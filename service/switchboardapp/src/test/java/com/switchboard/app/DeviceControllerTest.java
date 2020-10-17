@@ -5,6 +5,7 @@ import com.switchboard.app.dao.DeviceDaoImpl;
 import com.switchboard.app.domain.DeviceEntity;
 import com.switchboard.app.exceptions.DeviceAlreadyExistsException;
 import com.switchboard.app.exceptions.DeviceNotFoundException;
+import com.switchboard.app.fixture.DeviceFixture;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,11 +31,15 @@ class DeviceControllerTest {
     @Mock
     private DeviceDaoImpl deviceService;
 
-    static private DeviceEntity device1;
+    //stubbed DeviceEntity object
+    static private DeviceEntity device1, device2;
+    static private List<DeviceEntity> listOfDevices;
 
     @BeforeAll
     static void deviceFixture(){
-        device1 = new DeviceEntity("1","Device #1","Running",null,null);
+        device1 = DeviceFixture.getDevice1();
+        device2 = DeviceFixture.getDevice2();
+        listOfDevices = DeviceFixture.getListOfDevices();
     }
 
     @BeforeEach
@@ -44,14 +49,6 @@ class DeviceControllerTest {
 
     @Test
     final void retrieveAllDevicesTest(){
-        //stubbing DeviceEntity object
-        DeviceEntity device2 = new DeviceEntity("2","Device #2","Running",null,null);
-
-        //Adding stubbed objects to the list that should be returned when getEncoders is called
-        List<DeviceEntity> listOfDevices= new ArrayList<DeviceEntity>();
-        listOfDevices.add(device1);
-        listOfDevices.add(device2);
-
         when(deviceService.getDevices()).thenReturn(listOfDevices);
 
         List allDevices = deviceController.retrieveAllDevices();

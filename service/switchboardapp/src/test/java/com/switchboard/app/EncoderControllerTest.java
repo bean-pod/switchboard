@@ -6,6 +6,8 @@ import com.switchboard.app.dao.EncoderDaoImpl;
 import com.switchboard.app.domain.DeviceEntity;
 import com.switchboard.app.domain.EncoderEntity;
 import com.switchboard.app.exceptions.DeviceNotFoundException;
+import com.switchboard.app.fixture.DeviceFixture;
+import com.switchboard.app.fixture.EncoderFixture;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,14 +38,18 @@ class EncoderControllerTest {
     private DeviceDaoImpl deviceService;
 
     //stubbed Objects
-    static private DeviceEntity device1;
-    static private EncoderEntity encoder1;
+    static private DeviceEntity device1, device2;
+    static private EncoderEntity encoder1, encoder2;
+    static private List<EncoderEntity> listOfEncoders;
 
     @BeforeAll
     static void encoderFixture(){
         //stubbing device and encoder objects
-        device1 = new DeviceEntity("1","Encoder #1","Running",null,null);
-        encoder1 = new EncoderEntity("1", device1);
+        device1 = DeviceFixture.getDevice1();
+        device2 = DeviceFixture.getDevice2();
+        encoder1 = EncoderFixture.getEncoder1(device1);
+        encoder2 = EncoderFixture.getEncoder2(device2);
+        listOfEncoders = EncoderFixture.getListOfEncoder(encoder1, encoder2);
     }
 
     @BeforeEach
@@ -53,15 +59,6 @@ class EncoderControllerTest {
 
     @Test
     final void retrieveAllEncodersTest(){
-        //stubbing DeviceEntity and EncoderEntity objects
-        DeviceEntity device2 = new DeviceEntity("2","Encoder #2","Failing",null,null);
-        EncoderEntity encoder2 = new EncoderEntity("2", device2);
-
-        //Adding stubbed objects to the list that should be returned when getEncoders is called
-        List<EncoderEntity> listOfEncoders= new ArrayList<EncoderEntity>();
-        listOfEncoders.add(encoder1);
-        listOfEncoders.add(encoder2);
-
         when(encoderService.getEncoders()).thenReturn(listOfEncoders);
 
         List allEncoders = encoderController.retrieveAllEncoders();

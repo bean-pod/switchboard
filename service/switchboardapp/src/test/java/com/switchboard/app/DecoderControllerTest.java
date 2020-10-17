@@ -6,6 +6,8 @@ import com.switchboard.app.dao.DeviceDaoImpl;
 import com.switchboard.app.domain.DecoderEntity;
 import com.switchboard.app.domain.DeviceEntity;
 import com.switchboard.app.exceptions.DeviceNotFoundException;
+import com.switchboard.app.fixture.DecoderFixture;
+import com.switchboard.app.fixture.DeviceFixture;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,14 +38,18 @@ class DecoderControllerTest {
     private DeviceDaoImpl deviceService;
 
     //stubbed Objects
-    static private DeviceEntity device1;
-    static private DecoderEntity decoder1;
+    static private DeviceEntity device1, device2;
+    static private DecoderEntity decoder1, decoder2;
+    static private List<DecoderEntity> listOfDecoders;
 
     @BeforeAll
     static void decoderFixture(){
         //stubbing device and decoder objects
-        device1 = new DeviceEntity("1","Decoder #1","Running",null,null);
-        decoder1 = new DecoderEntity("1", device1);
+        device1 = DeviceFixture.getDevice1();
+        device2 = DeviceFixture.getDevice2();
+        decoder1 = DecoderFixture.getDecoder1(device1);
+        decoder2 = DecoderFixture.getDecoder2(device2);
+        listOfDecoders = DecoderFixture.getListOfDecoders(decoder1, decoder2);
     }
 
     @BeforeEach
@@ -53,15 +59,6 @@ class DecoderControllerTest {
 
     @Test
     final void testRetrieveAllDecoders(){
-        //stubbing DeviceEntity and DecoderEntity objects
-        DeviceEntity device2 = new DeviceEntity("2","Decoder #2","Failing",null,null);
-        DecoderEntity decoder2 = new DecoderEntity("2", device2);
-
-        //Adding stubbed objects to the list that should be returned when getDecoders is called
-        List<DecoderEntity> listOfDecoders= new ArrayList<DecoderEntity>();
-        listOfDecoders.add(decoder1);
-        listOfDecoders.add(decoder2);
-
         when(decoderService.getDecoders()).thenReturn(listOfDecoders);
 
         List allDecoders = decoderController.retrieveAllDecoders();
