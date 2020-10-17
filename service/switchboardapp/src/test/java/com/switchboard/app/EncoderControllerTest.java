@@ -58,7 +58,7 @@ class EncoderControllerTest {
     }
 
     @Test
-    final void retrieveAllEncodersTest(){
+    final void testRetrieveAllEncoders(){
         when(encoderService.getEncoders()).thenReturn(listOfEncoders);
 
         List allEncoders = encoderController.retrieveAllEncoders();

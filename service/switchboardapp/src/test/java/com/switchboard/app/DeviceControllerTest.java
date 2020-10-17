@@ -48,7 +48,7 @@ class DeviceControllerTest {
     }
 
     @Test
-    final void retrieveAllDevicesTest(){
+    final void testRetrieveAllDevices(){
         when(deviceService.getDevices()).thenReturn(listOfDevices);
 
         List allDevices = deviceController.retrieveAllDevices();
