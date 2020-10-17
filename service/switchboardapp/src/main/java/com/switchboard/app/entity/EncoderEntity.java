@@ -20,7 +20,7 @@ public class EncoderEntity {
     @Column(name = "serial_number")
     private String serialNumber;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "serial_number", referencedColumnName = "serial_number")
     @MapsId
     private DeviceEntity device;
