@@ -106,7 +106,7 @@ class DecoderControllerTest {
 
     //When a device is unavailable in the DB
     @Test
-    final void testCreateDecoderEmpty(){
+    final void testCreateDecoderAlreadyExists(){
         assertThrows(NoSuchElementException.class, () -> {
             decoderController.createDecoder(decoder1);
         }, "NoSuchElementException should have been thrown.");

@@ -78,7 +78,7 @@ class DeviceControllerTest {
 
     //When a device is unavailable in the DB
     @Test
-    final void testCreateDevice(){
+    final void testCreateDeviceAlreadyExists(){
         when(deviceService.findDevice("1")).thenReturn(java.util.Optional.of(device1));
 
         assertThrows(DeviceAlreadyExistsException.class, () -> {
@@ -88,7 +88,7 @@ class DeviceControllerTest {
 
     //When a device is unavailable in the DB
     @Test
-    final void testCreateDeviceEmpty() {
+    final void testCreateDevice() {
         when(deviceService.save(device1)).thenReturn(device1);
 
         //mock a request

@@ -106,7 +106,7 @@ class EncoderControllerTest {
 
     //When a device is unavailable in the DB
     @Test
-    final void testCreateEncoderEmpty(){
+    final void testCreateEncoderAlreadyExists(){
         assertThrows(NoSuchElementException.class, () -> {
             encoderController.createEncoder(encoder1);
         }, "NoSuchElementException should have been thrown.");
