@@ -1,9 +1,11 @@
 package com.switchboard.app.controller;
 
 import com.switchboard.app.dao.DeviceDaoImpl;
-import com.switchboard.app.domain.DeviceEntity;
-import com.switchboard.app.exceptions.DeviceAlreadyExistsException;
-import com.switchboard.app.exceptions.DeviceNotFoundException;
+import com.switchboard.app.dto.DeviceDTO;
+import com.switchboard.app.dto.mapper.DeviceMapper;
+import com.switchboard.app.entity.DeviceEntity;
+import com.switchboard.app.exceptions.ExceptionType;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
@@ -11,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
@@ -19,42 +22,77 @@ import java.util.Optional;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+@Slf4j
 @RestController
+@RequestMapping("/device")
 public class DeviceController {
 
     @Autowired
     DeviceDaoImpl service;
 
-    @GetMapping("/device")
-    public List<DeviceEntity> retrieveAllDevices() {
-        return service.getDevices();
+    @Autowired
+    DeviceMapper deviceMapper;
+
+    @GetMapping
+    public List<DeviceDTO> retrieveAllDevices() {
+        return (deviceMapper.toDeviceDTOs(service.getDevices()));
     }
 
-    @GetMapping("/device/{serialNumber}")
-    public EntityModel<DeviceEntity> retrieveDevice(@PathVariable @Valid String serialNumber) {
+    @GetMapping("/{serialNumber}")
+    public ResponseEntity<EntityModel<DeviceDTO>> retrieveDevice(@PathVariable @Valid String serialNumber) {
 
         Optional<DeviceEntity> device = service.findDevice(serialNumber);
-        if (!device.isPresent()) {
-            throw new DeviceNotFoundException("serial number-" + serialNumber);
+        if (device.isEmpty()) {
+            throw new ExceptionType.DeviceNotFoundException(serialNumber);
         }
+        EntityModel<DeviceDTO> resource = EntityModel.of(deviceMapper.toDeviceDTO(device.get()));
+        WebMvcLinkBuilder linkTo = linkTo(methodOn(this.getClass()).retrieveAllDevices());
+        resource.add(linkTo.withRel("all-devices"));
+        return ResponseEntity.ok(resource);
 
-        EntityModel<DeviceEntity> resource = EntityModel.of(device.get());
-        WebMvcLinkBuilder linkto = linkTo(methodOn(this.getClass()).retrieveAllDevices());
-        resource.add(linkto.withRel("all-devices"));
-        return resource;
     }
 
-    @PostMapping("/device")
+    @PostMapping
     public ResponseEntity createDevice(@RequestBody @Valid DeviceEntity device) {
 
         Optional<DeviceEntity> deviceLookup = service.findDevice(device.getSerialNumber());
         if (deviceLookup.isPresent()) {
-            throw new DeviceAlreadyExistsException("serial number-" + device.getSerialNumber());
+            throw new ExceptionType.DeviceAlreadyExistsException(device.getSerialNumber());
         }
         DeviceEntity savedDevice = service.save(device);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().
                 path("/{serialNumber}").buildAndExpand(savedDevice.getSerialNumber()).toUri();
         return ResponseEntity.created(location).build();
+    }
+
+    @DeleteMapping("/{serialNumber}")
+    @Transactional
+    public ResponseEntity<String> deleteDevice(@PathVariable String serialNumber) {
+        Long response = service.deleteDevice(serialNumber);
+        if (response != 1) {
+            throw new ExceptionType.DeviceNotFoundException(serialNumber);
+        }
+        return ResponseEntity.ok("Device with serial number " + serialNumber + " Deleted");
+    }
+
+    @PutMapping("/{serialNumber}")
+    @Transactional
+    public ResponseEntity<String> updateDevice(@PathVariable String serialNumber, @RequestBody DeviceDTO device) {
+
+        Optional<DeviceEntity> deviceLookup = service.findDevice(device.getSerialNumber());
+        if (deviceLookup.isEmpty()) {
+            throw new ExceptionType.DeviceNotFoundException(serialNumber);
+        }
+
+        if (!serialNumber.equals(device.getSerialNumber())) {
+            throw new ExceptionType.DevicePrimaryKeyRestriction(serialNumber);
+        }
+        int response = service.updateDevice(serialNumber, device);
+
+        if (response != 1) {
+            throw new ExceptionType.DeviceNotUpdated(serialNumber);
+        }
+        return ResponseEntity.ok("Device updated");
     }
 
 }

@@ -16,19 +16,32 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
     public final ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request) {
 
         ExceptionResponse exceptionResponse = new ExceptionResponse(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), "An unknown error occured");
-        return new ResponseEntity<Object>(exceptionResponse, exceptionResponse.getStatus());
+        return new ResponseEntity<>(exceptionResponse, exceptionResponse.getStatus());
     }
 
-    @ExceptionHandler(DeviceNotFoundException.class)
+    @ExceptionHandler(ExceptionType.DeviceNotFoundException.class)
     public final ResponseEntity<Object> handleDeviceNotFoundException(Exception ex, WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(HttpStatus.NOT_FOUND, ex.getMessage(), "The device was not found");
-        return new ResponseEntity<Object>(exceptionResponse, exceptionResponse.getStatus());
+        return new ResponseEntity<>(exceptionResponse, exceptionResponse.getStatus());
     }
 
-    @ExceptionHandler(DeviceAlreadyExistsException.class)
+    @ExceptionHandler(ExceptionType.DeviceAlreadyExistsException.class)
     public final ResponseEntity<Object> handleDeviceAlreadyExistsException(Exception ex, WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(HttpStatus.CONFLICT, ex.getMessage(), "The device already exists, change primary key");
-        return new ResponseEntity<Object>(exceptionResponse, exceptionResponse.getStatus());
+        return new ResponseEntity<>(exceptionResponse, exceptionResponse.getStatus());
     }
+
+    @ExceptionHandler(ExceptionType.DevicePrimaryKeyRestriction.class)
+    public final ResponseEntity<Object> handleDeviceReferencedException(Exception ex, WebRequest request) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(HttpStatus.CONFLICT, ex.getMessage(), "Primary Key altering not allowed");
+        return new ResponseEntity<>(exceptionResponse, exceptionResponse.getStatus());
+    }
+
+    @ExceptionHandler(ExceptionType.DeviceNotUpdated.class)
+    public final ResponseEntity<Object> deviceNotUpdated(Exception ex, WebRequest request) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(HttpStatus.CONFLICT, ex.getMessage(), "Device was not updated");
+        return new ResponseEntity<>(exceptionResponse, exceptionResponse.getStatus());
+    }
+
 
 }
