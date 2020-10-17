@@ -26,13 +26,13 @@ import static org.mockito.Mockito.when;
 
 class EncoderControllerTest {
     @InjectMocks
-    EncoderController encoderController;
+    private EncoderController encoderController;
 
     @Mock
-    EncoderDaoImpl encoderService;
+    private EncoderDaoImpl encoderService;
 
     @Mock
-    DeviceDaoImpl deviceService;
+    private DeviceDaoImpl deviceService;
 
     //stubbed Objects
     private DeviceEntity device1;

@@ -24,10 +24,10 @@ import static org.mockito.Mockito.when;
 
 class DeviceControllerTest {
     @InjectMocks
-    DeviceController deviceController;
+    private DeviceController deviceController;
 
     @Mock
-    DeviceDaoImpl deviceService;
+    private DeviceDaoImpl deviceService;
 
     private DeviceEntity device1;
 

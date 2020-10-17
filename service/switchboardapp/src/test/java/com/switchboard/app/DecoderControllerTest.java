@@ -26,20 +26,20 @@ import static org.mockito.Mockito.when;
 class DecoderControllerTest {
 
     @InjectMocks
-    DecoderController decoderController;
+    private DecoderController decoderController;
 
     @Mock
-    DecoderDaoImpl decoderService;
+    private DecoderDaoImpl decoderService;
 
     @Mock
-    DeviceDaoImpl deviceService;
+    private DeviceDaoImpl deviceService;
 
     //stubbed Objects
     private DeviceEntity device1;
     private DecoderEntity decoder1;
 
     @BeforeEach
-    void setUp() throws Exception{
+    void setUp(){
         MockitoAnnotations.initMocks(this); //to be able to initiate decoderController object
 
         //stubbing device and decoder objects
