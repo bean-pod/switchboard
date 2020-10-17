@@ -16,7 +16,7 @@ public class DeviceDaoImpl {
     @Autowired
     DeviceRepository deviceRepository;
 
-    public DeviceEntity save(DeviceDTO device) {
+    public DeviceEntity save(DeviceEntity device) {
         return deviceRepository.save(device);
     }
 

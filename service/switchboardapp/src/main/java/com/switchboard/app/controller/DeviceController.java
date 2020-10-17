@@ -53,7 +53,7 @@ public class DeviceController {
     }
 
     @PostMapping
-    public ResponseEntity createDevice(@RequestBody @Valid DeviceDTO device) {
+    public ResponseEntity createDevice(@RequestBody @Valid DeviceEntity device) {
 
         Optional<DeviceEntity> deviceLookup = service.findDevice(device.getSerialNumber());
         if (deviceLookup.isPresent()) {

@@ -21,7 +21,7 @@ public class DecoderEntity {
     @Column(name = "serial_number")
     private String serialNumber;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "serial_number", referencedColumnName = "serial_number")
     @MapsId
     private DeviceEntity device;

@@ -1,6 +1,5 @@
 package com.switchboard.app.repository;
 
-import com.switchboard.app.dto.DeviceDTO;
 import com.switchboard.app.entity.DeviceEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -14,7 +13,7 @@ import java.util.Optional;
 @Repository
 public interface DeviceRepository extends JpaRepository<DeviceEntity, String> {
 
-    DeviceEntity save(DeviceDTO device);
+    DeviceEntity save(DeviceEntity device);
 
     List<DeviceEntity> findAll();
 
