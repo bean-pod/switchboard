@@ -6,6 +6,7 @@ import com.switchboard.app.dao.DeviceDaoImpl;
 import com.switchboard.app.domain.DecoderEntity;
 import com.switchboard.app.domain.DeviceEntity;
 import com.switchboard.app.exceptions.DeviceNotFoundException;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -35,16 +36,19 @@ class DecoderControllerTest {
     private DeviceDaoImpl deviceService;
 
     //stubbed Objects
-    private DeviceEntity device1;
-    private DecoderEntity decoder1;
+    static private DeviceEntity device1;
+    static private DecoderEntity decoder1;
+
+    @BeforeAll
+    static void decoderFixture(){
+        //stubbing device and decoder objects
+        device1 = new DeviceEntity("1","Decoder #1","Running",null,null);
+        decoder1 = new DecoderEntity("1", device1);
+    }
 
     @BeforeEach
     void setUp(){
         MockitoAnnotations.initMocks(this); //to be able to initiate decoderController object
-
-        //stubbing device and decoder objects
-        device1 = new DeviceEntity("1","Decoder #1","Running",null,null);
-        decoder1 = new DecoderEntity("1", device1);
     }
 
     @Test
@@ -93,13 +97,14 @@ class DecoderControllerTest {
 
         //mock a request
         MockHttpServletRequest request = new MockHttpServletRequest();
+        request.setServerName("localhost/decoder");
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
 
         //request response
         ResponseEntity response = decoderController.createDecoder(decoder1);
 
         assertEquals(201, response.getStatusCodeValue(), "The status code is not 201.");
-        assertEquals("http://localhost/1", response.getHeaders().get("Location").get(0), "The returned location is incorrect.");
+        assertEquals("http://localhost/decoder/1", response.getHeaders().get("Location").get(0), "The returned location is incorrect.");
     }
 
     //When a device is unavailable in the DB

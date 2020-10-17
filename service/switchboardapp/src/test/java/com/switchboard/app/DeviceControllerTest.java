@@ -5,6 +5,7 @@ import com.switchboard.app.dao.DeviceDaoImpl;
 import com.switchboard.app.domain.DeviceEntity;
 import com.switchboard.app.exceptions.DeviceAlreadyExistsException;
 import com.switchboard.app.exceptions.DeviceNotFoundException;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -29,13 +30,16 @@ class DeviceControllerTest {
     @Mock
     private DeviceDaoImpl deviceService;
 
-    private DeviceEntity device1;
+    static private DeviceEntity device1;
+
+    @BeforeAll
+    static void deviceFixture(){
+        device1 = new DeviceEntity("1","Device #1","Running",null,null);
+    }
 
     @BeforeEach
     void setUp(){
         MockitoAnnotations.initMocks(this);
-
-        device1 = new DeviceEntity("1","Device #1","Running",null,null);
     }
 
     @Test
@@ -92,12 +96,13 @@ class DeviceControllerTest {
 
         //mock a request
         MockHttpServletRequest request = new MockHttpServletRequest();
+        request.setServerName("localhost/device");
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
 
         //request response
         ResponseEntity response = deviceController.createDevice(device1);
 
         assertEquals(201, response.getStatusCodeValue(), "The status code is not 201.");
-        assertEquals("http://localhost/1", response.getHeaders().get("Location").get(0), "The returned location is incorrect.");
+        assertEquals("http://localhost/device/1", response.getHeaders().get("Location").get(0), "The returned location is incorrect.");
     }
 }
