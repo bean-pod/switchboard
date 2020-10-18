@@ -34,6 +34,13 @@ select {
   vertical-align: inherit;
 }
 
+.SearchField input{
+  width: 900px;
+  padding: 3px 5px 7px 5px;
+}
+.sortBy{
+  margin-left: 1em;
+}
 /* Text Style Classes */
 .flexContents {
   display: flex;
