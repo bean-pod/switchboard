@@ -11,30 +11,36 @@ import {
   Menu
 } from '@material-ui/icons/';
 
-const useStyles = makeStyles((theme) => ({
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-}));
 
-function HeaderBar() {
-  const classes = useStyles();
-  return (
-    <div className="HeaderBar" >
-      <AppBar position="static">
-        <Toolbar className="darkGrey" >
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <Menu />
-          </IconButton>
-          <div className="headerTitle">
-            Switchboard
-          </div>
-          <IconButton color="inherit"><Notifications /></IconButton>
-          <IconButton color="inherit"><AccountCircle /></IconButton>
-        </Toolbar>
-      </AppBar>
-    </div>
+
+export default class HeaderBar extends React.Component{
+  constructor(props){
+    super(props);
+    this.classes = makeStyles((theme) => ({
+      menuButton: {
+        marginRight: theme.spacing(2),
+      },
+    }));
+  }
+  render(){
+    return (
+    <React.Fragment>
+      <div className="HeaderBar" >
+        <AppBar position="static">
+          <Toolbar className="darkGrey" >
+            <IconButton edge="start" className={this.classes.menuButton} color="inherit" aria-label="menu">
+              <Menu />
+            </IconButton>
+            <div className="headerTitle">
+              Switchboard
+            </div>
+            <IconButton color="inherit"><Notifications /></IconButton>
+            <IconButton color="inherit"><AccountCircle /></IconButton>
+          </Toolbar>
+        </AppBar>
+      </div>
+    </React.Fragment>
   );
+  }
+  
 }
-
-export default HeaderBar;
