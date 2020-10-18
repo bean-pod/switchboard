@@ -6,9 +6,9 @@ import * as serviceWorker from './serviceWorker';
 import DeviceList from './DeviceList';
 
 import {
-  Breadcrumbs, 
+  Breadcrumbs,
   Typography,
-  Link, 
+  Link,
   Box,
 } from "@material-ui/core"
 

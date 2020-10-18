@@ -48,10 +48,10 @@ function getStatusStyle(status) {
     }
 }
 function getStatusText(status) {
-    switch(status){
+    switch (status) {
         case 0:
             return "Online";
-        case 1: 
+        case 1:
             return "Pending";
         case 2:
             return "Error";
@@ -123,10 +123,10 @@ class ContentsTable extends React.Component {
             <React.Fragment>
                 {DeviceListTabs(this.props.classes, [this.state.value, this.handleValueChange])}
                 <TabPanel value={this.state.value} index={0}>
-                    <DevicesTable rows={this.state.senders}/>
+                    <DevicesTable rows={this.state.senders} />
                 </TabPanel>
                 <TabPanel value={this.state.value} index={1}>
-                    <DevicesTable rows={this.state.receivers}/>
+                    <DevicesTable rows={this.state.receivers} />
                 </TabPanel>
             </React.Fragment>
         );
@@ -148,13 +148,13 @@ class SingleTableRow extends React.Component {
         }
         return extraStr;
     }
-    
+
     render() {
         return (
             <React.Fragment>
                 <TableRow key={this.props.row.id}>
                     <TableCell style={{ width: 1, padding: 0, paddingLeft: 5 }}>
-                        <IconButton onClick={() => this.setState({open:!this.state.open})}>
+                        <IconButton onClick={() => this.setState({ open: !this.state.open })}>
                             {this.state.open ? <ExpandMore /> : <ExpandLess />}
                         </IconButton>
                     </TableCell>
@@ -228,7 +228,7 @@ class DeviceList extends React.Component {
         return (
             <Container>
                 <TitleBox />
-                <ContentsTable classes={this.props.classes}/>
+                <ContentsTable classes={this.props.classes} />
             </Container>
         );
     }
