@@ -25,4 +25,25 @@ function Breadcrumb() {
     return parse(element)
 }
 
+class Breadcrumb extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <Breadcrumbs aria-label="breadcrumb">
+                {this.props.breadcrumbs.map((crumb) => {
+                    return (
+                        <React.Fragment>
+                            <Typography color="textPrimary"> {crumb}"</Typography>
+                    <Link color="inherit" href={"\ " + crumb} onClick={handleClick}> {crumb}</Link>
+                        </React.Fragment>
+                    
+                    );
+                })}
+            </Breadcrumbs>
+        );
+    }
+}
 export default Breadcrumb("home", "device");
