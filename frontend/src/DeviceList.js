@@ -28,8 +28,8 @@ import generateHeadCells from "./headCells";
 import ActionMenu from "./ActionMenu";
 import DeviceListTabs from "./DeviceListTabs";
 import * as DeviceApi from "./api/DeviceApi";
-import SearchBar from './devListSearch';
-import SortBy from './DevListSortBy';
+import SearchBar from './DeviceListSearch';
+import SortBy from './DeviceListSortBy';
 
 // imports for material ui & etc
 
