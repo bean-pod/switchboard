@@ -24,7 +24,7 @@ import {
 
 import PropTypes from "prop-types";
 import GenerateData from "./SampleData";
-import generateHeadCells from "./headCells";
+import GenerateHeadCells from "./headCells";
 import ActionMenu from "./ActionMenu";
 import DeviceListTabs from "./DeviceListTabs";
 import * as DeviceApi from "./api/DeviceApi";
@@ -206,9 +206,9 @@ class DevicesTable extends React.Component {
                         <Table stickyHeader>
                             <TableHead>
                                 <TableRow>
-                                    <TableCell style={{ width: 1, padding: 0, paddingLeft: 5 }}></TableCell>
-                                    {generateHeadCells()}
-                                    <TableCell align="center"><Typography variant="caption">Actions</Typography></TableCell>
+                                    <TableCell class="tableHeadCell lightestGrey" style={{ width: 1, padding: 0, paddingLeft: 5 }}></TableCell>
+                                    <GenerateHeadCells/>
+                                    <TableCell class="tableHeadCell lightestGrey" align="center"><Typography variant="caption">Actions</Typography></TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
