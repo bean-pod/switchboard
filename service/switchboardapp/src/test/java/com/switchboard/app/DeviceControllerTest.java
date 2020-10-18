@@ -17,23 +17,21 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 class DeviceControllerTest {
     @InjectMocks
-    private DeviceController deviceController;
+     DeviceController deviceController;
 
     @Mock
-    private DeviceDaoImpl deviceService;
+     DeviceDaoImpl deviceService;
 
     //stubbed DeviceEntity object
-    static private DeviceEntity device1, device2;
-    static private List<DeviceEntity> listOfDevices;
+    static  DeviceEntity device1, device2;
+    static  List<DeviceEntity> listOfDevices;
 
     @BeforeAll
     static void deviceFixture(){

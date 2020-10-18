@@ -19,28 +19,26 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 class EncoderControllerTest {
     @InjectMocks
-    private EncoderController encoderController;
+     EncoderController encoderController;
 
     @Mock
-    private EncoderDaoImpl encoderService;
+     EncoderDaoImpl encoderService;
 
     @Mock
     private DeviceDaoImpl deviceService;
 
     //stubbed Objects
-    static private DeviceEntity device1, device2;
-    static private EncoderEntity encoder1, encoder2;
-    static private List<EncoderEntity> listOfEncoders;
+    static  DeviceEntity device1, device2;
+    static  EncoderEntity encoder1, encoder2;
+    static  List<EncoderEntity> listOfEncoders;
 
     @BeforeAll
     static void encoderFixture(){
