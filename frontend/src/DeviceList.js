@@ -28,23 +28,22 @@ import generateHeadCells from "./headCells";
 import ActionMenu from "./ActionMenu";
 import DeviceListTabs from "./DeviceListTabs";
 import * as DeviceApi from "./api/DeviceApi";
+import SearchBar from './devListSearch';
 
 // imports for material ui & etc
 
 // temporary row
 
 function getStatusStyle(status) {
-    if (status === 0) {
-        return "green statusText";
-    }
-    else if (status === 1) {
-        return "yellow statusText";
-    }
-    else if (status === 2) {
-        return "red statusText";
-    }
-    else {
-        return "lightGrey statusOfflineText";
+    switch(status){
+        case 0:
+            return "green statusText";
+        case 1:
+            return "yellow statusText";
+        case 2:
+            return "red statusText";
+        default:
+            return "lightGrey statusOfflineText";   
     }
 }
 function getStatusText(status) {
