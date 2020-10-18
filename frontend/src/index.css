@@ -27,7 +27,6 @@ select {
 /* Text Style Classes */
 .flexContents {
   display: flex;
-  justify-content: space-between;
 }
 .alignRight {
   position: absolute;
@@ -41,6 +40,7 @@ select {
 .headerTitle {
   font-size: 24px;
   vertical-align: middle;
+  flex-grow: 1;
 }
 .title {
   font-size: 40px;

@@ -2,30 +2,40 @@ import React from 'react';
 import {
   AppBar,
   Toolbar,
+  Button,
   IconButton,
-  Badge
+  Badge,
+  Typography,
+  makeStyles
 } from "@material-ui/core"
 import {
   AccountCircle,
   Notifications,
   Menu
- } from '@material-ui/icons/';
+} from '@material-ui/icons/';
+
+const useStyles = makeStyles((theme) => ({
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+}));
 
 function HeaderBar() {
+  const classes = useStyles();
   return (
-    <div className="HeaderBar">
+    <div className="HeaderBar" >
       <AppBar position="static">
-        <Toolbar className="darkGrey paddedText flexContents">
-          <IconButton color="inherit" aria-label="menu">
-              <Menu/>
-            </IconButton>
-            <span className="headerTitle">Switchboard</span>
-          <div className="alignRightFloat">
-            <IconButton color="inherit"><Notifications /></IconButton>
-            <IconButton color="inherit"><AccountCircle /></IconButton>
-          </div>     
+        <Toolbar className="darkGrey" >
+          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+            <Menu />
+          </IconButton>
+          <div className="headerTitle">
+            Switchboard
+          </div>
+          <IconButton color="inherit"><Notifications /></IconButton>
+          <IconButton color="inherit"><AccountCircle /></IconButton>
         </Toolbar>
-        </AppBar>
+      </AppBar>
     </div>
   );
 }
