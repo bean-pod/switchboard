@@ -23,14 +23,14 @@ export default function verticalTabs(classes, state) {
             <Tabs
                 value={value}
                 onChange={handleChange}
-                aria-label="Vertical tabs example"
+                aria-label="Vertical tabs"
                 className={classes.tabs}
                 class="lightGrey blackFont flexContents"
                 orientation="vertical"
                 variant="scrollable"
             >
-                <Tab label="Item One" {...a11yProps(0)} />
-                <Tab label="Item Two" {...a11yProps(1)} />
+                <Tab label="Senders" {...a11yProps(0)} />
+                <Tab label="Receivers" {...a11yProps(1)} />
             </Tabs>
         </React.Fragment>
     );

@@ -121,13 +121,15 @@ class ContentsTable extends React.Component {
     render() {
         return (
             <React.Fragment>
-                {DeviceListTabs(this.props.classes, [this.state.value, this.handleValueChange])}
-                <TabPanel value={this.state.value} index={0}>
-                    <DevicesTable rows={this.state.senders} />
-                </TabPanel>
-                <TabPanel value={this.state.value} index={1}>
-                    <DevicesTable rows={this.state.receivers} />
-                </TabPanel>
+                <Box style={{display: 'flex', flexGrow: 1}}>
+                    {DeviceListTabs(this.props.classes, [this.state.value, this.handleValueChange])}
+                    <TabPanel value={this.state.value} index={0}>
+                        <DevicesTable rows={this.state.senders} />
+                    </TabPanel>
+                    <TabPanel value={this.state.value} index={1}>
+                        <DevicesTable rows={this.state.receivers} />
+                    </TabPanel>
+                </Box>
             </React.Fragment>
         );
     }
