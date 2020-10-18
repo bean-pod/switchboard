@@ -9,11 +9,36 @@ import {
   Search
 } from '@material-ui/icons/';
 
-export default function SearchBar() {
-  const classes = useStyles();
-
-  return (
-    <div className={classes.search}>
+export default class SearchBar extends React.Component {
+  constructor(props){
+    super(props);
+    this.classes = makeStyles((theme) => ({
+    search: {
+      position: 'relative',
+      right: 0,
+      marginLeft: 0,
+      [theme.breakpoints.up('sm')]: {
+        marginLeft: theme.spacing(1),
+        width: 'auto',
+      },
+    },
+    searchIcon: {
+      padding: theme.spacing(0, 2),
+      height: '100%',
+      position: 'absolute',
+      pointerEvents: 'none',
+      alignItems: 'left',
+      justifyContent: 'center',
+    },
+    inputRoot: {
+      color: 'inherit',
+    }
+  }));
+  }
+  render(){
+    return (
+      <React.Fragment>
+        <div className={this.classes.search}>
       <div><TextField
         placeholder="Search"
         InputProps={{
@@ -25,28 +50,7 @@ export default function SearchBar() {
       ></TextField>
       </div>
     </div>
+      </React.Fragment>
   );
+  } 
 }
-
-const useStyles = makeStyles((theme) => ({
-  search: {
-    position: 'relative',
-    right: 0,
-    marginLeft: 0,
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(1),
-      width: 'auto',
-    },
-  },
-  searchIcon: {
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    alignItems: 'left',
-    justifyContent: 'center',
-  },
-  inputRoot: {
-    color: 'inherit',
-  }
-}));
