@@ -14,21 +14,14 @@ export default function SearchBar() {
 
   return (
     <div className={classes.search}>
-      <InputAdornment className={classes.searchIcon}>
-         
-        </InputAdornment>
       <div><TextField
-        placeholder="Search…"
-        classes={{
-          input: classes.inputInput,
-        }}
+        placeholder="Search"
         InputProps={{
           startAdornment: <InputAdornment position="start"> <Search /></InputAdornment>
         }}
-        
         inputProps={{ 'aria-label': 'search' }}
-        variant="outlined"
         size="small"
+        class="SearchField"
       ></TextField>
       </div>
     </div>

@@ -29,6 +29,7 @@ import ActionMenu from "./ActionMenu";
 import DeviceListTabs from "./DeviceListTabs";
 import * as DeviceApi from "./api/DeviceApi";
 import SearchBar from './devListSearch';
+import SortBy from './DevListSortBy';
 
 // imports for material ui & etc
 
@@ -122,6 +123,7 @@ class ContentsTable extends React.Component {
             <React.Fragment>
                 <Box style={{display: 'flex', flexGrow: 1, margin: "1em"}}>
                     <SearchBar/>
+                    <SortBy/>
                 </Box>
                 <Box style={{display: 'flex', flexGrow: 1, maxHeight: 500}}>
                     {DeviceListTabs(this.props.classes, [this.state.value, this.handleValueChange])}
