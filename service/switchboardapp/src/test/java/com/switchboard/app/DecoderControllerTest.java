@@ -19,6 +19,7 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -28,18 +29,18 @@ import static org.mockito.Mockito.when;
 class DecoderControllerTest {
 
     @InjectMocks
-     DecoderController decoderController;
+    private DecoderController decoderController;
 
     @Mock
-     DecoderDaoImpl decoderService;
+    private DecoderDaoImpl decoderService;
 
     @Mock
-     DeviceDaoImpl deviceService;
+    private DeviceDaoImpl deviceService;
 
     //stubbed Objects
-    static  DeviceEntity device1, device2;
-    static  DecoderEntity decoder1, decoder2;
-    static  List<DecoderEntity> listOfDecoders;
+    static private DeviceEntity device1, device2;
+    static private DecoderEntity decoder1, decoder2;
+    static private List<DecoderEntity> listOfDecoders;
 
     @BeforeAll
     static void decoderFixture(){
