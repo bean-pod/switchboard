@@ -28,9 +28,10 @@ jobs:
       - name: install
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-        run: mvn -B install
-        working-directory: ./service/switchboardapp  - name: Build and analyze
-      - name: build
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn -B clean install -DskipTests org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+        working-directory: ./service/switchboardapp
+      - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
