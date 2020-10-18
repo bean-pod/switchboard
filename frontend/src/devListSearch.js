@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  InputAdornment,
   makeStyles,
   TextField,
 } from "@material-ui/core"
@@ -13,16 +14,18 @@ export default function SearchBar() {
 
   return (
     <div className={classes.search}>
-      <div className={classes.searchIcon}>
-        {/* <span class="buttonText"> */}
-          <Search />
-        {/* </span> */}
-        </div>
+      <InputAdornment className={classes.searchIcon}>
+         
+        </InputAdornment>
       <div><TextField
         placeholder="Search…"
         classes={{
           input: classes.inputInput,
         }}
+        InputProps={{
+          startAdornment: <InputAdornment position="start"> <Search /></InputAdornment>
+        }}
+        
         inputProps={{ 'aria-label': 'search' }}
         variant="outlined"
         size="small"
