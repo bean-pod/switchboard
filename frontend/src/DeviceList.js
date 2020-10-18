@@ -165,14 +165,14 @@ class SingleTableRow extends React.Component {
                         </IconButton>
                     </TableCell>
                     <TableCell class = "tableCell">{this.props.row.name}</TableCell>
-                    <TableCell class = "tableCell">{this.props.row.serial}</TableCell>
+                    <TableCell class = "tableCell numeric">{this.props.row.serial}</TableCell>
                     <TableCell class = "tableCell">
                         <div class={getStatusStyle(this.props.row.status)}>
                             {getStatusText(this.props.row.status)}
                         </div>
                     </TableCell>
-                    <TableCell class = "tableCell">{this.props.row.ip}</TableCell>
-                    <TableCell class = "tableCell">{this.props.row.port}</TableCell>
+                    <TableCell class = "tableCell numeric">{this.props.row.ip}</TableCell>
+                    <TableCell class = "tableCell numeric">{this.props.row.port}</TableCell>
                     <TableCell class = "tableCell" align="center">
                         <ActionMenu />
                     </TableCell>
@@ -182,7 +182,7 @@ class SingleTableRow extends React.Component {
                         <Collapse in={this.state.open} timeout="auto" unmountOnExit>
                             <Box margin={2}>
                                 <Typography variant="caption">
-                                    Some extra info: {this.rowExtras(this.props.row.extras)}
+                                    {this.rowExtras(this.props.row.extras)}
                                 </Typography>
                             </Box>
                         </Collapse>
