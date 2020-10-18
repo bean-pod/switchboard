@@ -65,15 +65,15 @@ class TitleBox extends React.Component {
         return (
             <React.Fragment>
                 <Box class="flexContents headerArea">
-                    <span class="paddedText title">My Devices</span>
-                    <span class="alignRightFloat">
+                    <div class="paddedText title">My Devices</div>
+                    <div class="alignRightFloat">
                         <Button class="green buttonText">
                             <SwapHoriz /> Stream
                     </Button>
                         <Button class="blue buttonText">
                             <AddSharp /> Add Device
                     </Button>
-                    </span>
+                    </div>
                 </Box>
             </React.Fragment>
         );
