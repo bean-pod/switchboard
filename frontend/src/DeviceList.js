@@ -1,26 +1,17 @@
 import React from 'react';
 import {
-    AppBar,
     Box,
     Button,
     Collapse,
     Container,
-    makeStyles,
-    Menu,
-    Tab,
-    Tabs,
     Table,
     TableHead,
     TableRow,
     TableCell,
     TableContainer,
     TableBody,
-    TableSortLabel,
-    Select,
     Typography,
     IconButton,
-    TextField,
-    MenuItem,
     withStyles
 } from "@material-ui/core"
 
@@ -28,17 +19,13 @@ import {
     SwapHoriz,
     AddSharp,
     ExpandLess,
-    ExpandMore,
-    Search,
-    MoreVert,
-    FilterNone
+    ExpandMore
 } from '@material-ui/icons/';
 
 import PropTypes from "prop-types";
 import GenerateData from "./SampleData";
 import generateHeadCells from "./headCells";
 import ActionMenu from "./ActionMenu";
-import SearchBar from "./devListSearch";
 import DeviceListTabs from "./DeviceListTabs";
 import * as DeviceApi from "./api/DeviceApi";
 
@@ -47,13 +34,13 @@ import * as DeviceApi from "./api/DeviceApi";
 // temporary row
 
 function getStatusStyle(status) {
-    if (status == 0) {
+    if (status === 0) {
         return "green statusText";
     }
-    else if (status == 1) {
+    else if (status === 1) {
         return "yellow statusText";
     }
-    else if (status == 2) {
+    else if (status === 2) {
         return "red statusText";
     }
     else {
@@ -61,17 +48,15 @@ function getStatusStyle(status) {
     }
 }
 function getStatusText(status) {
-    if (status == 0) {
-        return "Online";
-    }
-    else if (status == 1) {
-        return "Pending";
-    }
-    else if (status == 2) {
-        return "Error";
-    }
-    else {
-        return "Offline";
+    switch(status){
+        case 0:
+            return "Online";
+        case 1: 
+            return "Pending";
+        case 2:
+            return "Error";
+        default:
+            return "Offline";
     }
 }
 
@@ -274,13 +259,6 @@ TabPanel.propTypes = {
     index: PropTypes.any.isRequired,
     value: PropTypes.any.isRequired
 };
-
-function a11yProps(index) {
-    return {
-        id: `vertical-tab-${index}`,
-        'aria-controls': `vertical-tabpanel-${index}`,
-    };
-}
 
 const useStyles = (theme) => ({
     root: {
