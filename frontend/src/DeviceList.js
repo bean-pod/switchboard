@@ -122,7 +122,6 @@ class ContentsTable extends React.Component {
     }
 
     handleSendersChange(senders) {
-        console.log("Senders updated");
         this.setState({
             senders: senders
         });
@@ -135,7 +134,6 @@ class ContentsTable extends React.Component {
     }
 
     render() {
-        console.log("Rendering")
         return (
             <React.Fragment>
                 {DeviceListTabs(this.props.classes, [this.state.value, this.handleValueChange])}
@@ -207,18 +205,9 @@ class SingleTableRow extends React.Component {
 class DevicesTable extends React.Component {
     constructor(props) {
         super(props)
-        this.tableRows = []
-        var i = 0;
-        props.rows.forEach((row) => {
-            this.tableRows.push(
-            <SingleTableRow key={i} row={row}/>
-            )
-            i++;
-        })
     }
 
     render() {
-        console.log("Rendering a child devicelist length: " + this.tableRows.length);
         return (
             <React.Fragment>
                 <Box>
@@ -231,7 +220,11 @@ class DevicesTable extends React.Component {
                                     <TableCell align="center"><Typography variant="caption">Actions</Typography></TableCell>
                                 </TableRow>
                             </TableHead>
-                            <TableBody>{this.tableRows}</TableBody>
+                            <TableBody>
+                                {this.props.rows.map((row) => {
+                                    return <SingleTableRow row={row} />;
+                                })}
+                            </TableBody>
                         </Table>
                     </TableContainer>
                 </Box>
