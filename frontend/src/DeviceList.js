@@ -161,7 +161,7 @@ class SingleTableRow extends React.Component {
                 <TableRow key={this.props.row.id}>
                     <TableCell class = "tableCell" style={{ width: 1, padding: 0, paddingLeft: 5 }}>
                         <IconButton onClick={() => this.setState({ open: !this.state.open })}>
-                            {this.state.open ? <ExpandMore /> : <ExpandLess />}
+                            {this.state.open ? <ExpandLess />:<ExpandMore />}
                         </IconButton>
                     </TableCell>
                     <TableCell class = "tableCell">{this.props.row.name}</TableCell>
