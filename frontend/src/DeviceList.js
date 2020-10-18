@@ -157,21 +157,21 @@ class SingleTableRow extends React.Component {
         return (
             <React.Fragment>
                 <TableRow key={this.props.row.id}>
-                    <TableCell style={{ width: 1, padding: 0, paddingLeft: 5 }}>
+                    <TableCell class = "tableCell" style={{ width: 1, padding: 0, paddingLeft: 5 }}>
                         <IconButton onClick={() => this.setState({ open: !this.state.open })}>
                             {this.state.open ? <ExpandMore /> : <ExpandLess />}
                         </IconButton>
                     </TableCell>
-                    <TableCell>{this.props.row.name}</TableCell>
-                    <TableCell>{this.props.row.serial}</TableCell>
-                    <TableCell>
+                    <TableCell class = "tableCell">{this.props.row.name}</TableCell>
+                    <TableCell class = "tableCell">{this.props.row.serial}</TableCell>
+                    <TableCell class = "tableCell">
                         <div class={getStatusStyle(this.props.row.status)}>
                             {getStatusText(this.props.row.status)}
                         </div>
                     </TableCell>
-                    <TableCell>{this.props.row.ip}</TableCell>
-                    <TableCell>{this.props.row.port}</TableCell>
-                    <TableCell align="center">
+                    <TableCell class = "tableCell">{this.props.row.ip}</TableCell>
+                    <TableCell class = "tableCell">{this.props.row.port}</TableCell>
+                    <TableCell class = "tableCell" align="center">
                         <ActionMenu />
                     </TableCell>
                 </TableRow>
