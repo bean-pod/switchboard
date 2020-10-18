@@ -121,7 +121,7 @@ class ContentsTable extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <Box style={{display: 'flex', flexGrow: 1}}>
+                <Box style={{display: 'flex', flexGrow: 1, maxHeight: 500}}>
                     {DeviceListTabs(this.props.classes, [this.state.value, this.handleValueChange])}
                     <TabPanel value={this.state.value} index={0}>
                         <DevicesTable rows={this.state.senders} />
