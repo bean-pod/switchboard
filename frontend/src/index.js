@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import HeaderBar from './HeaderBar';
+import HeaderBar from './HeaderAppBar';
 import * as serviceWorker from './serviceWorker';
 import DeviceList from './DeviceList';
 
