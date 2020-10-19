@@ -24,7 +24,7 @@ import {
 
 import PropTypes from "prop-types";
 import GenerateData from "./SampleData";
-import HeadCells from "./headCells";
+import HeadCells from "./HeadCells";
 import ActionMenu from "./ActionMenu";
 import DeviceListTabs from "./DeviceListTabs";
 import * as DeviceApi from "./api/DeviceApi";

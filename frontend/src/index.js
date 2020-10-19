@@ -15,7 +15,7 @@ import {
 ReactDOM.render(
   <React.StrictMode>
     <HeaderBar />
-    <Box padding="2em">
+    <Box padding="2em 0em 0em 10em">
       <Breadcrumbs aria-label="breadcrumb">
         <Link color="inherit" href="/" >
           Home
