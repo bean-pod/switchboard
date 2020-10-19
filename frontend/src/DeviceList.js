@@ -69,10 +69,10 @@ class TitleBox extends React.Component {
                     <div class="alignRightFloat">
                         <Button class="green buttonText">
                             <SwapHoriz /> Stream
-                    </Button>
+                        </Button>
                         <Button class="blue buttonText">
                             <AddSharp /> Add Device
-                    </Button>
+                        </Button>
                     </div>
                 </Box>
             </React.Fragment>
@@ -121,7 +121,7 @@ class ContentsTable extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <Box style={{display: 'flex', flexGrow: 1, margin: "1em"}}>
+                <Box style={{display: 'flex', flexGrow: 1, margin: "1em 0em"}}>
                     <SearchBar/>
                     <SortBy/>
                 </Box>

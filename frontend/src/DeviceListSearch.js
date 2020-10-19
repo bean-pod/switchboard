@@ -38,19 +38,17 @@ export default class SearchBar extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div className={this.classes.search}>
-          <div>
+        <div className={this.classes.search} class="SearchField">
+
             <TextField
               placeholder="Search"
               InputProps={{startAdornment: <InputAdornment position="start"> <Search /></InputAdornment>}}
               inputProps={{ 'aria-label': 'search' }}
               size="small"
               variant= "outlined"
-              class="SearchField"
+              
             >
-
             </TextField>
-          </div>
         </div>
       </React.Fragment>
     );
