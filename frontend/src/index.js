@@ -23,7 +23,7 @@ ReactDOM.render(
         <Typography component={'span'} color="textPrimary">Devices</Typography>
       </Breadcrumbs>
     </Box>
-    <Box padding="2em">
+    <Box padding="1em">
       <DeviceList />
     </Box>
   </React.StrictMode>,
