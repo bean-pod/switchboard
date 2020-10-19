@@ -9,9 +9,9 @@ export default class DLSortBy extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <div flex-grow="1" class="sortBy">
-                    <Typography  variant="caption" >Sort By</Typography>
-                    <Select class="without-padding">
+                <div flex-grow="1">
+                    <Typography class="sortBy" variant="caption" >Sort By</Typography>
+                    <Select variant= "outlined" id="sortBySelect">
                         <MenuItem dense="true" value={"Online"}> <Typography variant="caption">Online</Typography></MenuItem>
                         <MenuItem dense="true" value={"Pending"}> <Typography variant="caption">Pending</Typography></MenuItem>
                         <MenuItem dense="true" value={"Error"}>   <Typography variant="caption">Error</Typography></MenuItem>
