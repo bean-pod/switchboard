@@ -2,6 +2,9 @@ package com.switchboard.app.controller;
 
 import com.switchboard.app.dao.DeviceDaoImpl;
 import com.switchboard.app.dao.EncoderDaoImpl;
+import com.switchboard.app.dto.EncoderDTO;
+import com.switchboard.app.dto.mapper.DeviceMapper;
+import com.switchboard.app.dto.mapper.EncoderMapper;
 import com.switchboard.app.entity.DeviceEntity;
 import com.switchboard.app.entity.EncoderEntity;
 import com.switchboard.app.exceptions.ExceptionType;
@@ -32,9 +35,12 @@ public class EncoderController {
     @Autowired
     DeviceDaoImpl deviceService;
 
+    @Autowired
+    EncoderMapper encoderMapper;
+
     @GetMapping
-    public List<EncoderEntity> retrieveAllEncoders() {
-        return encoderService.getEncoders();
+    public List<EncoderDTO> retrieveAllEncoders() {
+        return encoderMapper.toEncoderDTOs(encoderService.getEncoders());
     }
 
     @GetMapping("/{serialNumber}")
