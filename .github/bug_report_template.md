@@ -17,8 +17,8 @@
 <!-- Table below is mostly for frontend related bugs, use if applicable --> 
 |  Actual  |
 |:---------------:|
-| <!--** Please highlight/box the parts which do not match the mockups **--> testing1|
+| <!--** Please highlight/box the parts which do not match the mockups **--> |
 
 | Expected |
 |:---------------:|
-| <!--** The corresponding mockup **--> testing2|
+| <!--** The corresponding mockup **--> |
