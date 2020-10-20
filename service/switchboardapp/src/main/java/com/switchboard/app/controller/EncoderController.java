@@ -3,7 +3,6 @@ package com.switchboard.app.controller;
 import com.switchboard.app.dao.DeviceDaoImpl;
 import com.switchboard.app.dao.EncoderDaoImpl;
 import com.switchboard.app.dto.EncoderDTO;
-import com.switchboard.app.dto.mapper.DeviceMapper;
 import com.switchboard.app.dto.mapper.EncoderMapper;
 import com.switchboard.app.entity.DeviceEntity;
 import com.switchboard.app.entity.EncoderEntity;
@@ -44,7 +43,7 @@ public class EncoderController {
     }
 
     @GetMapping("/{serialNumber}")
-    public EntityModel<EncoderEntity> retrieveDevice(@PathVariable @Valid String serialNumber) {
+    public ResponseEntity<EntityModel<EncoderDTO>> retrieveEncoder(@PathVariable @Valid String serialNumber) {
 
         Optional<EncoderEntity> encoder = encoderService.findEncoder(serialNumber);
 
@@ -52,10 +51,10 @@ public class EncoderController {
             throw new ExceptionType.DeviceNotFoundException(serialNumber + "/Encoder");
         }
 
-        EntityModel<EncoderEntity> resource = EntityModel.of(encoder.get());
+        EntityModel<EncoderDTO> resource = EntityModel.of(encoderMapper.toEncoderDTO(encoder.get()));
         WebMvcLinkBuilder linkTo = linkTo(methodOn(this.getClass()).retrieveAllEncoders());
         resource.add(linkTo.withRel("all-encoders"));
-        return resource;
+        return ResponseEntity.ok(resource);
     }
 
     @PostMapping
