@@ -15,6 +15,10 @@
 
 **Visual proof:**
 <!-- Table below is mostly for frontend related bugs, use if applicable --> 
-| Actual | Expected |
-|:---------------:|:---------------:|
-| <!--** Please highlight/box the parts which do not match the mockups **--> | <!--** The corresponding mockup **--> |
+|  Actual  |
+|:---------------:|
+| <!--** Please highlight/box the parts which do not match the mockups **--> testing1|
+
+| Expected |
+|:---------------:|
+| <!--** The corresponding mockup **--> testing2|
