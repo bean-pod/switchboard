@@ -1,11 +1,9 @@
 <!-- Keep the '-' bullet point indicators and '**' for the titles in each bug report for consistency --> 
-**OS:** 
-<!-- This section is optional, aka only if relevant -->
-<!-- For frontend tasks, list the operating system and browser version --> 
-- 
+**Operating system:**
+- <!-- This section is optional, aka only if relevant; for frontend tasks, list the operating system and browser version --> 
 
 **Steps to reproduce:**
-1. 
+1.
 
 **Expected result:**
 - 
