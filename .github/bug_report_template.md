@@ -14,5 +14,7 @@
 - 
 
 **Visual proof:**
-- Actual: <!-- For frontend tasks, please highlight/box the parts which do not match the mockups --> 
-- Expected: <!-- Optional (if relevant); for frontend tasks, this would mean the corresponding mockup --> 
+<!-- Table below is mostly for frontend related bugs, use if applicable --> 
+| Actual | Expected |
+|:---------------:|:---------------:|
+| <!--** Please highlight/box the parts which do not match the mockups **--> | <!--** The corresponding mockup **--> |
