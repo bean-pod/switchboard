@@ -2,6 +2,8 @@ package com.switchboard.app.controller;
 
 import com.switchboard.app.dao.DecoderDaoImpl;
 import com.switchboard.app.dao.DeviceDaoImpl;
+import com.switchboard.app.dto.DecoderDTO;
+import com.switchboard.app.dto.mapper.DecoderMapper;
 import com.switchboard.app.entity.DecoderEntity;
 import com.switchboard.app.entity.DeviceEntity;
 import com.switchboard.app.exceptions.ExceptionType;
@@ -31,13 +33,16 @@ public class DecoderController {
     @Autowired
     DeviceDaoImpl deviceService;
 
+    @Autowired
+    DecoderMapper decoderMapper;
+
     @GetMapping
-    public List<DecoderEntity> retrieveAllDecoders() {
-        return decoderService.getDecoders();
+    public List<DecoderDTO> retrieveAllDecoders() {
+        return decoderMapper.toDecoderDTOs(decoderService.getDecoders());
     }
 
     @GetMapping("/{serialNumber}")
-    public EntityModel<DecoderEntity> retrieveDecoder(@PathVariable @Valid String serialNumber) {
+    public ResponseEntity<EntityModel<DecoderDTO>> retrieveDecoder(@PathVariable @Valid String serialNumber) {
 
         Optional<DecoderEntity> decoder = decoderService.findDecoder(serialNumber);
 
@@ -45,10 +50,10 @@ public class DecoderController {
             throw new ExceptionType.DeviceNotFoundException(serialNumber + "/Decoder");
         }
 
-        EntityModel<DecoderEntity> resource = EntityModel.of(decoder.get());
+        EntityModel<DecoderDTO> resource = EntityModel.of(decoderMapper.toDecoderDTO(decoder.get()));
         WebMvcLinkBuilder linkTo = linkTo(methodOn(this.getClass()).retrieveAllDecoders());
         resource.add(linkTo.withRel("all-decoders"));
-        return resource;
+        return ResponseEntity.ok(resource);
     }
 
     @PostMapping

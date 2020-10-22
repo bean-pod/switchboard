@@ -38,7 +38,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(ExceptionType.DeviceNotUpdated.class)
-    public final ResponseEntity<Object> deviceNotUpdated(Exception ex, WebRequest request) {
+    public final ResponseEntity<Object> handleDeviceNotUpdatedException(Exception ex, WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(HttpStatus.CONFLICT, ex.getMessage(), "Device was not updated");
         return new ResponseEntity<>(exceptionResponse, exceptionResponse.getStatus());
     }
