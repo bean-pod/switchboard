@@ -1,26 +1,5 @@
 import React from 'react';
-import {
-    Box,
-    Button,
-    Collapse,
-    Container,
-    Table,
-    TableHead,
-    TableRow,
-    TableCell,
-    TableContainer,
-    TableBody,
-    Typography,
-    IconButton,
-    withStyles
-} from "@material-ui/core"
-
-import {
-    SwapHoriz,
-    AddSharp,
-    ExpandLess,
-    ExpandMore
-} from '@material-ui/icons/';
+import { Box } from "@material-ui/core"
 
 import * as DeviceApi from "../api/DeviceApi";
 import GenerateData from './SampleData'
@@ -71,11 +50,11 @@ export default class ContentsTable extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <Box style={{display: 'flex', flexGrow: 1, margin: "1em 0em"}}>
-                    <SearchBar/>
-                    <SortBy/>
+                <Box style={{ display: 'flex', flexGrow: 1, margin: "1em 0em" }}>
+                    <SearchBar />
+                    <SortBy />
                 </Box>
-                <Box style={{display: 'flex', flexGrow: 1, maxHeight: 500}}>
+                <Box style={{ display: 'flex', flexGrow: 1, maxHeight: 500 }}>
                     {DeviceListTabs(this.props.classes, [this.state.value, this.handleValueChange])}
                     <TabPanel value={this.state.value} index={0}>
                         <DevicesTable rows={this.state.senders} />

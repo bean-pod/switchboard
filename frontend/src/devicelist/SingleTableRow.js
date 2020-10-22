@@ -1,23 +1,14 @@
 import React from 'react';
 import {
     Box,
-    Button,
     Collapse,
-    Container,
-    Table,
-    TableHead,
     TableRow,
     TableCell,
-    TableContainer,
-    TableBody,
     Typography,
     IconButton,
-    withStyles
 } from "@material-ui/core"
 
 import {
-    SwapHoriz,
-    AddSharp,
     ExpandLess,
     ExpandMore
 } from '@material-ui/icons/';
@@ -44,21 +35,21 @@ export default class SingleTableRow extends React.Component {
         return (
             <React.Fragment>
                 <TableRow key={this.props.row.id}>
-                    <TableCell class = "tableCell" style={{ width: 1, padding: 0, paddingLeft: 5 }}>
+                    <TableCell class="tableCell" style={{ width: 1, padding: 0, paddingLeft: 5 }}>
                         <IconButton onClick={() => this.setState({ open: !this.state.open })}>
-                            {this.state.open ? <ExpandLess />:<ExpandMore />}
+                            {this.state.open ? <ExpandLess /> : <ExpandMore />}
                         </IconButton>
                     </TableCell>
-                    <TableCell class = "tableCell">{this.props.row.name}</TableCell>
-                    <TableCell class = "tableCell numeric">{this.props.row.serial}</TableCell>
-                    <TableCell class = "tableCell">
+                    <TableCell class="tableCell">{this.props.row.name}</TableCell>
+                    <TableCell class="tableCell numeric">{this.props.row.serial}</TableCell>
+                    <TableCell class="tableCell">
                         <div class={getStatusStyle(this.props.row.status)}>
                             {getStatusText(this.props.row.status)}
                         </div>
                     </TableCell>
-                    <TableCell class = "tableCell numeric">{this.props.row.ip}</TableCell>
-                    <TableCell class = "tableCell numeric">{this.props.row.port}</TableCell>
-                    <TableCell class = "tableCell" align="center">
+                    <TableCell class="tableCell numeric">{this.props.row.ip}</TableCell>
+                    <TableCell class="tableCell numeric">{this.props.row.port}</TableCell>
+                    <TableCell class="tableCell" align="center">
                         <ActionMenu />
                     </TableCell>
                 </TableRow>
@@ -80,7 +71,7 @@ export default class SingleTableRow extends React.Component {
 
 
 function getStatusStyle(status) {
-    switch(status){
+    switch (status) {
         case 0:
             return "green statusText";
         case 1:
@@ -88,7 +79,7 @@ function getStatusStyle(status) {
         case 2:
             return "red statusText";
         default:
-            return "lightGrey statusOfflineText";   
+            return "lightGrey statusOfflineText";
     }
 }
 

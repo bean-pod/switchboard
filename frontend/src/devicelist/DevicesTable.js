@@ -1,26 +1,14 @@
 import React from 'react';
 import {
     Box,
-    Button,
-    Collapse,
-    Container,
     Table,
     TableHead,
     TableRow,
     TableCell,
     TableContainer,
     TableBody,
-    Typography,
-    IconButton,
-    withStyles
+    Typography
 } from "@material-ui/core"
-
-import {
-    SwapHoriz,
-    AddSharp,
-    ExpandLess,
-    ExpandMore
-} from '@material-ui/icons/';
 
 import SingleTableRow from './SingleTableRow'
 import HeadCells from './HeadCells'
@@ -39,7 +27,7 @@ export default class DevicesTable extends React.Component {
                             <TableHead>
                                 <TableRow>
                                     <TableCell class="tableHeadCell lightestGrey" style={{ width: 1, padding: 0, paddingLeft: 5 }}></TableCell>
-                                    <HeadCells/>
+                                    <HeadCells />
                                     <TableCell class="tableHeadCell lightestGrey" align="center"><Typography variant="caption">Actions</Typography></TableCell>
                                 </TableRow>
                             </TableHead>

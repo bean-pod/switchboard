@@ -1,25 +1,12 @@
 import React from 'react';
 import {
     Box,
-    Button,
-    Collapse,
-    Container,
-    Table,
-    TableHead,
-    TableRow,
-    TableCell,
-    TableContainer,
-    TableBody,
-    Typography,
-    IconButton,
-    withStyles
+    Button
 } from "@material-ui/core"
 
 import {
     SwapHoriz,
-    AddSharp,
-    ExpandLess,
-    ExpandMore
+    AddSharp
 } from '@material-ui/icons/';
 
 export default class TitleBox extends React.Component {

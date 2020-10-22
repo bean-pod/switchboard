@@ -1,18 +1,7 @@
 import React from 'react';
 import {
     Box,
-    Button,
-    Collapse,
-    Container,
-    Table,
-    TableHead,
-    TableRow,
-    TableCell,
-    TableContainer,
-    TableBody,
-    Typography,
-    IconButton,
-    withStyles
+    Typography
 } from "@material-ui/core"
 
 export default function TabPanel(props) {
