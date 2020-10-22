@@ -1,7 +1,7 @@
 import { Select, Typography, MenuItem } from '@material-ui/core';
 import React from 'react';
 
-export default class DLSortBy extends React.Component {
+export default class SortBy extends React.Component {
     constructor(props) {
         super(props)
     }

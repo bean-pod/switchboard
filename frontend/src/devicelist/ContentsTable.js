@@ -5,11 +5,10 @@ import * as DeviceApi from "../api/DeviceApi";
 import GenerateData from './SampleData'
 import SearchBar from './SearchBar'
 import SortBy from './SortBy'
-import DeviceListTabs from './VerticalTabs'
+import VerticalTabs from './VerticalTabs'
 import TabPanel from './TabPanel'
 import DevicesTable from './DevicesTable'
 
-// tabs. decide on sender or receiver table
 export default class ContentsTable extends React.Component {
     constructor(props) {
         super(props)
@@ -55,7 +54,7 @@ export default class ContentsTable extends React.Component {
                     <SortBy />
                 </Box>
                 <Box style={{ display: 'flex', flexGrow: 1, maxHeight: 500 }}>
-                    {DeviceListTabs(this.props.classes, [this.state.value, this.handleValueChange])}
+                    <VerticalTabs value ={this.state.value} setValue={this.handleValueChange} classes={this.props.classes} />
                     <TabPanel value={this.state.value} index={0}>
                         <DevicesTable rows={this.state.senders} />
                     </TabPanel>

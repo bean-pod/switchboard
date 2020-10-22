@@ -9,33 +9,50 @@ import {
     MoreVert
 } from '@material-ui/icons/';
 
-export default function ActionMenu() {
-    // will need updating to function with individual devices
-    const [anchorEl, setAnchorEl] = React.useState(null);
+export default class ActionMenu extends React.Component {
+    constructor() {
+        super()
+        this.state = {
+            anchorElement: null
+        }
 
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
+        this.setAnchorElement = this.setAnchorElement.bind(this)
+        this.handleClick = this.handleClick.bind(this)
+        this.handleClose = this.handleClose.bind(this)
+    }
 
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-    return (
-        <React.Fragment>
-            <IconButton aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-                <MoreVert />
-            </IconButton>
-            <Menu
-                id="simple-menu"
-                anchorEl={anchorEl}
-                keepMounted
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-            >
-                <MenuItem onClick={handleClose}>View details</MenuItem>
-                <MenuItem onClick={handleClose}>Start stream with this as receiver</MenuItem>
-                <MenuItem onClick={handleClose}><span class="warningText">Delete</span></MenuItem>
-            </Menu>
-        </React.Fragment>
-    );
+    setAnchorElement(element) {
+        this.setState({
+            anchorElement: element
+        })
+    }
+
+    handleClick(event) {
+        this.setAnchorElement(event.currentTarget)
+    }
+
+    handleClose() {
+        this.setAnchorElement(null)
+    }
+
+    render() {
+        return (
+            <React.Fragment>
+                <IconButton aria-controls="simple-menu" aria-haspopup="true" onClick={this.handleClick}>
+                    <MoreVert />
+                </IconButton>
+                <Menu
+                    id="simple-menu"
+                    anchorEl={this.state.anchorElement}
+                    keepMounted
+                    open={Boolean(this.state.anchorElement)}
+                    onClose={this.handleClose}
+                >
+                    <MenuItem onClick={this.handleClose}>View details</MenuItem>
+                    <MenuItem onClick={this.handleClose}>Start stream with this as receiver</MenuItem>
+                    <MenuItem onClick={this.handleClose}><span class="warningText">Delete</span></MenuItem>
+                </Menu>
+            </React.Fragment>
+        );
+    }
 }

@@ -4,34 +4,39 @@ import {
     Tabs
 } from "@material-ui/core"
 
-function a11yProps(index) {
-    return {
-        id: `vertical-tab-${index}`,
-        'aria-controls': `vertical-tabpanel-${index}`,
-    };
-}
+export default class VerticalTabs extends React.Component {
+    constructor(props) {
+        super(props)
+        this.handleChange = this.handleChange.bind(this)
+    }
 
-export default function verticalTabs(classes, state) {
-    const [value, setValue] = state;
-
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
+    handleChange(event, newValue) {
+        this.props.setValue(newValue);
     };
 
-    return (
-        <React.Fragment>
-            <Tabs
-                value={value}
-                onChange={handleChange}
-                aria-label="Vertical tabs"
-                className={classes.tabs}
-                class="lightGrey blackFont flexContents"
-                orientation="vertical"
-                variant="scrollable"
-            >
-                <Tab label="Senders" {...a11yProps(0)} />
-                <Tab label="Receivers" {...a11yProps(1)} />
-            </Tabs>
-        </React.Fragment>
-    );
+    getTabProps(index) {
+        return {
+            id: `vertical-tab-${index}`,
+            'aria-controls': `vertical-tabpanel-${index}`,
+        };
+    }
+
+    render() {
+        return (
+            <React.Fragment>
+                <Tabs
+                    value={this.props.value}
+                    onChange={this.handleChange}
+                    aria-label="Vertical tabs"
+                    className={this.props.classes.tabs}
+                    class="lightGrey blackFont flexContents"
+                    orientation="vertical"
+                    variant="scrollable"
+                >
+                    <Tab label="Senders" {...this.getTabProps(0)} />
+                    <Tab label="Receivers" {...this.getTabProps(1)} />
+                </Tabs>
+            </React.Fragment>
+        );
+    }
 };
