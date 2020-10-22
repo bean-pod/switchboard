@@ -1,4 +1,4 @@
-import DeviceInfo from "./model/DeviceInfo";
+import DeviceInfo from "../model/DeviceInfo";
 
 function generateData() {
 
