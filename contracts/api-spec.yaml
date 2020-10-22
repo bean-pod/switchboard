@@ -107,6 +107,23 @@ paths:
         '200':
           description: Successful deletion of the encoder
 
+  /encoders/{uuid}/streams:
+    get:
+      operationId: getEncoderStreams
+      description: Retrieve the sending streams for the encoder
+      tags:
+        - Encoders
+        - Streams
+      parameters:
+        - $ref: '#/components/parameters/EncoderId'
+      responses:
+        '200':
+          description: Successful retrieval of video streams for an encoder
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StreamsModel'
+
   /decoder:
     get:
       operationId: retrieveAllDecoders
@@ -177,6 +194,92 @@ paths:
         '200':
           description: Successful deletion of the decoder
 
+  /decoders/{uuid}/streams:
+    get:
+      operationId: getDecoderStreams
+      description: Retrieve the sending streams for the decoder
+      tags:
+        - Decoders
+        - Streams
+      parameters:
+        - $ref: '#/components/parameters/EncoderId'
+      responses:
+        '200':
+          description: Successful retrieval of video streams for a decoder
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StreamsModel'
+
+  /streams:
+    get:
+      operationId: getStreams
+      description: Retrieve all the existing streams
+      tags:
+        - Streams
+      responses:
+        '200':
+          description: Successful retrieval of video streams for a decoder
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StreamsModel'
+    post:
+      operationId: createStream
+      description: Create a new stream between an encoder and a decoder
+      tags:
+        - Streams
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StreamModel'
+      responses:
+        '200':
+          description: Successful creation of the decoder
+
+  /streams/{uuid}:
+    get:
+      operationId: getStreamById
+      description: Retrieve a stream's definition
+      tags:
+        - Streams
+      parameters:
+        - $ref: '#/components/parameters/StreamId'
+      responses:
+        '200':
+          description: Succesful retrieval of a stream
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StreamModel'
+    put:
+      operationId: updateStream
+      description: update a stream's definition
+      tags:
+        - Streams
+      parameters:
+        - $ref: '#/components/parameters/StreamId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StreamModel'
+      responses:
+        '200':
+          description: Successful update of the stream
+    delete:
+      operationId: deleteStream
+      description: Delete a stream
+      tags:
+        - Streams
+      parameters:
+        - $ref: '#/components/parameters/StreamId'
+      responses:
+        '200':
+          description: Successful deletion of the stream
 components:
   schemas:
     DevicesModel:
@@ -245,12 +348,32 @@ components:
           type: string
           example: 'v7BM3ejS'
 
+    StreamModel:
+      description: A video stream between an encoder and receiver
+      properties:
+        uuid:
+          type: string
+          example: '95d32489-d4f2-4ffa-9640-5e36c6c75a14'
+        encoderUuid:
+          type: string
+          example: '0e4e430f-8b9c-47da-b9af-7ef9cfb13e9e'
+        decoderUuid:
+          type: string
+          example: '1ea52153-c196-4cc6-8d9f-714248abf31c'
+
+    StreamsModel:
+      description: A list of stream UUIDs
+      type: array
+      items:
+        type: string
+      example: ['95d32489-d4f2-4ffa-9640-5e36c6c75a14']
+
   parameters:
     EncoderId:
       in: path
       name: uuid
       required: true
-      description: The UUID of a Encoder
+      description: The UUID of an encoder
       schema:
         type: string
         example: '0e4e430f-8b9c-47da-b9af-7ef9cfb13e9e'
@@ -262,6 +385,14 @@ components:
       schema:
         type: string
         example: '1ea52153-c196-4cc6-8d9f-714248abf31c'
+    StreamId:
+      in: path
+      name: uuid
+      required: true
+      description: The UUID of a stream
+      schema:
+        type: string
+        example: '95d32489-d4f2-4ffa-9640-5e36c6c75a14'
 
 tags:
   - name: Devices
