@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 @Entity(name = "Encoder")
 @Data
@@ -24,4 +25,15 @@ public class EncoderEntity {
     @JoinColumn(name = "serial_number", referencedColumnName = "serial_number")
     @MapsId
     private DeviceEntity device;
+
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
+    @JoinTable(
+            name = "encoder_channel",
+            joinColumns = @JoinColumn(name = "serial_number"),
+            inverseJoinColumns = @JoinColumn(name = "port")
+    )
+    private Set<ChannelEntity> outputs;
 }

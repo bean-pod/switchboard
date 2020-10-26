@@ -1,21 +1,30 @@
 package com.switchboard.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import java.util.Set;
 
-@Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity(name="Channel")
+@JsonIgnoreProperties({"hibernateLazyIntializer", "handler"})
 public class ChannelEntity {
 
     @Id
     Long port;
     String name;
 
-    @ManyToMany
-    Set<EncoderEntity> output;
+    @ManyToMany(mappedBy = "outputs")
+    Set<EncoderEntity> out;
 
-    @ManyToMany
-    Set<DecoderEntity> input;
+    @ManyToMany(mappedBy = "inputs")
+    Set<DecoderEntity> in;
 
 }
