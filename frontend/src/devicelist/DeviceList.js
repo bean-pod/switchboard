@@ -8,10 +8,6 @@ import TitleBox from './TitleBox'
 import ContentsTable from './ContentsTable'
 
 class DeviceList extends React.Component {
-    constructor(props) {
-        super(props)
-    }
-
     render() {
         return (
             <Container>
