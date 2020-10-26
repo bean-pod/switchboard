@@ -51,7 +51,9 @@ export default class ContentsTable extends React.Component {
             <React.Fragment>
                 <Box style={{ display: 'flex', flexGrow: 1, margin: "1em 0em" }}>
                     <SearchBar />
-                    <SortBy />
+                    <Box class="alignRightFloat">
+                        <SortBy />
+                    </Box>
                 </Box>
                 <Box style={{ display: 'flex', flexGrow: 1, maxHeight: 500 }}>
                     <VerticalTabs value ={this.state.value} setValue={this.handleValueChange} classes={this.props.classes} />
