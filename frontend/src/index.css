@@ -96,9 +96,8 @@ select {
   font-size: 40px;
   vertical-align: middle;
   flex-grow: 1;
-}
-.paddedText {
-  padding: 0.5em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
 }
 .buttonText {
   display: inline-flex;
