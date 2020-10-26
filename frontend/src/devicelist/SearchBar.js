@@ -38,7 +38,7 @@ export default class SearchBar extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <div className={this.classes.search} class="SearchField">
+                <div className={this.classes.search} class="searchField">
 
                     <TextField
                         placeholder="Search"
