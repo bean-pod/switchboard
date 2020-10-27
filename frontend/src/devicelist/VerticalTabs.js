@@ -10,8 +10,8 @@ export default class VerticalTabs extends React.Component {
         this.handleChange = this.handleChange.bind(this)
     }
 
-    handleChange(event, newValue) {
-        this.props.setValue(newValue);
+    handleChange(event, newTab) {
+        this.props.setValue(newTab);
     };
 
     getTabProps(index) {
