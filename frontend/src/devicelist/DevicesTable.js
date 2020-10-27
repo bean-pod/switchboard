@@ -14,10 +14,6 @@ import SingleTableRow from './SingleTableRow'
 import HeadCells from './HeadCells'
 
 export default class DevicesTable extends React.Component {
-    constructor(props) {
-        super(props)
-    }
-
     render() {
         return (
             <React.Fragment>
