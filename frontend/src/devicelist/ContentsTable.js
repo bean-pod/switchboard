@@ -56,7 +56,10 @@ export default class ContentsTable extends React.Component {
                     </Box>
                 </Box>
                 <Box style={{ display: 'flex', flexGrow: 1, maxHeight: 500 }}>
-                    <VerticalTabs value ={this.state.value} setValue={this.handleValueChange} classes={this.props.classes} />
+                    <VerticalTabs 
+                        value={this.state.value}
+                        setValue={this.handleValueChange}
+                        classes={this.props.classes} />
                     <TabPanel value={this.state.value} index={0}>
                         <DevicesTable rows={this.state.senders} />
                     </TabPanel>
