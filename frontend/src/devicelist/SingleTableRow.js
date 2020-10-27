@@ -24,11 +24,7 @@ export default class SingleTableRow extends React.Component {
     }
 
     rowExtras(extras) {
-        var extraStr = "";
-        for (var i = 0; i < extras.length; i++) {
-            extraStr = extraStr + extras[i] + " ";
-        }
-        return extraStr;
+        return extras.join(" ");
     }
 
     render() {
