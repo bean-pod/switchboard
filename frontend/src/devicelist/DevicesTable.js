@@ -19,7 +19,7 @@ export default class DevicesTable extends React.Component {
             <React.Fragment>
                 <Box>
                     <TableContainer style={{ maxHeight: 500 }}>
-                        <Table stickyHeader>
+                        <Table stickyHeader aria-label="sticky table">
                             <TableHead>
                                 <TableRow>
                                     <TableCell class="tableHeadCell lightestGrey" style={{ width: 1, padding: 0, paddingLeft: 5 }}></TableCell>
