@@ -17,7 +17,7 @@ export function getSenders(callback) {
 export function getReceivers(callback) {
     axios("http://localhost:8080/decoder")
         .then((receivers) => {
-            callback(receivers.data.map((sender) => {
+            callback(receivers.data.map((receiver) => {
                 return new DeviceInfo("id", sender.device.displayName, sender.serialNumber, 0, "127.0.0.1", "2400", "Sample receiver");
             }));
         })
