@@ -50,6 +50,9 @@ select {
   background-color: white;
 }
 
+#statusSearch{
+  padding: .5em;
+}
 #sortBySelect{
   padding: 0.5em 2em .5em .5em;
   width: max-content;
