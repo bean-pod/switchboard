@@ -7,16 +7,8 @@ import {
     TextField,
     MenuItem
 } from "@material-ui/core"
+import HeadCell from '../model/HeadCell'
 
-class HeadCell {
-    constructor(id, label, isNum, padding,) {
-        this.id = id;
-        this.label = label;
-        this.isNumeric = isNum;
-        this.searchID = id + "Search";
-        this.padding = padding;
-    }
-}
 function getHeadCellData() {
 
     return [
@@ -28,6 +20,7 @@ function getHeadCellData() {
     ];
 
 };
+
 export default class DevListHeadCells extends React.Component {
     constructor(props) {
         super(props)
