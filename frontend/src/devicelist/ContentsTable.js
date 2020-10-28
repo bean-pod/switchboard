@@ -28,9 +28,9 @@ export default class ContentsTable extends React.Component {
         DeviceApi.getReceivers(this.handleReceiversChange);
     }
 
-    handleValueChange(value) {
+    handleValueChange(tabIndex) {
         this.setState({
-            value: value
+            value: tabIndex
         });
     }
 
