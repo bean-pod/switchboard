@@ -9,22 +9,20 @@ import {
 } from "@material-ui/core"
 import HeadCell from '../model/HeadCell'
 
-function getHeadCellData() {
-
-    return [
-        new HeadCell("name", "Name", false, false),
-        new HeadCell("serial", "Serial Number", true, true),
-        new HeadCell("status", "Status", false, true),
-        new HeadCell("ip", "IP Address", true, true),
-        new HeadCell("port", "Port", true, true)
-    ];
-
-};
-
 export default class DevListHeadCells extends React.Component {
     constructor(props) {
         super(props)
-        this.headcells = getHeadCellData();
+        this.headcells = this.getHeadCellData();
+    }
+
+    getHeadCellData() {
+        return [
+            new HeadCell("name", "Name", false, false),
+            new HeadCell("serial", "Serial Number", true, true),
+            new HeadCell("status", "Status", false, true),
+            new HeadCell("ip", "IP Address", true, true),
+            new HeadCell("port", "Port", true, true)
+        ];
     }
 
     render() {
