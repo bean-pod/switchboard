@@ -1,30 +1,28 @@
 import React from 'react';
 import {
     Container,
-    withStyles
+    makeStyles
 } from "@material-ui/core"
 
 import TitleBox from './TitleBox'
 import ContentsTable from './ContentsTable'
 
-class DeviceList extends React.Component {
-    render() {
-        return (
-            <Container>
-                <TitleBox />
-                <ContentsTable classes={this.props.classes} />
-            </Container>
-        );
-    }
+export default function DeviceList() {
+    const styles = useStyles();
+    
+    return (
+        <Container>
+            <TitleBox />
+            <ContentsTable classes={styles} />
+        </Container>
+    );
 }
 
-const useStyles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
     root: {
         backgroundColor: theme.palette.background.paper
     },
     tabs: {
         borderRight: `1px solid ${theme.palette.divider}`,
     },
-});
-
-export default withStyles(useStyles)(DeviceList)
+}));

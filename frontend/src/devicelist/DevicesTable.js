@@ -13,29 +13,27 @@ import {
 import SingleTableRow from './SingleTableRow'
 import HeadCells from './HeadCells'
 
-export default class DevicesTable extends React.Component {
-    render() {
-        return (
-            <React.Fragment>
-                <Box>
-                    <TableContainer style={{ maxHeight: 500 }}>
-                        <Table stickyHeader aria-label="sticky table">
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell class="tableHeadCell lightestGrey" style={{ width: 1, padding: 0, paddingLeft: 5 }}></TableCell>
-                                    <HeadCells />
-                                    <TableCell class="tableHeadCell lightestGrey" align="center"><Typography variant="caption">Actions</Typography></TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {this.props.rows.map((row) => {
-                                    return <SingleTableRow row={row} />;
-                                })}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                </Box>
-            </React.Fragment>
-        );
-    }
+export default function DevicesTable(props) {
+    return (
+        <React.Fragment>
+            <Box>
+                <TableContainer style={{ maxHeight: 500 }}>
+                    <Table stickyHeader aria-label="sticky table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell class="tableHeadCell lightestGrey" style={{ width: 1, padding: 0, paddingLeft: 5 }}></TableCell>
+                                <HeadCells />
+                                <TableCell class="tableHeadCell lightestGrey" align="center"><Typography variant="caption">Actions</Typography></TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {props.rows.map((row) => {
+                                return <SingleTableRow row={row} />;
+                            })}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </Box>
+        </React.Fragment>
+    );
 }
