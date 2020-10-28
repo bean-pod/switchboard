@@ -14,6 +14,7 @@ import {
 } from '@material-ui/icons/';
 
 import ActionMenu from './ActionMenu'
+import StatusIndicator from './StatusIndicators'
 
 export default class SingleTableRow extends React.Component {
     constructor(props) {
@@ -39,9 +40,7 @@ export default class SingleTableRow extends React.Component {
                     <TableCell class="tableCell">{this.props.row.name}</TableCell>
                     <TableCell class="tableCell numeric">{this.props.row.serial}</TableCell>
                     <TableCell class="tableCell">
-                        <div class={getStatusStyle(this.props.row.status)}>
-                            {getStatusText(this.props.row.status)}
-                        </div>
+                        {StatusIndicator(this.props)}
                     </TableCell>
                     <TableCell class="tableCell numeric">{this.props.row.ip}</TableCell>
                     <TableCell class="tableCell numeric">{this.props.row.port}</TableCell>
@@ -62,32 +61,5 @@ export default class SingleTableRow extends React.Component {
                 </TableRow>
             </React.Fragment>
         );
-    }
-}
-
-
-function getStatusStyle(status) {
-    switch (status) {
-        case 0:
-            return "green statusText";
-        case 1:
-            return "yellow statusText";
-        case 2:
-            return "red statusText";
-        default:
-            return "lightGrey statusOfflineText";
-    }
-}
-
-function getStatusText(status) {
-    switch (status) {
-        case 0:
-            return "Online";
-        case 1:
-            return "Pending";
-        case 2:
-            return "Error";
-        default:
-            return "Offline";
     }
 }
