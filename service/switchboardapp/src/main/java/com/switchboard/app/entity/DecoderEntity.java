@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.Set;
 
 @Entity(name = "Decoder")
@@ -22,12 +23,15 @@ public class DecoderEntity {
     @Column(name = "serial_number")
     private String serialNumber;
 
+    private Date lastCommunication;
+
     @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "serial_number", referencedColumnName = "serial_number")
     @MapsId
     private DeviceEntity device;
 
-    @ManyToMany(cascade = {
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
     })

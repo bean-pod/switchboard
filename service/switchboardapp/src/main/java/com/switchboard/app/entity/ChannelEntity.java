@@ -20,6 +20,7 @@ public class ChannelEntity {
     @Id
     Long port;
     String name;
+    String ipAddress;
 
     @ManyToMany(mappedBy = "outputs")
     Set<EncoderEntity> out;
