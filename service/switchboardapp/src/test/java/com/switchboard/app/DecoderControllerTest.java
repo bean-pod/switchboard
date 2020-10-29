@@ -90,7 +90,7 @@ class DecoderControllerTest {
         }, "DeviceNotFoundException exception should have been thrown.");
     }
 
-    //When a device is available in the DB
+    //When a device is unavailable in the DB
     @Test
     final void testCreateDecoder() {
         when(deviceService.findDevice("1")).thenReturn(java.util.Optional.of(device1));
@@ -108,11 +108,22 @@ class DecoderControllerTest {
         assertEquals("http://localhost/decoder/1", response.getHeaders().get("Location").get(0), "The returned location is incorrect.");
     }
 
-    //When a device is unavailable in the DB
+    //When a device is available in the DB
     @Test
     final void testCreateDecoderAlreadyExists(){
         assertThrows(DeviceNotFoundException.class, () -> {
             decoderController.createDecoder(decoder1);
         }, "DeviceNotFoundException should have been thrown.");
+    }
+
+    //When a device is available in the DB
+    @Test
+    final void testDeleteDecoder(){
+        when(decoderService.deleteDecoder("1")).thenReturn(Long.valueOf(1));
+
+        ResponseEntity<String> response = decoderController.deleteDecoder("1");
+
+        assertEquals(200, response.getStatusCodeValue(), "The status code is not 200.");
+        assertEquals("Decoder with serial number 1 Deleted", response.getBody(), "Returned response does not match the expected.");
     }
 }
