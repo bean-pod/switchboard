@@ -23,14 +23,9 @@ Developed as a Concordia University Capstone project.
 ### Front-end
 
 #### Set up
+* Install Node.js
 * From the project root `cd /frontend/`
-* Run the command `npm install` to install the node package manager (npm)
-* Run the command `npm install @material-ui/core @material-ui/icons prop-types axios` 
-  * This installs
-    * Material UI core
-    * Material UI icons 
-    * Prop types
-    * Axios 
+* Run the command `npm install` to install dependencies
 
 #### Running the front end
 * To run the front-end, you have two options 
