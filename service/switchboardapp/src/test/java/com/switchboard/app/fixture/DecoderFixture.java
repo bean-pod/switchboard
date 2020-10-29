@@ -1,7 +1,7 @@
 package com.switchboard.app.fixture;
 
-import com.switchboard.app.domain.DecoderEntity;
-import com.switchboard.app.domain.DeviceEntity;
+import com.switchboard.app.entity.DecoderEntity;
+import com.switchboard.app.entity.DeviceEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ public class DecoderFixture {
 
     public static List<DecoderEntity> getListOfDecoders(DecoderEntity decoder1, DecoderEntity decoder2){
         //Adding stubbed objects to the list that should be returned when getDecoders is called
-        List<DecoderEntity> listOfDecoders= new ArrayList<DecoderEntity>();
+        List<DecoderEntity> listOfDecoders= new ArrayList<>();
         listOfDecoders.add(decoder1);
         listOfDecoders.add(decoder2);
 

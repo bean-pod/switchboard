@@ -1,6 +1,6 @@
 package com.switchboard.app.fixture;
 
-import com.switchboard.app.domain.DeviceEntity;
+import com.switchboard.app.entity.DeviceEntity;
 
 import java.util.ArrayList;
 import java.util.List;
