@@ -3,17 +3,19 @@ package com.switchboard.app;
 import com.switchboard.app.controller.DecoderController;
 import com.switchboard.app.dao.DecoderDaoImpl;
 import com.switchboard.app.dao.DeviceDaoImpl;
-import com.switchboard.app.domain.DecoderEntity;
-import com.switchboard.app.domain.DeviceEntity;
-import com.switchboard.app.exceptions.DeviceNotFoundException;
+import com.switchboard.app.dto.DecoderDTO;
+import com.switchboard.app.dto.mapper.DecoderMapper;
+import com.switchboard.app.dto.mapper.DecoderMapperImpl;
+import com.switchboard.app.entity.DecoderEntity;
+import com.switchboard.app.entity.DeviceEntity;
+import com.switchboard.app.exceptions.ExceptionType.DeviceNotFoundException;
 import com.switchboard.app.fixture.DecoderFixture;
 import com.switchboard.app.fixture.DeviceFixture;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -37,6 +39,8 @@ class DecoderControllerTest {
     @Mock
     private DeviceDaoImpl deviceService;
 
+    private DecoderMapper decoderMapper;
+
     //stubbed Objects
     static private DeviceEntity device1, device2;
     static private DecoderEntity decoder1, decoder2;
@@ -54,6 +58,7 @@ class DecoderControllerTest {
 
     @BeforeEach
     void setup(){
+        decoderMapper = Mockito.spy(new DecoderMapperImpl()); //to spy on DecoderMapper object
         MockitoAnnotations.initMocks(this); //to be able to initiate decoderController object
     }
 
@@ -72,10 +77,11 @@ class DecoderControllerTest {
     final void testRetrieveDecoder(){
         when(decoderService.findDecoder("1")).thenReturn(java.util.Optional.of(decoder1));
 
-        DecoderEntity actualDecoder = decoderController.retrieveDecoder("1").getContent();
+        ResponseEntity<EntityModel<DecoderDTO>> actualDecoder = decoderController.retrieveDecoder("1");
 
         assertNotNull(actualDecoder, "actualDecoder object is null.");
-        assertEquals(decoder1, actualDecoder, "expectedDecoder and actualDecoder objects are not equal.");
+        assertEquals(200,actualDecoder.getStatusCodeValue(),"Status code is not 200");
+        assertEquals(decoder1.getSerialNumber(), actualDecoder.getBody().getContent().getSerialNumber(), "expectedDecoder and actualDecoder objects are not equal.");
     }
 
     //When a decoder is unavailable in the DB
