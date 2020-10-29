@@ -118,4 +118,15 @@ class EncoderControllerTest {
             encoderController.createEncoder(encoder1);
         }, "DeviceNotFoundException should have been thrown.");
     }
+
+    //When an encoder is available in the DB
+    @Test
+    final void testDeleteEncoder(){
+        when(encoderService.deleteEncoder("1")).thenReturn(Long.valueOf(1));
+
+        ResponseEntity<String> response = encoderController.deleteEncoder("1");
+
+        assertEquals(200, response.getStatusCodeValue(), "The status code is not 200.");
+        assertEquals("Encoder with serial number 1 Deleted", response.getBody(), "Returned response does not match the expected.");
+    }
 }
