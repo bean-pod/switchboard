@@ -165,5 +165,13 @@ class DeviceControllerTest {
         assertThrows(ExceptionType.DevicePrimaryKeyRestriction.class, () -> {
             deviceController.updateDevice("3", deviceDTO1);
         }, "DevicePrimaryKeyRestriction should have been thrown.");
+
+        //This stubbing is needed for the following exception to be tested
+        when(deviceService.updateDevice("1",deviceDTO1)).thenReturn(Integer.valueOf(0));
+
+        //When device is not updated properly
+        assertThrows(ExceptionType.DeviceNotUpdated.class, () -> {
+            deviceController.updateDevice("1", deviceDTO1);
+        }, "DeviceNotUpdated should have been thrown.");
     }
 }
