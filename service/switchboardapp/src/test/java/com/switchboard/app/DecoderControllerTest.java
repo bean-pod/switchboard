@@ -20,10 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -67,10 +64,10 @@ class DecoderControllerTest {
         when(decoderService.getDecoders()).thenReturn(listOfDecoders);
 
         List<DecoderDTO> allDecoders = decoderController.retrieveAllDecoders();
-        List<DecoderDTO> listOfDTODecoders = decoderMapper.toDecoderDTOs(listOfDecoders); //covert List<DecoderEntity> to List<DecoderDTO>
+        List<DecoderDTO> listOfExpectDTODecoders = decoderMapper.toDecoderDTOs(listOfDecoders); //covert List<DecoderEntity> to List<DecoderDTO>
 
         assertFalse(allDecoders.isEmpty(),"allDecoders list is empty."); //check if an empty list was returned
-        assertIterableEquals(listOfDTODecoders, allDecoders,"listOfDecoders and allDecoders lists are not equal."); //check both lists contents
+        assertIterableEquals(listOfExpectDTODecoders, allDecoders,"listOfExpectDTODecoders and allDecoders lists are not equal."); //check both lists contents
     }
 
     //When a decoder is available in the DB
@@ -116,6 +113,6 @@ class DecoderControllerTest {
     final void testCreateDecoderAlreadyExists(){
         assertThrows(DeviceNotFoundException.class, () -> {
             decoderController.createDecoder(decoder1);
-        }, "NoSuchElementException should have been thrown.");
+        }, "DeviceNotFoundException should have been thrown.");
     }
 }

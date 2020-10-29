@@ -23,10 +23,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -73,7 +70,7 @@ class EncoderControllerTest {
         List<EncoderDTO> listOfExpectDTOEncoders = encoderMapper.toEncoderDTOs(listOfEncoders);
 
         assertFalse(allEncoders.isEmpty(),"allEncoders list is empty."); //check if an empty list was returned
-        assertIterableEquals(listOfExpectDTOEncoders, allEncoders,"listOfEncoders and allEncoders lists are not equal."); //check both lists contents
+        assertIterableEquals(listOfExpectDTOEncoders, allEncoders,"listOfExpectDTOEncoders and allEncoders lists are not equal."); //check both lists contents
     }
 
     //When a encoder is available in the DB
