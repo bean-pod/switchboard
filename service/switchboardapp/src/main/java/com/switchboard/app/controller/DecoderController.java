@@ -2,10 +2,11 @@ package com.switchboard.app.controller;
 
 import com.switchboard.app.dao.DecoderDaoImpl;
 import com.switchboard.app.dao.DeviceDaoImpl;
-import com.switchboard.app.domain.DecoderEntity;
-import com.switchboard.app.domain.DeviceEntity;
-import com.switchboard.app.domain.EncoderEntity;
-import com.switchboard.app.exceptions.DeviceNotFoundException;
+import com.switchboard.app.dto.DecoderDTO;
+import com.switchboard.app.dto.mapper.DecoderMapper;
+import com.switchboard.app.entity.DecoderEntity;
+import com.switchboard.app.entity.DeviceEntity;
+import com.switchboard.app.exceptions.ExceptionType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
@@ -22,6 +24,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
+@RequestMapping("/decoder")
 public class DecoderController {
 
     @Autowired
@@ -30,31 +33,38 @@ public class DecoderController {
     @Autowired
     DeviceDaoImpl deviceService;
 
-    @GetMapping("/decoder")
-    public List<DecoderEntity> retrieveAllDecoders() {
-        return decoderService.getDecoders();
+    @Autowired
+    DecoderMapper decoderMapper;
+
+    @GetMapping
+    public List<DecoderDTO> retrieveAllDecoders() {
+        return decoderMapper.toDecoderDTOs(decoderService.getDecoders());
     }
 
-    @GetMapping("/decoder/{serialNumber}")
-    public EntityModel<DecoderEntity> retrieveDecoder(@PathVariable @Valid String serialNumber) {
+    @GetMapping("/{serialNumber}")
+    public ResponseEntity<EntityModel<DecoderDTO>> retrieveDecoder(@PathVariable @Valid String serialNumber) {
 
         Optional<DecoderEntity> decoder = decoderService.findDecoder(serialNumber);
 
-        if (!decoder.isPresent()) {
-            throw new DeviceNotFoundException("serial number-" + serialNumber + "/Encoder");
+        if (decoder.isEmpty()) {
+            throw new ExceptionType.DeviceNotFoundException(serialNumber + "/Decoder");
         }
 
-        EntityModel<DecoderEntity> resource = EntityModel.of(decoder.get());
-        WebMvcLinkBuilder linkto = linkTo(methodOn(this.getClass()).retrieveAllDecoders());
-        resource.add(linkto.withRel("all-decoders"));
-        return resource;
+        EntityModel<DecoderDTO> resource = EntityModel.of(decoderMapper.toDecoderDTO(decoder.get()));
+        WebMvcLinkBuilder linkTo = linkTo(methodOn(this.getClass()).retrieveAllDecoders());
+        resource.add(linkTo.withRel("all-decoders"));
+        return ResponseEntity.ok(resource);
     }
 
-    @PostMapping("/decoder")
+    @PostMapping
     public ResponseEntity createDecoder(@RequestBody @Valid DecoderEntity decoderEntity) {
         Optional<DeviceEntity> deviceOptional = deviceService.findDevice(decoderEntity.getSerialNumber());
-        decoderEntity.setDevice(deviceOptional.get());
 
+        if (deviceOptional.isEmpty()) {
+            throw new ExceptionType.DeviceNotFoundException(decoderEntity.getSerialNumber() + "/Decoder");
+        }
+
+        decoderEntity.setDevice(deviceOptional.get());
         DecoderEntity savedDecoderEntity = decoderService.save(decoderEntity);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().
                 path("/{serialNumber}").buildAndExpand(savedDecoderEntity.getSerialNumber()).toUri();
@@ -62,4 +72,13 @@ public class DecoderController {
         return ResponseEntity.created(location).build();
     }
 
+    @DeleteMapping("/{serialNumber}")
+    @Transactional
+    public ResponseEntity<String> deleteDecoder(@PathVariable String serialNumber) {
+        Long response = decoderService.deleteDecoder(serialNumber);
+        if (response != 1) {
+            throw new ExceptionType.DeviceNotFoundException(serialNumber);
+        }
+        return ResponseEntity.ok("Decoder with serial number " + serialNumber + " Deleted");
+    }
 }

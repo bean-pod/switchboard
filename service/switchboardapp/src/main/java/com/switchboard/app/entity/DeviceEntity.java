@@ -1,4 +1,4 @@
-package com.switchboard.app.domain;
+package com.switchboard.app.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
@@ -22,13 +22,13 @@ public class DeviceEntity {
 
     @Column(name = "display_name")
     @NotNull
-    private String DisplayName;
+    private String displayName;
 
-    private String Status;
+    private String status;
 
-    @OneToOne(mappedBy = "device")
+    @OneToOne(mappedBy = "device", cascade = CascadeType.ALL)
     private EncoderEntity encoderEntity;
 
-    @OneToOne(mappedBy = "device")
+    @OneToOne(mappedBy = "device", cascade = CascadeType.ALL)
     private DecoderEntity decoderEntity;
 }

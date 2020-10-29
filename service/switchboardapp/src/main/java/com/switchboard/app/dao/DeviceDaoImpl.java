@@ -1,6 +1,7 @@
 package com.switchboard.app.dao;
 
-import com.switchboard.app.domain.DeviceEntity;
+import com.switchboard.app.dto.DeviceDTO;
+import com.switchboard.app.entity.DeviceEntity;
 import com.switchboard.app.repository.DeviceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,5 +26,15 @@ public class DeviceDaoImpl {
 
     public List<DeviceEntity> getDevices() {
         return deviceRepository.findAll();
+    }
+
+    public Long deleteDevice(String serialNumber) {
+        return deviceRepository.deleteDeviceEntitiesBySerialNumber(serialNumber);
+    }
+
+    public int updateDevice(String serialNumber, DeviceDTO deviceEntity) {
+        return deviceRepository.updateDevice(serialNumber, deviceEntity.getDisplayName(),
+                deviceEntity.getStatus()
+        );
     }
 }
