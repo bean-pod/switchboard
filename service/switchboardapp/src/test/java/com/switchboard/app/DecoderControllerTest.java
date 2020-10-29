@@ -129,7 +129,7 @@ class DecoderControllerTest {
 
     //When a decoder is unavailable in the DB
     @Test
-    final void testDeleteDecoderAlreadyExists(){
+    final void testDeleteDecoderNotExisting(){
         assertThrows(DeviceNotFoundException.class, () -> {
             decoderController.deleteDecoder("Not Available decoder");
         }, "DeviceNotFoundException should have been thrown.");
