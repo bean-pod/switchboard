@@ -122,4 +122,11 @@ class DeviceControllerTest {
         assertEquals("Device with serial number 1 Deleted", response.getBody(), "Returned response does not match the expected.");
     }
 
+    //When a device is unavailable in the DB
+    @Test
+    final void testDeleteDeviceNotExisting(){
+        assertThrows(DeviceNotFoundException.class, () -> {
+            deviceController.deleteDevice("Not Available device");
+        }, "DeviceNotFoundException should have been thrown.");
+    }
 }

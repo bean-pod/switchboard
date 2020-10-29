@@ -134,7 +134,7 @@ class EncoderControllerTest {
     @Test
     final void testDeleteEncoderNotExisting(){
         assertThrows(DeviceNotFoundException.class, () -> {
-            encoderController.deleteEncoder("Not Available decoder");
+            encoderController.deleteEncoder("Not Available encoder");
         }, "DeviceNotFoundException should have been thrown.");
     }
 }
