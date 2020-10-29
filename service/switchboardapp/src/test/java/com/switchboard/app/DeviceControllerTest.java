@@ -2,16 +2,21 @@ package com.switchboard.app;
 
 import com.switchboard.app.controller.DeviceController;
 import com.switchboard.app.dao.DeviceDaoImpl;
-import com.switchboard.app.domain.DeviceEntity;
-import com.switchboard.app.exceptions.DeviceAlreadyExistsException;
-import com.switchboard.app.exceptions.DeviceNotFoundException;
+import com.switchboard.app.dto.DeviceDTO;
+import com.switchboard.app.dto.mapper.DeviceMapper;
+import com.switchboard.app.dto.mapper.DeviceMapperImpl;
+import com.switchboard.app.entity.DeviceEntity;
+import com.switchboard.app.exceptions.ExceptionType.DeviceAlreadyExistsException;
+import com.switchboard.app.exceptions.ExceptionType.DeviceNotFoundException;
 import com.switchboard.app.fixture.DeviceFixture;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -31,6 +36,8 @@ class DeviceControllerTest {
     @Mock
     private DeviceDaoImpl deviceService;
 
+    private DeviceMapper deviceMapper;
+
     //stubbed DeviceEntity object
     static private DeviceEntity device1, device2;
     static private List<DeviceEntity> listOfDevices;
@@ -44,6 +51,7 @@ class DeviceControllerTest {
 
     @BeforeEach
     void setup(){
+        deviceMapper = Mockito.spy(new DeviceMapperImpl());
         MockitoAnnotations.initMocks(this);
     }
 
@@ -51,10 +59,11 @@ class DeviceControllerTest {
     final void testRetrieveAllDevices(){
         when(deviceService.getDevices()).thenReturn(listOfDevices);
 
-        List allDevices = deviceController.retrieveAllDevices();
+        List<DeviceDTO> allDevices = deviceController.retrieveAllDevices();
+        List<DeviceDTO> listOfExpectDTODevices = deviceMapper.toDeviceDTOs(listOfDevices);
 
         assertFalse(allDevices.isEmpty(),"allDevices list is empty."); //check if an empty list was returned
-        assertIterableEquals(listOfDevices, allDevices,"listOfDevices and allDevices lists are not equal."); //check both lists contents
+        assertIterableEquals(listOfExpectDTODevices, allDevices,"listOfExpectDTODevices and allDevices lists are not equal."); //check both lists contents
     }
 
     //When a device is available in the DB
@@ -62,10 +71,11 @@ class DeviceControllerTest {
     final void testRetrieveDevice(){
         when(deviceService.findDevice("1")).thenReturn(java.util.Optional.of(device1));
 
-        DeviceEntity actualDevice = deviceController.retrieveDevice("1").getContent();
+        ResponseEntity<EntityModel<DeviceDTO>> actualDevice = deviceController.retrieveDevice("1");
 
         assertNotNull(actualDevice, "actualDevice object is null.");
-        assertEquals(device1, actualDevice, "expectedDevice and actualDevice objects are not equal.");
+        assertEquals(200, actualDevice.getStatusCodeValue(), "Status code is not 200");
+        assertEquals(device1.getSerialNumber(), actualDevice.getBody().getContent().getSerialNumber(), "expectedDevice and actualDevice objects are not equal.");
     }
 
     //When a device is unavailable in the DB
