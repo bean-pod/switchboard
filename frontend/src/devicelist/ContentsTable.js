@@ -2,7 +2,6 @@ import React from 'react';
 import { Box } from "@material-ui/core"
 
 import * as DeviceApi from "../api/DeviceApi";
-import GenerateData from './SampleData'
 import SearchBar from './SearchBar'
 import SortBy from './SortBy'
 import VerticalTabs from './VerticalTabs'
@@ -12,10 +11,9 @@ import DevicesTable from './DevicesTable'
 export default class ContentsTable extends React.Component {
     constructor(props) {
         super(props)
-        var sampleData = GenerateData();
         this.state = {
-            senders: sampleData.senders,
-            receivers: sampleData.receivers,
+            senders: [],
+            receivers: [],
             value: 0
         }
         this.handleValueChange = this.handleValueChange.bind(this);

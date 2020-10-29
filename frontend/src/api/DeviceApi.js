@@ -1,5 +1,6 @@
 import axios from 'axios';
 import DeviceInfo from "../model/DeviceInfo";
+import GenerateData from "./SampleData"
 
 export function getSenders(callback) {
     axios("http://localhost:8080/encoder")
@@ -10,7 +11,7 @@ export function getSenders(callback) {
             }));
         })
         .catch((error) => {
-            return [];
+            callback(GenerateData().senders);
         });
 }
 
@@ -22,6 +23,6 @@ export function getReceivers(callback) {
             }));
         })
         .catch((error) => {
-            return [];
+            callback(GenerateData().receivers);
         });
 }
