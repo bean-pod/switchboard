@@ -116,7 +116,7 @@ class DecoderControllerTest {
         }, "DeviceNotFoundException should have been thrown.");
     }
 
-    //When a device is available in the DB
+    //When a decoder is available in the DB
     @Test
     final void testDeleteDecoder(){
         when(decoderService.deleteDecoder("1")).thenReturn(Long.valueOf(1));
@@ -125,5 +125,13 @@ class DecoderControllerTest {
 
         assertEquals(200, response.getStatusCodeValue(), "The status code is not 200.");
         assertEquals("Decoder with serial number 1 Deleted", response.getBody(), "Returned response does not match the expected.");
+    }
+
+    //When a decoder is unavailable in the DB
+    @Test
+    final void testDeleteDecoderAlreadyExists(){
+        assertThrows(DeviceNotFoundException.class, () -> {
+            decoderController.deleteDecoder("Not Available decoder");
+        }, "DeviceNotFoundException should have been thrown.");
     }
 }
