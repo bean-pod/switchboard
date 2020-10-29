@@ -129,4 +129,12 @@ class EncoderControllerTest {
         assertEquals(200, response.getStatusCodeValue(), "The status code is not 200.");
         assertEquals("Encoder with serial number 1 Deleted", response.getBody(), "Returned response does not match the expected.");
     }
+
+    //When a decoder is unavailable in the DB
+    @Test
+    final void testDeleteEncoderNotExisting(){
+        assertThrows(DeviceNotFoundException.class, () -> {
+            encoderController.deleteEncoder("Not Available decoder");
+        }, "DeviceNotFoundException should have been thrown.");
+    }
 }
