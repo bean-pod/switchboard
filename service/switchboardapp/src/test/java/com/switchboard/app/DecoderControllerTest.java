@@ -66,10 +66,11 @@ class DecoderControllerTest {
     final void testRetrieveAllDecoders(){
         when(decoderService.getDecoders()).thenReturn(listOfDecoders);
 
-        List allDecoders = decoderController.retrieveAllDecoders();
+        List<DecoderDTO> allDecoders = decoderController.retrieveAllDecoders();
+        List<DecoderDTO> listOfDTODecoders = decoderMapper.toDecoderDTOs(listOfDecoders); //covert List<DecoderEntity> to List<DecoderDTO>
 
         assertFalse(allDecoders.isEmpty(),"allDecoders list is empty."); //check if an empty list was returned
-        assertIterableEquals(listOfDecoders, allDecoders,"listOfDecoders and allDecoders lists are not equal."); //check both lists contents
+        assertIterableEquals(listOfDTODecoders, allDecoders,"listOfDecoders and allDecoders lists are not equal."); //check both lists contents
     }
 
     //When a decoder is available in the DB
