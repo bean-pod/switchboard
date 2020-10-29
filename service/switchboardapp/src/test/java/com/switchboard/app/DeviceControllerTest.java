@@ -110,4 +110,16 @@ class DeviceControllerTest {
         assertEquals(201, response.getStatusCodeValue(), "The status code is not 201.");
         assertEquals("http://localhost/device/1", response.getHeaders().get("Location").get(0), "The returned location is incorrect.");
     }
+
+    //When a device is available in the DB
+    @Test
+    final void testDeleteDevice(){
+        when(deviceService.deleteDevice("1")).thenReturn(Long.valueOf(1));
+
+        ResponseEntity<String> response = deviceController.deleteDevice("1");
+
+        assertEquals(200, response.getStatusCodeValue(), "The status code is not 200.");
+        assertEquals("Device with serial number 1 Deleted", response.getBody(), "Returned response does not match the expected.");
+    }
+
 }
