@@ -1,5 +1,6 @@
 package com.switchboard.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,7 +23,11 @@ public class EncoderEntity {
     @Column(name = "serial_number")
     private String serialNumber;
 
+    @Column(name="last_communication")
+    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date lastCommunication;
+
 
     @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "serial_number", referencedColumnName = "serial_number")

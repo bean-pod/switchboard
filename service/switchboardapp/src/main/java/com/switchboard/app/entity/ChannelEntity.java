@@ -14,13 +14,12 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name="Channel")
-@JsonIgnoreProperties({"hibernateLazyIntializer", "handler"})
+@JsonIgnoreProperties({"hibernateLazyIntializer", "handler", "out", "in"})
 public class ChannelEntity {
 
     @Id
     Long port;
     String name;
-    String ipAddress;
 
     @ManyToMany(mappedBy = "outputs")
     Set<EncoderEntity> out;

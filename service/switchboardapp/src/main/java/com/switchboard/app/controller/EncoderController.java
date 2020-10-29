@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -28,7 +29,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @RestController
 @RequestMapping("/encoder")
 public class EncoderController {
-    @Autowired
+        @Autowired
     EncoderDaoImpl encoderService;
 
     @Autowired
@@ -48,7 +49,7 @@ public class EncoderController {
         Optional<EncoderEntity> encoder = encoderService.findEncoder(serialNumber);
 
         if (encoder.isEmpty()) {
-            throw new ExceptionType.DeviceNotFoundException(serialNumber + "/Encoder");
+            throw new ExceptionType.DeviceNotFoundException(serialNumber);
         }
 
         EntityModel<EncoderDTO> resource = EntityModel.of(encoderMapper.toEncoderDTO(encoder.get()));
@@ -62,7 +63,7 @@ public class EncoderController {
         Optional<DeviceEntity> deviceOptional = deviceService.findDevice(encoderEntity.getSerialNumber());
 
         if (deviceOptional.isEmpty()) {
-            throw new ExceptionType.DeviceNotFoundException(encoderEntity.getSerialNumber() + "/Encoder");
+            throw new ExceptionType.DeviceNotFoundException(encoderEntity.getSerialNumber());
         }
         encoderEntity.setDevice(deviceOptional.get());
         EncoderEntity savedEncoderEntity = encoderService.save(encoderEntity);
@@ -79,5 +80,17 @@ public class EncoderController {
             throw new ExceptionType.DeviceNotFoundException(serialNumber);
         }
         return ResponseEntity.ok("Encoder with serial number " + serialNumber + " Deleted");
+    }
+
+    @PutMapping("/{serialNumber}")
+    public ResponseEntity<EncoderDTO> updateEncoder(@PathVariable String serialNumber,
+                                                    @RequestBody EncoderDTO encoderDTO){
+        Optional<EncoderEntity> encoder = encoderService.findEncoder(serialNumber);
+        if (encoder.isEmpty()) {
+            throw new ExceptionType.DeviceNotFoundException(serialNumber);
+        }
+        encoder.get().getOutputs().clear();
+        EncoderEntity encoderEntity = encoderService.save(encoderMapper.toEncoderEntity(encoderDTO));
+        return new ResponseEntity<>(encoderMapper.toEncoderDTO(encoderEntity), HttpStatus.CREATED);
     }
 }

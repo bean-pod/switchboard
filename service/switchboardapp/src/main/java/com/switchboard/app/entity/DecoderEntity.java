@@ -1,5 +1,6 @@
 package com.switchboard.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,6 +24,7 @@ public class DecoderEntity {
     @Column(name = "serial_number")
     private String serialNumber;
 
+    @JsonFormat(pattern="dd/MM/yyyy")
     private Date lastCommunication;
 
     @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})

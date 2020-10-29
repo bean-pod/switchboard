@@ -14,7 +14,7 @@ public interface DeviceMapper {
 
     DeviceDTO toDeviceDTO(DeviceEntity deviceEntity);
 
-    List<DeviceDTO> toDeviceDTOs(List<DeviceEntity> deviceEntitys);
+    List<DeviceDTO> toDeviceDTOs(List<DeviceEntity> deviceEntities);
 
     DeviceEntity toDeviceEntity(DeviceDTO deviceDTO);
 

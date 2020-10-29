@@ -20,6 +20,10 @@ public class DeviceEntity {
     @Column(name = "serial_number")
     private String serialNumber;
 
+    @Column(name = "ip_address", unique = true)
+    @NotNull
+    private String ipAddress;
+
     @Column(name = "display_name")
     @NotNull
     private String displayName;
