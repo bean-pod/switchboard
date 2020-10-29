@@ -92,5 +92,5 @@ public class EncoderController {
         encoder.get().getOutputs().clear();
         EncoderEntity encoderEntity = encoderService.save(encoderMapper.toEncoderEntity(encoderDTO));
         return new ResponseEntity<>(encoderMapper.toEncoderDTO(encoderEntity), HttpStatus.CREATED);
-    }
+    }   
 }

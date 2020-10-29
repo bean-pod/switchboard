@@ -10,12 +10,10 @@ import java.util.Optional;
 @Repository
 public interface EncoderRepository extends JpaRepository<EncoderEntity, String> {
 
+    List<EncoderEntity> findAll();
     EncoderEntity save(EncoderEntity decoder);
-
+    int deleteEncoderEntityBySerialNumber(String serialNumber);
     Optional<EncoderEntity> findEncoderBySerialNumber(String serialNumber);
 
-    List<EncoderEntity> findAll();
-
-    int deleteEncoderEntityBySerialNumber(String serialNumber);
 
 }

@@ -10,6 +10,7 @@ import com.switchboard.app.exceptions.ExceptionType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -80,5 +81,17 @@ public class DecoderController {
             throw new ExceptionType.DeviceNotFoundException(serialNumber);
         }
         return ResponseEntity.ok("Decoder with serial number " + serialNumber + " Deleted");
+    }
+
+    @PutMapping("/{serialNumber}")
+    public ResponseEntity<DecoderDTO> updateEncoder(@PathVariable String serialNumber,
+                                                    @RequestBody DecoderDTO decoderDTO){
+        Optional<DecoderEntity> decoder = decoderService.findDecoder(serialNumber);
+        if (decoder.isEmpty()) {
+            throw new ExceptionType.DeviceNotFoundException(serialNumber);
+        }
+        decoder.get().getInputs().clear();
+        DecoderEntity decoderEntity = decoderService.save(decoderMapper.toDecoderEntity(decoderDTO));
+        return new ResponseEntity<>(decoderMapper.toDecoderDTO(decoderEntity), HttpStatus.CREATED);
     }
 }

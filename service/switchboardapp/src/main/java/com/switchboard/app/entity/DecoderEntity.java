@@ -24,7 +24,8 @@ public class DecoderEntity {
     @Column(name = "serial_number")
     private String serialNumber;
 
-    @JsonFormat(pattern="dd/MM/yyyy")
+    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date lastCommunication;
 
     @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
