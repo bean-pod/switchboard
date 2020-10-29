@@ -129,4 +129,18 @@ class DeviceControllerTest {
             deviceController.deleteDevice("Not Available device");
         }, "DeviceNotFoundException should have been thrown.");
     }
+
+    //When a device is available in the DB
+    @Test
+    final void testUpdateDevice(){
+        DeviceDTO deviceDTO1 = deviceMapper.toDeviceDTO(device1);
+
+        when(deviceService.findDevice("1")).thenReturn(java.util.Optional.of(device1));
+        when(deviceService.updateDevice("1",deviceDTO1)).thenReturn(Integer.valueOf(1));
+
+        ResponseEntity<String> response = deviceController.updateDevice("1", deviceDTO1);
+
+        assertEquals(200, response.getStatusCodeValue());
+        assertEquals("Device updated", response.getBody());
+    }
 }
