@@ -6,6 +6,7 @@ import com.switchboard.app.dto.DeviceDTO;
 import com.switchboard.app.dto.mapper.DeviceMapper;
 import com.switchboard.app.dto.mapper.DeviceMapperImpl;
 import com.switchboard.app.entity.DeviceEntity;
+import com.switchboard.app.exceptions.ExceptionType;
 import com.switchboard.app.exceptions.ExceptionType.DeviceAlreadyExistsException;
 import com.switchboard.app.exceptions.ExceptionType.DeviceNotFoundException;
 import com.switchboard.app.fixture.DeviceFixture;
@@ -142,5 +143,27 @@ class DeviceControllerTest {
 
         assertEquals(200, response.getStatusCodeValue());
         assertEquals("Device updated", response.getBody());
+    }
+
+    /*
+     * test all exceptions in the updateDevice controller
+     * serial number = 3 doesn't exist
+     */
+    @Test
+    final void testUpdateDeviceExceptions(){
+        DeviceDTO deviceDTO1 = deviceMapper.toDeviceDTO(device1);
+
+        //When device is unavailable in the DB
+        assertThrows(DeviceNotFoundException.class, () -> {
+            deviceController.updateDevice("3", deviceDTO1);
+        }, "DeviceNotFoundException should have been thrown.");
+
+        //This stubbing is needed for the following exception to be tested
+        when(deviceService.findDevice("1")).thenReturn(java.util.Optional.of(device1));
+
+        //When device is unavailable in the DB
+        assertThrows(ExceptionType.DevicePrimaryKeyRestriction.class, () -> {
+            deviceController.updateDevice("3", deviceDTO1);
+        }, "DevicePrimaryKeyRestriction should have been thrown.");
     }
 }
