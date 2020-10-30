@@ -354,12 +354,10 @@ components:
           type: integer
           format: int64
           example: '1234'
-        encoderUuid:
-          type: string
-          example: '0e4e430f-8b9c-47da-b9af-7ef9cfb13e9e'
-        decoderUuid:
-          type: string
-          example: '1ea52153-c196-4cc6-8d9f-714248abf31c'
+        encoder:
+          $ref: '#/components/schemas/EncoderModel'
+        decoder:
+          $ref: '#/components/schemas/DecoderModel'
 
     StreamsModel:
       description: A list of stream IDs

@@ -19,12 +19,10 @@ public class StreamEntity {
     private long id;
 
     @ManyToOne
-    @NonNull
     @JoinColumn(name = "encoder_id", referencedColumnName = "serial_number")
     private EncoderEntity encoder;
 
     @ManyToOne
-    @NonNull
     @JoinColumn(name = "decoder_id", referencedColumnName = "serial_number")
     private DecoderEntity decoder;
 }
