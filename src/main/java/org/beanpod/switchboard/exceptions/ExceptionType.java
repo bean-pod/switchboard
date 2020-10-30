@@ -32,4 +32,11 @@ public class ExceptionType {
         }
     }
 
+    public static class StreamAlreadyExistsException extends RuntimeException {
+        public final static String MESSAGE_TEMPLATE = "Stream already exists between decoder %s%s and encoder %s%s";
+        public StreamAlreadyExistsException(String decoderSerialNumber, String encoderSerialNumber){
+            super(String.format(MESSAGE_TEMPLATE, sn, decoderSerialNumber, sn, encoderSerialNumber));
+        }
+    }
+
 }

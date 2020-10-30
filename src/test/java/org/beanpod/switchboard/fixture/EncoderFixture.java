@@ -3,6 +3,7 @@ package org.beanpod.switchboard.fixture;
 import net.bytebuddy.asm.Advice;
 import org.beanpod.switchboard.dto.EncoderDTO;
 import org.beanpod.switchboard.entity.ChannelEntity;
+import org.beanpod.switchboard.dto.EncoderDTO;
 import org.beanpod.switchboard.entity.DeviceEntity;
 import org.beanpod.switchboard.entity.EncoderEntity;
 import org.openapitools.model.EncoderModel;
