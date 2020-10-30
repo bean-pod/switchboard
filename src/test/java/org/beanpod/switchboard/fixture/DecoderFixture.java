@@ -1,12 +1,15 @@
 package org.beanpod.switchboard.fixture;
 
+import org.beanpod.switchboard.dto.DecoderDTO;
 import org.beanpod.switchboard.entity.DecoderEntity;
 import org.beanpod.switchboard.entity.DeviceEntity;
+import org.openapitools.model.DecoderModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DecoderFixture {
+    public static final String SERIAL_NUMBER = "1";
     public static DecoderEntity getDecoder1(DeviceEntity device1){
         return new DecoderEntity("1", device1);
     }

@@ -1,7 +1,9 @@
 package org.beanpod.switchboard.fixture;
 
+import org.beanpod.switchboard.dto.EncoderDTO;
 import org.beanpod.switchboard.entity.DeviceEntity;
 import org.beanpod.switchboard.entity.EncoderEntity;
+import org.openapitools.model.EncoderModel;
 
 import java.util.ArrayList;
 import java.util.List;
