@@ -8,12 +8,13 @@ import org.beanpod.switchboard.dto.mapper.DecoderMapper;
 import org.beanpod.switchboard.dto.mapper.EncoderMapper;
 import org.beanpod.switchboard.entity.StreamEntity;
 import org.beanpod.switchboard.entity.mapper.StreamMapper;
+import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.repository.StreamRepository;
+import org.openapitools.model.CreateStreamRequest;
 import org.springframework.stereotype.Service;
 import org.openapitools.model.CreateStreamRequest;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -42,6 +43,9 @@ public class StreamDaoImpl {
         streamDto.setEncoder(encoderDto);
 
         StreamEntity streamEntity = mapper.toEntity(streamDto);
+        if(streamRepository.existsBySerialNumbers(createStreamRequest.getDecoderSerialNumber(), createStreamRequest.getEncoderSerialNumber())){
+            throw new ExceptionType.StreamAlreadyExistsException(createStreamRequest.getDecoderSerialNumber(), createStreamRequest.getEncoderSerialNumber());
+        }
         streamRepository.save(streamEntity);
     }
 
