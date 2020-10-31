@@ -36,7 +36,7 @@ public class StreamDaoImpl {
     }
 
     public void createStream(CreateStreamRequest createStreamRequest){
-        //TODO service should return DTOs instead.
+        //TODO service should return DTOs instead. It will also handle exception cases when we move it.
         DecoderDTO decoderDto = decoderMapper.toDecoderDTO(decoderService.findDecoder(createStreamRequest.getDecoderSerialNumber()).get());
         EncoderDTO encoderDto = encoderMapper.toEncoderDTO(encoderService.findEncoder(createStreamRequest.getEncoderSerialNumber()).get());
         StreamDTO streamDto = new StreamDTO();
