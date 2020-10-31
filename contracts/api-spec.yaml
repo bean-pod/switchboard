@@ -107,7 +107,7 @@ paths:
         '200':
           description: Successful deletion of the encoder
 
-  /encoder/{uuid}/stream:
+  /encoder/{id}/stream:
     get:
       operationId: getEncoderStreams
       description: Retrieve the sending streams for the encoder
@@ -193,23 +193,6 @@ paths:
       responses:
         '200':
           description: Successful deletion of the decoder
-
-  /decoder/{uuid}/stream:
-    get:
-      operationId: getDecoderStreams
-      description: Retrieve the sending streams for the decoder
-      tags:
-        - Decoders
-        - Streams
-      parameters:
-        - $ref: '#/components/parameters/EncoderId'
-      responses:
-        '200':
-          description: Successful retrieval of video streams for a decoder
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StreamsModel'
 
   /stream:
     get:
