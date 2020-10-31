@@ -1,7 +1,6 @@
 import DeviceInfo from "../model/DeviceInfo";
 
-function generateData() {
-
+export function getSenders(callback) {
     var sampleSenders = [
         new DeviceInfo(1, "Sender 1", "1:23:456:789", 0, "123:456", 480, ["Additional Device details go here"]),
         new DeviceInfo(2, "Sender 2", "1:32:456:789", 1, "132:456", 480, ["Additional Device details go here"]),
@@ -14,6 +13,10 @@ function generateData() {
         new DeviceInfo(1, "Sender 9", "1:25:456:789", 0, "123:456", 480, ["Additional Device Details go here"]),
     ];
 
+    callback(sampleSenders)
+}
+
+export function getReceivers(callback) {
     var sampleReceivers = [
         new DeviceInfo(1, "Receiver 1", "1:23:456:789", 0, "123:456", 480, ["Additional Device details go here"]),
         new DeviceInfo(2, "Receiver 2", "1:32:456:789", 1, "132:456", 480, ["Additional Device details go here"]),
@@ -36,10 +39,5 @@ function generateData() {
         new DeviceInfo(1, "Receiver 19", "1:25:456:789", 0, "123:456", 480, ["Additional Device Details go here"]),
     ];
 
-    return (
-        { senders: sampleSenders, receivers: sampleReceivers }
-    );
-
+    callback(sampleReceivers)
 }
-
-export default generateData;
