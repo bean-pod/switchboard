@@ -7,6 +7,7 @@ import {
     ListItemText
 } from "@material-ui/core"
 
+import SearchBar from "../devicelist/SearchBar"
 import {
     SwapHoriz
 } from '@material-ui/icons/';
@@ -22,10 +23,10 @@ export default class StreamingTable extends React.Component{
 
     render(){
         return(
-            <React.Fragment>
-                
+            <React.Fragment>            
                 <Grid container spacing={2} alignContent={"center"} alignItems={"center"}  justify = {'center'}>
                     <Grid item >
+                    <SearchBar />
                         <List dense="true">
                         {this.generate(
                             <ListItem button>
@@ -40,6 +41,7 @@ export default class StreamingTable extends React.Component{
                             <SwapHoriz /> Stream
                         </Button></Grid>
                     <Grid item>
+                    <SearchBar />
                         <List dense="true">
                         {this.generate(
                             <ListItem button>

@@ -61,8 +61,8 @@ select {
 .searchField {
   margin: 0em 2em 0em 0em;
 }
+
 .searchField input{
-  width: 55em;
   padding: 7px 5px;
 }
 .sortBy{
