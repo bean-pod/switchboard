@@ -28,7 +28,7 @@ public class StreamDaoImpl {
     private final EncoderMapper encoderMapper;
 
     public List<Long> getStreams(){
-        return streamRepository.getAllUuid();
+        return streamRepository.getAllId();
     }
 
     public StreamDTO getStreamById(Long id){
@@ -39,9 +39,10 @@ public class StreamDaoImpl {
         //TODO service should return DTOs instead. It will also handle exception cases when we move it.
         DecoderDTO decoderDto = decoderMapper.toDecoderDTO(decoderService.findDecoder(createStreamRequest.getDecoderSerialNumber()).get());
         EncoderDTO encoderDto = encoderMapper.toEncoderDTO(encoderService.findEncoder(createStreamRequest.getEncoderSerialNumber()).get());
-        StreamDTO streamDto = new StreamDTO();
-        streamDto.setDecoder(decoderDto);
-        streamDto.setEncoder(encoderDto);
+        StreamDTO streamDto = StreamDTO.builder()
+                .decoder(decoderDto)
+                .encoder(encoderDto)
+                .build();
 
         StreamEntity streamEntity = mapper.toEntity(streamDto);
 

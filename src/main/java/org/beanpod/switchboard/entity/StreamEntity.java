@@ -1,9 +1,7 @@
 package org.beanpod.switchboard.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Data;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Base64;
@@ -11,6 +9,8 @@ import java.util.Base64;
 @Entity(name = "Stream")
 @Data
 @JsonIgnoreProperties({"hibernateLazyIntializer", "handler"})
+@AllArgsConstructor
+@Builder
 public class StreamEntity {
 
     @Id
