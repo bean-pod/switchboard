@@ -23,4 +23,14 @@ public class DecoderFixture {
 
         return listOfDecoders;
     }
+
+    public static DecoderDTO getDecoderDto(){
+        return new DecoderDTO(SERIAL_NUMBER, DeviceFixture.getDeviceDto());
+    }
+
+    public static DecoderModel getDecoderModel(){
+        return new DecoderModel()
+                .serialNumber(SERIAL_NUMBER)
+                .device(DeviceFixture.getDeviceModel());
+    }
 }

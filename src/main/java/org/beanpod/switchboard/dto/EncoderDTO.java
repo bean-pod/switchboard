@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class EncoderDTO {
     private String serialNumber;
-    private DeviceEntity device;
+    private DeviceDTO device;
 }
