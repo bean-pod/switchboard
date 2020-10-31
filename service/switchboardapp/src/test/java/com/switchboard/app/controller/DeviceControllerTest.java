@@ -1,6 +1,5 @@
-package com.switchboard.app;
+package com.switchboard.app.controller;
 
-import com.switchboard.app.controller.DeviceController;
 import com.switchboard.app.dao.DeviceDaoImpl;
 import com.switchboard.app.dto.DeviceDTO;
 import com.switchboard.app.dto.mapper.DeviceMapper;
@@ -22,10 +21,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 class DeviceControllerTest {
@@ -134,15 +133,15 @@ class DeviceControllerTest {
     //When a device is available in the DB
     @Test
     final void testUpdateDevice(){
-        DeviceDTO deviceDTO1 = deviceMapper.toDeviceDTO(device1);
 
         when(deviceService.findDevice("1")).thenReturn(java.util.Optional.of(device1));
-        when(deviceService.updateDevice("1",deviceDTO1)).thenReturn(Integer.valueOf(1));
-
-        ResponseEntity<String> response = deviceController.updateDevice("1", deviceDTO1);
+        device1.setStatus("Stopped");
+        when(deviceService.save(device1)).thenReturn(device1);
+        DeviceDTO deviceDTO1 = deviceMapper.toDeviceDTO(device1);
+        ResponseEntity<DeviceDTO> response = deviceController.updateDevice("1", deviceDTO1);
 
         assertEquals(200, response.getStatusCodeValue());
-        assertEquals("Device updated", response.getBody());
+        assertEquals("Stopped", response.getBody().getStatus());
     }
 
     /*
@@ -165,13 +164,5 @@ class DeviceControllerTest {
         assertThrows(ExceptionType.DevicePrimaryKeyRestriction.class, () -> {
             deviceController.updateDevice("3", deviceDTO1);
         }, "DevicePrimaryKeyRestriction should have been thrown.");
-
-        //This stubbing is needed for the following exception to be tested
-        when(deviceService.updateDevice("1",deviceDTO1)).thenReturn(Integer.valueOf(0));
-
-        //When device is not updated properly
-        assertThrows(ExceptionType.DeviceNotUpdated.class, () -> {
-            deviceController.updateDevice("1", deviceDTO1);
-        }, "DeviceNotUpdated should have been thrown.");
     }
 }

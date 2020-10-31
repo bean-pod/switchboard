@@ -1,14 +1,15 @@
-package com.switchboard.app;
+package com.switchboard.app.controller;
 
-import com.switchboard.app.controller.EncoderController;
 import com.switchboard.app.dao.DeviceDaoImpl;
 import com.switchboard.app.dao.EncoderDaoImpl;
 import com.switchboard.app.dto.EncoderDTO;
 import com.switchboard.app.dto.mapper.EncoderMapper;
 import com.switchboard.app.dto.mapper.EncoderMapperImpl;
+import com.switchboard.app.entity.ChannelEntity;
 import com.switchboard.app.entity.DeviceEntity;
 import com.switchboard.app.entity.EncoderEntity;
 import com.switchboard.app.exceptions.ExceptionType.DeviceNotFoundException;
+import com.switchboard.app.fixture.ChannelFixture;
 import com.switchboard.app.fixture.DeviceFixture;
 import com.switchboard.app.fixture.EncoderFixture;
 import org.junit.jupiter.api.BeforeAll;
@@ -23,13 +24,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+
+import java.text.ParseException;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-class EncoderControllerTest {
+class   EncoderControllerTest {
     @InjectMocks
     private EncoderController encoderController;
 
@@ -44,15 +47,19 @@ class EncoderControllerTest {
     //stubbed Objects
     static private DeviceEntity device1, device2;
     static private EncoderEntity encoder1, encoder2;
+    static private Set<ChannelEntity> setOfChannels;
     static private List<EncoderEntity> listOfEncoders;
 
     @BeforeAll
-    static void encoderFixture(){
+    static void encoderFixture() throws ParseException {
         //stubbing device and encoder objects
         device1 = DeviceFixture.getDevice1();
         device2 = DeviceFixture.getDevice2();
-        encoder1 = EncoderFixture.getEncoder1(device1);
-        encoder2 = EncoderFixture.getEncoder2(device2);
+
+        setOfChannels = ChannelFixture.getSetOfChannels();
+
+        encoder1 = EncoderFixture.getEncoder1(device1, setOfChannels);
+        encoder2 = EncoderFixture.getEncoder2(device2, setOfChannels);
         listOfEncoders = EncoderFixture.getListOfEncoder(encoder1, encoder2);
     }
 
@@ -135,6 +142,31 @@ class EncoderControllerTest {
     final void testDeleteEncoderNotExisting(){
         assertThrows(DeviceNotFoundException.class, () -> {
             encoderController.deleteEncoder("Not Available encoder");
+        }, "DeviceNotFoundException should have been thrown.");
+    }
+
+    //When a encoder is available in the DB
+    @Test
+    final void testUpdateEncoder(){
+
+        when(encoderService.findEncoder("1")).thenReturn(java.util.Optional.of(encoder1));
+        encoder1.getOutputs().clear();
+        when(encoderService.save(encoder1)).thenReturn(encoder1);
+        EncoderDTO encoderDTO1 = encoderMapper.toEncoderDTO(encoder1);
+        ResponseEntity<EncoderDTO> response = encoderController.updateEncoder("1", encoderDTO1);
+
+        assertEquals(200, response.getStatusCodeValue());
+        assertTrue(response.getBody().getOutputs().isEmpty());
+    }
+
+    //Test exceptions when updating encoder
+    @Test
+    final void testUpdateEncoderExceptions(){
+        EncoderDTO encoderDTO1 = encoderMapper.toEncoderDTO(encoder1);
+
+        //When device is unavailable in the DB
+        assertThrows(DeviceNotFoundException.class, () -> {
+            encoderController.updateEncoder("3", encoderDTO1);
         }, "DeviceNotFoundException should have been thrown.");
     }
 }

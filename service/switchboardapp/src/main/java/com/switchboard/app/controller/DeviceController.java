@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -77,7 +78,7 @@ public class DeviceController {
 
     @PutMapping("/{serialNumber}")
     @Transactional
-    public ResponseEntity<String> updateDevice(@PathVariable String serialNumber, @RequestBody DeviceDTO device) {
+    public ResponseEntity<DeviceDTO> updateDevice(@PathVariable String serialNumber, @RequestBody DeviceDTO device) {
 
         Optional<DeviceEntity> deviceLookup = service.findDevice(device.getSerialNumber());
         if (deviceLookup.isEmpty()) {
@@ -87,12 +88,9 @@ public class DeviceController {
         if (!serialNumber.equals(device.getSerialNumber())) {
             throw new ExceptionType.DevicePrimaryKeyRestriction(serialNumber);
         }
-        int response = service.updateDevice(serialNumber, device);
+        DeviceEntity deviceEntity = service.save(deviceMapper.toDeviceEntity(device));
+        return new ResponseEntity<>(deviceMapper.toDeviceDTO(deviceEntity), HttpStatus.OK);
 
-        if (response != 1) {
-            throw new ExceptionType.DeviceNotUpdated(serialNumber);
-        }
-        return ResponseEntity.ok("Device updated");
     }
 
 }

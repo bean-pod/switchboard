@@ -7,11 +7,21 @@ import java.util.List;
 
 public class DeviceFixture {
     public static DeviceEntity getDevice1(){
-        return new DeviceEntity("1","Device #1","Running",null,null);
+        return new DeviceEntity("1",
+                "127.111.111",
+                "Device #1",
+                "Running",
+                null,
+                null);
     }
 
     public static DeviceEntity getDevice2(){
-        return new DeviceEntity("2","Device #2","Running",null,null);
+        return new DeviceEntity("2",
+                "127.111.112",
+                "Device #2",
+                "Running",
+                null,
+                null);
     }
 
     public static List<DeviceEntity> getListOfDevices(){

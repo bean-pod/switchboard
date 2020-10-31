@@ -1,4 +1,4 @@
-package com.switchboard.app;
+package com.switchboard.app.controller;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

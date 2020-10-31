@@ -84,7 +84,7 @@ public class DecoderController {
     }
 
     @PutMapping("/{serialNumber}")
-    public ResponseEntity<DecoderDTO> updateEncoder(@PathVariable String serialNumber,
+    public ResponseEntity<DecoderDTO> updateDecoder(@PathVariable String serialNumber,
                                                     @RequestBody DecoderDTO decoderDTO){
         Optional<DecoderEntity> decoder = decoderService.findDecoder(serialNumber);
         if (decoder.isEmpty()) {
@@ -92,6 +92,6 @@ public class DecoderController {
         }
         decoder.get().getInputs().clear();
         DecoderEntity decoderEntity = decoderService.save(decoderMapper.toDecoderEntity(decoderDTO));
-        return new ResponseEntity<>(decoderMapper.toDecoderDTO(decoderEntity), HttpStatus.CREATED);
+        return new ResponseEntity<>(decoderMapper.toDecoderDTO(decoderEntity), HttpStatus.OK);
     }
 }

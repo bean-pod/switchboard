@@ -18,7 +18,7 @@ import java.util.Set;
 public class ChannelEntity {
 
     @Id
-    Long port;
+    Integer port;
     String name;
 
     @ManyToMany(mappedBy = "outputs")

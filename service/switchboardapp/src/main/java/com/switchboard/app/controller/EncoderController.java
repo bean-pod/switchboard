@@ -29,7 +29,8 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @RestController
 @RequestMapping("/encoder")
 public class EncoderController {
-        @Autowired
+
+    @Autowired
     EncoderDaoImpl encoderService;
 
     @Autowired
@@ -91,6 +92,6 @@ public class EncoderController {
         }
         encoder.get().getOutputs().clear();
         EncoderEntity encoderEntity = encoderService.save(encoderMapper.toEncoderEntity(encoderDTO));
-        return new ResponseEntity<>(encoderMapper.toEncoderDTO(encoderEntity), HttpStatus.CREATED);
+        return new ResponseEntity<>(encoderMapper.toEncoderDTO(encoderEntity), HttpStatus.OK);
     }   
 }
