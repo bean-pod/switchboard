@@ -14,10 +14,10 @@ public interface StreamRepository extends JpaRepository<StreamEntity, Long> {
     @Query(
             "SELECT id FROM Stream"
     )
-    public List<Long> getAllUuid();
+    List<Long> getAllId();
 
     @Query(
             "SELECT count(encoder_id)>0 FROM Stream where encoder_id = :encoderSerialNumber AND decoder_id = :decoderSerialNumber"
     )
-    public boolean existsBySerialNumbers(@Param(value = "encoderSerialNumber") String encoderSerialNumber, @Param(value = "decoderSerialNumber") String decoderSerialNumber);
+    boolean existsBySerialNumbers(@Param(value = "encoderSerialNumber") String encoderSerialNumber, @Param(value = "decoderSerialNumber") String decoderSerialNumber);
 }

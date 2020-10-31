@@ -7,6 +7,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.openapitools.model.StreamModel;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -32,7 +34,7 @@ public class StreamControllerTest {
     @Test
     public void testGetStreams(){
         //given
-        when(streamService.getStreams()).thenReturn(StreamDTOFixture.getStreamList());
+        when(streamService.getStreams()).thenReturn(StreamFixture.getIdList());
 
         //when
         ResponseEntity<List<Long>> result = streamController.getStreams();
@@ -40,7 +42,7 @@ public class StreamControllerTest {
         //then
         assertNotNull(result);
         List<Long> responseBody = result.getBody();
-        assertEquals(responseBody.get(0), StreamDTOFixture.UUID);
+        assertEquals(responseBody.get(0), StreamFixture.ID);
     }
 
     @Test
@@ -65,5 +67,56 @@ public class StreamControllerTest {
         RuntimeException exception = assertThrows(RuntimeException.class, () ->
                 streamController.getStreams()
         );
+    }
+
+    @Test
+    public void testGetStreamById(){
+        //given
+        StreamDTO streamDTO = StreamFixture.getStreamDto();
+        when(streamService.getStreamById(StreamFixture.ID)).thenReturn(streamDTO);
+        when(streamMapper.toModel(streamDTO)).thenReturn(StreamFixture.getStreamModel());
+
+        //when
+        ResponseEntity<StreamModel> result = streamController.getStreamById(StreamFixture.ID);
+
+        //then
+        assertEquals(result.getStatusCode(), HttpStatus.OK);
+        assertNotNull(result);
+        assertNotNull(result.getBody());
+        StreamModel responseBody = result.getBody();
+        assertEquals(responseBody.getId(), StreamFixture.ID);
+        assertEquals(responseBody.getDecoder().getSerialNumber(), DecoderFixture.SERIAL_NUMBER);
+        assertEquals(responseBody.getEncoder().getSerialNumber(), EncoderFixture.SERIAL_NUMBER);
+    }
+
+    @Test
+    public void testCreateStream(){
+        //when
+        ResponseEntity<Void> result = streamController.createStream(StreamFixture.getCreateStreamRequest());
+
+        //then
+        assertEquals(result.getStatusCode(), HttpStatus.OK);
+    }
+
+    @Test
+    public void testDeleteStream(){
+        //when
+        ResponseEntity<Void> result = streamController.deleteStream(StreamFixture.ID);
+
+        //then
+        assertEquals(result.getStatusCode(), HttpStatus.OK);
+    }
+
+    @Test
+    public void testUpdateStream(){
+        //given
+        StreamModel streamModel = StreamFixture.getStreamModel();
+        when(streamMapper.toDto(streamModel)).thenReturn(StreamFixture.getStreamDto());
+
+        //when
+        ResponseEntity<Void> result = streamController.updateStream(streamModel);
+
+        //then
+        assertEquals(result.getStatusCode(), HttpStatus.OK);
     }
 }
