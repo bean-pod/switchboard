@@ -39,4 +39,10 @@ public class ExceptionType {
         }
     }
 
+    public static class StreamDoesNotExistsException extends RuntimeException{
+        public final static String MESSAGE_TEMPLATE = "Stream ID-%s does not exist";
+        public StreamDoesNotExistsException(Long streamId){
+            super(String.format(MESSAGE_TEMPLATE, streamId));
+        }
+    }
 }
