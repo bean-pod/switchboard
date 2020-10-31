@@ -54,8 +54,11 @@ public class StreamDaoImpl {
     }
 
     public void updateStream(StreamDTO streamDto){
-        StreamEntity streamEntity = mapper.toEntity(streamDto);
-        streamRepository.getOne(streamDto.getId());
-        streamRepository.save(streamEntity);
+        if(streamRepository.existsById(streamDto.getId())){
+            StreamEntity streamEntity = mapper.toEntity(streamDto);
+            streamRepository.save(streamEntity);
+        }else{
+            throw new ExceptionType.DeviceNotUpdated(streamDto.getId());
+        }
     }
 }
