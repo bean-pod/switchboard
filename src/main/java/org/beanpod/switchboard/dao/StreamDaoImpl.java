@@ -12,12 +12,13 @@ import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.repository.StreamRepository;
 import org.openapitools.model.CreateStreamRequest;
 import org.springframework.stereotype.Service;
-import org.openapitools.model.CreateStreamRequest;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class StreamDaoImpl {
     private final StreamRepository streamRepository;
     private final StreamMapper mapper;
@@ -43,7 +44,8 @@ public class StreamDaoImpl {
         streamDto.setEncoder(encoderDto);
 
         StreamEntity streamEntity = mapper.toEntity(streamDto);
-        if(streamRepository.existsBySerialNumbers(createStreamRequest.getDecoderSerialNumber(), createStreamRequest.getEncoderSerialNumber())){
+
+        if(streamRepository.existsBySerialNumbers(createStreamRequest.getEncoderSerialNumber(), createStreamRequest.getDecoderSerialNumber())){
             throw new ExceptionType.StreamAlreadyExistsException(createStreamRequest.getDecoderSerialNumber(), createStreamRequest.getEncoderSerialNumber());
         }
         streamRepository.save(streamEntity);
@@ -54,11 +56,10 @@ public class StreamDaoImpl {
     }
 
     public void updateStream(StreamDTO streamDto){
-        if(streamRepository.existsById(streamDto.getId())){
-            StreamEntity streamEntity = mapper.toEntity(streamDto);
-            streamRepository.save(streamEntity);
-        }else{
-            throw new ExceptionType.DeviceNotUpdated(streamDto.getId().toString());
+        if(!streamRepository.existsById(streamDto.getId())){
+            throw new ExceptionType.StreamDoesNotExistsException(streamDto.getId());
         }
+        StreamEntity streamEntity = mapper.toEntity(streamDto);
+        streamRepository.save(streamEntity);
     }
 }
