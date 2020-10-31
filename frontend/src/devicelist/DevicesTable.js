@@ -28,7 +28,7 @@ export default function DevicesTable(props) {
                         </TableHead>
                         <TableBody>
                             {props.rows.map((row) => {
-                                return <SingleTableRow row={row} />;
+                                return <SingleTableRow key={row.id} row={row} />;
                             })}
                         </TableBody>
                     </Table>

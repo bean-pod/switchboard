@@ -25,6 +25,22 @@ test("Device list renders sender page by default", () => {
     var devices = document.getElementsByClassName("singleDeviceRow");
     expect(devices).not.toBe(null);
     expect(devices.length).toBe(9);
+
+    var title = document.querySelector("div.title");
+    expect(title).not.toBe(null);
+    expect(title.innerHTML).toBe("My Devices");
+
+    var streamButton = document.querySelector("button.green.buttonText span.MuiButton-label");
+    expect(streamButton).not.toBe(null);
+    expect(streamButton.textContent).toBe(" Stream");
+
+    var addDeviceButton = document.querySelector("button.blue.buttonText span.MuiButton-label");
+    expect(addDeviceButton).not.toBe(null);
+    expect(addDeviceButton.textContent).toBe(" Add Device");
+
+    var searchBar = document.querySelector("div.searchField div.MuiFormControl-root div.MuiInputBase-root input");
+    expect(searchBar).not.toBe(null);
+    expect(searchBar.getAttribute("placeholder")).toBe("Search");
 })
 
 test("Clicking receivers tabs renders the receiver list ", () => {
