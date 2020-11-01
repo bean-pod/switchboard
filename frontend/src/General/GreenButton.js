@@ -14,7 +14,7 @@ export default class GreenButton extends React.Component{
 
         const StyledButton = withStyles({
             root: {
-              background: '#59bc31',
+              background: 'linear-gradient(45deg, #59bc31 30%, #59bc31 90%)',
               borderRadius: 90,
               border: 0,
               color: 'white',
