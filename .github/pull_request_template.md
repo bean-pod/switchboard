@@ -1,24 +1,27 @@
-<!-- Keep the '**' for the titles in each bug report for consistency --> 
+# General info
+<!--Delete or put N/A for any irrelevant sections-->
 
-**Operating system:** 
-<!-- This section is optional, aka only if relevant; for frontend tasks, list the operating system and browser type and version --> 
-<!-- Use bullet points --> 
+**Issue number**: <!--Issue Number-->
 
-**Steps to reproduce:**
-<!-- Number the steps --> 
+**Task description**: 
 
-**Expected result:**
-<!-- Use bullet points --> 
+ - Change 1
+ - Change 2
+ 
+<!-- What changed? What does this do? Provide screenshots if necessary--> 
+| Original   | Updated|
+|:---------------:|:---------------:|
+|<!--** original screenshot **--> | <!--** updated screenshot **-->|
 
-**Actual result:**
-<!-- Use bullet points --> 
+# Testing
 
-**Visual proof:**
-<!-- Table below is mostly for frontend related bugs, use if applicable --> 
-|  Actual  |
-|:---------------:|
-| <!--** Please highlight/box the parts which do not match the mockups **--> |
+**Test coverage**:
+<!-- Unit tested/manual testing only/ Some actual metrics -->
 
-| Expected |
-|:---------------:|
-| <!--** The corresponding mockup **--> |
+# Additional notes
+
+**Note to reviewers**:
+<!-- Special instructions for testing this code-->
+
+**To do before merging**:
+- [ ] Edit Changelog(if necessary)
