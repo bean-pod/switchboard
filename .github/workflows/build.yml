@@ -1,7 +1,7 @@
 name: Build
 on:
   push:
-    
+
 jobs:
   build:
     name: Build
@@ -31,5 +31,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+        run: mvn -B clean verify -Dspring.config.location=classpath:application.properties org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
         working-directory: ./service/switchboardapp
