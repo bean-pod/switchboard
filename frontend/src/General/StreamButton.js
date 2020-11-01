@@ -8,7 +8,7 @@ import {
     SwapHoriz
 } from '@material-ui/icons/';
 
-export default class GreenButton extends React.Component{
+export default class StreamButton extends React.Component{
     
     render(){
 
@@ -18,7 +18,7 @@ export default class GreenButton extends React.Component{
               borderRadius: 90,
               border: 0,
               color: 'white',
-              height: 48,
+              height: 40,
               padding: '0 15px',
             },
             label: {
