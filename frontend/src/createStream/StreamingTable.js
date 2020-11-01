@@ -22,7 +22,7 @@ export default class StreamingTable extends React.Component{
                         <SelectDevicesTable/>
                         </div>     
                     </Grid>
-                    <Grid item xs = {2} justify = {'center'}alignContent={"center"} alignItems={"center"}display="flex">
+                    <Grid item xs = {2} id="TableStartStreaming" justify = {'center'}alignContent={"center"} alignItems={"center"}display="flex">
                         <Button class="green buttonText">
                             <SwapHoriz /> Stream
                         </Button>
