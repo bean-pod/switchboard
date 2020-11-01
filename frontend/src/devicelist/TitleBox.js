@@ -4,10 +4,9 @@ import {
     Button
 } from "@material-ui/core"
 
-import {
-    SwapHoriz,
-    AddSharp
-} from '@material-ui/icons/';
+
+import StreamButton from '../General/StreamButton';
+import AddDeviceButton from '../General/AddDeviceButton';
 
 export default class TitleBox extends React.Component {
     render() {
@@ -15,13 +14,9 @@ export default class TitleBox extends React.Component {
             <React.Fragment>
                 <Box class="flexContents headerArea">
                     <div class="title">My Devices</div>
-                    <div class="alignRightFloat">
-                        <Button class="green buttonText">
-                            <SwapHoriz /> Stream
-                        </Button>
-                        <Button class="blue buttonText">
-                            <AddSharp /> Add Device
-                        </Button>
+                    <div class="alignRightFloat" spacing={2}>
+                        <StreamButton/>
+                        <AddDeviceButton/>
                     </div>
                 </Box>
             </React.Fragment>
