@@ -9,7 +9,7 @@ import {
 } from "@material-ui/core"
 import HeadCell from '../model/HeadCell'
 
-export default class DevListHeadCells extends React.Component {
+export default class HeadCells extends React.Component {
     constructor(props) {
         super(props)
         this.headcells = this.getHeadCellData();
@@ -38,7 +38,7 @@ export default class DevListHeadCells extends React.Component {
                             <Typography component={'span'} variant="caption"> {headCell.label}</Typography>
                         </TableSortLabel>
                         {headCell.id === "status" ? (
-                            <Select variant="outlined" id={headCell.searchID} fullWidth={true} >
+                            <Select value="" variant="outlined" id={headCell.searchID} fullWidth={true} >
                                 <MenuItem dense="true" value={"Online"}> <Typography variant="caption">Online</Typography></MenuItem>
                                 <MenuItem dense="true" value={"Pending"}> <Typography variant="caption">Pending</Typography></MenuItem>
                                 <MenuItem dense="true" value={"Error"}>   <Typography variant="caption">Error</Typography></MenuItem>

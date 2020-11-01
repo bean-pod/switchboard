@@ -7,13 +7,13 @@ import {
 import TitleBox from './TitleBox'
 import ContentsTable from './ContentsTable'
 
-export default function DeviceList() {
+export default function DeviceList(props) {
     const styles = useStyles();
     
     return (
         <Container>
             <TitleBox />
-            <ContentsTable classes={styles} />
+            <ContentsTable classes={styles} dataSource={props.dataSource}/>
         </Container>
     );
 }

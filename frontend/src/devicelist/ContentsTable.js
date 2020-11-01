@@ -1,7 +1,6 @@
 import React from 'react';
 import { Box } from "@material-ui/core"
 
-import * as DeviceApi from "../api/DeviceApi";
 import SearchBar from './SearchBar'
 import SortBy from './SortBy'
 import VerticalTabs from './VerticalTabs'
@@ -16,14 +15,15 @@ export default class ContentsTable extends React.Component {
             receivers: [],
             value: 0
         }
+        this.dataSource = props.dataSource;
         this.handleValueChange = this.handleValueChange.bind(this);
         this.handleSendersChange = this.handleSendersChange.bind(this);
         this.handleReceiversChange = this.handleReceiversChange.bind(this);
     }
 
     componentDidMount() {
-        DeviceApi.getSenders(this.handleSendersChange);
-        DeviceApi.getReceivers(this.handleReceiversChange);
+        this.dataSource.getSenders(this.handleSendersChange);
+        this.dataSource.getReceivers(this.handleReceiversChange);
     }
 
     handleValueChange(tabIndex) {

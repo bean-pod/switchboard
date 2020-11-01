@@ -14,7 +14,7 @@ import {
 } from '@material-ui/icons/';
 
 import ActionMenu from './ActionMenu'
-import StatusIndicator from './StatusIndicators'
+import StatusIndicator from './StatusIndicator'
 
 export default class SingleTableRow extends React.Component {
     constructor(props) {
@@ -31,8 +31,8 @@ export default class SingleTableRow extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <TableRow key={this.props.row.id}>
-                    <TableCell class="tableCell" style={{ width: 1, padding: 0, paddingLeft: 5 }}>
+                <TableRow key={this.props.row.id} class="singleDeviceRow">
+                    <TableCell class="tableCell dropdownButton" style={{ width: 1, padding: 0, paddingLeft: 5 }}>
                         <IconButton onClick={() => this.setState({ open: !this.state.open })}>
                             {this.state.open ? <ExpandLess /> : <ExpandMore />}
                         </IconButton>
@@ -48,7 +48,7 @@ export default class SingleTableRow extends React.Component {
                         <ActionMenu />
                     </TableCell>
                 </TableRow>
-                <TableRow>
+                <TableRow class="deviceDetails">
                     <TableCell class="chevronText lightestGrey" colSpan={7}>
                         <Collapse in={this.state.open} timeout="auto" unmountOnExit>
                             <Box margin={2}>
