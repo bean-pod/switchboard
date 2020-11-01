@@ -119,7 +119,7 @@ function verifyStaticElements() {
     expect(senderTab).not.toBe(null);
     expect(senderTab.textContent).toBe("Senders")
 
-    var senderTab = document.querySelector("#vertical-tab-1 span");
-    expect(senderTab).not.toBe(null);
-    expect(senderTab.textContent).toBe("Receivers")
+    var receiverTab = document.querySelector("#vertical-tab-1 span");
+    expect(receiverTab).not.toBe(null);
+    expect(receiverTab.textContent).toBe("Receivers")
 }
