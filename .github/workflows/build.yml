@@ -1,10 +1,7 @@
 name: Build
 on:
   push:
-    branches:
-      - master
-  pull_request:
-    types: [opened, synchronize, reopened]
+    
 jobs:
   build:
     name: Build
@@ -34,5 +31,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B clean verify -DskipTests org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+        run: mvn -B clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
         working-directory: ./service/switchboardapp
