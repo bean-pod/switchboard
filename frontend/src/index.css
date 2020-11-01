@@ -58,8 +58,12 @@ select {
   width: max-content;
 }
 
+.streamingTable{
+  height: 500;
+}
+
 .searchField {
-  margin: 0em 2em 0em 0em;
+  margin: 0em ;
 }
 
 .searchField input{
