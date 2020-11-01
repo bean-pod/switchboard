@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import HeaderBar from './HeaderAppBar';
 import DeviceList from './devicelist/DeviceList';
+import StreamingTable from './createStream/StreamingPage';
 
 import {
   Breadcrumbs,
@@ -26,7 +27,8 @@ ReactDOM.render(
       </Box>
     </Container>
     <Box padding="1em">
-      <DeviceList />
+      <StreamingTable/>
+       <DeviceList />
     </Box>
   </React.StrictMode>,
   document.getElementById('root')
