@@ -14,7 +14,7 @@ import {
 } from '@material-ui/icons/';
 
 import ActionMenu from './ActionMenu'
-import StatusIndicator from './StatusIndicators'
+import StatusIndicator from './StatusIndicator'
 
 export default class SingleTableRow extends React.Component {
     constructor(props) {
