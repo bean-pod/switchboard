@@ -9,7 +9,7 @@ import {
 } from '@material-ui/icons/';
 
 import SelectDevicesTable from "./SelectDevicesTable";
-import GreenButton from "../General/GreenButton";
+import StreamButton from "../General/StreamButton";
 
 export default class StreamingTable extends React.Component{
 
@@ -24,7 +24,7 @@ export default class StreamingTable extends React.Component{
                         </div>     
                     </Grid>
                     <Grid item xs = {2} id="TableStartStreaming" justify = {'center'}alignContent={"center"} alignItems={"center"}display="flex">
-                        <GreenButton/>
+                        <StreamButton/>
                     </Grid>
                     <Grid item xs = {2}>
                         <div class="streamingTable">
