@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.mockito.Mockito.when;
 
-public class EncoderDaoImplTest {
+class EncoderDaoImplTest {
 
     @InjectMocks
     private EncoderDaoImpl encoderDaoImpl;

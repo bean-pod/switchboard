@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.mockito.Mockito.when;
 
-public class DeviceDaoImplTest {
+ class DeviceDaoImplTest {
 
     @InjectMocks
     private DeviceDaoImpl deviceDaoImpl;
