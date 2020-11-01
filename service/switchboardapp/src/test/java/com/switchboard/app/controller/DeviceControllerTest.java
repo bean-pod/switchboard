@@ -140,8 +140,8 @@ class DeviceControllerTest {
         DeviceDTO deviceDTO1 = deviceMapper.toDeviceDTO(device1);
         ResponseEntity<DeviceDTO> response = deviceController.updateDevice("1", deviceDTO1);
 
-        assertEquals(200, response.getStatusCodeValue());
-        assertEquals("Stopped", response.getBody().getStatus());
+        assertEquals(200, response.getStatusCodeValue(), "The status code is not 200");
+        assertEquals("Stopped", response.getBody().getStatus(), "The device is not updated");
     }
 
     /*
