@@ -1,16 +1,17 @@
 import React from 'react';
 import {
     List,
-    ListItem,
-    ListItemText,
     Typography
 } from "@material-ui/core";
-
 import SearchBar from "../devicelist/SearchBar"
+import SelectDeviceTableRow from './SelectDeviceTableRow';
 
 export default class SelectDevicesTable extends React.Component{
 
-    
+    constructor(props){
+        super(props)
+    }
+
     generate(element) {
         var arr = [0,0,0,0,0,0,0,0,0,0];
         return arr.map((value) =>
@@ -25,19 +26,13 @@ export default class SelectDevicesTable extends React.Component{
             <React.Fragment>
                 <Typography variant= "h5"> Devices</Typography>
                 <SearchBar />
-                <div style={{maxHeight: 200, overflow: 'auto'}}>
+                <div style={{maxHeight: 300, overflow: 'auto'}}>
                     <List >
                         {this.generate(
-                            <ListItem button dense>
-                            <ListItemText
-                                primary="Device Name" dense
-                            />
-                            </ListItem>,
+                            <SelectDeviceTableRow/>,
                         )}
                     </List>
                 </div>
-                
-                
             </React.Fragment>
         );
     }
