@@ -1,0 +1,272 @@
+openapi: 3.0.2
+info:
+  version: 1.0.0
+  title: 'Switchboard API'
+  description: 'API for the switchboard service'
+
+servers:
+  - url: http://localhost:8080/v1
+    description: Local Enviorment
+
+paths:
+  /device:
+    get:
+      operationId: retrieveAllDevices
+      description: Get a list of available devices
+      tags:
+        - Devices
+      responses:
+        '200':
+          description: Successful retrival of device list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DevicesModel'
+    post:
+      operationId: createDevice
+      description: Create a new device
+      tags:
+        - Devices
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceModel'
+      responses:
+        '200':
+          description: Successful creation of device
+
+  /encoder:
+    get:
+      operationId: retrieveAllEncoders
+      description: Get a list of available encoders
+      tags:
+        - Encoders
+      responses:
+        '200':
+          description: Successful retrieval of encoder list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EncodersModel'
+    post:
+      operationId: createEncoder
+      description: Create a new encoder client
+      tags:
+        - Encoders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEncoderRequest'
+      responses:
+        '200':
+          description: Successful creation the encoder
+
+  /encoders/{uuid}:
+    get:
+      operationId: getEncoderById
+      description: Retrieve a specific encoder
+      tags:
+        - Encoders
+      parameters:
+        - $ref: '#/components/parameters/EncoderId'
+      responses:
+        '200':
+          description: Successful retrieval of the encoder
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EncoderModel'
+    put:
+      operationId: updateEncoder
+      description: Update a encoder's definition
+      tags:
+        - Encoders
+      parameters:
+        - $ref: '#/components/parameters/EncoderId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EncoderModel'
+      responses:
+        '200':
+          description: Successful update of the Encoder
+    delete:
+      operationId: deleteEncoder
+      description: Delete a encoder
+      tags:
+        - Encoders
+      parameters:
+        - $ref: '#/components/parameters/EncoderId'
+      responses:
+        '200':
+          description: Successful deletion of the encoder
+
+  /decoder:
+    get:
+      operationId: retrieveAllDecoders
+      description: Get a list of available decoders serial numbers
+      tags:
+        - Decoders
+      responses:
+        '200':
+          description: Successful retrieval of decoder list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DecodersModel'
+    post:
+      operationId: createDecoder
+      description: Create a new decoder client
+      tags:
+        - Decoders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDecoderRequest'
+      responses:
+        '200':
+          description: Successful creation of the decoder
+
+  /decoders/{uuid}:
+    get:
+      operationId: getDecoderById
+      description: Retrieve a specific decoder
+      tags:
+        - Decoders
+      parameters:
+        - $ref: '#/components/parameters/DecoderId'
+      responses:
+        '200':
+          description: Successful retrieval of the decoder
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DecoderModel'
+    put:
+      operationId: updateDecoder
+      description: Update a decoder's definition
+      tags:
+        - Decoders
+      parameters:
+        - $ref: '#/components/parameters/DecoderId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DecoderModel'
+      responses:
+        '200':
+          description: Successful update of the decoder
+    delete:
+      operationId: deleteDecoder
+      description: Delete a decoder
+      tags:
+        - Decoders
+      parameters:
+        - $ref: '#/components/parameters/DecoderId'
+      responses:
+        '200':
+          description: Successful deletion of the decoder
+
+components:
+  schemas:
+    DevicesModel:
+      description: A list of device serial numbers
+      type: array
+      items:
+        type: 'string'
+      example: ['BtmC8ckj']
+
+    DeviceModel:
+      description: A device thats either an  encoder or decoder
+      properties:
+        serialNumber:
+          type: string
+          example: 'BtmC8ckj'
+        displayName:
+          type: string
+          example: 'Device 1'
+        status:
+          type: string
+          example: 'running'
+
+    EncodersModel:
+      description: A list of UUIDs
+      type: array
+      items:
+        type: string
+      example: ['0e4e430f-8b9c-47da-b9af-7ef9cfb13e9e']
+
+    EncoderModel:
+      description: A client that sends a video stream
+      properties:
+        serialNumber:
+          type: string
+          example: 'BtmC8ckj'
+        device:
+          $ref:  '#/components/schemas/DeviceModel'
+
+    CreateEncoderRequest:
+      description: A client that sends a video stream
+      properties:
+        serialNumber:
+          type: string
+          example: 'BtmC8ckj'
+
+    DecodersModel:
+      description: A list of decoder UUIDs
+      type: array
+      items:
+        type: string
+      example: ['1ea52153-c196-4cc6-8d9f-714248abf31c']
+
+    DecoderModel:
+      description: A client that receives a video stream
+      properties:
+        serialNumber:
+          type: string
+          example: 'v7BM3ejS'
+        device:
+          $ref:  '#/components/schemas/DeviceModel'
+
+    CreateDecoderRequest:
+      description: Body for the creation of a decoder object
+      properties:
+        serialNumber:
+          type: string
+          example: 'v7BM3ejS'
+
+  parameters:
+    EncoderId:
+      in: path
+      name: uuid
+      required: true
+      description: The UUID of a Encoder
+      schema:
+        type: string
+        example: '0e4e430f-8b9c-47da-b9af-7ef9cfb13e9e'
+    DecoderId:
+      in: path
+      name: uuid
+      required: true
+      description: The UUID of a decoder
+      schema:
+        type: string
+        example: '1ea52153-c196-4cc6-8d9f-714248abf31c'
+
+tags:
+  - name: Devices
+    description: Devices endpoints
+  - name: Encoders
+    description: Encoders endpoints
+  - name: Decoders
+    description: Decoders endpoints
