@@ -2,34 +2,21 @@ import React from 'react';
 
 function getStatusStyle(status) {
     switch (status) {
-        case 0:
+        case "Online":
             return "green statusText";
-        case 1:
+        case "Pending":
             return "yellow statusText";
-        case 2:
+        case "Error":
             return "red statusText";
         default:
             return "lightGrey statusOfflineText";
     }
 }
 
-function getStatusText(status) {
-    switch (status) {
-        case 0:
-            return "Online";
-        case 1:
-            return "Pending";
-        case 2:
-            return "Error";
-        default:
-            return "Offline";
-    }
-}
-
 export default function StatusIndicator(props) {
     return (
         <div class={getStatusStyle(props.row.status)}>
-            {getStatusText(props.row.status)}
+            {props.row.status}
         </div>
     );
 }
