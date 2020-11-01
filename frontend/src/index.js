@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import HeaderBar from './HeaderAppBar';
 import DeviceList from './devicelist/DeviceList';
+import * as DeviceApi from "./api/DeviceApi";
 
 import {
   Breadcrumbs,
@@ -26,7 +27,7 @@ ReactDOM.render(
       </Box>
     </Container>
     <Box padding="1em">
-      <DeviceList />
+      <DeviceList dataSource={DeviceApi}/>
     </Box>
   </React.StrictMode>,
   document.getElementById('root')
