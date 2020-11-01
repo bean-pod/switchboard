@@ -8,7 +8,7 @@ import com.switchboard.app.dto.mapper.DecoderMapperImpl;
 import com.switchboard.app.entity.ChannelEntity;
 import com.switchboard.app.entity.DecoderEntity;
 import com.switchboard.app.entity.DeviceEntity;
-import com.switchboard.app.exceptions.ExceptionType.DeviceNotFoundException;
+import com.switchboard.app.exceptions.ExceptionType;
 import com.switchboard.app.fixture.ChannelFixture;
 import com.switchboard.app.fixture.DecoderFixture;
 import com.switchboard.app.fixture.DeviceFixture;
@@ -97,7 +97,7 @@ class DecoderControllerTest {
     //When a decoder is unavailable in the DB
     @Test
     final void testRetrieveDecoderEmpty(){
-        assertThrows(DeviceNotFoundException.class, () -> {
+        assertThrows(ExceptionType.DeviceNotFoundException.class, () -> {
             decoderController.retrieveDecoder("NotAvailable");
         }, "DeviceNotFoundException exception should have been thrown.");
     }
@@ -123,7 +123,7 @@ class DecoderControllerTest {
     //When a device is available in the DB
     @Test
     final void testCreateDecoderAlreadyExists(){
-        assertThrows(DeviceNotFoundException.class, () -> {
+        assertThrows(ExceptionType.DeviceNotFoundException.class, () -> {
             decoderController.createDecoder(decoder1);
         }, "DeviceNotFoundException should have been thrown.");
     }
@@ -142,7 +142,7 @@ class DecoderControllerTest {
     //When a decoder is unavailable in the DB
     @Test
     final void testDeleteDecoderNotExisting(){
-        assertThrows(DeviceNotFoundException.class, () -> {
+        assertThrows(ExceptionType.DeviceNotFoundException.class, () -> {
             decoderController.deleteDecoder("Not Available decoder");
         }, "DeviceNotFoundException should have been thrown.");
     }
@@ -168,7 +168,7 @@ class DecoderControllerTest {
         DecoderDTO decoderDTO1 = decoderMapper.toDecoderDTO(decoder1);
 
         //When device is unavailable in the DB
-        assertThrows(DeviceNotFoundException.class, () -> {
+        assertThrows(ExceptionType.DeviceNotFoundException.class, () -> {
             decoderController.updateDecoder("3", decoderDTO1);
         }, "DeviceNotFoundException should have been thrown.");
     }

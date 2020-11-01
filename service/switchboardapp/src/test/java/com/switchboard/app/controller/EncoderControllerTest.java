@@ -8,7 +8,7 @@ import com.switchboard.app.dto.mapper.EncoderMapperImpl;
 import com.switchboard.app.entity.ChannelEntity;
 import com.switchboard.app.entity.DeviceEntity;
 import com.switchboard.app.entity.EncoderEntity;
-import com.switchboard.app.exceptions.ExceptionType.DeviceNotFoundException;
+import com.switchboard.app.exceptions.ExceptionType;
 import com.switchboard.app.fixture.ChannelFixture;
 import com.switchboard.app.fixture.DeviceFixture;
 import com.switchboard.app.fixture.EncoderFixture;
@@ -95,7 +95,7 @@ class   EncoderControllerTest {
     //When a encoder is unavailable in the DB
     @Test
     final void testRetrieveEncoderEmpty(){
-        assertThrows(DeviceNotFoundException.class, () -> {
+        assertThrows(ExceptionType.DeviceNotFoundException.class, () -> {
             encoderController.retrieveEncoder("NotAvailable");
         }, "DeviceNotFoundException exception should have been thrown.");
     }
@@ -121,7 +121,7 @@ class   EncoderControllerTest {
     //When a device is unavailable in the DB
     @Test
     final void testCreateEncoderAlreadyExists(){
-        assertThrows(DeviceNotFoundException.class, () -> {
+        assertThrows(ExceptionType.DeviceNotFoundException.class, () -> {
             encoderController.createEncoder(encoder1);
         }, "DeviceNotFoundException should have been thrown.");
     }
@@ -140,7 +140,7 @@ class   EncoderControllerTest {
     //When a encoder is unavailable in the DB
     @Test
     final void testDeleteEncoderNotExisting(){
-        assertThrows(DeviceNotFoundException.class, () -> {
+        assertThrows(ExceptionType.DeviceNotFoundException.class, () -> {
             encoderController.deleteEncoder("Not Available encoder");
         }, "DeviceNotFoundException should have been thrown.");
     }
@@ -165,7 +165,7 @@ class   EncoderControllerTest {
         EncoderDTO encoderDTO1 = encoderMapper.toEncoderDTO(encoder1);
 
         //When device is unavailable in the DB
-        assertThrows(DeviceNotFoundException.class, () -> {
+        assertThrows(ExceptionType.DeviceNotFoundException.class, () -> {
             encoderController.updateEncoder("3", encoderDTO1);
         }, "DeviceNotFoundException should have been thrown.");
     }

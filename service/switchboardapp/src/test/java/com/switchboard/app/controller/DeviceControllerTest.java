@@ -6,8 +6,6 @@ import com.switchboard.app.dto.mapper.DeviceMapper;
 import com.switchboard.app.dto.mapper.DeviceMapperImpl;
 import com.switchboard.app.entity.DeviceEntity;
 import com.switchboard.app.exceptions.ExceptionType;
-import com.switchboard.app.exceptions.ExceptionType.DeviceAlreadyExistsException;
-import com.switchboard.app.exceptions.ExceptionType.DeviceNotFoundException;
 import com.switchboard.app.fixture.DeviceFixture;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -79,7 +77,7 @@ class DeviceControllerTest {
     //When a device is unavailable in the DB
     @Test
     final void testRetrieveDeviceEmpty(){
-        assertThrows(DeviceNotFoundException.class, () -> {
+        assertThrows(ExceptionType.DeviceNotFoundException.class, () -> {
             deviceController.retrieveDevice("NotAvailable");
         }, "DeviceNotFoundException exception should have been thrown.");
     }
@@ -89,7 +87,7 @@ class DeviceControllerTest {
     final void testCreateDeviceAlreadyExists(){
         when(deviceService.findDevice("1")).thenReturn(java.util.Optional.of(device1));
 
-        assertThrows(DeviceAlreadyExistsException.class, () -> {
+        assertThrows(ExceptionType.DeviceAlreadyExistsException.class, () -> {
             deviceController.createDevice(device1);
         }, "DeviceAlreadyExistsException should have been thrown.");
     }
@@ -125,7 +123,7 @@ class DeviceControllerTest {
     //When a device is unavailable in the DB
     @Test
     final void testDeleteDeviceNotExisting(){
-        assertThrows(DeviceNotFoundException.class, () -> {
+        assertThrows(ExceptionType.DeviceNotFoundException.class, () -> {
             deviceController.deleteDevice("Not Available device");
         }, "DeviceNotFoundException should have been thrown.");
     }
@@ -153,7 +151,7 @@ class DeviceControllerTest {
         DeviceDTO deviceDTO1 = deviceMapper.toDeviceDTO(device1);
 
         //When device is unavailable in the DB
-        assertThrows(DeviceNotFoundException.class, () -> {
+        assertThrows(ExceptionType.DeviceNotFoundException.class, () -> {
             deviceController.updateDevice("3", deviceDTO1);
         }, "DeviceNotFoundException should have been thrown.");
 
