@@ -40,9 +40,9 @@
     ]
   },
   "jestSonar": {
-      "sonar56x": true,
-      "reportPath": "coverage",
-      "reportFile": "sonar-report.xml",
-      "indent": 4
+    "sonar56x": true,
+    "reportPath": "coverage",
+    "reportFile": "sonar-report.xml",
+    "indent": 4
   }
 }
