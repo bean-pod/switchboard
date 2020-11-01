@@ -5,13 +5,15 @@ import {
     ListItemText,
     Typography
 } from "@material-ui/core";
+
 import SearchBar from "../devicelist/SearchBar"
 
 export default class SelectDevicesTable extends React.Component{
 
     
     generate(element) {
-        return [0, 1, 2].map((value) =>
+        var arr = [0,0,0,0,0,0,0,0,0,0];
+        return arr.map((value) =>
           React.cloneElement(element, {
             key: value,}),
         );
@@ -23,15 +25,19 @@ export default class SelectDevicesTable extends React.Component{
             <React.Fragment>
                 <Typography variant= "h5"> Devices</Typography>
                 <SearchBar />
-                <List dense="true">
-                {this.generate(
-                    <ListItem button>
-                    <ListItemText
-                        primary="NAME"
-                    />
-                    </ListItem>,
-                )}
-                </List>
+                <div style={{maxHeight: 200, overflow: 'auto'}}>
+                    <List >
+                        {this.generate(
+                            <ListItem button dense>
+                            <ListItemText
+                                primary="Device Name" dense
+                            />
+                            </ListItem>,
+                        )}
+                    </List>
+                </div>
+                
+                
             </React.Fragment>
         );
     }
