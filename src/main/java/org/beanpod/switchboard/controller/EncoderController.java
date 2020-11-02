@@ -82,12 +82,11 @@ public class EncoderController {
         return ResponseEntity.ok("Encoder with serial number " + serialNumber + " Deleted");
     }
 
-    @PutMapping("/{serialNumber}")
-    public ResponseEntity<EncoderDTO> updateEncoder(@PathVariable String serialNumber,
-                                                    @RequestBody EncoderDTO encoderDTO){
-        Optional<EncoderEntity> encoder = encoderService.findEncoder(serialNumber);
+    @PutMapping
+    public ResponseEntity<EncoderDTO> updateEncoder(@RequestBody EncoderDTO encoderDTO){
+        Optional<EncoderEntity> encoder = encoderService.findEncoder(encoderDTO.getSerialNumber());
         if (encoder.isEmpty()) {
-            throw new ExceptionType.DeviceNotFoundException(serialNumber);
+            throw new ExceptionType.DeviceNotFoundException(encoderDTO.getSerialNumber());
         }
         encoder.get().getOutputs().clear();
         EncoderEntity encoderEntity = encoderService.save(encoderMapper.toEncoderEntity(encoderDTO));

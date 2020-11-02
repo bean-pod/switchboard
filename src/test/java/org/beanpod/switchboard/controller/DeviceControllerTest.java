@@ -137,7 +137,7 @@ class DeviceControllerTest {
         device1.setStatus("Stopped");
         when(deviceService.save(device1)).thenReturn(device1);
         DeviceDTO deviceDTO1 = deviceMapper.toDeviceDTO(device1);
-        ResponseEntity<DeviceDTO> response = deviceController.updateDevice("1", deviceDTO1);
+        ResponseEntity<DeviceDTO> response = deviceController.updateDevice(deviceDTO1);
 
         assertEquals(200, response.getStatusCodeValue(), "The status code is not 200");
         assertEquals("Stopped", response.getBody().getStatus(), "The device is not updated");
@@ -153,15 +153,10 @@ class DeviceControllerTest {
 
         //When device is unavailable in the DB
         assertThrows(ExceptionType.DeviceNotFoundException.class, () -> {
-            deviceController.updateDevice("3", deviceDTO1);
+            deviceController.updateDevice(deviceDTO1);
         }, "DeviceNotFoundException should have been thrown.");
 
         //This stubbing is needed for the following exception to be tested
         when(deviceService.findDevice("1")).thenReturn(java.util.Optional.of(device1));
-
-        //When device is unavailable in the DB
-        assertThrows(ExceptionType.DevicePrimaryKeyRestriction.class, () -> {
-            deviceController.updateDevice("3", deviceDTO1);
-        }, "DevicePrimaryKeyRestriction should have been thrown.");
     }
 }

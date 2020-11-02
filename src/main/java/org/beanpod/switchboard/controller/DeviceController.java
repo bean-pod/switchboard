@@ -76,21 +76,15 @@ public class DeviceController {
         return ResponseEntity.ok("Device with serial number " + serialNumber + " Deleted");
     }
 
-    @PutMapping("/{serialNumber}")
+    @PutMapping
     @Transactional
-    public ResponseEntity<DeviceDTO> updateDevice(@PathVariable String serialNumber, @RequestBody DeviceDTO device) {
-
+    public ResponseEntity<DeviceDTO> updateDevice(@RequestBody DeviceDTO device) {
         Optional<DeviceEntity> deviceLookup = service.findDevice(device.getSerialNumber());
         if (deviceLookup.isEmpty()) {
-            throw new ExceptionType.DeviceNotFoundException(serialNumber);
-        }
-
-        if (!serialNumber.equals(device.getSerialNumber())) {
-            throw new ExceptionType.DevicePrimaryKeyRestriction(serialNumber);
+            throw new ExceptionType.DeviceNotFoundException(device.getSerialNumber());
         }
         DeviceEntity deviceEntity = service.save(deviceMapper.toDeviceEntity(device));
         return new ResponseEntity<>(deviceMapper.toDeviceDTO(deviceEntity), HttpStatus.OK);
-
     }
 
 }

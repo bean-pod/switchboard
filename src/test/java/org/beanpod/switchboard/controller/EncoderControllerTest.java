@@ -153,7 +153,7 @@ class EncoderControllerTest {
         encoder1.getOutputs().clear();
         when(encoderService.save(encoder1)).thenReturn(encoder1);
         EncoderDTO encoderDTO1 = encoderMapper.toEncoderDTO(encoder1);
-        ResponseEntity<EncoderDTO> response = encoderController.updateEncoder("1", encoderDTO1);
+        ResponseEntity<EncoderDTO> response = encoderController.updateEncoder(encoderDTO1);
 
         assertEquals(200, response.getStatusCodeValue());
         assertTrue(response.getBody().getOutputs().isEmpty());
@@ -166,7 +166,7 @@ class EncoderControllerTest {
 
         //When device is unavailable in the DB
         assertThrows(ExceptionType.DeviceNotFoundException.class, () -> {
-            encoderController.updateEncoder("3", encoderDTO1);
+            encoderController.updateEncoder(encoderDTO1);
         }, "DeviceNotFoundException should have been thrown.");
     }
 }

@@ -81,12 +81,11 @@ public class DecoderController {
         return ResponseEntity.ok("Decoder with serial number " + serialNumber + " Deleted");
     }
 
-    @PutMapping("/{serialNumber}")
-    public ResponseEntity<DecoderDTO> updateDecoder(@PathVariable String serialNumber,
-                                                    @RequestBody DecoderDTO decoderDTO){
-        Optional<DecoderEntity> decoder = decoderService.findDecoder(serialNumber);
+    @PutMapping
+    public ResponseEntity<DecoderDTO> updateDecoder( @RequestBody DecoderDTO decoderDTO){
+        Optional<DecoderEntity> decoder = decoderService.findDecoder(decoderDTO.getSerialNumber());
         if (decoder.isEmpty()) {
-            throw new ExceptionType.DeviceNotFoundException(serialNumber);
+            throw new ExceptionType.DeviceNotFoundException(decoderDTO.getSerialNumber());
         }
         decoder.get().getInputs().clear();
         DecoderEntity decoderEntity = decoderService.save(decoderMapper.toDecoderEntity(decoderDTO));
