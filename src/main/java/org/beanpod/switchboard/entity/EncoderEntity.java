@@ -13,6 +13,7 @@ import java.util.Set;
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 @JsonIgnoreProperties({"hibernateLazyIntializer", "handler"})
 public class EncoderEntity {
 

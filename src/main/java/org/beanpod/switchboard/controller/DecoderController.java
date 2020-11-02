@@ -60,8 +60,8 @@ public class DecoderController {
     @PostMapping
     public ResponseEntity createDecoder(@RequestBody @Valid DecoderEntity decoderEntity) {
         Optional<DeviceEntity> deviceOptional = deviceService.findDevice(decoderEntity.getSerialNumber());
-        if (deviceOptional.isPresent()) {
-            throw new ExceptionType.DeviceAlreadyExistsException(decoderEntity.getSerialNumber());
+        if (deviceOptional.isEmpty()) {
+            throw new ExceptionType.DeviceNotFoundException(decoderEntity.getSerialNumber());
         }
         decoderEntity.setDevice(deviceOptional.get());
         DecoderEntity savedDecoderEntity = decoderService.save(decoderEntity);

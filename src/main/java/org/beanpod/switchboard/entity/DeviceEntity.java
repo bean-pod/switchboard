@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 @JsonIgnoreProperties({"hibernateLazyIntializer", "handler", "encoderEntity", "decoderEntity"})
 public class DeviceEntity {
 
