@@ -62,9 +62,8 @@ public class EncoderController {
     @PostMapping
     public ResponseEntity createEncoder(@RequestBody @Valid EncoderEntity encoderEntity) {
         Optional<DeviceEntity> deviceOptional = deviceService.findDevice(encoderEntity.getSerialNumber());
-
-        if (deviceOptional.isEmpty()) {
-            throw new ExceptionType.DeviceNotFoundException(encoderEntity.getSerialNumber());
+        if (deviceOptional.isPresent()) {
+            throw new ExceptionType.DeviceAlreadyExistsException(encoderEntity.getSerialNumber());
         }
         encoderEntity.setDevice(deviceOptional.get());
         EncoderEntity savedEncoderEntity = encoderService.save(encoderEntity);
