@@ -14,7 +14,11 @@ import javax.persistence.*;
 @Entity(name="Channel")
 @JsonIgnoreProperties({"hibernateLazyIntializer", "handler", "out", "in"})
 public class ChannelEntity {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    Long id;
+
     String name;
     Integer port;
 
