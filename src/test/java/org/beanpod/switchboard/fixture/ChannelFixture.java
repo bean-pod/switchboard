@@ -8,11 +8,11 @@ import java.util.Set;
 public class ChannelFixture {
 
     public static ChannelEntity getChannel1(){
-        return new ChannelEntity( 8080,"local",null,null);
+        return new ChannelEntity( "local",8080);
     }
 
     public static ChannelEntity getChannel2(){
-        return new ChannelEntity( 9090,"dev",null,null);
+        return new ChannelEntity( "Dev",9090    );
     }
 
     public static Set<ChannelEntity> getSetOfChannels(){

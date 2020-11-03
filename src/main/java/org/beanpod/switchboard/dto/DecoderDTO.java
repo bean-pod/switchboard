@@ -1,11 +1,11 @@
 package org.beanpod.switchboard.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.beanpod.switchboard.entity.ChannelEntity;
-import org.beanpod.switchboard.entity.DeviceEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.beanpod.switchboard.entity.ChannelEntity;
+import org.beanpod.switchboard.entity.DeviceEntity;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;

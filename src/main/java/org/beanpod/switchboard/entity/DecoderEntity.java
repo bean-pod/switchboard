@@ -32,15 +32,11 @@ public class DecoderEntity {
     @MapsId
     private DeviceEntity device;
 
-    @ManyToMany(fetch = FetchType.LAZY,
+    @OneToMany(fetch = FetchType.LAZY,
             cascade = {
                     CascadeType.PERSIST,
                     CascadeType.MERGE
             })
-    @JoinTable(
-            name="decoder_channel",
-            joinColumns = @JoinColumn(name="serial_number"),
-            inverseJoinColumns = @JoinColumn(name="port")
-    )
+    @JoinColumn(name = "decoder_serial")
     private Set<ChannelEntity> inputs;
 }

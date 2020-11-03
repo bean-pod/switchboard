@@ -33,15 +33,11 @@ public class EncoderEntity {
     @MapsId
     private DeviceEntity device;
 
-    @ManyToMany(fetch = FetchType.LAZY,
+    @OneToMany(fetch = FetchType.LAZY,
             cascade = {
                     CascadeType.PERSIST,
                     CascadeType.MERGE
             })
-    @JoinTable(
-            name = "encoder_channel",
-            joinColumns = @JoinColumn(name = "serial_number"),
-            inverseJoinColumns = @JoinColumn(name = "port")
-    )
+    @JoinColumn(name = "encoder_serial")
     private Set<ChannelEntity> outputs;
 }

@@ -1,12 +1,13 @@
 package org.beanpod.switchboard.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import java.util.Set;
 
 @Getter @Setter
 @AllArgsConstructor
@@ -14,15 +15,7 @@ import java.util.Set;
 @Entity(name="Channel")
 @JsonIgnoreProperties({"hibernateLazyIntializer", "handler", "out", "in"})
 public class ChannelEntity {
-
     @Id
-    Integer port;
     String name;
-
-    @ManyToMany(mappedBy = "outputs")
-    Set<EncoderEntity> out;
-
-    @ManyToMany(mappedBy = "inputs")
-    Set<DecoderEntity> in;
-
+    Integer port;
 }
