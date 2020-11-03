@@ -3,6 +3,7 @@ import {
     Button,
     withStyles
 } from "@material-ui/core"
+import { NavLink } from 'react-router-dom';
 
 import {
     SwapHoriz
@@ -19,7 +20,8 @@ export default class StreamButton extends React.Component{
               border: 0,
               color: 'white',
               height: 40,
-              padding: '0 15px',
+              padding: '0 5px',
+              margin:'1em'
             },
             label: {
               textTransform: '',
@@ -28,7 +30,15 @@ export default class StreamButton extends React.Component{
           
         return (
             <StyledButton> 
+                <NavLink
+                    to="/Streaming"
+                    activeClassName="buttonText"
+                    className="buttonText"
+                    exact
+                >
+
                 <SwapHoriz /> Stream
+                </NavLink>
             </StyledButton>
         );
     }

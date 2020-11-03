@@ -4,6 +4,7 @@ import {
     withStyles
 } from "@material-ui/core"
 
+import { NavLink } from 'react-router-dom';
 import {
     AddSharp
 } from '@material-ui/icons/';
@@ -19,7 +20,7 @@ export default class StreamButton extends React.Component{
               border: 0,
               color: 'white',
               height: 40,
-              padding: '0 15px',
+              padding: '0px'
             },
             label: {
               textTransform: '',
@@ -27,8 +28,15 @@ export default class StreamButton extends React.Component{
           })(Button);
           
         return (
-            <StyledButton> 
+            <StyledButton>
+                <NavLink
+                    to="/Devices"
+                    activeClassName="buttonText"
+                    className="buttonText"
+                    exact
+                >
                 <AddSharp /> Add Device
+                </NavLink> 
             </StyledButton>
         );
     }
