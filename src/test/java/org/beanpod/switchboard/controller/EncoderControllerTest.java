@@ -50,18 +50,13 @@ class EncoderControllerTest {
     static private Set<ChannelEntity> setOfChannels;
     static private List<EncoderEntity> listOfEncoders;
 
-    @BeforeAll
-    static void encoderFixture() throws ParseException {
-        //stubbing device and encoder objects
+    @BeforeEach
+    void setup() throws ParseException {
         device1 = DeviceFixture.getDevice1();
         device2 = DeviceFixture.getDevice2();
         encoder1 = EncoderFixture.getEncoder1(device1);
         encoder2 = EncoderFixture.getEncoder2(device2);
         listOfEncoders = EncoderFixture.getListOfEncoder(encoder1, encoder2);
-    }
-
-    @BeforeEach
-    void setup(){
         encoderMapper = Mockito.spy(new EncoderMapperImpl());
         MockitoAnnotations.initMocks(this); //to be able to initiate encoderController object
     }

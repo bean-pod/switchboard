@@ -39,15 +39,11 @@ class DeviceControllerTest {
     static private DeviceEntity device1, device2;
     static private List<DeviceEntity> listOfDevices;
 
-    @BeforeAll
-    static void deviceFixture(){
+    @BeforeEach
+    void setup(){
         device1 = DeviceFixture.getDevice1();
         device2 = DeviceFixture.getDevice2();
         listOfDevices = DeviceFixture.getListOfDevices();
-    }
-
-    @BeforeEach
-    void setup(){
         deviceMapper = Mockito.spy(new DeviceMapperImpl());
         MockitoAnnotations.initMocks(this);
     }
@@ -55,7 +51,6 @@ class DeviceControllerTest {
     @Test
     final void testRetrieveAllDevices(){
         when(deviceService.getDevices()).thenReturn(listOfDevices);
-
         List<DeviceDTO> allDevices = deviceController.retrieveAllDevices();
         List<DeviceDTO> listOfExpectDTODevices = deviceMapper.toDeviceDTOs(listOfDevices);
 
@@ -67,7 +62,6 @@ class DeviceControllerTest {
     @Test
     final void testRetrieveDevice(){
         when(deviceService.findDevice("1")).thenReturn(java.util.Optional.of(device1));
-
         ResponseEntity<EntityModel<DeviceDTO>> actualDevice = deviceController.retrieveDevice("1");
 
         assertNotNull(actualDevice, "actualDevice object is null.");
@@ -114,7 +108,6 @@ class DeviceControllerTest {
     @Test
     final void testDeleteDevice(){
         when(deviceService.deleteDevice("1")).thenReturn(Long.valueOf(1));
-
         ResponseEntity<String> response = deviceController.deleteDevice("1");
 
         assertEquals(200, response.getStatusCodeValue(), "The status code is not 200.");

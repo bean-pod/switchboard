@@ -50,21 +50,14 @@ class DecoderControllerTest {
     static private DecoderEntity decoder1, decoder2;
     static private List<DecoderEntity> listOfDecoders;
 
-    @BeforeAll
-    static void decoderFixture() throws ParseException {
+    @BeforeEach
+    void setup() throws ParseException {
         //stubbing device and decoder objects
         device1 = DeviceFixture.getDevice1();
         device2 = DeviceFixture.getDevice2();
-
-
         decoder1 = DecoderFixture.getDecoder1(device1);
         decoder2 = DecoderFixture.getDecoder2(device2);
-
         listOfDecoders = DecoderFixture.getListOfDecoders(decoder1, decoder2);
-    }
-
-    @BeforeEach
-    void setup(){
         decoderMapper = Mockito.spy(new DecoderMapperImpl()); //to spy on DecoderMapper object
         MockitoAnnotations.initMocks(this); //to be able to initiate decoderController object
     }
