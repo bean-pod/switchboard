@@ -33,10 +33,10 @@ public class DecoderEntity {
     private DeviceEntity device;
 
     @OneToMany(fetch = FetchType.LAZY,
+            mappedBy="decoderEntity",
             cascade = {
                     CascadeType.PERSIST,
                     CascadeType.MERGE
             })
-    @JoinColumn(name = "decoder_serial")
     private Set<ChannelEntity> inputs;
 }

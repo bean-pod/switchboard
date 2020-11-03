@@ -34,10 +34,10 @@ public class EncoderEntity {
     private DeviceEntity device;
 
     @OneToMany(fetch = FetchType.LAZY,
+            mappedBy="encoderEntity",
             cascade = {
                     CascadeType.PERSIST,
                     CascadeType.MERGE
             })
-    @JoinColumn(name = "encoder_serial")
     private Set<ChannelEntity> outputs;
 }
