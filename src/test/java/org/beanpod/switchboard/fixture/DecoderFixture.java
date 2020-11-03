@@ -14,15 +14,16 @@ public class DecoderFixture {
 
     private static String pattern = "yyyy-MM-dd HH:mm:ss";
     private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+    static private Set<ChannelEntity> setOfChannels = ChannelFixture.getSetOfChannels();
 
-    public static DecoderEntity getDecoder1(DeviceEntity device, Set<ChannelEntity> setOfChannels) throws ParseException {
+    public static DecoderEntity getDecoder1(DeviceEntity device) throws ParseException {
         return new DecoderEntity("1",
                 simpleDateFormat.parse("2020-10-31 05:05:05"),
                 device,
                 setOfChannels);
     }
 
-    public static DecoderEntity getDecoder2(DeviceEntity device, Set<ChannelEntity> setOfChannels) throws ParseException {
+    public static DecoderEntity getDecoder2(DeviceEntity device) throws ParseException {
         return new DecoderEntity("1",
                 simpleDateFormat.parse("2020-10-31 05:05:05"),
                 device,

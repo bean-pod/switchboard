@@ -42,10 +42,8 @@ class DecoderDaoImplTest {
         device1 = DeviceFixture.getDevice1();
         device2 = DeviceFixture.getDevice2();
 
-        setOfChannels = ChannelFixture.getSetOfChannels();
-
-        decoder1 = DecoderFixture.getDecoder1(device1, setOfChannels);
-        decoder2 = DecoderFixture.getDecoder2(device2, setOfChannels);
+        decoder1 = DecoderFixture.getDecoder1(device1);
+        decoder2 = DecoderFixture.getDecoder2(device2);
         listOfdecoders = DecoderFixture.getListOfDecoders(decoder1, decoder2);
     }
 

@@ -49,7 +49,6 @@ class DecoderControllerTest {
     static private DeviceEntity device1, device2;
     static private DecoderEntity decoder1, decoder2;
     static private List<DecoderEntity> listOfDecoders;
-    static private Set<ChannelEntity> setOfChannels;
 
     @BeforeAll
     static void decoderFixture() throws ParseException {
@@ -57,10 +56,9 @@ class DecoderControllerTest {
         device1 = DeviceFixture.getDevice1();
         device2 = DeviceFixture.getDevice2();
 
-        setOfChannels = ChannelFixture.getSetOfChannels();
 
-        decoder1 = DecoderFixture.getDecoder1(device1,setOfChannels);
-        decoder2 = DecoderFixture.getDecoder2(device2,setOfChannels);
+        decoder1 = DecoderFixture.getDecoder1(device1);
+        decoder2 = DecoderFixture.getDecoder2(device2);
 
         listOfDecoders = DecoderFixture.getListOfDecoders(decoder1, decoder2);
     }

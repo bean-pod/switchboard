@@ -55,11 +55,8 @@ class EncoderControllerTest {
         //stubbing device and encoder objects
         device1 = DeviceFixture.getDevice1();
         device2 = DeviceFixture.getDevice2();
-
-        setOfChannels = ChannelFixture.getSetOfChannels();
-
-        encoder1 = EncoderFixture.getEncoder1(device1, setOfChannels);
-        encoder2 = EncoderFixture.getEncoder2(device2, setOfChannels);
+        encoder1 = EncoderFixture.getEncoder1(device1);
+        encoder2 = EncoderFixture.getEncoder2(device2);
         listOfEncoders = EncoderFixture.getListOfEncoder(encoder1, encoder2);
     }
 
