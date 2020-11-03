@@ -1,11 +1,11 @@
 package org.beanpod.switchboard.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.beanpod.switchboard.dao.DeviceDaoImpl;
 import org.beanpod.switchboard.dto.DeviceDTO;
 import org.beanpod.switchboard.dto.mapper.DeviceMapper;
 import org.beanpod.switchboard.entity.DeviceEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
@@ -75,24 +75,15 @@ public class DeviceController {
         return ResponseEntity.ok("Device with serial number " + serialNumber + " Deleted");
     }
 
-    @PutMapping("/{serialNumber}")
+    @PutMapping
     @Transactional
-    public ResponseEntity<String> updateDevice(@PathVariable String serialNumber, @RequestBody DeviceDTO device) {
-
+    public ResponseEntity<DeviceDTO> updateDevice(@RequestBody DeviceDTO device) {
         Optional<DeviceEntity> deviceLookup = service.findDevice(device.getSerialNumber());
         if (deviceLookup.isEmpty()) {
-            throw new ExceptionType.DeviceNotFoundException(serialNumber);
+            throw new ExceptionType.DeviceNotFoundException(device.getSerialNumber());
         }
-
-        if (!serialNumber.equals(device.getSerialNumber())) {
-            throw new ExceptionType.DevicePrimaryKeyRestriction(serialNumber);
-        }
-        int response = service.updateDevice(serialNumber, device);
-
-        if (response != 1) {
-            throw new ExceptionType.DeviceNotUpdated(serialNumber);
-        }
-        return ResponseEntity.ok("Device updated");
+        DeviceEntity deviceEntity = service.save(deviceMapper.toDeviceEntity(device));
+        return ResponseEntity.ok(deviceMapper.toDeviceDTO(deviceEntity));
     }
 
 }

@@ -1,5 +1,6 @@
 package org.beanpod.switchboard.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.beanpod.switchboard.dao.DeviceDaoImpl;
 import org.beanpod.switchboard.dao.EncoderDaoImpl;
 import org.beanpod.switchboard.dto.EncoderDTO;
@@ -7,7 +8,6 @@ import org.beanpod.switchboard.dto.mapper.EncoderMapper;
 import org.beanpod.switchboard.entity.DeviceEntity;
 import org.beanpod.switchboard.entity.EncoderEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
@@ -28,6 +28,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @RestController
 @RequestMapping("/encoder")
 public class EncoderController {
+
     @Autowired
     EncoderDaoImpl encoderService;
 
@@ -48,7 +49,7 @@ public class EncoderController {
         Optional<EncoderEntity> encoder = encoderService.findEncoder(serialNumber);
 
         if (encoder.isEmpty()) {
-            throw new ExceptionType.DeviceNotFoundException(serialNumber + "/Encoder");
+            throw new ExceptionType.DeviceNotFoundException(serialNumber);
         }
 
         EntityModel<EncoderDTO> resource = EntityModel.of(encoderMapper.toEncoderDTO(encoder.get()));
@@ -60,9 +61,8 @@ public class EncoderController {
     @PostMapping
     public ResponseEntity createEncoder(@RequestBody @Valid EncoderEntity encoderEntity) {
         Optional<DeviceEntity> deviceOptional = deviceService.findDevice(encoderEntity.getSerialNumber());
-
         if (deviceOptional.isEmpty()) {
-            throw new ExceptionType.DeviceNotFoundException(encoderEntity.getSerialNumber() + "/Encoder");
+            throw new ExceptionType.DeviceNotFoundException(encoderEntity.getSerialNumber());
         }
         encoderEntity.setDevice(deviceOptional.get());
         EncoderEntity savedEncoderEntity = encoderService.save(encoderEntity);
@@ -79,5 +79,15 @@ public class EncoderController {
             throw new ExceptionType.DeviceNotFoundException(serialNumber);
         }
         return ResponseEntity.ok("Encoder with serial number " + serialNumber + " Deleted");
+    }
+
+    @PutMapping
+    public ResponseEntity<EncoderDTO> updateEncoder(@RequestBody EncoderDTO encoderDTO){
+        Optional<EncoderEntity> encoder = encoderService.findEncoder(encoderDTO.getSerialNumber());
+        if (encoder.isEmpty()) {
+            throw new ExceptionType.DeviceNotFoundException(encoderDTO.getSerialNumber());
+        }
+        EncoderEntity encoderEntity = encoderService.save(encoderMapper.toEncoderEntity(encoderDTO));
+        return ResponseEntity.ok(encoderMapper.toEncoderDTO(encoderEntity));
     }
 }

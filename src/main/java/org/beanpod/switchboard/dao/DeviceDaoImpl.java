@@ -1,6 +1,5 @@
 package org.beanpod.switchboard.dao;
 
-import org.beanpod.switchboard.dto.DeviceDTO;
 import org.beanpod.switchboard.entity.DeviceEntity;
 import org.beanpod.switchboard.repository.DeviceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +29,5 @@ public class DeviceDaoImpl {
 
     public Long deleteDevice(String serialNumber) {
         return deviceRepository.deleteDeviceEntitiesBySerialNumber(serialNumber);
-    }
-
-    public int updateDevice(String serialNumber, DeviceDTO deviceEntity) {
-        return deviceRepository.updateDevice(serialNumber, deviceEntity.getDisplayName(),
-                deviceEntity.getStatus()
-        );
     }
 }

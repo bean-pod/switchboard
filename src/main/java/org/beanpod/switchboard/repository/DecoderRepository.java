@@ -10,11 +10,9 @@ import java.util.Optional;
 @Repository
 public interface DecoderRepository extends JpaRepository<DecoderEntity, String> {
 
-    Optional<DecoderEntity> findDecoderBySerialNumber(String serialNumber);
-
-    DecoderEntity save(DecoderEntity decoderEntity);
-
     List<DecoderEntity> findAll();
-
+    DecoderEntity save(DecoderEntity decoderEntity);
+    Optional<DecoderEntity> findDecoderBySerialNumber(String serialNumber);
     Long deleteDecoderEntityBySerialNumber(String serialNumber);
+
 }

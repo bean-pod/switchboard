@@ -1,6 +1,5 @@
-package org.beanpod.switchboard;
+package org.beanpod.switchboard.controller;
 
-import org.beanpod.switchboard.controller.EncoderController;
 import org.beanpod.switchboard.dao.DeviceDaoImpl;
 import org.beanpod.switchboard.dao.EncoderDaoImpl;
 import org.beanpod.switchboard.dto.EncoderDTO;
@@ -8,10 +7,9 @@ import org.beanpod.switchboard.dto.mapper.EncoderMapper;
 import org.beanpod.switchboard.dto.mapper.EncoderMapperImpl;
 import org.beanpod.switchboard.entity.DeviceEntity;
 import org.beanpod.switchboard.entity.EncoderEntity;
-import org.beanpod.switchboard.exceptions.ExceptionType.DeviceNotFoundException;
+import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.fixture.DeviceFixture;
 import org.beanpod.switchboard.fixture.EncoderFixture;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -23,10 +21,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+
+import java.text.ParseException;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 class EncoderControllerTest {
@@ -46,18 +46,13 @@ class EncoderControllerTest {
     static private EncoderEntity encoder1, encoder2;
     static private List<EncoderEntity> listOfEncoders;
 
-    @BeforeAll
-    static void encoderFixture(){
-        //stubbing device and encoder objects
+    @BeforeEach
+    void setup() throws ParseException {
         device1 = DeviceFixture.getDevice1();
         device2 = DeviceFixture.getDevice2();
         encoder1 = EncoderFixture.getEncoder1(device1);
         encoder2 = EncoderFixture.getEncoder2(device2);
         listOfEncoders = EncoderFixture.getListOfEncoder(encoder1, encoder2);
-    }
-
-    @BeforeEach
-    void setup(){
         encoderMapper = Mockito.spy(new EncoderMapperImpl());
         MockitoAnnotations.initMocks(this); //to be able to initiate encoderController object
     }
@@ -65,7 +60,6 @@ class EncoderControllerTest {
     @Test
     final void testRetrieveAllEncoders(){
         when(encoderService.getEncoders()).thenReturn(listOfEncoders);
-
         List<EncoderDTO> allEncoders = encoderController.retrieveAllEncoders();
         List<EncoderDTO> listOfExpectDTOEncoders = encoderMapper.toEncoderDTOs(listOfEncoders);
 
@@ -76,8 +70,7 @@ class EncoderControllerTest {
     //When a encoder is available in the DB
     @Test
     final void testRetrieveEncoder(){
-        when(encoderService.findEncoder("1")).thenReturn(java.util.Optional.of(encoder1));
-
+        when(encoderService.findEncoder("1")).thenReturn(Optional.of(encoder1));
         ResponseEntity<EntityModel<EncoderDTO>> actualEncoder = encoderController.retrieveEncoder("1");
 
         assertNotNull(actualEncoder, "actualEncoder object is null.");
@@ -88,7 +81,7 @@ class EncoderControllerTest {
     //When a encoder is unavailable in the DB
     @Test
     final void testRetrieveEncoderEmpty(){
-        assertThrows(DeviceNotFoundException.class, () -> {
+        assertThrows(ExceptionType.DeviceNotFoundException.class, () -> {
             encoderController.retrieveEncoder("NotAvailable");
         }, "DeviceNotFoundException exception should have been thrown.");
     }
@@ -96,7 +89,7 @@ class EncoderControllerTest {
     //When a device is available in the DB
     @Test
     final void testCreateEncoder(){
-        when(deviceService.findDevice("1")).thenReturn(java.util.Optional.of(device1));
+        when(deviceService.findDevice("1")).thenReturn(Optional.of(device1));
         when(encoderService.save(encoder1)).thenReturn(encoder1);
 
         //mock a request
@@ -114,7 +107,7 @@ class EncoderControllerTest {
     //When a device is unavailable in the DB
     @Test
     final void testCreateEncoderAlreadyExists(){
-        assertThrows(DeviceNotFoundException.class, () -> {
+        assertThrows(ExceptionType.DeviceNotFoundException.class, () -> {
             encoderController.createEncoder(encoder1);
         }, "DeviceNotFoundException should have been thrown.");
     }
@@ -133,8 +126,33 @@ class EncoderControllerTest {
     //When a encoder is unavailable in the DB
     @Test
     final void testDeleteEncoderNotExisting(){
-        assertThrows(DeviceNotFoundException.class, () -> {
+        assertThrows(ExceptionType.DeviceNotFoundException.class, () -> {
             encoderController.deleteEncoder("Not Available encoder");
+        }, "DeviceNotFoundException should have been thrown.");
+    }
+
+    //When a encoder is available in the DB
+    @Test
+    final void testUpdateEncoder(){
+        when(encoderService.findEncoder("1")).thenReturn(Optional.of(encoder1));
+        encoder1.getOutputs().clear();
+        when(encoderService.save(encoder1)).thenReturn(encoder1);
+        EncoderDTO encoderDTO1 = encoderMapper.toEncoderDTO(encoder1);
+        ResponseEntity<EncoderDTO> response = encoderController.updateEncoder(encoderDTO1);
+
+        assertEquals(200, response.getStatusCodeValue());
+        assertTrue(response.getBody().getOutputs().isEmpty());
+    }
+
+    //Test exceptions when updating encoder
+    @Test
+    final void testUpdateEncoderExceptions(){
+        EncoderDTO encoderDTO1 = encoderMapper.toEncoderDTO(encoder1);
+        when(encoderService.findEncoder(encoderDTO1.getSerialNumber())).thenReturn(Optional.empty());
+
+        //When device is unavailable in the DB
+        assertThrows(ExceptionType.DeviceNotFoundException.class, () -> {
+            encoderController.updateEncoder(encoderDTO1);
         }, "DeviceNotFoundException should have been thrown.");
     }
 }

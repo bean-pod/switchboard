@@ -59,11 +59,9 @@ public class DecoderController {
     @PostMapping
     public ResponseEntity createDecoder(@RequestBody @Valid DecoderEntity decoderEntity) {
         Optional<DeviceEntity> deviceOptional = deviceService.findDevice(decoderEntity.getSerialNumber());
-
         if (deviceOptional.isEmpty()) {
-            throw new ExceptionType.DeviceNotFoundException(decoderEntity.getSerialNumber() + "/Decoder");
+            throw new ExceptionType.DeviceNotFoundException(decoderEntity.getSerialNumber());
         }
-
         decoderEntity.setDevice(deviceOptional.get());
         DecoderEntity savedDecoderEntity = decoderService.save(decoderEntity);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().
@@ -80,5 +78,15 @@ public class DecoderController {
             throw new ExceptionType.DeviceNotFoundException(serialNumber);
         }
         return ResponseEntity.ok("Decoder with serial number " + serialNumber + " Deleted");
+    }
+
+    @PutMapping
+    public ResponseEntity<DecoderDTO> updateDecoder( @RequestBody DecoderDTO decoderDTO){
+        Optional<DecoderEntity> decoder = decoderService.findDecoder(decoderDTO.getSerialNumber());
+        if (decoder.isEmpty()) {
+            throw new ExceptionType.DeviceNotFoundException(decoderDTO.getSerialNumber());
+        }
+        DecoderEntity decoderEntity = decoderService.save(decoderMapper.toDecoderEntity(decoderDTO));
+        return ResponseEntity.ok(decoderMapper.toDecoderDTO(decoderEntity));
     }
 }

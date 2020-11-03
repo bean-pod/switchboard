@@ -1,17 +1,16 @@
 package org.beanpod.switchboard.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity(name = "Device")
-@Data
+@Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 @JsonIgnoreProperties({"hibernateLazyIntializer", "handler", "encoderEntity", "decoderEntity"})
 public class DeviceEntity {
 
@@ -19,6 +18,10 @@ public class DeviceEntity {
     @NotNull
     @Column(name = "serial_number")
     private String serialNumber;
+
+    @Column(name = "ip_address", unique = true)
+    @NotNull
+    private String ipAddress;
 
     @Column(name = "display_name")
     @NotNull

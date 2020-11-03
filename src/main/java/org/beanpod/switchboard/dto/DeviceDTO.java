@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class DeviceDTO {
     private String serialNumber;
+    private String ipAddress;
     private String displayName;
     private String status;
 }
