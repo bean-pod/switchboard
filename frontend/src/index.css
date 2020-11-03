@@ -108,6 +108,12 @@ select {
   padding-top: 0.5em;
   padding-bottom: 0.5em;
 }
+.subtitle {
+  font-size: 36px;
+  vertical-align: middle;
+  font-weight: 300;
+  padding-bottom: 0.5em;
+}
 .buttonText {
   display: inline-flex;
   text-decoration:none;
