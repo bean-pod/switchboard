@@ -1,8 +1,11 @@
 package org.beanpod.switchboard.controller;
 
 import org.beanpod.switchboard.dao.StreamDaoImpl;
-import org.beanpod.switchboard.entity.mapper.StreamMapper;
-import org.beanpod.switchboard.fixture.StreamDTOFixture;
+import org.beanpod.switchboard.dto.StreamDTO;
+import org.beanpod.switchboard.dto.mapper.StreamMapper;
+import org.beanpod.switchboard.fixture.DecoderFixture;
+import org.beanpod.switchboard.fixture.EncoderFixture;
+import org.beanpod.switchboard.fixture.StreamFixture;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

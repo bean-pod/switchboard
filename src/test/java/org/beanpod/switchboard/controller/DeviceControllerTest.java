@@ -1,4 +1,4 @@
-package org.beanpod.switchboard;
+package org.beanpod.switchboard.controller;
 
 import org.beanpod.switchboard.controller.DeviceController;
 import org.beanpod.switchboard.dao.DeviceDaoImpl;
