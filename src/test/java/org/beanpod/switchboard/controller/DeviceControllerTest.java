@@ -21,6 +21,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -61,7 +62,7 @@ class DeviceControllerTest {
     //When a device is available in the DB
     @Test
     final void testRetrieveDevice(){
-        when(deviceService.findDevice("1")).thenReturn(java.util.Optional.of(device1));
+        when(deviceService.findDevice("1")).thenReturn(Optional.of(device1));
         ResponseEntity<EntityModel<DeviceDTO>> actualDevice = deviceController.retrieveDevice("1");
 
         assertNotNull(actualDevice, "actualDevice object is null.");
@@ -80,7 +81,7 @@ class DeviceControllerTest {
     //When a device is unavailable in the DB
     @Test
     final void testCreateDeviceAlreadyExists(){
-        when(deviceService.findDevice("1")).thenReturn(java.util.Optional.of(device1));
+        when(deviceService.findDevice("1")).thenReturn(Optional.of(device1));
 
         assertThrows(ExceptionType.DeviceAlreadyExistsException.class, () -> {
             deviceController.createDevice(device1);
@@ -126,7 +127,7 @@ class DeviceControllerTest {
     @Test
     final void testUpdateDevice(){
 
-        when(deviceService.findDevice("1")).thenReturn(java.util.Optional.of(device1));
+        when(deviceService.findDevice("1")).thenReturn(Optional.of(device1));
         device1.setStatus("Stopped");
         when(deviceService.save(device1)).thenReturn(device1);
         DeviceDTO deviceDTO1 = deviceMapper.toDeviceDTO(device1);

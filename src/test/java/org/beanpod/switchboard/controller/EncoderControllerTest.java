@@ -27,6 +27,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.text.ParseException;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -47,7 +48,6 @@ class EncoderControllerTest {
     //stubbed Objects
     static private DeviceEntity device1, device2;
     static private EncoderEntity encoder1, encoder2;
-    static private Set<ChannelEntity> setOfChannels;
     static private List<EncoderEntity> listOfEncoders;
 
     @BeforeEach
@@ -74,7 +74,7 @@ class EncoderControllerTest {
     //When a encoder is available in the DB
     @Test
     final void testRetrieveEncoder(){
-        when(encoderService.findEncoder("1")).thenReturn(java.util.Optional.of(encoder1));
+        when(encoderService.findEncoder("1")).thenReturn(Optional.of(encoder1));
         ResponseEntity<EntityModel<EncoderDTO>> actualEncoder = encoderController.retrieveEncoder("1");
 
         assertNotNull(actualEncoder, "actualEncoder object is null.");
@@ -93,7 +93,7 @@ class EncoderControllerTest {
     //When a device is available in the DB
     @Test
     final void testCreateEncoder(){
-        when(deviceService.findDevice("1")).thenReturn(java.util.Optional.of(device1));
+        when(deviceService.findDevice("1")).thenReturn(Optional.of(device1));
         when(encoderService.save(encoder1)).thenReturn(encoder1);
 
         //mock a request
@@ -138,7 +138,7 @@ class EncoderControllerTest {
     //When a encoder is available in the DB
     @Test
     final void testUpdateEncoder(){
-        when(encoderService.findEncoder("1")).thenReturn(java.util.Optional.of(encoder1));
+        when(encoderService.findEncoder("1")).thenReturn(Optional.of(encoder1));
         encoder1.getOutputs().clear();
         when(encoderService.save(encoder1)).thenReturn(encoder1);
         EncoderDTO encoderDTO1 = encoderMapper.toEncoderDTO(encoder1);

@@ -5,14 +5,11 @@ import org.beanpod.switchboard.dao.DeviceDaoImpl;
 import org.beanpod.switchboard.dto.DecoderDTO;
 import org.beanpod.switchboard.dto.mapper.DecoderMapper;
 import org.beanpod.switchboard.dto.mapper.DecoderMapperImpl;
-import org.beanpod.switchboard.entity.ChannelEntity;
 import org.beanpod.switchboard.entity.DecoderEntity;
 import org.beanpod.switchboard.entity.DeviceEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
-import org.beanpod.switchboard.fixture.ChannelFixture;
 import org.beanpod.switchboard.fixture.DecoderFixture;
 import org.beanpod.switchboard.fixture.DeviceFixture;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -26,8 +23,8 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.text.ParseException;
+import java.util.Optional;
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -76,7 +73,7 @@ class DecoderControllerTest {
     //When a decoder is available in the DB
     @Test
     final void testRetrieveDecoder(){
-        when(decoderService.findDecoder("1")).thenReturn(java.util.Optional.of(decoder1));
+        when(decoderService.findDecoder("1")).thenReturn(Optional.of(decoder1));
 
         ResponseEntity<EntityModel<DecoderDTO>> actualDecoder = decoderController.retrieveDecoder("1");
 
@@ -96,7 +93,7 @@ class DecoderControllerTest {
     //When a device is unavailable in the DB
     @Test
     final void testCreateDecoder() {
-        when(deviceService.findDevice("1")).thenReturn(java.util.Optional.of(device1));
+        when(deviceService.findDevice("1")).thenReturn(Optional.of(device1));
         when(decoderService.save(decoder1)).thenReturn(decoder1);
 
         //mock a request
@@ -143,7 +140,7 @@ class DecoderControllerTest {
     @Test
     final void testUpdateDecoder(){
 
-        when(decoderService.findDecoder("1")).thenReturn(java.util.Optional.of(decoder1));
+        when(decoderService.findDecoder("1")).thenReturn(Optional.of(decoder1));
         decoder1.getInputs().clear();
         when(decoderService.save(decoder1)).thenReturn(decoder1);
         DecoderDTO decoderDTO1 = decoderMapper.toDecoderDTO(decoder1);

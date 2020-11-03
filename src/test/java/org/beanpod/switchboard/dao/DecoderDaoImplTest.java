@@ -62,8 +62,8 @@ class DecoderDaoImplTest {
     @Test
     final void testFindDecoder(){
         when(decoderRepository.findDecoderBySerialNumber("1")).thenReturn(java.util.Optional.of(decoder1));
-        Optional<DecoderEntity> encoderEntity = decoderDaoImpl.findDecoder("1");
-        assertEquals(encoderEntity,java.util.Optional.of(decoder1),"Returned encoderdecoder equal mocked");
+        Optional<DecoderEntity> decoderEntity = decoderDaoImpl.findDecoder("1");
+        assertEquals(decoderEntity,java.util.Optional.of(decoder1),"Returned decoder equal mocked");
     }
 
     @Test
