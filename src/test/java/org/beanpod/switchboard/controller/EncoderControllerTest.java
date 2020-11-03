@@ -152,6 +152,7 @@ class EncoderControllerTest {
     @Test
     final void testUpdateEncoderExceptions(){
         EncoderDTO encoderDTO1 = encoderMapper.toEncoderDTO(encoder1);
+        when(encoderService.findEncoder(encoderDTO1.getSerialNumber())).thenReturn(Optional.empty());
 
         //When device is unavailable in the DB
         assertThrows(ExceptionType.DeviceNotFoundException.class, () -> {

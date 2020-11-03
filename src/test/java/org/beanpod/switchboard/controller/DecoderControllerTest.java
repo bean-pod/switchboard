@@ -154,7 +154,7 @@ class DecoderControllerTest {
     @Test
     final void testUpdateDecoderExceptions(){
         DecoderDTO decoderDTO1 = decoderMapper.toDecoderDTO(decoder1);
-
+        when(decoderService.findDecoder(decoderDTO1.getSerialNumber())).thenReturn(Optional.empty());
         //When device is unavailable in the DB
         assertThrows(ExceptionType.DeviceNotFoundException.class, () -> {
             decoderController.updateDecoder(decoderDTO1);
