@@ -9,16 +9,15 @@ import TitleBox from './TitleBox'
 import ContentsTable from './ContentsTable'
 import DynamicBreadcrumb from '../Breadcrumb';
 
-export default function DeviceList() {
+export default function DeviceList(props) {
     const styles = useStyles();
-    
+
     return (
         <Container>
-                <DynamicBreadcrumb breadcrumbs={["Home", "Devices"]}/>
-
+            <DynamicBreadcrumb breadcrumbs={["Home", "Devices"]} />
             <Box padding="1em">
                 <TitleBox />
-                <ContentsTable classes={styles} />
+                <ContentsTable classes={styles} dataSource={props.dataSource} />
             </Box>
         </Container>
     );

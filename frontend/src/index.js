@@ -5,25 +5,27 @@ import HeaderBar from './HeaderAppBar';
 import HomePage from "./General/HomePage";
 import DeviceList from './devicelist/DeviceList';
 import StreamingTable from './createStream/StreamingPage';
+import * as DeviceApi from "./api/DeviceApi";
 
 
-import { 
+import {
   BrowserRouter,
   Route,
   Switch
- } from 'react-router-dom';
+} from 'react-router-dom';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <HeaderBar />
       <Switch>
-        <Route exact path={["/","/Home"]} component={HomePage}/>
-        <Route exact path="/Devices" component={DeviceList}/>
-        <Route exact path="/Streaming" component={StreamingTable}/>
+        <Route exact path={["/", "/Home"]} component={HomePage} />
+        <Route exact path="/Devices" render={(props) => (
+          <DeviceList {...props} dataSource={DeviceApi} />
+        )} />
+        <Route exact path="/Streaming" component={StreamingTable} />
       </Switch>
     </BrowserRouter>
-
   </React.StrictMode>,
   document.getElementById('root')
 );
