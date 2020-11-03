@@ -1,8 +1,7 @@
 import React from 'react';
 import {
     Box,
-    Container,
-    makeStyles  
+    Container
 } from "@material-ui/core"
 import useStyles from '../DefaultMakeStylesTheme'
 import StreamsTable from './StreamsTable'
