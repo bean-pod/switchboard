@@ -69,7 +69,6 @@ class EncoderControllerTest {
     @Test
     final void testRetrieveAllEncoders(){
         when(encoderService.getEncoders()).thenReturn(listOfEncoders);
-
         List<EncoderDTO> allEncoders = encoderController.retrieveAllEncoders();
         List<EncoderDTO> listOfExpectDTOEncoders = encoderMapper.toEncoderDTOs(listOfEncoders);
 
@@ -81,7 +80,6 @@ class EncoderControllerTest {
     @Test
     final void testRetrieveEncoder(){
         when(encoderService.findEncoder("1")).thenReturn(java.util.Optional.of(encoder1));
-
         ResponseEntity<EntityModel<EncoderDTO>> actualEncoder = encoderController.retrieveEncoder("1");
 
         assertNotNull(actualEncoder, "actualEncoder object is null.");
@@ -145,7 +143,6 @@ class EncoderControllerTest {
     //When a encoder is available in the DB
     @Test
     final void testUpdateEncoder(){
-
         when(encoderService.findEncoder("1")).thenReturn(java.util.Optional.of(encoder1));
         encoder1.getOutputs().clear();
         when(encoderService.save(encoder1)).thenReturn(encoder1);
