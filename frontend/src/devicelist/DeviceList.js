@@ -1,19 +1,26 @@
 import React from 'react';
 import {
+    Box,
     Container,
     makeStyles
 } from "@material-ui/core"
 
 import TitleBox from './TitleBox'
 import ContentsTable from './ContentsTable'
+import DynamicBreadcrumb from '../Breadcrumb';
 
 export default function DeviceList() {
     const styles = useStyles();
     
     return (
         <Container>
-            <TitleBox />
-            <ContentsTable classes={styles} />
+            <Box padding="2em 0em 0em 0em">
+                <DynamicBreadcrumb breadcrumbs={["Home", "Devices"]}/>
+            </Box>
+            <Box padding="1em">
+                <TitleBox />
+                <ContentsTable classes={styles} />
+            </Box>
         </Container>
     );
 }

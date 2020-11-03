@@ -5,31 +5,23 @@ import HeaderBar from './HeaderAppBar';
 import DeviceList from './devicelist/DeviceList';
 import StreamingTable from './createStream/StreamingPage';
 
-import {
-  Breadcrumbs,
-  Container,
-  Typography,
-  Link,
-  Box,
-} from "@material-ui/core"
+
+import { 
+  BrowserRouter,
+  Route,
+  Switch
+ } from 'react-router-dom';
 
 ReactDOM.render(
   <React.StrictMode>
-    <HeaderBar />
-    <Container>
-      <Box padding="2em 0em 0em 0em">
-        <Breadcrumbs aria-label="breadcrumb">
-          <Link color="inherit" href="/" >
-            Home
-        </Link>
-          <Typography component={'span'} color="textPrimary">Devices</Typography>
-        </Breadcrumbs>
-      </Box>
-    </Container>
-    <Box padding="1em">
-      <StreamingTable/>
-       <DeviceList />
-    </Box>
+    <BrowserRouter>
+      <HeaderBar />
+      <Switch>
+        <Route exact path="/Devices" component={DeviceList}/>
+        <Route exact path="/Streaming" component={StreamingTable}/>
+      </Switch>
+    </BrowserRouter>
+
   </React.StrictMode>,
   document.getElementById('root')
 );
