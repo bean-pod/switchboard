@@ -3,7 +3,7 @@ package org.beanpod.switchboard.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.dao.StreamDaoImpl;
-import org.beanpod.switchboard.entity.mapper.StreamMapper;
+import org.beanpod.switchboard.dto.mapper.StreamMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.openapitools.api.StreamApi;

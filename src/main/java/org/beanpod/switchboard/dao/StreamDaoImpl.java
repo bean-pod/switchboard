@@ -7,7 +7,7 @@ import org.beanpod.switchboard.dto.StreamDTO;
 import org.beanpod.switchboard.dto.mapper.DecoderMapper;
 import org.beanpod.switchboard.dto.mapper.EncoderMapper;
 import org.beanpod.switchboard.entity.StreamEntity;
-import org.beanpod.switchboard.entity.mapper.StreamMapper;
+import org.beanpod.switchboard.dto.mapper.StreamMapper;
 import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.repository.StreamRepository;
 import org.openapitools.model.CreateStreamRequest;

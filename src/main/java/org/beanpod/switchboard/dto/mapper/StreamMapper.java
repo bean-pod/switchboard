@@ -1,4 +1,4 @@
-package org.beanpod.switchboard.entity.mapper;
+package org.beanpod.switchboard.dto.mapper;
 
 
 import org.beanpod.switchboard.dto.StreamDTO;
