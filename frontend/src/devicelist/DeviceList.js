@@ -14,9 +14,8 @@ export default function DeviceList() {
     
     return (
         <Container>
-            <Box padding="2em 0em 0em 0em">
                 <DynamicBreadcrumb breadcrumbs={["Home", "Devices"]}/>
-            </Box>
+
             <Box padding="1em">
                 <TitleBox />
                 <ContentsTable classes={styles} />
