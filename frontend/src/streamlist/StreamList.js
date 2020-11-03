@@ -4,8 +4,10 @@ import {
     Container,
     makeStyles  
 } from "@material-ui/core";
+import useStyles from '../DefaultMakeStylesTheme';
 
 export default function StreamList() {
+    const styles = useStyles();
 
     return (
         <Container>
