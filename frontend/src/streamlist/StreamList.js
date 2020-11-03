@@ -3,8 +3,9 @@ import {
     Box,
     Container,
     makeStyles  
-} from "@material-ui/core";
-import useStyles from '../DefaultMakeStylesTheme';
+} from "@material-ui/core"
+import useStyles from '../DefaultMakeStylesTheme'
+import StreamsTable from './StreamsTable'
 
 export default function StreamList() {
     const styles = useStyles();
@@ -16,7 +17,7 @@ export default function StreamList() {
                     Current Streams
                 </div>
             </Box>
-
+            <StreamsTable />
         </Container>
     );
 }
