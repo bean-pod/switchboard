@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import HeaderBar from './HeaderAppBar';
+import HomePage from "./General/HomePage";
 import DeviceList from './devicelist/DeviceList';
 import StreamingTable from './createStream/StreamingPage';
 
@@ -17,6 +18,7 @@ ReactDOM.render(
     <BrowserRouter>
       <HeaderBar />
       <Switch>
+        <Route exact path={["/","/Home"]} component={HomePage}/>
         <Route exact path="/Devices" component={DeviceList}/>
         <Route exact path="/Streaming" component={StreamingTable}/>
       </Switch>

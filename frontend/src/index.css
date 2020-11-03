@@ -95,6 +95,8 @@ select {
   margin-right: 0;
 }
 .headerTitle {
+  color: white;
+  text-decoration:none;
   font-size: 24px;
   vertical-align: middle;
   flex-grow: 1;
