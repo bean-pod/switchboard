@@ -1,12 +1,8 @@
 import React from 'react';
 import {
-    Button,
     Grid
 } from "@material-ui/core"
 
-import {
-    SwapHoriz
-} from '@material-ui/icons/';
 
 import SelectDevicesTable from "./SelectDevicesTable";
 import StreamButton from "../General/StreamButton";
