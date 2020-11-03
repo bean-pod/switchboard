@@ -14,7 +14,7 @@ export default class StreamingTable extends React.Component{
             <React.Fragment>  
                      
                 <Grid container spacing={2} alignContent={"center"} alignItems={"center"}  justify = {'center'}>
-                    <Grid item xs = {2}>
+                    <Grid item xs = {3}>
                         <div class="streamingTable">
                         <SelectDevicesTable/>
                         </div>     
@@ -22,7 +22,7 @@ export default class StreamingTable extends React.Component{
                     <Grid item xs = {2} id="TableStartStreaming" justify = {'center'}alignContent={"center"} alignItems={"center"}display="flex">
                         <StreamButton/>
                     </Grid>
-                    <Grid item xs = {2}>
+                    <Grid item xs = {3}>
                         <div class="streamingTable">
                         <SelectDevicesTable/>
                         </div>

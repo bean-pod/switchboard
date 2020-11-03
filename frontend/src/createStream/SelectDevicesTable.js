@@ -25,7 +25,9 @@ export default class SelectDevicesTable extends React.Component{
         return (
             <React.Fragment>
                 <Typography variant= "h5"> Devices</Typography>
-                <SearchBar />
+                <div style={{margin:'1em'}}>
+                    <SearchBar />
+                </div>
                 <div style={{maxHeight: 300, overflow: 'auto'}}>
                     <List >
                         {this.generate(
