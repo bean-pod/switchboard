@@ -10,6 +10,7 @@ import {
   Notifications,
   Menu
 } from '@material-ui/icons/';
+import { NavLink } from 'react-router-dom';
 
 
 
@@ -32,7 +33,14 @@ export default class HeaderBar extends React.Component{
               <Menu />
             </IconButton>
             <div className="headerTitle">
-              Switchboard
+              <NavLink
+                to="/"
+                activeClassName="headerTitle"
+                className="headerTitle"
+                exact
+              >
+                Switchboard
+              </NavLink> 
             </div>
             <IconButton color="inherit"><Notifications /></IconButton>
             <IconButton color="inherit"><AccountCircle /></IconButton>
