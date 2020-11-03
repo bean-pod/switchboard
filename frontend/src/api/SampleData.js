@@ -1,6 +1,7 @@
 import DeviceInfo from "../model/DeviceInfo";
 import OutChannelInfo from "../model/OutputChannelInfo";
 import InChannelInfo from "../model/InputChannelInfo";
+import StreamInfo from "../model/StreamInfo";
 
 export function getSenders(callback) {
     
@@ -55,4 +56,23 @@ export function getReceivers(callback) {
      ];
 
     callback(sampleReceivers)
+}
+
+export function getStreams(callback) {
+    var sampleSenders = [
+        new DeviceInfo(1, "Sender 1", "1:23:456:789", "Online", "123:456", 480, ["Additional Device details go here"]),
+        new DeviceInfo(2, "Sender 2", "1:32:456:789", "Pending", "132:456", 480, ["Additional Device details go here"])
+    ];
+    var sampleReceivers = [
+        new DeviceInfo(1, "Receiver 1", "1:23:456:789", "Online", "123:456", 480, ["Additional Device details go here"]),
+        new DeviceInfo(2, "Receiver 2", "1:32:456:789", "Pending", "132:456", 480, ["Additional Device details go here"]),
+    ];
+
+    var sampleStreams = [
+        new StreamInfo(1, "2020-10-31T08:15:30", sampleSenders[0], sampleReceivers[0], "Online", "Type 1", "00:34:44", ["Additional Stream Details go here"]),
+        new StreamInfo(2, "2020-11-01T09:16:30", sampleSenders[1], sampleReceivers[1], "Error", "Type 2", "01:34:44", ["Additional Stream Details go here"]),
+        new StreamInfo(3, "2020-10-20T14:17:30", sampleSenders[0], sampleReceivers[0], "Offline", "Type 3", "02:34:44", ["Additional Stream Details go here"])
+    ];
+
+    callback(sampleStreams)
 }
