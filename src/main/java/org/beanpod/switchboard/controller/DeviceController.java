@@ -84,7 +84,7 @@ public class DeviceController {
             throw new ExceptionType.DeviceNotFoundException(device.getSerialNumber());
         }
         DeviceEntity deviceEntity = service.save(deviceMapper.toDeviceEntity(device));
-        return new ResponseEntity<>(deviceMapper.toDeviceDTO(deviceEntity), HttpStatus.OK);
+        return ResponseEntity.ok(deviceMapper.toDeviceDTO(deviceEntity));
     }
 
 }

@@ -89,6 +89,6 @@ public class EncoderController {
             throw new ExceptionType.DeviceNotFoundException(encoderDTO.getSerialNumber());
         }
         EncoderEntity encoderEntity = encoderService.save(encoderMapper.toEncoderEntity(encoderDTO));
-        return new ResponseEntity<>(encoderMapper.toEncoderDTO(encoderEntity), HttpStatus.OK);
+        return ResponseEntity.ok(encoderMapper.toEncoderDTO(encoderEntity));
     }
 }

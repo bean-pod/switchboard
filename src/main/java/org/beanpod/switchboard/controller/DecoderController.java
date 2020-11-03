@@ -88,6 +88,6 @@ public class DecoderController {
             throw new ExceptionType.DeviceNotFoundException(decoderDTO.getSerialNumber());
         }
         DecoderEntity decoderEntity = decoderService.save(decoderMapper.toDecoderEntity(decoderDTO));
-        return new ResponseEntity<>(decoderMapper.toDecoderDTO(decoderEntity), HttpStatus.OK);
+        return ResponseEntity.ok(decoderMapper.toDecoderDTO(decoderEntity));
     }
 }
