@@ -31,6 +31,16 @@ export function getReceivers(callback) {
             }));
         })
         .catch((error) => {
-            SampleData.getReceivers(callback)
+            SampleData.getReceivers(callback);
+        });
+}
+
+export function getStreams(callback) {
+    axios("http://localhost:8080/decoder")
+        .then((streams) => {
+            // empty for now
+        })
+        .catch((error) => {
+            SampleData.getStreams(callback);
         });
 }
