@@ -110,6 +110,7 @@ select {
 }
 .buttonText {
   display: inline-flex;
+  text-decoration:none;
   align-items: center;
   text-transform: uppercase;
   color: white;
