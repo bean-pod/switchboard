@@ -10,7 +10,7 @@ export default class DynamicBreadcrumb extends React.Component {
 
     render() {
         return (
-        <Box padding="2em 0em 0em 0em">
+        <Box padding="2em 0em 0em 1em">
             <Breadcrumbs aria-label="breadcrumb">
                 {this.props.breadcrumbs.map((crumb) => {
                     return (
