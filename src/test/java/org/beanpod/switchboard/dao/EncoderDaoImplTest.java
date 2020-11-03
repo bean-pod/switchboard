@@ -3,7 +3,6 @@ package org.beanpod.switchboard.dao;
 import org.beanpod.switchboard.entity.ChannelEntity;
 import org.beanpod.switchboard.entity.DeviceEntity;
 import org.beanpod.switchboard.entity.EncoderEntity;
-import org.beanpod.switchboard.fixture.ChannelFixture;
 import org.beanpod.switchboard.fixture.DeviceFixture;
 import org.beanpod.switchboard.fixture.EncoderFixture;
 import org.beanpod.switchboard.repository.EncoderRepository;
