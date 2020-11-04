@@ -13,7 +13,6 @@ import {
     ExpandMore
 } from '@material-ui/icons/';
 
-var i = 0;
 export default class SelectDeviceTableRow extends React.Component {
 
     constructor(props) {
