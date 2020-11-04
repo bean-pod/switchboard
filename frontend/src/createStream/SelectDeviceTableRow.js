@@ -13,14 +13,14 @@ import {
     ExpandMore
 } from '@material-ui/icons/';
 
-var i=0;
-export default class SelectDeviceTableRow extends React.Component{
+var i = 0;
+export default class SelectDeviceTableRow extends React.Component {
 
     constructor(props) {
         super(props)
         this.state = {
             deviceName: props.deviceDetails.name,
-            channels:props.deviceDetails.channels,
+            channels: props.deviceDetails.channels,
             open: false
         }
     }
@@ -40,14 +40,14 @@ export default class SelectDeviceTableRow extends React.Component{
                             <ListItemText secondary="Select Channel" />
                             <Select >
                                 {
-                                    this.state.channels.map((channel)=>{
-                                        return(
-                                            <MenuItem value={channel.port}> 
+                                    this.state.channels.map((channel) => {
+                                        return (
+                                            <MenuItem value={channel.port}>
                                                 <Typography variant="caption"> {channel.port}</Typography>
                                             </MenuItem>
                                         );
                                     })
-                                }                                
+                                }
                             </Select>
                         </ListItem>
                     </List>

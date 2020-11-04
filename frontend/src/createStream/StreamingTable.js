@@ -7,9 +7,9 @@ import {
 import SelectDevicesTable from "./SelectDevicesTable";
 import StreamButton from "../General/StreamButton";
 
-export default class StreamingTable extends React.Component{
+export default class StreamingTable extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props)
         this.state = {
             senders: [],
@@ -18,7 +18,7 @@ export default class StreamingTable extends React.Component{
         this.dataSource = props.dataSource;
         this.handleSendersChange = this.handleSendersChange.bind(this);
         this.handleReceiversChange = this.handleReceiversChange.bind(this);
-    
+
     }
 
     componentDidMount() {
@@ -38,28 +38,28 @@ export default class StreamingTable extends React.Component{
         });
     }
 
-    render(){
-        return(
-            <React.Fragment>  
-                     
-                <Grid container spacing={2} alignContent={"center"} alignItems={"center"}  justify = {'center'}>
-                    <Grid item xs = {3}>
+    render() {
+        return (
+            <React.Fragment>
+
+                <Grid container spacing={2} alignContent={"center"} alignItems={"center"} justify={'center'}>
+                    <Grid item xs={3}>
                         <div class="streamingTable">
-                        <SelectDevicesTable name="Sender Devices" dataSource={this.state.senders}/>
-                        </div>     
+                            <SelectDevicesTable name="Sender Devices" dataSource={this.state.senders} />
+                        </div>
                     </Grid>
-                    <Grid item xs = {2} id="TableStartStreaming" alignContent={"center"} alignItems={"center"} display="flex">
-                        <StreamButton/>
+                    <Grid item xs={2} id="TableStartStreaming" alignContent={"center"} alignItems={"center"} display="flex">
+                        <StreamButton />
                     </Grid>
-                    <Grid item xs = {3}>
+                    <Grid item xs={3}>
                         <div class="streamingTable">
-                        <SelectDevicesTable name="Receiver Devices" dataSource={this.state.receivers}/>
+                            <SelectDevicesTable name="Receiver Devices" dataSource={this.state.receivers} />
                         </div>
                     </Grid>
                 </Grid>
-           
-        </React.Fragment>
+
+            </React.Fragment>
         );
-        
+
     }
 }

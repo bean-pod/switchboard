@@ -54,7 +54,7 @@ export default class ContentsTable extends React.Component {
                     </Box>
                 </Box>
                 <Box style={{ display: 'flex', flexGrow: 1, maxHeight: 500 }}>
-                    <VerticalTabs 
+                    <VerticalTabs
                         value={this.state.value}
                         setValue={this.handleValueChange}
                         classes={this.props.classes} />

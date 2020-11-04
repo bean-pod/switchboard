@@ -9,7 +9,7 @@ import DynamicBreadcrumb from '../Breadcrumb';
 export default class StreamTable extends React.Component {
 
     constructor(props) {
-        
+
         super(props)
         this.dataSource = props.dataSource;
     }
@@ -17,8 +17,8 @@ export default class StreamTable extends React.Component {
     render() {
         return (
             <Container>
-                <DynamicBreadcrumb  
-                breadcrumbs={[["Home", ""],[ "My Devices", "Devices"],[ "Streaming", "Streaming"]]}/>
+                <DynamicBreadcrumb
+                    breadcrumbs={[["Home", ""], ["My Devices", "Devices"], ["Streaming", "Streaming"]]} />
                 <Box padding="1em">
                     <Box className="flexContents headerArea">
                         <div className="title">Streaming</div>

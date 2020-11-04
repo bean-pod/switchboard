@@ -9,24 +9,24 @@ import {
     AddSharp
 } from '@material-ui/icons/';
 
-export default class StreamButton extends React.Component{
-    
-    render(){
+export default class StreamButton extends React.Component {
+
+    render() {
 
         const StyledButton = withStyles({
             root: {
-              background: 'linear-gradient(45deg, #01b2fe 30%, #01b2fe 90%)',
-              borderRadius: 90,
-              border: 0,
-              color: 'white',
-              height: 40,
-              padding: '0px'
+                background: 'linear-gradient(45deg, #01b2fe 30%, #01b2fe 90%)',
+                borderRadius: 90,
+                border: 0,
+                color: 'white',
+                height: 40,
+                padding: '0px'
             },
             label: {
-              textTransform: '',
+                textTransform: '',
             },
-          })(Button);
-          
+        })(Button);
+
         return (
             <StyledButton>
                 <NavLink
@@ -35,8 +35,8 @@ export default class StreamButton extends React.Component{
                     className="buttonText"
                     exact
                 >
-                <AddSharp /> Add Device
-                </NavLink> 
+                    <AddSharp /> Add Device
+                </NavLink>
             </StyledButton>
         );
     }

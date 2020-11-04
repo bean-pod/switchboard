@@ -14,8 +14,8 @@ export default class TitleBox extends React.Component {
                 <Box className="flexContents headerArea">
                     <div className="title">My Devices</div>
                     <div className="alignRightFloat" spacing={2}>
-                        <StreamButton/>
-                        <AddDeviceButton/>
+                        <StreamButton />
+                        <AddDeviceButton />
                     </div>
                 </Box>
             </React.Fragment>

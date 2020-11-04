@@ -14,7 +14,7 @@ export default function DeviceList(props) {
 
     return (
         <Container>
-            <DynamicBreadcrumb  breadcrumbs={[["Home", ""],[ "My Devices", "Devices"]]}/>
+            <DynamicBreadcrumb breadcrumbs={[["Home", ""], ["My Devices", "Devices"]]} />
             <Box padding="1em">
                 <TitleBox />
                 <ContentsTable classes={styles} dataSource={props.dataSource} />

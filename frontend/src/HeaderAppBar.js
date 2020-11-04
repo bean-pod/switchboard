@@ -14,8 +14,8 @@ import { NavLink } from 'react-router-dom';
 
 
 
-export default class HeaderBar extends React.Component{
-  constructor(props){
+export default class HeaderBar extends React.Component {
+  constructor(props) {
     super(props);
     this.classes = makeStyles((theme) => ({
       menuButton: {
@@ -23,32 +23,32 @@ export default class HeaderBar extends React.Component{
       },
     }));
   }
-  render(){
+  render() {
     return (
-    <React.Fragment>
-      <div className="HeaderBar" >
-        <AppBar position="static">
-          <Toolbar className="darkGrey" >
-            <IconButton edge="start" className={this.classes.menuButton} color="inherit" aria-label="menu">
-              <Menu />
-            </IconButton>
-            <div className="headerTitle">
-              <NavLink
-                to="/"
-                activeClassName="headerTitle"
-                className="headerTitle"
-                exact
-              >
-                Switchboard
-              </NavLink> 
-            </div>
-            <IconButton color="inherit"><Notifications /></IconButton>
-            <IconButton color="inherit"><AccountCircle /></IconButton>
-          </Toolbar>
-        </AppBar>
-      </div>
-    </React.Fragment>
-  );
+      <React.Fragment>
+        <div className="HeaderBar" >
+          <AppBar position="static">
+            <Toolbar className="darkGrey" >
+              <IconButton edge="start" className={this.classes.menuButton} color="inherit" aria-label="menu">
+                <Menu />
+              </IconButton>
+              <div className="headerTitle">
+                <NavLink
+                  to="/"
+                  activeClassName="headerTitle"
+                  className="headerTitle"
+                  exact
+                >
+                  Switchboard
+              </NavLink>
+              </div>
+              <IconButton color="inherit"><Notifications /></IconButton>
+              <IconButton color="inherit"><AccountCircle /></IconButton>
+            </Toolbar>
+          </AppBar>
+        </div>
+      </React.Fragment>
+    );
   }
-  
+
 }

@@ -47,8 +47,8 @@ export default class ActionMenu extends React.Component {
                     keepMounted
                     open={Boolean(this.state.anchorElement)}
                     onClose={this.handleClose}
-                    anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-                    transformOrigin={{ horizontal: 'right', vertical: 'top'}}
+                    anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+                    transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 >
                     <MenuItem onClick={this.handleClose}>View details</MenuItem>
                     <MenuItem onClick={this.handleClose}>Start stream with this as receiver</MenuItem>

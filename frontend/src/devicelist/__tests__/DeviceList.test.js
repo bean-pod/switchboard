@@ -29,7 +29,7 @@ afterEach(() => {
 
 test("Device list renders sender page by default", () => {
     act(() => {
-        render(<DeviceList dataSource={SampleData}/>, container);
+        render(<DeviceList dataSource={SampleData} />, container);
     })
 
     verifyStaticElements();
@@ -52,7 +52,7 @@ test("Device list renders sender page by default", () => {
 
 test("Clicking receivers tabs renders the receiver list ", () => {
     act(() => {
-        render(<DeviceList dataSource={SampleData}/>, container);
+        render(<DeviceList dataSource={SampleData} />, container);
     })
 
     verifyStaticElements();
@@ -80,7 +80,7 @@ test("Clicking receivers tabs renders the receiver list ", () => {
 
 test("Clicking dropdown on table row displays additional information", () => {
     act(() => {
-        render(<DeviceList dataSource={SampleData}/>, container);
+        render(<DeviceList dataSource={SampleData} />, container);
     })
 
     verifyStaticElements();
