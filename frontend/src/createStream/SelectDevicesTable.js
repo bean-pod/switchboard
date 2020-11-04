@@ -11,6 +11,7 @@ export default class SelectDevicesTable extends React.Component{
     constructor(props){
         super(props)
         this.name=props.name;
+        this.dataSource = props.dataSource;
     }
 
     generate(element) {

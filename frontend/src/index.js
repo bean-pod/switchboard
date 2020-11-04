@@ -20,10 +20,14 @@ ReactDOM.render(
       <HeaderBar />
       <Switch>
         <Route exact path={["/", "/Home"]} component={HomePage} />
-        <Route exact path="/Devices" render={(props) => (
-          <DeviceList {...props} dataSource={DeviceApi} />
+        <Route exact path="/Devices" 
+          render={(props) => (
+            <DeviceList {...props} dataSource={DeviceApi} />
         )} />
-        <Route exact path="/Streaming" component={StreamingTable} />
+        <Route exact path="/Streaming" 
+        render={(props) => (
+            <StreamingTable {...props} dataSource={DeviceApi} />
+        )}  />
       </Switch>
     </BrowserRouter>
   </React.StrictMode>,

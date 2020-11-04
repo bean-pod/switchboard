@@ -7,23 +7,29 @@ import StreamingTable from "./StreamingTable"
 
 import DynamicBreadcrumb from '../Breadcrumb';
 
-export default class StreamTable extends React.Component{
+export default class StreamTable extends React.Component {
+
+    constructor(props) {
+        
+        super(props)
+        this.dataSource = props.dataSource;
+    }
     
-    render(){
+    render() {
         return (
             <Container>
 
-                <DynamicBreadcrumb breadcrumbs={["Home", "Stream"]}/>
+                <DynamicBreadcrumb breadcrumbs={["Home", "Stream"]} />
 
                 <Box padding="1em">
-                    <Box class="flexContents headerArea"> 
+                    <Box class="flexContents headerArea">
                         <div class="title">Streaming</div>
                     </Box>
-                    <StreamingTable />
+                    <StreamingTable dataSource={this.props.dataSource} />
                 </Box>
-                    
+
             </Container>
-            
+
         );
     }
 }

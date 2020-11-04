@@ -9,6 +9,11 @@ import StreamButton from "../General/StreamButton";
 
 export default class StreamingTable extends React.Component{
 
+    constructor(props){
+        super(props)
+        this.dataSource = props.dataSource;
+    }
+
     render(){
         return(
             <React.Fragment>  
@@ -16,7 +21,7 @@ export default class StreamingTable extends React.Component{
                 <Grid container spacing={2} alignContent={"center"} alignItems={"center"}  justify = {'center'}>
                     <Grid item xs = {3}>
                         <div class="streamingTable">
-                        <SelectDevicesTable name="Sender Devices"/>
+                        <SelectDevicesTable name="Sender Devices" dataSource={this.props.dataSource}/>
                         </div>     
                     </Grid>
                     <Grid item xs = {2} id="TableStartStreaming" justify = {'center'}alignContent={"center"} alignItems={"center"}display="flex">
@@ -24,7 +29,7 @@ export default class StreamingTable extends React.Component{
                     </Grid>
                     <Grid item xs = {3}>
                         <div class="streamingTable">
-                        <SelectDevicesTable name="Receiver Devices"/>
+                        <SelectDevicesTable name="Receiver Devices" dataSource={this.props.dataSource}/>
                         </div>
                     </Grid>
                 </Grid>
