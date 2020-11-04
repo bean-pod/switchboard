@@ -66,21 +66,20 @@ afterEach(() => {
 // })
 
 // Streaming page
-test("has breadcrumbs, title and table", ()=>{
+test("Streaming page has Breadcrumbs, Title and Streaming Table", () => {
     act(() => {
         render(
-        <BrowserRouter>
-            <StreamingPage dataSource={SampleData} />
-        </BrowserRouter>
-        , container);
+            <BrowserRouter>
+                <StreamingPage dataSource={SampleData} />
+            </BrowserRouter>
+            , container);
     })
 
     var breadcrumbParent = document.getElementById("breadcrumbParent");
     var children = breadcrumbParent.children.item(0).children;
-    
+
     expect(children.length).toBe(5);
-    
-    
+
     expect(children[0].firstChild.firstChild.textContent).toBe("Home");
     expect(children[0].firstChild.href).toBe("http://localhost/");
     expect(children[1].firstChild.data).toBe("/");
@@ -89,10 +88,14 @@ test("has breadcrumbs, title and table", ()=>{
     expect(children[3].firstChild.data).toBe("/");
     expect(children[4].firstChild.firstChild.textContent).toBe("Streaming");
     expect(children[4].firstChild.href).toBe("http://localhost/Streaming");
-    
 
     var title = document.querySelector("div.title");
     expect(title).not.toBe(null);
     expect(title.innerHTML).toBe("Streaming");
+
+    var streamingTable = document.getElementById("StreamingTable");
+
+    expect(streamingTable).not.toBe(null);
+    expect(streamingTable.firstChild.childElementCount).toBe(3);
 
 })
