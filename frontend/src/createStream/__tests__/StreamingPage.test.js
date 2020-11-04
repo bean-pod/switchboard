@@ -54,16 +54,32 @@ afterEach(() => {
 //     });
 // })
 
-// // Streaming Table
-// test("Has 2 tables as 1 button",()=>{
-//     act(() => {
-//         render(
-//         <BrowserRouter>
-//             <StreamingTable dataSource={SampleData} />
-//         </BrowserRouter>
-//         , container);
-//     })
-// })
+// Streaming Table
+test("Streaming Table has 2 tables as 1 button", () => {
+    act(() => {
+        render(
+            <BrowserRouter>
+                <div id="streamingTable">
+                    <StreamingTable dataSource={SampleData} />
+                </div>
+            </BrowserRouter>
+            , container);
+    })
+
+    var table = document.getElementById("streamingTable").firstChild;
+
+    expect(table.childElementCount).toBe(3);
+    
+    expect(table.children.item(0).firstChild).not.toBe(null);
+    expect(table.children.item(0).firstChild.id).toBe("SenderTable");
+
+    expect(table.children.item(1)).not.toBe(null);
+    expect(table.children.item(1).id).toBe("TableStartStreamingBtn");
+
+    expect(table.children.item(2).firstChild).not.toBe(null);
+    expect(table.children.item(2).firstChild.id).toBe("ReceiverTable");
+
+})
 
 // Streaming page
 test("Streaming page has Breadcrumbs, Title and Streaming Table", () => {
