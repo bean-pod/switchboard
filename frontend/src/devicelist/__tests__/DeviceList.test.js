@@ -28,7 +28,7 @@ afterEach(() => {
     container = null;
 })
 
-test.only("Device list renders sender page by default", () => {
+test("Device list renders sender page by default", () => {
     act(() => {
         render(
         <BrowserRouter>
@@ -57,7 +57,10 @@ test.only("Device list renders sender page by default", () => {
 
 test("Clicking receivers tabs renders the receiver list ", () => {
     act(() => {
-        render(<DeviceList dataSource={SampleData} />, container);
+        render(
+        <BrowserRouter>
+            <DeviceList dataSource={SampleData} />
+        </BrowserRouter>, container);
     })
 
     verifyStaticElements();
@@ -85,7 +88,10 @@ test("Clicking receivers tabs renders the receiver list ", () => {
 
 test("Clicking dropdown on table row displays additional information", () => {
     act(() => {
-        render(<DeviceList dataSource={SampleData} />, container);
+        render(
+        <BrowserRouter>
+            <DeviceList dataSource={SampleData} />
+        </BrowserRouter>, container);
     })
 
     verifyStaticElements();
