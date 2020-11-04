@@ -2,7 +2,7 @@ import React from 'react';
 import {
     Container
 } from "@material-ui/core"
-import DynamicBreadcrumb from "../Breadcrumb";
+import DynamicBreadcrumb from "./DynamicBreadcrumb";
 export default class HomePage extends React.Component{
     render(){
         return(

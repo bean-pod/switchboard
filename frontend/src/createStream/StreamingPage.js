@@ -4,7 +4,7 @@ import {
     Container
 } from "@material-ui/core"
 import StreamingTable from "./StreamingTable"
-import DynamicBreadcrumb from '../Breadcrumb';
+import DynamicBreadcrumb from '../General/DynamicBreadcrumb';
 
 export default class StreamTable extends React.Component {
 

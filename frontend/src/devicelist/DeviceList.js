@@ -7,7 +7,7 @@ import {
 
 import TitleBox from './TitleBox'
 import ContentsTable from './ContentsTable'
-import DynamicBreadcrumb from '../Breadcrumb';
+import DynamicBreadcrumb from '../General/DynamicBreadcrumb';
 
 export default function DeviceList(props) {
     const styles = useStyles();
