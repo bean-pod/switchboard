@@ -18,11 +18,13 @@ export default class SelectDeviceTableRow extends React.Component{
 
     constructor(props) {
         super(props)
+        console.log(props.deviceDetails);
         this.state = {
-            deviceName: "Device Name" + i++,
-            channels:[402,609,420,300],
+            deviceName: props.deviceDetails.name,
+            channels:props.deviceDetails.channels,
             open: false
         }
+
         this.thing = [1,2,3,4]
     }
 
@@ -42,9 +44,10 @@ export default class SelectDeviceTableRow extends React.Component{
                             <Select >
                                 {
                                     this.state.channels.map((channel)=>{
+                                        console.log(channel);
                                         return(
-                                            <MenuItem dense="true" value={channel}> 
-                                                <Typography variant="caption"> {channel}</Typography>
+                                            <MenuItem dense="true" value={channel.port}> 
+                                                <Typography variant="caption"> {channel.port}</Typography>
                                             </MenuItem>
                                         );
                                     })

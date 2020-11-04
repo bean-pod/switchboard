@@ -11,7 +11,31 @@ export default class StreamingTable extends React.Component{
 
     constructor(props){
         super(props)
+        this.state = {
+            senders: [],
+            receivers: []
+        }
         this.dataSource = props.dataSource;
+        this.handleSendersChange = this.handleSendersChange.bind(this);
+        this.handleReceiversChange = this.handleReceiversChange.bind(this);
+    
+    }
+
+    componentDidMount() {
+        this.dataSource.getSenders(this.handleSendersChange);
+        this.dataSource.getReceivers(this.handleReceiversChange);
+    }
+
+    handleSendersChange(senders) {
+        this.setState({
+            senders: senders
+        });
+    }
+
+    handleReceiversChange(receivers) {
+        this.setState({
+            receivers: receivers
+        });
     }
 
     render(){
@@ -21,7 +45,7 @@ export default class StreamingTable extends React.Component{
                 <Grid container spacing={2} alignContent={"center"} alignItems={"center"}  justify = {'center'}>
                     <Grid item xs = {3}>
                         <div class="streamingTable">
-                        <SelectDevicesTable name="Sender Devices" dataSource={this.props.dataSource}/>
+                        <SelectDevicesTable name="Sender Devices" dataSource={this.state.senders}/>
                         </div>     
                     </Grid>
                     <Grid item xs = {2} id="TableStartStreaming" justify = {'center'}alignContent={"center"} alignItems={"center"}display="flex">
@@ -29,7 +53,7 @@ export default class StreamingTable extends React.Component{
                     </Grid>
                     <Grid item xs = {3}>
                         <div class="streamingTable">
-                        <SelectDevicesTable name="Receiver Devices" dataSource={this.props.dataSource}/>
+                        <SelectDevicesTable name="Receiver Devices" dataSource={this.state.receivers}/>
                         </div>
                     </Grid>
                 </Grid>

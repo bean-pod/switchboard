@@ -11,15 +11,6 @@ export default class SelectDevicesTable extends React.Component{
     constructor(props){
         super(props)
         this.name=props.name;
-        this.dataSource = props.dataSource;
-    }
-
-    generate(element) {
-        var arr = [0,0,0,0,0,0,0,0,0,0];
-        return arr.map((value) =>
-          React.cloneElement(element, {
-            key: value,}),
-        );
     }
 
     render(){
@@ -35,9 +26,11 @@ export default class SelectDevicesTable extends React.Component{
                 </div>
                 <div style={{maxHeight: 300, overflow: 'auto'}}>
                     <List >
-                        {this.generate(
-                            <SelectDeviceTableRow/>,
-                        )}
+                        { this.props.dataSource.map( (device) => {
+                            console.log(device);
+                            return (<SelectDeviceTableRow deviceDetails={device}/>)
+                        }
+                    ) }
                     </List>
                 </div>
             </React.Fragment>
