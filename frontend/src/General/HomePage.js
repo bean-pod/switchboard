@@ -7,7 +7,10 @@ export default class HomePage extends React.Component{
     render(){
         return(
             <Container>
-                <DynamicBreadcrumb breadcrumbs={["Devices", "Streaming"]}/>
+            <DynamicBreadcrumb
+                breadcrumbs={[["Home", ""], 
+                        ["My Devices", "Devices"], 
+                        ["Streaming", "Streaming"]]} />
             </Container>
         );
     }
