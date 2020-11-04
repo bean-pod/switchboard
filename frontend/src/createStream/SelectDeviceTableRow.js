@@ -23,8 +23,6 @@ export default class SelectDeviceTableRow extends React.Component{
             channels:props.deviceDetails.channels,
             open: false
         }
-
-        this.thing = [1,2,3,4]
     }
 
     render() {
@@ -32,7 +30,7 @@ export default class SelectDeviceTableRow extends React.Component{
             <div>
                 <ListItem button dense onClick={() => this.setState({ open: !this.state.open })}>
                     <ListItemText
-                        primary={this.state.deviceName} dense
+                        primary={this.state.deviceName}
                     />
                     {this.state.open ? <ExpandLess /> : <ExpandMore />}
                 </ListItem>
@@ -44,7 +42,7 @@ export default class SelectDeviceTableRow extends React.Component{
                                 {
                                     this.state.channels.map((channel)=>{
                                         return(
-                                            <MenuItem dense="true" value={channel.port}> 
+                                            <MenuItem value={channel.port}> 
                                                 <Typography variant="caption"> {channel.port}</Typography>
                                             </MenuItem>
                                         );

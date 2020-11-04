@@ -4,7 +4,6 @@ import {
     Container
 } from "@material-ui/core"
 import StreamingTable from "./StreamingTable"
-
 import DynamicBreadcrumb from '../Breadcrumb';
 
 export default class StreamTable extends React.Component {
@@ -14,7 +13,7 @@ export default class StreamTable extends React.Component {
         super(props)
         this.dataSource = props.dataSource;
     }
-    
+
     render() {
         return (
             <Container>

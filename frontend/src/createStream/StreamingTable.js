@@ -48,7 +48,7 @@ export default class StreamingTable extends React.Component{
                         <SelectDevicesTable name="Sender Devices" dataSource={this.state.senders}/>
                         </div>     
                     </Grid>
-                    <Grid item xs = {2} id="TableStartStreaming" justify = {'center'}alignContent={"center"} alignItems={"center"}display="flex">
+                    <Grid item xs = {2} id="TableStartStreaming" alignContent={"center"} alignItems={"center"} display="flex">
                         <StreamButton/>
                     </Grid>
                     <Grid item xs = {3}>
