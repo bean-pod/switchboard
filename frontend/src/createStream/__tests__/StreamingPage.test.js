@@ -53,6 +53,18 @@ afterEach(() => {
 //         , container);
 //     });
 // })
+    var header = table.firstChild;
+    var list = table.lastChild.firstChild;
+    
+    expect(header.childElementCount).toBe(2);
+    expect(header.firstChild.textContent).toBe("Test Table");
+    expect(header.lastChild.className).toBe("searchField");
+
+    expect(list.childElementCount).toBe(9);
+    expect(list.firstChild).not.toBe(null);
+    expect(list.firstChild.firstChild.firstChild.firstChild.textContent).toBe("Sender 1");
+        
+})
 
 // Streaming Table
 test("Streaming Table has 2 tables as 1 button", () => {
