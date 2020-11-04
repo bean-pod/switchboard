@@ -49,7 +49,7 @@ export default class ContentsTable extends React.Component {
             <React.Fragment>
                 <Box style={{ display: 'flex', flexGrow: 1, margin: "1em 0em" }}>
                     <SearchBar />
-                    <Box class="alignRightFloat">
+                    <Box className="alignRightFloat">
                         <SortBy />
                     </Box>
                 </Box>

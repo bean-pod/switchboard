@@ -19,7 +19,7 @@ export default class SelectDevicesTable extends React.Component{
             <React.Fragment>
                 
                 <div style={{margin:'1em'}}>
-                    <div class="subtitle">
+                    <div className="subtitle">
                      {this.name}
                 </div>
                     <SearchBar />
