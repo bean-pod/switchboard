@@ -17,9 +17,8 @@ export default class StreamTable extends React.Component {
     render() {
         return (
             <Container>
-
-                <DynamicBreadcrumb breadcrumbs={["Home", "Stream"]} />
-
+                <DynamicBreadcrumb  
+                breadcrumbs={[["Home", ""],[ "My Devices", "Devices"],[ "Streaming", "Streaming"]]}/>
                 <Box padding="1em">
                     <Box className="flexContents headerArea">
                         <div className="title">Streaming</div>
