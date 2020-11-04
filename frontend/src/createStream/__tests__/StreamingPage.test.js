@@ -43,16 +43,21 @@ afterEach(() => {
 //     })
 // })
 
-// // Select Devices Table
-// test("Table renders",()=>{
-//     act(() => {
-//         render(
-//         <BrowserRouter>
-//             <SelectDevicesTable dataSource={sampleSenders} />
-//         </BrowserRouter>
-//         , container);
-//     });
-// })
+// Select Devices Table
+test.only("Select Devices Table renders with Title, search bar and List with SelectDeviceTable Rows",()=>{
+    act(() => {
+        render(
+        <BrowserRouter>
+        <div id = "testSelectTable">
+            <SelectDevicesTable name="Test Table" dataSource={sampleSenders} />
+        </div>
+        </BrowserRouter>
+        , container);
+    });
+
+    var table = document.getElementById("testSelectTable");
+
+    expect(table.childElementCount).toBe(2);
     var header = table.firstChild;
     var list = table.lastChild.firstChild;
     
