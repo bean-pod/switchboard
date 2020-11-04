@@ -42,10 +42,8 @@ public class ChannelDaoImpl {
 
     public void createChannel(CreateChannelRequest createChannelRequest){
         //TODO service should return DTOs instead. It will also handle exception cases when we move it.
-        DecoderEntity decoderEntity = decoderService.findDecoder(createChannelRequest.getDecoderSerialNumber()).get();
-        DecoderDTO decoderDto = decoderMapper.toDecoderDTO(decoderEntity);
-        EncoderEntity encoderEntity = encoderService.findEncoder(createChannelRequest.getEncoderSerialNumber()).get();
-        EncoderDTO encoderDto = encoderMapper.toEncoderDTO(encoderEntity);
+        DecoderDTO decoderDto = decoderService.findDecoder(createChannelRequest.getDecoderSerialNumber()).map(decoderMapper::toDecoderDTO).orElseThrow(RuntimeException::new);
+        EncoderDTO encoderDto = encoderService.findEncoder(createChannelRequest.getEncoderSerialNumber()).map(encoderMapper::toEncoderDTO).orElseThrow(RuntimeException::new);
         ChannelDTO channelDto = ChannelDTO.builder()
                 .name(createChannelRequest.getName())
                 .port(createChannelRequest.getPort())
