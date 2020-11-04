@@ -23,9 +23,11 @@ export default class StreamTable extends React.Component {
                     <Box className="flexContents headerArea">
                         <div className="title">Streaming</div>
                     </Box>
-                    <StreamingTable dataSource={this.props.dataSource} />
-                </Box>
+                    <div id="StreamingTable">
 
+                        <StreamingTable dataSource={this.props.dataSource} />
+                    </div>
+                </Box>
             </Container>
 
         );
