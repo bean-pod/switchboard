@@ -18,7 +18,6 @@ export default class SelectDeviceTableRow extends React.Component{
 
     constructor(props) {
         super(props)
-        console.log(props.deviceDetails);
         this.state = {
             deviceName: props.deviceDetails.name,
             channels:props.deviceDetails.channels,
@@ -44,7 +43,6 @@ export default class SelectDeviceTableRow extends React.Component{
                             <Select >
                                 {
                                     this.state.channels.map((channel)=>{
-                                        console.log(channel);
                                         return(
                                             <MenuItem dense="true" value={channel.port}> 
                                                 <Typography variant="caption"> {channel.port}</Typography>

@@ -27,7 +27,6 @@ export default class SelectDevicesTable extends React.Component{
                 <div style={{maxHeight: 300, overflow: 'auto'}}>
                     <List >
                         { this.props.dataSource.map( (device) => {
-                            console.log(device);
                             return (<SelectDeviceTableRow deviceDetails={device}/>)
                         }
                     ) }
