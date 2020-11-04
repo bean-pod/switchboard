@@ -13,7 +13,7 @@ export default class SelectDevicesTable extends React.Component {
     }
 
     render() {
-
+        var i = 0;
         return (
             <React.Fragment>
 
@@ -26,7 +26,7 @@ export default class SelectDevicesTable extends React.Component {
                 <div style={{ maxHeight: 300, overflow: 'auto' }}>
                     <List >
                         {this.props.dataSource.map((device) => {
-                            return (<SelectDeviceTableRow deviceDetails={device} />)
+                            return (<SelectDeviceTableRow deviceDetails={device} key={this.name + (i++)} />)
                         }
                         )}
                     </List>

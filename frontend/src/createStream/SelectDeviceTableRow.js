@@ -41,7 +41,7 @@ export default class SelectDeviceTableRow extends React.Component {
                                 {
                                     this.state.channels.map((channel) => {
                                         return (
-                                            <MenuItem value={channel.port}>
+                                            <MenuItem value={channel.port} key={this.state.deviceName + channel.port}>
                                                 <Typography variant="caption"> {channel.port}</Typography>
                                             </MenuItem>
                                         );
