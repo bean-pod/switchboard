@@ -14,11 +14,9 @@ export default class DynamicBreadcrumb extends React.Component {
             <Breadcrumbs aria-label="breadcrumb">
                 {this.props.breadcrumbs.map((crumb) => {
                     return (
-                        <React.Fragment>
                                 <Link color="inherit" href={"\ " + crumb} >
                                         <Typography color="textPrimary"> {crumb}</Typography>
                                 </Link> 
-                        </React.Fragment>
                     );
                 })}
             </Breadcrumbs>
