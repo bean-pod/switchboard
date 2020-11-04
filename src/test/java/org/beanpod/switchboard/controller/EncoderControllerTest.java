@@ -22,7 +22,6 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,7 +46,7 @@ class EncoderControllerTest {
     static private List<EncoderEntity> listOfEncoders;
 
     @BeforeEach
-    void setup() throws ParseException {
+    void setup(){
         device1 = DeviceFixture.getDevice1();
         device2 = DeviceFixture.getDevice2();
         encoder1 = EncoderFixture.getEncoder1(device1);

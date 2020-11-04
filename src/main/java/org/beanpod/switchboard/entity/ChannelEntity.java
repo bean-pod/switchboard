@@ -17,22 +17,20 @@ public class ChannelEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long id;
+    @Column(name = "id")
+    private Long id;
 
-    String name;
-    Integer port;
+    @Column(name = "name")
+    private String name;
+    
+    @Column(name = "port")
+    private Integer port;
 
-    @ManyToOne(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE})
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "decoder_serial")
-    DecoderEntity decoderEntity;
+    private DecoderEntity decoder;
 
-    @ManyToOne(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE})
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "encoder_serial")
-    EncoderEntity encoderEntity;
+    private EncoderEntity encoder;
 }

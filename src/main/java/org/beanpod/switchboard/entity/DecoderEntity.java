@@ -33,7 +33,7 @@ public class DecoderEntity {
     private DeviceEntity device;
 
     @OneToMany(fetch = FetchType.LAZY,
-            mappedBy="decoderEntity",
+            mappedBy="decoder",
             cascade = {
                     CascadeType.PERSIST,
                     CascadeType.MERGE

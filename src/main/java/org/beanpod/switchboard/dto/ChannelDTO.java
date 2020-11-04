@@ -2,13 +2,14 @@ package org.beanpod.switchboard.dto;
 
 import lombok.*;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class StreamDTO {
+public class ChannelDTO {
     private Long id;
+    private String name;
+    private int port;
     private EncoderDTO encoder;
     private DecoderDTO decoder;
 }

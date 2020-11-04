@@ -32,17 +32,17 @@ public class ExceptionType {
         }
     }
 
-    public static class StreamAlreadyExistsException extends RuntimeException {
-        public final static String MESSAGE_TEMPLATE = "Stream already exists between decoder %s%s and encoder %s%s";
-        public StreamAlreadyExistsException(String decoderSerialNumber, String encoderSerialNumber){
+    public static class ChannelAlreadyExistsException extends RuntimeException {
+        public final static String MESSAGE_TEMPLATE = "Channel already exists between decoder %s%s and encoder %s%s";
+        public ChannelAlreadyExistsException(String decoderSerialNumber, String encoderSerialNumber){
             super(String.format(MESSAGE_TEMPLATE, sn, decoderSerialNumber, sn, encoderSerialNumber));
         }
     }
 
-    public static class StreamDoesNotExistsException extends RuntimeException{
-        public final static String MESSAGE_TEMPLATE = "Stream ID-%s does not exist";
-        public StreamDoesNotExistsException(Long streamId){
-            super(String.format(MESSAGE_TEMPLATE, streamId));
+    public static class ChannelDoesNotExistsException extends RuntimeException{
+        public final static String MESSAGE_TEMPLATE = "Channel ID-%s does not exist";
+        public ChannelDoesNotExistsException(Long channelId){
+            super(String.format(MESSAGE_TEMPLATE, channelId));
         }
     }
 }

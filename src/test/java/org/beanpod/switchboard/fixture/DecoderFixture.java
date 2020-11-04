@@ -18,18 +18,28 @@ public class DecoderFixture {
     private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
     static private Set<ChannelEntity> setOfChannels = ChannelFixture.getSetOfChannels();
 
-    public static DecoderEntity getDecoder1(DeviceEntity device) throws ParseException {
-        return new DecoderEntity("1",
-                simpleDateFormat.parse("2020-10-31 05:05:05"),
-                device,
-                setOfChannels);
+    public static DecoderEntity getDecoder1(DeviceEntity device){
+        try {
+            return new DecoderEntity("1",
+                    simpleDateFormat.parse("2020-10-31 05:05:05"),
+                    device,
+                    setOfChannels);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Unable to parse the date in Decoder 1");
+        }
     }
 
-    public static DecoderEntity getDecoder2(DeviceEntity device) throws ParseException {
-        return new DecoderEntity("1",
-                simpleDateFormat.parse("2020-10-31 05:05:05"),
-                device,
-                setOfChannels);
+    public static DecoderEntity getDecoder2(DeviceEntity device){
+        try {
+            return new DecoderEntity("1",
+                    simpleDateFormat.parse("2020-10-31 05:05:05"),
+                    device,
+                    setOfChannels);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Unable to parse the date in Decoder 1");
+        }
     }
 
     public static List<DecoderEntity> getListOfDecoders(DecoderEntity decoder1, DecoderEntity decoder2){

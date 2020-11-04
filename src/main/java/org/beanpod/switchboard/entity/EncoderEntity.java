@@ -34,7 +34,7 @@ public class EncoderEntity {
     private DeviceEntity device;
 
     @OneToMany(fetch = FetchType.LAZY,
-            mappedBy="encoderEntity",
+            mappedBy="encoder",
             cascade = {
                     CascadeType.PERSIST,
                     CascadeType.MERGE
