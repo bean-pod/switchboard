@@ -4,6 +4,7 @@ import { act } from "react-dom/test-utils"
 import DeviceList from '../DeviceList';
 import * as SampleData from '../../api/SampleData'
 import ReactTestUtils from 'react-dom/test-utils'
+import { BrowserRouter } from "react-router-dom";
 
 let container = null;
 let sampleSenders = null;
@@ -27,9 +28,13 @@ afterEach(() => {
     container = null;
 })
 
-test("Device list renders sender page by default", () => {
+test.only("Device list renders sender page by default", () => {
     act(() => {
-        render(<DeviceList dataSource={SampleData} />, container);
+        render(
+        <BrowserRouter>
+            <DeviceList dataSource={SampleData} />
+        </BrowserRouter>
+        , container);
     })
 
     verifyStaticElements();
@@ -100,11 +105,11 @@ function verifyStaticElements() {
     expect(title).not.toBe(null);
     expect(title.innerHTML).toBe("My Devices");
 
-    var streamButton = document.querySelector("button.green.buttonText span.MuiButton-label");
+    var streamButton = document.getElementById("DeviceListStreamBtn")
     expect(streamButton).not.toBe(null);
     expect(streamButton.textContent).toBe(" Stream");
 
-    var addDeviceButton = document.querySelector("button.blue.buttonText span.MuiButton-label");
+    var addDeviceButton = document.getElementById("DeviceListAddDevBtn")
     expect(addDeviceButton).not.toBe(null);
     expect(addDeviceButton.textContent).toBe(" Add Device");
 

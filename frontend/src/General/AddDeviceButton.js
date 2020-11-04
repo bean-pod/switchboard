@@ -10,7 +10,11 @@ import {
 } from '@material-ui/icons/';
 
 export default class StreamButton extends React.Component {
-
+    
+    constructor(props) {
+        super(props);
+        this.id = props.id;
+    }
     render() {
 
         const StyledButton = withStyles({
@@ -28,7 +32,7 @@ export default class StreamButton extends React.Component {
         })(Button);
 
         return (
-            <StyledButton>
+            <StyledButton id={this.id}>
                 <NavLink
                     to="/Devices"
                     activeClassName="buttonText"
