@@ -7,15 +7,15 @@ function getStatusIcon(status) {
     switch(status){
         case "Online":
             return (
-                <CheckCircleOutlineIcon class="greenText" />
+                <CheckCircleOutlineIcon class="greenFill" />
             );
         case "Error":
             return (
-                <WarningIcon class="yellowText" />
+                <WarningIcon class="yellowFill" />
             );
         case "Offline":
             return (
-                <BlockIcon class="lightGreyText" />
+                <BlockIcon class="redFill" />
             );
     }
 }
