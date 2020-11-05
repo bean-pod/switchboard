@@ -10,6 +10,7 @@ import {
     Typography
 } from "@material-ui/core"
 import HeadCells from './HeadCells'
+import SingleStreamRow from './SingleStreamRow'
 
 export default function StreamsTable(props) {
     return (
@@ -27,7 +28,9 @@ export default function StreamsTable(props) {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-
+                            {props.rows.map((row) => {
+                                return <SingleStreamRow key={row.id} row={row} />;
+                            })}
                         </TableBody>
                     </Table>
                 </TableContainer>
