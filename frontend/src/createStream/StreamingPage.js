@@ -6,7 +6,7 @@ import {
 import StreamingTable from "./StreamingTable"
 import DynamicBreadcrumb from '../General/DynamicBreadcrumb';
 
-export default class StreamTable extends React.Component {
+export default class StreamingPage extends React.Component {
 
     constructor(props) {
 

@@ -9,8 +9,8 @@ import {
     AddSharp
 } from '@material-ui/icons/';
 
-export default class StreamButton extends React.Component {
-    
+export default class AddDeviceButton extends React.Component {
+
     constructor(props) {
         super(props);
         this.id = props.id;

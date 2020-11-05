@@ -5,7 +5,7 @@ import {
     MenuItem 
 } from '@material-ui/core';
 
-export default class SortBy extends React.Component {
+export default class DeviceListSortSelector extends React.Component {
 
     constructor(props) {
         super(props)
@@ -20,7 +20,7 @@ export default class SortBy extends React.Component {
         this.setState({
           sort: event.target.value
         });
-      };
+      }
 
     render(){
         return (

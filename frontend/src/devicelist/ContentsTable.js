@@ -2,7 +2,7 @@ import React from 'react';
 import { Box } from "@material-ui/core"
 
 import SearchBar from './SearchBar'
-import SortBy from './SortBy'
+import DeviceListSortSelector from './DeviceListSortSelector'
 import VerticalTabs from './VerticalTabs'
 import TabPanel from './TabPanel'
 import DevicesTable from './DevicesTable'
@@ -50,7 +50,7 @@ export default class ContentsTable extends React.Component {
                 <Box style={{ display: 'flex', flexGrow: 1, margin: "1em 0em" }}>
                     <SearchBar />
                     <Box className="alignRightFloat">
-                        <SortBy />
+                        <DeviceListSortSelector />
                     </Box>
                 </Box>
                 <Box style={{ display: 'flex', flexGrow: 1, maxHeight: 500 }}>
