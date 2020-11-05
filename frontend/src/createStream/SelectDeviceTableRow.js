@@ -37,7 +37,8 @@ export default class SelectDeviceTableRow extends React.Component {
                     <List component="div" disablePadding>
                         <ListItem  divider>
                             <ListItemText secondary="Select Channel"  />
-                            <Select >
+                            <Select
+                            value= "" >
                                 {
                                     this.state.channels.map((channel) => {
                                         return (

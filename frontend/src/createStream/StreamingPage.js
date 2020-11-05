@@ -28,6 +28,7 @@ export default class StreamTable extends React.Component {
                         <StreamingTable dataSource={this.props.dataSource} />
                     </div>
                 </Box>
+                
             </Container>
 
         );

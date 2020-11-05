@@ -5,9 +5,11 @@ import { act } from "react-dom/test-utils"
 import * as SampleData from '../../api/SampleData'
 import ReactTestUtils from 'react-dom/test-utils'
 import { BrowserRouter } from "react-router-dom";
+
 import StreamingPage from "../StreamingPage";
-import SelectDevicesTable from "../SelectDevicesTable";
 import StreamingTable from "../StreamingTable";
+import SelectDevicesTable from "../SelectDevicesTable";
+import SelectDeviceTableRow from "../SelectDeviceTableRow";
 
 
 let container = null;
@@ -32,19 +34,32 @@ afterEach(() => {
     container = null;
 })
 
-// // Select Devices Table row
-// test("Inner drop down opens",()=>{
-//     act(() => {
-//         render(
-//         <BrowserRouter>
-//            <SelectDeviceTableRow deviceDetails={sampleSenders[0]}/>
-//         </BrowserRouter>
-//         , container);
-//     })
-// })
+// Select Devices Table row
+test("Select Devices Table Row renders properly and Inner dropdown opens",()=>{
+    act(() => {
+        render(
+        <div id = "testRow">
+           <SelectDeviceTableRow deviceDetails={sampleSenders[0]}/>
+        </div>
+        , container);
+    })
+    var testRow = document.getElementById("testRow");
+    expect(testRow.childElementCount).toBe(1);
+    expect(testRow.firstChild.textContent).toBe("Sender 1");
+
+    var row = document.querySelector('[role="button"]');
+    act(() => {
+        ReactTestUtils.Simulate.click(row);
+    })
+
+    var collapse = document.getElementsByClassName("MuiCollapse-container MuiCollapse-entered")
+    expect(collapse).not.toBe(null);
+    var bean = document.getElementsByTagName("input")
+    expect(bean).not.toBe(null);  
+})
 
 // Select Devices Table
-test.only("Select Devices Table renders with Title, search bar and List with SelectDeviceTable Rows",()=>{
+test("Select Devices Table renders with Title, search bar and List with SelectDeviceTable Rows",()=>{
     act(() => {
         render(
         <BrowserRouter>
@@ -67,7 +82,6 @@ test.only("Select Devices Table renders with Title, search bar and List with Sel
 
     expect(list.childElementCount).toBe(9);
     expect(list.firstChild).not.toBe(null);
-    expect(list.firstChild.firstChild.firstChild.firstChild.textContent).toBe("Sender 1");
         
 })
 
