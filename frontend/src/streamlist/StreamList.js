@@ -4,7 +4,7 @@ import {
     Container
 } from "@material-ui/core"
 import useStyles from '../DefaultMakeStylesTheme'
-import ContentsTable from '../streamlist/ContentsTable';
+import StreamsTable from '../streamlist/StreamsTable';
 
 export default function StreamList(props) {
     const styles = useStyles();
@@ -16,7 +16,7 @@ export default function StreamList(props) {
                     Current Streams
                 </div>
             </Box>
-            <ContentsTable classes={styles} dataSource={props.dataSource} />
+            <StreamsTable classes={styles} dataSource={props.dataSource} />
         </Container>
     );
 }

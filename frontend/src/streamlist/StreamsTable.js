@@ -12,10 +12,30 @@ import {
 import HeadCells from './HeadCells'
 import SingleStreamRow from './SingleStreamRow'
 
-export default function StreamsTable(props) {
-    return (
-        <React.Fragment>
-            <Box>
+export default class StreamsTable extends React.Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            streams: []
+        }
+        this.dataSource = props.dataSource;
+        this.handleStreamsChange = this.handleStreamsChange.bind(this);
+    }
+
+    componentDidMount() {
+        this.dataSource.getStreams(this.handleStreamsChange);
+    }
+
+    handleStreamsChange(streams) {
+        this.setState({
+            streams: streams
+        });
+    }
+
+    render() {
+        return (
+            <React.Fragment>
+                <Box>
                 <TableContainer style={{ maxHeight: 450 }}>
                     <Table stickyHeader aria-label="sticky table">
                         <TableHead>
@@ -28,13 +48,14 @@ export default function StreamsTable(props) {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {props.rows.map((row) => {
+                            {this.state.streams.map((row) => {
                                 return <SingleStreamRow key={row.id} row={row} />;
                             })}
                         </TableBody>
                     </Table>
                 </TableContainer>
             </Box>
-        </React.Fragment>
-    );
+            </React.Fragment>
+        );
+    }
 }
