@@ -161,6 +161,15 @@ select {
 .warningText {
   color: #ea5757;
 }
+.greenText {
+  color: #59bc31;
+}
+.yellowText {
+  color: #fec300;
+}
+.lightGreyText {
+  color: #d3d3d3;
+}
 
 /* Scroll bar styling*/
 
