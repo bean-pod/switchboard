@@ -34,7 +34,7 @@ export default class HeadCells extends React.Component {
         this.setState({
           status: event.target.value
         });
-      };
+      }
 
     render() {
         return (
