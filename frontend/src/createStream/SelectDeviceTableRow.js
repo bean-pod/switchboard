@@ -22,12 +22,17 @@ export default class SelectDeviceTableRow extends React.Component {
             channels: props.deviceDetails.channels,
             open: false
         }
+        this.onClick = this.onClick.bind(this);
+    }
+
+    onClick(){
+        this.setState({ open: !this.state.open })
     }
 
     render() {
         return (
             <React.Fragment>
-                <ListItem button dense onClick={() => this.setState({ open: !this.state.open })}>
+                <ListItem button dense onClick={this.onClick}>
                     <ListItemText
                         primary={this.state.deviceName}
                     />
