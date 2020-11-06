@@ -84,10 +84,10 @@ export default class StreamingTable extends React.Component {
             .catch((error)=> {
                 console.log("Error" + error);
             })
-            alert("Stream started!");
+            console.log("Stream started!");
         }
         else{
-            alert("Please select a sender and a receiver");
+           console.log("Please select a sender and a receiver");
         }
        
         event.preventDefault();
