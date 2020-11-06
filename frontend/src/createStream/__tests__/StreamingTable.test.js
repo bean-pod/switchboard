@@ -1,29 +1,35 @@
 import React from 'react';
+import axios from "axios";
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 Enzyme.configure({ adapter: new Adapter() });
 
 import StreamingTable from "../StreamingTable";
+jest.mock('axios');
 
-class DummyData{
+class DummyData {
 
-    getSenders(){
-        return  ["A", "B", "C"];
+    getSenders() {
+        return ["A", "B", "C"];
     }
-    
-    getReceivers(){
+
+    getReceivers() {
         return ["X", "Y", "Z"];
     }
-    
+
+    preventDefault(){
+        return;
+    }
+
 }
 describe("<StreamingTable/>", () => {
     let wrapper;
-    
+
 
     beforeEach(() => {
 
-        wrapper = Enzyme.shallow(<StreamingTable dataSource={new DummyData()}/>)
+        wrapper = Enzyme.shallow(<StreamingTable dataSource={new DummyData()} />)
     });
 
     afterEach(() => {
@@ -51,7 +57,7 @@ describe("<StreamingTable/>", () => {
             const expected = {
                 senders: [],
                 receivers: [],
-                
+
                 selectedSender: undefined,
                 selectedSenderID: "Test3",
 
@@ -61,6 +67,7 @@ describe("<StreamingTable/>", () => {
             };
 
             expect(wrapper.state()).toEqual(defaultState)
+           // act
             wrapper.instance().onSenderSelected(mockEvent);
             expect(wrapper.state()).toEqual(expected);
 
@@ -89,7 +96,7 @@ describe("<StreamingTable/>", () => {
                 senders: [],
                 receivers: [],
 
-                selectedSender:{},
+                selectedSender: {},
                 selectedSenderID: "",
 
                 selectedReceiver: undefined,
@@ -98,9 +105,94 @@ describe("<StreamingTable/>", () => {
             };
 
             expect(wrapper.state()).toEqual(defaultState)
+            // act
             wrapper.instance().onReceiverSelected(mockEvent);
             expect(wrapper.state()).toEqual(expected);
 
+        })
+    })
+
+
+    describe("handleSubmit", () => {
+        it("should do nothing if no receiver or sender has been selected", () => {
+
+            const data =  {
+                data: "test"
+            }
+            axios.post.mockImplementationOnce(()=>Promise.resolve(data))
+            // act
+            wrapper.instance().handleSubmit(new DummyData);
+            expect(axios.post).not.toHaveBeenCalled();
+        }),
+        it("should do nothing if a receiver but no sender has been selected", () => {
+            const mockReceiver = {
+                target: {
+                    name: "selectedReceiverID",
+                    value: "0_Test5_Test6"
+                }
+            };
+
+            const data =  {
+                data: "test"
+            }
+            axios.post.mockImplementationOnce(()=>Promise.resolve(data))
+
+            // act
+            wrapper.instance().onReceiverSelected(mockReceiver);
+            
+            wrapper.instance().handleSubmit(new DummyData);
+            expect(axios.post).not.toHaveBeenCalled();
+        }),
+        it("should do nothing if no receiver but a sender has been selected", () => {
+            const mockSender = {
+                target: {
+                    name: "selectedSenderID",
+                    value: "0_Test2_Test3"
+                }
+            };
+            const data =  {
+                data: "test"
+            }
+            axios.post.mockImplementationOnce(()=>Promise.resolve(data))
+
+
+            // act
+            wrapper.instance().onSenderSelected(mockSender);
+            wrapper.instance().handleSubmit(new DummyData);
+            expect(axios.post).not.toHaveBeenCalled();
+        }),
+
+        it("should call axios.post if a sender and a receiver have been selected", () => {
+
+            const mockReceiver = {
+                target: {
+                    name: "selectedReceiverID",
+                    value: "0_Test5_Test6"
+                }
+            };
+            const mockSender = {
+                target: {
+                    name: "selectedSenderID",
+                    value: "0_Test2_Test3"
+                }
+            };
+
+            const expected = {
+                inputChannelId: "Test3",
+                outputChannelId: "Test6"
+            };
+
+            const data =  {
+                data: "test"
+            }
+            axios.post.mockImplementationOnce(()=>Promise.resolve(data))
+
+            wrapper.instance().onSenderSelected(mockSender);            
+            wrapper.instance().onReceiverSelected(mockReceiver);
+
+            wrapper.instance().handleSubmit(new DummyData);
+
+            expect(axios.post).toHaveBeenCalledWith("http://localhost:8080/stream", expected);
         })
     })
 })

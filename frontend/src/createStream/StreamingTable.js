@@ -50,7 +50,7 @@ export default class StreamingTable extends React.Component {
     }
 
     onSenderSelected(selectedSender) {
-        var data =selectedSender.target.value.split("_");
+        var data = selectedSender.target.value.split("_");
         var sender = this.state.senders[data[0]];
 
         this.setState({
@@ -60,7 +60,7 @@ export default class StreamingTable extends React.Component {
     }
 
     onReceiverSelected(selectedReceiver) {
-        var data =selectedReceiver.target.value.split("_");
+        var data = selectedReceiver.target.value.split("_");
         var receiver = this.state.receivers[data[0]];
 
         this.setState({
@@ -70,58 +70,57 @@ export default class StreamingTable extends React.Component {
 
     }
 
-    handleSubmit(event){
+    handleSubmit(event) {
 
-        if (this.state.selectedReceiver != "" &&this.state.selectedSenderID !="" )
-        {
-            axios.post("http://localhost:8080/stream",{
+        if (this.state.selectedReceiverID === "" || this.state.selectedSenderID === "") {
+            console.log("Please select a sender and a receiver");
+        }
+        else {
+            axios.post("http://localhost:8080/stream", {
                 inputChannelId: this.state.selectedSenderID,
                 outputChannelId: this.state.selectedReceiverID
             })
-            .then((response)=> {
-                console.log("Success" + response);
-            })
-            .catch((error)=> {
-                console.log("Error" + error);
-            })
+                .then((response) => {
+                    console.log("Success" + response);
+                })
+                .catch((error) => {
+                    console.log("Error" + error);
+                })
             console.log("Stream started!");
         }
-        else{
-           console.log("Please select a sender and a receiver");
-        }
-       
+
         event.preventDefault();
     }
 
     render() {
         return (
             <React.Fragment>
-<form onSubmit={this.handleSubmit} id="createStreamForm">
-    
-                <Grid container spacing={2} alignContent={"center"} alignItems={"center"} justify={'center'}>
-                    <Grid item xs={3}>
-                        <div className="streamingTable" id="SenderTable">
-                            <SelectDevicesTable
-                                name="Sender Devices"
-                                dataSource={this.state.senders}
-                                onChange={this.onSenderSelected.bind(this)} />
-                        </div>
-                    </Grid>
-                    <Grid container item xs={2} id="TableStartStreamingBtn" justify={'center'} alignContent={"center"} alignItems={"center"} display="flex">
+                <form onSubmit={this.handleSubmit} id="createStreamForm">
 
-                        <StreamButton type="submit"/>
+                    <Grid container spacing={2} alignContent={"center"} alignItems={"center"} justify={'center'}>
+                        <Grid item xs={3}>
+                            <div className="streamingTable" id="SenderTable">
+                                <SelectDevicesTable
+                                    name="Sender Devices"
+                                    dataSource={this.state.senders}
+                                    onChange={this.onSenderSelected.bind(this)} />
+                            </div>
+                        </Grid>
+                        <Grid container item xs={2} id="TableStartStreamingBtn" justify={'center'} alignContent={"center"} alignItems={"center"} display="flex">
+
+                            <StreamButton type="submit" />
+                        </Grid>
+                        <Grid item xs={3}>
+                            <div className="streamingTable" id="ReceiverTable">
+                                <SelectDevicesTable
+                                    name="Receiver Devices"
+                                    dataSource={this.state.receivers}
+                                    onChange={this.onReceiverSelected.bind(this)} />
+                            </div>
+                        </Grid>
                     </Grid>
-                    <Grid item xs={3}>
-                        <div className="streamingTable" id="ReceiverTable">
-                            <SelectDevicesTable 
-                            name="Receiver Devices" 
-                            dataSource={this.state.receivers}
-                            onChange={this.onReceiverSelected.bind(this)}/>
-                        </div>
-                    </Grid>
-                </Grid>
-</form>
-            
+                </form>
+
             </React.Fragment>
         );
 
