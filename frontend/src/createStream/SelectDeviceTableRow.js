@@ -39,7 +39,7 @@ export default class SelectDeviceTableRow extends React.Component {
                     {this.state.open ? <ExpandLess /> : <ExpandMore />}
                 </ListItem>
                 <Collapse in={this.state.open} timeout="auto" unmountOnExit >
-                    <List component="div" disablePadding>
+                    <List component="div" disablePadding style={{width: "96%"}}>
                         <ListItem divider>
                             <ListItemText secondary="Select Channel" />
                             <Select
