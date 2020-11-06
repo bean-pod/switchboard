@@ -45,7 +45,7 @@ export default class SingleStreamRow extends React.Component {
                     </TableCell>
                     <TableCell class="tableCell">{this.props.row.type}</TableCell>
                     <TableCell class="tableCell">{this.props.row.time}</TableCell>
-                    <TableCell class="tableCell">
+                    <TableCell class="tableCell actionButtons">
                         {ActionButtons()}
                     </TableCell>
                 </TableRow>
