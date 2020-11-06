@@ -96,7 +96,7 @@ export default class StreamingTable extends React.Component {
     render() {
         return (
             <React.Fragment>
-<form onSubmit={this.handleSubmit}>
+<form onSubmit={this.handleSubmit} id="createStreamForm">
     
                 <Grid container spacing={2} alignContent={"center"} alignItems={"center"} justify={'center'}>
                     <Grid item xs={3}>

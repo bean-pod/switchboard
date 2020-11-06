@@ -72,14 +72,13 @@ test("Select Devices Table renders with Title, search bar and List with SelectDe
 
     var table = document.getElementById("testSelectTable");
 
-    expect(table.childElementCount).toBe(2);
-    var header = table.firstChild;
+    expect(table.childElementCount).toBe(3);
     var list = table.lastChild.firstChild;
-    
-    expect(header.childElementCount).toBe(2);
-    expect(header.firstChild.textContent).toBe("Test Table");
-    expect(header.lastChild.className).toBe("searchField");
+ 
+    expect(table.children.item(0).textContent).toBe("Test Table");
+    expect(table.children.item(1).className).toBe("searchField");
 
+    expect(table.children.item(2)).not.toBe(null);
     expect(list.childElementCount).toBe(9);
     expect(list.firstChild).not.toBe(null);
         
@@ -90,15 +89,19 @@ test("Streaming Table has 2 tables as 1 button", () => {
     act(() => {
         render(
             <BrowserRouter>
-                <div id="streamingTable">
+                <div id="testingTable">
                     <StreamingTable dataSource={SampleData} />
                 </div>
             </BrowserRouter>
             , container);
     })
 
-    var table = document.getElementById("streamingTable").firstChild;
+    var form = document.getElementById("testingTable").firstChild;
 
+    expect(form.tagName).toBe("FORM");
+    expect(form.childElementCount).toBe(1);
+
+    var table = form.firstChild;
     expect(table.childElementCount).toBe(3);
     
     expect(table.children.item(0).firstChild).not.toBe(null);

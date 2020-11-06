@@ -5,8 +5,7 @@ import {
     ListItem,
     ListItemText,
     MenuItem,
-    Select,
-    Typography
+    Select
 } from "@material-ui/core";
 import {
     ExpandLess,
