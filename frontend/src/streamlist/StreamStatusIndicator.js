@@ -13,7 +13,7 @@ function getStatusIcon(status) {
             return (
                 <WarningIcon class="yellowFill" />
             );
-        case "Offline":
+        default: 
             return (
                 <BlockIcon class="redFill" />
             );
