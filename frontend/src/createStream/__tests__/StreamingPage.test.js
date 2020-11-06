@@ -14,7 +14,7 @@ import SelectDeviceTableRow from "../SelectDeviceTableRow";
 
 let container = null;
 let sampleSenders = null;
-let sampleReceivers = null;
+
 beforeEach(() => {
     container = document.createElement("div");
     document.body.appendChild(container);
