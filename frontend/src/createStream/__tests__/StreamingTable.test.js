@@ -47,7 +47,7 @@ describe("<StreamingTable/>", () => {
                 selectedReceiverID: ""
 
             };
-            
+
             const expected = {
                 senders: [],
                 receivers: [],
@@ -67,7 +67,7 @@ describe("<StreamingTable/>", () => {
         })
     })
 
-    describe("onSenderSelected", () => {
+    describe("onReceiverSelected", () => {
         it("should call setState and set selectedReceiver and selectedReceiverID", () => {
             const mockEvent = {
                 target: {
