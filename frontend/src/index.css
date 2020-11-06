@@ -114,6 +114,7 @@ select {
   font-weight: 300;
   padding-bottom: 0.5em;
 }
+
 .buttonText {
   display: inline-flex;
   text-decoration:none;
@@ -125,6 +126,11 @@ select {
   border-radius: 2em;
   margin: 0.4em;
 }
+
+.hideLinkStyle {
+  text-decoration:none;
+}
+
 .statusText {
   color: white;
   text-align: center;

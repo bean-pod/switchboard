@@ -2,6 +2,7 @@ import React from 'react';
 import {
     List
 } from "@material-ui/core";
+
 import SearchBar from "../devicelist/SearchBar"
 import SelectDeviceTableRow from './SelectDeviceTableRow';
 

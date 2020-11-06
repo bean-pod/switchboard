@@ -2,6 +2,7 @@ import React from 'react';
 import {
     Box
 } from "@material-ui/core"
+import { NavLink } from 'react-router-dom';
 
 
 import StreamButton from '../General/StreamButton';
@@ -14,7 +15,13 @@ export default class TitleBox extends React.Component {
                 <Box className="flexContents headerArea">
                     <div className="title">My Devices</div>
                     <div className="alignRightFloat" spacing={2}>
-                        <StreamButton id="DeviceListStreamBtn"/>
+                        <NavLink
+                            to="/Streaming"
+                            activeClassName="hideLinkStyle"
+                            className="hideLinkStyle"
+                            exact>
+                            <StreamButton id="DeviceListStreamBtn" />
+                        </NavLink>
                         <AddDeviceButton id="DeviceListAddDevBtn" />
                     </div>
                 </Box>

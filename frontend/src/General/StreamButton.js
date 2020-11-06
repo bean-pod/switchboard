@@ -3,7 +3,6 @@ import {
     Button,
     withStyles
 } from "@material-ui/core"
-import { NavLink } from 'react-router-dom';
 
 import {
     SwapHoriz
@@ -32,15 +31,10 @@ export default class StreamButton extends React.Component {
         })(Button);
 
         return (
-            <StyledButton id={this.id}>
-                <NavLink
-                    to="/Streaming"
-                    activeClassName="buttonText"
-                    className="buttonText"
-                    exact
-                >
+            <StyledButton id={this.id} >
+                <div className="buttonText">
                     <SwapHoriz /> Stream
-                </NavLink>
+                </div>
             </StyledButton>
         );
     }

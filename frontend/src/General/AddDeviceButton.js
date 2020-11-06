@@ -3,8 +3,6 @@ import {
     Button,
     withStyles
 } from "@material-ui/core"
-
-import { NavLink } from 'react-router-dom';
 import {
     AddSharp
 } from '@material-ui/icons/';
@@ -33,14 +31,9 @@ export default class AddDeviceButton extends React.Component {
 
         return (
             <StyledButton id={this.id}>
-                <NavLink
-                    to="/Devices"
-                    activeClassName="buttonText"
-                    className="buttonText"
-                    exact
-                >
+                <div className="buttonText">
                     <AddSharp /> Add Device
-                </NavLink>
+                </div>
             </StyledButton>
         );
     }
