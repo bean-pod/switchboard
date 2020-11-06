@@ -26,7 +26,7 @@ export default class SelectDeviceTableRow extends React.Component {
 
     render() {
         return (
-            <div>
+            <React.Fragment>
                 <ListItem button dense onClick={() => this.setState({ open: !this.state.open })}>
                     <ListItemText
                         primary={this.state.deviceName}
@@ -35,15 +35,18 @@ export default class SelectDeviceTableRow extends React.Component {
                 </ListItem>
                 <Collapse in={this.state.open} timeout="auto" unmountOnExit >
                     <List component="div" disablePadding>
-                        <ListItem  divider>
-                            <ListItemText secondary="Select Channel"  />
+                        <ListItem divider>
+                            <ListItemText secondary="Select Channel" />
                             <Select
-                            value= "" >
+                                defaultValue=""
+                                onChange={this.props.onChange}>
                                 {
                                     this.state.channels.map((channel) => {
                                         return (
-                                            <MenuItem value={channel.port} key={this.state.deviceName + channel.port}>
-                                                <Typography variant="caption"> {channel.port}</Typography>
+                                            <MenuItem 
+                                            value={this.props.deviceIndex+"_"+ this.state.deviceName + "_" + channel.port} 
+                                            key={this.state.deviceName + "_" + channel.port}>
+                                                {channel.port}
                                             </MenuItem>
                                         );
                                     })
@@ -52,7 +55,7 @@ export default class SelectDeviceTableRow extends React.Component {
                         </ListItem>
                     </List>
                 </Collapse>
-            </div>
+            </React.Fragment>
         );
     }
 }

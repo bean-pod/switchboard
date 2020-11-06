@@ -31,7 +31,7 @@ export default class StreamButton extends React.Component {
         })(Button);
 
         return (
-            <StyledButton id={this.id} >
+            <StyledButton id={this.id} type={this.props.type} >
                 <div className="buttonText">
                     <SwapHoriz /> Stream
                 </div>
