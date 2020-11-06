@@ -1,11 +1,8 @@
-import React from 'react';
+import React from 'react'
 import {
     TableCell,
     TableSortLabel,
-    Select,
     Typography,
-    TextField,
-    MenuItem
 } from "@material-ui/core"
 import HeadCell from '../model/HeadCell'
 
