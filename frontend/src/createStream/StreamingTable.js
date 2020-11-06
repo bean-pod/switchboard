@@ -5,7 +5,7 @@ import {
 
 
 import SelectDevicesTable from "./SelectDevicesTable";
-import StreamButton from "../General/StreamButton";
+import StreamButton from "../General/Buttons/StreamButton";
 
 export default class StreamingTable extends React.Component {
 

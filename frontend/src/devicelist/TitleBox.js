@@ -5,8 +5,8 @@ import {
 import { NavLink } from 'react-router-dom';
 
 
-import StreamButton from '../General/StreamButton';
-import AddDeviceButton from '../General/AddDeviceButton';
+import StreamButton from '../General/Buttons/StreamButton';
+import AddDeviceButton from '../General/Buttons/AddDeviceButton';
 
 export default class TitleBox extends React.Component {
     render() {
