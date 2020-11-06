@@ -146,6 +146,7 @@ test("Streaming page has Breadcrumbs, Title and Streaming Table", () => {
     var streamingTable = document.getElementById("StreamingTable");
 
     expect(streamingTable).not.toBe(null);
-    expect(streamingTable.firstChild.childElementCount).toBe(3);
+    expect(streamingTable.firstChild.tagName).toBe("FORM");
+    expect(streamingTable.firstChild.firstChild.childElementCount).toBe(3);
 
 })
