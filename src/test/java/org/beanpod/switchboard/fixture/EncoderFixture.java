@@ -2,11 +2,8 @@ package org.beanpod.switchboard.fixture;
 
 import net.bytebuddy.asm.Advice;
 import org.beanpod.switchboard.dto.EncoderDTO;
-import org.beanpod.switchboard.entity.ChannelEntity;
+import org.beanpod.switchboard.entity.*;
 import org.beanpod.switchboard.dto.EncoderDTO;
-import org.beanpod.switchboard.entity.DeviceEntity;
-import org.beanpod.switchboard.entity.EncoderEntity;
-import org.beanpod.switchboard.entity.OutputChannelEntity;
 import org.openapitools.model.EncoderModel;
 
 import java.beans.Encoder;
@@ -24,7 +21,7 @@ public class EncoderFixture {
 
     public static EncoderEntity getEncoder1(DeviceEntity device){
         try {
-            return new EncoderEntity("1",
+            return new EncoderEntity(SERIAL_NUMBER,
                     simpleDateFormat.parse("2020-10-31 05:05:05"),
                     device,
                     setOfChannels);
@@ -53,6 +50,12 @@ public class EncoderFixture {
         listOfEncoders.add(encoder2);
 
         return listOfEncoders;
+    }
+
+    public static List<EncoderDTO> getEncoderDtos(){
+        return List.of(
+                getEncoderDto()
+        );
     }
 
     public static EncoderDTO getEncoderDto(){

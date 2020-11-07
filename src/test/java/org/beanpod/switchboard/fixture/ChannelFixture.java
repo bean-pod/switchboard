@@ -5,6 +5,7 @@ import org.apache.http.annotation.Contract;
 import org.beanpod.switchboard.dto.InputChannelDTO;
 import org.beanpod.switchboard.dto.OutputChannelDTO;
 import org.beanpod.switchboard.entity.*;
+import org.hibernate.result.Output;
 import org.openapitools.model.InputChannelModel;
 import org.openapitools.model.OutputChannelModel;
 import org.xmlunit.builder.Input;
@@ -30,31 +31,19 @@ public class ChannelFixture {
     }
 
     public static InputChannelEntity getInputChannelEntity(){
-        //TODO temp
-        return new InputChannelEntity(
-                INPUT_CHANNEL_ID,
-                getChannelEntity(),
-                DecoderFixture.getDecoder1(DeviceFixture.getDevice1())
-        );
-//        return InputChannelEntity.builder()
-//                .id(INPUT_CHANNEL_ID)
-//                .channel(getChannelEntity())
-//                .decoder(DecoderFixture.getDecoder1(DeviceFixture.getDevice1()))
-//                .build();
+        return InputChannelEntity.builder()
+                .id(INPUT_CHANNEL_ID)
+                .channel(getChannelEntity())
+                .decoder(DecoderFixture.getDecoder1(DeviceFixture.getDevice1()))
+                .build();
     }
 
     public static OutputChannelEntity getOutputChannelEntity(){
-        //TODO temp
-        return new OutputChannelEntity(
-                INPUT_CHANNEL_ID,
-                getChannelEntity(),
-                EncoderFixture.getEncoder1(DeviceFixture.getDevice1())
-        );
-//        return InputChannelEntity.builder()
-//                .id(INPUT_CHANNEL_ID)
-//                .channel(getChannelEntity())
-//                .decoder(DecoderFixture.getDecoder1(DeviceFixture.getDevice1()))
-//                .build();
+        return OutputChannelEntity.builder()
+                .id(INPUT_CHANNEL_ID)
+                .channel(getChannelEntity())
+                .encoder(EncoderFixture.getEncoder1(DeviceFixture.getDevice1()))
+                .build();
     }
 
     public static InputChannelDTO getInputChannelDto(){
@@ -102,6 +91,18 @@ public class ChannelFixture {
     public static Set<OutputChannelEntity> getOutputChannelEntities(){
         return new HashSet<>(){{
             getOutputChannelEntity();
+        }};
+    }
+
+    public static Set<InputChannelDTO> getInputChannelDtos(){
+        return new HashSet<>(){{
+            getInputChannelDto();
+        }};
+    }
+
+    public static Set<OutputChannelDTO> getOutputChannelDtos(){
+        return new HashSet<>(){{
+            getOutputChannelDto();
         }};
     }
 }

@@ -3,12 +3,13 @@ package org.beanpod.switchboard.dto.mapper;
 import org.beanpod.switchboard.dto.EncoderDTO;
 import org.beanpod.switchboard.dto.OutputChannelDTO;
 import org.beanpod.switchboard.entity.EncoderEntity;
+import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = {OutputChannelMapper.class})
+@Mapper(componentModel = "spring", uses = {DeviceMapper.class, OutputChannelMapper.class})
 public interface EncoderMapper {
 
     EncoderMapper INSTANCE = Mappers.getMapper(EncoderMapper.class);

@@ -52,6 +52,12 @@ public class DecoderFixture {
         return listOfDecoders;
     }
 
+    public static List<DecoderDTO> getDecoderDtos(){
+        return List.of(
+                getDecoderDto()
+        );
+    }
+
     public static DecoderDTO getDecoderDto(){
         return DecoderDTO.builder()
                 .serialNumber(SERIAL_NUMBER)

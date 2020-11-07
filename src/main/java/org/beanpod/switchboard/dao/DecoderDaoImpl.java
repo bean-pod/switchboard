@@ -18,17 +18,12 @@ public class DecoderDaoImpl {
     //Connect to the database
     @Autowired
     DecoderRepository decoderRepository;
-    @Autowired
-    InputChannelRepository inputChannelRepository;
 
     public DecoderEntity save(DecoderEntity decoderEntity) {
-        //TODO temporary
         Optional.of(decoderEntity)
                 .map(DecoderEntity::getInputs)
                 .orElse(Collections.emptySet())
                 .forEach(inputChannelEntity -> inputChannelEntity.setDecoder(decoderEntity));
-//        inputChannelRepository.saveAll(decoderEntity.getInputs());
-//        decoderEntity.getInputs().clear();
         return decoderRepository.save(decoderEntity);
     }
 

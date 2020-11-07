@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,7 +28,10 @@ public class StreamDaoImpl {
     }
 
     public StreamDTO getStreamById(Long id){
-        return mapper.toDto(streamRepository.getOne(id));
+        StreamEntity streamEntity = streamRepository.getOne(id);
+        //TODO this is necessary to avoid a stackoverflow since Encoders/Decoders reference input/output channels which reference Decoders. I suggest adding CRUD endpoints to channels and not referencing the channels in the Encoder/Decoder at all.
+        Optional.of(streamEntity).ifPresent(this::removeChannelReferences);
+        return mapper.toDto(streamEntity);
     }
 
     public void createStream(CreateStreamRequest createStreamRequest){
@@ -38,8 +42,6 @@ public class StreamDaoImpl {
                 .outputChannel(outputChannelDTO)
                 .build();
 
-        System.out.println(inputChannelDTO.getDecoder());
-        System.out.println(outputChannelDTO.getEncoder());
         StreamEntity streamEntity = mapper.toEntity(streamDto);
 
         if(streamRepository.existsDuplicate(createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId())){
@@ -58,5 +60,11 @@ public class StreamDaoImpl {
         }
         StreamEntity streamEntity = mapper.toEntity(streamDto);
         streamRepository.save(streamEntity);
+    }
+
+    //TODO this is necessary to avoid a stackoverflow since Encoders/Decoders reference input/output channels which reference Decoders. I suggest adding CRUD endpoints to channels and not referencing the channels in the Encoder/Decoder at all.
+    private void removeChannelReferences(StreamEntity streamEntity){
+        Optional.of(streamEntity).ifPresent(se -> se.getInputChannel().getDecoder().setInputs(null));
+        Optional.of(streamEntity).ifPresent(se -> se.getOutputChannel().getEncoder().setOutputs(null));
     }
 }

@@ -9,8 +9,7 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude = {"decoder"})
-//@Builder
+@Builder
 @Entity(name="InputChannel")
 @JsonIgnoreProperties({"hibernateLazyIntializer", "handler"})
 public class InputChannelEntity {

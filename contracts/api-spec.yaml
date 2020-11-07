@@ -278,6 +278,9 @@ components:
         serialNumber:
           type: string
           example: 'BtmC8ckj'
+        ipAddress:
+          type: string
+          example: '127.0.0.1'
         displayName:
           type: string
           example: 'Device 1'

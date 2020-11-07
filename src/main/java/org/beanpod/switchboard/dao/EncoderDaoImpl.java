@@ -15,18 +15,12 @@ public class EncoderDaoImpl {
 
     @Autowired
     EncoderRepository encoderRepository;
-    @Autowired
-    OutputChannelRepository outputChannelRepository;
 
     public EncoderEntity save(EncoderEntity encoderEntity) {
-        //TODO temporary
         Optional.of(encoderEntity)
                 .map(EncoderEntity::getOutputs)
-
                 .orElse(Collections.emptySet())
                 .forEach(outputChannelEntity -> outputChannelEntity.setEncoder(encoderEntity));
-//        outputChannelRepository.saveAll(encoderEntity.getOutputs());
-//        encoderEntity.getOutputs().clear();
         return encoderRepository.save(encoderEntity);
     }
 

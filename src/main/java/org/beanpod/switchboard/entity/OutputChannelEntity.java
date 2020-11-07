@@ -10,8 +10,7 @@ import java.util.Base64;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude = {"encoder"})
-//@Builder
+@Builder
 @Entity(name="OutputChannel")
 @JsonIgnoreProperties({"hibernateLazyIntializer", "handler"})
 public class OutputChannelEntity {
@@ -21,7 +20,7 @@ public class OutputChannelEntity {
     private long id;
 
     @OneToOne(optional = false, cascade = CascadeType.ALL)
-    @JoinColumn(name = "channel_entity_id")
+    @JoinColumn(name = "channel_id")
     private ChannelEntity channel;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {
