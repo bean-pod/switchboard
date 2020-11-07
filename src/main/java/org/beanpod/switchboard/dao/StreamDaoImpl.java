@@ -2,8 +2,6 @@ package org.beanpod.switchboard.dao;
 
 import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.dto.*;
-import org.beanpod.switchboard.dto.mapper.DecoderMapper;
-import org.beanpod.switchboard.dto.mapper.EncoderMapper;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
 import org.beanpod.switchboard.entity.StreamEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
@@ -56,7 +54,7 @@ public class StreamDaoImpl {
 
     public void updateStream(StreamDTO streamDto){
         if(!streamRepository.existsById(streamDto.getId())){
-            throw new ExceptionType.StreamDoesNotExistsException(streamDto.getId());
+            throw new ExceptionType.StreamDoesNotExistException(streamDto.getId());
         }
         StreamEntity streamEntity = mapper.toEntity(streamDto);
         streamRepository.save(streamEntity);

@@ -3,20 +3,16 @@ package org.beanpod.switchboard.controller;
 import org.beanpod.switchboard.dao.DecoderDaoImpl;
 import org.beanpod.switchboard.dao.DeviceDaoImpl;
 import org.beanpod.switchboard.dto.DecoderDTO;
-import org.beanpod.switchboard.dto.EncoderDTO;
 import org.beanpod.switchboard.dto.mapper.DecoderMapper;
-import org.beanpod.switchboard.dto.mapper.DecoderMapperImpl;
 import org.beanpod.switchboard.entity.DecoderEntity;
 import org.beanpod.switchboard.entity.DeviceEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.fixture.DecoderFixture;
 import org.beanpod.switchboard.fixture.DeviceFixture;
-import org.beanpod.switchboard.fixture.EncoderFixture;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +20,6 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import java.beans.Encoder;
 import java.util.List;
 import java.util.Optional;
 
@@ -150,7 +145,6 @@ class DecoderControllerTest {
         when(decoderService.save(decoder1)).thenReturn(decoder1);
         when(decoderMapper.toDecoderEntity(decoderDto)).thenReturn(decoder1);
         when(decoderMapper.toDecoderDTO(any())).thenReturn(decoderDto);
-        //DecoderDTO decoderDTO1 = decoderMapper.toDecoderDTO(decoder1);
 
         ResponseEntity<DecoderDTO> response = decoderController.updateDecoder(decoderDto);
 

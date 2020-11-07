@@ -40,9 +40,9 @@ public class ExceptionType {
         }
     }
 
-    public static class StreamDoesNotExistsException extends RuntimeException{
+    public static class StreamDoesNotExistException extends RuntimeException{
         public final static String MESSAGE_TEMPLATE = "Channel %s%s does not exist";
-        public StreamDoesNotExistsException(Long streamId){
+        public StreamDoesNotExistException(Long streamId){
             super(String.format(MESSAGE_TEMPLATE, ID, streamId));
         }
     }
