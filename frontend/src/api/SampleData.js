@@ -1,5 +1,4 @@
 import DeviceInfo from "../model/DeviceInfo";
-import ChannelInfo from "../model/ChannelInfo";
 import OutChannelInfo from "../model/OutputChannelInfo";
 import InChannelInfo from "../model/InputChannelInfo";
 
