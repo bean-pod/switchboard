@@ -10,7 +10,7 @@ export function getSenders(callback) {
         new OutChannelInfo(2,"Output ch 2", 456, null),
         new OutChannelInfo(3,"Output ch 3", 800, null)
     ]
-    var extras = ["Additional Device Details go here"];
+    var extras = ["Additional Device details go here"];
     var sampleSenders = [
         new DeviceInfo("1:10:111:999", null, "123:456", "Sender 1", "Online", sampleOutputChannels, extras),
         new DeviceInfo("1:20:111:999", null, "123:456", "Sender 2", "Error", sampleOutputChannels, extras),
@@ -27,7 +27,7 @@ export function getSenders(callback) {
 }
 
 export function getReceivers(callback) {
-    var extras = ["Additional Device Details go here"];
+    var extras = ["Additional Device details go here"];
     var sampleInputChannels = [
         new InChannelInfo(1,"Input ch 1", 500, null),
         new InChannelInfo(2,"Input ch 2", 456, null),

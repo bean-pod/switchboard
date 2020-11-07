@@ -47,7 +47,7 @@ test("Device list renders sender page by default", () => {
         var rowElements = devices[index].querySelectorAll("td");
         expect(rowElements[0].querySelector("button span svg")).not.toBe(null);
         expect(rowElements[1].textContent).toBe(sender.name);
-        expect(rowElements[2].textContent).toBe(sender.serial);
+        expect(rowElements[2].textContent).toBe(sender.serialNumber);
         expect(rowElements[3].firstChild.textContent).toBe(sender.status);
         expect(rowElements[4].textContent).toBe(sender.ip);
         expect(rowElements[5].textContent).toBe(sender.port.toString());
@@ -78,7 +78,7 @@ test("Clicking receivers tabs renders the receiver list ", () => {
         var rowElements = devices[index].querySelectorAll("td");
         expect(rowElements[0].querySelector("button span svg")).not.toBe(null);
         expect(rowElements[1].textContent).toBe(receiver.name);
-        expect(rowElements[2].textContent).toBe(receiver.serial);
+        expect(rowElements[2].textContent).toBe(receiver.serialNumber);
         expect(rowElements[3].firstChild.textContent).toBe(receiver.status);
         expect(rowElements[4].textContent).toBe(receiver.ip);
         expect(rowElements[5].textContent).toBe(receiver.port.toString());
