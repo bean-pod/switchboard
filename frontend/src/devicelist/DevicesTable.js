@@ -4,10 +4,8 @@ import {
     Table,
     TableHead,
     TableRow,
-    TableCell,
     TableContainer,
     TableBody,
-    Typography
 } from "@material-ui/core"
 
 import SingleTableRow from './SingleTableRow'
