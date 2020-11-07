@@ -14,7 +14,6 @@ import HeadCells from './HeadCells'
 export default class DevicesTable extends React.Component {
     constructor(props) {
         super(props);
-        this.devices = props.devices;
 
     }
 
@@ -30,7 +29,7 @@ export default class DevicesTable extends React.Component {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {this.devices.map((device) => {
+                                {this.props.devices.map((device) => {
                                     return <SingleTableRow key={"DeviceListRow_" + device.serialNumber} deviceDetails={device} />;
                                 })}
                             </TableBody>
