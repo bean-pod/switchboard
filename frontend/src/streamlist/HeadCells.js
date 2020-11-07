@@ -29,7 +29,7 @@ export default class StreamListHeadCells extends React.Component {
             <React.Fragment>
                 {this.headcells.map((headCell) =>(
                     <TableCell
-                        class="tableHeadCell lightestGrey"
+                        className="tableHeadCell lightestGrey"
                         key={headCell.id}
                         padding={headCell.padding ? 'default' : 'none'}>
                             <TableSortLabel>
