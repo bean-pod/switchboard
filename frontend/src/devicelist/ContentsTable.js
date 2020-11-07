@@ -59,10 +59,10 @@ export default class ContentsTable extends React.Component {
                         setValue={this.handleValueChange}
                         classes={this.props.classes} />
                     <TabPanel value={this.state.value} index={0}>
-                        <DevicesTable rows={this.state.senders} />
+                        <DevicesTable devices={this.state.senders} />
                     </TabPanel>
                     <TabPanel value={this.state.value} index={1}>
-                        <DevicesTable rows={this.state.receivers} />
+                        <DevicesTable devices={this.state.receivers} />
                     </TabPanel>
                 </Box>
             </React.Fragment>
