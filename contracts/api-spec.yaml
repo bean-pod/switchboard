@@ -65,7 +65,7 @@ paths:
         '200':
           description: Successful creation the encoder
 
-  /encoders/{uuid}:
+  /encoder/{uuid}:
     get:
       operationId: getEncoderById
       description: Retrieve a specific encoder
@@ -107,6 +107,23 @@ paths:
         '200':
           description: Successful deletion of the encoder
 
+  /encoder/{uuid}/channel:
+    get:
+      operationId: getEncoderChannels
+      description: Retrieve the sending channels for the encoder
+      tags:
+        - Encoders
+        - Channels
+      parameters:
+        - $ref: '#/components/parameters/EncoderId'
+      responses:
+        '200':
+          description: Successful retrieval of video channels for an encoder
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChannelsModel'
+
   /decoder:
     get:
       operationId: retrieveAllDecoders
@@ -135,7 +152,7 @@ paths:
         '200':
           description: Successful creation of the decoder
 
-  /decoders/{uuid}:
+  /decoder/{uuid}:
     get:
       operationId: getDecoderById
       description: Retrieve a specific decoder
@@ -177,6 +194,74 @@ paths:
         '200':
           description: Successful deletion of the decoder
 
+  /channel:
+    get:
+      operationId: getChannels
+      description: Retrieve all the existing channels
+      tags:
+        - Channels
+      responses:
+        '200':
+          description: Successful retrieval of video channels for a decoder
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChannelsModel'
+    post:
+      operationId: createChannel
+      description: Create a new channel between an encoder and a decoder
+      tags:
+        - Channels
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateChannelRequest'
+      responses:
+        '200':
+          description: Successful creation of the decoder
+    put:
+      operationId: updateChannel
+      description: update a channel's definition
+      tags:
+        - Channels
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChannelModel'
+      responses:
+        '200':
+          description: Successful update of the channel
+
+  /channel/{id}:
+    get:
+      operationId: getChannelById
+      description: Retrieve a channel's definition
+      tags:
+        - Channels
+      parameters:
+        - $ref: '#/components/parameters/ChannelId'
+      responses:
+        '200':
+          description: Succesful retrieval of a channel
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChannelModel'
+    delete:
+      operationId: deleteChannel
+      description: Delete a channel
+      tags:
+        - Channels
+      parameters:
+        - $ref: '#/components/parameters/ChannelId'
+      responses:
+        '200':
+          description: Successful deletion of the channel
+
 components:
   schemas:
     DevicesModel:
@@ -207,7 +292,7 @@ components:
       example: ['0e4e430f-8b9c-47da-b9af-7ef9cfb13e9e']
 
     EncoderModel:
-      description: A client that sends a video stream
+      description: A client that sends a video channel
       properties:
         serialNumber:
           type: string
@@ -216,7 +301,7 @@ components:
           $ref:  '#/components/schemas/DeviceModel'
 
     CreateEncoderRequest:
-      description: A client that sends a video stream
+      description: A client that sends a video channel
       properties:
         serialNumber:
           type: string
@@ -230,7 +315,7 @@ components:
       example: ['1ea52153-c196-4cc6-8d9f-714248abf31c']
 
     DecoderModel:
-      description: A client that receives a video stream
+      description: A client that receives a video channel
       properties:
         serialNumber:
           type: string
@@ -245,12 +330,54 @@ components:
           type: string
           example: 'v7BM3ejS'
 
+    ChannelModel:
+      description: A video channel between an encoder and receiver
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: '1234'
+        name:
+          type: string
+          example: "cam1"
+        port:
+          type: integer
+          example: "9090"
+        encoder:
+          $ref: '#/components/schemas/EncoderModel'
+        decoder:
+          $ref: '#/components/schemas/DecoderModel'
+
+    ChannelsModel:
+      description: A list of channel IDs
+      type: array
+      items:
+        type: integer
+        format: int64
+      example: ['1234']
+
+    CreateChannelRequest:
+      description: An object to request the creation of a channel between an encoder and receiver
+      properties:
+        name:
+          type: string
+          example: "cam1"
+        port:
+          type: integer
+          example: "9090"
+        encoderSerialNumber:
+          type: string
+          example: 'BtmC8ckj'
+        decoderSerialNumber:
+          type: string
+          example: 'v7BM3ejS'
+
   parameters:
     EncoderId:
       in: path
       name: uuid
       required: true
-      description: The UUID of a Encoder
+      description: The UUID of an encoder
       schema:
         type: string
         example: '0e4e430f-8b9c-47da-b9af-7ef9cfb13e9e'
@@ -262,6 +389,15 @@ components:
       schema:
         type: string
         example: '1ea52153-c196-4cc6-8d9f-714248abf31c'
+    ChannelId:
+      in: path
+      name: id
+      required: true
+      description: The ID of a channel
+      schema:
+        type: integer
+        format: int64
+        example: '1234'
 
 tags:
   - name: Devices

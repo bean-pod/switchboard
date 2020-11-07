@@ -22,7 +22,6 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,7 +47,7 @@ class DecoderControllerTest {
     static private List<DecoderEntity> listOfDecoders;
 
     @BeforeEach
-    void setup() throws ParseException {
+    void setup(){
         //stubbing device and decoder objects
         device1 = DeviceFixture.getDevice1();
         device2 = DeviceFixture.getDevice2();
