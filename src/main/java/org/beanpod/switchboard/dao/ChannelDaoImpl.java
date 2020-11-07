@@ -25,7 +25,7 @@ public class ChannelDaoImpl {
         //TODO this is necessary to avoid a stackoverflow since Encoders/Decoders reference input/output channels which reference Decoders. I suggest adding CRUD endpoints to channels and not referencing the channels in the Encoder/Decoder at all.
         InputChannelEntity inputChannelEntity = inputChannelRepository.getOne(id);
         removeChannelReference(inputChannelEntity);
-        return inputChannelMapper.toDto(inputChannelRepository.getOne(id));
+        return inputChannelMapper.toDto(inputChannelEntity);
     }
 
     public void saveInputChannel(InputChannelDTO inputChannelDto){
