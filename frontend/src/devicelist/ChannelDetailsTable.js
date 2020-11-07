@@ -1,5 +1,9 @@
-import { TableCell, TableRow } from "@material-ui/core";
 import React from "react";
+import {
+    TableBody,
+    TableCell,
+    TableRow
+} from "@material-ui/core";
 
 export default class ChannelDetailsTable extends React.Component {
     constructor(props) {
@@ -7,32 +11,21 @@ export default class ChannelDetailsTable extends React.Component {
     }
     render() {
         return (
-            <React.Fragment>
-                <TableRow>
-                    <TableCell className="lightGrey">ID</TableCell>
-                    <TableCell>{this.props.channel.id}</TableCell>
-                    <TableCell className="lightGrey">Name</TableCell>
-                    <TableCell>{this.props.channel.name}</TableCell>
-                </TableRow>
+            <div style={{ margin: "1em" }}>
+                <TableBody className="flexContents">
+                    <TableRow>
+                        <TableCell className="lightGrey">ID</TableCell>
+                        <TableCell className="lightGrey">Name</TableCell>
+                        <TableCell className="lightGrey">Port</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>{this.props.channel.id}</TableCell>
+                        <TableCell>{this.props.channel.name}</TableCell>
+                        <TableCell>{this.props.channel.port}</TableCell>
+                    </TableRow>
+                </TableBody>
+            </div>
 
-                <TableRow>
-                    <TableCell className="lightGrey">Port</TableCell>
-                    <TableCell>{this.props.channel.port}</TableCell>
-                    {this.props.channel.hasOwnProperty("decoder") ?
-                        (<React.Fragment>
-                            <TableCell className="lightGrey">Decoder</TableCell>
-                            <TableCell>{this.props.channel.decoder}</TableCell>
-                        </React.Fragment>
-                        ):
-                        (<React.Fragment>
-                            <TableCell className="lightGrey">Encoder</TableCell>
-                            <TableCell>{this.props.channel.encoder}</TableCell>
-                        </React.Fragment>
-                        )                    
-                    }
-
-                </TableRow>
-            </React.Fragment>
         )
     }
 }
