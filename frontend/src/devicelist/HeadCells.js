@@ -25,8 +25,7 @@ export default class HeadCells extends React.Component {
             new HeadCell("name", "Name", false, false),
             new HeadCell("serial", "Serial Number", true, true),
             new HeadCell("status", "Status", false, true),
-            new HeadCell("ip", "IP Address", true, true),
-            new HeadCell("port", "Port", true, true)
+            new HeadCell("ip", "IP Address", true, true)
         ];
     }
 
