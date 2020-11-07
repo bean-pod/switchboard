@@ -1,7 +1,7 @@
 import React from "react";
 import { render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils"
-import DeviceList from '../DeviceList';
+import DeviceListPage from '../DeviceListPage';
 import * as SampleData from '../../api/SampleData'
 import ReactTestUtils from 'react-dom/test-utils'
 import { BrowserRouter } from "react-router-dom";
@@ -32,7 +32,7 @@ test("Device list renders sender page by default", () => {
     act(() => {
         render(
         <BrowserRouter>
-            <DeviceList dataSource={SampleData} />
+            <DeviceListPage dataSource={SampleData} />
         </BrowserRouter>
         , container);
     })
@@ -59,7 +59,7 @@ test("Clicking receivers tabs renders the receiver list ", () => {
     act(() => {
         render(
         <BrowserRouter>
-            <DeviceList dataSource={SampleData} />
+            <DeviceListPage dataSource={SampleData} />
         </BrowserRouter>, container);
     })
 
@@ -81,7 +81,7 @@ test("Clicking receivers tabs renders the receiver list ", () => {
         expect(rowElements[2].textContent).toBe(receiver.serialNumber);
         expect(rowElements[3].firstChild.textContent).toBe(receiver.status);
         expect(rowElements[4].textContent).toBe(receiver.ip);
-        expect(rowElements[5].textContent).toBe(receiver.port.toString());
+        expect(rowElements[5].textContent).toBe("");
         expect(rowElements[6].querySelector("button span svg")).not.toBe(null);
     })
 })
@@ -90,7 +90,7 @@ test("Clicking dropdown on table row displays additional information", () => {
     act(() => {
         render(
         <BrowserRouter>
-            <DeviceList dataSource={SampleData} />
+            <DeviceListPage dataSource={SampleData} />
         </BrowserRouter>, container);
     })
 

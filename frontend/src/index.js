@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import HeaderBar from './HeaderAppBar';
 import HomePage from "./General/HomePage";
-import DeviceList from './devicelist/DeviceList';
-import StreamingTable from './createStream/StreamingPage';
+import DeviceListPage from './devicelist/DeviceListPage';
+import StreamingTablePage from './createStream/StreamingPage';
 import * as DeviceApi from "./api/DeviceApi";
 
 
@@ -22,11 +22,11 @@ ReactDOM.render(
         <Route exact path={["/", "/Home"]} component={HomePage} />
         <Route exact path="/Devices" 
           render={(props) => (
-            <DeviceList {...props} dataSource={DeviceApi} />
+            <DeviceListPage {...props} dataSource={DeviceApi} />
         )} />
         <Route exact path="/Streaming" 
         render={(props) => (
-            <StreamingTable {...props} dataSource={DeviceApi} />
+            <StreamingTablePage {...props} dataSource={DeviceApi} />
         )}  />
       </Switch>
     </BrowserRouter>
