@@ -27,10 +27,8 @@ export default class StreamingPage extends React.Component {
 
                         <StreamingTable dataSource={this.props.dataSource} />
                     </div>
-                </Box>
-                
+                </Box>                
             </Container>
-
         );
     }
 }
