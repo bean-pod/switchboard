@@ -1,7 +1,12 @@
 package org.beanpod.switchboard.entity;
 
-import com.fasterxml.jackson.annotation.*;
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -21,9 +26,9 @@ public class EncoderEntity {
     @Column(name = "serial_number")
     private String serialNumber;
 
-    @Column(name="last_communication")
+    @Column(name = "last_communication")
     @Temporal(TemporalType.TIMESTAMP)
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date lastCommunication;
 
 
@@ -33,7 +38,7 @@ public class EncoderEntity {
     private DeviceEntity device;
 
     @OneToMany(fetch = FetchType.LAZY,
-            mappedBy="encoder",
+            mappedBy = "encoder",
             cascade = {
                     CascadeType.PERSIST,
                     CascadeType.MERGE

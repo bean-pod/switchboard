@@ -2,7 +2,6 @@ package org.beanpod.switchboard.dao;
 
 import org.beanpod.switchboard.entity.EncoderEntity;
 import org.beanpod.switchboard.repository.EncoderRepository;
-import org.beanpod.switchboard.repository.OutputChannelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

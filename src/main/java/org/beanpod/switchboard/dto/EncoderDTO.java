@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.beanpod.switchboard.entity.ChannelEntity;
-import org.beanpod.switchboard.entity.DeviceEntity;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;

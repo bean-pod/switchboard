@@ -1,7 +1,9 @@
 package org.beanpod.switchboard.dto;
 
-import lombok.*;
-import org.hibernate.result.Output;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor

@@ -2,7 +2,6 @@ package org.beanpod.switchboard.dto.mapper;
 
 import org.beanpod.switchboard.dto.OutputChannelDTO;
 import org.beanpod.switchboard.entity.OutputChannelEntity;
-import org.hibernate.result.Output;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.openapitools.model.OutputChannelModel;

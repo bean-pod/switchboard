@@ -2,9 +2,7 @@ package org.beanpod.switchboard.dto.mapper;
 
 import org.beanpod.switchboard.dto.DecoderDTO;
 import org.beanpod.switchboard.entity.DecoderEntity;
-import org.mapstruct.Context;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;

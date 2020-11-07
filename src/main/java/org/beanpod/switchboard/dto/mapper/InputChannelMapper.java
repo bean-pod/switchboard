@@ -1,10 +1,7 @@
 package org.beanpod.switchboard.dto.mapper;
 
-import jdk.jfr.MemoryAddress;
 import org.beanpod.switchboard.dto.InputChannelDTO;
-import org.beanpod.switchboard.dto.OutputChannelDTO;
 import org.beanpod.switchboard.entity.InputChannelEntity;
-import org.beanpod.switchboard.entity.OutputChannelEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.openapitools.model.InputChannelModel;

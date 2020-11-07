@@ -11,38 +11,38 @@ public class ExceptionType {
 
     public static class DeviceAlreadyExistsException extends RuntimeException {
         public DeviceAlreadyExistsException(String s) {
-            super( SERIAL_NUMBER + s);
+            super( SERIAL_NUMBER + s );
         }
     }
 
     public static class DeviceNotFoundException extends RuntimeException {
         public DeviceNotFoundException(String s) {
-            super(SERIAL_NUMBER + s);
+            super(SERIAL_NUMBER + s );
         }
     }
 
     public static class DevicePrimaryKeyRestriction extends RuntimeException {
         public DevicePrimaryKeyRestriction(String s) {
-            super(SERIAL_NUMBER + s);
+            super(SERIAL_NUMBER + s );
         }
     }
 
     public static class DeviceNotUpdated extends RuntimeException {
         public DeviceNotUpdated(String s) {
-            super(SERIAL_NUMBER + s);
+            super(SERIAL_NUMBER + s );
         }
     }
 
     public static class StreamAlreadyExistsException extends RuntimeException {
         public final static String MESSAGE_TEMPLATE = "Stream already exists between input %s%s and output %s%s";
-        public StreamAlreadyExistsException(Long inputChannelId, Long outputChannelId){
+        public StreamAlreadyExistsException(Long inputChannelId, Long outputChannelId) {
             super(String.format(MESSAGE_TEMPLATE, ID, inputChannelId, ID, outputChannelId));
         }
     }
 
-    public static class StreamDoesNotExistException extends RuntimeException{
+    public static class StreamDoesNotExistException extends RuntimeException {
         public final static String MESSAGE_TEMPLATE = "Channel %s%s does not exist";
-        public StreamDoesNotExistException(Long streamId){
+        public StreamDoesNotExistException(Long streamId) {
             super(String.format(MESSAGE_TEMPLATE, ID, streamId));
         }
     }

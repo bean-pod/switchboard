@@ -1,10 +1,12 @@
 package org.beanpod.switchboard.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -25,7 +27,7 @@ public class DecoderEntity {
     private String serialNumber;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date lastCommunication;
 
     @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
@@ -34,7 +36,7 @@ public class DecoderEntity {
     private DeviceEntity device;
 
     @OneToMany(fetch = FetchType.LAZY,
-            mappedBy="decoder",
+            mappedBy = "decoder",
             cascade = {
                     CascadeType.PERSIST,
                     CascadeType.MERGE

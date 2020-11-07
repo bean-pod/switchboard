@@ -65,7 +65,7 @@ public class StreamController implements StreamApi {
         return ResponseEntity.ok().build();
     }
 
-    private RuntimeException getUnknownException(){
+    private RuntimeException getUnknownException() {
         return new RuntimeException(UNKNOWN_ERROR_MESSAGE);
     }
 }
