@@ -11,25 +11,33 @@ import {
 import SingleTableRow from './SingleTableRow'
 import HeadCells from './HeadCells'
 
-export default function DevicesTable(props) {
-    return (
-        <React.Fragment>
-            <Box>
-                <TableContainer style={{ maxHeight: 500 }}>
-                    <Table stickyHeader aria-label="sticky table">
-                        <TableHead>
-                            <TableRow>
-                                <HeadCells />
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {props.rows.map((row) => {
-                                return <SingleTableRow key={row.id} deviceDetails={row} />;
-                            })}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-            </Box>
-        </React.Fragment>
-    );
+export default class DevicesTable extends React.Component {
+    constructor(props) {
+        super(props);
+        this.devices = props.devices;
+
+    }
+
+    render() {
+        return (
+            <React.Fragment>
+                <Box>
+                    <TableContainer style={{ maxHeight: 500 }}>
+                        <Table stickyHeader aria-label="sticky table">
+                            <TableHead>
+                                <TableRow>
+                                    <HeadCells />
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {this.devices.map((device) => {
+                                    return <SingleTableRow key={"DeviceListRow_" + device.serialNumber} deviceDetails={device} />;
+                                })}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </Box>
+            </React.Fragment>
+        );
+    }
 }
