@@ -81,12 +81,11 @@ export default class StreamingTable extends React.Component {
                 outputChannelId: this.state.selectedReceiverID
             })
                 .then((response) => {
-                    console.log("Success" + response);
+                    console.log("Success. Stream Started.");
                 })
                 .catch((error) => {
-                    console.log("Error" + error);
+                    console.log("Error: " + error.message);
                 })
-            console.log("Stream started!");
         }
 
         event.preventDefault();
