@@ -3,9 +3,12 @@ package org.beanpod.switchboard.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.beanpod.switchboard.dao.DeviceDaoImpl;
 import org.beanpod.switchboard.dto.DeviceDTO;
+import org.beanpod.switchboard.dto.EncoderDTO;
 import org.beanpod.switchboard.dto.mapper.DeviceMapper;
 import org.beanpod.switchboard.entity.DeviceEntity;
+import org.beanpod.switchboard.entity.OutputChannelEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
+import org.hibernate.result.Output;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
@@ -16,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -85,5 +89,4 @@ public class DeviceController {
         DeviceEntity deviceEntity = service.save(deviceMapper.toDeviceEntity(device));
         return ResponseEntity.ok(deviceMapper.toDeviceDTO(deviceEntity));
     }
-
 }

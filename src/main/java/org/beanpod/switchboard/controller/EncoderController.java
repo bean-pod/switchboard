@@ -4,9 +4,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.beanpod.switchboard.dao.DeviceDaoImpl;
 import org.beanpod.switchboard.dao.EncoderDaoImpl;
 import org.beanpod.switchboard.dto.EncoderDTO;
+import org.beanpod.switchboard.dto.mapper.CycleAvoidingMappingContext;
 import org.beanpod.switchboard.dto.mapper.EncoderMapper;
 import org.beanpod.switchboard.entity.DeviceEntity;
 import org.beanpod.switchboard.entity.EncoderEntity;
+import org.beanpod.switchboard.entity.OutputChannelEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
@@ -18,6 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,7 +43,10 @@ public class EncoderController {
 
     @GetMapping
     public List<EncoderDTO> retrieveAllEncoders() {
-        return encoderMapper.toEncoderDTOs(encoderService.getEncoders());
+        //TODO this is necessary to avoid a stackoverflow since Encoders reference input channels which reference Decoders. I suggest adding CRUD endpoints to channels and not referencing the channels in the Encoder/Decoder at all.
+        List<EncoderEntity> encoderEntities = encoderService.getEncoders();
+        encoderEntities.forEach(this::removeEncoderReferences);
+        return encoderMapper.toEncoderDTOs(encoderEntities);
     }
 
     @GetMapping("/{serialNumber}")
@@ -52,6 +58,8 @@ public class EncoderController {
             throw new ExceptionType.DeviceNotFoundException(serialNumber);
         }
 
+        //TODO this is necessary to avoid a stackoverflow since Encoders reference input channels which reference Decoders. I suggest adding CRUD endpoints to channels and not referencing the channels in the Encoder/Decoder at all.
+        encoder.ifPresent(this::removeEncoderReferences);
         EntityModel<EncoderDTO> resource = EntityModel.of(encoderMapper.toEncoderDTO(encoder.get()));
         WebMvcLinkBuilder linkTo = linkTo(methodOn(this.getClass()).retrieveAllEncoders());
         resource.add(linkTo.withRel("all-encoders"));
@@ -88,6 +96,16 @@ public class EncoderController {
             throw new ExceptionType.DeviceNotFoundException(encoderDTO.getSerialNumber());
         }
         EncoderEntity encoderEntity = encoderService.save(encoderMapper.toEncoderEntity(encoderDTO));
+        //TODO this is necessary to avoid a stackoverflow since Encoders reference input channels which reference Decoders. I suggest adding CRUD endpoints to channels and not referencing the channels in the Encoder/Decoder at all.
+        removeEncoderReferences(encoderEntity);
         return ResponseEntity.ok(encoderMapper.toEncoderDTO(encoderEntity));
+    }
+
+    //TODO this is necessary to avoid a stackoverflow since Encoders reference input channels which reference Decoders. I suggest adding CRUD endpoints to channels and not referencing the channels in the Encoder/Decoder at all.
+    private void removeEncoderReferences(EncoderEntity encoderEntity){
+        Optional.of(encoderEntity)
+                .map(EncoderEntity::getOutputs)
+                .orElse(Collections.emptySet())
+                .forEach( outputChannelEntity -> outputChannelEntity.setEncoder(null));
     }
 }

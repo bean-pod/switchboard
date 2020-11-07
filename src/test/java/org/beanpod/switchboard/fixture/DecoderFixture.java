@@ -4,6 +4,7 @@ import org.beanpod.switchboard.dto.DecoderDTO;
 import org.beanpod.switchboard.entity.ChannelEntity;
 import org.beanpod.switchboard.entity.DecoderEntity;
 import org.beanpod.switchboard.entity.DeviceEntity;
+import org.beanpod.switchboard.entity.InputChannelEntity;
 import org.openapitools.model.DecoderModel;
 
 import java.text.ParseException;
@@ -16,7 +17,7 @@ public class DecoderFixture {
     public static final String SERIAL_NUMBER = "1";
     private static String pattern = "yyyy-MM-dd HH:mm:ss";
     private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-    static private Set<ChannelEntity> setOfChannels = ChannelFixture.getSetOfChannels();
+    static private Set<InputChannelEntity> setOfChannels = ChannelFixture.getInputChannelEntities();
 
     public static DecoderEntity getDecoder1(DeviceEntity device){
         try {
@@ -49,6 +50,12 @@ public class DecoderFixture {
         listOfDecoders.add(decoder2);
 
         return listOfDecoders;
+    }
+
+    public static List<DecoderDTO> getDecoderDtos(){
+        return List.of(
+                getDecoderDto()
+        );
     }
 
     public static DecoderDTO getDecoderDto(){
