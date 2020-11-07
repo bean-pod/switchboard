@@ -40,7 +40,7 @@ export default class SingleTableRow extends React.Component {
                     <TableCell class="tableCell">{this.props.deviceDetails.name}</TableCell>
                     <TableCell class="tableCell numeric">{this.props.deviceDetails.serialNumber}</TableCell>
                     <TableCell class="tableCell">
-                        {StatusIndicator(this.props)}
+                        <StatusIndicator status = {this.props.deviceDetails.status}/>
                     </TableCell>
                     <TableCell class="tableCell numeric">{this.props.deviceDetails.ip}</TableCell>
                     <TableCell class="tableCell numeric">{this.props.deviceDetails.port}</TableCell>
