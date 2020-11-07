@@ -51,6 +51,10 @@ public class DecoderController {
         }
 
         EntityModel<DecoderDTO> resource = EntityModel.of(decoderMapper.toDecoderDTO(decoder.get()));
+
+        //TODO debug
+        System.out.println(decoder);
+        System.out.print(resource);
         WebMvcLinkBuilder linkTo = linkTo(methodOn(this.getClass()).retrieveAllDecoders());
         resource.add(linkTo.withRel("all-decoders"));
         return ResponseEntity.ok(resource);

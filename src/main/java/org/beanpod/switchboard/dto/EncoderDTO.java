@@ -25,6 +25,6 @@ public class EncoderDTO {
     private Date lastCommunication;
 
     private DeviceDTO device;
-    private Set<ChannelEntity> outputs;
+    private Set<OutputChannelDTO> outputs;
 
 }

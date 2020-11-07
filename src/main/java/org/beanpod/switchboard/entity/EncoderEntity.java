@@ -1,7 +1,6 @@
 package org.beanpod.switchboard.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,10 +10,10 @@ import java.util.Set;
 
 @Entity(name = "Encoder")
 @Getter @Setter
+@ToString(exclude = {"outputs"})
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
-@JsonIgnoreProperties({"hibernateLazyIntializer", "handler"})
+@JsonIgnoreProperties(value = {"hibernateLazyIntializer", "handler"})
 public class EncoderEntity {
 
     @Id
@@ -39,5 +38,5 @@ public class EncoderEntity {
                     CascadeType.PERSIST,
                     CascadeType.MERGE
             })
-    private Set<ChannelEntity> outputs;
+    private Set<OutputChannelEntity> outputs;
 }

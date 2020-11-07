@@ -1,4 +1,5 @@
 openapi: 3.0.2
+
 info:
   version: 1.0.0
   title: 'Switchboard API'
@@ -107,22 +108,22 @@ paths:
         '200':
           description: Successful deletion of the encoder
 
-  /encoder/{uuid}/channel:
+  /encoder/{uuid}/stream:
     get:
-      operationId: getEncoderChannels
-      description: Retrieve the sending channels for the encoder
+      operationId: getEncoderStreams
+      description: Retrieve the sending streams for the encoder
       tags:
         - Encoders
-        - Channels
+        - Streams
       parameters:
         - $ref: '#/components/parameters/EncoderId'
       responses:
         '200':
-          description: Successful retrieval of video channels for an encoder
+          description: Successful retrieval of video streams for an encoder
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ChannelsModel'
+                $ref: '#/components/schemas/StreamsModel'
 
   /decoder:
     get:
@@ -194,73 +195,73 @@ paths:
         '200':
           description: Successful deletion of the decoder
 
-  /channel:
+  /stream:
     get:
-      operationId: getChannels
-      description: Retrieve all the existing channels
+      operationId: getStreams
+      description: Retrieve all the existing streams
       tags:
-        - Channels
+        - Streams
       responses:
         '200':
-          description: Successful retrieval of video channels for a decoder
+          description: Successful retrieval of video streams
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ChannelsModel'
+                $ref: '#/components/schemas/StreamsModel'
     post:
-      operationId: createChannel
-      description: Create a new channel between an encoder and a decoder
+      operationId: createStream
+      description: Create a new stream between an input and output channel
       tags:
-        - Channels
+        - Streams
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateChannelRequest'
+              $ref: '#/components/schemas/CreateStreamRequest'
       responses:
         '200':
           description: Successful creation of the decoder
     put:
-      operationId: updateChannel
-      description: update a channel's definition
+      operationId: updateStream
+      description: update a stream's definition
       tags:
-        - Channels
+        - Streams
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ChannelModel'
+              $ref: '#/components/schemas/StreamModel'
       responses:
         '200':
-          description: Successful update of the channel
+          description: Successful update of the stream
 
-  /channel/{id}:
+  /stream/{id}:
     get:
-      operationId: getChannelById
-      description: Retrieve a channel's definition
+      operationId: getStreamById
+      description: Retrieve a stream's definition
       tags:
-        - Channels
+        - Streams
       parameters:
-        - $ref: '#/components/parameters/ChannelId'
+        - $ref: '#/components/parameters/StreamId'
       responses:
         '200':
-          description: Succesful retrieval of a channel
+          description: Succesful retrieval of a stream
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ChannelModel'
+                $ref: '#/components/schemas/StreamModel'
     delete:
-      operationId: deleteChannel
-      description: Delete a channel
+      operationId: deleteStream
+      description: Delete a stream
       tags:
-        - Channels
+        - Streams
       parameters:
-        - $ref: '#/components/parameters/ChannelId'
+        - $ref: '#/components/parameters/StreamId'
       responses:
         '200':
-          description: Successful deletion of the channel
+          description: Successful deletion of the stream
 
 components:
   schemas:
@@ -292,7 +293,7 @@ components:
       example: ['0e4e430f-8b9c-47da-b9af-7ef9cfb13e9e']
 
     EncoderModel:
-      description: A client that sends a video channel
+      description: A client that sends a video stream
       properties:
         serialNumber:
           type: string
@@ -301,7 +302,7 @@ components:
           $ref:  '#/components/schemas/DeviceModel'
 
     CreateEncoderRequest:
-      description: A client that sends a video channel
+      description: A client that sends a video stream
       properties:
         serialNumber:
           type: string
@@ -315,7 +316,7 @@ components:
       example: ['1ea52153-c196-4cc6-8d9f-714248abf31c']
 
     DecoderModel:
-      description: A client that receives a video channel
+      description: A client that receives a video stream
       properties:
         serialNumber:
           type: string
@@ -330,47 +331,69 @@ components:
           type: string
           example: 'v7BM3ejS'
 
-    ChannelModel:
-      description: A video channel between an encoder and receiver
+    OutputChannelModel:
+      description: A channel through which an encoder outputs a video stream
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: '123'
+        name:
+          type: string
+          example: 'box 2'
+        port:
+          type: integer
+          example: '2'
+        encoder:
+          $ref: '#/components/schemas/EncoderModel'
+
+    InputChannelModel:
+      description: A channel through which a decoder receives a video stream
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: '123'
+        name:
+          type: string
+          example: 'cam 1'
+        port:
+          type: integer
+          example: '1'
+        decoder:
+          $ref: '#/components/schemas/DecoderModel'
+
+    StreamModel:
+      description: A video stream connecting an input and output channel
       properties:
         id:
           type: integer
           format: int64
           example: '1234'
-        name:
-          type: string
-          example: "cam1"
-        port:
-          type: integer
-          example: "9090"
-        encoder:
-          $ref: '#/components/schemas/EncoderModel'
-        decoder:
-          $ref: '#/components/schemas/DecoderModel'
+        inputChannel:
+          $ref: '#/components/schemas/InputChannelModel'
+        outputChannel:
+          $ref: '#/components/schemas/OutputChannelModel'
 
-    ChannelsModel:
-      description: A list of channel IDs
+    StreamsModel:
+      description: A list of stream IDs
       type: array
       items:
         type: integer
         format: int64
       example: ['1234']
 
-    CreateChannelRequest:
-      description: An object to request the creation of a channel between an encoder and receiver
+    CreateStreamRequest:
+      description: An object to request the creation of a stream between an input and output channel
       properties:
-        name:
-          type: string
-          example: "cam1"
-        port:
+        inputChannelId:
           type: integer
-          example: "9090"
-        encoderSerialNumber:
-          type: string
-          example: 'BtmC8ckj'
-        decoderSerialNumber:
-          type: string
-          example: 'v7BM3ejS'
+          format: int64
+          example: '1'
+        outputChannelId:
+          type: integer
+          format: int64
+          example: '2'
 
   parameters:
     EncoderId:
@@ -389,11 +412,11 @@ components:
       schema:
         type: string
         example: '1ea52153-c196-4cc6-8d9f-714248abf31c'
-    ChannelId:
+    StreamId:
       in: path
       name: id
       required: true
-      description: The ID of a channel
+      description: The ID of a stream
       schema:
         type: integer
         format: int64
@@ -406,3 +429,5 @@ tags:
     description: Encoders endpoints
   - name: Decoders
     description: Decoders endpoints
+  - name: Stream
+    description: Steams endpoints
