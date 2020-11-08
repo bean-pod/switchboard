@@ -69,9 +69,9 @@ export function getStreams(callback) {
     ];
 
     var sampleStreams = [
-        new StreamInfo(1, "2020-10-31T08:15:30", sampleSenders[0], sampleReceivers[0], "Online", "Type 1", "00:34:44", ["Additional Stream Details go here"]),
-        new StreamInfo(2, "2020-11-01T09:16:30", sampleSenders[1], sampleReceivers[1], "Error", "Type 2", "01:34:44", ["Additional Stream Details go here"]),
-        new StreamInfo(3, "2020-10-20T14:17:30", sampleSenders[0], sampleReceivers[0], "Offline", "Type 3", "02:34:44", ["Additional Stream Details go here"])
+        new StreamInfo(1, sampleSenders[0], sampleReceivers[0], ["Additional Stream Details go here"]),
+        new StreamInfo(2, sampleSenders[1], sampleReceivers[1], ["Additional Stream Details go here"]),
+        new StreamInfo(3, sampleSenders[0], sampleReceivers[0], ["Additional Stream Details go here"])
     ];
 
     callback(sampleStreams)
