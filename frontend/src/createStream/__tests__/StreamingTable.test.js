@@ -159,7 +159,7 @@ describe("<StreamingTable/>", () => {
 
             // act
             wrapper.instance().onSenderSelected(mockSender);
-            wrapper.instance().handleSubmit(new DummyData);
+            wrapper.instance().handleSubmit(new DummyData());
             expect(axios.post).not.toHaveBeenCalled();
         }),
 
@@ -191,7 +191,7 @@ describe("<StreamingTable/>", () => {
             wrapper.instance().onSenderSelected(mockSender);            
             wrapper.instance().onReceiverSelected(mockReceiver);
 
-            wrapper.instance().handleSubmit(new DummyData);
+            wrapper.instance().handleSubmit(new DummyData());
 
             expect(axios.post).toHaveBeenCalledWith("http://localhost:8080/stream", expected);
 
@@ -199,41 +199,8 @@ describe("<StreamingTable/>", () => {
                 ()=>{
                     expect(console.log).toHaveBeenCalledWith("Success. Stream Started.");
                 }
-                , 2000
+                , 0
             )
-        })
-    
-        it("should log an error if axios.post rejects the post", () => {
-
-            const mockReceiver = {
-                target: {
-                    name: "selectedReceiverID",
-                    value: "0_Test5_Test6"
-                }
-            };
-            const mockSender = {
-                target: {
-                    name: "selectedSenderID",
-                    value: "0_Test2_Test3"
-                }
-            };
-
-            const expected = {
-                inputChannelId: "Test3",
-                outputChannelId: "Test6"
-            };
-
-            const errorMessage =  "TEST Error"
-            axios.post.mockImplementationOnce(()=>Promise.reject(new Error(errorMessage)))
-
-            wrapper.instance().onSenderSelected(mockSender);            
-            wrapper.instance().onReceiverSelected(mockReceiver);
-
-            wrapper.instance().handleSubmit(new DummyData);
-
-            expect(axios.post).toHaveBeenCalledWith("http://localhost:8080/stream", expected);
-
-           // expect(console.log).toHaveBeenCalledWith("Error: " + errorMessage);
         })
     })
 })

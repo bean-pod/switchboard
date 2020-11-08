@@ -83,9 +83,6 @@ export default class StreamingTable extends React.Component {
                 .then((response) => {
                     console.log("Success. Stream Started.");
                 })
-                .catch((error) => {
-                    console.log("Error: " + error.message);
-                })
         }
 
         event.preventDefault();
