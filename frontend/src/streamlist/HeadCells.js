@@ -27,6 +27,9 @@ export default class HeadCells extends React.Component {
     render() {
         return (
             <React.Fragment>
+
+                <TableCell className="tableHeadCell lightestGrey" style={{ width: 1, padding: 0, paddingLeft: 5 }}></TableCell>
+
                 {this.headcells.map((headCell) =>(
                     <TableCell
                         className="tableHeadCell lightestGrey"
@@ -39,6 +42,9 @@ export default class HeadCells extends React.Component {
                             </TableSortLabel>
                     </TableCell>
                 ))}
+                <TableCell className="tableHeadCell lightestGrey" align="center">
+                    <Typography variant="caption">Actions</Typography>
+                </TableCell>
             </React.Fragment>
         );
     }
