@@ -46,7 +46,7 @@ export default class SelectDeviceTableRow extends React.Component {
                                     this.props.deviceDetails.channels.map((channel) => {
                                         return (
                                             <MenuItem
-                                                value={`${this.props.deviceIndex}_${this.props.deviceDetails.name}_${channel.id}`}
+                                                value={channel.id}
                                                 key={`${this.props.deviceDetails.name}_${channel.id}`} >
                                                 {channel.port}
                                             </MenuItem>

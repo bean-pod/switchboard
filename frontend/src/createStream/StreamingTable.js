@@ -16,9 +16,7 @@ export default class StreamingTable extends React.Component {
         this.state = {
             senders: [],
             receivers: [],
-            selectedSender: {},
             selectedSenderID: "",
-            selectedReceiver: {},
             selectedReceiverID: ""
         }
 
@@ -50,22 +48,16 @@ export default class StreamingTable extends React.Component {
     }
 
     onSenderSelected(selectedSender) {
-        var data = selectedSender.target.value.split("_");
-        var sender = this.state.senders[data[0]];
 
         this.setState({
-            selectedSender: sender,
-            selectedSenderID: data[2]
+            selectedSenderID: selectedSender.target.value
         })
     }
 
     onReceiverSelected(selectedReceiver) {
-        var data = selectedReceiver.target.value.split("_");
-        var receiver = this.state.receivers[data[0]];
 
         this.setState({
-            selectedReceiver: receiver,
-            selectedReceiverID: data[2]
+            selectedReceiverID: selectedReceiver.target.value
         })
 
     }

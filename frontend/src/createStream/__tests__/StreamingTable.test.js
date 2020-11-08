@@ -42,15 +42,13 @@ describe("<StreamingTable/>", () => {
             const mockEvent = {
                 target: {
                     name: "selectedSenderID",
-                    value: "0_Test2_Test3"
+                    value: "Test3"
                 }
             };
             const defaultState = {
                 senders: [],
                 receivers: [],
-                selectedSender: {},
                 selectedSenderID: "",
-                selectedReceiver: {},
                 selectedReceiverID: ""
 
             };
@@ -59,10 +57,8 @@ describe("<StreamingTable/>", () => {
                 senders: [],
                 receivers: [],
 
-                selectedSender: undefined,
                 selectedSenderID: "Test3",
 
-                selectedReceiver: {},
                 selectedReceiverID: ""
 
             };
@@ -80,16 +76,14 @@ describe("<StreamingTable/>", () => {
             const mockEvent = {
                 target: {
                     name: "selectedReceiverID",
-                    value: "0_Test5_Test6"
+                    value: "Test6"
                 }
             };
 
             const defaultState = {
                 senders: [],
                 receivers: [],
-                selectedSender: {},
                 selectedSenderID: "",
-                selectedReceiver: {},
                 selectedReceiverID: ""
 
             };
@@ -97,10 +91,8 @@ describe("<StreamingTable/>", () => {
                 senders: [],
                 receivers: [],
 
-                selectedSender: {},
                 selectedSenderID: "",
 
-                selectedReceiver: undefined,
                 selectedReceiverID: "Test6"
 
             };
@@ -129,7 +121,7 @@ describe("<StreamingTable/>", () => {
             const mockReceiver = {
                 target: {
                     name: "selectedReceiverID",
-                    value: "0_Test5_Test6"
+                    value: "Test6"
                 }
             };
 
@@ -148,7 +140,7 @@ describe("<StreamingTable/>", () => {
             const mockSender = {
                 target: {
                     name: "selectedSenderID",
-                    value: "0_Test2_Test3"
+                    value: "Test3"
                 }
             };
             const data =  {
@@ -168,13 +160,13 @@ describe("<StreamingTable/>", () => {
             const mockReceiver = {
                 target: {
                     name: "selectedReceiverID",
-                    value: "0_Test5_Test6"
+                    value: "Test6"
                 }
             };
             const mockSender = {
                 target: {
                     name: "selectedSenderID",
-                    value: "0_Test2_Test3"
+                    value: "Test3"
                 }
             };
 
