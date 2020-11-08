@@ -179,8 +179,8 @@ describe("<StreamingTable/>", () => {
             };
 
             const expected = {
-                inputChannelId: "Test3",
-                outputChannelId: "Test6"
+                outputChannelId: "Test3",
+                inputChannelId: "Test6"
             };
 
             const data =  {
