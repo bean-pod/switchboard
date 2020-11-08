@@ -13,11 +13,10 @@ export default class HeadCells extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            status:""
+            status: ""
         }
         this.headcells = this.getHeadCellData();
-
-        this.handleStatusChange=this.handleStatusChange.bind(this);
+        this.handleStatusChange = this.handleStatusChange.bind(this);
     }
 
     getHeadCellData() {
@@ -29,18 +28,18 @@ export default class HeadCells extends React.Component {
         ];
     }
 
-    handleStatusChange(event){
+    handleStatusChange(event) {
         this.setState({
-          status: event.target.value
+            status: event.target.value
         });
-      }
+    }
 
     render() {
         return (
             <React.Fragment>
-                
+
                 <TableCell class="tableHeadCell lightestGrey" style={{ width: 1, padding: 0, paddingLeft: 5 }}></TableCell>
-                                
+
                 {this.headcells.map((headCell) => (
                     <TableCell
                         class="tableHeadCell lightestGrey"
@@ -51,16 +50,16 @@ export default class HeadCells extends React.Component {
                             <Typography component={'span'} variant="caption"> {headCell.label}</Typography>
                         </TableSortLabel>
                         {headCell.id === "status" ? (
-                            <Select 
-                                value={this.state.status} 
+                            <Select
+                                value={this.state.status}
                                 variant="outlined"
                                 onChange={this.handleStatusChange}
-                                id={headCell.searchID} 
+                                id={headCell.searchID}
                                 fullWidth={true} >
-                                    <MenuItem dense="true" value={"Online"}> <Typography variant="caption">Online</Typography></MenuItem>
-                                    <MenuItem dense="true" value={"Pending"}> <Typography variant="caption">Pending</Typography></MenuItem>
-                                    <MenuItem dense="true" value={"Error"}>   <Typography variant="caption">Error</Typography></MenuItem>
-                                    <MenuItem dense="true" value={"Offline"}> <Typography variant="caption">Offline</Typography></MenuItem>
+                                <MenuItem dense="true" value={"Online"}> <Typography variant="caption">Online</Typography></MenuItem>
+                                <MenuItem dense="true" value={"Pending"}> <Typography variant="caption">Pending</Typography></MenuItem>
+                                <MenuItem dense="true" value={"Error"}>   <Typography variant="caption">Error</Typography></MenuItem>
+                                <MenuItem dense="true" value={"Offline"}> <Typography variant="caption">Offline</Typography></MenuItem>
                             </Select>
                         ) :
                             (
@@ -68,9 +67,9 @@ export default class HeadCells extends React.Component {
                             )}
                     </TableCell>
                 ))}
-                
+
                 <TableCell class="tableHeadCell lightestGrey" align="center"><Typography variant="caption">Actions</Typography></TableCell>
-                            
+
             </React.Fragment>
 
         );

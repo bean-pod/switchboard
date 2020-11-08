@@ -12,7 +12,6 @@ import DynamicBreadcrumb from '../General/DynamicBreadcrumb';
 export default class DeviceListPage extends React.Component {
     constructor(props) {
         super(props);
-
     }
 
     useStyles() {
@@ -25,6 +24,7 @@ export default class DeviceListPage extends React.Component {
             },
         }));
     }
+    
     render() {
         return (
             <Container>
@@ -36,5 +36,4 @@ export default class DeviceListPage extends React.Component {
             </Container>
         );
     }
-
 }

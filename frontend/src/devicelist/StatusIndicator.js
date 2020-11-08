@@ -2,8 +2,8 @@ import React from 'react';
 
 
 export default class StatusIndicator extends React.Component {
-    
-    constructor(props){
+
+    constructor(props) {
         super(props);
     }
     getStatusStyle(status) {
@@ -18,6 +18,7 @@ export default class StatusIndicator extends React.Component {
                 return "lightGrey statusOfflineText";
         }
     }
+
     render() {
         return (
             <div class={this.getStatusStyle(this.props.status)}>

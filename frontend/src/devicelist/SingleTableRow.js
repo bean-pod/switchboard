@@ -49,9 +49,8 @@ export default class SingleTableRow extends React.Component {
                         <Collapse in={this.state.open} timeout="auto" unmountOnExit>
                             <Box margin={2}>
                                 <Typography variant="h6">Channels</Typography>
-                                    
-                                    {this.props.deviceDetails.channels.map(
-                                        (channel) => { return <ChannelDetailsTable channel={channel} key={"ch_"+channel.id +"_p"+channel.port}/> })}
+                                {this.props.deviceDetails.channels.map(
+                                    (channel) => { return <ChannelDetailsTable channel={channel} key={"ch_" + channel.id + "_p" + channel.port} /> })}
                             </Box>
                         </Collapse>
                     </TableCell>

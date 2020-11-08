@@ -14,7 +14,6 @@ export default class StreamButton extends React.Component {
         this.id = props.id;
     }
     render() {
-
         const StyledButton = withStyles({
             root: {
                 background: 'linear-gradient(45deg, #59bc31 30%, #59bc31 90%)',

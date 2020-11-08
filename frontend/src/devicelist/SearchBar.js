@@ -42,7 +42,7 @@ export default class SearchBar extends React.Component {
                 <div className={"searchField"}>
                     <TextField
                         placeholder="Search"
-                        InputProps={{'aria-label': 'search', startAdornment: <InputAdornment position="start"> <Search /></InputAdornment> }}
+                        InputProps={{ 'aria-label': 'search', startAdornment: <InputAdornment position="start"> <Search /></InputAdornment> }}
                         size="small"
                         variant="outlined">
                     </TextField>

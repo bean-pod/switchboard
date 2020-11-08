@@ -11,6 +11,7 @@ export default class ChannelDetailsTable extends React.Component {
     constructor(props) {
         super(props)
     }
+
     render() {
         return (
             <Table style={{ margin: "1em" }} className="flexContents">
@@ -29,7 +30,6 @@ export default class ChannelDetailsTable extends React.Component {
                     </TableRow>
                 </TableBody>
             </Table>
-
         )
     }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import {
     Grid
-} from "@material-ui/core"
+} from "@material-ui/core";
 
 import axios from "axios";
 
@@ -59,11 +59,9 @@ export default class StreamingTable extends React.Component {
         this.setState({
             selectedReceiverID: selectedReceiver.target.value
         })
-
     }
 
     handleSubmit(event) {
-
         if (this.state.selectedReceiverID === "" || this.state.selectedSenderID === "") {
             console.log("Please select a sender and a receiver");
         }
@@ -76,7 +74,6 @@ export default class StreamingTable extends React.Component {
                     console.log("Success. Stream Started.");
                 })
         }
-
         event.preventDefault();
     }
 
@@ -84,7 +81,6 @@ export default class StreamingTable extends React.Component {
         return (
             <React.Fragment>
                 <form onSubmit={this.handleSubmit} id="createStreamForm">
-
                     <Grid container spacing={2} alignContent={"center"} alignItems={"center"} justify={'center'}>
                         <Grid item xs={3}>
                             <div className="streamingTable" id="SenderTable">
@@ -95,7 +91,6 @@ export default class StreamingTable extends React.Component {
                             </div>
                         </Grid>
                         <Grid container item xs={2} id="TableStartStreamingBtn" justify={'center'} alignContent={"center"} alignItems={"center"} display="flex">
-
                             <StreamButton type="submit" />
                         </Grid>
                         <Grid item xs={3}>
@@ -108,9 +103,7 @@ export default class StreamingTable extends React.Component {
                         </Grid>
                     </Grid>
                 </form>
-
             </React.Fragment>
         );
-
     }
 }
