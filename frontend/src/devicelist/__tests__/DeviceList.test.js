@@ -1,9 +1,10 @@
 import React from "react";
 import { render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils"
-import DeviceList from '../DeviceList';
+import DeviceListPage from '../DeviceListPage';
 import * as SampleData from '../../api/SampleData'
 import ReactTestUtils from 'react-dom/test-utils'
+import { BrowserRouter } from "react-router-dom";
 
 let container = null;
 let sampleSenders = null;
@@ -29,7 +30,11 @@ afterEach(() => {
 
 test("Device list renders sender page by default", () => {
     act(() => {
-        render(<DeviceList dataSource={SampleData}/>, container);
+        render(
+        <BrowserRouter>
+            <DeviceListPage dataSource={SampleData} />
+        </BrowserRouter>
+        , container);
     })
 
     verifyStaticElements();
@@ -42,17 +47,19 @@ test("Device list renders sender page by default", () => {
         var rowElements = devices[index].querySelectorAll("td");
         expect(rowElements[0].querySelector("button span svg")).not.toBe(null);
         expect(rowElements[1].textContent).toBe(sender.name);
-        expect(rowElements[2].textContent).toBe(sender.serial);
+        expect(rowElements[2].textContent).toBe(sender.serialNumber);
         expect(rowElements[3].firstChild.textContent).toBe(sender.status);
         expect(rowElements[4].textContent).toBe(sender.ip);
-        expect(rowElements[5].textContent).toBe(sender.port.toString());
-        expect(rowElements[6].querySelector("button span svg")).not.toBe(null);
+        expect(rowElements[5].querySelector("button span svg")).not.toBe(null);
     })
 })
 
 test("Clicking receivers tabs renders the receiver list ", () => {
     act(() => {
-        render(<DeviceList dataSource={SampleData}/>, container);
+        render(
+        <BrowserRouter>
+            <DeviceListPage dataSource={SampleData} />
+        </BrowserRouter>, container);
     })
 
     verifyStaticElements();
@@ -70,17 +77,19 @@ test("Clicking receivers tabs renders the receiver list ", () => {
         var rowElements = devices[index].querySelectorAll("td");
         expect(rowElements[0].querySelector("button span svg")).not.toBe(null);
         expect(rowElements[1].textContent).toBe(receiver.name);
-        expect(rowElements[2].textContent).toBe(receiver.serial);
+        expect(rowElements[2].textContent).toBe(receiver.serialNumber);
         expect(rowElements[3].firstChild.textContent).toBe(receiver.status);
         expect(rowElements[4].textContent).toBe(receiver.ip);
-        expect(rowElements[5].textContent).toBe(receiver.port.toString());
-        expect(rowElements[6].querySelector("button span svg")).not.toBe(null);
+        expect(rowElements[5].querySelector("button span svg")).not.toBe(null);
     })
 })
 
 test("Clicking dropdown on table row displays additional information", () => {
     act(() => {
-        render(<DeviceList dataSource={SampleData}/>, container);
+        render(
+        <BrowserRouter>
+            <DeviceListPage dataSource={SampleData} />
+        </BrowserRouter>, container);
     })
 
     verifyStaticElements();
@@ -90,9 +99,9 @@ test("Clicking dropdown on table row displays additional information", () => {
         ReactTestUtils.Simulate.click(dropdownButton);
     })
 
-    var textElement = document.querySelector("tr.deviceDetails td div div div div span.MuiTypography-caption")
+    var textElement = document.querySelector("tr.deviceDetails td div div div div h6")
     expect(textElement).not.toBe(null);
-    expect(textElement.innerHTML).toBe("Additional Device details go here")
+    expect(textElement.innerHTML).toBe("Channels")
 })
 
 function verifyStaticElements() {
@@ -100,11 +109,11 @@ function verifyStaticElements() {
     expect(title).not.toBe(null);
     expect(title.innerHTML).toBe("My Devices");
 
-    var streamButton = document.querySelector("button.green.buttonText span.MuiButton-label");
+    var streamButton = document.getElementById("DeviceListStreamBtn")
     expect(streamButton).not.toBe(null);
     expect(streamButton.textContent).toBe(" Stream");
 
-    var addDeviceButton = document.querySelector("button.blue.buttonText span.MuiButton-label");
+    var addDeviceButton = document.getElementById("DeviceListAddDevBtn")
     expect(addDeviceButton).not.toBe(null);
     expect(addDeviceButton.textContent).toBe(" Add Device");
 

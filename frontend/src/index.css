@@ -57,12 +57,19 @@ select {
   padding: 0.5em 2em .5em .5em;
   width: max-content;
 }
+#TableStartStreaming{
+  display: flex;
+}
+
+.streamingTable{
+  height: 500;
+}
 
 .searchField {
-  margin: 0em 2em 0em 0em;
+  margin: 0em ;
 }
+
 .searchField input{
-  width: 55em;
   padding: 7px 5px;
 }
 .sortBy{
@@ -88,6 +95,8 @@ select {
   margin-right: 0;
 }
 .headerTitle {
+  color: white;
+  text-decoration:none;
   font-size: 24px;
   vertical-align: middle;
   flex-grow: 1;
@@ -99,8 +108,16 @@ select {
   padding-top: 0.5em;
   padding-bottom: 0.5em;
 }
+.subtitle {
+  font-size: 36px;
+  vertical-align: middle;
+  font-weight: 300;
+  padding-bottom: 0.5em;
+}
+
 .buttonText {
   display: inline-flex;
+  text-decoration:none;
   align-items: center;
   text-transform: uppercase;
   color: white;
@@ -109,6 +126,11 @@ select {
   border-radius: 2em;
   margin: 0.4em;
 }
+
+.hideLinkStyle {
+  text-decoration:none;
+}
+
 .statusText {
   color: white;
   text-align: center;

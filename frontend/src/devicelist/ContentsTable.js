@@ -2,7 +2,7 @@ import React from 'react';
 import { Box } from "@material-ui/core"
 
 import SearchBar from './SearchBar'
-import SortBy from './SortBy'
+import DeviceListSortSelector from './DeviceListSortSelector'
 import VerticalTabs from './VerticalTabs'
 import TabPanel from './TabPanel'
 import DevicesTable from './DevicesTable'
@@ -49,20 +49,20 @@ export default class ContentsTable extends React.Component {
             <React.Fragment>
                 <Box style={{ display: 'flex', flexGrow: 1, margin: "1em 0em" }}>
                     <SearchBar />
-                    <Box class="alignRightFloat">
-                        <SortBy />
+                    <Box className="alignRightFloat">
+                        <DeviceListSortSelector />
                     </Box>
                 </Box>
                 <Box style={{ display: 'flex', flexGrow: 1, maxHeight: 500 }}>
-                    <VerticalTabs 
+                    <VerticalTabs
                         value={this.state.value}
                         setValue={this.handleValueChange}
                         classes={this.props.classes} />
                     <TabPanel value={this.state.value} index={0}>
-                        <DevicesTable rows={this.state.senders} />
+                        <DevicesTable devices={this.state.senders} />
                     </TabPanel>
                     <TabPanel value={this.state.value} index={1}>
-                        <DevicesTable rows={this.state.receivers} />
+                        <DevicesTable devices={this.state.receivers} />
                     </TabPanel>
                 </Box>
             </React.Fragment>

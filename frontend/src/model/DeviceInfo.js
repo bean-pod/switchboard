@@ -1,11 +1,11 @@
 export default class DeviceInfo {
-    constructor(id, name, serial, status, ip, port, extras) {
-        this.id = id;
-        this.name = name;
-        this.serial = serial;
-        this.status = status;
-        this.ip = ip;
-        this.port = port;
+    constructor(serial, lastCommunication, ipAddress, displayName, status, channels, extras) {
+        this.serialNumber = serial;
+        this.lastCommunication = lastCommunication;
+        this.ip= ipAddress;
+        this.name= displayName;
+        this.status=status;
+        this.channels = channels;
         this.extras = extras;
     }
 }
