@@ -38,11 +38,11 @@ export default class HeadCells extends React.Component {
         return (
             <React.Fragment>
 
-                <TableCell class="tableHeadCell lightestGrey" style={{ width: 1, padding: 0, paddingLeft: 5 }}></TableCell>
+                <TableCell className="tableHeadCell lightestGrey" style={{ width: 1, padding: 0, paddingLeft: 5 }}></TableCell>
 
                 {this.headcells.map((headCell) => (
                     <TableCell
-                        class="tableHeadCell lightestGrey"
+                        className="tableHeadCell lightestGrey"
                         key={headCell.id}
                         padding={headCell.padding ? 'default' : 'none'}
                     >
@@ -68,7 +68,7 @@ export default class HeadCells extends React.Component {
                     </TableCell>
                 ))}
 
-                <TableCell class="tableHeadCell lightestGrey" align="center"><Typography variant="caption">Actions</Typography></TableCell>
+                <TableCell className="tableHeadCell lightestGrey" align="center"><Typography variant="caption">Actions</Typography></TableCell>
 
             </React.Fragment>
 
