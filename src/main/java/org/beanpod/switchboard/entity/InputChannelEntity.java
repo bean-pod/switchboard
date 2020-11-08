@@ -7,28 +7,37 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
-@Getter @Setter
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity(name="Channel")
+@Entity(name = "InputChannel")
 @JsonIgnoreProperties({"hibernateLazyIntializer", "handler"})
-public class ChannelEntity {
-
+public class InputChannelEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private Long id;
+    private long id;
 
-    @Column(name = "name")
-    private String name;
+    @OneToOne(optional = false, cascade = CascadeType.ALL)
+    @JoinColumn(name = "channel_id")
+    private ChannelEntity channel;
 
-    @Column(name = "port")
-    private Integer port;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {
+            CascadeType.ALL
+    })
+    @JoinColumn(name = "decoder_serial")
+    private DecoderEntity decoder;
 }

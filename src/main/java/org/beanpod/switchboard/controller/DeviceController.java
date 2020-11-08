@@ -85,5 +85,4 @@ public class DeviceController {
         DeviceEntity deviceEntity = service.save(deviceMapper.toDeviceEntity(device));
         return ResponseEntity.ok(deviceMapper.toDeviceDTO(deviceEntity));
     }
-
 }

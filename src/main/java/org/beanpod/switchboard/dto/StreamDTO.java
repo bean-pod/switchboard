@@ -9,9 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class DeviceDTO {
-    private String serialNumber;
-    private String ipAddress;
-    private String displayName;
-    private String status;
+public class StreamDTO {
+    private Long id;
+    private OutputChannelDTO outputChannel;
+    private InputChannelDTO inputChannel;
 }

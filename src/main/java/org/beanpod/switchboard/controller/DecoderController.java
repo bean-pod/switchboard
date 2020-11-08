@@ -17,6 +17,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,7 +39,10 @@ public class DecoderController {
 
     @GetMapping
     public List<DecoderDTO> retrieveAllDecoders() {
-        return decoderMapper.toDecoderDTOs(decoderService.getDecoders());
+        //TODO this is necessary to avoid a stackoverflow since Decoders reference input channels which reference Decoders. I suggest adding CRUD endpoints to channels and not referencing the channels in the Encoder/Decoder at all.
+        List<DecoderEntity> decoderEntity = decoderService.getDecoders();
+        decoderEntity.forEach(this::removeDecoderReferences);
+        return decoderMapper.toDecoderDTOs(decoderEntity);
     }
 
     @GetMapping("/{serialNumber}")
@@ -50,7 +54,12 @@ public class DecoderController {
             throw new ExceptionType.DeviceNotFoundException(serialNumber + "/Decoder");
         }
 
+        // TODO this is necessary to avoid a stackoverflow since Decoders reference input channels which reference
+        // Decoders. I suggest adding CRUD endpoints to channels and not referencing the channels
+        // in the Encoder/Decoder at all.
+        decoder.ifPresent(this::removeDecoderReferences);
         EntityModel<DecoderDTO> resource = EntityModel.of(decoderMapper.toDecoderDTO(decoder.get()));
+
         WebMvcLinkBuilder linkTo = linkTo(methodOn(this.getClass()).retrieveAllDecoders());
         resource.add(linkTo.withRel("all-decoders"));
         return ResponseEntity.ok(resource);
@@ -87,6 +96,19 @@ public class DecoderController {
             throw new ExceptionType.DeviceNotFoundException(decoderDTO.getSerialNumber());
         }
         DecoderEntity decoderEntity = decoderService.save(decoderMapper.toDecoderEntity(decoderDTO));
+        // TODO this is necessary to avoid a stackoverflow since Decoders reference input channels which references
+        // Decoders. I suggest adding CRUD endpoints to channels and not referencing the channels in the
+        // Encoder/Decoder at all.
+        removeDecoderReferences(decoderEntity);
         return ResponseEntity.ok(decoderMapper.toDecoderDTO(decoderEntity));
+    }
+
+    // TODO this is necessary to avoid a stackoverflow since Decoders reference input channels which reference Decoders.
+    // I suggest adding CRUD endpoints to channels and not referencing the channels in the Encoder/Decoder at all.
+    private void removeDecoderReferences(DecoderEntity decoderEntity) {
+        Optional.of(decoderEntity)
+                .map(DecoderEntity::getInputs)
+                .orElse(Collections.emptySet())
+                .forEach(inputChannelEntity -> inputChannelEntity.setDecoder(null));
     }
 }
