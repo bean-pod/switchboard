@@ -9,7 +9,7 @@ import TitleBox from './TitleBox'
 import ContentsTable from './ContentsTable'
 import DynamicBreadcrumb from '../General/DynamicBreadcrumb';
 
-export default class DeviceList extends React.Component {
+export default class DeviceListPage extends React.Component {
     constructor(props) {
         super(props);
 
