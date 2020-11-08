@@ -26,7 +26,7 @@ export default class SelectDevicesTable extends React.Component {
                             <SelectDeviceTableRow 
                                 deviceIndex={index}
                                 deviceDetails={device}
-                                key={this.props.name + (index++)} 
+                                key={this.props.name + (index)} 
                                 onChange={this.props.onChange}/>)
                         }
                         )}
