@@ -7,7 +7,7 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {DeviceMapper.class, OutputChannelMapper.class})
 public interface EncoderMapper {
 
     EncoderMapper INSTANCE = Mappers.getMapper(EncoderMapper.class);

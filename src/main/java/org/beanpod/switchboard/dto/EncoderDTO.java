@@ -2,10 +2,9 @@ package org.beanpod.switchboard.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.beanpod.switchboard.entity.ChannelEntity;
-import org.beanpod.switchboard.entity.DeviceEntity;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -15,6 +14,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class EncoderDTO {
     private String serialNumber;
 
@@ -22,7 +22,7 @@ public class EncoderDTO {
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date lastCommunication;
 
-    private DeviceEntity device;
-    private Set<ChannelEntity> outputs;
+    private DeviceDTO device;
+    private Set<OutputChannelDTO> outputs;
 
 }

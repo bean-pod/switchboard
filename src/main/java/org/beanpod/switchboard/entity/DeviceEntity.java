@@ -19,7 +19,7 @@ public class DeviceEntity {
     @Column(name = "serial_number")
     private String serialNumber;
 
-    @Column(name = "ip_address", unique = true)
+    @Column(name = "ip_address")
     @NotNull
     private String ipAddress;
 
