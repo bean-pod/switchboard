@@ -2,7 +2,7 @@ import React from "react";
 import {
     Button,
     withStyles
-} from "@material-ui/core"
+} from "@material-ui/core";
 import {
     AddSharp
 } from '@material-ui/icons/';
@@ -14,7 +14,6 @@ export default class AddDeviceButton extends React.Component {
         this.id = props.id;
     }
     render() {
-
         const StyledButton = withStyles({
             root: {
                 background: 'linear-gradient(45deg, #01b2fe 30%, #01b2fe 90%)',
