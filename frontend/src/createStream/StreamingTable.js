@@ -77,8 +77,8 @@ export default class StreamingTable extends React.Component {
         }
         else {
             axios.post("http://localhost:8080/stream", {
-                inputChannelId: this.state.selectedSenderID,
-                outputChannelId: this.state.selectedReceiverID
+                inputChannelId: this.state.selectedReceiverID,
+                outputChannelId: this.state.selectedSenderID
             })
                 .then((response) => {
                     console.log("Success. Stream Started.");

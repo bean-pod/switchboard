@@ -22,7 +22,7 @@ export default class SelectDeviceTableRow extends React.Component {
         this.onClick = this.onClick.bind(this);
     }
 
-    onClick(){
+    onClick() {
         this.setState({ open: !this.state.open })
     }
 
@@ -36,7 +36,7 @@ export default class SelectDeviceTableRow extends React.Component {
                     {this.state.open ? <ExpandLess /> : <ExpandMore />}
                 </ListItem>
                 <Collapse in={this.state.open} timeout="auto" unmountOnExit >
-                    <List component="div" disablePadding style={{width: "96%"}}>
+                    <List component="div" disablePadding style={{ width: "96%" }}>
                         <ListItem divider>
                             <ListItemText secondary="Select Channel" />
                             <Select
@@ -45,9 +45,9 @@ export default class SelectDeviceTableRow extends React.Component {
                                 {
                                     this.props.deviceDetails.channels.map((channel) => {
                                         return (
-                                            <MenuItem 
-                                            value={`${this.props.deviceIndex}_${this.props.deviceDetails.name}_${channel.port}`} 
-                                            value={`${this.props.deviceDetails.name}_${channel.port}`} >
+                                            <MenuItem
+                                                value={`${this.props.deviceIndex}_${this.props.deviceDetails.name}_${channel.id}`}
+                                                key={`${this.props.deviceDetails.name}_${channel.id}`} >
                                                 {channel.port}
                                             </MenuItem>
                                         );

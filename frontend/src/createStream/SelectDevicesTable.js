@@ -15,19 +15,19 @@ export default class SelectDevicesTable extends React.Component {
     render() {
         return (
             <React.Fragment>
-                    <div className="subtitle">
-                        {this.props.name}
-                    </div>
-                    <SearchBar />
+                <div className="subtitle">
+                    {this.props.name}
+                </div>
+                <SearchBar />
                 <div style={{ maxHeight: "300px", overflow: 'auto' }}>
                     <List >
                         {this.props.dataSource.map((device, index) => {
                             return (
-                            <SelectDeviceTableRow 
-                                deviceIndex={index}
-                                deviceDetails={device}
-                                key={this.props.name + (index)} 
-                                onChange={this.props.onChange}/>)
+                                <SelectDeviceTableRow
+                                    deviceIndex={index}
+                                    deviceDetails={device}
+                                    key={this.props.name + (index)}
+                                    onChange={this.props.onChange} />)
                         }
                         )}
                     </List>
