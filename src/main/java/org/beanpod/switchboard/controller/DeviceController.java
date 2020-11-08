@@ -53,8 +53,9 @@ public class DeviceController {
     }
 
     @PostMapping
-    public ResponseEntity createDevice(@RequestBody @Valid DeviceEntity device) {
+    public ResponseEntity createDevice(@RequestBody @Valid DeviceDTO deviceDTO) {
 
+        DeviceEntity device = deviceMapper.toDeviceEntity(deviceDTO);
         Optional<DeviceEntity> deviceLookup = service.findDevice(device.getSerialNumber());
         if (deviceLookup.isPresent()) {
             throw new ExceptionType.DeviceAlreadyExistsException(device.getSerialNumber());

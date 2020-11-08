@@ -82,7 +82,7 @@ class DeviceControllerTest {
         when(deviceService.findDevice("1")).thenReturn(Optional.of(device1));
 
         assertThrows(ExceptionType.DeviceAlreadyExistsException.class, () -> {
-            deviceController.createDevice(device1);
+            deviceController.createDevice(deviceMapper.toDeviceDTO(device1));
         }, "DeviceAlreadyExistsException should have been thrown.");
     }
 
@@ -97,7 +97,7 @@ class DeviceControllerTest {
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
 
         //request response
-        ResponseEntity response = deviceController.createDevice(device1);
+        ResponseEntity response = deviceController.createDevice(deviceMapper.toDeviceDTO(device1));
 
         assertEquals(201, response.getStatusCodeValue(), "The status code is not 201.");
         assertEquals("http://localhost/device/1", response.getHeaders().get("Location").get(0), "The returned location is incorrect.");

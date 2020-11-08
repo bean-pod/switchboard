@@ -105,7 +105,7 @@ class EncoderControllerTest {
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
 
         //request response
-        ResponseEntity response = encoderController.createEncoder(encoder1);
+        ResponseEntity response = encoderController.createEncoder(encoderMapper.toEncoderDTO(encoder1));
 
         assertEquals(201, response.getStatusCodeValue(), "The status code is not 201.");
         assertEquals("http://localhost/encoder/1", response.getHeaders().get("Location").get(0), "The returned location is incorrect.");
@@ -115,7 +115,7 @@ class EncoderControllerTest {
     @Test
     final void testCreateEncoderAlreadyExists(){
         assertThrows(ExceptionType.DeviceNotFoundException.class, () -> {
-            encoderController.createEncoder(encoder1);
+            encoderController.createEncoder(encoderMapper.toEncoderDTO(encoder1));
         }, "DeviceNotFoundException should have been thrown.");
     }
 
