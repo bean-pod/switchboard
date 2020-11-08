@@ -17,8 +17,6 @@ export default class SelectDeviceTableRow extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            deviceName: props.deviceDetails.name,
-            channels: props.deviceDetails.channels,
             open: false
         }
         this.onClick = this.onClick.bind(this);
@@ -33,7 +31,7 @@ export default class SelectDeviceTableRow extends React.Component {
             <React.Fragment>
                 <ListItem button dense onClick={this.onClick}>
                     <ListItemText
-                        primary={this.state.deviceName}
+                        primary={this.props.deviceDetails.name}
                     />
                     {this.state.open ? <ExpandLess /> : <ExpandMore />}
                 </ListItem>
@@ -45,11 +43,11 @@ export default class SelectDeviceTableRow extends React.Component {
                                 defaultValue=""
                                 onChange={this.props.onChange}>
                                 {
-                                    this.state.channels.map((channel) => {
+                                    this.props.deviceDetails.channels.map((channel) => {
                                         return (
                                             <MenuItem 
-                                            value={this.props.deviceIndex+"_"+ this.state.deviceName + "_" + channel.port} 
-                                            key={this.state.deviceName + "_" + channel.port}>
+                                            value={`${this.props.deviceIndex}_${this.props.deviceDetails.name}_${channel.port}`} 
+                                            value={`${this.props.deviceDetails.name}_${channel.port}`} >
                                                 {channel.port}
                                             </MenuItem>
                                         );

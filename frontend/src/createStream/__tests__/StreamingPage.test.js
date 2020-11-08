@@ -86,7 +86,7 @@ test("Select Devices Table renders with Title, search bar and List with SelectDe
 })
 
 // Streaming Table
-test("Streaming Table has 2 tables as 1 button", () => {
+test("Streaming Table has 2 tables and 1 button", () => {
     act(() => {
         render(
             <BrowserRouter>

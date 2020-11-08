@@ -10,25 +10,23 @@ export default class SelectDevicesTable extends React.Component {
 
     constructor(props) {
         super(props)
-        this.name = props.name;
     }
 
     render() {
-        var i = 0;
         return (
             <React.Fragment>
                     <div className="subtitle">
-                        {this.name}
+                        {this.props.name}
                     </div>
                     <SearchBar />
                 <div style={{ maxHeight: "300px", overflow: 'auto' }}>
                     <List >
-                        {this.props.dataSource.map((device) => {
+                        {this.props.dataSource.map((device, index) => {
                             return (
                             <SelectDeviceTableRow 
-                                deviceIndex={i}
+                                deviceIndex={index}
                                 deviceDetails={device}
-                                key={this.name + (i++)} 
+                                key={this.props.name + (index++)} 
                                 onChange={this.props.onChange}/>)
                         }
                         )}
