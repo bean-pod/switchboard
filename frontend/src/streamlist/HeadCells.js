@@ -6,7 +6,7 @@ import {
 } from "@material-ui/core"
 import HeadCell from '../model/HeadCell'
 
-export default class StreamListHeadCells extends React.Component {
+export default class HeadCells extends React.Component {
     constructor(props) {
         super(props)
         this.headcells = this.getHeadCellData();
