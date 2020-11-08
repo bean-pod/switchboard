@@ -7,8 +7,6 @@ import useStyles from '../DefaultMakeStylesTheme'
 import StreamsTable from '../streamlist/StreamsTable';
 
 export default function StreamList(props) {
-    const styles = useStyles();
-
     return (
         <Container>
             <Box class="headerArea">
@@ -16,7 +14,7 @@ export default function StreamList(props) {
                     Current Streams
                 </div>
             </Box>
-            <StreamsTable classes={styles} dataSource={props.dataSource} />
+            <StreamsTable classes={useStyles} dataSource={props.dataSource} />
         </Container>
     );
 }
