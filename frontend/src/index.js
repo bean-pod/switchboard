@@ -6,8 +6,6 @@ import HomePage from "./General/HomePage";
 import DeviceListPage from './devicelist/DeviceListPage';
 import StreamingTablePage from './createStream/StreamingPage';
 import * as DeviceApi from "./api/DeviceApi";
-import StreamList from './streamlist/StreamList';
-
 
 import {
   BrowserRouter,
