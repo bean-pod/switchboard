@@ -6,6 +6,7 @@ import HomePage from "./General/HomePage";
 import DeviceListPage from './devicelist/DeviceListPage';
 import StreamingTablePage from './createStream/StreamingPage';
 import * as DeviceApi from "./api/DeviceApi";
+import * as StreamApi from "./api/StreamApi";
 
 import {
   BrowserRouter,
@@ -25,7 +26,7 @@ ReactDOM.render(
         )} />
         <Route exact path="/Streaming" 
         render={(props) => (
-            <StreamingTablePage {...props} dataSource={DeviceApi} />
+            <StreamingTablePage {...props} dataSource={DeviceApi} streamSource={StreamApi} />
         )}  />
       </Switch>
     </BrowserRouter>

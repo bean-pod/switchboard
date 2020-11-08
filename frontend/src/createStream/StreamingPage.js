@@ -28,7 +28,7 @@ export default class StreamingPage extends React.Component {
                     </div>
                 </Box>
                 <Box>
-                    <StreamList dataSource={this.props.dataSource} />
+                    <StreamList dataSource={this.props.streamSource} />
                 </Box>
             </Container>
         );
