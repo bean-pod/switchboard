@@ -10,7 +10,6 @@ import StreamList from '../streamlist/StreamList';
 export default class StreamingPage extends React.Component {
 
     constructor(props) {
-
         super(props)
         this.dataSource = props.dataSource;
     }
