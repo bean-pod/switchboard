@@ -121,7 +121,7 @@ test("Streaming page has Breadcrumbs, Title and Streaming Table", () => {
     act(() => {
         render(
             <BrowserRouter>
-                <StreamingPage dataSource={SampleData} />
+                <StreamingPage dataSource={SampleData} streamSource={SampleData}/>
             </BrowserRouter>
             , container);
     })
