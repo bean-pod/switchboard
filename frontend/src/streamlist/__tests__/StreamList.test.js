@@ -51,7 +51,7 @@ test("Stream list fragment renders title and stream list table", () => {
         expect(rowElements[2].textContent).toBe(stream.date);
         expect(rowElements[3].textContent).toBe(stream.sender.name);
         expect(rowElements[4].textContent).toBe(stream.receiver.name);
-        expect(rowElements[5].querySelector("div svg")).not.toBe(null); // not checking that status is correct :/
+        expect(rowElements[5].firstChild.textContent).toBe(stream.status); // not checking that status is correct :/
         expect(rowElements[6].textContent).toBe(stream.type);
         expect(rowElements[7].textContent).toBe(stream.time);
         verifyActionButtons(rowElements[8]);
