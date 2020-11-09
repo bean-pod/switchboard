@@ -4,17 +4,15 @@ import * as SampleData from './SampleData';
 
 export function getAllStreams(callback) {
     axios.get("http://localhost:8080/stream")
-        .then(
-            (streams) => {
-                Promise.all(streams.data.map(
-                    (streamId) => {
-                        return getStream(streamId);
-                    }
-                ).then(callback)
-                )
-
-            })
+        .then((streams) => {
+            Promise.all(streams.data.map(
+                (streamId) => {
+                    return getStream(streamId);
+                }
+            )).then(callback)
+        })
         .catch((error) => {
+            console.log(error);
             SampleData.getAllStreams(callback);
         });
 }
@@ -26,8 +24,8 @@ export function getStream(streamId) {
                 var stream = response.data;
                 resolve(new StreamInfo(
                     stream.id,
-                    stream.outputChannel.encoder.displayName,
-                    stream.inputChannel.decoder.displayName,
+                    stream.outputChannel.encoder,
+                    stream.inputChannel.decoder,
                     ["Additional stream info goes here."]))
             })
             .catch(reject);

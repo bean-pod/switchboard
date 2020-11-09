@@ -28,6 +28,7 @@ export default class SingleStreamRow extends React.Component {
     }
 
     render() {
+        console.log(this.props.streamDetails);
         return (
             <React.Fragment>
                 <TableRow key={this.props.streamDetails.id} class="singleStreamRow">
@@ -38,8 +39,8 @@ export default class SingleStreamRow extends React.Component {
                     </TableCell>
                     <TableCell class="tableCell numeric">{this.props.streamDetails.id}</TableCell>
                     <TableCell class="tableCell">{this.props.streamDetails.date}</TableCell>
-                    <TableCell class="tableCell">{this.props.streamDetails.sender.name}</TableCell>
-                    <TableCell class="tableCell">{this.props.streamDetails.receiver.name}</TableCell>
+                    <TableCell class="tableCell">{this.props.streamDetails.sender.device.displayName}</TableCell>
+                    <TableCell class="tableCell">{this.props.streamDetails.receiver.device.displayName}</TableCell>
                     <TableCell class="tableCell">
                         {(StreamStatusIndicator(this.props.streamDetails.status))}
                     </TableCell>
