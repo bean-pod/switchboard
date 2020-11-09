@@ -14,7 +14,7 @@ import {
 } from '@material-ui/icons/';
 
 import ActionMenu from './ActionMenu';
-import StatusIndicator from './StatusIndicator';
+import StatusIndicator from '../StatusIndicator';
 import ChannelDetailsTable from './ChannelDetailsTable';
 
 export default class SingleTableRow extends React.Component {
