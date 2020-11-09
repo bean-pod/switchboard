@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 export default class StatusIndicator extends React.Component {
 
     constructor(props) {
@@ -26,5 +25,4 @@ export default class StatusIndicator extends React.Component {
             </div>
         );
     }
-
 }
