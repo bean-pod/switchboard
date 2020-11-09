@@ -3,14 +3,19 @@ import OutChannelInfo from "../model/OutputChannelInfo";
 import InChannelInfo from "../model/InputChannelInfo";
 import StreamInfo from "../model/StreamInfo";
 
+var extras = ["Additional Device details go here"];
+var sampleInputChannels = [
+    new InChannelInfo(1,"Input ch 1", 500, null),
+    new InChannelInfo(2,"Input ch 2", 456, null),
+    new InChannelInfo(3,"Input ch 3", 800, null)
+]
+var sampleOutputChannels = [
+    new OutChannelInfo(1,"Output ch 1", 500, null),
+    new OutChannelInfo(2,"Output ch 2", 456, null),
+    new OutChannelInfo(3,"Output ch 3", 800, null)
+]
+
 export function getSenders(callback) {
-    
-    var sampleOutputChannels = [
-        new OutChannelInfo(1,"Output ch 1", 500, null),
-        new OutChannelInfo(2,"Output ch 2", 456, null),
-        new OutChannelInfo(3,"Output ch 3", 800, null)
-    ]
-    var extras = ["Additional Device details go here"];
     var sampleSenders = [
         new DeviceInfo("1:10:111:999", null, "123:456", "Sender 1", "Online", sampleOutputChannels, extras),
         new DeviceInfo("1:20:111:999", null, "123:456", "Sender 2", "Error", sampleOutputChannels, extras),
@@ -27,14 +32,7 @@ export function getSenders(callback) {
 }
 
 export function getReceivers(callback) {
-    var extras = ["Additional Device details go here"];
-    var sampleInputChannels = [
-        new InChannelInfo(1,"Input ch 1", 500, null),
-        new InChannelInfo(2,"Input ch 2", 456, null),
-        new InChannelInfo(3,"Input ch 3", 800, null)
-    ]
     var sampleReceivers = [
-        
         new DeviceInfo("1:01:111:999", null, "123:456", "Receiver 1", "Online", sampleInputChannels, extras),
         new DeviceInfo("1:02:111:999", null, "123:456", "Receiver 2", "Error",  sampleInputChannels, extras),
         new DeviceInfo("1:03:111:999", null, "123:456", "Receiver 3", "Offline", sampleInputChannels, extras),
@@ -60,18 +58,18 @@ export function getReceivers(callback) {
 
 export function getAllStreams(callback) {
     var sampleSenders = [
-        new DeviceInfo(1, "Sender 1", "1:23:456:789", "Online", "123:456", 480, ["Additional Device details go here"]),
-        new DeviceInfo(2, "Sender 2", "1:32:456:789", "Pending", "132:456", 480, ["Additional Device details go here"])
+        new DeviceInfo("1:10:111:999", null, "123:456", "Sender 1", "Online", sampleOutputChannels, extras),
+        new DeviceInfo("1:20:111:999", null, "123:456", "Sender 2", "Error", sampleOutputChannels, extras),
     ];
     var sampleReceivers = [
-        new DeviceInfo(1, "Receiver 1", "1:23:456:789", "Online", "123:456", 480, ["Additional Device details go here"]),
-        new DeviceInfo(2, "Receiver 2", "1:32:456:789", "Pending", "132:456", 480, ["Additional Device details go here"]),
+        new DeviceInfo("1:01:111:999", null, "123:456", "Receiver 1", "Online", sampleInputChannels, extras),
+        new DeviceInfo("1:02:111:999", null, "123:456", "Receiver 2", "Error",  sampleInputChannels, extras),
     ];
 
     var sampleStreams = [
         new StreamInfo(1, sampleSenders[0], sampleReceivers[0], ["Additional Stream Details go here"]),
         new StreamInfo(2, sampleSenders[1], sampleReceivers[1], ["Additional Stream Details go here"]),
-        new StreamInfo(3, sampleSenders[0], sampleReceivers[0], ["Additional Stream Details go here"])
+        new StreamInfo(3, sampleSenders[1], sampleReceivers[0], ["Additional Stream Details go here"])
     ];
 
     callback(sampleStreams)
