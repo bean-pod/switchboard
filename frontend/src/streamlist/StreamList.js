@@ -3,7 +3,7 @@ import {
     Box,
     Container
 } from "@material-ui/core"
-import useStyles from '../DefaultMakeStylesTheme'
+import * as useStyles from '../DefaultMakeStylesTheme'
 import StreamsTable from '../streamlist/StreamsTable';
 
 export default function StreamList(props) {

@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core";
 
-export default function useStyles() {
+export default function defaultMakeStylesTheme() {
     return (
         makeStyles((theme) => ({
             root: {
