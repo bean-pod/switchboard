@@ -12,7 +12,7 @@ import {
     ExpandMore
 } from '@material-ui/icons/'
 
-import StreamStatusIndicator from './StreamStatusIndicator'
+import StatusIndicator from '../StatusIndicator'
 import ActionButtons from './ActionButtons'
 
 export default class SingleStreamRow extends React.Component {
@@ -41,7 +41,7 @@ export default class SingleStreamRow extends React.Component {
                     <TableCell class="tableCell">{this.props.streamDetails.sender.name}</TableCell>
                     <TableCell class="tableCell">{this.props.streamDetails.receiver.name}</TableCell>
                     <TableCell class="tableCell">
-                        {(StreamStatusIndicator(this.props.streamDetails.status))}
+                        <StatusIndicator status={this.props.streamDetails.status} />
                     </TableCell>
                     <TableCell class="tableCell">{this.props.streamDetails.type}</TableCell>
                     <TableCell class="tableCell">{this.props.streamDetails.time}</TableCell>
