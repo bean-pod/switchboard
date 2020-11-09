@@ -13,7 +13,7 @@ beforeEach(() => {
     document.body.appendChild(container);
 
     // get sample stream data for assertion
-    SampleData.getStreams((streams) => {
+    SampleData.getAllStreams((streams) => {
         sampleStreams = streams;
     })
 })
