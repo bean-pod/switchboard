@@ -20,10 +20,10 @@ function getStatusIcon(status) {
     }
 }
 
-export default function StreamStatusIndicator(props) {
+export default function StreamStatusIndicator(status) {
     return (
         <div>
-            {getStatusIcon(props.row.status)}
+            {getStatusIcon(status)}
         </div>
     );
 }

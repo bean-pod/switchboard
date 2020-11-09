@@ -41,7 +41,7 @@ export default class SingleStreamRow extends React.Component {
                     <TableCell class="tableCell">{this.props.streamDetails.sender.name}</TableCell>
                     <TableCell class="tableCell">{this.props.streamDetails.receiver.name}</TableCell>
                     <TableCell class="tableCell">
-                        {(StreamStatusIndicator(this.props))}
+                        {(StreamStatusIndicator(this.props.streamDetails.status))}
                     </TableCell>
                     <TableCell class="tableCell">{this.props.streamDetails.type}</TableCell>
                     <TableCell class="tableCell">{this.props.streamDetails.time}</TableCell>
