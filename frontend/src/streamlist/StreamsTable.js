@@ -42,8 +42,8 @@ export default class StreamsTable extends React.Component {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {this.state.streams.map((row) => {
-                                return <SingleStreamRow key={row.id} row={row} />;
+                            {this.state.streams.map((stream) => {
+                                return <SingleStreamRow key={stream.id} streamDetails={stream} />;
                             })}
                         </TableBody>
                     </Table>

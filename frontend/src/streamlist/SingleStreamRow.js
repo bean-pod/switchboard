@@ -30,21 +30,21 @@ export default class SingleStreamRow extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <TableRow key={this.props.row.id} class="singleStreamRow">
+                <TableRow key={this.props.streamDetails.id} class="singleStreamRow">
                     <TableCell class="tableCell dropdownButton" style={{ width: 1, padding: 0, paddingLeft: 5 }}>
                         <IconButton onClick={() => this.setState({ open: !this.state.open })}>
                             {this.state.open ? <ExpandLess /> : <ExpandMore />}
                         </IconButton>
                     </TableCell>
-                    <TableCell class="tableCell numeric">{this.props.row.id}</TableCell>
-                    <TableCell class="tableCell">{this.props.row.date}</TableCell>
-                    <TableCell class="tableCell">{this.props.row.sender.name}</TableCell>
-                    <TableCell class="tableCell">{this.props.row.receiver.name}</TableCell>
+                    <TableCell class="tableCell numeric">{this.props.streamDetails.id}</TableCell>
+                    <TableCell class="tableCell">{this.props.streamDetails.date}</TableCell>
+                    <TableCell class="tableCell">{this.props.streamDetails.sender.name}</TableCell>
+                    <TableCell class="tableCell">{this.props.streamDetails.receiver.name}</TableCell>
                     <TableCell class="tableCell">
                         {(StreamStatusIndicator(this.props))}
                     </TableCell>
-                    <TableCell class="tableCell">{this.props.row.type}</TableCell>
-                    <TableCell class="tableCell">{this.props.row.time}</TableCell>
+                    <TableCell class="tableCell">{this.props.streamDetails.type}</TableCell>
+                    <TableCell class="tableCell">{this.props.streamDetails.time}</TableCell>
                     <TableCell class="tableCell actionButtons">
                         {ActionButtons()}
                     </TableCell>
@@ -54,7 +54,7 @@ export default class SingleStreamRow extends React.Component {
                         <Collapse in={this.state.open} timeout="auto" unmountOnExit>
                             <Box margin={2}>
                                 <Typography variant="caption">
-                                    {this.rowExtras(this.props.row.extras)}
+                                    {this.rowExtras(this.props.streamDetails.extras)}
                                 </Typography>
                             </Box>
                         </Collapse>
