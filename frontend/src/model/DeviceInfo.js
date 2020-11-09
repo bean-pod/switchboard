@@ -8,4 +8,30 @@ export default class DeviceInfo {
         this.channels = channels;
         this.extras = extras;
     }
+
+    // function for converting from format to format
+    toCoderFormat() {
+        return ({
+            serialNumber: this.serialNumber,
+            device: {
+                serialNumber: this.serialNumber,
+                ipAddress: this.ipAddress,
+                displayName: this.displayName,
+                status: this.status
+            }
+        });
+    }
+
+    toDeviceFormat(coder){
+        return (
+            new DeviceInfo(
+                coder.serialNumber,
+                null,
+                coder.ipAddress,
+                coder.displayName,
+                coder.status,
+                null,
+                null)
+        );
+    }
 }
