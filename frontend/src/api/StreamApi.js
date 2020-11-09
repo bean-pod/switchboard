@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {convertToLocal} from "../model/ConvertDataFormat";
 import StreamInfo from '../model/StreamInfo';
 import * as SampleData from './SampleData';
 
@@ -24,8 +25,8 @@ export function getStream(streamId) {
                 var stream = response.data;
                 resolve(new StreamInfo(
                     stream.id,
-                    stream.outputChannel.encoder,
-                    stream.inputChannel.decoder,
+                    convertToLocal(stream.outputChannel.encoder),
+                    convertToLocal(stream.inputChannel.decoder),
                     ["Additional stream info goes here."]))
             })
             .catch(reject);
