@@ -58,7 +58,7 @@ export function getReceivers(callback) {
     callback(sampleReceivers)
 }
 
-export function getStreams(callback) {
+export function getAllStreams(callback) {
     var sampleSenders = [
         new DeviceInfo(1, "Sender 1", "1:23:456:789", "Online", "123:456", 480, ["Additional Device details go here"]),
         new DeviceInfo(2, "Sender 2", "1:32:456:789", "Pending", "132:456", 480, ["Additional Device details go here"])

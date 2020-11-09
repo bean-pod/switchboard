@@ -2,19 +2,34 @@ import axios from 'axios';
 import StreamInfo from '../model/StreamInfo';
 import * as SampleData from './SampleData';
 
-export function getStreams(callback) {
+export function getAllStreams(callback) {
     axios.get("http://localhost:8080/stream")
-        .then((streams) => {
-            callback(
-                streams.data.map((stream) => {
-                    return new StreamInfo(
-                        stream.id,
-                        stream.outputChannel.encoder.displayName,
-                        stream.inputChannel.decoder.displayName,
-                        ["Additional stream info goes here."]);
-                }));
-        })
+        .then(
+            (streams) => {
+                Promise.all(streams.data.map(
+                    (streamId) => {
+                        return getStream(streamId);
+                    }
+                ).then(callback)
+                )
+
+            })
         .catch((error) => {
-            SampleData.getStreams(callback);
+            SampleData.getAllStreams(callback);
         });
+}
+
+export function getStream(streamId) {
+    return new Promise((resolve, reject) => {
+        axios.get(`http://localhost:8080/stream/${streamId}`)
+            .then((response) => {
+                var stream = response.data;
+                resolve(new StreamInfo(
+                    stream.id,
+                    stream.outputChannel.encoder.displayName,
+                    stream.inputChannel.decoder.displayName,
+                    ["Additional stream info goes here."]))
+            })
+            .catch(reject);
+    })
 }

@@ -21,7 +21,7 @@ export default class StreamsTable extends React.Component {
     }
 
     componentDidMount() {
-        this.dataSource.getStreams(this.handleStreamsChange);
+        this.dataSource.getAllStreams(this.handleStreamsChange);
     }
 
     handleStreamsChange(streams) {
