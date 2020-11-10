@@ -9,7 +9,7 @@ export function convertToLocal(databaseDevice) {
             databaseDevice.device.displayName,
             databaseDevice.device.status,
             databaseDevice.inputs,
-            "lol")
+            ["Additional Device Info goes here."])
     );
 }
 
