@@ -1,4 +1,3 @@
-// empty
 import { makeStyles } from '@material-ui/core'
 import DefaultMakeStylesTheme from '../DefaultMakeStylesTheme'
 
