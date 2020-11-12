@@ -26,7 +26,7 @@ export default class HeaderBar extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div className="HeaderBar" >
+        <div className="headerBar" >
           <AppBar position="static">
             <Toolbar className="darkGrey" >
               <IconButton edge="start" className={this.classes.menuButton} color="inherit" aria-label="menu">
@@ -42,8 +42,8 @@ export default class HeaderBar extends React.Component {
                   Switchboard
               </NavLink>
               </div>
-              <IconButton color="inherit"><Notifications /></IconButton>
-              <IconButton color="inherit"><AccountCircle /></IconButton>
+              <IconButton id="notifBtn" color="inherit"><Notifications /></IconButton>
+              <IconButton id="acctBtn" color="inherit"><AccountCircle /></IconButton>
             </Toolbar>
           </AppBar>
         </div>
