@@ -10,7 +10,6 @@ import lombok.Setter;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,9 +34,7 @@ public class InputChannelEntity {
     @JoinColumn(name = "channel_id")
     private ChannelEntity channel;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {
-            CascadeType.ALL
-    })
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "decoder_serial")
     private DecoderEntity decoder;
 }

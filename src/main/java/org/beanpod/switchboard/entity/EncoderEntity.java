@@ -32,16 +32,14 @@ public class EncoderEntity {
     private Date lastCommunication;
 
 
-    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST
+    })
     @JoinColumn(name = "serial_number", referencedColumnName = "serial_number")
     @MapsId
     private DeviceEntity device;
 
-    @OneToMany(fetch = FetchType.LAZY,
+    @OneToMany(
             mappedBy = "encoder",
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            })
+            orphanRemoval = true, cascade = CascadeType.PERSIST)
     private Set<OutputChannelEntity> outputs;
 }
