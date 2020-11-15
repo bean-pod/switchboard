@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.util.Date;
-import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -23,6 +22,4 @@ public class EncoderDTO {
     private Date lastCommunication;
 
     private DeviceDTO device;
-    private Set<OutputChannelDTO> outputs;
-
 }

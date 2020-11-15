@@ -1,6 +1,7 @@
 package org.beanpod.switchboard.dao;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.beanpod.switchboard.dto.InputChannelDTO;
 import org.beanpod.switchboard.dto.OutputChannelDTO;
 import org.beanpod.switchboard.dto.StreamDTO;
@@ -10,7 +11,6 @@ import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.repository.StreamRepository;
 import org.openapitools.model.CreateStreamRequest;
 import org.springframework.stereotype.Service;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.Optional;
@@ -67,6 +67,5 @@ public class StreamDaoImpl {
     // Encoder/Decoder at all.
     private void removeChannelReferences(StreamEntity streamEntity) {
         Optional.of(streamEntity).ifPresent(se -> se.getInputChannel().getDecoder().setInputs(null));
-        Optional.of(streamEntity).ifPresent(se -> se.getOutputChannel().getEncoder().setOutputs(null));
     }
 }

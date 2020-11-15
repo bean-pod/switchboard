@@ -1,12 +1,11 @@
 package org.beanpod.switchboard.fixture;
 
-import net.bytebuddy.asm.Advice;
 import org.beanpod.switchboard.dto.EncoderDTO;
-import org.beanpod.switchboard.entity.*;
-import org.beanpod.switchboard.dto.EncoderDTO;
+import org.beanpod.switchboard.entity.DeviceEntity;
+import org.beanpod.switchboard.entity.EncoderEntity;
+import org.beanpod.switchboard.entity.OutputChannelEntity;
 import org.openapitools.model.EncoderModel;
 
-import java.beans.Encoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -23,8 +22,7 @@ public class EncoderFixture {
         try {
             return new EncoderEntity(SERIAL_NUMBER,
                     simpleDateFormat.parse("2020-10-31 05:05:05"),
-                    device,
-                    setOfChannels);
+                    device);
         } catch (ParseException e) {
             e.printStackTrace();
             throw new RuntimeException("Unable to parse the date in Encoder 1");
@@ -35,8 +33,7 @@ public class EncoderFixture {
         try {
             return new EncoderEntity("2",
                     simpleDateFormat.parse("2020-10-31 05:05:05"),
-                    device,
-                    setOfChannels);
+                    device);
         } catch (ParseException e) {
             e.printStackTrace();
             throw new RuntimeException("Unable to parse the date in Encoder 2");

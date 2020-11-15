@@ -2,16 +2,11 @@ package org.beanpod.switchboard.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.Set;
 
 @Entity(name = "Encoder")
 @Getter @Setter
@@ -38,8 +33,4 @@ public class EncoderEntity {
     @MapsId
     private DeviceEntity device;
 
-    @OneToMany(
-            mappedBy = "encoder",
-            orphanRemoval = true, cascade = CascadeType.PERSIST)
-    private Set<OutputChannelEntity> outputs;
 }

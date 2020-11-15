@@ -3,28 +3,23 @@ package org.beanpod.switchboard.controller;
 import org.beanpod.switchboard.dao.DeviceDaoImpl;
 import org.beanpod.switchboard.dao.EncoderDaoImpl;
 import org.beanpod.switchboard.dto.EncoderDTO;
-import org.beanpod.switchboard.dto.mapper.*;
+import org.beanpod.switchboard.dto.mapper.EncoderMapper;
 import org.beanpod.switchboard.entity.DeviceEntity;
 import org.beanpod.switchboard.entity.EncoderEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
-import org.beanpod.switchboard.fixture.ChannelFixture;
-import org.beanpod.switchboard.fixture.DecoderFixture;
 import org.beanpod.switchboard.fixture.DeviceFixture;
 import org.beanpod.switchboard.fixture.EncoderFixture;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import java.beans.Encoder;
 import java.util.List;
 import java.util.Optional;
 
@@ -143,7 +138,6 @@ class EncoderControllerTest {
     final void testUpdateEncoder(){
         EncoderDTO encoderDto = EncoderFixture.getEncoderDto();
         when(encoderService.findEncoder("1")).thenReturn(Optional.of(encoder1));
-        encoder1.getOutputs().clear();
         when(encoderService.save(encoder1)).thenReturn(encoder1);
         when(encoderMapper.toEncoderEntity(encoderDto)).thenReturn(encoder1);
         when(encoderMapper.toEncoderDTO(any())).thenReturn(encoderDto);

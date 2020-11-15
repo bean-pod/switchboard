@@ -15,18 +15,14 @@ public class DeviceFixture {
         return new DeviceEntity("1",
                 "127.111.111",
                 "Device #1",
-                "Running",
-                null,
-                null);
+                "Running");
     }
 
     public static DeviceEntity getDevice2(){
         return new DeviceEntity("2",
                 "127.111.112",
                 "Device #2",
-                "Running",
-                null,
-                null);
+                "Running");
     }
 
     public static List<DeviceEntity> getListOfDevices(){
