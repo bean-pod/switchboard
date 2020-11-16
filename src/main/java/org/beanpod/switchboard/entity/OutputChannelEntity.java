@@ -1,5 +1,6 @@
 package org.beanpod.switchboard.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
@@ -24,5 +25,6 @@ public class OutputChannelEntity {
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
     @JoinColumn(name = "encoder_serial")
+    @JsonBackReference
     private EncoderEntity encoder;
 }
