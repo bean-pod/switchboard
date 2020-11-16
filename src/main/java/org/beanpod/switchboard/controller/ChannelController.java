@@ -80,6 +80,26 @@ public class ChannelController {
         return  ResponseEntity.ok(channelService.saveOutputChannel(outputChannelDTO));
     }
 
+    @DeleteMapping("/output/{id}")
+    @Transactional
+    public ResponseEntity<String> deleteOutputChannel(@PathVariable Long id){
+        Long response = channelService.deleteOutputChannelById(id);
+        if (response != 1) {
+            throw new ExceptionType.DeviceNotFoundException(id.toString());
+        }
+        return ResponseEntity.ok("Output Channel with ID " + id + " Deleted");
+    }
+
+    @DeleteMapping("/input/{id}")
+    @Transactional
+    public ResponseEntity<String> deleteInputChannel(@PathVariable Long id){
+        Long response = channelService.deleteInputChannelById(id);
+        if (response != 1) {
+            throw new ExceptionType.DeviceNotFoundException(id.toString());
+        }
+        return ResponseEntity.ok("Input Channel with ID " + id + " Deleted");
+    }
+
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity<String> deleteChannel(@PathVariable Long id) {

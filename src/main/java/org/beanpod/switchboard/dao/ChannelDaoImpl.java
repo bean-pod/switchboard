@@ -74,7 +74,13 @@ public class ChannelDaoImpl {
         return outputChannelMapper.toOutputChannelDTO(outputChannelEntity);
     }
 
+    public Long deleteOutputChannelById(Long id){
+        return outputChannelRepository.deleteOutputChannelEntitiesById(id);
+    }
 
+    public Long deleteInputChannelById(Long id){
+        return inputChannelRepository.deleteInputChannelEntityById(id);
+    }
 
 
 }

@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface InputChannelRepository extends JpaRepository<InputChannelEntity, Long> {
     InputChannelEntity save(InputChannelEntity inputChannelEntity);
+    Long deleteInputChannelEntityById(Long id);
 }
