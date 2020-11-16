@@ -1,5 +1,6 @@
 package org.beanpod.switchboard.dao;
 
+import org.beanpod.switchboard.dto.EncoderDTO;
 import org.beanpod.switchboard.entity.ChannelEntity;
 import org.beanpod.switchboard.entity.DeviceEntity;
 import org.beanpod.switchboard.entity.EncoderEntity;
@@ -61,7 +62,7 @@ class EncoderDaoImplTest {
     @Test
     final void testFindEncoder(){
         when(encoderRepository.findEncoderBySerialNumber("1")).thenReturn(java.util.Optional.of(encoder1));
-        Optional<EncoderEntity> encoderEntity = encoderDaoImpl.findEncoder("1");
+        Optional<EncoderDTO> encoderEntity = encoderDaoImpl.findEncoder("1");
         assertEquals(encoderEntity,java.util.Optional.of(encoder1),"Returned encoder is not equal mocked");
     }
 

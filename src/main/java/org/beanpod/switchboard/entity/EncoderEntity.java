@@ -26,9 +26,7 @@ public class EncoderEntity {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date lastCommunication;
 
-
-    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST
-    })
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "serial_number", referencedColumnName = "serial_number")
     @MapsId
     private DeviceEntity device;

@@ -1,17 +1,13 @@
 package org.beanpod.switchboard.fixture;
 
-import io.swagger.models.auth.In;
-import org.apache.http.annotation.Contract;
 import org.beanpod.switchboard.dto.InputChannelDTO;
 import org.beanpod.switchboard.dto.OutputChannelDTO;
-import org.beanpod.switchboard.entity.*;
-import org.hibernate.result.Output;
+import org.beanpod.switchboard.entity.ChannelEntity;
+import org.beanpod.switchboard.entity.InputChannelEntity;
+import org.beanpod.switchboard.entity.OutputChannelEntity;
 import org.openapitools.model.InputChannelModel;
 import org.openapitools.model.OutputChannelModel;
-import org.xmlunit.builder.Input;
 
-import java.beans.Encoder;
-import java.util.Base64;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -49,8 +45,6 @@ public class ChannelFixture {
     public static InputChannelDTO getInputChannelDto(){
         return InputChannelDTO.builder()
                 .id(INPUT_CHANNEL_ID)
-                .name(NAME)
-                .port(PORT)
                 .decoder(DecoderFixture.getDecoderDto())
                 .build();
     }
@@ -58,8 +52,6 @@ public class ChannelFixture {
     public static OutputChannelDTO getOutputChannelDto(){
         return OutputChannelDTO.builder()
                 .id(OUTPUT_CHANNEL_ID)
-                .name(NAME)
-                .port(PORT)
                 .encoder(EncoderFixture.getEncoderDto())
                 .build();
     }
@@ -67,17 +59,12 @@ public class ChannelFixture {
     public static InputChannelModel getInputChannelModel(){
         return new InputChannelModel()
                 .id(INPUT_CHANNEL_ID)
-                .name(NAME)
-                .port(PORT)
                 .decoder(DecoderFixture.getDecoderModel());
-
     }
 
     public static OutputChannelModel getOutputChannelModel(){
         return new OutputChannelModel()
                 .id(OUTPUT_CHANNEL_ID)
-                .name(NAME)
-                .port(PORT)
                 .encoder(EncoderFixture.getEncoderModel());
 
     }

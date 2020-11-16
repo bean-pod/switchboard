@@ -10,15 +10,9 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface DeviceMapper {
-
     DeviceMapper INSTANCE = Mappers.getMapper(DeviceMapper.class);
-
     DeviceDTO toDeviceDTO(DeviceEntity deviceEntity);
-
     List<DeviceDTO> toDeviceDTOs(List<DeviceEntity> deviceEntities);
-
     DeviceEntity toDeviceEntity(DeviceDTO deviceDTO);
-
     DeviceModel toDeviceModel(DeviceDTO deviceDto);
-
 }

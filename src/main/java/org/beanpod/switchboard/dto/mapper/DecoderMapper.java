@@ -7,15 +7,10 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = {DeviceMapper.class, InputChannelMapper.class})
+@Mapper(componentModel = "spring", uses = {DeviceMapper.class})
 public interface DecoderMapper {
-
     DecoderMapper INSTANCE = Mappers.getMapper(DecoderMapper.class);
-
-
     DecoderDTO toDecoderDTO(DecoderEntity decoderEntity);
-
     List<DecoderDTO> toDecoderDTOs(List<DecoderEntity> decoderEntities);
-
-    DecoderEntity toDecoderEntity(DecoderDTO DecoderDTO);
+    DecoderEntity toDecoderEntity(DecoderDTO decoderDTO);
 }

@@ -10,11 +10,7 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface ChannelMapper {
     ChannelMapper INSTANCE = Mappers.getMapper(ChannelMapper.class);
-
     ChannelDTO toChannelDTO(ChannelEntity channelEntity);
-
     List<ChannelDTO> toChannelDTOs(List<ChannelEntity> channelEntities);
-
     ChannelEntity toChannelEntity(ChannelDTO channelDTO);
-
 }

@@ -16,14 +16,13 @@ public class OutputChannelEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private long id;
+    private Long id;
 
-    @OneToOne(optional = false, cascade = CascadeType.ALL)
+    @OneToOne(optional = false, cascade = {CascadeType.MERGE})
     @JoinColumn(name = "channel_id")
     private ChannelEntity channel;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST
-    })
+    @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
     @JoinColumn(name = "encoder_serial")
     private EncoderEntity encoder;
 }

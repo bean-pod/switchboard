@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Data
@@ -15,11 +16,10 @@ import java.util.Date;
 @AllArgsConstructor
 @Builder
 public class EncoderDTO {
+    @NotNull
     private String serialNumber;
-
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date lastCommunication;
-
     private DeviceDTO device;
 }

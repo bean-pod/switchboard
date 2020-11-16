@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -70,14 +69,14 @@ class EncoderControllerTest {
     //When a encoder is available in the DB
     @Test
     final void testRetrieveEncoder(){
-        when(encoderService.findEncoder("1")).thenReturn(Optional.of(encoder1));
+        when(encoderService.findEncoder("1")).thenReturn(Optional.of(encoderMapper.toEncoderDTO(encoder1)));
         when(encoderMapper.toEncoderDTO(any())).thenReturn(EncoderFixture.getEncoderDto());
 
-        ResponseEntity<EntityModel<EncoderDTO>> actualEncoder = encoderController.retrieveEncoder("1");
+        ResponseEntity<EncoderDTO> actualEncoder = encoderController.retrieveEncoder("1");
 
         assertNotNull(actualEncoder, "actualEncoder object is null.");
         assertEquals(200,actualEncoder.getStatusCodeValue(),"Status code is not 200");
-        assertEquals(encoder1.getSerialNumber(), actualEncoder.getBody().getContent().getSerialNumber(), "expectedEncoder and actualEncoder objects are not equal.");
+        assertEquals(encoder1.getSerialNumber(), actualEncoder.getBody().getSerialNumber(), "expectedEncoder and actualEncoder objects are not equal.");
     }
 
     //When a encoder is unavailable in the DB
@@ -137,7 +136,7 @@ class EncoderControllerTest {
     @Test
     final void testUpdateEncoder(){
         EncoderDTO encoderDto = EncoderFixture.getEncoderDto();
-        when(encoderService.findEncoder("1")).thenReturn(Optional.of(encoder1));
+        when(encoderService.findEncoder("1")).thenReturn(Optional.of(encoderMapper.toEncoderDTO(encoder1)));
         when(encoderService.save(encoder1)).thenReturn(encoder1);
         when(encoderMapper.toEncoderEntity(encoderDto)).thenReturn(encoder1);
         when(encoderMapper.toEncoderDTO(any())).thenReturn(encoderDto);

@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -72,14 +71,12 @@ class DecoderControllerTest {
     //When a decoder is available in the DB
     @Test
     final void testRetrieveDecoder(){
-        when(decoderService.findDecoder("1")).thenReturn(Optional.of(decoder1));
+        when(decoderService.findDecoder("1")).thenReturn(Optional.of(decoderMapper.toDecoderDTO(decoder1)));
         when(decoderMapper.toDecoderDTO(any())).thenReturn(DecoderFixture.getDecoderDto());
-
-        ResponseEntity<EntityModel<DecoderDTO>> actualDecoder = decoderController.retrieveDecoder("1");
-
+        ResponseEntity<DecoderDTO> actualDecoder = decoderController.retrieveDecoder("1");
         assertNotNull(actualDecoder, "actualDecoder object is null.");
         assertEquals(200,actualDecoder.getStatusCodeValue(),"Status code is not 200");
-        assertEquals(decoder1.getSerialNumber(), actualDecoder.getBody().getContent().getSerialNumber(), "expectedDecoder and actualDecoder objects are not equal.");
+        assertEquals(decoder1.getSerialNumber(), actualDecoder.getBody().getSerialNumber(), "expectedDecoder and actualDecoder objects are not equal.");
     }
 
     //When a decoder is unavailable in the DB
@@ -140,8 +137,7 @@ class DecoderControllerTest {
     @Test
     final void testUpdateDecoder(){
         DecoderDTO decoderDto = DecoderFixture.getDecoderDto();
-        when(decoderService.findDecoder("1")).thenReturn(Optional.of(decoder1));
-        decoder1.getInputs().clear();
+        when(decoderService.findDecoder("1")).thenReturn(Optional.of(decoderMapper.toDecoderDTO(decoder1)));
         when(decoderService.save(decoder1)).thenReturn(decoder1);
         when(decoderMapper.toDecoderEntity(decoderDto)).thenReturn(decoder1);
         when(decoderMapper.toDecoderDTO(any())).thenReturn(decoderDto);

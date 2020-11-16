@@ -1,5 +1,7 @@
 package org.beanpod.switchboard.dao;
 
+import org.beanpod.switchboard.dto.EncoderDTO;
+import org.beanpod.switchboard.dto.mapper.EncoderMapper;
 import org.beanpod.switchboard.entity.EncoderEntity;
 import org.beanpod.switchboard.repository.EncoderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +16,17 @@ public class EncoderDaoImpl {
     @Autowired
     EncoderRepository encoderRepository;
 
-    public EncoderEntity save(EncoderEntity encoderEntity) {
-        return encoderRepository.save(encoderEntity);
+    @Autowired
+    EncoderMapper encoderMapper;
+
+    public EncoderDTO save(EncoderDTO encoderDTO) {
+        return encoderMapper.toEncoderDTO(encoderRepository
+                .save(encoderMapper.toEncoderEntity(encoderDTO)));
     }
 
-    public Optional<EncoderEntity> findEncoder(String serialNumber) {
-        return encoderRepository.findEncoderBySerialNumber(serialNumber);
+    public Optional<EncoderDTO> findEncoder(String serialNumber) {
+        return encoderRepository.
+                findEncoderBySerialNumber(serialNumber).map(encoder -> encoderMapper.toEncoderDTO(encoder));
     }
 
     public List<EncoderEntity> getEncoders() {

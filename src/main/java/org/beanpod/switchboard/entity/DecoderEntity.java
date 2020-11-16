@@ -7,7 +7,6 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.Set;
 
 @Entity(name = "Decoder")
 @Getter @Setter
@@ -31,12 +30,4 @@ public class DecoderEntity {
     @MapsId
     private DeviceEntity device;
 
-    @OneToMany(fetch = FetchType.LAZY,
-            mappedBy = "decoder",
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE,
-                    CascadeType.REMOVE
-            })
-    private Set<InputChannelEntity> inputs;
 }

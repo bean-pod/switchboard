@@ -9,7 +9,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class InputChannelDTO {
     private Long id;
-    private String name;
-    private int port;
+    private ChannelDTO channel;
     private DecoderDTO decoder;
 }

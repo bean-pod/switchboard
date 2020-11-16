@@ -1,7 +1,6 @@
 package org.beanpod.switchboard.fixture;
 
 import org.beanpod.switchboard.dto.DecoderDTO;
-import org.beanpod.switchboard.entity.ChannelEntity;
 import org.beanpod.switchboard.entity.DecoderEntity;
 import org.beanpod.switchboard.entity.DeviceEntity;
 import org.beanpod.switchboard.entity.InputChannelEntity;
@@ -23,8 +22,7 @@ public class DecoderFixture {
         try {
             return new DecoderEntity("1",
                     simpleDateFormat.parse("2020-10-31 05:05:05"),
-                    device,
-                    setOfChannels);
+                    device);
         } catch (ParseException e) {
             e.printStackTrace();
             throw new RuntimeException("Unable to parse the date in Decoder 1");
@@ -35,8 +33,7 @@ public class DecoderFixture {
         try {
             return new DecoderEntity("1",
                     simpleDateFormat.parse("2020-10-31 05:05:05"),
-                    device,
-                    setOfChannels);
+                    device);
         } catch (ParseException e) {
             e.printStackTrace();
             throw new RuntimeException("Unable to parse the date in Decoder 1");

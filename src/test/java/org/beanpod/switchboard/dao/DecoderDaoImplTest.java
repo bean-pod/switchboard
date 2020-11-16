@@ -1,5 +1,6 @@
 package org.beanpod.switchboard.dao;
 
+import org.beanpod.switchboard.dto.DecoderDTO;
 import org.beanpod.switchboard.entity.ChannelEntity;
 import org.beanpod.switchboard.entity.DecoderEntity;
 import org.beanpod.switchboard.entity.DeviceEntity;
@@ -61,7 +62,7 @@ class DecoderDaoImplTest {
     @Test
     final void testFindDecoder(){
         when(decoderRepository.findDecoderBySerialNumber("1")).thenReturn(java.util.Optional.of(decoder1));
-        Optional<DecoderEntity> decoderEntity = decoderDaoImpl.findDecoder("1");
+        Optional<DecoderDTO> decoderEntity = decoderDaoImpl.findDecoder("1");
         assertEquals(decoderEntity,java.util.Optional.of(decoder1),"Returned decoder equal mocked");
     }
 
