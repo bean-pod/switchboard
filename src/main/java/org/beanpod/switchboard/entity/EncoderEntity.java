@@ -33,7 +33,7 @@ public class EncoderEntity {
     @MapsId
     private DeviceEntity device;
 
-    @OneToMany(mappedBy= "encoder", fetch= FetchType.LAZY)
+    @OneToMany(mappedBy= "encoder", fetch= FetchType.LAZY, cascade = {CascadeType.REMOVE})
     @JsonManagedReference
     private Set<OutputChannelEntity> output;
 }

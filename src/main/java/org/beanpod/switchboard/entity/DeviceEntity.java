@@ -28,4 +28,10 @@ public class DeviceEntity {
     private String displayName;
 
     private String status;
+
+    @OneToOne(mappedBy = "device", cascade = {CascadeType.REMOVE})
+    private DecoderEntity decoderEntity;
+
+    @OneToOne(mappedBy = "device", cascade = {CascadeType.REMOVE})
+    private EncoderEntity encoderEntity;
 }

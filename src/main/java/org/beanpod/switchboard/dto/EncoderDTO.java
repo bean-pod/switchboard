@@ -5,11 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.beanpod.switchboard.entity.OutputChannelEntity;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -22,4 +24,6 @@ public class EncoderDTO {
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date lastCommunication;
     private DeviceDTO device;
+    private Set<OutputChannelEntity> output;
+
 }

@@ -34,7 +34,7 @@ public class DecoderEntity {
     @MapsId
     private DeviceEntity device;
 
-    @OneToMany(mappedBy= "decoder", fetch= FetchType.LAZY)
+    @OneToMany(mappedBy= "decoder", fetch= FetchType.LAZY, cascade = {CascadeType.REMOVE})
     @JsonManagedReference
     private Set<InputChannelEntity> input;
 }
