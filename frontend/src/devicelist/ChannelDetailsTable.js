@@ -4,7 +4,7 @@ import {
   TableHead,
   TableBody,
   TableCell,
-  TableRow,
+  TableRow
 } from "@material-ui/core";
 
 export default class ChannelDetailsTable extends React.Component {

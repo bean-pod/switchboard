@@ -13,7 +13,7 @@ export default class StreamingTable extends React.Component {
       senders: [],
       receivers: [],
       selectedSenderID: "",
-      selectedReceiverID: "",
+      selectedReceiverID: ""
     };
 
     this.dataSource = props.dataSource;
@@ -33,25 +33,25 @@ export default class StreamingTable extends React.Component {
 
   handleSendersChange(senders) {
     this.setState({
-      senders,
+      senders
     });
   }
 
   handleReceiversChange(receivers) {
     this.setState({
-      receivers,
+      receivers
     });
   }
 
   onSenderSelected(selectedSender) {
     this.setState({
-      selectedSenderID: selectedSender.target.value,
+      selectedSenderID: selectedSender.target.value
     });
   }
 
   onReceiverSelected(selectedReceiver) {
     this.setState({
-      selectedReceiverID: selectedReceiver.target.value,
+      selectedReceiverID: selectedReceiver.target.value
     });
   }
 
@@ -65,7 +65,7 @@ export default class StreamingTable extends React.Component {
       axios
         .post("http://localhost:8080/stream", {
           inputChannelId: this.state.selectedReceiverID,
-          outputChannelId: this.state.selectedSenderID,
+          outputChannelId: this.state.selectedSenderID
         })
         .then((response) => {
           console.log("Success. Stream Started.");

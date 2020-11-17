@@ -16,7 +16,7 @@ export default class StreamingPage extends React.Component {
           breadcrumbs={[
             ["Home", ""],
             ["My Devices", "Devices"],
-            ["Streaming", "Streaming"],
+            ["Streaming", "Streaming"]
           ]}
         />
         <Box padding="1em">

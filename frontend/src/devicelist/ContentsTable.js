@@ -13,7 +13,7 @@ export default class ContentsTable extends React.Component {
     this.state = {
       senders: [],
       receivers: [],
-      value: 0,
+      value: 0
     };
     this.dataSource = props.dataSource;
     this.handleValueChange = this.handleValueChange.bind(this);
@@ -28,19 +28,19 @@ export default class ContentsTable extends React.Component {
 
   handleValueChange(tabIndex) {
     this.setState({
-      value: tabIndex,
+      value: tabIndex
     });
   }
 
   handleSendersChange(senders) {
     this.setState({
-      senders,
+      senders
     });
   }
 
   handleReceiversChange(receivers) {
     this.setState({
-      receivers,
+      receivers
     });
   }
 

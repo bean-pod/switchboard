@@ -6,7 +6,7 @@ export function getSenders(callback) {
   const sampleOutputChannels = [
     new OutChannelInfo(1, "Output ch 1", 500, null),
     new OutChannelInfo(2, "Output ch 2", 456, null),
-    new OutChannelInfo(3, "Output ch 3", 800, null),
+    new OutChannelInfo(3, "Output ch 3", 800, null)
   ];
   const extras = ["Additional Device details go here"];
   const sampleSenders = [
@@ -90,7 +90,7 @@ export function getSenders(callback) {
       "Online",
       sampleOutputChannels,
       extras
-    ),
+    )
   ];
 
   callback(sampleSenders);
@@ -101,7 +101,7 @@ export function getReceivers(callback) {
   const sampleInputChannels = [
     new InChannelInfo(1, "Input ch 1", 500, null),
     new InChannelInfo(2, "Input ch 2", 456, null),
-    new InChannelInfo(3, "Input ch 3", 800, null),
+    new InChannelInfo(3, "Input ch 3", 800, null)
   ];
   const sampleReceivers = [
     new DeviceInfo(
@@ -265,7 +265,7 @@ export function getReceivers(callback) {
       "Online",
       sampleInputChannels,
       extras
-    ),
+    )
   ];
 
   callback(sampleReceivers);

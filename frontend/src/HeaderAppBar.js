@@ -8,8 +8,8 @@ export default class HeaderBar extends React.Component {
     super(props);
     this.classes = makeStyles((theme) => ({
       menuButton: {
-        marginRight: theme.spacing(2),
-      },
+        marginRight: theme.spacing(2)
+      }
     }));
   }
 

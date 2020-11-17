@@ -5,7 +5,7 @@ import {
   TableRow,
   TableCell,
   Typography,
-  IconButton,
+  IconButton
 } from "@material-ui/core";
 
 import { ExpandLess, ExpandMore } from "@material-ui/icons/";
@@ -18,7 +18,7 @@ export default class SingleTableRow extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false,
+      open: false
     };
   }
 

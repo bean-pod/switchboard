@@ -18,11 +18,11 @@ export default class StreamButton extends React.Component {
         color: "white",
         height: 40,
         padding: "0 5px",
-        margin: "1em",
+        margin: "1em"
       },
       label: {
-        textTransform: "",
-      },
+        textTransform: ""
+      }
     })(Button);
 
     return (

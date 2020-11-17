@@ -22,11 +22,11 @@ describe("<HeadCells/>", () => {
       const mockEvent = {
         target: {
           name: "status",
-          value: "Test",
-        },
+          value: "Test"
+        }
       };
       const expected = {
-        status: "Test",
+        status: "Test"
       };
 
       wrapper.instance().handleStatusChange(mockEvent);

@@ -5,7 +5,7 @@ import {
   ListItem,
   ListItemText,
   MenuItem,
-  Select,
+  Select
 } from "@material-ui/core";
 import { ExpandLess, ExpandMore } from "@material-ui/icons/";
 
@@ -13,7 +13,7 @@ export default class SelectDeviceTableRow extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false,
+      open: false
     };
     this.onClick = this.onClick.bind(this);
   }

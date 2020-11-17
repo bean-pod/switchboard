@@ -10,7 +10,7 @@ export default class HomePage extends React.Component {
           breadcrumbs={[
             ["Home", ""],
             ["My Devices", "Devices"],
-            ["Streaming", "Streaming"],
+            ["Streaming", "Streaming"]
           ]}
         />
       </Container>

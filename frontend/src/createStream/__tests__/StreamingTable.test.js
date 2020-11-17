@@ -37,14 +37,14 @@ describe("<StreamingTable/>", () => {
       const mockEvent = {
         target: {
           name: "selectedSenderID",
-          value: "Test3",
-        },
+          value: "Test3"
+        }
       };
       const defaultState = {
         senders: [],
         receivers: [],
         selectedSenderID: "",
-        selectedReceiverID: "",
+        selectedReceiverID: ""
       };
 
       const expected = {
@@ -53,7 +53,7 @@ describe("<StreamingTable/>", () => {
 
         selectedSenderID: "Test3",
 
-        selectedReceiverID: "",
+        selectedReceiverID: ""
       };
 
       expect(wrapper.state()).toEqual(defaultState);
@@ -68,15 +68,15 @@ describe("<StreamingTable/>", () => {
       const mockEvent = {
         target: {
           name: "selectedReceiverID",
-          value: "Test6",
-        },
+          value: "Test6"
+        }
       };
 
       const defaultState = {
         senders: [],
         receivers: [],
         selectedSenderID: "",
-        selectedReceiverID: "",
+        selectedReceiverID: ""
       };
       const expected = {
         senders: [],
@@ -84,7 +84,7 @@ describe("<StreamingTable/>", () => {
 
         selectedSenderID: "",
 
-        selectedReceiverID: "Test6",
+        selectedReceiverID: "Test6"
       };
 
       expect(wrapper.state()).toEqual(defaultState);
@@ -97,7 +97,7 @@ describe("<StreamingTable/>", () => {
   describe("handleSubmit", () => {
     it("should do nothing if no receiver or sender has been selected", () => {
       const data = {
-        data: "test",
+        data: "test"
       };
       axios.post.mockImplementationOnce(() => Promise.resolve(data));
       // act
@@ -108,12 +108,12 @@ describe("<StreamingTable/>", () => {
         const mockReceiver = {
           target: {
             name: "selectedReceiverID",
-            value: "Test6",
-          },
+            value: "Test6"
+          }
         };
 
         const data = {
-          data: "test",
+          data: "test"
         };
         axios.post.mockImplementationOnce(() => Promise.resolve(data));
 
@@ -127,11 +127,11 @@ describe("<StreamingTable/>", () => {
         const mockSender = {
           target: {
             name: "selectedSenderID",
-            value: "Test3",
-          },
+            value: "Test3"
+          }
         };
         const data = {
-          data: "test",
+          data: "test"
         };
         axios.post.mockImplementationOnce(() => Promise.resolve(data));
 
@@ -144,23 +144,23 @@ describe("<StreamingTable/>", () => {
         const mockReceiver = {
           target: {
             name: "selectedReceiverID",
-            value: "Test6",
-          },
+            value: "Test6"
+          }
         };
         const mockSender = {
           target: {
             name: "selectedSenderID",
-            value: "Test3",
-          },
+            value: "Test3"
+          }
         };
 
         const expected = {
           outputChannelId: "Test3",
-          inputChannelId: "Test6",
+          inputChannelId: "Test6"
         };
 
         const data = {
-          data: "test",
+          data: "test"
         };
         axios.post.mockImplementationOnce(() => Promise.resolve(data));
 

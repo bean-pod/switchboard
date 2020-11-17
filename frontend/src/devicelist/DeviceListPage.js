@@ -13,11 +13,11 @@ export default class DeviceListPage extends React.Component {
   useStyles() {
     makeStyles((theme) => ({
       root: {
-        backgroundColor: theme.palette.background.paper,
+        backgroundColor: theme.palette.background.paper
       },
       tabs: {
-        borderRight: `1px solid ${theme.palette.divider}`,
-      },
+        borderRight: `1px solid ${theme.palette.divider}`
+      }
     }));
   }
 
@@ -27,7 +27,7 @@ export default class DeviceListPage extends React.Component {
         <DynamicBreadcrumb
           breadcrumbs={[
             ["Home", ""],
-            ["My Devices", "Devices"],
+            ["My Devices", "Devices"]
           ]}
         />
         <Box padding="1em">

@@ -16,11 +16,11 @@ export default class AddDeviceButton extends React.Component {
         border: 0,
         color: "white",
         height: 40,
-        padding: "0px",
+        padding: "0px"
       },
       label: {
-        textTransform: "",
-      },
+        textTransform: ""
+      }
     })(Button);
 
     return (

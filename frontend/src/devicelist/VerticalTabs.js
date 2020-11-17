@@ -14,7 +14,7 @@ export default class VerticalTabs extends React.Component {
   getTabProps(index) {
     return {
       id: `vertical-tab-${index}`,
-      "aria-controls": `vertical-tabpanel-${index}`,
+      "aria-controls": `vertical-tabpanel-${index}`
     };
   }
 

@@ -7,7 +7,7 @@ export default class ActionMenu extends React.Component {
   constructor() {
     super();
     this.state = {
-      anchorElement: null,
+      anchorElement: null
     };
 
     this.setAnchorElement = this.setAnchorElement.bind(this);
@@ -17,7 +17,7 @@ export default class ActionMenu extends React.Component {
 
   setAnchorElement(element) {
     this.setState({
-      anchorElement: element,
+      anchorElement: element
     });
   }
 

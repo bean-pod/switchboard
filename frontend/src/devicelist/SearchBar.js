@@ -13,8 +13,8 @@ export default class SearchBar extends React.Component {
         marginLeft: 0,
         [theme.breakpoints.up("sm")]: {
           marginLeft: theme.spacing(1),
-          width: "auto",
-        },
+          width: "auto"
+        }
       },
       searchIcon: {
         padding: theme.spacing(0, 2),
@@ -22,11 +22,11 @@ export default class SearchBar extends React.Component {
         position: "absolute",
         pointerEvents: "none",
         alignItems: "left",
-        justifyContent: "center",
+        justifyContent: "center"
       },
       inputRoot: {
-        color: "inherit",
-      },
+        color: "inherit"
+      }
     }));
   }
 
@@ -43,7 +43,7 @@ export default class SearchBar extends React.Component {
                   {" "}
                   <Search />
                 </InputAdornment>
-              ),
+              )
             }}
             size="small"
             variant="outlined"

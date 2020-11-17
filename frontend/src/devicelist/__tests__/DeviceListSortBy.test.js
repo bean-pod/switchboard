@@ -22,11 +22,11 @@ describe("<DeviceListSortSelector/>", () => {
       const mockEvent = {
         target: {
           name: "sortBy",
-          value: "Test",
-        },
+          value: "Test"
+        }
       };
       const expected = {
-        sort: "Test",
+        sort: "Test"
       };
 
       wrapper.instance().handleSortChange(mockEvent);

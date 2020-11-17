@@ -5,7 +5,7 @@ import {
   Select,
   Typography,
   TextField,
-  MenuItem,
+  MenuItem
 } from "@material-ui/core";
 import HeadCell from "../model/HeadCell";
 
@@ -13,7 +13,7 @@ export default class HeadCells extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      status: "",
+      status: ""
     };
     this.headcells = this.getHeadCellData();
     this.handleStatusChange = this.handleStatusChange.bind(this);
@@ -24,13 +24,13 @@ export default class HeadCells extends React.Component {
       new HeadCell("name", "Name", false, false),
       new HeadCell("serial", "Serial Number", true, true),
       new HeadCell("status", "Status", false, true),
-      new HeadCell("ip", "IP Address", true, true),
+      new HeadCell("ip", "IP Address", true, true)
     ];
   }
 
   handleStatusChange(event) {
     this.setState({
-      status: event.target.value,
+      status: event.target.value
     });
   }
 

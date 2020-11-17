@@ -5,7 +5,7 @@ import {
   TableHead,
   TableRow,
   TableContainer,
-  TableBody,
+  TableBody
 } from "@material-ui/core";
 
 import SingleTableRow from "./SingleTableRow";

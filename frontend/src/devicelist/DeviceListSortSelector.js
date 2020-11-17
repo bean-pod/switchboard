@@ -5,7 +5,7 @@ export default class DeviceListSortSelector extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      sort: "",
+      sort: ""
     };
 
     this.handleSortChange = this.handleSortChange.bind(this);
@@ -13,7 +13,7 @@ export default class DeviceListSortSelector extends React.Component {
 
   handleSortChange(event) {
     this.setState({
-      sort: event.target.value,
+      sort: event.target.value
     });
   }
 
