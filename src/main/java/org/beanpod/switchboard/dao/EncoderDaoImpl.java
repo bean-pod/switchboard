@@ -20,13 +20,13 @@ public class EncoderDaoImpl {
     EncoderMapper encoderMapper;
 
     public EncoderDTO save(EncoderDTO encoderDTO) {
-        return encoderMapper.toEncoderDTO(encoderRepository
-                .save(encoderMapper.toEncoderEntity(encoderDTO)));
+        return encoderMapper
+                .toEncoderDTO(encoderRepository.save(encoderMapper.toEncoderEntity(encoderDTO)));
     }
 
     public Optional<EncoderDTO> findEncoder(String serialNumber) {
         return encoderRepository.
-                findEncoderBySerialNumber(serialNumber).map(encoder -> encoderMapper.toEncoderDTO(encoder));
+                findEncoderBySerialNumber(serialNumber).map(encoderMapper::toEncoderDTO);
     }
 
     public List<EncoderEntity> getEncoders() {

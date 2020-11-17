@@ -34,27 +34,27 @@ class CustomRestExceptionHandlerTest {
     }
 
     @Test
-    final void testhandleDeviceNotFoundException(){
+    final void testHandleDeviceNotFoundException() {
         ResponseEntity<Object> responseEntity = customRestExceptionHandler.handleDeviceNotFoundException(exception);
-        assertEquals(HttpStatus.NOT_FOUND,responseEntity.getStatusCode());
+        assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
     }
 
     @Test
-    final void testhandleDeviceAlreadyExistsException(){
+    final void testHandleDeviceAlreadyExistsException() {
         ResponseEntity<Object> responseEntity = customRestExceptionHandler.handleDeviceAlreadyExistsException(exception);
-        assertEquals(HttpStatus.CONFLICT,responseEntity.getStatusCode());
+        assertEquals(HttpStatus.CONFLICT, responseEntity.getStatusCode());
     }
 
     @Test
-    final void testhandleDeviceReferencedException(){
+    final void testHandleDeviceReferencedException() {
         ResponseEntity<Object> responseEntity = customRestExceptionHandler.handleDeviceReferencedException(exception);
-        assertEquals(HttpStatus.CONFLICT,responseEntity.getStatusCode());
+        assertEquals(HttpStatus.CONFLICT, responseEntity.getStatusCode());
     }
 
     @Test
-    final void testhandleDeviceNotUpdatedException(){
+    final void testHandleDeviceNotUpdatedException() {
         ResponseEntity<Object> responseEntity = customRestExceptionHandler.handleDeviceNotUpdatedException(exception);
-        assertEquals(HttpStatus.CONFLICT,responseEntity.getStatusCode());
+        assertEquals(HttpStatus.CONFLICT, responseEntity.getStatusCode());
     }
 
 }

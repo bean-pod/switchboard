@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity(name = "Device")
 @Getter @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode

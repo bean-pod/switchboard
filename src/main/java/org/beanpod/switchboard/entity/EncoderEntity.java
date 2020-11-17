@@ -12,6 +12,7 @@ import java.util.Set;
 
 @Entity(name = "Encoder")
 @Getter @Setter
+@Builder
 @ToString(exclude = {"outputs"})
 @AllArgsConstructor
 @NoArgsConstructor

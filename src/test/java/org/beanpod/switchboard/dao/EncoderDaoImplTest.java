@@ -1,10 +1,8 @@
 package org.beanpod.switchboard.dao;
 
 import org.beanpod.switchboard.dto.EncoderDTO;
-import org.beanpod.switchboard.entity.ChannelEntity;
-import org.beanpod.switchboard.entity.DeviceEntity;
+import org.beanpod.switchboard.dto.mapper.EncoderMapper;
 import org.beanpod.switchboard.entity.EncoderEntity;
-import org.beanpod.switchboard.fixture.DeviceFixture;
 import org.beanpod.switchboard.fixture.EncoderFixture;
 import org.beanpod.switchboard.repository.EncoderRepository;
 import org.junit.jupiter.api.BeforeAll;
@@ -17,10 +15,10 @@ import org.mockito.MockitoAnnotations;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 class EncoderDaoImplTest {
@@ -31,20 +29,19 @@ class EncoderDaoImplTest {
     @Mock
     private EncoderRepository encoderRepository;
 
+    @Mock
+    private EncoderMapper encoderMapper;
+
     //stubbed DeviceEntity object
-    static private DeviceEntity device1, device2;
-    static private EncoderEntity encoder1, encoder2;
-    static private Set<ChannelEntity> setOfChannels;
+    static private EncoderEntity encoder;
+    static private EncoderDTO encoderDto;
     static private List<EncoderEntity> listOfEncoders;
 
     @BeforeAll
     static void encoderFixture() throws ParseException {
-        device1 = DeviceFixture.getDevice1();
-        device2 = DeviceFixture.getDevice2();
-
-        encoder1 = EncoderFixture.getEncoder1(device1);
-        encoder2 = EncoderFixture.getEncoder2(device2);
-        listOfEncoders = EncoderFixture.getListOfEncoder(encoder1, encoder2);
+        encoder = EncoderFixture.getEncoderEntity1();
+        encoderDto = EncoderFixture.getEncoderDto();
+        listOfEncoders = EncoderFixture.getListOfEncoder();
     }
 
     @BeforeEach
@@ -53,31 +50,35 @@ class EncoderDaoImplTest {
     }
 
     @Test
-    final void testSave(){
-        when(encoderRepository.save(encoder1)).thenReturn(encoder1);
-        EncoderEntity encoderEntity = encoderDaoImpl.save(encoder1);
-        assertEquals(encoderEntity,encoder1,"Returned encoder is not equal mocked");
+    final void testSave() {
+        when(encoderMapper.toEncoderDTO(any())).thenReturn(encoderDto);
+        when(encoderMapper.toEncoderEntity(any())).thenReturn(encoder);
+        when(encoderRepository.save(encoder)).thenReturn(encoder);
+        EncoderDTO encoderDTO = encoderDaoImpl.save(encoderDto);
+        assertEquals(encoderDTO, encoderDto);
     }
 
     @Test
-    final void testFindEncoder(){
-        when(encoderRepository.findEncoderBySerialNumber("1")).thenReturn(java.util.Optional.of(encoder1));
-        Optional<EncoderDTO> encoderEntity = encoderDaoImpl.findEncoder("1");
-        assertEquals(encoderEntity,java.util.Optional.of(encoder1),"Returned encoder is not equal mocked");
+    final void testFindEncoder() {
+        when(encoderMapper.toEncoderDTO(any())).thenReturn(encoderDto);
+        when(encoderMapper.toEncoderEntity(any())).thenReturn(encoder);
+        when(encoderRepository.findEncoderBySerialNumber("1")).thenReturn(java.util.Optional.of(encoder));
+        Optional<EncoderDTO> encoderDTO = encoderDaoImpl.findEncoder("1");
+        assertEquals(encoderDTO.get(), encoderDto);
     }
 
     @Test
     final void testGetEncoders(){
         when(encoderRepository.findAll()).thenReturn(listOfEncoders);
         List<EncoderEntity> deviceEntities = encoderDaoImpl.getEncoders();
-        assertIterableEquals(deviceEntities, listOfEncoders, "list of expected and given encoders are not equal");
+        assertIterableEquals(deviceEntities, listOfEncoders);
     }
 
     @Test
     final void testDeleteEncoder(){
         when(encoderRepository.deleteEncoderEntityBySerialNumber("1")).thenReturn((long)1);
         Long response = encoderDaoImpl.deleteEncoder("1");
-        assertEquals(response, (long)1, "Deleting encoder should return 1");
+        assertEquals(response, (long) 1);
     }
 
 }
