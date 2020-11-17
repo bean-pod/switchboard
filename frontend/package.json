@@ -31,6 +31,9 @@
     "lint:fix": "eslint --fix .",
     "format": "prettier --write \"**/*.+(js|jsx|json|css|md)\""
   },
+  "prettier": {
+    "trailingComma": "none"
+  },
   "eslintConfig": {
     "env": {
       "browser": true,
