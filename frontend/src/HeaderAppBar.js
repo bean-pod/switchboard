@@ -1,18 +1,7 @@
-import React from 'react';
-import {
-  AppBar,
-  Toolbar,
-  IconButton,
-  makeStyles
-} from "@material-ui/core"
-import {
-  AccountCircle,
-  Notifications,
-  Menu
-} from '@material-ui/icons/';
-import { NavLink } from 'react-router-dom';
-
-
+import React from "react";
+import { AppBar, Toolbar, IconButton, makeStyles } from "@material-ui/core";
+import { AccountCircle, Notifications, Menu } from "@material-ui/icons/";
+import { NavLink } from "react-router-dom";
 
 export default class HeaderBar extends React.Component {
   constructor(props) {
@@ -23,13 +12,19 @@ export default class HeaderBar extends React.Component {
       },
     }));
   }
+
   render() {
     return (
-      <React.Fragment>
-        <div className="HeaderBar" >
+      <>
+        <div className="HeaderBar">
           <AppBar position="static">
-            <Toolbar className="darkGrey" >
-              <IconButton edge="start" className={this.classes.menuButton} color="inherit" aria-label="menu">
+            <Toolbar className="darkGrey">
+              <IconButton
+                edge="start"
+                className={this.classes.menuButton}
+                color="inherit"
+                aria-label="menu"
+              >
                 <Menu />
               </IconButton>
               <div className="headerTitle">
@@ -40,15 +35,18 @@ export default class HeaderBar extends React.Component {
                   exact
                 >
                   Switchboard
-              </NavLink>
+                </NavLink>
               </div>
-              <IconButton color="inherit"><Notifications /></IconButton>
-              <IconButton color="inherit"><AccountCircle /></IconButton>
+              <IconButton color="inherit">
+                <Notifications />
+              </IconButton>
+              <IconButton color="inherit">
+                <AccountCircle />
+              </IconButton>
             </Toolbar>
           </AppBar>
         </div>
-      </React.Fragment>
+      </>
     );
   }
-
 }
