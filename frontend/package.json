@@ -25,10 +25,33 @@
     "test:all": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject",
     "test:coverage": "npm test -- --coverage --watchAll=false",
-    "test:ci": "react-scripts test --env=jsdom --coverage --watchAll=false --testResultsProcessor ./node_modules/jest-sonar-reporter/index.js"
+    "test:ci": "react-scripts test --env=jsdom --coverage --watchAll=false --testResultsProcessor ./node_modules/jest-sonar-reporter/index.js",
+    "lint:ci": "eslint -f json -o lint/report.json . || true"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "env": {
+      "browser": true,
+      "es6": true
+    },
+    "extends": [
+      "plugin:react/recommended",
+      "airbnb",
+      "plugin:prettier/recommended"
+    ],
+    "globals": {
+      "Atomics": "readonly",
+      "SharedArrayBuffer": "readonly"
+    },
+    "parserOptions": {
+      "ecmaFeatures": {
+        "jsx": true
+      },
+      "ecmaVersion": 2018
+    },
+    "plugins": [
+      "react"
+    ],
+    "rules": {}
   },
   "browserslist": {
     "production": [
@@ -47,5 +70,16 @@
     "reportPath": "coverage",
     "reportFile": "sonar-report.xml",
     "indent": 4
+  },
+  "devDependencies": {
+    "eslint": "^7.13.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "prettier": "^2.1.2"
   }
 }

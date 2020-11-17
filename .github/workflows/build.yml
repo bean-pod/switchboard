@@ -29,8 +29,8 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
-      - name: Frontend Test Coverage
-        run: npm install && npm run test:ci
+      - name: Create frontend coverage and lint reports
+        run: npm install && npm run test:ci && npm run lint:ci
         working-directory: ./frontend
       - name: Build and analyze
         env:
