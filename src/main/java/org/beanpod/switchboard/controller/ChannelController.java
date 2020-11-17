@@ -53,10 +53,9 @@ public class ChannelController {
     @PostMapping
     public ResponseEntity<ChannelDTO> createChannel(@RequestBody ChannelDTO channel) {
         Optional<ChannelDTO> channelLookup = channelService.findChannel(channel.getId());
-        channelLookup.ifPresent(channelEntity ->
-        {
+        if (channelLookup.isPresent()) {
             throw new ExceptionType.DeviceAlreadyExistsException(channel.getId().toString());
-        });
+        }
         return ResponseEntity.ok(channelService.save(channel));
     }
 

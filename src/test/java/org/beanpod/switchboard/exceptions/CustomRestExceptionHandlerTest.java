@@ -46,15 +46,15 @@ class CustomRestExceptionHandlerTest {
     }
 
     @Test
-    final void testHandleDeviceReferencedException() {
-        ResponseEntity<Object> responseEntity = customRestExceptionHandler.handleDeviceReferencedException(exception);
+    final void testHandleStreamAlreadyExistsException() {
+        ResponseEntity<Object> responseEntity = customRestExceptionHandler.handleStreamAlreadyExistsException(exception);
         assertEquals(HttpStatus.CONFLICT, responseEntity.getStatusCode());
     }
 
     @Test
-    final void testHandleDeviceNotUpdatedException() {
-        ResponseEntity<Object> responseEntity = customRestExceptionHandler.handleDeviceNotUpdatedException(exception);
-        assertEquals(HttpStatus.CONFLICT, responseEntity.getStatusCode());
+    final void testHandleStreamDoesNotExistException() {
+        ResponseEntity<Object> responseEntity = customRestExceptionHandler.handleStreamDoesNotExistException(exception);
+        assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
     }
 
 }
