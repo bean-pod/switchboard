@@ -3,9 +3,7 @@ package org.beanpod.switchboard.controller;
 import org.beanpod.switchboard.dao.ChannelDaoImpl;
 import org.beanpod.switchboard.dao.DecoderDaoImpl;
 import org.beanpod.switchboard.dao.EncoderDaoImpl;
-import org.beanpod.switchboard.dto.ChannelDTO;
-import org.beanpod.switchboard.dto.InputChannelDTO;
-import org.beanpod.switchboard.dto.OutputChannelDTO;
+import org.beanpod.switchboard.dto.*;
 import org.beanpod.switchboard.dto.mapper.ChannelMapper;
 import org.beanpod.switchboard.dto.mapper.InputChannelMapper;
 import org.beanpod.switchboard.dto.mapper.OutputChannelMapper;
@@ -23,6 +21,7 @@ import java.util.Optional;
 @RequestMapping("/channel")
 public class ChannelController {
 
+    static final String DELETE = " deleted";
     @Autowired
     ChannelDaoImpl channelService;
     @Autowired
@@ -62,21 +61,31 @@ public class ChannelController {
     @PostMapping("/input/{id}/serial/{serial}")
     @Transactional
     public ResponseEntity<InputChannelDTO> createInputChannel(@PathVariable Long id, @PathVariable String serial) {
+        //TODO change device not found exception to channel not found
+        ChannelDTO channelDTO = channelService.findChannel(id).
+                orElseThrow(() -> new ExceptionType.DeviceNotFoundException(id.toString()));
+        DecoderDTO encoderDTO = decoderService.findDecoder(serial).
+                orElseThrow(() -> new ExceptionType.DeviceNotFoundException(serial));
         InputChannelDTO inputChannelDTO = InputChannelDTO.builder()
-                .channel(channelService.findChannel(id).get())
-                .decoder(decoderService.findDecoder(serial).get())
+                .channel(channelDTO)
+                .decoder(encoderDTO)
                 .build();
-        return  ResponseEntity.ok(channelService.saveInputChannel(inputChannelDTO));
+        return ResponseEntity.ok(channelService.saveInputChannel(inputChannelDTO));
     }
 
     @PostMapping("/output/{id}/serial/{serial}")
     @Transactional
     public ResponseEntity<OutputChannelDTO> createOutputChannel(@PathVariable Long id, @PathVariable String serial) {
+        //TODO change device not found exception to channel not found
+        ChannelDTO channelDTO = channelService.findChannel(id).
+                orElseThrow(() -> new ExceptionType.DeviceNotFoundException(id.toString()));
+        EncoderDTO encoderDTO = encoderService.findEncoder(serial).
+                orElseThrow(() -> new ExceptionType.DeviceNotFoundException(serial));
         OutputChannelDTO outputChannelDTO = OutputChannelDTO.builder()
-                .channel(channelService.findChannel(id).get())
-                .encoder(encoderService.findEncoder(serial).get())
+                .channel(channelDTO)
+                .encoder(encoderDTO)
                 .build();
-        return  ResponseEntity.ok(channelService.saveOutputChannel(outputChannelDTO));
+        return ResponseEntity.ok(channelService.saveOutputChannel(outputChannelDTO));
     }
 
     @DeleteMapping("/output/{id}")
@@ -86,7 +95,7 @@ public class ChannelController {
         if (response != 1) {
             throw new ExceptionType.DeviceNotFoundException(id.toString());
         }
-        return ResponseEntity.ok("Output Channel with ID " + id + " Deleted");
+        return ResponseEntity.ok("Output Channel with ID " + id + DELETE);
     }
 
     @DeleteMapping("/input/{id}")
@@ -96,7 +105,7 @@ public class ChannelController {
         if (response != 1) {
             throw new ExceptionType.DeviceNotFoundException(id.toString());
         }
-        return ResponseEntity.ok("Input Channel with ID " + id + " Deleted");
+        return ResponseEntity.ok("Input Channel with ID " + id + DELETE);
     }
 
     @DeleteMapping("/{id}")
@@ -106,6 +115,6 @@ public class ChannelController {
         if (response != 1) {
             throw new ExceptionType.DeviceNotFoundException(id.toString());
         }
-        return ResponseEntity.ok("Channel with ID number " + id + " Deleted");
+        return ResponseEntity.ok("Channel with ID number " + id + DELETE);
     }
 }
