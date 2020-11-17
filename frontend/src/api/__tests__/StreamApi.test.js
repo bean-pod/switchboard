@@ -5,7 +5,6 @@ import Adapter from 'enzyme-adapter-react-16'
 
 Enzyme.configure({ adapter: new Adapter() });
 
-import StreamsTable from '../../streamlist/StreamsTable'
 // import StreamApi itself
 import * as StreamApi from '../StreamApi'
 import * as SampleData from '../SampleData'
@@ -32,31 +31,30 @@ const respSingleStream = {
     }
 }
 
-class MockData {
-    getAllStreams() {
-        return mockStreams;
-    }
-}
-
 describe('Stream Api', () => {
-    let wrapper;
 
-    beforeEach(() => {
-        wrapper = Enzyme.shallow(<StreamsTable dataSource={new MockData()} />)
-    })
     afterEach(() => {
         jest.clearAllMocks();
     })
 
     describe('getStream', () => {
-        it.only('should call axios.get and return a single stream\'s information', () => {
-            const data =  {
-                data: 123
-            }
+        it('should call axios.get and return a single stream\'s information', () => {
             StreamApi.getStream(123);
             
             expect(axios.get).toHaveBeenCalledWith(`http://localhost:8080/stream/123`);
         })
     })
     
+    describe('getAllStreams', () => {
+        it('should call axios.get and return an array of streams', () => {
+            axios.get.mockResolvedValue(mockStreams);
+
+            StreamApi.getAllStreams();
+
+            expect(axios.get).toHaveBeenCalledWith("http://localhost:8080/stream");
+        })
+        it('should use sample data in the case of an error', () => {
+
+        })
+    })
 })
