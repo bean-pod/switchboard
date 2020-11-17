@@ -13,10 +13,11 @@
     "enzyme-adapter-react-16": "^1.15.5",
     "jest-sonar-reporter": "^1.3.0",
     "prop-types": "^15.7.2",
-    "react": "^16.13.1",
+    "react": "^16.14.0",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.3"
+    "react-scripts": "4.0.0",
+    "typescript": "^4.0.5"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -26,7 +27,9 @@
     "eject": "react-scripts eject",
     "test:coverage": "npm test -- --coverage --watchAll=false",
     "test:ci": "react-scripts test --env=jsdom --coverage --watchAll=false --testResultsProcessor ./node_modules/jest-sonar-reporter/index.js",
-    "lint:ci": "eslint -f json -o lint/report.json . || true"
+    "lint:ci": "eslint -f json -o lint/report.json . || true",
+    "lint:fix": "eslint --fix .",
+    "format": "prettier --write \"**/*.+(js|jsx|json|css|md)\""
   },
   "eslintConfig": {
     "env": {
@@ -51,7 +54,22 @@
     "plugins": [
       "react"
     ],
-    "rules": {}
+    "rules": {
+      "class-methods-use-this": "warn",
+      "no-plusplus": "warn",
+      "no-unused-vars": "warn",
+      "no-useless-constructor": "warn",
+      "react/destructuring-assignment": "warn",
+      "react/jsx-filename-extension": "warn",
+      "react/jsx-no-bind": "warn",
+      "react/jsx-one-expression-per-line": "warn",
+      "react/jsx-props-no-spreading": "warn",
+      "react/no-access-state-in-setstate": "warn",
+      "react/no-array-index-key": "warn",
+      "react/prefer-stateless-function": "warn",
+      "react/prop-types": "warn",
+      "react/sort-comp": "warn"
+    }
   },
   "browserslist": {
     "production": [
