@@ -13,7 +13,6 @@ export function getAllStreams(callback) {
             )).then(callback)
         })
         .catch((error) => {
-            console.log(error);
             SampleData.getAllStreams(callback);
         });
 }
