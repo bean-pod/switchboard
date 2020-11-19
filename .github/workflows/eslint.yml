@@ -1,10 +1,10 @@
-name: Lint
+name: ESLint
 
 on: push
 
 jobs:
   run-linters:
-    name: Run linters
+    name: Run ESLint
     runs-on: ubuntu-latest
 
     steps:
@@ -16,19 +16,16 @@ jobs:
         with:
           node-version: 14
 
-      # ESLint and Prettier must be in `package.json`
+      # ESLint must be in `package.json`
       - name: Install Node.js dependencies
         run: npm install
         working-directory: ./frontend
 
-      - name: Run linters
+      - name: Run ESLint
         uses: wearerequired/lint-action@v1
         with:
           github_token: ${{ secrets.github_token }}
-          # Enable linters
+          # Enable ESLint
           eslint: true
           eslint_dir: ./frontend
           eslint__extensions: "js,jsx"
-          prettier: true
-          prettier_dir: ./frontend
-          prettier_extensions: "js,jsx,json,css,md"
