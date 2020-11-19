@@ -60,8 +60,11 @@
     "rules": {
       "class-methods-use-this": "warn",
       "no-plusplus": "warn",
+      "no-sequences": "warn",
       "no-undef": "warn",
+      "no-unused-expressions": "warn",
       "no-unused-vars": "warn",
+      "no-use-before-define": "warn",
       "no-useless-constructor": "warn",
       "react/destructuring-assignment": "warn",
       "react/jsx-filename-extension": "warn",
