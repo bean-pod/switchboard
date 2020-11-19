@@ -60,6 +60,7 @@
     "rules": {
       "class-methods-use-this": "warn",
       "no-plusplus": "warn",
+      "no-undef": "warn",
       "no-unused-vars": "warn",
       "no-useless-constructor": "warn",
       "react/destructuring-assignment": "warn",
