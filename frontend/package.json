@@ -27,9 +27,8 @@
     "eject": "react-scripts eject",
     "test:coverage": "npm test -- --coverage --watchAll=false",
     "test:ci": "react-scripts test --env=jsdom --coverage --watchAll=false --testResultsProcessor ./node_modules/jest-sonar-reporter/index.js",
-    "lint:ci": "eslint -f json -o lint/report.json . || true",
-    "lint:fix": "eslint --fix .",
-    "format": "prettier --write \"**/*.+(js|jsx|json|css|md)\""
+    "lint:ci": "eslint -f json -o lint/report.json src/ --ext .js,.jsx || true",
+    "lint:fix": "prettier --write \"src/**/*.+(html|css|json|md)\" && eslint --fix src/ --ext .js,.jsx"
   },
   "prettier": {
     "trailingComma": "none"
