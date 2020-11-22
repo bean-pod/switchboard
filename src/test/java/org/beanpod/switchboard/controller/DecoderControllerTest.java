@@ -11,7 +11,6 @@ import org.beanpod.switchboard.entity.DeviceEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.fixture.DecoderFixture;
 import org.beanpod.switchboard.fixture.DeviceFixture;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -51,8 +50,8 @@ class DecoderControllerTest {
 
 
     @SneakyThrows
-    @BeforeAll
-    static void decoderFixture() {
+    @BeforeEach
+    void setupDecoderFixture() {
         device = DeviceFixture.getDevice1();
         deviceDto = DeviceFixture.getDeviceDto();
         decoder = DecoderFixture.getDecoderEntity1();

@@ -5,7 +5,6 @@ import org.beanpod.switchboard.dto.mapper.DecoderMapper;
 import org.beanpod.switchboard.entity.DecoderEntity;
 import org.beanpod.switchboard.fixture.DecoderFixture;
 import org.beanpod.switchboard.repository.DecoderRepository;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -37,15 +36,15 @@ class DecoderDaoImplTest {
     static private DecoderDTO decoderDto;
     static private List<DecoderEntity> listOfdecoders;
 
-    @BeforeAll
-    static void decoderFixture() throws ParseException {
+    @BeforeEach
+    void setupDecoderFixture() throws ParseException {
         decoderDto = DecoderFixture.getDecoderDto();
         decoder = DecoderFixture.getDecoderEntity1();
         listOfdecoders = DecoderFixture.getListOfDecoders();
     }
 
     @BeforeEach
-    void setup(){
+    void setup() {
         MockitoAnnotations.initMocks(this);
     }
 

@@ -5,7 +5,6 @@ import org.beanpod.switchboard.dto.mapper.DeviceMapper;
 import org.beanpod.switchboard.entity.DeviceEntity;
 import org.beanpod.switchboard.fixture.DeviceFixture;
 import org.beanpod.switchboard.repository.DeviceRepository;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -36,15 +35,15 @@ class DeviceDaoImplTest {
     static private DeviceDTO deviceDto;
     static private List<DeviceEntity> listOfDevices;
 
-    @BeforeAll
-    static void deviceFixture() {
+    @BeforeEach
+    void setupDecoderFixture() {
         device = DeviceFixture.getDevice1();
         deviceDto = DeviceFixture.getDeviceDto();
         listOfDevices = DeviceFixture.getListOfDevices();
     }
 
     @BeforeEach
-    void setup(){
+    void setup() {
         MockitoAnnotations.initMocks(this);
     }
 
@@ -77,7 +76,7 @@ class DeviceDaoImplTest {
     final void testDeleteDevice(){
         when(deviceRepository.deleteDeviceEntitiesBySerialNumber("1")).thenReturn((long) 1);
         Long response = deviceDaoImpl.deleteDevice("1");
-        assertEquals(response, (long) 1);
+        assertEquals(1, response);
     }
 
 }

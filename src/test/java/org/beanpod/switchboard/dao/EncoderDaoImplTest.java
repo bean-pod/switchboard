@@ -5,7 +5,6 @@ import org.beanpod.switchboard.dto.mapper.EncoderMapper;
 import org.beanpod.switchboard.entity.EncoderEntity;
 import org.beanpod.switchboard.fixture.EncoderFixture;
 import org.beanpod.switchboard.repository.EncoderRepository;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -37,15 +36,15 @@ class EncoderDaoImplTest {
     static private EncoderDTO encoderDto;
     static private List<EncoderEntity> listOfEncoders;
 
-    @BeforeAll
-    static void encoderFixture() throws ParseException {
+    @BeforeEach
+    void setupEncoderFixture() throws ParseException {
         encoder = EncoderFixture.getEncoderEntity1();
         encoderDto = EncoderFixture.getEncoderDto();
         listOfEncoders = EncoderFixture.getListOfEncoder();
     }
 
     @BeforeEach
-    void setup(){
+    void setup() {
         MockitoAnnotations.initMocks(this);
     }
 
@@ -78,7 +77,7 @@ class EncoderDaoImplTest {
     final void testDeleteEncoder(){
         when(encoderRepository.deleteEncoderEntityBySerialNumber("1")).thenReturn((long)1);
         Long response = encoderDaoImpl.deleteEncoder("1");
-        assertEquals(response, (long) 1);
+        assertEquals(1, response);
     }
 
 }

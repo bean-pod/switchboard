@@ -13,7 +13,6 @@ import org.beanpod.switchboard.fixture.ChannelFixture;
 import org.beanpod.switchboard.repository.ChannelRepository;
 import org.beanpod.switchboard.repository.InputChannelRepository;
 import org.beanpod.switchboard.repository.OutputChannelRepository;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -60,8 +59,8 @@ class ChannelDaoImplTest {
         initMocks(this);
     }
 
-    @BeforeAll
-    static void channelFixture() {
+    @BeforeEach
+    void setupChannelFixture() {
         channel = ChannelFixture.getChannelEntity();
         input = ChannelFixture.getInputChannelEntity();
         inputDto = ChannelFixture.getInputChannelDto();

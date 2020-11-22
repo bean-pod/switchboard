@@ -6,7 +6,6 @@ import org.beanpod.switchboard.dto.mapper.DeviceMapper;
 import org.beanpod.switchboard.entity.DeviceEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.fixture.DeviceFixture;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -36,8 +35,8 @@ class DeviceControllerTest {
     static private DeviceDTO deviceDTO;
     static private List<DeviceEntity> listOfDevices;
 
-    @BeforeAll
-    static void deviceFixture() {
+    @BeforeEach
+    void setupDeviceFixture() {
         device = DeviceFixture.getDevice1();
         deviceDTO = DeviceFixture.getDeviceDto();
         listOfDevices = DeviceFixture.getListOfDevices();

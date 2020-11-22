@@ -10,7 +10,6 @@ import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.fixture.ChannelFixture;
 import org.beanpod.switchboard.fixture.DecoderFixture;
 import org.beanpod.switchboard.fixture.EncoderFixture;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -49,8 +48,8 @@ class ChannelControllerTest {
    public static InputChannelDTO inputChannelDto;
    public static OutputChannelDTO outputChannelDto;
 
-   @BeforeAll
-   static void ChannelFixture() throws ParseException {
+   @BeforeEach
+   void setupChannelFixture() throws ParseException {
       channelEntityList = List.of(ChannelFixture.getChannelEntity());
       channelDtoList = List.of(ChannelFixture.getChannelDto());
       encoderDto = EncoderFixture.getEncoderDto();

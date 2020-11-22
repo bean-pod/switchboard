@@ -10,7 +10,6 @@ import org.beanpod.switchboard.entity.EncoderEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.fixture.DeviceFixture;
 import org.beanpod.switchboard.fixture.EncoderFixture;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -46,8 +45,8 @@ class EncoderControllerTest {
     static private EncoderDTO encoderDTO;
     static private List<EncoderEntity> listOfEncoders;
 
-    @BeforeAll
-    static void encoderFixture() throws ParseException {
+    @BeforeEach
+    void setupEncoderFixture() throws ParseException {
         device = DeviceFixture.getDevice1();
         deviceDto = DeviceFixture.getDeviceDto();
         encoder = EncoderFixture.getEncoderEntity1();
@@ -56,7 +55,7 @@ class EncoderControllerTest {
     }
 
     @BeforeEach
-    void setup() throws ParseException {
+    void setup() {
         MockitoAnnotations.initMocks(this);
     }
 

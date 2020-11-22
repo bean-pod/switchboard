@@ -5,8 +5,6 @@ import org.beanpod.switchboard.dto.StreamDTO;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
 import org.beanpod.switchboard.fixture.ChannelFixture;
 import org.beanpod.switchboard.fixture.StreamFixture;
-import org.beanpod.switchboard.fixture.DecoderFixture;
-import org.beanpod.switchboard.fixture.EncoderFixture;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -20,7 +18,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
-public class StreamControllerTest {
+class StreamControllerTest {
     private StreamController streamController;
 
     @Mock
@@ -29,14 +27,13 @@ public class StreamControllerTest {
     private StreamMapper channelMapper;
 
     @BeforeEach
-    public void setup(){
+    public void setup() {
         MockitoAnnotations.initMocks(this);
-
         streamController = new StreamController(channelService, channelMapper);
     }
 
     @Test
-    public void testGetChannels(){
+    void testGetChannels() {
         //given
         when(channelService.getStreams()).thenReturn(StreamFixture.getIdList());
 
@@ -46,24 +43,24 @@ public class StreamControllerTest {
         //then
         assertNotNull(result);
         List<Long> responseBody = result.getBody();
-        assertEquals(responseBody.get(0), StreamFixture.ID);
+        assertEquals(StreamFixture.ID, responseBody.get(0));
     }
 
     @Test
-    public void testGetChannelsDtoReturnsNull(){
+    void testGetChannelsDtoReturnsNull() {
         //given
         when(channelService.getStreams()).thenReturn(null);
 
         //when & then
         RuntimeException exception = assertThrows(RuntimeException.class, () ->
-            streamController.getStreams()
+                streamController.getStreams()
         );
 
         assertEquals(StreamController.UNKNOWN_ERROR_MESSAGE, exception.getMessage());
     }
 
     @Test
-    public void testGetChannelsThrowsException() {
+    void testGetChannelsThrowsException() {
         //given
         when(channelService.getStreams()).thenThrow(new RuntimeException());
 
@@ -74,7 +71,7 @@ public class StreamControllerTest {
     }
 
     @Test
-    public void testGetChannelById(){
+    void testGetChannelById() {
         //given
         StreamDTO streamDto = StreamFixture.getStreamDto();
         when(channelService.getStreamById(StreamFixture.ID)).thenReturn(streamDto);
@@ -84,35 +81,35 @@ public class StreamControllerTest {
         ResponseEntity<StreamModel> result = streamController.getStreamById(StreamFixture.ID);
 
         //then
-        assertEquals(result.getStatusCode(), HttpStatus.OK);
+        assertEquals(HttpStatus.OK, result.getStatusCode());
         assertNotNull(result);
         assertNotNull(result.getBody());
         StreamModel responseBody = result.getBody();
-        assertEquals(responseBody.getId(), StreamFixture.ID);
+        assertEquals(StreamFixture.ID, responseBody.getId());
         assertEquals(responseBody.getInputChannel(), ChannelFixture.getInputChannelModel());
         assertEquals(responseBody.getOutputChannel(), ChannelFixture.getOutputChannelModel());
     }
 
     @Test
-    public void testCreateChannel(){
+    void testCreateChannel() {
         //when
         ResponseEntity<Void> result = streamController.createStream(StreamFixture.getCreateStreamRequest());
 
         //then
-        assertEquals(result.getStatusCode(), HttpStatus.OK);
+        assertEquals(HttpStatus.OK, result.getStatusCode());
     }
 
     @Test
-    public void testDeleteChannel(){
+    void testDeleteChannel() {
         //when
         ResponseEntity<Void> result = streamController.deleteStream(StreamFixture.ID);
 
         //then
-        assertEquals(result.getStatusCode(), HttpStatus.OK);
+        assertEquals(HttpStatus.OK, result.getStatusCode());
     }
 
     @Test
-    public void testUpdateChannel(){
+    void testUpdateChannel() {
         //given
         StreamModel streamModel = StreamFixture.getStreamModel();
         when(channelMapper.toDto(streamModel)).thenReturn(StreamFixture.getStreamDto());
@@ -121,6 +118,6 @@ public class StreamControllerTest {
         ResponseEntity<Void> result = streamController.updateStream(streamModel);
 
         //then
-        assertEquals(result.getStatusCode(), HttpStatus.OK);
+        assertEquals(HttpStatus.OK, result.getStatusCode());
     }
 }
