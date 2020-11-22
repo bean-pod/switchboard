@@ -37,11 +37,9 @@ public class DecoderController {
 
     @GetMapping("/{serialNumber}")
     public ResponseEntity<DecoderDTO> retrieveDecoder(@PathVariable @Valid String serialNumber) {
-        Optional<DecoderDTO> decoder = decoderService.findDecoder(serialNumber);
-        if (decoder.isEmpty()) {
-            throw new ExceptionType.DeviceNotFoundException(serialNumber + "/Decoder");
-        }
-        return ResponseEntity.ok(decoder.get());
+        return decoderService.findDecoder(serialNumber)
+                .map(ResponseEntity::ok)
+                .orElseThrow(() -> new ExceptionType.DeviceNotFoundException(serialNumber));
     }
 
     @PostMapping

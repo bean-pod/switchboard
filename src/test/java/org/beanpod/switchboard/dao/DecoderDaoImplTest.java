@@ -78,7 +78,7 @@ class DecoderDaoImplTest {
     final void testDeleteDecoder(){
         when(decoderRepository.deleteDecoderEntityBySerialNumber("1")).thenReturn((long) 1);
         Long response = decoderDaoImpl.deleteDecoder("1");
-        assertEquals(response, (long) 1d);
+        assertEquals(1L, response);
     }
 
 }

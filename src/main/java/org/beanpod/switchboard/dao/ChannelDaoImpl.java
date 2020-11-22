@@ -42,7 +42,7 @@ public class ChannelDaoImpl {
 
     public Optional<ChannelDTO> findChannel(Long id){
         return channelRepository.
-                findChannelEntitiesById(id).map(channel -> channelMapper.toChannelDTO(channel));
+                findChannelEntitiesById(id).map(channelMapper::toChannelDTO);
     }
 
     public Long deleteChannel(Long id){

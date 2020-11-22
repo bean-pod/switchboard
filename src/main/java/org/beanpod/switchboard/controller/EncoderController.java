@@ -39,12 +39,9 @@ public class EncoderController {
 
     @GetMapping("/{serialNumber}")
     public ResponseEntity<EncoderDTO> retrieveEncoder(@PathVariable @Valid String serialNumber) {
-
-        Optional<EncoderDTO> encoder = encoderService.findEncoder(serialNumber);
-        if (encoder.isEmpty()) {
-            throw new ExceptionType.DeviceNotFoundException(serialNumber);
-        }
-        return ResponseEntity.ok(encoder.get());
+        return encoderService.findEncoder(serialNumber)
+                .map(ResponseEntity::ok)
+                .orElseThrow(() -> new ExceptionType.DeviceNotFoundException(serialNumber));
     }
 
     @PostMapping

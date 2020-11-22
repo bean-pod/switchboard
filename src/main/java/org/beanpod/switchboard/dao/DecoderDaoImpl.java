@@ -25,7 +25,7 @@ public class DecoderDaoImpl {
 
     public Optional<DecoderDTO> findDecoder(String serialNumber) {
         return decoderRepository.
-                findDecoderBySerialNumber(serialNumber).map(decoder -> decoderMapper.toDecoderDTO(decoder));
+                findDecoderBySerialNumber(serialNumber).map(decoderMapper::toDecoderDTO);
     }
 
     public DecoderDTO save(DecoderDTO decoderDTO) {

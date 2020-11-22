@@ -58,22 +58,22 @@ public class ChannelController {
         return ResponseEntity.ok(channelService.save(channel));
     }
 
-    @PostMapping("/input/{id}/serial/{serial}")
+    @PostMapping("/input/{id}/decoder/{serial}")
     @Transactional
     public ResponseEntity<InputChannelDTO> createInputChannel(@PathVariable Long id, @PathVariable String serial) {
         //TODO change device not found exception to channel not found
         ChannelDTO channelDTO = channelService.findChannel(id).
                 orElseThrow(() -> new ExceptionType.DeviceNotFoundException(id.toString()));
-        DecoderDTO encoderDTO = decoderService.findDecoder(serial).
+        DecoderDTO decoderDTO = decoderService.findDecoder(serial).
                 orElseThrow(() -> new ExceptionType.DeviceNotFoundException(serial));
         InputChannelDTO inputChannelDTO = InputChannelDTO.builder()
                 .channel(channelDTO)
-                .decoder(encoderDTO)
+                .decoder(decoderDTO)
                 .build();
         return ResponseEntity.ok(channelService.saveInputChannel(inputChannelDTO));
     }
 
-    @PostMapping("/output/{id}/serial/{serial}")
+    @PostMapping("/output/{id}/encoder/{serial}")
     @Transactional
     public ResponseEntity<OutputChannelDTO> createOutputChannel(@PathVariable Long id, @PathVariable String serial) {
         //TODO change device not found exception to channel not found
