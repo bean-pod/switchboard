@@ -61,8 +61,8 @@ class DecoderDaoImplTest {
     final void testFindDecoder() {
         when(decoderMapper.toDecoderDTO(any())).thenReturn(decoderDto);
         when(decoderMapper.toDecoderEntity(any())).thenReturn(decoder);
-        when(decoderRepository.findDecoderBySerialNumber("1")).thenReturn(java.util.Optional.of(decoder));
-        Optional<DecoderDTO> decoderDTO = decoderDaoImpl.findDecoder("1");
+        when(decoderRepository.findDecoderBySerialNumber(DecoderFixture.SERIAL_NUMBER)).thenReturn(java.util.Optional.of(decoder));
+        Optional<DecoderDTO> decoderDTO = decoderDaoImpl.findDecoder(DecoderFixture.SERIAL_NUMBER);
         assertEquals(decoderDto, decoderDTO.get());
     }
 
@@ -74,9 +74,9 @@ class DecoderDaoImplTest {
     }
 
     @Test
-    final void testDeleteDecoder(){
-        when(decoderRepository.deleteDecoderEntityBySerialNumber("1")).thenReturn((long) 1);
-        Long response = decoderDaoImpl.deleteDecoder("1");
+    final void testDeleteDecoder() {
+        when(decoderRepository.deleteDecoderEntityBySerialNumber(DecoderFixture.SERIAL_NUMBER)).thenReturn((long) 1);
+        Long response = decoderDaoImpl.deleteDecoder(DecoderFixture.SERIAL_NUMBER);
         assertEquals(1L, response);
     }
 

@@ -59,7 +59,7 @@ class DeviceControllerTest {
     //When a device is available in the DB
     @Test
     final void testRetrieveDevice() {
-        when(deviceService.findDevice("1")).thenReturn(Optional.of(deviceDTO));
+        when(deviceService.findDevice(DeviceFixture.SERIAL_NUMBER)).thenReturn(Optional.of(deviceDTO));
         ResponseEntity<DeviceDTO> actualDevice = deviceController.retrieveDevice("1");
 
         assertNotNull(actualDevice);
@@ -77,7 +77,7 @@ class DeviceControllerTest {
     //When a device is unavailable in the DB
     @Test
     final void testCreateDeviceAlreadyExists() {
-        when(deviceService.findDevice("1")).thenReturn(Optional.of(deviceDTO));
+        when(deviceService.findDevice(DeviceFixture.SERIAL_NUMBER)).thenReturn(Optional.of(deviceDTO));
 
         assertThrows(ExceptionType.DeviceAlreadyExistsException.class, () -> {
             deviceController.createDevice(deviceDTO);
@@ -95,8 +95,8 @@ class DeviceControllerTest {
     //When a device is available in the DB
     @Test
     final void testDeleteDevice() {
-        when(deviceService.deleteDevice("1")).thenReturn(Long.valueOf(1));
-        ResponseEntity<String> response = deviceController.deleteDevice("1");
+        when(deviceService.deleteDevice(DeviceFixture.SERIAL_NUMBER)).thenReturn(Long.valueOf(1));
+        ResponseEntity<String> response = deviceController.deleteDevice(DeviceFixture.SERIAL_NUMBER);
         assertEquals(200, response.getStatusCodeValue());
         assertEquals("Device with serial number 1 Deleted", response.getBody());
     }
@@ -112,7 +112,7 @@ class DeviceControllerTest {
     //When a device is available in the DB
     @Test
     final void testUpdateDevice() {
-        when(deviceService.findDevice("1")).thenReturn(Optional.of(deviceDTO));
+        when(deviceService.findDevice(DeviceFixture.SERIAL_NUMBER)).thenReturn(Optional.of(deviceDTO));
         deviceDTO.setStatus("Stopped");
         when(deviceService.save(deviceDTO)).thenReturn(deviceDTO);
         ResponseEntity<DeviceDTO> response = deviceController.updateDevice(deviceDTO);
@@ -133,6 +133,6 @@ class DeviceControllerTest {
         }, "DeviceNotFoundException should have been thrown.");
 
         //This stubbing is needed for the following exception to be tested
-        when(deviceService.findDevice("1")).thenReturn(java.util.Optional.of(deviceDTO));
+        when(deviceService.findDevice(DeviceFixture.SERIAL_NUMBER)).thenReturn(java.util.Optional.of(deviceDTO));
     }
 }

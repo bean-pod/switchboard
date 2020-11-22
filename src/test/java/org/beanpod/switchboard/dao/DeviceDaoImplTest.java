@@ -3,6 +3,7 @@ package org.beanpod.switchboard.dao;
 import org.beanpod.switchboard.dto.DeviceDTO;
 import org.beanpod.switchboard.dto.mapper.DeviceMapper;
 import org.beanpod.switchboard.entity.DeviceEntity;
+import org.beanpod.switchboard.fixture.DecoderFixture;
 import org.beanpod.switchboard.fixture.DeviceFixture;
 import org.beanpod.switchboard.repository.DeviceRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -60,8 +61,8 @@ class DeviceDaoImplTest {
     final void testFindDevice() {
         when(deviceMapper.toDeviceDTO(any())).thenReturn(deviceDto);
         when(deviceMapper.toDeviceEntity(any())).thenReturn(device);
-        when(deviceRepository.findDeviceBySerialNumber("1")).thenReturn(java.util.Optional.of(device));
-        Optional<DeviceDTO> deviceDTO = deviceDaoImpl.findDevice("1");
+        when(deviceRepository.findDeviceBySerialNumber(DecoderFixture.SERIAL_NUMBER)).thenReturn(java.util.Optional.of(device));
+        Optional<DeviceDTO> deviceDTO = deviceDaoImpl.findDevice(DecoderFixture.SERIAL_NUMBER);
         assertEquals(deviceDTO.get(), deviceDto);
     }
 
@@ -73,9 +74,9 @@ class DeviceDaoImplTest {
     }
 
     @Test
-    final void testDeleteDevice(){
-        when(deviceRepository.deleteDeviceEntitiesBySerialNumber("1")).thenReturn((long) 1);
-        Long response = deviceDaoImpl.deleteDevice("1");
+    final void testDeleteDevice() {
+        when(deviceRepository.deleteDeviceEntitiesBySerialNumber(DecoderFixture.SERIAL_NUMBER)).thenReturn((long) 1);
+        Long response = deviceDaoImpl.deleteDevice(DecoderFixture.SERIAL_NUMBER);
         assertEquals(1, response);
     }
 

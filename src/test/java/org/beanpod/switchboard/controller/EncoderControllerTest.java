@@ -74,8 +74,8 @@ class EncoderControllerTest {
     //When a encoder is available in the DB
     @Test
     final void testRetrieveEncoder() {
-        when(encoderService.findEncoder("1")).thenReturn(Optional.of(encoderDTO));
-        ResponseEntity<EncoderDTO> actualEncoder = encoderController.retrieveEncoder("1");
+        when(encoderService.findEncoder(EncoderFixture.SERIAL_NUMBER)).thenReturn(Optional.of(encoderDTO));
+        ResponseEntity<EncoderDTO> actualEncoder = encoderController.retrieveEncoder(EncoderFixture.SERIAL_NUMBER);
 
         assertNotNull(actualEncoder);
         assertEquals(200, actualEncoder.getStatusCodeValue());
@@ -93,7 +93,7 @@ class EncoderControllerTest {
     //When a device is available in the DB
     @Test
     final void testCreateEncoder() {
-        when(deviceService.findDevice("1")).thenReturn(Optional.of(deviceDto));
+        when(deviceService.findDevice(EncoderFixture.SERIAL_NUMBER)).thenReturn(Optional.of(deviceDto));
         when(encoderService.save(encoderDTO)).thenReturn(encoderDTO);
         ResponseEntity response = encoderController.createEncoder(encoderDTO);
         assertEquals(200, response.getStatusCodeValue());
@@ -110,8 +110,8 @@ class EncoderControllerTest {
     //When an encoder is available in the DB
     @Test
     final void testDeleteEncoder() {
-        when(encoderService.deleteEncoder("1")).thenReturn(Long.valueOf(1));
-        ResponseEntity<String> response = encoderController.deleteEncoder("1");
+        when(encoderService.deleteEncoder(EncoderFixture.SERIAL_NUMBER)).thenReturn(Long.valueOf(1));
+        ResponseEntity<String> response = encoderController.deleteEncoder(EncoderFixture.SERIAL_NUMBER);
         assertEquals(200, response.getStatusCodeValue(), "The status code is not 200.");
         assertEquals("Encoder with serial number 1 Deleted", response.getBody());
     }
@@ -128,7 +128,7 @@ class EncoderControllerTest {
     @Test
     final void testUpdateEncoder() {
         EncoderDTO encoderDto = EncoderFixture.getEncoderDto();
-        when(encoderService.findEncoder("1")).thenReturn(Optional.of(encoderDto));
+        when(encoderService.findEncoder(EncoderFixture.SERIAL_NUMBER)).thenReturn(Optional.of(encoderDto));
         when(encoderService.save(encoderDto)).thenReturn(encoderDto);
         ResponseEntity<EncoderDTO> response = encoderController.updateEncoder(encoderDto);
         assertEquals(200, response.getStatusCodeValue());

@@ -81,15 +81,15 @@ class ChannelDaoImplTest {
     void testFindChannel() {
         when(channelMapper.toChannelDTO(any())).thenReturn(channelDto);
         when(channelMapper.toChannelEntity(any())).thenReturn(channel);
-        when(channelRepository.findChannelEntitiesById(4569L)).thenReturn(java.util.Optional.of(channel));
-        Optional<ChannelDTO> channelDTO = channelService.findChannel(4569L);
+        when(channelRepository.findChannelEntitiesById(ChannelFixture.CHANNEL_ID)).thenReturn(java.util.Optional.of(channel));
+        Optional<ChannelDTO> channelDTO = channelService.findChannel(ChannelFixture.CHANNEL_ID);
         assertEquals(channelDto, channelDTO.get());
     }
 
     @Test
     void testDeleteChannel() {
-        when(channelRepository.deleteChannelEntitiesById(4569L)).thenReturn((long) 1);
-        Long response = channelService.deleteChannel(4569L);
+        when(channelRepository.deleteChannelEntitiesById(ChannelFixture.CHANNEL_ID)).thenReturn((long) 1);
+        Long response = channelService.deleteChannel(ChannelFixture.CHANNEL_ID);
         assertEquals(1L, response);
     }
 
@@ -122,31 +122,31 @@ class ChannelDaoImplTest {
 
     @Test
     void testGetOutputChannelById() {
-        when(outputChannelRepository.getOne(4569L)).thenReturn(output);
+        when(outputChannelRepository.getOne(ChannelFixture.CHANNEL_ID)).thenReturn(output);
         when(outputChannelMapper.toOutputChannelDTO(output)).thenReturn(outputDto);
-        OutputChannelDTO outputChannelDTO = channelService.getOutputChannelById(4569L);
+        OutputChannelDTO outputChannelDTO = channelService.getOutputChannelById(ChannelFixture.CHANNEL_ID);
         assertEquals(outputDto, outputChannelDTO);
     }
 
     @Test
     void testGetInputChannelById() {
-        when(inputChannelRepository.getOne(4569L)).thenReturn(input);
+        when(inputChannelRepository.getOne(ChannelFixture.CHANNEL_ID)).thenReturn(input);
         when(inputChannelMapper.toInputChannelDTO(input)).thenReturn(inputDto);
-        InputChannelDTO inputChannelDTO = channelService.getInputChannelById(4569L);
+        InputChannelDTO inputChannelDTO = channelService.getInputChannelById(ChannelFixture.CHANNEL_ID);
         assertEquals(inputDto, inputChannelDTO);
     }
 
     @Test
     void deleteOutputChannelById() {
-        when(outputChannelRepository.deleteOutputChannelEntitiesById(4569L)).thenReturn(1L);
-        Long response = channelService.deleteOutputChannelById(4569L);
+        when(outputChannelRepository.deleteOutputChannelEntitiesById(ChannelFixture.CHANNEL_ID)).thenReturn(1L);
+        Long response = channelService.deleteOutputChannelById(ChannelFixture.CHANNEL_ID);
         assertEquals(1L, response);
     }
 
     @Test
     void deleteInputChannelById() {
-        when(inputChannelRepository.deleteInputChannelEntityById(4569L)).thenReturn(1L);
-        Long response = channelService.deleteInputChannelById(4569L);
+        when(inputChannelRepository.deleteInputChannelEntityById(ChannelFixture.CHANNEL_ID)).thenReturn(1L);
+        Long response = channelService.deleteInputChannelById(ChannelFixture.CHANNEL_ID);
         assertEquals(1L, response);
     }
 }

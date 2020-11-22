@@ -61,8 +61,8 @@ class EncoderDaoImplTest {
     final void testFindEncoder() {
         when(encoderMapper.toEncoderDTO(any())).thenReturn(encoderDto);
         when(encoderMapper.toEncoderEntity(any())).thenReturn(encoder);
-        when(encoderRepository.findEncoderBySerialNumber("1")).thenReturn(java.util.Optional.of(encoder));
-        Optional<EncoderDTO> encoderDTO = encoderDaoImpl.findEncoder("1");
+        when(encoderRepository.findEncoderBySerialNumber(EncoderFixture.SERIAL_NUMBER)).thenReturn(java.util.Optional.of(encoder));
+        Optional<EncoderDTO> encoderDTO = encoderDaoImpl.findEncoder(EncoderFixture.SERIAL_NUMBER);
         assertEquals(encoderDTO.get(), encoderDto);
     }
 
@@ -74,9 +74,9 @@ class EncoderDaoImplTest {
     }
 
     @Test
-    final void testDeleteEncoder(){
-        when(encoderRepository.deleteEncoderEntityBySerialNumber("1")).thenReturn((long)1);
-        Long response = encoderDaoImpl.deleteEncoder("1");
+    final void testDeleteEncoder() {
+        when(encoderRepository.deleteEncoderEntityBySerialNumber(EncoderFixture.SERIAL_NUMBER)).thenReturn((long) 1);
+        Long response = encoderDaoImpl.deleteEncoder(EncoderFixture.SERIAL_NUMBER);
         assertEquals(1, response);
     }
 

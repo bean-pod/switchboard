@@ -74,28 +74,28 @@ class ChannelControllerTest {
 
    @Test
    void testRetrieveChannel() {
-      when(channelService.findChannel(4569L)).thenReturn(Optional.of(channelDto));
-      ResponseEntity<ChannelDTO> channelDTOResponseEntity = channelController.retrieveChannel(4569L);
+      when(channelService.findChannel(ChannelFixture.CHANNEL_ID)).thenReturn(Optional.of(channelDto));
+      ResponseEntity<ChannelDTO> channelDTOResponseEntity = channelController.retrieveChannel(ChannelFixture.CHANNEL_ID);
       assertEquals(channelDto, channelDTOResponseEntity.getBody());
    }
 
    @Test
    void testRetrieveChannelEmpty() {
       assertThrows(ExceptionType.DeviceNotFoundException.class, () -> {
-         channelController.retrieveChannel(4569L);
+         channelController.retrieveChannel(ChannelFixture.CHANNEL_ID);
       });
    }
 
    @Test
    void createChannel() {
-      when(channelService.findChannel(4569L)).thenReturn(Optional.empty());
+      when(channelService.findChannel(ChannelFixture.CHANNEL_ID)).thenReturn(Optional.empty());
       ResponseEntity<ChannelDTO> channel = channelController.createChannel(channelDto);
       assertEquals(200, channel.getStatusCodeValue());
    }
 
    @Test
    void createExistingChannel() {
-      when(channelService.findChannel(4569L)).thenReturn(Optional.of(channelDto));
+      when(channelService.findChannel(ChannelFixture.CHANNEL_ID)).thenReturn(Optional.of(channelDto));
       assertThrows(ExceptionType.DeviceAlreadyExistsException.class, () -> {
          channelController.createChannel(channelDto);
       });
@@ -104,57 +104,57 @@ class ChannelControllerTest {
    @Test
    void createInputChannel() {
       when(channelService.saveInputChannel(any())).thenReturn(inputChannelDto);
-      when(channelService.findChannel(4569L)).thenReturn(Optional.of(channelDto));
+      when(channelService.findChannel(ChannelFixture.CHANNEL_ID)).thenReturn(Optional.of(channelDto));
       when(decoderService.findDecoder("1")).thenReturn(Optional.of(decoderDto));
-      ResponseEntity<InputChannelDTO> inputChannel = channelController.createInputChannel(4569L, "1");
+      ResponseEntity<InputChannelDTO> inputChannel = channelController.createInputChannel(ChannelFixture.CHANNEL_ID, "1");
       assertEquals(inputChannelDto, inputChannel.getBody());
    }
 
    @Test
    void createOutputChannel() {
       when(channelService.saveOutputChannel(any())).thenReturn(outputChannelDto);
-      when(channelService.findChannel(4569L)).thenReturn(Optional.of(channelDto));
+      when(channelService.findChannel(ChannelFixture.CHANNEL_ID)).thenReturn(Optional.of(channelDto));
       when(encoderService.findEncoder("1")).thenReturn(Optional.of(encoderDto));
-      ResponseEntity<OutputChannelDTO> outputChannel = channelController.createOutputChannel(4569L, "1");
+      ResponseEntity<OutputChannelDTO> outputChannel = channelController.createOutputChannel(ChannelFixture.CHANNEL_ID, "1");
       assertEquals(outputChannelDto, outputChannel.getBody());
    }
 
    @Test
    void deleteOutputChannel() {
       when(channelService.deleteOutputChannelById(4569L)).thenReturn(1L);
-      ResponseEntity<String> stringResponseEntity = channelController.deleteOutputChannel(4569L);
+      ResponseEntity<String> stringResponseEntity = channelController.deleteOutputChannel(ChannelFixture.CHANNEL_ID);
       assertEquals(200, stringResponseEntity.getStatusCodeValue());
    }
 
    @Test
    void deleteNonExistingOutputChannel() {
-      when(channelService.deleteOutputChannelById(4569L)).thenReturn(0L);
+      when(channelService.deleteOutputChannelById(ChannelFixture.CHANNEL_ID)).thenReturn(0L);
       assertThrows(ExceptionType.DeviceNotFoundException.class, () -> channelController.deleteOutputChannel(1L));
    }
 
    @Test
    void deleteInputChannel() {
-      when(channelService.deleteInputChannelById(4569L)).thenReturn(1L);
-      ResponseEntity<String> stringResponseEntity = channelController.deleteInputChannel(4569L);
+      when(channelService.deleteInputChannelById(ChannelFixture.CHANNEL_ID)).thenReturn(1L);
+      ResponseEntity<String> stringResponseEntity = channelController.deleteInputChannel(ChannelFixture.CHANNEL_ID);
       assertEquals(200, stringResponseEntity.getStatusCodeValue());
    }
 
    @Test
    void deleteNonExistingInputChannel() {
-      when(channelService.deleteInputChannelById(4569L)).thenReturn(0L);
-      assertThrows(ExceptionType.DeviceNotFoundException.class, () -> channelController.deleteInputChannel(4569L));
+      when(channelService.deleteInputChannelById(ChannelFixture.CHANNEL_ID)).thenReturn(0L);
+      assertThrows(ExceptionType.DeviceNotFoundException.class, () -> channelController.deleteInputChannel(ChannelFixture.CHANNEL_ID));
    }
 
    @Test
    void deleteChannel() {
-      when(channelService.deleteChannel(4569L)).thenReturn(1L);
-      ResponseEntity<String> stringResponseEntity = channelController.deleteChannel(4569L);
+      when(channelService.deleteChannel(ChannelFixture.CHANNEL_ID)).thenReturn(1L);
+      ResponseEntity<String> stringResponseEntity = channelController.deleteChannel(ChannelFixture.CHANNEL_ID);
       assertEquals(200, stringResponseEntity.getStatusCodeValue());
    }
 
    @Test
    void deleteNonExistingChannel() {
-      when(channelService.deleteChannel(4569L)).thenReturn(0L);
-      assertThrows(ExceptionType.DeviceNotFoundException.class, () -> channelController.deleteChannel(4569L));
+      when(channelService.deleteChannel(ChannelFixture.CHANNEL_ID)).thenReturn(0L);
+      assertThrows(ExceptionType.DeviceNotFoundException.class, () -> channelController.deleteChannel(ChannelFixture.CHANNEL_ID));
    }
 }

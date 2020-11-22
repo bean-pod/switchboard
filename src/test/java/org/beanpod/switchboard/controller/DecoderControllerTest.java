@@ -79,7 +79,7 @@ class DecoderControllerTest {
     //When a decoder is available in the DB
     @Test
     final void testRetrieveDecoder() {
-        when(decoderService.findDecoder("1")).thenReturn(Optional.of(decoderDto));
+        when(decoderService.findDecoder(DecoderFixture.SERIAL_NUMBER)).thenReturn(Optional.of(decoderDto));
         ResponseEntity<DecoderDTO> actualDecoder = decoderController.retrieveDecoder("1");
         assertNotNull(actualDecoder);
         assertEquals(200, actualDecoder.getStatusCodeValue());
@@ -97,7 +97,7 @@ class DecoderControllerTest {
     //When a device is unavailable in the DB
     @Test
     final void testCreateDecoder() {
-        when(deviceService.findDevice("1")).thenReturn(Optional.of(deviceDto));
+        when(deviceService.findDevice(DecoderFixture.SERIAL_NUMBER)).thenReturn(Optional.of(deviceDto));
         when(decoderService.save(decoderDto)).thenReturn(decoderDto);
         ResponseEntity response = decoderController.createDecoder(decoderDto);
         assertEquals(200, response.getStatusCodeValue());
@@ -114,7 +114,7 @@ class DecoderControllerTest {
     //When a decoder is available in the DB
     @Test
     final void testDeleteDecoder() {
-        when(decoderService.deleteDecoder("1")).thenReturn(Long.valueOf(1));
+        when(decoderService.deleteDecoder(DecoderFixture.SERIAL_NUMBER)).thenReturn(Long.valueOf(1));
         ResponseEntity<String> response = decoderController.deleteDecoder("1");
         assertEquals(200, response.getStatusCodeValue());
         assertEquals("Decoder with serial number 1 Deleted", response.getBody());
@@ -132,7 +132,7 @@ class DecoderControllerTest {
     //When a encoder is available in the DB
     @Test
     final void testUpdateDecoder() {
-        when(decoderService.findDecoder("1")).thenReturn(Optional.of(decoderDto));
+        when(decoderService.findDecoder(DecoderFixture.SERIAL_NUMBER)).thenReturn(Optional.of(decoderDto));
         when(decoderService.save(decoderDto)).thenReturn(decoderDto);
         ResponseEntity<DecoderDTO> response = decoderController.updateDecoder(decoderDto);
         assertEquals(200, response.getStatusCodeValue());
