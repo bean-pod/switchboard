@@ -3,14 +3,16 @@ package org.beanpod.switchboard.dto.mapper;
 import org.beanpod.switchboard.dto.InputChannelDTO;
 import org.beanpod.switchboard.entity.InputChannelEntity;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
+import org.mapstruct.Mapping;
 
-import java.util.List;
+import java.util.Set;
 
 @Mapper(componentModel = "spring", uses = {DecoderMapper.class, ChannelMapper.class})
 public interface InputChannelMapper {
-    InputChannelMapper INSTANCE = Mappers.getMapper(InputChannelMapper.class);
+    @Mapping(target = "decoder", ignore = true)
     InputChannelDTO toInputChannelDTO(InputChannelEntity inputChannelEntity);
-    List<InputChannelDTO> toInputChannelDTOs(List<InputChannelEntity> inputChannelEntities);
+
+    Set<InputChannelDTO> toInputChannelDTOs(Set<InputChannelEntity> inputChannelEntities);
+
     InputChannelEntity toInputChannelEntity(InputChannelDTO inputChannelDTO);
 }

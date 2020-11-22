@@ -1,14 +1,21 @@
 package org.beanpod.switchboard.dto;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+import javax.validation.constraints.NotNull;
+
+@Setter
+@Getter
 @Builder
 @AllArgsConstructor
 public class InputChannelDTO {
+    @NotNull
     private Long id;
     private ChannelDTO channel;
+    @JsonBackReference
     private DecoderDTO decoder;
 }
