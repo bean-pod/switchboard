@@ -1,11 +1,11 @@
 package org.beanpod.switchboard.fixture;
 
+import lombok.SneakyThrows;
 import org.beanpod.switchboard.dto.DecoderDTO;
 import org.beanpod.switchboard.entity.DecoderEntity;
 import org.beanpod.switchboard.entity.InputChannelEntity;
 import org.openapitools.model.DecoderModel;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,8 @@ public class DecoderFixture {
     private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
     static private Set<InputChannelEntity> setOfChannels = ChannelFixture.getInputChannelEntities();
 
-    public static DecoderEntity getDecoderEntity1() throws ParseException {
+    @SneakyThrows
+    public static DecoderEntity getDecoderEntity1() {
         return DecoderEntity.builder()
                 .serialNumber(SERIAL_NUMBER)
                 .lastCommunication(simpleDateFormat.parse("2020-10-31 05:05:05"))
@@ -27,7 +28,8 @@ public class DecoderFixture {
                 .build();
     }
 
-    public static DecoderEntity getDecoderEntity2() throws ParseException {
+    @SneakyThrows
+    public static DecoderEntity getDecoderEntity2() {
         return DecoderEntity.builder()
                 .serialNumber(SERIAL_NUMBER2)
                 .lastCommunication(simpleDateFormat.parse("2020-10-31 05:05:05"))
@@ -36,20 +38,21 @@ public class DecoderFixture {
                 .build();
     }
 
-    public static List<DecoderEntity> getListOfDecoders() throws ParseException {
+    public static List<DecoderEntity> getListOfDecoders() {
         List<DecoderEntity> listOfDecoders = new ArrayList<>();
         listOfDecoders.add(getDecoderEntity1());
         listOfDecoders.add(getDecoderEntity2());
         return listOfDecoders;
     }
 
-    public static List<DecoderDTO> getDecoderDtos() throws ParseException {
+    public static List<DecoderDTO> getDecoderDtos() {
         return List.of(
                 getDecoderDto()
         );
     }
 
-    public static DecoderDTO getDecoderDto() throws ParseException {
+    @SneakyThrows
+    public static DecoderDTO getDecoderDto() {
         return DecoderDTO.builder().serialNumber(SERIAL_NUMBER)
                 .lastCommunication(simpleDateFormat.parse("2020-10-31 05:05:05"))
                 .device(DeviceFixture.getDeviceDto())

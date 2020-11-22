@@ -1,6 +1,5 @@
 package org.beanpod.switchboard.controller;
 
-import lombok.SneakyThrows;
 import org.beanpod.switchboard.dao.DecoderDaoImpl;
 import org.beanpod.switchboard.dao.DeviceDaoImpl;
 import org.beanpod.switchboard.dto.DecoderDTO;
@@ -18,7 +17,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.ResponseEntity;
 
-import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,11 +43,9 @@ class DecoderControllerTest {
     static private DeviceDTO deviceDto;
     static private DecoderEntity decoder;
     static private DecoderDTO decoderDto;
-
     static private List<DecoderEntity> listOfDecoders;
 
 
-    @SneakyThrows
     @BeforeEach
     void setupDecoderFixture() {
         device = DeviceFixture.getDevice1();
@@ -65,7 +61,7 @@ class DecoderControllerTest {
     }
 
     @Test
-    final void testRetrieveAllDecoders() throws ParseException {
+    final void testRetrieveAllDecoders() {
         when(decoderService.getDecoders()).thenReturn(listOfDecoders);
         when(decoderMapper.toDecoderDTOs(any())).thenReturn(DecoderFixture.getDecoderDtos());
 
@@ -139,7 +135,6 @@ class DecoderControllerTest {
     }
 
     //Test exceptions when updating encoder
-    @SneakyThrows
     @Test
     final void testUpdateDecoderExceptions(){
         DecoderDTO decoderDto = DecoderFixture.getDecoderDto();

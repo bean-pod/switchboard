@@ -6,7 +6,6 @@ import org.beanpod.switchboard.entity.EncoderEntity;
 import org.beanpod.switchboard.entity.OutputChannelEntity;
 import org.openapitools.model.EncoderModel;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +18,8 @@ public class EncoderFixture {
     private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
     static private Set<OutputChannelEntity> setOfChannels = ChannelFixture.getOutputChannelEntities();
 
-    public static EncoderEntity getEncoderEntity1() throws ParseException {
+    @SneakyThrows
+    public static EncoderEntity getEncoderEntity1() {
         return EncoderEntity.builder()
                 .serialNumber(SERIAL_NUMBER)
                 .lastCommunication(simpleDateFormat.parse("2020-10-31 05:05:05"))
@@ -28,7 +28,8 @@ public class EncoderFixture {
                 .build();
     }
 
-    public static EncoderEntity getEncoderEntity2() throws ParseException {
+    @SneakyThrows
+    public static EncoderEntity getEncoderEntity2() {
         return EncoderEntity.builder()
                 .serialNumber(SERIAL_NUMBER2)
                 .lastCommunication(simpleDateFormat.parse("2020-10-31 05:05:05"))
@@ -37,7 +38,7 @@ public class EncoderFixture {
                 .build();
     }
 
-    public static List<EncoderEntity> getListOfEncoder() throws ParseException {
+    public static List<EncoderEntity> getListOfEncoder() {
         List<EncoderEntity> listOfEncoders = new ArrayList<>();
         listOfEncoders.add(getEncoderEntity1());
         listOfEncoders.add(getEncoderEntity2());
