@@ -11,7 +11,7 @@ import java.util.Set;
 public interface OutputChannelMapper {
     @Mapping(target = "encoder", ignore = true)
     OutputChannelDTO toOutputChannelDTO(OutputChannelEntity outputChannelEntity);
-
+    @Mapping(target = "encoder", ignore = true)
     Set<OutputChannelDTO> toOutputChannelDTOs(Set<OutputChannelEntity> outputChannelEntities);
 
     OutputChannelEntity toOutputChannelEntity(OutputChannelDTO outputChannelDTO);

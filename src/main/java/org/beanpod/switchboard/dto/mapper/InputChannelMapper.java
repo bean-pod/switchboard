@@ -11,7 +11,7 @@ import java.util.Set;
 public interface InputChannelMapper {
     @Mapping(target = "decoder", ignore = true)
     InputChannelDTO toInputChannelDTO(InputChannelEntity inputChannelEntity);
-
+    @Mapping(target = "decoder", ignore = true)
     Set<InputChannelDTO> toInputChannelDTOs(Set<InputChannelEntity> inputChannelEntities);
 
     InputChannelEntity toInputChannelEntity(InputChannelDTO inputChannelDTO);
