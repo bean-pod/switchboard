@@ -1,38 +1,37 @@
 package org.beanpod.switchboard.dao;
 
+import org.beanpod.switchboard.dto.DecoderDTO;
+import org.beanpod.switchboard.dto.mapper.DecoderMapper;
 import org.beanpod.switchboard.entity.DecoderEntity;
-import org.beanpod.switchboard.entity.InputChannelEntity;
 import org.beanpod.switchboard.repository.DecoderRepository;
-import org.beanpod.switchboard.repository.InputChannelRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 @Component
 public class DecoderDaoImpl {
 
-    //Connect to the database
-    @Autowired
-    DecoderRepository decoderRepository;
+    private final DecoderRepository decoderRepository;
+    private final DecoderMapper decoderMapper;
 
-    public DecoderEntity save(DecoderEntity decoderEntity) {
-        Optional.of(decoderEntity)
-                .map(DecoderEntity::getInputs)
-                .orElse(Collections.emptySet())
-                .forEach(inputChannelEntity -> inputChannelEntity.setDecoder(decoderEntity));
-        return decoderRepository.save(decoderEntity);
-    }
-
-    public Optional<DecoderEntity> findDecoder(String serialNumber) {
-        return decoderRepository.findDecoderBySerialNumber(serialNumber);
+    public DecoderDaoImpl(DecoderRepository decoderRepository, DecoderMapper decoderMapper) {
+        this.decoderRepository = decoderRepository;
+        this.decoderMapper = decoderMapper;
     }
 
     public List<DecoderEntity> getDecoders() {
         return decoderRepository.findAll();
+    }
+
+    public Optional<DecoderDTO> findDecoder(String serialNumber) {
+        return decoderRepository.
+                findDecoderBySerialNumber(serialNumber).map(decoderMapper::toDecoderDTO);
+    }
+
+    public DecoderDTO save(DecoderDTO decoderDTO) {
+        return decoderMapper.toDecoderDTO(decoderRepository
+                .save(decoderMapper.toDecoderEntity(decoderDTO)));
     }
 
     public Long deleteDecoder(String serialNumber) {

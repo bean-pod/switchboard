@@ -1,6 +1,7 @@
 package org.beanpod.switchboard.dao;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.beanpod.switchboard.dto.InputChannelDTO;
 import org.beanpod.switchboard.dto.OutputChannelDTO;
 import org.beanpod.switchboard.dto.StreamDTO;
@@ -10,15 +11,14 @@ import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.repository.StreamRepository;
 import org.openapitools.model.CreateStreamRequest;
 import org.springframework.stereotype.Service;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 @Slf4j
+@RequiredArgsConstructor
 public class StreamDaoImpl {
+
     private final StreamRepository streamRepository;
     private final StreamMapper mapper;
     private final ChannelDaoImpl channelService;
@@ -29,8 +29,6 @@ public class StreamDaoImpl {
 
     public StreamDTO getStreamById(Long id) {
         StreamEntity streamEntity = streamRepository.getOne(id);
-        //TODO this is necessary to avoid a stackoverflow since Encoders/Decoders reference input/output channels which reference Decoders. I suggest adding CRUD endpoints to channels and not referencing the channels in the Encoder/Decoder at all.
-        Optional.of(streamEntity).ifPresent(this::removeChannelReferences);
         return mapper.toDto(streamEntity);
     }
 
@@ -41,9 +39,7 @@ public class StreamDaoImpl {
                 .inputChannel(inputChannelDTO)
                 .outputChannel(outputChannelDTO)
                 .build();
-
         StreamEntity streamEntity = mapper.toEntity(streamDto);
-
         if(streamRepository.existsDuplicate(createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId())){
             throw new ExceptionType.StreamAlreadyExistsException(createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId());
         }
@@ -60,13 +56,5 @@ public class StreamDaoImpl {
         }
         StreamEntity streamEntity = mapper.toEntity(streamDto);
         streamRepository.save(streamEntity);
-    }
-
-    //TODO this is necessary to avoid a stackoverflow since Encoders/Decoders reference input/output channels which
-    // reference Decoders. I suggest adding CRUD endpoints to channels and not referencing the channels in the
-    // Encoder/Decoder at all.
-    private void removeChannelReferences(StreamEntity streamEntity) {
-        Optional.of(streamEntity).ifPresent(se -> se.getInputChannel().getDecoder().setInputs(null));
-        Optional.of(streamEntity).ifPresent(se -> se.getOutputChannel().getEncoder().setOutputs(null));
     }
 }

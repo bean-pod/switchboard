@@ -3,7 +3,6 @@ package org.beanpod.switchboard.controller;
 import org.beanpod.switchboard.dao.DeviceDaoImpl;
 import org.beanpod.switchboard.dto.DeviceDTO;
 import org.beanpod.switchboard.dto.mapper.DeviceMapper;
-import org.beanpod.switchboard.dto.mapper.DeviceMapperImpl;
 import org.beanpod.switchboard.entity.DeviceEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.fixture.DeviceFixture;
@@ -11,18 +10,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 class DeviceControllerTest {
@@ -32,107 +27,98 @@ class DeviceControllerTest {
     @Mock
     private DeviceDaoImpl deviceService;
 
+    @Mock
     private DeviceMapper deviceMapper;
 
     //stubbed DeviceEntity object
-    static private DeviceEntity device1, device2;
+    static private DeviceEntity device;
+    static private DeviceDTO deviceDTO;
     static private List<DeviceEntity> listOfDevices;
 
     @BeforeEach
-    void setup(){
-        device1 = DeviceFixture.getDevice1();
-        device2 = DeviceFixture.getDevice2();
+    void setupDeviceFixture() {
+        device = DeviceFixture.getDevice1();
+        deviceDTO = DeviceFixture.getDeviceDto();
         listOfDevices = DeviceFixture.getListOfDevices();
-        deviceMapper = Mockito.spy(new DeviceMapperImpl());
+    }
+
+    @BeforeEach
+    void setup() {
         MockitoAnnotations.initMocks(this);
     }
 
     @Test
-    final void testRetrieveAllDevices(){
-        when(deviceService.getDevices()).thenReturn(listOfDevices);
+    final void testRetrieveAllDevices() {
+        when(deviceService.getDevices()).thenReturn(List.of(device));
+        when(deviceMapper.toDeviceDTOs(any())).thenReturn(List.of(deviceDTO));
         List<DeviceDTO> allDevices = deviceController.retrieveAllDevices();
-        List<DeviceDTO> listOfExpectDTODevices = deviceMapper.toDeviceDTOs(listOfDevices);
-
-        assertFalse(allDevices.isEmpty(),"allDevices list is empty."); //check if an empty list was returned
-        assertIterableEquals(listOfExpectDTODevices, allDevices,"listOfExpectDTODevices and allDevices lists are not equal."); //check both lists contents
+        assertFalse(allDevices.isEmpty()); //check if an empty list was returned
+        assertIterableEquals(List.of(deviceDTO), allDevices); //check both lists contents
     }
 
     //When a device is available in the DB
     @Test
-    final void testRetrieveDevice(){
-        when(deviceService.findDevice("1")).thenReturn(Optional.of(device1));
-        ResponseEntity<EntityModel<DeviceDTO>> actualDevice = deviceController.retrieveDevice("1");
+    final void testRetrieveDevice() {
+        when(deviceService.findDevice(DeviceFixture.SERIAL_NUMBER)).thenReturn(Optional.of(deviceDTO));
+        ResponseEntity<DeviceDTO> actualDevice = deviceController.retrieveDevice("1");
 
-        assertNotNull(actualDevice, "actualDevice object is null.");
-        assertEquals(200, actualDevice.getStatusCodeValue(), "Status code is not 200");
-        assertEquals(device1.getSerialNumber(), actualDevice.getBody().getContent().getSerialNumber(), "expectedDevice and actualDevice objects are not equal.");
+        assertNotNull(actualDevice);
+        assertEquals(200, actualDevice.getStatusCodeValue());
     }
 
     //When a device is unavailable in the DB
     @Test
-    final void testRetrieveDeviceEmpty(){
+    final void testRetrieveDeviceEmpty() {
         assertThrows(ExceptionType.DeviceNotFoundException.class, () -> {
             deviceController.retrieveDevice("NotAvailable");
-        }, "DeviceNotFoundException exception should have been thrown.");
+        });
     }
 
     //When a device is unavailable in the DB
     @Test
-    final void testCreateDeviceAlreadyExists(){
-        when(deviceService.findDevice("1")).thenReturn(Optional.of(device1));
+    final void testCreateDeviceAlreadyExists() {
+        when(deviceService.findDevice(DeviceFixture.SERIAL_NUMBER)).thenReturn(Optional.of(deviceDTO));
 
         assertThrows(ExceptionType.DeviceAlreadyExistsException.class, () -> {
-            deviceController.createDevice(device1);
-        }, "DeviceAlreadyExistsException should have been thrown.");
+            deviceController.createDevice(deviceDTO);
+        });
     }
 
     //When a device is unavailable in the DB
     @Test
     final void testCreateDevice() {
-        when(deviceService.save(device1)).thenReturn(device1);
-
-        //mock a request
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        request.setServerName("localhost/device");
-        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
-
-        //request response
-        ResponseEntity response = deviceController.createDevice(device1);
-
-        assertEquals(201, response.getStatusCodeValue(), "The status code is not 201.");
-        assertEquals("http://localhost/device/1", response.getHeaders().get("Location").get(0), "The returned location is incorrect.");
+        when(deviceService.save(deviceDTO)).thenReturn(deviceDTO);
+        ResponseEntity response = deviceController.createDevice(deviceDTO);
+        assertEquals(200, response.getStatusCodeValue());
     }
 
     //When a device is available in the DB
     @Test
-    final void testDeleteDevice(){
-        when(deviceService.deleteDevice("1")).thenReturn(Long.valueOf(1));
-        ResponseEntity<String> response = deviceController.deleteDevice("1");
-
-        assertEquals(200, response.getStatusCodeValue(), "The status code is not 200.");
-        assertEquals("Device with serial number 1 Deleted", response.getBody(), "Returned response does not match the expected.");
+    final void testDeleteDevice() {
+        when(deviceService.deleteDevice(DeviceFixture.SERIAL_NUMBER)).thenReturn(Long.valueOf(1));
+        ResponseEntity<String> response = deviceController.deleteDevice(DeviceFixture.SERIAL_NUMBER);
+        assertEquals(200, response.getStatusCodeValue());
+        assertEquals("Device with serial number 1 Deleted", response.getBody());
     }
 
     //When a device is unavailable in the DB
     @Test
-    final void testDeleteDeviceNotExisting(){
+    final void testDeleteDeviceNotExisting() {
         assertThrows(ExceptionType.DeviceNotFoundException.class, () -> {
             deviceController.deleteDevice("Not Available device");
-        }, "DeviceNotFoundException should have been thrown.");
+        });
     }
 
     //When a device is available in the DB
     @Test
-    final void testUpdateDevice(){
+    final void testUpdateDevice() {
+        when(deviceService.findDevice(DeviceFixture.SERIAL_NUMBER)).thenReturn(Optional.of(deviceDTO));
+        deviceDTO.setStatus("Stopped");
+        when(deviceService.save(deviceDTO)).thenReturn(deviceDTO);
+        ResponseEntity<DeviceDTO> response = deviceController.updateDevice(deviceDTO);
 
-        when(deviceService.findDevice("1")).thenReturn(Optional.of(device1));
-        device1.setStatus("Stopped");
-        when(deviceService.save(device1)).thenReturn(device1);
-        DeviceDTO deviceDTO1 = deviceMapper.toDeviceDTO(device1);
-        ResponseEntity<DeviceDTO> response = deviceController.updateDevice(deviceDTO1);
-
-        assertEquals(200, response.getStatusCodeValue(), "The status code is not 200");
-        assertEquals("Stopped", response.getBody().getStatus(), "The device is not updated");
+        assertEquals(200, response.getStatusCodeValue());
+        assertEquals("Stopped", response.getBody().getStatus());
     }
 
     /*
@@ -141,14 +127,12 @@ class DeviceControllerTest {
      */
     @Test
     final void testUpdateDeviceExceptions(){
-        DeviceDTO deviceDTO1 = deviceMapper.toDeviceDTO(device1);
-
         //When device is unavailable in the DB
         assertThrows(ExceptionType.DeviceNotFoundException.class, () -> {
-            deviceController.updateDevice(deviceDTO1);
+            deviceController.updateDevice(deviceDTO);
         }, "DeviceNotFoundException should have been thrown.");
 
         //This stubbing is needed for the following exception to be tested
-        when(deviceService.findDevice("1")).thenReturn(java.util.Optional.of(device1));
+        when(deviceService.findDevice(DeviceFixture.SERIAL_NUMBER)).thenReturn(java.util.Optional.of(deviceDTO));
     }
 }

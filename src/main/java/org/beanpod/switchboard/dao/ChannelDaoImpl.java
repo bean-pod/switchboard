@@ -1,59 +1,79 @@
 package org.beanpod.switchboard.dao;
 
 import lombok.RequiredArgsConstructor;
+import org.beanpod.switchboard.dto.ChannelDTO;
 import org.beanpod.switchboard.dto.InputChannelDTO;
 import org.beanpod.switchboard.dto.OutputChannelDTO;
+import org.beanpod.switchboard.dto.mapper.ChannelMapper;
 import org.beanpod.switchboard.dto.mapper.InputChannelMapper;
 import org.beanpod.switchboard.dto.mapper.OutputChannelMapper;
+import org.beanpod.switchboard.entity.ChannelEntity;
 import org.beanpod.switchboard.entity.InputChannelEntity;
 import org.beanpod.switchboard.entity.OutputChannelEntity;
+import org.beanpod.switchboard.repository.ChannelRepository;
 import org.beanpod.switchboard.repository.InputChannelRepository;
 import org.beanpod.switchboard.repository.OutputChannelRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class ChannelDaoImpl {
+
+    private final ChannelRepository channelRepository;
+    private final ChannelMapper channelMapper;
     private final InputChannelRepository inputChannelRepository;
     private final InputChannelMapper inputChannelMapper;
     private final OutputChannelRepository outputChannelRepository;
     private final OutputChannelMapper outputChannelMapper;
 
-    public InputChannelDTO getInputChannelById(Long id) {
-        //TODO this is necessary to avoid a stackoverflow since Encoders/Decoders reference input/output channels which reference Decoders. I suggest adding CRUD endpoints to channels and not referencing the channels in the Encoder/Decoder at all.
-        InputChannelEntity inputChannelEntity = inputChannelRepository.getOne(id);
-        removeChannelReference(inputChannelEntity);
-        return inputChannelMapper.toDto(inputChannelEntity);
+    public List<ChannelEntity> getChannels() {
+        return channelRepository.findAll();
     }
 
-    public void saveInputChannel(InputChannelDTO inputChannelDto) {
-        inputChannelRepository.save(inputChannelMapper.toEntity(inputChannelDto));
+    public Optional<ChannelDTO> findChannel(Long id) {
+        return channelRepository.
+                findChannelEntitiesById(id).map(channelMapper::toChannelDTO);
+    }
+
+    public Long deleteChannel(Long id){
+       return channelRepository.deleteChannelEntitiesById(id);
+    }
+
+    public ChannelDTO save(ChannelDTO channelDTO){
+        return channelMapper.toChannelDTO(
+                channelRepository.save(channelMapper.toChannelEntity(channelDTO)));
+    }
+
+    public InputChannelDTO saveInputChannel(InputChannelDTO inputChannelDto) {
+        return inputChannelMapper.toInputChannelDTO(inputChannelRepository
+                .save(inputChannelMapper.toInputChannelEntity(inputChannelDto)));
+    }
+
+    public OutputChannelDTO saveOutputChannel(OutputChannelDTO outputChannelDto) {
+       return outputChannelMapper.toOutputChannelDTO(outputChannelRepository
+               .save(outputChannelMapper.toOutputChannelEntity(outputChannelDto)));
+    }
+
+    public InputChannelDTO getInputChannelById(Long id) {
+        InputChannelEntity inputChannelEntity = inputChannelRepository.getOne(id);
+        return inputChannelMapper.toInputChannelDTO(inputChannelEntity);
     }
 
     public OutputChannelDTO getOutputChannelById(Long id) {
-        //TODO this is necessary to avoid a stackoverflow since Encoders/Decoders reference input/output
-        // channels which reference Decoders. I suggest adding CRUD endpoints to channels and not referencing the
-        // channels in the Encoder/Decoder at all.
         OutputChannelEntity outputChannelEntity = outputChannelRepository.getOne(id);
-        removeChannelReference(outputChannelEntity);
-        return outputChannelMapper.toDto(outputChannelEntity);
+        return outputChannelMapper.toOutputChannelDTO(outputChannelEntity);
     }
 
-    public void saveOutputChannel(OutputChannelDTO outputChannelDto) {
-        outputChannelRepository.save(outputChannelMapper.toEntity(outputChannelDto));
+    public Long deleteOutputChannelById(Long id){
+        return outputChannelRepository.deleteOutputChannelEntitiesById(id);
     }
 
-    //TODO this is necessary to avoid a stackoverflow since Encoders/Decoders reference input/output
-    // channels which reference Decoders. I suggest adding CRUD endpoints to channels and not referencing the
-    // channels in the Encoder/Decoder at all.
-    private void removeChannelReference(OutputChannelEntity outputChannelEntity) {
-        outputChannelEntity.getEncoder().setOutputs(null);
+    public Long deleteInputChannelById(Long id){
+        return inputChannelRepository.deleteInputChannelEntityById(id);
     }
 
-    //TODO this is necessary to avoid a stackoverflow since Encoders/Decoders reference input/output
-    // channels which reference Decoders. I suggest adding CRUD endpoints to channels and not referencing the
-    // channels in the Encoder/Decoder at all.
-    private void removeChannelReference(InputChannelEntity inputChannelEntity) {
-        inputChannelEntity.getDecoder().setInputs(null);
-    }
+
 }

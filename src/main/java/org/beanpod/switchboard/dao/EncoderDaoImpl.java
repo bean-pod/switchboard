@@ -1,30 +1,30 @@
 package org.beanpod.switchboard.dao;
 
+import lombok.RequiredArgsConstructor;
+import org.beanpod.switchboard.dto.EncoderDTO;
+import org.beanpod.switchboard.dto.mapper.EncoderMapper;
 import org.beanpod.switchboard.entity.EncoderEntity;
 import org.beanpod.switchboard.repository.EncoderRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 @Component
+@RequiredArgsConstructor
 public class EncoderDaoImpl {
 
-    @Autowired
-    EncoderRepository encoderRepository;
+    private final EncoderRepository encoderRepository;
+    private final EncoderMapper encoderMapper;
 
-    public EncoderEntity save(EncoderEntity encoderEntity) {
-        Optional.of(encoderEntity)
-                .map(EncoderEntity::getOutputs)
-                .orElse(Collections.emptySet())
-                .forEach(outputChannelEntity -> outputChannelEntity.setEncoder(encoderEntity));
-        return encoderRepository.save(encoderEntity);
+    public EncoderDTO save(EncoderDTO encoderDTO) {
+        return encoderMapper
+                .toEncoderDTO(encoderRepository.save(encoderMapper.toEncoderEntity(encoderDTO)));
     }
 
-    public Optional<EncoderEntity> findEncoder(String serialNumber) {
-        return encoderRepository.findEncoderBySerialNumber(serialNumber);
+    public Optional<EncoderDTO> findEncoder(String serialNumber) {
+        return encoderRepository.
+                findEncoderBySerialNumber(serialNumber).map(encoderMapper::toEncoderDTO);
     }
 
     public List<EncoderEntity> getEncoders() {

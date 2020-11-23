@@ -2,11 +2,8 @@ package org.beanpod.switchboard.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -15,6 +12,7 @@ import java.util.Set;
 
 @Entity(name = "Encoder")
 @Getter @Setter
+@Builder
 @ToString(exclude = {"outputs"})
 @AllArgsConstructor
 @NoArgsConstructor
@@ -31,17 +29,12 @@ public class EncoderEntity {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date lastCommunication;
 
-
     @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "serial_number", referencedColumnName = "serial_number")
     @MapsId
     private DeviceEntity device;
 
-    @OneToMany(fetch = FetchType.LAZY,
-            mappedBy = "encoder",
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            })
-    private Set<OutputChannelEntity> outputs;
+    @OneToMany(mappedBy= "encoder", fetch= FetchType.LAZY, cascade = {CascadeType.REMOVE})
+    @JsonManagedReference
+    private Set<OutputChannelEntity> output;
 }

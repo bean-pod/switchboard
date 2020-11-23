@@ -1,107 +1,152 @@
 package org.beanpod.switchboard.dao;
 
+import org.beanpod.switchboard.dto.ChannelDTO;
 import org.beanpod.switchboard.dto.InputChannelDTO;
 import org.beanpod.switchboard.dto.OutputChannelDTO;
+import org.beanpod.switchboard.dto.mapper.ChannelMapper;
 import org.beanpod.switchboard.dto.mapper.InputChannelMapper;
 import org.beanpod.switchboard.dto.mapper.OutputChannelMapper;
+import org.beanpod.switchboard.entity.ChannelEntity;
 import org.beanpod.switchboard.entity.InputChannelEntity;
 import org.beanpod.switchboard.entity.OutputChannelEntity;
 import org.beanpod.switchboard.fixture.ChannelFixture;
-import org.beanpod.switchboard.fixture.DeviceFixture;
+import org.beanpod.switchboard.repository.ChannelRepository;
 import org.beanpod.switchboard.repository.InputChannelRepository;
 import org.beanpod.switchboard.repository.OutputChannelRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
+import java.util.List;
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.verify;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-public class ChannelDaoImplTest {
+class ChannelDaoImplTest {
+
+    @InjectMocks
     private ChannelDaoImpl channelService;
 
     @Mock
     private InputChannelRepository inputChannelRepository;
     @Mock
-    private InputChannelMapper inputChannelMapper;
-    @Mock
     private OutputChannelRepository outputChannelRepository;
     @Mock
+    private InputChannelMapper inputChannelMapper;
+    @Mock
     private OutputChannelMapper outputChannelMapper;
+    @Mock
+    private ChannelRepository channelRepository;
+    @Mock
+    private ChannelMapper channelMapper;
+
+
+    //stubbed DeviceEntity object
+    static private ChannelEntity channel;
+    static private InputChannelEntity input;
+    static private InputChannelDTO inputDto;
+    static private OutputChannelEntity output;
+    static private OutputChannelDTO outputDto;
+    static private ChannelDTO channelDto;
+    static private List<ChannelEntity> listOfChannels;
 
     @BeforeEach
-    public void setup(){
+    public void setup() {
         initMocks(this);
-        channelService = new ChannelDaoImpl(inputChannelRepository, inputChannelMapper, outputChannelRepository, outputChannelMapper);
+    }
+
+    @BeforeEach
+    void setupChannelFixture() {
+        channel = ChannelFixture.getChannelEntity();
+        input = ChannelFixture.getInputChannelEntity();
+        inputDto = ChannelFixture.getInputChannelDto();
+        output = ChannelFixture.getOutputChannelEntity();
+        outputDto = ChannelFixture.getOutputChannelDto();
+        channelDto = ChannelFixture.getChannelDto();
+        listOfChannels = ChannelFixture.getListOfChannels();
     }
 
     @Test
-    public void testGetInputChannelById(){
-        //given
-        long inputChannelId = ChannelFixture.INPUT_CHANNEL_ID;
-        InputChannelDTO inputChannelDTO = ChannelFixture.getInputChannelDto();
-        InputChannelEntity inputChannelEntity = ChannelFixture.getInputChannelEntity();
-
-        when(inputChannelRepository.getOne(inputChannelId)).thenReturn(inputChannelEntity);
-        when(inputChannelMapper.toDto(inputChannelEntity)).thenReturn(inputChannelDTO);
-
-        //when
-        InputChannelDTO result = channelService.getInputChannelById(inputChannelId);
-
-        //then
-        assertEquals(ChannelFixture.INPUT_CHANNEL_ID, result.getId());
-        assertEquals(ChannelFixture.NAME, result.getName());
-        assertEquals(ChannelFixture.PORT, result.getPort());
+    void testGetChannels() {
+        when(channelRepository.findAll()).thenReturn(listOfChannels);
+        List<ChannelEntity> channelEntities = channelService.getChannels();
+        assertEquals(listOfChannels, channelEntities);
     }
 
     @Test
-    public void testSaveInputChannel(){
-        //given
-        InputChannelDTO inputChannelDto = ChannelFixture.getInputChannelDto();
-        InputChannelEntity inputChannelEntity = ChannelFixture.getInputChannelEntity();
-
-        when(inputChannelMapper.toEntity(inputChannelDto)).thenReturn(inputChannelEntity);
-
-        //when
-        channelService.saveInputChannel(inputChannelDto);
-
-        //then
-        verify(inputChannelRepository).save(inputChannelEntity);
+    void testFindChannel() {
+        when(channelMapper.toChannelDTO(any())).thenReturn(channelDto);
+        when(channelMapper.toChannelEntity(any())).thenReturn(channel);
+        when(channelRepository.findChannelEntitiesById(ChannelFixture.CHANNEL_ID)).thenReturn(java.util.Optional.of(channel));
+        Optional<ChannelDTO> channelDTO = channelService.findChannel(ChannelFixture.CHANNEL_ID);
+        assertEquals(channelDto, channelDTO.get());
     }
 
     @Test
-    public void testGetOutputChannelById(){
-        //given
-        long outputChannelId = ChannelFixture.OUTPUT_CHANNEL_ID;
-        OutputChannelDTO outputChannelDTO = ChannelFixture.getOutputChannelDto();
-        OutputChannelEntity outputChannelEntity = ChannelFixture.getOutputChannelEntity();
-
-        when(outputChannelRepository.getOne(outputChannelId)).thenReturn(outputChannelEntity);
-        when(outputChannelMapper.toDto(outputChannelEntity)).thenReturn(outputChannelDTO);
-
-        //when
-        OutputChannelDTO result = channelService.getOutputChannelById(outputChannelId);
-
-        //then
-        assertEquals(ChannelFixture.OUTPUT_CHANNEL_ID, result.getId());
-        assertEquals(ChannelFixture.NAME, result.getName());
-        assertEquals(ChannelFixture.PORT, result.getPort());
+    void testDeleteChannel() {
+        when(channelRepository.deleteChannelEntitiesById(ChannelFixture.CHANNEL_ID)).thenReturn((long) 1);
+        Long response = channelService.deleteChannel(ChannelFixture.CHANNEL_ID);
+        assertEquals(1L, response);
     }
 
     @Test
-    public void testSaveOutputChannel(){
-        //given
-        OutputChannelDTO outputChannelDto = ChannelFixture.getOutputChannelDto();
-        OutputChannelEntity outputChannelEntity = ChannelFixture.getOutputChannelEntity();
+    void testSaveChannel() {
+        when(channelMapper.toChannelDTO(any())).thenReturn(channelDto);
+        when(channelMapper.toChannelEntity(any())).thenReturn(channel);
+        when(channelRepository.save(channel)).thenReturn(channel);
+        ChannelDTO channelDTO = channelService.save(channelDto);
+        assertEquals(channelDto, channelDTO);
+    }
 
-        when(outputChannelMapper.toEntity(outputChannelDto)).thenReturn(outputChannelEntity);
+    @Test
+    void testSaveInputChannel() {
+        when(inputChannelMapper.toInputChannelDTO(any())).thenReturn(inputDto);
+        when(inputChannelMapper.toInputChannelEntity(any())).thenReturn(input);
+        when(inputChannelRepository.save(input)).thenReturn(input);
+        InputChannelDTO inputChannelDTO = channelService.saveInputChannel(inputDto);
+        assertEquals(inputDto, inputChannelDTO);
+    }
 
-        //when
-        channelService.saveOutputChannel(outputChannelDto);
+    @Test
+    void testSaveOutputChannel() {
+        when(outputChannelMapper.toOutputChannelDTO(any())).thenReturn(outputDto);
+        when(outputChannelMapper.toOutputChannelEntity(any())).thenReturn(output);
+        when(outputChannelRepository.save(output)).thenReturn(output);
+        OutputChannelDTO outputChannelDTO = channelService.saveOutputChannel(outputDto);
+        assertEquals(outputDto, outputChannelDTO);
+    }
 
-        //then
-        verify(outputChannelRepository).save(outputChannelEntity);
+    @Test
+    void testGetOutputChannelById() {
+        when(outputChannelRepository.getOne(ChannelFixture.CHANNEL_ID)).thenReturn(output);
+        when(outputChannelMapper.toOutputChannelDTO(output)).thenReturn(outputDto);
+        OutputChannelDTO outputChannelDTO = channelService.getOutputChannelById(ChannelFixture.CHANNEL_ID);
+        assertEquals(outputDto, outputChannelDTO);
+    }
+
+    @Test
+    void testGetInputChannelById() {
+        when(inputChannelRepository.getOne(ChannelFixture.CHANNEL_ID)).thenReturn(input);
+        when(inputChannelMapper.toInputChannelDTO(input)).thenReturn(inputDto);
+        InputChannelDTO inputChannelDTO = channelService.getInputChannelById(ChannelFixture.CHANNEL_ID);
+        assertEquals(inputDto, inputChannelDTO);
+    }
+
+    @Test
+    void deleteOutputChannelById() {
+        when(outputChannelRepository.deleteOutputChannelEntitiesById(ChannelFixture.CHANNEL_ID)).thenReturn(1L);
+        Long response = channelService.deleteOutputChannelById(ChannelFixture.CHANNEL_ID);
+        assertEquals(1L, response);
+    }
+
+    @Test
+    void deleteInputChannelById() {
+        when(inputChannelRepository.deleteInputChannelEntityById(ChannelFixture.CHANNEL_ID)).thenReturn(1L);
+        Long response = channelService.deleteInputChannelById(ChannelFixture.CHANNEL_ID);
+        assertEquals(1L, response);
     }
 }

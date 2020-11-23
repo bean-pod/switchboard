@@ -2,11 +2,9 @@ package org.beanpod.switchboard.controller;
 
 
 import lombok.RequiredArgsConstructor;
-
 import org.beanpod.switchboard.dao.StreamDaoImpl;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
 import org.openapitools.api.StreamApi;
-
 import org.openapitools.model.CreateStreamRequest;
 import org.openapitools.model.StreamModel;
 import org.springframework.http.ResponseEntity;
@@ -43,7 +41,6 @@ public class StreamController implements StreamApi {
     public ResponseEntity<Void> createStream(@Valid CreateStreamRequest createStreamRequest) {
         Optional.of(createStreamRequest)
                 .ifPresentOrElse(streamService::createStream, this::getUnknownException);
-
         return ResponseEntity.ok().build();
     }
 
@@ -52,7 +49,6 @@ public class StreamController implements StreamApi {
     public ResponseEntity<Void> deleteStream(Long id) {
         Optional.of(id)
                 .ifPresentOrElse(streamService::deleteStream, this::getUnknownException);
-
         return ResponseEntity.ok().build();
     }
 
@@ -61,7 +57,6 @@ public class StreamController implements StreamApi {
         Optional.of(streamModel)
                 .map(mapper::toDto)
                 .ifPresentOrElse(streamService::updateStream, this::getUnknownException);
-
         return ResponseEntity.ok().build();
     }
 

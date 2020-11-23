@@ -30,15 +30,16 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(exceptionResponse, exceptionResponse.getStatus());
     }
 
-    @ExceptionHandler(ExceptionType.DevicePrimaryKeyRestriction.class)
-    public final ResponseEntity<Object> handleDeviceReferencedException(Exception ex) {
-        ExceptionResponse exceptionResponse = new ExceptionResponse(HttpStatus.CONFLICT, ex.getMessage(), "Primary Key altering not allowed");
+
+    @ExceptionHandler(ExceptionType.StreamAlreadyExistsException.class)
+    public final ResponseEntity<Object> handleStreamAlreadyExistsException(Exception ex) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(HttpStatus.CONFLICT, ex.getMessage(), "Stream already exists");
         return new ResponseEntity<>(exceptionResponse, exceptionResponse.getStatus());
     }
 
-    @ExceptionHandler(ExceptionType.DeviceNotUpdated.class)
-    public final ResponseEntity<Object> handleDeviceNotUpdatedException(Exception ex) {
-        ExceptionResponse exceptionResponse = new ExceptionResponse(HttpStatus.CONFLICT, ex.getMessage(), "Device was not updated");
+    @ExceptionHandler(ExceptionType.StreamDoesNotExistException.class)
+    public final ResponseEntity<Object> handleStreamDoesNotExistException(Exception ex) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(HttpStatus.NOT_FOUND, ex.getMessage(), "Stream doesnt exist");
         return new ResponseEntity<>(exceptionResponse, exceptionResponse.getStatus());
     }
 

@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity(name = "Device")
 @Getter @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
@@ -29,9 +30,9 @@ public class DeviceEntity {
 
     private String status;
 
-    @OneToOne(mappedBy = "device", cascade = CascadeType.ALL)
-    private EncoderEntity encoderEntity;
-
-    @OneToOne(mappedBy = "device", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "device", cascade = {CascadeType.REMOVE})
     private DecoderEntity decoderEntity;
+
+    @OneToOne(mappedBy = "device", cascade = {CascadeType.REMOVE})
+    private EncoderEntity encoderEntity;
 }

@@ -1,28 +1,29 @@
 package org.beanpod.switchboard.fixture;
 
-import io.swagger.models.auth.In;
-import org.apache.http.annotation.Contract;
+import lombok.SneakyThrows;
+import org.beanpod.switchboard.dto.ChannelDTO;
 import org.beanpod.switchboard.dto.InputChannelDTO;
 import org.beanpod.switchboard.dto.OutputChannelDTO;
-import org.beanpod.switchboard.entity.*;
-import org.hibernate.result.Output;
+import org.beanpod.switchboard.entity.ChannelEntity;
+import org.beanpod.switchboard.entity.InputChannelEntity;
+import org.beanpod.switchboard.entity.OutputChannelEntity;
 import org.openapitools.model.InputChannelModel;
 import org.openapitools.model.OutputChannelModel;
-import org.xmlunit.builder.Input;
 
-import java.beans.Encoder;
-import java.util.Base64;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class ChannelFixture {
     public static final long CHANNEL_ID = 4569L;
+    public static final long CHANNEL_ID2 = 4568L;
     public static final long INPUT_CHANNEL_ID = 113L;
     public static final long OUTPUT_CHANNEL_ID = 7301L;
     public static final String NAME = "local";
     public static final int PORT = 8080;
 
-    public static ChannelEntity getChannelEntity(){
+    public static ChannelEntity getChannelEntity() {
         return ChannelEntity.builder()
                 .id(CHANNEL_ID)
                 .name(NAME)
@@ -30,27 +31,51 @@ public class ChannelFixture {
                 .build();
     }
 
-    public static InputChannelEntity getInputChannelEntity(){
+    public static ChannelEntity getChannelEntity2() {
+        return ChannelEntity.builder()
+                .id(CHANNEL_ID2)
+                .name(NAME)
+                .port(PORT)
+                .build();
+    }
+
+    public static List<ChannelEntity> getListOfChannels() {
+        List<ChannelEntity> listOfChannels = new ArrayList<>();
+        listOfChannels.add(getChannelEntity());
+        listOfChannels.add(getChannelEntity2());
+        return listOfChannels;
+    }
+
+    public static ChannelDTO getChannelDto() {
+        return ChannelDTO.builder()
+                .id(CHANNEL_ID)
+                .name(NAME)
+                .port(PORT)
+                .build();
+    }
+
+    @SneakyThrows
+    public static InputChannelEntity getInputChannelEntity() {
         return InputChannelEntity.builder()
                 .id(INPUT_CHANNEL_ID)
                 .channel(getChannelEntity())
-                .decoder(DecoderFixture.getDecoder1(DeviceFixture.getDevice1()))
+                .decoder(DecoderFixture.getDecoderEntity1())
                 .build();
     }
 
-    public static OutputChannelEntity getOutputChannelEntity(){
+    @SneakyThrows
+    public static OutputChannelEntity getOutputChannelEntity() {
         return OutputChannelEntity.builder()
                 .id(INPUT_CHANNEL_ID)
                 .channel(getChannelEntity())
-                .encoder(EncoderFixture.getEncoder1(DeviceFixture.getDevice1()))
+                .encoder(EncoderFixture.getEncoderEntity1())
                 .build();
     }
 
-    public static InputChannelDTO getInputChannelDto(){
+    @SneakyThrows
+    public static InputChannelDTO getInputChannelDto() {
         return InputChannelDTO.builder()
                 .id(INPUT_CHANNEL_ID)
-                .name(NAME)
-                .port(PORT)
                 .decoder(DecoderFixture.getDecoderDto())
                 .build();
     }
@@ -58,8 +83,6 @@ public class ChannelFixture {
     public static OutputChannelDTO getOutputChannelDto(){
         return OutputChannelDTO.builder()
                 .id(OUTPUT_CHANNEL_ID)
-                .name(NAME)
-                .port(PORT)
                 .encoder(EncoderFixture.getEncoderDto())
                 .build();
     }
@@ -67,17 +90,12 @@ public class ChannelFixture {
     public static InputChannelModel getInputChannelModel(){
         return new InputChannelModel()
                 .id(INPUT_CHANNEL_ID)
-                .name(NAME)
-                .port(PORT)
                 .decoder(DecoderFixture.getDecoderModel());
-
     }
 
     public static OutputChannelModel getOutputChannelModel(){
         return new OutputChannelModel()
                 .id(OUTPUT_CHANNEL_ID)
-                .name(NAME)
-                .port(PORT)
                 .encoder(EncoderFixture.getEncoderModel());
 
     }
@@ -88,8 +106,8 @@ public class ChannelFixture {
         }};
     }
 
-    public static Set<OutputChannelEntity> getOutputChannelEntities(){
-        return new HashSet<>(){{
+    public static Set<OutputChannelEntity> getOutputChannelEntities() {
+        return new HashSet<>() {{
             getOutputChannelEntity();
         }};
     }

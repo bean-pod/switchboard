@@ -1,84 +1,53 @@
 package org.beanpod.switchboard.controller;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.beanpod.switchboard.dao.DeviceDaoImpl;
 import org.beanpod.switchboard.dao.EncoderDaoImpl;
+import org.beanpod.switchboard.dto.DeviceDTO;
 import org.beanpod.switchboard.dto.EncoderDTO;
 import org.beanpod.switchboard.dto.mapper.EncoderMapper;
-import org.beanpod.switchboard.entity.DeviceEntity;
 import org.beanpod.switchboard.entity.EncoderEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
-import java.net.URI;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Slf4j
 @RestController
 @RequestMapping("/encoder")
+@RequiredArgsConstructor
 public class EncoderController {
 
-    @Autowired
-    EncoderDaoImpl encoderService;
-
-    @Autowired
-    DeviceDaoImpl deviceService;
-
-    @Autowired
-    EncoderMapper encoderMapper;
+    private final EncoderDaoImpl encoderService;
+    private final DeviceDaoImpl deviceService;
+    private final EncoderMapper encoderMapper;
 
     @GetMapping
     public List<EncoderDTO> retrieveAllEncoders() {
-        //TODO this is necessary to avoid a stackoverflow since Encoders reference input channels which reference
-        // Decoders. I suggest adding CRUD endpoints to channels and not referencing the channels
-        // in the Encoder/Decoder at all.
         List<EncoderEntity> encoderEntities = encoderService.getEncoders();
-        encoderEntities.forEach(this::removeEncoderReferences);
         return encoderMapper.toEncoderDTOs(encoderEntities);
     }
 
     @GetMapping("/{serialNumber}")
-    public ResponseEntity<EntityModel<EncoderDTO>> retrieveEncoder(@PathVariable @Valid String serialNumber) {
-
-        Optional<EncoderEntity> encoder = encoderService.findEncoder(serialNumber);
-
-        if (encoder.isEmpty()) {
-            throw new ExceptionType.DeviceNotFoundException(serialNumber);
-        }
-
-        //TODO this is necessary to avoid a stackoverflow since Encoders reference input channels which reference
-        // Decoders. I suggest adding CRUD endpoints to channels and not referencing the channels
-        // in the Encoder/Decoder at all.
-        encoder.ifPresent(this::removeEncoderReferences);
-        EntityModel<EncoderDTO> resource = EntityModel.of(encoderMapper.toEncoderDTO(encoder.get()));
-        WebMvcLinkBuilder linkTo = linkTo(methodOn(this.getClass()).retrieveAllEncoders());
-        resource.add(linkTo.withRel("all-encoders"));
-        return ResponseEntity.ok(resource);
+    public ResponseEntity<EncoderDTO> retrieveEncoder(@PathVariable @Valid String serialNumber) {
+        return encoderService.findEncoder(serialNumber)
+                .map(ResponseEntity::ok)
+                .orElseThrow(() -> new ExceptionType.DeviceNotFoundException(serialNumber));
     }
 
     @PostMapping
-    public ResponseEntity createEncoder(@RequestBody @Valid EncoderEntity encoderEntity) {
-        Optional<DeviceEntity> deviceOptional = deviceService.findDevice(encoderEntity.getSerialNumber());
+    public ResponseEntity<EncoderDTO> createEncoder(@RequestBody @Valid EncoderDTO encoderDTO) {
+        Optional<DeviceDTO> deviceOptional = deviceService.findDevice(encoderDTO.getSerialNumber());
         if (deviceOptional.isEmpty()) {
-            throw new ExceptionType.DeviceNotFoundException(encoderEntity.getSerialNumber());
+            throw new ExceptionType.DeviceNotFoundException(encoderDTO.getSerialNumber());
         }
-        encoderEntity.setDevice(deviceOptional.get());
-        EncoderEntity savedEncoderEntity = encoderService.save(encoderEntity);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().
-                path("/{serialNumber}").buildAndExpand(savedEncoderEntity.getSerialNumber()).toUri();
-        return ResponseEntity.created(location).build();
+        encoderDTO.setDevice(deviceOptional.get());
+        return ResponseEntity.ok(encoderService.save(encoderDTO));
     }
 
     @DeleteMapping("/{serialNumber}")
@@ -93,25 +62,11 @@ public class EncoderController {
 
     @PutMapping
     public ResponseEntity<EncoderDTO> updateEncoder(@RequestBody EncoderDTO encoderDTO){
-        Optional<EncoderEntity> encoder = encoderService.findEncoder(encoderDTO.getSerialNumber());
+        Optional<EncoderDTO> encoder = encoderService.findEncoder(encoderDTO.getSerialNumber());
         if (encoder.isEmpty()) {
             throw new ExceptionType.DeviceNotFoundException(encoderDTO.getSerialNumber());
         }
-        EncoderEntity encoderEntity = encoderService.save(encoderMapper.toEncoderEntity(encoderDTO));
-        //TODO this is necessary to avoid a stackoverflow since Encoders reference input channels which reference
-        // Decoders. I suggest adding CRUD endpoints to channels and not referencing the channels
-        // in the Encoder/Decoder at all.
-        removeEncoderReferences(encoderEntity);
-        return ResponseEntity.ok(encoderMapper.toEncoderDTO(encoderEntity));
+        return ResponseEntity.ok(encoderService.save(encoderDTO));
     }
 
-    //TODO this is necessary to avoid a stackoverflow since Encoders reference input channels which reference
-    // Decoders. I suggest adding CRUD endpoints to channels and not referencing the channels
-    // in the Encoder/Decoder at all.
-    private void removeEncoderReferences(EncoderEntity encoderEntity) {
-        Optional.of(encoderEntity)
-                .map(EncoderEntity::getOutputs)
-                .orElse(Collections.emptySet())
-                .forEach( outputChannelEntity -> outputChannelEntity.setEncoder(null));
-    }
 }
