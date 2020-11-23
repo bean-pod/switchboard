@@ -11,7 +11,7 @@ export default class StreamingPage extends React.Component {
 
     constructor(props) {
         super(props)
-        this.dataSource = props.deviceSource;
+        this.dataSource = props.deviceDataSource;
     }
 
     render() {
@@ -24,11 +24,11 @@ export default class StreamingPage extends React.Component {
                         <div className="title">Streaming</div>
                     </Box>
                     <div id="StreamingTable">
-                        <StreamingTable dataSource={this.props.deviceSource} />
+                        <StreamingTable dataSource={this.props.deviceDataSource} />
                     </div>
                 </Box>
                 <Box>
-                    <StreamList dataSource={this.props.streamSource} />
+                    <StreamList dataSource={this.props.streamDataSource} />
                 </Box>
             </Container>
         );

@@ -26,7 +26,7 @@ ReactDOM.render(
         )} />
         <Route exact path="/Streaming" 
         render={(props) => (
-            <StreamingTablePage {...props} deviceSource={DeviceApi} streamSource={StreamApi} />
+            <StreamingTablePage {...props} deviceDataSource={DeviceApi} streamDataSource={StreamApi} />
         )}  />
       </Switch>
     </BrowserRouter>
