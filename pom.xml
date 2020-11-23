@@ -22,17 +22,21 @@
         <spring-hateoas-version>1.1.2.RELEASE</spring-hateoas-version>
         <openapi-jackson-nullable-version>0.2.1</openapi-jackson-nullable-version>
         <maven-compiler-plugin-version>3.8.1</maven-compiler-plugin-version>
+        <maven-checkstyle-plugin-version>3.1.1</maven-checkstyle-plugin-version>
         <lombok-version>1.18.12</lombok-version>
         <mapstruct-version>1.4.1.Final</mapstruct-version>
         <sonar.projectKey>bean-pod_switchboard</sonar.projectKey>
         <sonar.organization>bean-pod</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <sonar.sources>src/main/java,frontend/src</sonar.sources>
-        <sonar.test.inclusions>frontend/src/**/__tests__/**</sonar.test.inclusions>
         <sonar.exclusions>frontend/src/**/__tests__/**</sonar.exclusions>
+        <sonar.tests>src/test/java,frontend/src</sonar.tests>
+        <sonar.test.inclusions>src/test/java,frontend/src/**/__tests__/**</sonar.test.inclusions>
+        <sonar.cpd.exclusions>frontend/src/api/SampleData.js</sonar.cpd.exclusions>
         <sonar.javascript.lcov.reportPaths>frontend/coverage/lcov.info</sonar.javascript.lcov.reportPaths>
         <sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
         <sonar.java.checkstyle.reportPaths>${project.build.directory}/checkstyle-result.xml</sonar.java.checkstyle.reportPaths>
+        <sonar.eslint.reportPaths>frontend/lint/report.json</sonar.eslint.reportPaths>
     </properties>
 
     <dependencies>
@@ -115,7 +119,6 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -137,7 +140,14 @@
                     <target>11</target>
                 </configuration>
             </plugin>
-
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${maven-checkstyle-plugin-version}</version>
+                <configuration>
+                    <configLocation>google_checks.xml</configLocation>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.openapitools</groupId>
                 <artifactId>openapi-generator-maven-plugin</artifactId>
@@ -159,7 +169,6 @@
                     </execution>
                 </executions>
             </plugin>
-
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
