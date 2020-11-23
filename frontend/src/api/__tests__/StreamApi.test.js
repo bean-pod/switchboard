@@ -1,62 +1,57 @@
-import React from 'react'
-import axios from 'axios'
-import Enzyme from 'enzyme'
-import Adapter from 'enzyme-adapter-react-16'
+import React from "react";
+import axios from "axios";
+import Enzyme from "enzyme";
+import Adapter from "enzyme-adapter-react-16";
+// import StreamApi itself
+import * as StreamApi from "../StreamApi";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-// import StreamApi itself
-import * as StreamApi from '../StreamApi'
-import * as SampleData from '../SampleData'
-
-jest.mock('axios');
+jest.mock("axios");
 
 const mockSingleStream = {
-    streamId: 1,
-    streamName: "Test 1"
-}
-const mockStreams = [
-    mockSingleStream,
-    {streamId: 2, streamName: "Test 2"}
-]
+  streamId: 1,
+  streamName: "Test 1"
+};
+const mockStreams = [mockSingleStream, { streamId: 2, streamName: "Test 2" }];
 
 const respAllStreams = {
-    target: {
-        streams: mockStreams
-    }
-}
+  target: {
+    streams: mockStreams
+  }
+};
 const respSingleStream = {
-    target: {
-        stream: mockSingleStream
-    }
-}
+  target: {
+    stream: mockSingleStream
+  }
+};
 
-describe('Stream Api', () => {
+describe("Stream Api", () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
 
-    afterEach(() => {
-        jest.clearAllMocks();
-    })
+  describe("getStream", () => {
+    it("should call axios.get and return a single stream's information", () => {
+      StreamApi.getStream(123);
 
-    describe('getStream', () => {
-        it('should call axios.get and return a single stream\'s information', () => {
-            StreamApi.getStream(123);
-            
-            // check that callback was invoked with correct value
-            expect(axios.get).toHaveBeenCalledWith(`http://localhost:8080/stream/123`);
-        })
-    })
-    
-    describe('getAllStreams', () => {
-        it('should call axios.get and return an array of streams', () => {
-            axios.get.mockResolvedValue(mockStreams);
+      // check that callback was invoked with correct value
+      expect(axios.get).toHaveBeenCalledWith(
+        `http://localhost:8080/stream/123`
+      );
+    });
+  });
 
-            StreamApi.getAllStreams();
+  describe("getAllStreams", () => {
+    it("should call axios.get and return an array of streams", () => {
+      axios.get.mockResolvedValue(mockStreams);
 
-            expect(axios.get).toHaveBeenCalledWith("http://localhost:8080/stream");
-        })
-        it('should use sample data in the case of an error', () => {
+      StreamApi.getAllStreams();
 
-            // TODO: fill in
-        })
-    })
-})
+      expect(axios.get).toHaveBeenCalledWith("http://localhost:8080/stream");
+    });
+    it("should use sample data in the case of an error", () => {
+      // TODO: fill in
+    });
+  });
+});

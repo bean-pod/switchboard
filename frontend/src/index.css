@@ -1,14 +1,14 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
@@ -21,6 +21,7 @@ code {
 input {
   padding: 0.5em;
 }
+
 select {
   padding: 0.5em;
 }
@@ -37,6 +38,7 @@ select {
 .numeric {
   text-align: right;
 }
+
 .tableHeadCell {
   padding: 1em;
   text-align: left;
@@ -44,48 +46,54 @@ select {
   border-top: 1px solid rgba(224, 224, 224, 1);
 }
 
-.tableHeadCell input{
-  padding: .5em;
+.tableHeadCell input {
+  padding: 0.5em;
   text-align: left;
   background-color: white;
 }
 
-#statusSearch{
-  padding: .5em;
+#statusSearch {
+  padding: 0.5em;
 }
-#sortBySelect{
-  padding: 0.5em 2em .5em .5em;
+
+#sortBySelect {
+  padding: 0.5em 2em 0.5em 0.5em;
   width: max-content;
 }
-#TableStartStreaming{
+
+#TableStartStreaming {
   display: flex;
 }
 
-.streamingTable{
+.streamingTable {
   height: 500;
 }
 
 .searchField {
-  margin: 0em ;
+  margin: 0em;
 }
 
-.searchField input{
+.searchField input {
   padding: 7px 5px;
 }
-.sortBy{
-  color: #8F8F8F;
+
+.sortBy {
+  color: #8f8f8f;
   font-size: 13px;
   margin: 1em 0.5em;
 }
+
 /* Text Style Classes */
 .flexContents {
   display: flex;
 }
+
 .alignRight {
   position: absolute;
   top: 0.5em;
   right: 0.2em;
 }
+
 .alignRightFloat {
   display: flex;
   position: relative;
@@ -94,13 +102,15 @@ select {
   margin-left: auto;
   margin-right: 0;
 }
+
 .headerTitle {
   color: white;
-  text-decoration:none;
+  text-decoration: none;
   font-size: 24px;
   vertical-align: middle;
   flex-grow: 1;
 }
+
 .title {
   font-size: 40px;
   vertical-align: middle;
@@ -108,6 +118,7 @@ select {
   padding-top: 0.5em;
   padding-bottom: 0.5em;
 }
+
 .subtitle {
   font-size: 36px;
   vertical-align: middle;
@@ -117,7 +128,7 @@ select {
 
 .buttonText {
   display: inline-flex;
-  text-decoration:none;
+  text-decoration: none;
   align-items: center;
   text-transform: uppercase;
   color: white;
@@ -128,7 +139,7 @@ select {
 }
 
 .hideLinkStyle {
-  text-decoration:none;
+  text-decoration: none;
 }
 
 .statusText {
@@ -138,6 +149,7 @@ select {
   width: 90px;
   border-radius: 0.2em;
 }
+
 .statusOfflineText {
   color: black;
   text-align: center;
@@ -145,19 +157,23 @@ select {
   width: 90px;
   border-radius: 0.2em;
 }
-.chevronText{
+
+.chevronText {
   padding-bottom: 0;
   padding-top: 0;
 }
+
 .blackFont {
   color: #000000;
 }
+
 .hamburger {
   background-color: inherit;
   color: inherit;
   /* margin: 0; */
   /* padding: 0; */
 }
+
 .warningText {
   color: #ea5757;
 }
@@ -166,55 +182,64 @@ select {
 .greenFill {
   fill: #59bc31;
 }
+
 .yellowFill {
   fill: #fec300;
 }
+
 .redFill {
-  fill: #ea5757
+  fill: #ea5757;
 }
+
 .lightGreyFill {
   fill: #d3d3d3;
 }
+
 .darkGreyFill {
   fill: #373737;
 }
 
 /* Scroll bar styling*/
 
-::-webkit-scrollbar{
+::-webkit-scrollbar {
   width: 8px;
 }
 
-::-webkit-scrollbar-track{
+::-webkit-scrollbar-track {
   border-radius: 10px;
 }
 
-::-webkit-scrollbar-thumb{
+::-webkit-scrollbar-thumb {
   opacity: 30%;
   border-radius: 10px;
-  background-color: rgba(0,0,0,0.3);
-  
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 /* Background Color Classes */
 .darkGrey {
   background-color: #373737;
 }
+
 .lightGrey {
   background-color: #d3d3d3;
 }
-.lightestGrey{
+
+.lightestGrey {
   background-color: #f9f9f9;
 }
+
 .green {
   background-color: #59bc31;
 }
+
 .yellow {
   background-color: #fec300;
 }
+
 .red {
   background-color: #ea5757;
 }
+
 .blue {
   background-color: #01b2fe;
 }
