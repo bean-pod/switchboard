@@ -1,23 +1,21 @@
 package org.beanpod.switchboard.dao;
 
+import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.dto.EncoderDTO;
 import org.beanpod.switchboard.dto.mapper.EncoderMapper;
 import org.beanpod.switchboard.entity.EncoderEntity;
 import org.beanpod.switchboard.repository.EncoderRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 
 @Component
+@RequiredArgsConstructor
 public class EncoderDaoImpl {
 
-    @Autowired
-    EncoderRepository encoderRepository;
-
-    @Autowired
-    EncoderMapper encoderMapper;
+    private final EncoderRepository encoderRepository;
+    private final EncoderMapper encoderMapper;
 
     public EncoderDTO save(EncoderDTO encoderDTO) {
         return encoderMapper

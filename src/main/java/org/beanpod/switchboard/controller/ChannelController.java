@@ -1,15 +1,13 @@
 package org.beanpod.switchboard.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.dao.ChannelDaoImpl;
 import org.beanpod.switchboard.dao.DecoderDaoImpl;
 import org.beanpod.switchboard.dao.EncoderDaoImpl;
 import org.beanpod.switchboard.dto.*;
 import org.beanpod.switchboard.dto.mapper.ChannelMapper;
-import org.beanpod.switchboard.dto.mapper.InputChannelMapper;
-import org.beanpod.switchboard.dto.mapper.OutputChannelMapper;
 import org.beanpod.switchboard.entity.ChannelEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,22 +17,15 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/channel")
+@RequiredArgsConstructor
 public class ChannelController {
 
     static final String DELETE = " deleted";
-    @Autowired
-    ChannelDaoImpl channelService;
-    @Autowired
-    DecoderDaoImpl decoderService;
-    @Autowired
-    EncoderDaoImpl encoderService;
+    private final ChannelDaoImpl channelService;
+    private final DecoderDaoImpl decoderService;
+    private final EncoderDaoImpl encoderService;
+    private final ChannelMapper channelMapper;
 
-    @Autowired
-    ChannelMapper channelMapper;
-    @Autowired
-    InputChannelMapper inputChannelMapper;
-    @Autowired
-    OutputChannelMapper outputChannelMapper;
 
     @GetMapping
     public List<ChannelDTO> retrieveAllChannels() {

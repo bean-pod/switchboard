@@ -1,11 +1,11 @@
 package org.beanpod.switchboard.controller;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.beanpod.switchboard.dao.DeviceDaoImpl;
 import org.beanpod.switchboard.dto.DeviceDTO;
 import org.beanpod.switchboard.dto.mapper.DeviceMapper;
 import org.beanpod.switchboard.exceptions.ExceptionType;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,13 +17,11 @@ import java.util.Optional;
 @Slf4j
 @RestController
 @RequestMapping("/device")
+@RequiredArgsConstructor
 public class DeviceController {
 
-    @Autowired
-    DeviceDaoImpl service;
-
-    @Autowired
-    DeviceMapper deviceMapper;
+    private final DeviceDaoImpl service;
+    private final DeviceMapper deviceMapper;
 
     @GetMapping
     public List<DeviceDTO> retrieveAllDevices() {

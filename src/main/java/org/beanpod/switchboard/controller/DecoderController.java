@@ -1,5 +1,6 @@
 package org.beanpod.switchboard.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.dao.DecoderDaoImpl;
 import org.beanpod.switchboard.dao.DeviceDaoImpl;
 import org.beanpod.switchboard.dto.DecoderDTO;
@@ -7,7 +8,6 @@ import org.beanpod.switchboard.dto.DeviceDTO;
 import org.beanpod.switchboard.dto.mapper.DecoderMapper;
 import org.beanpod.switchboard.entity.DecoderEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,16 +18,12 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/decoder")
+@RequiredArgsConstructor
 public class DecoderController {
 
-    @Autowired
-    DecoderDaoImpl decoderService;
-
-    @Autowired
-    DeviceDaoImpl deviceService;
-
-    @Autowired
-    DecoderMapper decoderMapper;
+    private final DecoderDaoImpl decoderService;
+    private final DeviceDaoImpl deviceService;
+    private final DecoderMapper decoderMapper;
 
     @GetMapping
     public List<DecoderDTO> retrieveAllDecoders() {

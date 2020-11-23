@@ -13,7 +13,6 @@ import org.beanpod.switchboard.entity.OutputChannelEntity;
 import org.beanpod.switchboard.repository.ChannelRepository;
 import org.beanpod.switchboard.repository.InputChannelRepository;
 import org.beanpod.switchboard.repository.OutputChannelRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,25 +21,19 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class ChannelDaoImpl {
-    @Autowired
-    ChannelRepository channelRepository;
-    @Autowired
-    ChannelMapper channelMapper;
-    @Autowired
-    InputChannelRepository inputChannelRepository;
-    @Autowired
-    InputChannelMapper inputChannelMapper;
-    @Autowired
-    OutputChannelRepository outputChannelRepository;
-    @Autowired
-    OutputChannelMapper outputChannelMapper;
 
+    private final ChannelRepository channelRepository;
+    private final ChannelMapper channelMapper;
+    private final InputChannelRepository inputChannelRepository;
+    private final InputChannelMapper inputChannelMapper;
+    private final OutputChannelRepository outputChannelRepository;
+    private final OutputChannelMapper outputChannelMapper;
 
-    public List<ChannelEntity> getChannels(){
+    public List<ChannelEntity> getChannels() {
         return channelRepository.findAll();
     }
 
-    public Optional<ChannelDTO> findChannel(Long id){
+    public Optional<ChannelDTO> findChannel(Long id) {
         return channelRepository.
                 findChannelEntitiesById(id).map(channelMapper::toChannelDTO);
     }

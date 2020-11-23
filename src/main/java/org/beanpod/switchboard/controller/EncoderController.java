@@ -1,5 +1,6 @@
 package org.beanpod.switchboard.controller;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.beanpod.switchboard.dao.DeviceDaoImpl;
 import org.beanpod.switchboard.dao.EncoderDaoImpl;
@@ -8,7 +9,6 @@ import org.beanpod.switchboard.dto.EncoderDTO;
 import org.beanpod.switchboard.dto.mapper.EncoderMapper;
 import org.beanpod.switchboard.entity.EncoderEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,16 +20,12 @@ import java.util.Optional;
 @Slf4j
 @RestController
 @RequestMapping("/encoder")
+@RequiredArgsConstructor
 public class EncoderController {
 
-    @Autowired
-    EncoderDaoImpl encoderService;
-
-    @Autowired
-    DeviceDaoImpl deviceService;
-
-    @Autowired
-    EncoderMapper encoderMapper;
+    private final EncoderDaoImpl encoderService;
+    private final DeviceDaoImpl deviceService;
+    private final EncoderMapper encoderMapper;
 
     @GetMapping
     public List<EncoderDTO> retrieveAllEncoders() {

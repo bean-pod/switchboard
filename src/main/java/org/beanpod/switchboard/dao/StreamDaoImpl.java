@@ -15,9 +15,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 @Slf4j
+@RequiredArgsConstructor
 public class StreamDaoImpl {
+
     private final StreamRepository streamRepository;
     private final StreamMapper mapper;
     private final ChannelDaoImpl channelService;
