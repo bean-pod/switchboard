@@ -121,7 +121,7 @@ class ChannelControllerTest {
 
    @Test
    void deleteOutputChannel() {
-      when(channelService.deleteOutputChannelById(4569L)).thenReturn(1L);
+      when(channelService.deleteOutputChannelById(ChannelFixture.CHANNEL_ID)).thenReturn(1L);
       ResponseEntity<String> stringResponseEntity = channelController.deleteOutputChannel(ChannelFixture.CHANNEL_ID);
       assertEquals(200, stringResponseEntity.getStatusCodeValue());
    }
