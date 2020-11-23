@@ -1,6 +1,6 @@
 import DeviceInfo from "./DeviceInfo";
 
-export function convertToLocal(databaseDevice) {
+export function convertToDataObject(databaseDevice) {
     return (
         new DeviceInfo(
             databaseDevice.serialNumber,
@@ -13,7 +13,7 @@ export function convertToLocal(databaseDevice) {
     );
 }
 
-export function convertToAxios(deviceInfo) {
+export function convertToServiceObject(deviceInfo) {
     if (deviceInfo.hasOwnProperty("outputs")) {
         return {
             "serialNumber": deviceInfo.serialNumber,
