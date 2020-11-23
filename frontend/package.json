@@ -58,6 +58,7 @@
     ],
     "rules": {
       "class-methods-use-this": "warn",
+      "import/named": "warn",
       "no-plusplus": "warn",
       "no-sequences": "warn",
       "no-undef": "warn",
