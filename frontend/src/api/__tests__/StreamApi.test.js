@@ -41,6 +41,7 @@ describe('Stream Api', () => {
         it('should call axios.get and return a single stream\'s information', () => {
             StreamApi.getStream(123);
             
+            // check that callback was invoked with correct value
             expect(axios.get).toHaveBeenCalledWith(`http://localhost:8080/stream/123`);
         })
     })
