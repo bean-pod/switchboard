@@ -31,6 +31,6 @@ export function getReceivers(callback) {
             }));
         })
         .catch((error) => {
-            SampleData.getReceivers(callback)
+            SampleData.getReceivers(callback);
         });
 }

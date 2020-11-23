@@ -5,13 +5,13 @@ import {
 } from "@material-ui/core"
 import StreamingTable from "./StreamingTable"
 import DynamicBreadcrumb from '../General/DynamicBreadcrumb';
+import StreamList from '../streamlist/StreamList';
 
 export default class StreamingPage extends React.Component {
 
     constructor(props) {
-
         super(props)
-        this.dataSource = props.dataSource;
+        this.dataSource = props.deviceDataSource;
     }
 
     render() {
@@ -24,10 +24,12 @@ export default class StreamingPage extends React.Component {
                         <div className="title">Streaming</div>
                     </Box>
                     <div id="StreamingTable">
-
-                        <StreamingTable dataSource={this.props.dataSource} />
+                        <StreamingTable dataSource={this.props.deviceDataSource} />
                     </div>
-                </Box>                
+                </Box>
+                <Box>
+                    <StreamList dataSource={this.props.streamDataSource} />
+                </Box>
             </Container>
         );
     }

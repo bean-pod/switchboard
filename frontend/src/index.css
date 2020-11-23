@@ -162,6 +162,23 @@ select {
   color: #ea5757;
 }
 
+/* Button styling */
+.greenFill {
+  fill: #59bc31;
+}
+.yellowFill {
+  fill: #fec300;
+}
+.redFill {
+  fill: #ea5757
+}
+.lightGreyFill {
+  fill: #d3d3d3;
+}
+.darkGreyFill {
+  fill: #373737;
+}
+
 /* Scroll bar styling*/
 
 ::-webkit-scrollbar{
