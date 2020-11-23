@@ -24,7 +24,7 @@ export default class StreamingPage extends React.Component {
                         <div className="title">Streaming</div>
                     </Box>
                     <div id="StreamingTable">
-                        <StreamingTable dataSource={this.props.dataSource} />
+                        <StreamingTable dataSource={this.props.deviceSource} />
                     </div>
                 </Box>
                 <Box>
