@@ -1,6 +1,6 @@
 import {
-    convertToLocal,
-    convertToAxios
+    convertToDataObject,
+    convertToServiceObject
 } from '../ConvertDataFormat'
 import DeviceInfo from '../../model/DeviceInfo'
 import {
@@ -49,17 +49,17 @@ let sampleAxiosReceiver = {
     "inputs": sampleInputChannels
 };
 
-test('ConvertToLocal returns DeviceInfo object with correct data', () => {
-    var axiosSenderToLocal = JSON.stringify(convertToLocal(sampleAxiosSender));
-    var axiosReceiverToLocal = JSON.stringify(convertToLocal(sampleAxiosReceiver));
+test('convertToDataObject returns DeviceInfo object with correct data', () => {
+    var axiosSenderToLocal = JSON.stringify(convertToDataObject(sampleAxiosSender));
+    var axiosReceiverToLocal = JSON.stringify(convertToDataObject(sampleAxiosReceiver));
 
     expect(axiosSenderToLocal).toStrictEqual(JSON.stringify(sampleLocalSender));
     expect(axiosReceiverToLocal).toStrictEqual(JSON.stringify(sampleLocalReceiver));
 })
 
-test('ConvertToAxios returns information in response format with correct data', () => {
-    var localSenderToAxios = JSON.stringify(convertToAxios(sampleLocalSender));
-    var localReceiverToAxios = JSON.stringify(convertToAxios(sampleLocalReceiver));
+test('convertToServiceObject returns information in response format with correct data', () => {
+    var localSenderToAxios = JSON.stringify(convertToServiceObject(sampleLocalSender));
+    var localReceiverToAxios = JSON.stringify(convertToServiceObject(sampleLocalReceiver));
 
     expect(localSenderToAxios).toStrictEqual(JSON.stringify(sampleAxiosSender));
     expect(localReceiverToAxios).toStrictEqual(JSON.stringify(sampleAxiosReceiver));
