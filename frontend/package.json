@@ -31,7 +31,8 @@
     "lint:fix": "prettier --write \"src/**/*.+(html|css|json|md)\" && eslint --fix src/ --ext .js,.jsx"
   },
   "prettier": {
-    "trailingComma": "none"
+    "trailingComma": "none",
+    "endOfLine": "auto"
   },
   "eslintConfig": {
     "env": {
