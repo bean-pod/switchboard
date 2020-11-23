@@ -11,7 +11,7 @@ export default class StreamingPage extends React.Component {
 
     constructor(props) {
         super(props)
-        this.dataSource = props.dataSource;
+        this.dataSource = props.deviceSource;
     }
 
     render() {
