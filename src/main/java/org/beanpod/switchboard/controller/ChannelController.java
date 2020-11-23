@@ -1,111 +1,126 @@
 package org.beanpod.switchboard.controller;
 
+import java.util.List;
+import java.util.Optional;
+import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.dao.ChannelDaoImpl;
 import org.beanpod.switchboard.dao.DecoderDaoImpl;
 import org.beanpod.switchboard.dao.EncoderDaoImpl;
-import org.beanpod.switchboard.dto.*;
+import org.beanpod.switchboard.dto.ChannelDTO;
+import org.beanpod.switchboard.dto.DecoderDTO;
+import org.beanpod.switchboard.dto.EncoderDTO;
+import org.beanpod.switchboard.dto.InputChannelDTO;
+import org.beanpod.switchboard.dto.OutputChannelDTO;
 import org.beanpod.switchboard.dto.mapper.ChannelMapper;
 import org.beanpod.switchboard.entity.ChannelEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import javax.transaction.Transactional;
-import java.util.List;
-import java.util.Optional;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/channel")
 @RequiredArgsConstructor
 public class ChannelController {
 
-    static final String DELETE = " deleted";
-    private final ChannelDaoImpl channelService;
-    private final DecoderDaoImpl decoderService;
-    private final EncoderDaoImpl encoderService;
-    private final ChannelMapper channelMapper;
+  static final String DELETE = " deleted";
+  private final ChannelDaoImpl channelService;
+  private final DecoderDaoImpl decoderService;
+  private final EncoderDaoImpl encoderService;
+  private final ChannelMapper channelMapper;
 
+  @GetMapping
+  public List<ChannelDTO> retrieveAllChannels() {
+    List<ChannelEntity> channelEntities = channelService.getChannels();
+    return channelMapper.toChannelDTOs(channelEntities);
+  }
 
-    @GetMapping
-    public List<ChannelDTO> retrieveAllChannels() {
-        List<ChannelEntity> channelEntities = channelService.getChannels();
-        return channelMapper.toChannelDTOs(channelEntities);
+  @GetMapping("/{id}")
+  public ResponseEntity<ChannelDTO> retrieveChannel(@PathVariable Long id) {
+    return channelService
+        .findChannel(id)
+        .map(ResponseEntity::ok)
+        .orElseThrow(() -> new ExceptionType.DeviceNotFoundException(id.toString()));
+  }
+
+  @PostMapping
+  public ResponseEntity<ChannelDTO> createChannel(@RequestBody ChannelDTO channel) {
+    Optional<ChannelDTO> channelLookup = channelService.findChannel(channel.getId());
+    if (channelLookup.isPresent()) {
+      throw new ExceptionType.DeviceAlreadyExistsException(channel.getId().toString());
     }
+    return ResponseEntity.ok(channelService.save(channel));
+  }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ChannelDTO> retrieveChannel(@PathVariable Long id) {
-        return channelService.findChannel(id).
-                map(ResponseEntity::ok).
-                orElseThrow(() -> new ExceptionType.DeviceNotFoundException(id.toString()));
-    }
+  @PostMapping("/input/{id}/decoder/{serial}")
+  @Transactional
+  public ResponseEntity<InputChannelDTO> createInputChannel(
+      @PathVariable Long id, @PathVariable String serial) {
+    // TODO change device not found exception to channel not found
+    ChannelDTO channelDTO =
+        channelService
+            .findChannel(id)
+            .orElseThrow(() -> new ExceptionType.DeviceNotFoundException(id.toString()));
+    DecoderDTO decoderDTO =
+        decoderService
+            .findDecoder(serial)
+            .orElseThrow(() -> new ExceptionType.DeviceNotFoundException(serial));
+    InputChannelDTO inputChannelDTO =
+        InputChannelDTO.builder().channel(channelDTO).decoder(decoderDTO).build();
+    return ResponseEntity.ok(channelService.saveInputChannel(inputChannelDTO));
+  }
 
-    @PostMapping
-    public ResponseEntity<ChannelDTO> createChannel(@RequestBody ChannelDTO channel) {
-        Optional<ChannelDTO> channelLookup = channelService.findChannel(channel.getId());
-        if (channelLookup.isPresent()) {
-            throw new ExceptionType.DeviceAlreadyExistsException(channel.getId().toString());
-        }
-        return ResponseEntity.ok(channelService.save(channel));
-    }
+  @PostMapping("/output/{id}/encoder/{serial}")
+  @Transactional
+  public ResponseEntity<OutputChannelDTO> createOutputChannel(
+      @PathVariable Long id, @PathVariable String serial) {
+    // TODO change device not found exception to channel not found
+    ChannelDTO channelDTO =
+        channelService
+            .findChannel(id)
+            .orElseThrow(() -> new ExceptionType.DeviceNotFoundException(id.toString()));
+    EncoderDTO encoderDTO =
+        encoderService
+            .findEncoder(serial)
+            .orElseThrow(() -> new ExceptionType.DeviceNotFoundException(serial));
+    OutputChannelDTO outputChannelDTO =
+        OutputChannelDTO.builder().channel(channelDTO).encoder(encoderDTO).build();
+    return ResponseEntity.ok(channelService.saveOutputChannel(outputChannelDTO));
+  }
 
-    @PostMapping("/input/{id}/decoder/{serial}")
-    @Transactional
-    public ResponseEntity<InputChannelDTO> createInputChannel(@PathVariable Long id, @PathVariable String serial) {
-        //TODO change device not found exception to channel not found
-        ChannelDTO channelDTO = channelService.findChannel(id).
-                orElseThrow(() -> new ExceptionType.DeviceNotFoundException(id.toString()));
-        DecoderDTO decoderDTO = decoderService.findDecoder(serial).
-                orElseThrow(() -> new ExceptionType.DeviceNotFoundException(serial));
-        InputChannelDTO inputChannelDTO = InputChannelDTO.builder()
-                .channel(channelDTO)
-                .decoder(decoderDTO)
-                .build();
-        return ResponseEntity.ok(channelService.saveInputChannel(inputChannelDTO));
+  @DeleteMapping("/output/{id}")
+  @Transactional
+  public ResponseEntity<String> deleteOutputChannel(@PathVariable Long id) {
+    Long response = channelService.deleteOutputChannelById(id);
+    if (response != 1) {
+      throw new ExceptionType.DeviceNotFoundException(id.toString());
     }
+    return ResponseEntity.ok("Output Channel with ID " + id + DELETE);
+  }
 
-    @PostMapping("/output/{id}/encoder/{serial}")
-    @Transactional
-    public ResponseEntity<OutputChannelDTO> createOutputChannel(@PathVariable Long id, @PathVariable String serial) {
-        //TODO change device not found exception to channel not found
-        ChannelDTO channelDTO = channelService.findChannel(id).
-                orElseThrow(() -> new ExceptionType.DeviceNotFoundException(id.toString()));
-        EncoderDTO encoderDTO = encoderService.findEncoder(serial).
-                orElseThrow(() -> new ExceptionType.DeviceNotFoundException(serial));
-        OutputChannelDTO outputChannelDTO = OutputChannelDTO.builder()
-                .channel(channelDTO)
-                .encoder(encoderDTO)
-                .build();
-        return ResponseEntity.ok(channelService.saveOutputChannel(outputChannelDTO));
+  @DeleteMapping("/input/{id}")
+  @Transactional
+  public ResponseEntity<String> deleteInputChannel(@PathVariable Long id) {
+    Long response = channelService.deleteInputChannelById(id);
+    if (response != 1) {
+      throw new ExceptionType.DeviceNotFoundException(id.toString());
     }
+    return ResponseEntity.ok("Input Channel with ID " + id + DELETE);
+  }
 
-    @DeleteMapping("/output/{id}")
-    @Transactional
-    public ResponseEntity<String> deleteOutputChannel(@PathVariable Long id){
-        Long response = channelService.deleteOutputChannelById(id);
-        if (response != 1) {
-            throw new ExceptionType.DeviceNotFoundException(id.toString());
-        }
-        return ResponseEntity.ok("Output Channel with ID " + id + DELETE);
+  @DeleteMapping("/{id}")
+  @Transactional
+  public ResponseEntity<String> deleteChannel(@PathVariable Long id) {
+    Long response = channelService.deleteChannel(id);
+    if (response != 1) {
+      throw new ExceptionType.DeviceNotFoundException(id.toString());
     }
-
-    @DeleteMapping("/input/{id}")
-    @Transactional
-    public ResponseEntity<String> deleteInputChannel(@PathVariable Long id){
-        Long response = channelService.deleteInputChannelById(id);
-        if (response != 1) {
-            throw new ExceptionType.DeviceNotFoundException(id.toString());
-        }
-        return ResponseEntity.ok("Input Channel with ID " + id + DELETE);
-    }
-
-    @DeleteMapping("/{id}")
-    @Transactional
-    public ResponseEntity<String> deleteChannel(@PathVariable Long id) {
-        Long response = channelService.deleteChannel(id);
-        if (response != 1) {
-            throw new ExceptionType.DeviceNotFoundException(id.toString());
-        }
-        return ResponseEntity.ok("Channel with ID number " + id + DELETE);
-    }
+    return ResponseEntity.ok("Channel with ID number " + id + DELETE);
+  }
 }

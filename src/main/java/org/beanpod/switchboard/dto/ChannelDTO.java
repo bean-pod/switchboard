@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ChannelDTO {
-    private Long id;
-    private String name;
-    private Integer port;
+  private Long id;
+  private String name;
+  private Integer port;
 }

@@ -4,6 +4,7 @@ import org.beanpod.switchboard.entity.InputChannelEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface InputChannelRepository extends JpaRepository<InputChannelEntity, Long> {
-    InputChannelEntity save(InputChannelEntity inputChannelEntity);
-    Long deleteInputChannelEntityById(Long id);
+  InputChannelEntity save(InputChannelEntity inputChannelEntity);
+
+  Long deleteInputChannelEntityById(Long id);
 }

@@ -31,3 +31,18 @@ Developed as a Concordia University Capstone project.
 * To run the front-end, you have two options 
     * Run the command `npm start` for a non-optimized development build 
     * Run the command `npm run build` for a production build
+    
+## Setting up code styling tools
+
+### Back-end
+
+#### Formatting the back end
+* How to use Google Java Format
+    * [README](https://github.com/google/google-java-format)
+
+### Front-end
+
+#### Formatting the front end
+* How to use ESLint/Prettier
+    * Execute command `npm run lint:fix` within frontend directory
+    ([README](https://github.com/bean-pod/switchboard/blob/master/frontend/README.md))
