@@ -10,10 +10,6 @@ import DynamicBreadcrumb from '../General/DynamicBreadcrumb';
 import * as useStyles from '../DefaultMakeStylesTheme';
 
 export default class DeviceListPage extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-    
     render() {
         return (
             <Container>

@@ -1,10 +1,6 @@
 import React from 'react';
 
 export default class StatusIndicator extends React.Component {
-
-    constructor(props) {
-        super(props);
-    }
     getStatusStyle(status) {
         switch (status) {
             case "Online":
