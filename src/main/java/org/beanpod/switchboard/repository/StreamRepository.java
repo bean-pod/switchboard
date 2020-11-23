@@ -14,7 +14,8 @@ public interface StreamRepository extends JpaRepository<StreamEntity, Long> {
   List<Long> getAllId();
 
   @Query(
-      "SELECT count(id)>0 FROM Stream where input_channel_id = :inputChannelId AND output_channel_id = :outputChannelId")
+      "SELECT count(id) > 0 FROM Stream where input_channel_id = :inputChannelId AND "
+          + "output_channel_id = :outputChannelId")
   boolean existsDuplicate(
       @Param(value = "inputChannelId") long inputChannelId,
       @Param(value = "outputChannelId") long outputChannelId);

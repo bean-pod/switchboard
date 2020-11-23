@@ -15,7 +15,8 @@ public class EncoderFixture {
   public static final String SERIAL_NUMBER2 = "2";
   private static final String pattern = "yyyy-MM-dd HH:mm:ss";
   private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-  private static final Set<OutputChannelEntity> setOfChannels = ChannelFixture.getOutputChannelEntities();
+  private static final Set<OutputChannelEntity> setOfChannels =
+      ChannelFixture.getOutputChannelEntities();
 
   @SneakyThrows
   public static EncoderEntity getEncoderEntity1() {
