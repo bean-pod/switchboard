@@ -2,9 +2,21 @@ package org.beanpod.switchboard.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.*;
-
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -14,17 +26,22 @@ import javax.persistence.*;
 @Entity(name = "OutputChannel")
 @JsonIgnoreProperties({"hibernateLazyIntializer", "handler"})
 public class OutputChannelEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  @Column(name = "id")
+  private Long id;
 
-    @OneToOne(optional = false, cascade = {CascadeType.MERGE})
-    @JoinColumn(name = "channel_id")
-    private ChannelEntity channel;
+  @OneToOne(
+      optional = false,
+      cascade = {CascadeType.MERGE})
+  @JoinColumn(name = "channel_id")
+  private ChannelEntity channel;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
-    @JoinColumn(name = "encoder_serial")
-    @JsonBackReference
-    private EncoderEntity encoder;
+  @ManyToOne(
+      optional = false,
+      fetch = FetchType.LAZY,
+      cascade = {CascadeType.MERGE})
+  @JoinColumn(name = "encoder_serial")
+  @JsonBackReference
+  private EncoderEntity encoder;
 }
