@@ -18,7 +18,6 @@ export default class DeviceDetailsPage extends React.Component {
           breadcrumbs={[
             ["Home", ""],
             ["My Devices", "Devices"],
-            ["Sender", "Senders"],
             [this.props.device.name, this.props.device.id]
           ]}
         />
