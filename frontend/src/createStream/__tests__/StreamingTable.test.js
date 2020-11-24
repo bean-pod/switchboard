@@ -2,6 +2,14 @@ import React from "react";
 import axios from "axios";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
+import {
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  jest,
+  it
+} from "@jest/globals";
 import StreamingTable from "../StreamingTable";
 
 Enzyme.configure({ adapter: new Adapter() });

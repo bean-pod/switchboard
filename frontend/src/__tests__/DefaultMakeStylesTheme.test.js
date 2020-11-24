@@ -1,4 +1,5 @@
 import { makeStyles } from "@material-ui/core";
+import { expect, test } from "@jest/globals";
 import DefaultMakeStylesTheme from "../DefaultMakeStylesTheme";
 
 const expectedTheme = makeStyles((theme) => ({
