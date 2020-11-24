@@ -6,7 +6,7 @@ import StreamsTable from "./StreamsTable";
 export default function StreamList(props) {
   return (
     <Container>
-      <Box class="headerArea">
+      <Box className="headerArea">
         <div className="title">Current Streams</div>
       </Box>
       <StreamsTable classes={useStyles} dataSource={props.dataSource} />

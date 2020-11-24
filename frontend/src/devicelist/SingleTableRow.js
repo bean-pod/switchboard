@@ -25,9 +25,9 @@ export default class SingleTableRow extends React.Component {
   render() {
     return (
       <>
-        <TableRow key={this.props.deviceDetails.id} class="singleDeviceRow">
+        <TableRow key={this.props.deviceDetails.id} className="singleDeviceRow">
           <TableCell
-            class="tableCell dropdownButton"
+            className="tableCell dropdownButton"
             style={{ width: 1, padding: 0, paddingLeft: 5 }}
           >
             <IconButton
@@ -36,24 +36,24 @@ export default class SingleTableRow extends React.Component {
               {this.state.open ? <ExpandLess /> : <ExpandMore />}
             </IconButton>
           </TableCell>
-          <TableCell class="tableCell">
+          <TableCell className="tableCell">
             {this.props.deviceDetails.name}
           </TableCell>
-          <TableCell class="tableCell numeric">
+          <TableCell className="tableCell numeric">
             {this.props.deviceDetails.serialNumber}
           </TableCell>
-          <TableCell class="tableCell">
+          <TableCell className="tableCell">
             <StatusIndicator status={this.props.deviceDetails.status} />
           </TableCell>
-          <TableCell class="tableCell numeric">
+          <TableCell className="tableCell numeric">
             {this.props.deviceDetails.ip}
           </TableCell>
-          <TableCell class="tableCell" align="center">
+          <TableCell className="tableCell" align="center">
             <ActionMenu />
           </TableCell>
         </TableRow>
-        <TableRow class="deviceDetails">
-          <TableCell class="chevronText lightestGrey" colSpan={7}>
+        <TableRow className="deviceDetails">
+          <TableCell className="chevronText lightestGrey" colSpan={7}>
             <Collapse in={this.state.open} timeout="auto" unmountOnExit>
               <Box margin={2}>
                 <Typography variant="h6">Channels</Typography>

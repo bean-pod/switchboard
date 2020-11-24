@@ -25,8 +25,7 @@ export default class VerticalTabs extends React.Component {
           value={this.props.value}
           onChange={this.handleChange}
           aria-label="Vertical tabs"
-          className={this.props.classes.tabs}
-          class="lightGrey blackFont flexContents"
+          className={`${this.props.classes.tabs} lightGrey blackFont flexContents`}
           orientation="vertical"
           variant="scrollable"
         >

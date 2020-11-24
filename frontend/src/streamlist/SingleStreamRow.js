@@ -27,9 +27,9 @@ export default class SingleStreamRow extends React.Component {
   render() {
     return (
       <>
-        <TableRow key={this.props.streamDetails.id} class="singleStreamRow">
+        <TableRow key={this.props.streamDetails.id} className="singleStreamRow">
           <TableCell
-            class="tableCell dropdownButton"
+            className="tableCell dropdownButton"
             style={{ width: 1, padding: 0, paddingLeft: 5 }}
           >
             <IconButton
@@ -38,33 +38,33 @@ export default class SingleStreamRow extends React.Component {
               {this.state.open ? <ExpandLess /> : <ExpandMore />}
             </IconButton>
           </TableCell>
-          <TableCell class="tableCell numeric">
+          <TableCell className="tableCell numeric">
             {this.props.streamDetails.id}
           </TableCell>
-          <TableCell class="tableCell">
+          <TableCell className="tableCell">
             {this.props.streamDetails.date}
           </TableCell>
-          <TableCell class="tableCell">
+          <TableCell className="tableCell">
             {this.props.streamDetails.sender.name}
           </TableCell>
-          <TableCell class="tableCell">
+          <TableCell className="tableCell">
             {this.props.streamDetails.receiver.name}
           </TableCell>
-          <TableCell class="tableCell">
+          <TableCell className="tableCell">
             <StatusIndicator status={this.props.streamDetails.status} />
           </TableCell>
-          <TableCell class="tableCell">
+          <TableCell className="tableCell">
             {this.props.streamDetails.type}
           </TableCell>
-          <TableCell class="tableCell">
+          <TableCell className="tableCell">
             {this.props.streamDetails.time}
           </TableCell>
-          <TableCell class="tableCell actionButtons">
+          <TableCell className="tableCell actionButtons">
             {ActionButtons()}
           </TableCell>
         </TableRow>
-        <TableRow class="streamDetails">
-          <TableCell class="chevronText lightestGrey" colSpan={9}>
+        <TableRow className="streamDetails">
+          <TableCell className="chevronText lightestGrey" colSpan={9}>
             <Collapse in={this.state.open} timeout="auto" unmountOnExit>
               <Box margin={2}>
                 <Typography variant="caption">
