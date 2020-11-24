@@ -31,7 +31,7 @@ export default class DeviceDetailsPage extends React.Component {
             <DeviceDetailsConciseTable device={this.props.device} />
           </Grid>
           <Grid item xs={1} />
-          <Grid item xs={5}>
+          <Grid item xs={6}>
             <DeviceDetailsTabTable tabs={this.tabs} />
           </Grid>
         </Grid>
