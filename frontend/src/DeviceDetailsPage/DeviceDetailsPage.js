@@ -1,18 +1,13 @@
-import { Title } from "@material-ui/icons";
 import React from "react";
+import { Box, Container, Grid } from "@material-ui/core";
+
+import DeviceDetailsConciseTable from "./DeviceDetailsConciseTable";
+import DynamicBreadcrumb from "../General/DynamicBreadcrumb";
 
 export default class DeviceDetailsPage extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      isLoading: true,
-      isData: false,
-      device: props.device
-    };
   }
-
-  useEffect() {}
 
   render() {
     return (
@@ -21,18 +16,21 @@ export default class DeviceDetailsPage extends React.Component {
           breadcrumbs={[
             ["Home", ""],
             ["My Devices", "Devices"],
-            ["Device", "Streaming"]
+            ["Sender", "Senders"],
+            [this.props.device.name, this.props.device.id]
           ]}
         />
-        <Box padding="1em">
-          <Box className="flexContents headerArea">
-            <div className="title">Streaming</div>
-          </Box>
-
-          <div id="StreamingTable">
-            <StreamingTable device={this.props.device} />
-          </div>
-        </Box>
+        <Grid container spacing={1}>
+          <Grid item xs={12} className="flexContents headerArea">
+            <div className="title">{this.props.device.name}</div>
+          </Grid>
+          <Grid item xs={12} />
+          <Grid item xs={5}>
+            <DeviceDetailsConciseTable device={this.props.device} />
+          </Grid>
+          <Grid item xs={1} />
+          <Grid item xs={5} />
+        </Grid>
       </Container>
     );
   }
