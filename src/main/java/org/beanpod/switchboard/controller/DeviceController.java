@@ -10,6 +10,8 @@ import org.beanpod.switchboard.dao.DeviceDaoImpl;
 import org.beanpod.switchboard.dto.DeviceDTO;
 import org.beanpod.switchboard.dto.mapper.DeviceMapper;
 import org.beanpod.switchboard.exceptions.ExceptionType;
+import org.openapitools.api.DeviceApi;
+import org.openapitools.model.DeviceModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,23 +26,28 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/device")
 @RequiredArgsConstructor
-public class DeviceController {
-
+public class DeviceController implements DeviceApi {
+  public static final String UNKNOWN_ERROR_MESSAGE = "Unknown error in Device Controller";
   private final DeviceDaoImpl service;
   private final DeviceMapper deviceMapper;
 
   @GetMapping
-  public List<DeviceDTO> retrieveAllDevices() {
-    return (deviceMapper.toDeviceDTOs(service.getDevices()));
+  public ResponseEntity<List<DeviceModel>> retrieveAllDevices() {
+    return Optional.of(service.getDevices())
+            .map(deviceMapper::toDeviceDTOs)
+            .map(deviceMapper::toDeviceModels)
+            .map(ResponseEntity::ok)
+            .orElseThrow(this::getUnknownException);
   }
 
   @GetMapping("/{serialNumber}")
-  public ResponseEntity<DeviceDTO> retrieveDevice(@PathVariable String serialNumber) {
-    Optional<DeviceDTO> device = service.findDevice(serialNumber);
-    if (device.isEmpty()) {
-      throw new ExceptionType.DeviceNotFoundException(serialNumber);
-    }
-    return ResponseEntity.ok(device.get());
+  public ResponseEntity<DeviceModel> retrieveDevice(@PathVariable String serialNumber) {
+    return Optional.of(serialNumber)
+            .map(service::findDevice)
+            .orElseThrow(() -> new ExceptionType.DeviceNotFoundException(serialNumber))
+            .map(deviceMapper::toDeviceModel)
+            .map(ResponseEntity::ok)
+            .orElseThrow(this::getUnknownException);
   }
 
   @PostMapping
@@ -70,5 +77,9 @@ public class DeviceController {
       throw new ExceptionType.DeviceNotFoundException(device.getSerialNumber());
     }
     return ResponseEntity.ok(service.save(device));
+  }
+
+  private RuntimeException getUnknownException(){
+    return new RuntimeException(UNKNOWN_ERROR_MESSAGE);
   }
 }
