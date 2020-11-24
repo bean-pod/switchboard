@@ -24,8 +24,7 @@ export default class DeviceInfo {
       "ip",
       "name",
       "status",
-      "channels",
-      "extras"
+      "channels"
     ];
   }
 }
