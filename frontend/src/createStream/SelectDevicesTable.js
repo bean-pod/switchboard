@@ -16,12 +16,11 @@ export default class SelectDevicesTable extends React.Component {
         <SearchBar />
         <div style={{ maxHeight: "300px", overflow: "auto" }}>
           <List>
-            {this.props.dataSource.map((device, index) => {
+            {this.props.dataSource.map((device) => {
               return (
                 <SelectDeviceTableRow
-                  deviceIndex={index}
                   deviceDetails={device}
-                  key={this.props.name + index}
+                  key={device.serialNumber}
                   onChange={this.props.onChange}
                 />
               );
