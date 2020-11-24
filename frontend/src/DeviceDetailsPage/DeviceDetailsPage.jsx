@@ -32,7 +32,10 @@ export default class DeviceDetailsPage extends React.Component {
           </Grid>
           <Grid item xs={1} />
           <Grid item xs={6}>
-            <DeviceDetailsTabTable tabs={this.tabs} />
+            <DeviceDetailsTabTable
+              tabs={this.tabs}
+              device={this.props.device}
+            />
           </Grid>
         </Grid>
       </Container>

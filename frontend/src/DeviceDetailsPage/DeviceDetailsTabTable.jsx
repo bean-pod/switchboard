@@ -1,7 +1,11 @@
 import React from "react";
 import { Container, Tab, Tabs } from "@material-ui/core";
 import PropTypes from "prop-types";
+
 import TabPanel from "../General/TabPanelH";
+import DeviceDetailsConciseTable from "./DeviceDetailsConciseTable";
+import DeviceDetailsActivityPanel from "./DeviceDetailsActivityPanel";
+import DeviceDetailsNotesPanel from "./DeviceDetailsNotesPanel";
 
 export default class DeviceDetailsTabTable extends React.Component {
   constructor(props) {
@@ -25,6 +29,21 @@ export default class DeviceDetailsTabTable extends React.Component {
     };
   }
 
+  getPanelContents(tabInfo) {
+    ["Overview", "Activity Log", "Notes"];
+    switch (tabInfo) {
+      case "Overview":
+        return <DeviceDetailsConciseTable device={this.props.device} />;
+      case "Activity Log":
+        return <DeviceDetailsActivityPanel device={this.props.device} />;
+      case "Notes":
+        return <DeviceDetailsNotesPanel device={this.props.device} />;
+
+      default:
+        return <div />;
+    }
+  }
+
   render() {
     return (
       <Container>
@@ -43,8 +62,12 @@ export default class DeviceDetailsTabTable extends React.Component {
         </Tabs>
         {this.props.tabs.map((tabInfo, index) => {
           return (
-            <TabPanel value={this.state.value} index={index}>
-              {index}
+            <TabPanel
+              value={this.state.value}
+              index={index}
+              device={this.props.device}
+            >
+              {this.getPanelContents(tabInfo)}
             </TabPanel>
           );
         })}
