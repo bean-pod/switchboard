@@ -3,10 +3,12 @@ import { Box, Container, Grid } from "@material-ui/core";
 
 import DeviceDetailsConciseTable from "./DeviceDetailsConciseTable";
 import DynamicBreadcrumb from "../General/DynamicBreadcrumb";
+import DeviceDetailsTabTable from "./DeviceDetailsTabTable";
 
 export default class DeviceDetailsPage extends React.Component {
   constructor(props) {
     super(props);
+    this.tabs = ["Overview", "Activity Log", "Notes"];
   }
 
   render() {
@@ -29,7 +31,9 @@ export default class DeviceDetailsPage extends React.Component {
             <DeviceDetailsConciseTable device={this.props.device} />
           </Grid>
           <Grid item xs={1} />
-          <Grid item xs={5} />
+          <Grid item xs={5}>
+            <DeviceDetailsTabTable tabs={this.tabs} />
+          </Grid>
         </Grid>
       </Container>
     );
