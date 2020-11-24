@@ -5,7 +5,6 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
-import io.swagger.models.Response;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.beanpod.switchboard.dao.DeviceDaoImpl;
@@ -16,19 +15,11 @@ import org.openapitools.api.DeviceApi;
 import org.openapitools.model.CreateDeviceRequest;
 import org.openapitools.model.DeviceModel;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.request.NativeWebRequest;
 
 @Slf4j
 @RestController
-@RequestMapping("/device")
 @RequiredArgsConstructor
 public class DeviceController implements DeviceApi {
   public static final String UNKNOWN_ERROR_MESSAGE = "Unknown error in Device Controller";
@@ -47,9 +38,10 @@ public class DeviceController implements DeviceApi {
 
   @Override
   public ResponseEntity<DeviceModel> retrieveDevice(@PathVariable String serialNumber) {
-    return Optional.of(serialNumber)
-            .map(service::findDevice)
-            .orElseThrow(() -> new ExceptionType.DeviceNotFoundException(serialNumber))
+    DeviceDTO deviceDto = service.findDevice(serialNumber)
+            .orElseThrow(() -> new ExceptionType.DeviceNotFoundException(serialNumber));
+
+    return Optional.of(deviceDto)
             .map(deviceMapper::toDeviceModel)
             .map(ResponseEntity::ok)
             .orElseThrow(this::getUnknownException);
@@ -61,7 +53,12 @@ public class DeviceController implements DeviceApi {
     if (deviceLookup.isPresent()) {
       throw new ExceptionType.DeviceAlreadyExistsException(createDeviceRequest.getSerialNumber());
     }
-    return ResponseEntity.ok(deviceMapper.toDeviceModel(service.createDevice(createDeviceRequest)));
+
+    return Optional.of(createDeviceRequest)
+            .map(service::createDevice)
+            .map(deviceMapper::toDeviceModel)
+            .map(ResponseEntity::ok)
+            .orElseThrow(this::getUnknownException);
   }
 
   @Override
@@ -71,15 +68,16 @@ public class DeviceController implements DeviceApi {
     if (response != 1) {
       throw new ExceptionType.DeviceNotFoundException(serialNumber);
     }
-    return ResponseEntity.ok("Device with serial number " + serialNumber + " Deleted");
+    return ResponseEntity.ok("Device with serial number " + serialNumber + " deleted");
   }
 
   @Override
   @Transactional
   public ResponseEntity<DeviceModel> updateDevice(@Valid DeviceModel deviceModel) {
-    return Optional.of(deviceModel)
-            .map(model -> service.findDevice(model.getSerialNumber()))
-            .orElseThrow(() -> new ExceptionType.DeviceNotFoundException(deviceModel.getSerialNumber()))
+    DeviceDTO deviceDto = service.findDevice(deviceModel.getSerialNumber())
+            .orElseThrow(() -> new ExceptionType.DeviceNotFoundException(deviceModel.getSerialNumber()));
+
+    return Optional.of(deviceDto)
             .map(service::save)
             .map(deviceMapper::toDeviceModel)
             .map(ResponseEntity::ok)

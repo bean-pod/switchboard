@@ -29,9 +29,13 @@ public class DeviceEntity {
   @Column(name = "serial_number")
   private String serialNumber;
 
-  @Column(name = "ip_address")
+  @Column(name = "private_ip_address")
   @NotNull
-  private String ipAddress;
+  private String privateIpAddress;
+
+  @Column(name = "public_ip_address")
+  @NotNull
+  private String publicIpAddress;
 
   @Column(name = "display_name")
   @NotNull
