@@ -16,4 +16,16 @@ export default class DeviceInfo {
     this.channels = channels;
     this.extras = extras;
   }
+
+  static getProperties() {
+    return [
+      "serialNumber",
+      "lastCommunication",
+      "ip",
+      "name",
+      "status",
+      "channels",
+      "extras"
+    ];
+  }
 }
