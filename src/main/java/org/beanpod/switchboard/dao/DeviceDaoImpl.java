@@ -7,6 +7,7 @@ import org.beanpod.switchboard.dto.DeviceDTO;
 import org.beanpod.switchboard.dto.mapper.DeviceMapper;
 import org.beanpod.switchboard.entity.DeviceEntity;
 import org.beanpod.switchboard.repository.DeviceRepository;
+import org.openapitools.model.CreateDeviceRequest;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -18,6 +19,11 @@ public class DeviceDaoImpl {
 
   public DeviceDTO save(DeviceDTO device) {
     return deviceMapper.toDeviceDTO(deviceRepository.save(deviceMapper.toDeviceEntity(device)));
+  }
+
+  public DeviceDTO createDevice(CreateDeviceRequest createDeviceRequest){
+    //TODO implementation
+    return null;
   }
 
   public Optional<DeviceDTO> findDevice(String serialNumber) {

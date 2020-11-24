@@ -33,7 +33,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateDeviceModel'
+              $ref: '#/components/schemas/CreateDeviceRequest'
       responses:
         '200':
           description: Successful creation of device
@@ -343,7 +343,7 @@ components:
           type: string
           example: 'running'
 
-    CreateDeviceModel:
+    CreateDeviceRequest:
       description: A request to create a new device
       properties:
         serialNumber:
