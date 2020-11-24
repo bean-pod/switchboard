@@ -13,7 +13,7 @@ import org.beanpod.switchboard.dto.DeviceDTO;
 import org.beanpod.switchboard.dto.mapper.DeviceMapper;
 import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.openapitools.api.DeviceApi;
-import org.openapitools.model.CreateDeviceModel;
+import org.openapitools.model.CreateDeviceRequest;
 import org.openapitools.model.DeviceModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -56,12 +56,12 @@ public class DeviceController implements DeviceApi {
   }
 
   @Override
-  public ResponseEntity<DeviceModel> createDevice(@Valid CreateDeviceModel createDeviceModel) {
-    Optional<DeviceDTO> deviceLookup = service.findDevice(createDeviceModel.getSerialNumber());
+  public ResponseEntity<DeviceModel> createDevice(@Valid CreateDeviceRequest createDeviceRequest) {
+    Optional<DeviceDTO> deviceLookup = service.findDevice(createDeviceRequest.getSerialNumber());
     if (deviceLookup.isPresent()) {
-      throw new ExceptionType.DeviceAlreadyExistsException(createDeviceModel.getSerialNumber());
+      throw new ExceptionType.DeviceAlreadyExistsException(createDeviceRequest.getSerialNumber());
     }
-    return ResponseEntity.ok(service.save(createDeviceModel));
+    return ResponseEntity.ok(deviceMapper.toDeviceModel(service.createDevice(createDeviceRequest)));
   }
 
   @Override
