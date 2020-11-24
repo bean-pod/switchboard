@@ -1,5 +1,6 @@
 import React from "react";
 import { Container, Tab, Tabs } from "@material-ui/core";
+import PropTypes from "prop-types";
 import TabPanel from "../General/TabPanelH";
 
 export default class DeviceDetailsTabTable extends React.Component {
@@ -11,7 +12,7 @@ export default class DeviceDetailsTabTable extends React.Component {
     this.handleValueChange = this.handleValueChange.bind(this);
   }
 
-  handleValueChange(event,tabIndex) {
+  handleValueChange(event, tabIndex) {
     this.setState({
       value: tabIndex
     });
@@ -31,7 +32,9 @@ export default class DeviceDetailsTabTable extends React.Component {
           value={this.props.value}
           onChange={this.handleValueChange}
           class="lightGrey blackFont flexContents"
-          variant="scrollable"
+          indicatorColor="primary"
+          textColor="primary"
+          aria-label="full width tabs example"
         >
           {this.props.tabs.map((tabInfo, index) => {
             console.log(this.state.value);
@@ -49,3 +52,6 @@ export default class DeviceDetailsTabTable extends React.Component {
     );
   }
 }
+DeviceDetailsTabTable.propTypes = {
+  tabs: PropTypes.arrayOf(PropTypes.string).isRequired
+};
