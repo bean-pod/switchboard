@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Container } from "@material-ui/core";
 import StreamingTable from "./StreamingTable";
-import DynamicBreadcrumb from "../General/DynamicBreadcrumb";
+import DynamicBreadcrumb from "../general/DynamicBreadcrumb";
 import StreamList from "../streamlist/StreamList";
 
 export default class StreamingPage extends React.Component {

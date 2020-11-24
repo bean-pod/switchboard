@@ -3,7 +3,7 @@ import { Box, Container } from "@material-ui/core";
 
 import TitleBox from "./TitleBox";
 import ContentsTable from "./ContentsTable";
-import DynamicBreadcrumb from "../General/DynamicBreadcrumb";
+import DynamicBreadcrumb from "../general/DynamicBreadcrumb";
 import * as useStyles from "../DefaultMakeStylesTheme";
 
 export default class DeviceListPage extends React.Component {

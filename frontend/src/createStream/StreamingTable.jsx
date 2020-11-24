@@ -4,7 +4,7 @@ import { Grid } from "@material-ui/core";
 import axios from "axios";
 
 import SelectDevicesTable from "./SelectDevicesTable";
-import StreamButton from "../General/Buttons/StreamButton";
+import StreamButton from "../general/Buttons/StreamButton";
 
 export default class StreamingTable extends React.Component {
   constructor(props) {
