@@ -7,6 +7,6 @@ export default class DeviceDetailsActivityPanel extends React.Component {
   }
 
   render() {
-    return <Container>Activity log here</Container>;
+    return <Container>TODO: Design activity log </Container>;
   }
 }
