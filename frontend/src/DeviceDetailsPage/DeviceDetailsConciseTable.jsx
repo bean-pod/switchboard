@@ -1,17 +1,12 @@
 import React from "react";
 import { TableContainer, Table, TableBody, Paper } from "@material-ui/core";
+import PropTypes from "prop-types";
 
 import DeviceDetailsConciseRow from "./DeviceDetailsConciseRow";
 import DeviceInfo from "../model/DeviceInfo";
 
 export default class DeviceDetailsConciseTable extends React.Component {
-  constructor(props) {
-    super(props);
-    // some prop verification later
-  }
-
   render() {
-    // const properties = Object.keys(this.props.device);
     return (
       <>
         <TableContainer component={Paper}>
@@ -30,3 +25,7 @@ export default class DeviceDetailsConciseTable extends React.Component {
     );
   }
 }
+
+DeviceDetailsConciseTable.propTypes = {
+  device: PropTypes.instanceOf(DeviceInfo).isRequired
+};
