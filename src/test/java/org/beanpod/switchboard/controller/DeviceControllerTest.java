@@ -21,6 +21,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.openapitools.model.DeviceModel;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 class DeviceControllerTest {
@@ -48,7 +50,11 @@ class DeviceControllerTest {
   final void testRetrieveAllDevices() {
     when(deviceService.getDevices()).thenReturn(List.of(device));
     when(deviceMapper.toDeviceDTOs(any())).thenReturn(List.of(deviceDTO));
-    List<DeviceDTO> allDevices = deviceController.retrieveAllDevices();
+    ResponseEntity<List<DeviceModel>> response = deviceController.retrieveAllDevices();
+
+    assertEquals(HttpStatus.OK, response.getStatusCode());
+    assertNotNull(response.getBody());
+    List<DeviceModel> allDevices = response.getBody();
     assertFalse(allDevices.isEmpty()); // check if an empty list was returned
     assertIterableEquals(List.of(deviceDTO), allDevices); // check both lists contents
   }
@@ -57,7 +63,7 @@ class DeviceControllerTest {
   @Test
   final void testRetrieveDevice() {
     when(deviceService.findDevice(DeviceFixture.SERIAL_NUMBER)).thenReturn(Optional.of(deviceDTO));
-    ResponseEntity<DeviceDTO> actualDevice = deviceController.retrieveDevice("1");
+    ResponseEntity<DeviceModel> actualDevice = deviceController.retrieveDevice("1");
 
     assertNotNull(actualDevice);
     assertEquals(200, actualDevice.getStatusCodeValue());

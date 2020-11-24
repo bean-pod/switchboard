@@ -55,6 +55,10 @@ paths:
       responses:
         '200':
           description: Succesful update of the device
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceModel'
 
   /device/{serialNumber}:
     get:
