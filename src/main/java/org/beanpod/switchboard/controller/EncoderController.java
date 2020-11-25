@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.beanpod.switchboard.dao.DeviceDaoImpl;
@@ -85,6 +86,6 @@ public class EncoderController {
   @GetMapping("/{serialNumber}/streams")
   public ResponseEntity<List<StreamModel>> getEncoderStreams(@PathVariable String serialNumber) {
     List<StreamDto> streamDtos = encoderService.getEncoderStreams(serialNumber);
-   return ResponseEntity.ok(streamMapper.toModel(streamDtos));
+    return ResponseEntity.ok(streamMapper.toModel(streamDtos));
   }
 }

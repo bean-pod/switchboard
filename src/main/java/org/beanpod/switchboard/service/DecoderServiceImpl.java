@@ -16,20 +16,20 @@ import java.util.Optional;
 @Component
 @RequiredArgsConstructor
 public class DecoderServiceImpl implements DecoderService {
-    private final StreamDaoImpl streamDao;
-    private final DecoderDaoImpl decoderDao;
+  private final StreamDaoImpl streamDao;
+  private final DecoderDaoImpl decoderDao;
 
-    @Override
-    public List<StreamDto> getDecoderStreams(String decoderSerialNumber) {
-        Optional<DecoderDto> decoderOptional = decoderDao.findDecoder(decoderSerialNumber);
-        if(decoderOptional.isEmpty()) {
-            throw new ExceptionType.DeviceNotFoundException(decoderSerialNumber);
-        }
-        DecoderDto decoder = decoderOptional.get();
-
-        decoder.setLastCommunication(Date.from(Instant.now()));
-        decoderDao.save(decoder);
-
-        return streamDao.getDecoderStreams(decoderSerialNumber);
+  @Override
+  public List<StreamDto> getDecoderStreams(String decoderSerialNumber) {
+    Optional<DecoderDto> decoderOptional = decoderDao.findDecoder(decoderSerialNumber);
+    if (decoderOptional.isEmpty()) {
+      throw new ExceptionType.DeviceNotFoundException(decoderSerialNumber);
     }
+    DecoderDto decoder = decoderOptional.get();
+
+    decoder.setLastCommunication(Date.from(Instant.now()));
+    decoderDao.save(decoder);
+
+    return streamDao.getDecoderStreams(decoderSerialNumber);
+  }
 }

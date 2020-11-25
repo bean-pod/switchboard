@@ -5,5 +5,5 @@ import org.beanpod.switchboard.dto.StreamDto;
 import java.util.List;
 
 public interface DecoderService {
-    List<StreamDto> getDecoderStreams(String decoderSerialNumber);
+  List<StreamDto> getDecoderStreams(String decoderSerialNumber);
 }

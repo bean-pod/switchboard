@@ -7,5 +7,5 @@ import java.util.List;
 
 @Service
 public interface EncoderService {
-    List<StreamDto> getEncoderStreams(String encoderSerialNumber);
+  List<StreamDto> getEncoderStreams(String encoderSerialNumber);
 }
