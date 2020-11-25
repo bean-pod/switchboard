@@ -10,9 +10,13 @@ import org.beanpod.switchboard.dao.DeviceDaoImpl;
 import org.beanpod.switchboard.dao.EncoderDaoImpl;
 import org.beanpod.switchboard.dto.DeviceDto;
 import org.beanpod.switchboard.dto.EncoderDto;
+import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.dto.mapper.EncoderMapper;
+import org.beanpod.switchboard.dto.mapper.StreamMapper;
 import org.beanpod.switchboard.entity.EncoderEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
+import org.beanpod.switchboard.service.EncoderService;
+import org.openapitools.model.StreamModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,19 +33,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class EncoderController {
 
-  private final EncoderDaoImpl encoderService;
+  private final EncoderDaoImpl encoderDao;
   private final DeviceDaoImpl deviceService;
   private final EncoderMapper encoderMapper;
+  private final StreamMapper streamMapper;
+  private final EncoderService encoderService;
 
   @GetMapping
   public List<EncoderDto> retrieveAllEncoders() {
-    List<EncoderEntity> encoderEntities = encoderService.getEncoders();
+    List<EncoderEntity> encoderEntities = encoderDao.getEncoders();
     return encoderMapper.toEncoderDtos(encoderEntities);
   }
 
   @GetMapping("/{serialNumber}")
   public ResponseEntity<EncoderDto> retrieveEncoder(@PathVariable @Valid String serialNumber) {
-    return encoderService
+    return encoderDao
         .findEncoder(serialNumber)
         .map(ResponseEntity::ok)
         .orElseThrow(() -> new ExceptionType.DeviceNotFoundException(serialNumber));
@@ -54,13 +60,13 @@ public class EncoderController {
       throw new ExceptionType.DeviceNotFoundException(encoderDto.getSerialNumber());
     }
     encoderDto.setDevice(deviceOptional.get());
-    return ResponseEntity.ok(encoderService.save(encoderDto));
+    return ResponseEntity.ok(encoderDao.save(encoderDto));
   }
 
   @DeleteMapping("/{serialNumber}")
   @Transactional
   public ResponseEntity<String> deleteEncoder(@PathVariable String serialNumber) {
-    long response = encoderService.deleteEncoder(serialNumber);
+    long response = encoderDao.deleteEncoder(serialNumber);
     if (response != 1) {
       throw new ExceptionType.DeviceNotFoundException(serialNumber);
     }
@@ -69,10 +75,16 @@ public class EncoderController {
 
   @PutMapping
   public ResponseEntity<EncoderDto> updateEncoder(@RequestBody EncoderDto encoderDto) {
-    Optional<EncoderDto> encoder = encoderService.findEncoder(encoderDto.getSerialNumber());
+    Optional<EncoderDto> encoder = encoderDao.findEncoder(encoderDto.getSerialNumber());
     if (encoder.isEmpty()) {
       throw new ExceptionType.DeviceNotFoundException(encoderDto.getSerialNumber());
     }
-    return ResponseEntity.ok(encoderService.save(encoderDto));
+    return ResponseEntity.ok(encoderDao.save(encoderDto));
+  }
+
+  @GetMapping("/{serialNumber}/streams")
+  public ResponseEntity<List<StreamModel>> getEncoderStreams(@PathVariable String serialNumber) {
+    List<StreamDto> streamDtos = encoderService.getEncoderStreams(serialNumber);
+   return ResponseEntity.ok(streamMapper.toModel(streamDtos));
   }
 }

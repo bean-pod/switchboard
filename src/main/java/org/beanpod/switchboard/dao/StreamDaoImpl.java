@@ -1,5 +1,6 @@
 package org.beanpod.switchboard.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -57,5 +58,17 @@ public class StreamDaoImpl {
     }
     StreamEntity streamEntity = mapper.toEntity(streamDto);
     streamRepository.save(streamEntity);
+  }
+
+  public List<StreamDto> getEncoderStreams(String encoderSerialNumber) {
+    List<StreamEntity> streamEntities = streamRepository.getEncoderStreams(encoderSerialNumber);
+    List<StreamDto> streamDtos = mapper.toDto(streamEntities);
+    return streamDtos;
+  }
+
+  public List<StreamDto> getDecoderStreams(String decoderSerialNumber) {
+    List<StreamEntity> streamEntities = streamRepository.getDecoderStreams(decoderSerialNumber);
+    List<StreamDto> streamDtos = mapper.toDto(streamEntities);
+    return streamDtos;
   }
 }
