@@ -10,20 +10,23 @@ export function getSenders(callback) {
     .then((senders) => {
       callback(
         senders.data.map((sender) => {
-          const channels = sender.outputs.map((output) => {
-            return new OutputChannelInfo(
-              output.id,
-              output.name,
-              output.port,
-              null
-            );
-          });
+          let channels = []
+          if(sender.output) {
+            channels = sender.output.map((output) => {
+              return new OutputChannelInfo(
+                output.id,
+                output.name,
+                output.port,
+                null
+              );
+            });
+          }
           return new DeviceInfo(
             sender.serialNumber,
             "Last Communication",
             sender.device.ipAddress,
             sender.device.displayName,
-            "Online",
+            getStatus(sender.lastCommunication),
             channels,
             ["Sample sender"]
           );
@@ -31,6 +34,7 @@ export function getSenders(callback) {
       );
     })
     .catch((error) => {
+      console.error(error);
       SampleData.getSenders(callback);
     });
 }
@@ -41,15 +45,18 @@ export function getReceivers(callback) {
     .then((receivers) => {
       callback(
         receivers.data.map((receiver) => {
-          const channels = receiver.inputs.map((input) => {
-            return new InputChannelInfo(input.id, input.name, input.port, null);
-          });
+          let channels = [];
+          if(receiver.input) {
+            channels = receiver.input.map((input) => {
+              return new InputChannelInfo(input.id, input.name, input.port, null);
+            });
+          }
           return new DeviceInfo(
             receiver.serialNumber,
             "Last Communication",
             receiver.device.ipAddress,
             receiver.device.displayName,
-            "Online",
+            getStatus(receiver.lastCommunication),
             channels,
             ["Sample Reciever"]
           );
@@ -57,6 +64,22 @@ export function getReceivers(callback) {
       );
     })
     .catch((error) => {
+      console.error(error);
       SampleData.getReceivers(callback);
     });
+}
+
+function getStatus(lastCommunicationString) {
+  if(!lastCommunicationString) {
+    return "Pending";
+  }
+
+  const lastCommunicationDate = new Date(`${lastCommunicationString}Z`);
+  const diff = Date.now() - lastCommunicationDate.getTime();
+
+  const tenMinutes = 10 * 60 * 1000;
+  if(diff < tenMinutes) {
+    return "Online";
+  }
+  return "Offline";
 }
