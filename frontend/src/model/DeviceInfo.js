@@ -19,11 +19,10 @@ export default class DeviceInfo {
 
   static getProperties() {
     return [
-      "serialNumber",
-      "lastCommunication",
-      "ip",
       "name",
+      "serialNumber",
       "status",
+      "ip",
       "channels"
     ];
   }
