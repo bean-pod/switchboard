@@ -16,11 +16,8 @@ export default class StatusIndicator extends React.Component {
   }
 
   render() {
-    return (
-      <div className={this.getStatusStyle(this.props.status)}>
-        {this.props.status}
-      </div>
-    );
+    const { status } = this.props;
+    return <div className={this.getStatusStyle(status)}>{status}</div>;
   }
 }
 StatusIndicator.propTypes = {

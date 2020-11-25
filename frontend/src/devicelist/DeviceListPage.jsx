@@ -9,6 +9,7 @@ import * as useStyles from "../DefaultMakeStylesTheme";
 
 export default class DeviceListPage extends React.Component {
   render() {
+    const { dataSource } = this.props;
     return (
       <Container>
         <DynamicBreadcrumb
@@ -19,10 +20,7 @@ export default class DeviceListPage extends React.Component {
         />
         <Box padding="1em">
           <TitleBox />
-          <ContentsTable
-            classes={useStyles}
-            dataSource={this.props.dataSource}
-          />
+          <ContentsTable classes={useStyles} dataSource={dataSource} />
         </Box>
       </Container>
     );

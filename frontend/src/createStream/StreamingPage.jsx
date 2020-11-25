@@ -12,6 +12,7 @@ export default class StreamingPage extends React.Component {
   }
 
   render() {
+    const { deviceDataSource, streamDataSource } = this.props;
     return (
       <Container>
         <DynamicBreadcrumb
@@ -26,11 +27,11 @@ export default class StreamingPage extends React.Component {
             <div className="title">Streaming</div>
           </Box>
           <div id="StreamingTable">
-            <StreamingTable dataSource={this.props.deviceDataSource} />
+            <StreamingTable dataSource={deviceDataSource} />
           </div>
         </Box>
         <Box>
-          <StreamList dataSource={this.props.streamDataSource} />
+          <StreamList dataSource={streamDataSource} />
         </Box>
       </Container>
     );

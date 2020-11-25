@@ -11,18 +11,19 @@ export default class SelectDevicesTable extends React.Component {
   }
 
   render() {
+    const { dataSource, name, onChange } = this.props;
     return (
       <>
-        <div className="subtitle">{this.props.name}</div>
+        <div className="subtitle">{name}</div>
         <SearchBar />
         <div style={{ maxHeight: "300px", overflow: "auto" }}>
           <List>
-            {this.props.dataSource.map((device) => {
+            {dataSource.map((device) => {
               return (
                 <SelectDeviceTableRow
                   deviceDetails={device}
                   key={device.serialNumber}
-                  onChange={this.props.onChange}
+                  onChange={onChange}
                 />
               );
             })}

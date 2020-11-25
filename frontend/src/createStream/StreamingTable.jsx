@@ -57,16 +57,14 @@ export default class StreamingTable extends React.Component {
   }
 
   handleSubmit(event) {
-    if (
-      this.state.selectedReceiverID === "" ||
-      this.state.selectedSenderID === ""
-    ) {
+    const { selectedReceiverID, selectedSenderID } = this.state;
+    if (selectedReceiverID === "" || selectedSenderID === "") {
       console.log("Please select a sender and a receiver");
     } else {
       axios
         .post("http://localhost:8080/stream", {
-          inputChannelId: this.state.selectedReceiverID,
-          outputChannelId: this.state.selectedSenderID
+          inputChannelId: selectedReceiverID,
+          outputChannelId: selectedSenderID
         })
         .then((response) => {
           console.log("Success. Stream Started.");
@@ -76,6 +74,7 @@ export default class StreamingTable extends React.Component {
   }
 
   render() {
+    const { receivers, senders } = this.state;
     return (
       <>
         <form onSubmit={this.handleSubmit} id="createStreamForm">
@@ -90,7 +89,7 @@ export default class StreamingTable extends React.Component {
               <div className="streamingTable" id="SenderTable">
                 <SelectDevicesTable
                   name="Sender Devices"
-                  dataSource={this.state.senders}
+                  dataSource={senders}
                   onChange={this.onSenderSelected.bind(this)}
                 />
               </div>
@@ -111,7 +110,7 @@ export default class StreamingTable extends React.Component {
               <div className="streamingTable" id="ReceiverTable">
                 <SelectDevicesTable
                   name="Receiver Devices"
-                  dataSource={this.state.receivers}
+                  dataSource={receivers}
                   onChange={this.onReceiverSelected.bind(this)}
                 />
               </div>

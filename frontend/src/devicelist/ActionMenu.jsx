@@ -30,6 +30,7 @@ export default class ActionMenu extends React.Component {
   }
 
   render() {
+    const { anchorElement } = this.state;
     return (
       <>
         <IconButton
@@ -41,9 +42,9 @@ export default class ActionMenu extends React.Component {
         </IconButton>
         <Menu
           id="simple-menu"
-          anchorEl={this.state.anchorElement}
+          anchorEl={anchorElement}
           keepMounted
-          open={Boolean(this.state.anchorElement)}
+          open={Boolean(anchorElement)}
           onClose={this.handleClose}
           anchorOrigin={{ horizontal: "right", vertical: "top" }}
           transformOrigin={{ horizontal: "right", vertical: "top" }}

@@ -35,6 +35,7 @@ export default class HeadCells extends React.Component {
   }
 
   render() {
+    const { status } = this.state;
     return (
       <>
         <TableCell
@@ -56,7 +57,7 @@ export default class HeadCells extends React.Component {
             </TableSortLabel>
             {headCell.id === "status" ? (
               <Select
-                value={this.state.status}
+                value={status}
                 variant="outlined"
                 onChange={this.handleStatusChange}
                 id={headCell.searchID}

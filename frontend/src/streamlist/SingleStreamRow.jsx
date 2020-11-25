@@ -26,50 +26,49 @@ export default class SingleStreamRow extends React.Component {
   }
 
   render() {
+    const {
+      streamDetails: {
+        date,
+        id,
+        receiver: { name: receiverName },
+        sender: { name: senderName },
+        status,
+        type,
+        time,
+        extras
+      }
+    } = this.props;
+    const { open } = this.state;
     return (
       <>
-        <TableRow key={this.props.streamDetails.id} className="singleStreamRow">
+        <TableRow key={id} className="singleStreamRow">
           <TableCell
             className="tableCell dropdownButton"
             style={{ width: 1, padding: 0, paddingLeft: 5 }}
           >
-            <IconButton
-              onClick={() => this.setState({ open: !this.state.open })}
-            >
-              {this.state.open ? <ExpandLess /> : <ExpandMore />}
+            <IconButton onClick={() => this.setState({ open: !open })}>
+              {open ? <ExpandLess /> : <ExpandMore />}
             </IconButton>
           </TableCell>
-          <TableCell className="tableCell numeric">
-            {this.props.streamDetails.id}
-          </TableCell>
+          <TableCell className="tableCell numeric">{id}</TableCell>
+          <TableCell className="tableCell">{date}</TableCell>
+          <TableCell className="tableCell">{senderName}</TableCell>
+          <TableCell className="tableCell">{receiverName}</TableCell>
           <TableCell className="tableCell">
-            {this.props.streamDetails.date}
+            <StatusIndicator status={status} />
           </TableCell>
-          <TableCell className="tableCell">
-            {this.props.streamDetails.sender.name}
-          </TableCell>
-          <TableCell className="tableCell">
-            {this.props.streamDetails.receiver.name}
-          </TableCell>
-          <TableCell className="tableCell">
-            <StatusIndicator status={this.props.streamDetails.status} />
-          </TableCell>
-          <TableCell className="tableCell">
-            {this.props.streamDetails.type}
-          </TableCell>
-          <TableCell className="tableCell">
-            {this.props.streamDetails.time}
-          </TableCell>
+          <TableCell className="tableCell">{type}</TableCell>
+          <TableCell className="tableCell">{time}</TableCell>
           <TableCell className="tableCell actionButtons">
             {ActionButtons()}
           </TableCell>
         </TableRow>
         <TableRow className="streamDetails">
           <TableCell className="chevronText lightestGrey" colSpan={9}>
-            <Collapse in={this.state.open} timeout="auto" unmountOnExit>
+            <Collapse in={open} timeout="auto" unmountOnExit>
               <Box margin={2}>
                 <Typography variant="caption">
-                  {this.rowExtras(this.props.streamDetails.extras)}
+                  {this.rowExtras(extras)}
                 </Typography>
               </Box>
             </Collapse>

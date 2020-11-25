@@ -18,6 +18,7 @@ export default class DeviceListSortSelector extends React.Component {
   }
 
   render() {
+    const { sort } = this.state;
     return (
       <>
         <div flex-grow="1">
@@ -25,7 +26,7 @@ export default class DeviceListSortSelector extends React.Component {
             Sort By
           </Typography>
           <Select
-            value={this.state.sort}
+            value={sort}
             onChange={this.handleSortChange}
             variant="outlined"
             id="sortBySelect"

@@ -5,12 +5,13 @@ import * as useStyles from "../DefaultMakeStylesTheme";
 import StreamsTable from "./StreamsTable";
 
 export default function StreamList(props) {
+  const { dataSource } = props;
   return (
     <Container>
       <Box className="headerArea">
         <div className="title">Current Streams</div>
       </Box>
-      <StreamsTable classes={useStyles} dataSource={props.dataSource} />
+      <StreamsTable classes={useStyles} dataSource={dataSource} />
     </Container>
   );
 }

@@ -18,6 +18,7 @@ export default class DevicesTable extends React.Component {
   }
 
   render() {
+    const { devices } = this.props;
     return (
       <>
         <Box>
@@ -29,7 +30,7 @@ export default class DevicesTable extends React.Component {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {this.props.devices.map((device) => {
+                {devices.map((device) => {
                   return (
                     <SingleTableRow
                       key={`DeviceListRow_${device.serialNumber}`}

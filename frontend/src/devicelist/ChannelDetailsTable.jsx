@@ -14,6 +14,9 @@ export default class ChannelDetailsTable extends React.Component {
   }
 
   render() {
+    const {
+      channel: { id, name, port }
+    } = this.props;
     return (
       <Table style={{ margin: "1em" }} className="flexContents">
         <TableHead>
@@ -25,9 +28,9 @@ export default class ChannelDetailsTable extends React.Component {
         </TableHead>
         <TableBody>
           <TableRow>
-            <TableCell>{this.props.channel.id}</TableCell>
-            <TableCell>{this.props.channel.name}</TableCell>
-            <TableCell>{this.props.channel.port}</TableCell>
+            <TableCell>{id}</TableCell>
+            <TableCell>{name}</TableCell>
+            <TableCell>{port}</TableCell>
           </TableRow>
         </TableBody>
       </Table>

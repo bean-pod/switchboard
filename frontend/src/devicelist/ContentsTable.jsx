@@ -46,6 +46,8 @@ export default class ContentsTable extends React.Component {
   }
 
   render() {
+    const { receivers, senders, value } = this.state;
+    const { classes } = this.props;
     return (
       <>
         <Box style={{ display: "flex", flexGrow: 1, margin: "1em 0em" }}>
@@ -56,15 +58,15 @@ export default class ContentsTable extends React.Component {
         </Box>
         <Box style={{ display: "flex", flexGrow: 1, maxHeight: 500 }}>
           <VerticalTabs
-            value={this.state.value}
+            value={value}
             setValue={this.handleValueChange}
-            classes={this.props.classes}
+            classes={classes}
           />
-          <TabPanel value={this.state.value} index={0}>
-            <DevicesTable devices={this.state.senders} />
+          <TabPanel value={value} index={0}>
+            <DevicesTable devices={senders} />
           </TabPanel>
-          <TabPanel value={this.state.value} index={1}>
-            <DevicesTable devices={this.state.receivers} />
+          <TabPanel value={value} index={1}>
+            <DevicesTable devices={receivers} />
           </TabPanel>
         </Box>
       </>

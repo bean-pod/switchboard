@@ -32,6 +32,7 @@ export default class StreamsTable extends React.Component {
   }
 
   render() {
+    const { streams } = this.state;
     return (
       <>
         <Box>
@@ -43,7 +44,7 @@ export default class StreamsTable extends React.Component {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {this.state.streams.map((stream) => {
+                {streams.map((stream) => {
                   return (
                     <SingleStreamRow key={stream.id} streamDetails={stream} />
                   );

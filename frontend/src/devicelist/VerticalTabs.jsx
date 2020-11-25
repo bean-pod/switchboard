@@ -9,7 +9,8 @@ export default class VerticalTabs extends React.Component {
   }
 
   handleChange(event, newTab) {
-    this.props.setValue(newTab);
+    const { setValue } = this.props;
+    setValue(newTab);
   }
 
   getTabProps(index) {
@@ -20,13 +21,17 @@ export default class VerticalTabs extends React.Component {
   }
 
   render() {
+    const {
+      value,
+      classes: { tabs }
+    } = this.props;
     return (
       <>
         <Tabs
-          value={this.props.value}
+          value={value}
           onChange={this.handleChange}
           aria-label="Vertical tabs"
-          className={`${this.props.classes.tabs} lightGrey blackFont flexContents`}
+          className={`${tabs} lightGrey blackFont flexContents`}
           orientation="vertical"
           variant="scrollable"
         >

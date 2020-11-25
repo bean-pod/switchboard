@@ -20,27 +20,30 @@ export default class SelectDeviceTableRow extends React.Component {
   }
 
   onClick() {
-    this.setState({ open: !this.state.open });
+    const { open } = this.state;
+    this.setState({ open: !open });
   }
 
   render() {
+    const {
+      deviceDetails: { channels, name },
+      onChange
+    } = this.props;
+    const { open } = this.state;
     return (
       <>
         <ListItem button dense onClick={this.onClick}>
-          <ListItemText primary={this.props.deviceDetails.name} />
-          {this.state.open ? <ExpandLess /> : <ExpandMore />}
+          <ListItemText primary={name} />
+          {open ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
-        <Collapse in={this.state.open} timeout="auto" unmountOnExit>
+        <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding style={{ width: "96%" }}>
             <ListItem divider>
               <ListItemText secondary="Select Channel" />
-              <Select defaultValue="" onChange={this.props.onChange}>
-                {this.props.deviceDetails.channels.map((channel) => {
+              <Select defaultValue="" onChange={onChange}>
+                {channels.map((channel) => {
                   return (
-                    <MenuItem
-                      value={channel.id}
-                      key={`${this.props.deviceDetails.name}_${channel.id}`}
-                    >
+                    <MenuItem value={channel.id} key={`${name}_${channel.id}`}>
                       {channel.port}
                     </MenuItem>
                   );

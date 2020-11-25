@@ -10,6 +10,7 @@ export default class StreamButton extends React.Component {
   }
 
   render() {
+    const { id, type } = this.props;
     const StyledButton = withStyles({
       root: {
         background: "linear-gradient(45deg, #59bc31 30%, #59bc31 90%)",
@@ -26,7 +27,7 @@ export default class StreamButton extends React.Component {
     })(Button);
 
     return (
-      <StyledButton id={this.props.id} type={this.props.type}>
+      <StyledButton id={id} type={type}>
         <div className="buttonText">
           <SwapHoriz /> Stream
         </div>
