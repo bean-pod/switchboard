@@ -31,7 +31,7 @@ export default class DeviceDetailsConciseRow extends React.Component {
     return (
       <>
         <TableRow>
-          <TableCell> {this.getPropertyDisplayName()}</TableCell>
+          <TableCell>{this.getPropertyDisplayName()}</TableCell>
           {this.props.name !== "channels" ? (
             <TableCell align="center">{this.props.value}</TableCell>
           ) : (
