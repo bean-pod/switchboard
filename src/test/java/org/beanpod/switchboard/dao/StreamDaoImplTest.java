@@ -7,9 +7,9 @@ import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 import java.util.List;
-import org.beanpod.switchboard.dto.InputChannelDTO;
-import org.beanpod.switchboard.dto.OutputChannelDTO;
-import org.beanpod.switchboard.dto.StreamDTO;
+import org.beanpod.switchboard.dto.InputChannelDto;
+import org.beanpod.switchboard.dto.OutputChannelDto;
+import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
 import org.beanpod.switchboard.entity.StreamEntity;
 import org.beanpod.switchboard.fixture.ChannelFixture;
@@ -50,13 +50,13 @@ public class StreamDaoImplTest {
   public void testGetChannelById() {
     long streamId = StreamFixture.ID;
     StreamEntity streamEntity = StreamFixture.getStreamEntity();
-    StreamDTO streamDto = StreamFixture.getStreamDto();
+    StreamDto streamDto = StreamFixture.getStreamDto();
 
     when(streamRepository.getOne(streamId)).thenReturn(streamEntity);
     when(streamMapper.toDto(streamEntity)).thenReturn(streamDto);
 
     // when
-    StreamDTO result = streamService.getStreamById(streamId);
+    StreamDto result = streamService.getStreamById(streamId);
 
     // then
     assertEquals(result.getId(), streamId);
@@ -68,8 +68,8 @@ public class StreamDaoImplTest {
   public void testCreateChannel() {
     // given
     CreateStreamRequest createStreamRequest = StreamFixture.getCreateStreamRequest();
-    InputChannelDTO inputChannelDto = ChannelFixture.getInputChannelDto();
-    OutputChannelDTO outputChannelDto = ChannelFixture.getOutputChannelDto();
+    InputChannelDto inputChannelDto = ChannelFixture.getInputChannelDto();
+    OutputChannelDto outputChannelDto = ChannelFixture.getOutputChannelDto();
     StreamEntity streamEntity = StreamFixture.getStreamEntity();
 
     when(channelService.getInputChannelById(createStreamRequest.getInputChannelId()))
@@ -103,7 +103,7 @@ public class StreamDaoImplTest {
   @Test
   public void testUpdateChannel() {
     // given
-    StreamDTO streamDto = StreamFixture.getStreamDto();
+    StreamDto streamDto = StreamFixture.getStreamDto();
     StreamEntity streamEntity = StreamFixture.getStreamEntity();
 
     when(streamRepository.existsById(StreamFixture.ID)).thenReturn(true);

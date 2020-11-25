@@ -6,11 +6,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
-public class StreamDTO {
+@AllArgsConstructor
+@NoArgsConstructor
+public class ChannelDto {
   private Long id;
-  private OutputChannelDTO outputChannel;
-  private InputChannelDTO inputChannel;
+  private String name;
+  private Integer port;
 }

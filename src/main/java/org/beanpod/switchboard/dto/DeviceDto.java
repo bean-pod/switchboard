@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class DeviceDTO {
+public class DeviceDto {
   @NotNull private String serialNumber;
   @NotNull private String ipAddress;
   @NotNull private String displayName;

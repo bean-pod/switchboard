@@ -1,6 +1,6 @@
 package org.beanpod.switchboard.dto.mapper;
 
-import org.beanpod.switchboard.dto.StreamDTO;
+import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.entity.StreamEntity;
 import org.mapstruct.Mapper;
 import org.openapitools.model.StreamModel;
@@ -9,11 +9,11 @@ import org.openapitools.model.StreamModel;
     componentModel = "spring",
     uses = {InputChannelMapper.class, OutputChannelMapper.class})
 public interface StreamMapper {
-  StreamDTO toDto(StreamModel streamModel);
+  StreamDto toDto(StreamModel streamModel);
 
-  StreamEntity toEntity(StreamDTO streamDto);
+  StreamDto toDto(StreamEntity streamEntity);
 
-  StreamDTO toDto(StreamEntity streamEntity);
+  StreamEntity toEntity(StreamDto streamDto);
 
-  StreamModel toModel(StreamDTO streamDto);
+  StreamModel toModel(StreamDto streamDto);
 }

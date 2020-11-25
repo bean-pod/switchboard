@@ -20,13 +20,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class EncoderDTO {
+public class EncoderDto {
   @NotNull private String serialNumber;
 
   @Temporal(TemporalType.TIMESTAMP)
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   private Date lastCommunication;
 
-  private DeviceDTO device;
-  @JsonManagedReference private Set<OutputChannelDTO> output;
+  private DeviceDto device;
+  @JsonManagedReference private Set<OutputChannelDto> output;
 }

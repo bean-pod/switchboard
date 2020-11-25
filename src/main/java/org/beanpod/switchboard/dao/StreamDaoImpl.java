@@ -3,9 +3,9 @@ package org.beanpod.switchboard.dao;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.beanpod.switchboard.dto.InputChannelDTO;
-import org.beanpod.switchboard.dto.OutputChannelDTO;
-import org.beanpod.switchboard.dto.StreamDTO;
+import org.beanpod.switchboard.dto.InputChannelDto;
+import org.beanpod.switchboard.dto.OutputChannelDto;
+import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
 import org.beanpod.switchboard.entity.StreamEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
@@ -26,18 +26,18 @@ public class StreamDaoImpl {
     return streamRepository.getAllId();
   }
 
-  public StreamDTO getStreamById(Long id) {
+  public StreamDto getStreamById(Long id) {
     StreamEntity streamEntity = streamRepository.getOne(id);
     return mapper.toDto(streamEntity);
   }
 
   public void createStream(CreateStreamRequest createStreamRequest) {
-    InputChannelDTO inputChannelDTO =
+    InputChannelDto inputChannelDto =
         channelService.getInputChannelById(createStreamRequest.getInputChannelId());
-    OutputChannelDTO outputChannelDTO =
+    OutputChannelDto outputChannelDto =
         channelService.getOutputChannelById(createStreamRequest.getOutputChannelId());
-    StreamDTO streamDto =
-        StreamDTO.builder().inputChannel(inputChannelDTO).outputChannel(outputChannelDTO).build();
+    StreamDto streamDto =
+        StreamDto.builder().inputChannel(inputChannelDto).outputChannel(outputChannelDto).build();
     StreamEntity streamEntity = mapper.toEntity(streamDto);
     if (streamRepository.existsDuplicate(
         createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId())) {
@@ -51,7 +51,7 @@ public class StreamDaoImpl {
     streamRepository.deleteById(id);
   }
 
-  public void updateStream(StreamDTO streamDto) {
+  public void updateStream(StreamDto streamDto) {
     if (!streamRepository.existsById(streamDto.getId())) {
       throw new ExceptionType.StreamDoesNotExistException(streamDto.getId());
     }

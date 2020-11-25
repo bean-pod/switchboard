@@ -3,9 +3,9 @@ package org.beanpod.switchboard.dao;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import org.beanpod.switchboard.dto.ChannelDTO;
-import org.beanpod.switchboard.dto.InputChannelDTO;
-import org.beanpod.switchboard.dto.OutputChannelDTO;
+import org.beanpod.switchboard.dto.ChannelDto;
+import org.beanpod.switchboard.dto.InputChannelDto;
+import org.beanpod.switchboard.dto.OutputChannelDto;
 import org.beanpod.switchboard.dto.mapper.ChannelMapper;
 import org.beanpod.switchboard.dto.mapper.InputChannelMapper;
 import org.beanpod.switchboard.dto.mapper.OutputChannelMapper;
@@ -32,37 +32,37 @@ public class ChannelDaoImpl {
     return channelRepository.findAll();
   }
 
-  public Optional<ChannelDTO> findChannel(Long id) {
-    return channelRepository.findChannelEntitiesById(id).map(channelMapper::toChannelDTO);
+  public Optional<ChannelDto> findChannel(Long id) {
+    return channelRepository.findChannelEntitiesById(id).map(channelMapper::toChannelDto);
   }
 
   public Long deleteChannel(Long id) {
     return channelRepository.deleteChannelEntitiesById(id);
   }
 
-  public ChannelDTO save(ChannelDTO channelDTO) {
-    return channelMapper.toChannelDTO(
-        channelRepository.save(channelMapper.toChannelEntity(channelDTO)));
+  public ChannelDto save(ChannelDto channelDto) {
+    return channelMapper.toChannelDto(
+        channelRepository.save(channelMapper.toChannelEntity(channelDto)));
   }
 
-  public InputChannelDTO saveInputChannel(InputChannelDTO inputChannelDto) {
-    return inputChannelMapper.toInputChannelDTO(
+  public InputChannelDto saveInputChannel(InputChannelDto inputChannelDto) {
+    return inputChannelMapper.toInputChannelDto(
         inputChannelRepository.save(inputChannelMapper.toInputChannelEntity(inputChannelDto)));
   }
 
-  public OutputChannelDTO saveOutputChannel(OutputChannelDTO outputChannelDto) {
-    return outputChannelMapper.toOutputChannelDTO(
+  public OutputChannelDto saveOutputChannel(OutputChannelDto outputChannelDto) {
+    return outputChannelMapper.toOutputChannelDto(
         outputChannelRepository.save(outputChannelMapper.toOutputChannelEntity(outputChannelDto)));
   }
 
-  public InputChannelDTO getInputChannelById(Long id) {
+  public InputChannelDto getInputChannelById(Long id) {
     InputChannelEntity inputChannelEntity = inputChannelRepository.getOne(id);
-    return inputChannelMapper.toInputChannelDTO(inputChannelEntity);
+    return inputChannelMapper.toInputChannelDto(inputChannelEntity);
   }
 
-  public OutputChannelDTO getOutputChannelById(Long id) {
+  public OutputChannelDto getOutputChannelById(Long id) {
     OutputChannelEntity outputChannelEntity = outputChannelRepository.getOne(id);
-    return outputChannelMapper.toOutputChannelDTO(outputChannelEntity);
+    return outputChannelMapper.toOutputChannelDto(outputChannelEntity);
   }
 
   public Long deleteOutputChannelById(Long id) {

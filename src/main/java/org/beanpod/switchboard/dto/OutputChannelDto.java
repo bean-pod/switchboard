@@ -13,8 +13,8 @@ import lombok.Setter;
 @EqualsAndHashCode
 @Builder
 @AllArgsConstructor
-public class OutputChannelDTO {
+public class OutputChannelDto {
   @NotNull private Long id;
-  private ChannelDTO channel;
-  @JsonBackReference private EncoderDTO encoder;
+  private ChannelDto channel;
+  @JsonBackReference private EncoderDto encoder;
 }

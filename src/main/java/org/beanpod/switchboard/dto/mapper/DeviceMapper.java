@@ -1,18 +1,18 @@
 package org.beanpod.switchboard.dto.mapper;
 
 import java.util.List;
-import org.beanpod.switchboard.dto.DeviceDTO;
+import org.beanpod.switchboard.dto.DeviceDto;
 import org.beanpod.switchboard.entity.DeviceEntity;
 import org.mapstruct.Mapper;
 import org.openapitools.model.DeviceModel;
 
 @Mapper(componentModel = "spring")
 public interface DeviceMapper {
-  DeviceDTO toDeviceDTO(DeviceEntity deviceEntity);
+  DeviceDto toDeviceDto(DeviceEntity deviceEntity);
 
-  List<DeviceDTO> toDeviceDTOs(List<DeviceEntity> deviceEntities);
+  List<DeviceDto> toDeviceDtos(List<DeviceEntity> deviceEntities);
 
-  DeviceEntity toDeviceEntity(DeviceDTO deviceDTO);
+  DeviceEntity toDeviceEntity(DeviceDto deviceDto);
 
-  DeviceModel toDeviceModel(DeviceDTO deviceDto);
+  DeviceModel toDeviceModel(DeviceDto deviceDto);
 }
