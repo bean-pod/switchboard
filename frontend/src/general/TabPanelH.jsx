@@ -1,5 +1,6 @@
 import React from "react";
-import { Box, Typography } from "@material-ui/core";
+import PropTypes from "prop-types";
+import { Box } from "@material-ui/core";
 
 export default class TabPanelH extends React.Component {
   constructor(props) {
@@ -21,3 +22,12 @@ export default class TabPanelH extends React.Component {
     );
   }
 }
+
+TabPanelH.propTypes = {
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]).isRequired
+};

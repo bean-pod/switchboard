@@ -76,5 +76,6 @@ export default class DeviceDetailsTabTable extends React.Component {
   }
 }
 DeviceDetailsTabTable.propTypes = {
-  tabs: PropTypes.arrayOf(PropTypes.string).isRequired
+  tabs: PropTypes.arrayOf(PropTypes.string).isRequired,
+  device: PropTypes.instanceOf(DeviceInfo).isRequired
 };
