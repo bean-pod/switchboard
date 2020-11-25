@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Container } from "@material-ui/core";
+import PropTypes from "prop-types";
 import StreamingTable from "./StreamingTable";
 import DynamicBreadcrumb from "../general/DynamicBreadcrumb";
 import StreamList from "../streamlist/StreamList";
@@ -35,3 +36,7 @@ export default class StreamingPage extends React.Component {
     );
   }
 }
+StreamingPage.propTypes = {
+  deviceDataSource: PropTypes.objectOf(PropTypes.func).isRequired,
+  streamDataSource: PropTypes.objectOf(PropTypes.func).isRequired
+};

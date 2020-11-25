@@ -10,6 +10,7 @@ import {
 
 import { ExpandLess, ExpandMore } from "@material-ui/icons/";
 
+import PropTypes from "prop-types";
 import ActionMenu from "./ActionMenu";
 import StatusIndicator from "../StatusIndicator";
 import ChannelDetailsTable from "./ChannelDetailsTable";
@@ -73,3 +74,19 @@ export default class SingleTableRow extends React.Component {
     );
   }
 }
+SingleTableRow.propTypes = {
+  deviceDetails: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    serialNumber: PropTypes.string,
+    status: PropTypes.string,
+    ip: PropTypes.string,
+    channels: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number,
+        name: PropTypes.string,
+        port: PropTypes.number
+      })
+    )
+  }).isRequired
+};

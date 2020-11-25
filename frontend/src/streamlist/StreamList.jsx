@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Container } from "@material-ui/core";
+import PropTypes from "prop-types";
 import * as useStyles from "../DefaultMakeStylesTheme";
 import StreamsTable from "./StreamsTable";
 
@@ -13,3 +14,6 @@ export default function StreamList(props) {
     </Container>
   );
 }
+StreamList.propTypes = {
+  dataSource: PropTypes.objectOf(PropTypes.func).isRequired
+};

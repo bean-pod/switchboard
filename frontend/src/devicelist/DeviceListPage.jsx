@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Container } from "@material-ui/core";
 
+import PropTypes from "prop-types";
 import TitleBox from "./TitleBox";
 import ContentsTable from "./ContentsTable";
 import DynamicBreadcrumb from "../general/DynamicBreadcrumb";
@@ -27,3 +28,6 @@ export default class DeviceListPage extends React.Component {
     );
   }
 }
+DeviceListPage.propTypes = {
+  dataSource: PropTypes.objectOf(PropTypes.func).isRequired
+};

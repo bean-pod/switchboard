@@ -18,7 +18,7 @@ export default class TitleBox extends React.Component {
               className="hideLinkStyle"
               exact
             >
-              <StreamButton id="DeviceListStreamBtn" />
+              <StreamButton id="DeviceListStreamBtn" type="submit" />
             </NavLink>
             <AddDeviceButton id="DeviceListAddDevBtn" />
           </div>

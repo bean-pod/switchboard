@@ -3,6 +3,7 @@ import { Grid } from "@material-ui/core";
 
 import axios from "axios";
 
+import PropTypes from "prop-types";
 import SelectDevicesTable from "./SelectDevicesTable";
 import StreamButton from "../general/Buttons/StreamButton";
 
@@ -104,7 +105,7 @@ export default class StreamingTable extends React.Component {
               alignItems="center"
               display="flex"
             >
-              <StreamButton type="submit" />
+              <StreamButton id="StreamingStreamBtn" type="submit" />
             </Grid>
             <Grid item xs={3}>
               <div className="streamingTable" id="ReceiverTable">
@@ -121,3 +122,6 @@ export default class StreamingTable extends React.Component {
     );
   }
 }
+StreamingTable.propTypes = {
+  dataSource: PropTypes.objectOf(PropTypes.func).isRequired
+};

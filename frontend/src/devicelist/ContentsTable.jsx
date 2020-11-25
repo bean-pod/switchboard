@@ -1,6 +1,7 @@
 import React from "react";
 import { Box } from "@material-ui/core";
 
+import PropTypes from "prop-types";
 import SearchBar from "./SearchBar";
 import DeviceListSortSelector from "./DeviceListSortSelector";
 import VerticalTabs from "./VerticalTabs";
@@ -70,3 +71,9 @@ export default class ContentsTable extends React.Component {
     );
   }
 }
+ContentsTable.propTypes = {
+  dataSource: PropTypes.objectOf(PropTypes.func).isRequired,
+  classes: PropTypes.shape({
+    tabs: PropTypes.string
+  }).isRequired
+};

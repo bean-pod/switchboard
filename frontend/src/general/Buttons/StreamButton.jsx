@@ -1,12 +1,12 @@
 import React from "react";
 import { Button, withStyles } from "@material-ui/core";
+import PropTypes from "prop-types";
 
 import { SwapHoriz } from "@material-ui/icons/";
 
 export default class StreamButton extends React.Component {
   constructor(props) {
     super(props);
-    this.id = props.id;
   }
 
   render() {
@@ -26,7 +26,7 @@ export default class StreamButton extends React.Component {
     })(Button);
 
     return (
-      <StyledButton id={this.id} type={this.props.type}>
+      <StyledButton id={this.props.id} type={this.props.type}>
         <div className="buttonText">
           <SwapHoriz /> Stream
         </div>
@@ -34,3 +34,7 @@ export default class StreamButton extends React.Component {
     );
   }
 }
+StreamButton.propTypes = {
+  id: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired
+};

@@ -9,6 +9,7 @@ import {
 } from "@material-ui/core";
 import { ExpandLess, ExpandMore } from "@material-ui/icons/";
 
+import PropTypes from "prop-types";
 import StatusIndicator from "../StatusIndicator";
 import ActionButtons from "./ActionButtons";
 
@@ -78,3 +79,19 @@ export default class SingleStreamRow extends React.Component {
     );
   }
 }
+SingleStreamRow.propTypes = {
+  streamDetails: PropTypes.shape({
+    id: PropTypes.number,
+    date: PropTypes.string,
+    sender: PropTypes.shape({
+      name: PropTypes.string
+    }),
+    receiver: PropTypes.shape({
+      name: PropTypes.string
+    }),
+    status: PropTypes.string,
+    type: PropTypes.string,
+    time: PropTypes.string,
+    extras: PropTypes.arrayOf(PropTypes.string)
+  }).isRequired
+};

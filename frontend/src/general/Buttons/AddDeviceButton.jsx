@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, withStyles } from "@material-ui/core";
 import { AddSharp } from "@material-ui/icons/";
+import PropTypes from "prop-types";
 
 export default class AddDeviceButton extends React.Component {
   constructor(props) {
@@ -32,3 +33,6 @@ export default class AddDeviceButton extends React.Component {
     );
   }
 }
+AddDeviceButton.propTypes = {
+  id: PropTypes.string.isRequired
+};

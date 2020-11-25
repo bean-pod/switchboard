@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 export default class StatusIndicator extends React.Component {
   getStatusStyle(status) {
@@ -22,3 +23,6 @@ export default class StatusIndicator extends React.Component {
     );
   }
 }
+StatusIndicator.propTypes = {
+  status: PropTypes.string.isRequired
+};

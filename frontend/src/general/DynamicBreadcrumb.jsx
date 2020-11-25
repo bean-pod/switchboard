@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Breadcrumbs, Link, Typography } from "@material-ui/core";
+import PropTypes from "prop-types";
 
 export default class DynamicBreadcrumb extends React.Component {
   render() {
@@ -24,3 +25,6 @@ export default class DynamicBreadcrumb extends React.Component {
     );
   }
 }
+DynamicBreadcrumb.propTypes = {
+  breadcrumbs: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)).isRequired
+};

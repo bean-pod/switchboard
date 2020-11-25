@@ -7,6 +7,7 @@ import {
   TableHead,
   TableRow
 } from "@material-ui/core";
+import PropTypes from "prop-types";
 import HeadCells from "./HeadCells";
 import SingleStreamRow from "./SingleStreamRow";
 
@@ -55,3 +56,6 @@ export default class StreamsTable extends React.Component {
     );
   }
 }
+StreamsTable.propTypes = {
+  dataSource: PropTypes.objectOf(PropTypes.func).isRequired
+};

@@ -1,5 +1,6 @@
 import React from "react";
 import { Tab, Tabs } from "@material-ui/core";
+import PropTypes from "prop-types";
 
 export default class VerticalTabs extends React.Component {
   constructor(props) {
@@ -36,3 +37,10 @@ export default class VerticalTabs extends React.Component {
     );
   }
 }
+VerticalTabs.propTypes = {
+  setValue: PropTypes.func.isRequired,
+  value: PropTypes.number.isRequired,
+  classes: PropTypes.shape({
+    tabs: PropTypes.string
+  }).isRequired
+};

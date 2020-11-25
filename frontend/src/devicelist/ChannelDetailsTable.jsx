@@ -6,6 +6,7 @@ import {
   TableHead,
   TableRow
 } from "@material-ui/core";
+import PropTypes from "prop-types";
 
 export default class ChannelDetailsTable extends React.Component {
   constructor(props) {
@@ -33,3 +34,10 @@ export default class ChannelDetailsTable extends React.Component {
     );
   }
 }
+ChannelDetailsTable.propTypes = {
+  channel: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    port: PropTypes.number
+  }).isRequired
+};
