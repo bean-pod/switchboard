@@ -1,10 +1,7 @@
 package system_tests;
 
-import org.apache.http.client.HttpClient;
-import org.apache.http.impl.client.HttpClients;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
@@ -13,9 +10,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import org.openqa.selenium.support.ui.Select;
-import org.springframework.test.context.event.annotation.BeforeTestClass;
-
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -24,9 +18,6 @@ public class TrialSeleniumTest {
 
     @BeforeAll
     static void setUp(){
-        HttpClient httpclient = HttpClients.createDefault();
-
-
         System.setProperty("webdriver.chrome.driver","src\\test\\java\\system_tests\\chromedriver.exe");
         driver = new ChromeDriver();
     }
@@ -63,7 +54,6 @@ public class TrialSeleniumTest {
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 
         List<WebElement> devicesRows = driver.findElements(By.className("singleDeviceRow"));
-        System.out.println(devicesRows.size());
         boolean assertValue = false;
         for(WebElement element : devicesRows){
            if(element.getText().contains("Sender Test10")) {
