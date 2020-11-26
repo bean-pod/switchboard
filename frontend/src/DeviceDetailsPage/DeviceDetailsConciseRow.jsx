@@ -1,15 +1,14 @@
 import React from "react";
-import { TableContainer, Paper, TableCell, TableRow } from "@material-ui/core";
+import Proptypes from "prop-types";
+import { TableContainer, TableCell, TableRow } from "@material-ui/core";
 import ChannelDetailsTable from "../devicelist/ChannelDetailsTable";
+import InputChannelInfo from "../model/InputChannelInfo";
+import OutputChannelInfo from "../model/OutputChannelInfo";
 
 export default class DeviceDetailsConciseRow extends React.Component {
-  constructor(props) {
-    super(props);
-    // some prop verification later
-  }
-
   getPropertyDisplayName() {
-    switch (this.props.name) {
+    const { name } = this.props;
+    switch (name) {
       case "serialNumber":
         return "Serial Number";
       case "lastCommunication":
@@ -28,17 +27,23 @@ export default class DeviceDetailsConciseRow extends React.Component {
   }
 
   render() {
+    const { name, value } = this.props;
     return (
       <>
         <TableRow>
           <TableCell>{this.getPropertyDisplayName()}</TableCell>
-          {this.props.name !== "channels" ? (
-            <TableCell align="center">{this.props.value}</TableCell>
+          {name !== "channels" ? (
+            <TableCell align="center">{value}</TableCell>
           ) : (
             <TableCell>
               <TableContainer>
-                {this.props.value.map((channel) => {
-                  return <ChannelDetailsTable channel={channel} />;
+                {value.map((channel, index) => {
+                  return (
+                    <ChannelDetailsTable
+                      channel={channel}
+                      key={`chDetails_${index}`}
+                    />
+                  );
                 })}
               </TableContainer>
             </TableCell>
@@ -48,3 +53,10 @@ export default class DeviceDetailsConciseRow extends React.Component {
     );
   }
 }
+
+DeviceDetailsConciseRow.propTypes = {
+  name: Proptypes.instanceOf(Proptypes.string).isRequired,
+  value: Proptypes.arrayOf(
+    Proptypes.oneOfType([InputChannelInfo, OutputChannelInfo])
+  ).isRequired
+};
