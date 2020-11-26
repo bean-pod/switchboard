@@ -11,8 +11,6 @@ import MaterialTable from "material-table";
 export default class DevicesTable extends React.Component {
   constructor(props) {
     super(props);
-    this.data = [];
-    this.devices = this.props.devices;
   }
 
   getColumnInfo() {
@@ -23,7 +21,7 @@ export default class DevicesTable extends React.Component {
       },
       {
         title: "Serial Number",
-        field: "serial",
+        field: "serialNumber",
       },
       {
         title: "Status",
@@ -36,13 +34,6 @@ export default class DevicesTable extends React.Component {
     ];
   }
 
-  getData() {
-    for (var device in this.devices) {
-      this.data.push({name: `${device.name}`, serial: `${device.serial}`, status: `${device.status}`, ip: `${device.ip}`})
-    }
-    return this.data
-  }
-
   render() {
     return (
       <>
@@ -50,7 +41,7 @@ export default class DevicesTable extends React.Component {
           <TableContainer style={{ maxHeight: 500 }}>
             <MaterialTable
                 columns={this.getColumnInfo()}
-                data={this.getData()}
+                data={this.props.devices}
                 detailPanel={[
                   {
                     render: rowData => {
