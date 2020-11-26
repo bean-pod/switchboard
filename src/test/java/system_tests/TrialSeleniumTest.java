@@ -1,5 +1,8 @@
 package system_tests;
 
+import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,6 +12,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.openqa.selenium.support.ui.Select;
 import org.springframework.test.context.event.annotation.BeforeTestClass;
 
@@ -20,6 +24,9 @@ public class TrialSeleniumTest {
 
     @BeforeAll
     static void setUp(){
+        HttpClient httpclient = HttpClients.createDefault();
+
+
         System.setProperty("webdriver.chrome.driver","src\\test\\java\\system_tests\\chromedriver.exe");
         driver = new ChromeDriver();
     }
@@ -57,16 +64,19 @@ public class TrialSeleniumTest {
 
         List<WebElement> devicesRows = driver.findElements(By.className("singleDeviceRow"));
         System.out.println(devicesRows.size());
+        boolean assertValue = false;
         for(WebElement element : devicesRows){
-            System.out.println(element.getText().contains("Sender Test10"));
+           if(element.getText().contains("Sender Test10")) {
+               assertValue = true;
+               break;
+           }
         }
-//        WebElement dropdown = driver.findElement(By.xpath("//*[@id=\"menu-\"]/div[3]/ul"));
-//        Select statuses = new Select(dropdown);
-//        driver.findElement(new By.ByXPath(("//*[@id=\"menu-\"]/div[3]/ul/li[1]"))).click();
-//        statuses.findElement(By.cssSelector("li[value=Online]")).click();
 
-        //        statuses.selectByIndex(1);
-
+        assertTrue(assertValue);
     }
 
+    @AfterEach
+    void tearDown(){
+        driver.quit();
+    }
 }
