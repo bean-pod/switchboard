@@ -6,10 +6,9 @@ import org.beanpod.switchboard.dao.StreamDaoImpl;
 import org.beanpod.switchboard.dto.DecoderDto;
 import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.exceptions.ExceptionType;
+import org.beanpod.switchboard.util.DateUtil;
 import org.springframework.stereotype.Component;
 
-import java.time.Instant;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +17,7 @@ import java.util.Optional;
 public class DecoderServiceImpl implements DecoderService {
   private final StreamDaoImpl streamDao;
   private final DecoderDaoImpl decoderDao;
+  private final DateUtil dateUtil;
 
   @Override
   public List<StreamDto> getDecoderStreams(String decoderSerialNumber) {
@@ -27,7 +27,7 @@ public class DecoderServiceImpl implements DecoderService {
     }
     DecoderDto decoder = decoderOptional.get();
 
-    decoder.setLastCommunication(Date.from(Instant.now()));
+    decoder.setLastCommunication(dateUtil.getCurrentDate());
     decoderDao.save(decoder);
 
     return streamDao.getDecoderStreams(decoderSerialNumber);
