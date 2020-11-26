@@ -9,7 +9,8 @@ export default class DeviceDetailsNotesPanel extends React.Component {
   }
 
   render() {
-    return <Container>{this.props.device.extras}</Container>;
+    const { extras } = this.props.device;
+    return <Container>{extras}</Container>;
   }
 }
 
