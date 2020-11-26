@@ -46,6 +46,15 @@ public class TrialSeleniumTest {
         }
         driver.findElement(By.cssSelector("body")).click();
         driver.findElement(By.cssSelector(".MuiListItem-dense:nth-child(1)")).click();
+
+        driver.findElement(By.id("DeviceListAddDevBtn")).click();
+//        WebElement dropdown = driver.findElement(By.xpath("//*[@id=\"menu-\"]/div[3]/ul"));
+//        Select statuses = new Select(dropdown);
+//        driver.findElement(new By.ByXPath(("//*[@id=\"menu-\"]/div[3]/ul/li[1]"))).click();
+//        statuses.findElement(By.cssSelector("li[value=Online]")).click();
+
+        //        statuses.selectByIndex(1);
+
     }
 
 }
