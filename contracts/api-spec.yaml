@@ -275,6 +275,10 @@ paths:
       responses:
         '200':
           description: Successful creation of the decoder
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StreamModel'
     put:
       operationId: updateStream
       description: update a stream's definition
@@ -451,7 +455,9 @@ components:
         mode:
           description: The streaming mode to use
           type: string
-          example: 'srtRendezvous'
+          enum:
+            - SRT
+            - SRT_RENDEZVOUS
 
     StreamsModel:
       description: A list of stream IDs

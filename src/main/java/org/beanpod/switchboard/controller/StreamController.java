@@ -36,10 +36,12 @@ public class StreamController implements StreamApi {
   }
 
   @Override
-  public ResponseEntity<Void> createStream(@Valid CreateStreamRequest createStreamRequest) {
-    Optional.of(createStreamRequest)
-        .ifPresentOrElse(streamService::createStream, this::getUnknownException);
-    return ResponseEntity.ok().build();
+  public ResponseEntity<StreamModel> createStream(@Valid CreateStreamRequest createStreamRequest) {
+    return Optional.of(createStreamRequest)
+        .map(streamService::createStream)
+        .map(mapper::toModel)
+        .map(ResponseEntity::ok)
+        .orElseThrow(this::getUnknownException);
   }
 
   @Override

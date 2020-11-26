@@ -2,7 +2,9 @@ package org.beanpod.switchboard.fixture;
 
 import java.util.List;
 import org.beanpod.switchboard.dto.StreamDTO;
+import org.beanpod.switchboard.dto.StreamModeDTO;
 import org.beanpod.switchboard.entity.StreamEntity;
+import org.beanpod.switchboard.entity.StreamModeEntity;
 import org.openapitools.model.CreateStreamRequest;
 import org.openapitools.model.StreamModel;
 
@@ -18,6 +20,7 @@ public class StreamFixture {
         .id(ID)
         .inputChannel(ChannelFixture.getInputChannelEntity())
         .outputChannel(ChannelFixture.getOutputChannelEntity())
+        .mode(StreamModeEntity.SRT)
         .build();
   }
 
@@ -26,6 +29,7 @@ public class StreamFixture {
         .id(ID)
         .inputChannel(ChannelFixture.getInputChannelDto())
         .outputChannel(ChannelFixture.getOutputChannelDto())
+        .mode(StreamModeDTO.SRT)
         .build();
   }
 
@@ -39,6 +43,7 @@ public class StreamFixture {
     return new StreamModel()
         .id(ID)
         .inputChannel(ChannelFixture.getInputChannelModel())
-        .outputChannel(ChannelFixture.getOutputChannelModel());
+        .outputChannel(ChannelFixture.getOutputChannelModel())
+        .mode(StreamModel.ModeEnum.SRT);
   }
 }

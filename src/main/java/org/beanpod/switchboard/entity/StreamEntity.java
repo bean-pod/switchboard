@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -35,4 +37,8 @@ public class StreamEntity {
   @OneToOne(optional = false, fetch = FetchType.LAZY)
   @JoinColumn(name = "output_channel_id")
   private OutputChannelEntity outputChannel;
+
+  @Column(name = "mode")
+  @NotNull
+  private StreamModeEntity mode;
 }

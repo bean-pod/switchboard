@@ -13,4 +13,5 @@ public class StreamDTO {
   private Long id;
   private OutputChannelDTO outputChannel;
   private InputChannelDTO inputChannel;
+  private StreamModeDTO mode;
 }

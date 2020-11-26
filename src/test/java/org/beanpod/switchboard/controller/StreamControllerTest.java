@@ -22,19 +22,19 @@ import org.springframework.http.ResponseEntity;
 class StreamControllerTest {
   private StreamController streamController;
 
-  @Mock private StreamDaoImpl channelService;
-  @Mock private StreamMapper channelMapper;
+  @Mock private StreamDaoImpl streamService;
+  @Mock private StreamMapper streamMapper;
 
   @BeforeEach
   public void setup() {
     MockitoAnnotations.initMocks(this);
-    streamController = new StreamController(channelService, channelMapper);
+    streamController = new StreamController(streamService, streamMapper);
   }
 
   @Test
   void testGetChannels() {
     // given
-    when(channelService.getStreams()).thenReturn(StreamFixture.getIdList());
+    when(streamService.getStreams()).thenReturn(StreamFixture.getIdList());
 
     // when
     ResponseEntity<List<Long>> result = streamController.getStreams();
@@ -48,7 +48,7 @@ class StreamControllerTest {
   @Test
   void testGetChannelsDtoReturnsNull() {
     // given
-    when(channelService.getStreams()).thenReturn(null);
+    when(streamService.getStreams()).thenReturn(null);
 
     // when & then
     RuntimeException exception =
@@ -60,7 +60,7 @@ class StreamControllerTest {
   @Test
   void testGetChannelsThrowsException() {
     // given
-    when(channelService.getStreams()).thenThrow(new RuntimeException());
+    when(streamService.getStreams()).thenThrow(new RuntimeException());
 
     // when & then
     RuntimeException exception =
@@ -71,8 +71,8 @@ class StreamControllerTest {
   void testGetChannelById() {
     // given
     StreamDTO streamDto = StreamFixture.getStreamDto();
-    when(channelService.getStreamById(StreamFixture.ID)).thenReturn(streamDto);
-    when(channelMapper.toModel(streamDto)).thenReturn(StreamFixture.getStreamModel());
+    when(streamService.getStreamById(StreamFixture.ID)).thenReturn(streamDto);
+    when(streamMapper.toModel(streamDto)).thenReturn(StreamFixture.getStreamModel());
 
     // when
     ResponseEntity<StreamModel> result = streamController.getStreamById(StreamFixture.ID);
@@ -89,12 +89,21 @@ class StreamControllerTest {
 
   @Test
   void testCreateChannel() {
+    //given
+    var createStreamRequest = StreamFixture.getCreateStreamRequest();
+    var streamDto = StreamFixture.getStreamDto();
+    var streamModel = StreamFixture.getStreamModel();
+
+    when(streamService.createStream(createStreamRequest)).thenReturn(streamDto);
+    when(streamMapper.toModel(streamDto)).thenReturn(streamModel);
+
     // when
-    ResponseEntity<Void> result =
-        streamController.createStream(StreamFixture.getCreateStreamRequest());
+    ResponseEntity<StreamModel> result = streamController.createStream(createStreamRequest);
 
     // then
     assertEquals(HttpStatus.OK, result.getStatusCode());
+    assertNotNull(result.getBody());
+    assertEquals(streamModel, result.getBody());
   }
 
   @Test
@@ -110,7 +119,7 @@ class StreamControllerTest {
   void testUpdateChannel() {
     // given
     StreamModel streamModel = StreamFixture.getStreamModel();
-    when(channelMapper.toDto(streamModel)).thenReturn(StreamFixture.getStreamDto());
+    when(streamMapper.toDto(streamModel)).thenReturn(StreamFixture.getStreamDto());
 
     // when
     ResponseEntity<Void> result = streamController.updateStream(streamModel);

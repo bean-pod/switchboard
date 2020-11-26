@@ -2,6 +2,7 @@ package org.beanpod.switchboard.controller;
 
 import java.util.List;
 import java.util.Optional;
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
@@ -25,6 +26,7 @@ public class DeviceController implements DeviceApi {
   public static final String UNKNOWN_ERROR_MESSAGE = "Unknown error in Device Controller";
   private final DeviceDaoImpl service;
   private final DeviceMapper deviceMapper;
+  private final HttpServletRequest request;
 
 
   @Override
@@ -55,7 +57,7 @@ public class DeviceController implements DeviceApi {
     }
 
     return Optional.of(createDeviceRequest)
-            .map(service::createDevice)
+            .map((createRequest) -> service.createDevice(createRequest, request.getRemoteAddr()))
             .map(deviceMapper::toDeviceModel)
             .map(ResponseEntity::ok)
             .orElseThrow(this::getUnknownException);

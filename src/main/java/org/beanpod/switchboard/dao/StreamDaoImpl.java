@@ -3,9 +3,7 @@ package org.beanpod.switchboard.dao;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.beanpod.switchboard.dto.InputChannelDTO;
-import org.beanpod.switchboard.dto.OutputChannelDTO;
-import org.beanpod.switchboard.dto.StreamDTO;
+import org.beanpod.switchboard.dto.*;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
 import org.beanpod.switchboard.entity.StreamEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
@@ -17,7 +15,8 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @RequiredArgsConstructor
 public class StreamDaoImpl {
-
+  private static final String LOOPBACK_IP_V4 = "127.0.0.1";
+  private static final String LOOPBACK_IP_V6 = "0:0:0:0:0:0:0:1";
   private final StreamRepository streamRepository;
   private final StreamMapper mapper;
   private final ChannelDaoImpl channelService;
@@ -31,20 +30,26 @@ public class StreamDaoImpl {
     return mapper.toDto(streamEntity);
   }
 
-  public void createStream(CreateStreamRequest createStreamRequest) {
-    InputChannelDTO inputChannelDTO =
-        channelService.getInputChannelById(createStreamRequest.getInputChannelId());
-    OutputChannelDTO outputChannelDTO =
-        channelService.getOutputChannelById(createStreamRequest.getOutputChannelId());
-    StreamDTO streamDto =
-        StreamDTO.builder().inputChannel(inputChannelDTO).outputChannel(outputChannelDTO).build();
-    StreamEntity streamEntity = mapper.toEntity(streamDto);
+  public StreamDTO createStream(CreateStreamRequest createStreamRequest) {
     if (streamRepository.existsDuplicate(
-        createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId())) {
+            createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId())) {
       throw new ExceptionType.StreamAlreadyExistsException(
-          createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId());
+              createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId());
     }
-    streamRepository.save(streamEntity);
+
+    InputChannelDTO inputChannelDTO = channelService.getInputChannelById(createStreamRequest.getInputChannelId());
+    OutputChannelDTO outputChannelDTO = channelService.getOutputChannelById(createStreamRequest.getOutputChannelId());
+    StreamDTO.StreamDTOBuilder streamDtoBuilder = StreamDTO.builder().inputChannel(inputChannelDTO).outputChannel(outputChannelDTO);
+
+    if (onSamePrivateNetwork(inputChannelDTO, outputChannelDTO) || onLocalNetwork(inputChannelDTO, outputChannelDTO)){
+      streamDtoBuilder.mode(StreamModeDTO.SRT);
+    }else{
+      streamDtoBuilder.mode(StreamModeDTO.SRT_RENDEZVOUS);
+    }
+
+    StreamDTO streamDto = streamDtoBuilder.build();
+    StreamEntity streamEntity = mapper.toEntity(streamDto);
+    return mapper.toDto(streamRepository.save(streamEntity));
   }
 
   public void deleteStream(Long id) {
@@ -57,5 +62,17 @@ public class StreamDaoImpl {
     }
     StreamEntity streamEntity = mapper.toEntity(streamDto);
     streamRepository.save(streamEntity);
+  }
+
+  private boolean onSamePrivateNetwork(InputChannelDTO inputChannelDto, OutputChannelDTO outputChannelDto){
+    return inputChannelDto.getDecoder().getDevice().getPublicIpAddress().equals(outputChannelDto.getEncoder().getDevice().getPublicIpAddress());
+  }
+
+  private boolean deviceOnLocalNetwork(DeviceDTO deviceDto){
+    return deviceDto.getPublicIpAddress().equals(deviceDto.getPrivateIpAddress()) || deviceDto.getPublicIpAddress().equals(LOOPBACK_IP_V4) || deviceDto.getPublicIpAddress().equals(LOOPBACK_IP_V6);
+  }
+
+  private boolean onLocalNetwork(InputChannelDTO inputChannelDTO, OutputChannelDTO outputChannelDTO){
+    return deviceOnLocalNetwork(inputChannelDTO.getDecoder().getDevice()) && deviceOnLocalNetwork(outputChannelDTO.getEncoder().getDevice());
   }
 }

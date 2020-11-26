@@ -26,6 +26,8 @@ import org.openapitools.model.DeviceModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import javax.servlet.http.HttpServletRequest;
+
 class DeviceControllerTest {
   // stubbed DeviceEntity object
   private static DeviceEntity device;
@@ -35,6 +37,7 @@ class DeviceControllerTest {
   @InjectMocks private DeviceController deviceController;
   @Mock private DeviceDaoImpl deviceService;
   @Mock private DeviceMapper deviceMapper;
+  @Mock private HttpServletRequest request;
 
   @BeforeEach
   void setupDeviceFixture() {
@@ -99,7 +102,8 @@ class DeviceControllerTest {
   @Test
   final void testCreateDevice() {
     when(deviceService.save(deviceDTO)).thenReturn(deviceDTO);
-    when(deviceService.createDevice(createDeviceRequest)).thenReturn(deviceDTO);
+    when(request.getRemoteAddr()).thenReturn(DeviceFixture.PUBLIC_IP_ADDRESS);
+    when(deviceService.createDevice(createDeviceRequest, DeviceFixture.PUBLIC_IP_ADDRESS)).thenReturn(deviceDTO);
     when(deviceMapper.toDeviceModel(deviceDTO)).thenReturn(deviceModel);
 
     ResponseEntity<DeviceModel> response = deviceController.createDevice(createDeviceRequest);
