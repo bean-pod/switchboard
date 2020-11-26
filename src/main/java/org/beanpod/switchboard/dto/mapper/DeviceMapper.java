@@ -4,6 +4,8 @@ import java.util.List;
 import org.beanpod.switchboard.dto.DeviceDTO;
 import org.beanpod.switchboard.entity.DeviceEntity;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.openapitools.model.CreateDeviceRequest;
 import org.openapitools.model.DeviceModel;
 
 @Mapper(componentModel = "spring")
@@ -17,4 +19,7 @@ public interface DeviceMapper {
   DeviceModel toDeviceModel(DeviceDTO deviceDto);
 
   List<DeviceModel> toDeviceModels(List<DeviceDTO> deviceDtos);
+
+  @Mapping(source = "publicIpAddress", target = "publicIpAddress")
+  DeviceDTO toDeviceDto(CreateDeviceRequest createDeviceRequest, String publicIpAddress);
 }

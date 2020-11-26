@@ -21,9 +21,12 @@ public class DeviceDaoImpl {
     return deviceMapper.toDeviceDTO(deviceRepository.save(deviceMapper.toDeviceEntity(device)));
   }
 
-  public DeviceDTO createDevice(CreateDeviceRequest createDeviceRequest){
-    //TODO implementation
-    return null;
+  public DeviceDTO createDevice(CreateDeviceRequest createDeviceRequest, String publicIpAddress){
+    DeviceDTO deviceDto = deviceMapper.toDeviceDto(createDeviceRequest, publicIpAddress);
+    DeviceEntity deviceEntity = deviceMapper.toDeviceEntity(deviceDto);
+    DeviceEntity savedDeviceEntity = deviceRepository.save(deviceEntity);
+    DeviceDTO savedDeviceDto = deviceMapper.toDeviceDTO(savedDeviceEntity);
+    return savedDeviceDto;
   }
 
   public Optional<DeviceDTO> findDevice(String serialNumber) {
