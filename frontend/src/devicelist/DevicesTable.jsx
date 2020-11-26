@@ -11,6 +11,7 @@ import {
 import PropTypes from "prop-types";
 import SingleTableRow from "./SingleTableRow";
 import HeadCells from "./HeadCells";
+import DeviceInfo from "../model/DeviceInfo";
 
 export default class DevicesTable extends React.Component {
   constructor(props) {
@@ -47,20 +48,5 @@ export default class DevicesTable extends React.Component {
   }
 }
 DevicesTable.propTypes = {
-  devices: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-      serialNumber: PropTypes.string,
-      status: PropTypes.string,
-      ip: PropTypes.string,
-      channels: PropTypes.arrayOf(
-        PropTypes.shape({
-          id: PropTypes.number,
-          name: PropTypes.string,
-          port: PropTypes.number
-        })
-      )
-    })
-  ).isRequired
+  devices: PropTypes.arrayOf(PropTypes.instanceOf(DeviceInfo)).isRequired
 };

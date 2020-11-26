@@ -21,5 +21,5 @@ export default class StatusIndicator extends React.Component {
   }
 }
 StatusIndicator.propTypes = {
-  status: PropTypes.string.isRequired
+  status: PropTypes.oneOf(["Online", "Offline", "Error", "Pending"]).isRequired
 };

@@ -9,6 +9,7 @@ import {
 } from "@material-ui/core";
 import { ExpandLess, ExpandMore } from "@material-ui/icons/";
 import PropTypes from "prop-types";
+import DeviceInfo from "../model/DeviceInfo";
 
 export default class SelectDeviceTableRow extends React.Component {
   constructor(props) {
@@ -57,15 +58,6 @@ export default class SelectDeviceTableRow extends React.Component {
   }
 }
 SelectDeviceTableRow.propTypes = {
-  deviceDetails: PropTypes.shape({
-    name: PropTypes.string,
-    channels: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number,
-        name: PropTypes.string,
-        port: PropTypes.number
-      })
-    )
-  }).isRequired,
+  deviceDetails: PropTypes.instanceOf(DeviceInfo).isRequired,
   onChange: PropTypes.func.isRequired
 };
