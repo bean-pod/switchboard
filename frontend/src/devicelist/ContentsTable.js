@@ -6,6 +6,8 @@ import DeviceListSortSelector from "./DeviceListSortSelector";
 import VerticalTabs from "./VerticalTabs";
 import TabPanel from "./TabPanel";
 import DevicesTable from "./DevicesTable";
+import DevicesDataTable from "./DevicesDataTable";
+
 
 export default class ContentsTable extends React.Component {
   constructor(props) {
@@ -60,7 +62,7 @@ export default class ContentsTable extends React.Component {
             classes={this.props.classes}
           />
           <TabPanel value={this.state.value} index={0}>
-            <DevicesTable devices={this.state.senders} />
+            <DevicesDataTable devices={this.state.senders}/>
           </TabPanel>
           <TabPanel value={this.state.value} index={1}>
             <DevicesTable devices={this.state.receivers} />
