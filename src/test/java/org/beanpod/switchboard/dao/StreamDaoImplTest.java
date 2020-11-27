@@ -146,7 +146,7 @@ public class StreamDaoImplTest {
         .thenReturn(outputChannelDto);
     when(streamMapper.toEntity(any())).thenReturn(streamEntity);
     when(streamRepository.existsDuplicate(
-        createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId()))
+            createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId()))
         .thenReturn(false);
 
     // when
@@ -171,7 +171,7 @@ public class StreamDaoImplTest {
         .thenReturn(outputChannelDto);
     when(streamMapper.toEntity(any())).thenReturn(streamEntity);
     when(streamRepository.existsDuplicate(
-        createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId()))
+            createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId()))
         .thenReturn(false);
 
     // when
@@ -196,7 +196,7 @@ public class StreamDaoImplTest {
         .thenReturn(outputChannelDto);
     when(streamMapper.toEntity(any())).thenReturn(streamEntity);
     when(streamRepository.existsDuplicate(
-        createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId()))
+            createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId()))
         .thenReturn(false);
 
     // when

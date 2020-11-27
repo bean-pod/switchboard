@@ -81,7 +81,7 @@ class DeviceDaoImplTest {
   }
 
   @Test
-  final void testCreateDevice(){
+  final void testCreateDevice() {
     String ipAddress = DeviceFixture.PUBLIC_IP_ADDRESS;
     when(deviceMapper.toDeviceDTO(createDeviceRequest, ipAddress)).thenReturn(deviceDto);
     when(deviceMapper.toDeviceEntity(deviceDto)).thenReturn(deviceEntity);
