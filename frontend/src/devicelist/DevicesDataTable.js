@@ -102,7 +102,8 @@ export default class DevicesTable extends React.Component {
       search: true,
       exportButton: true,
       headerStyle: {
-        backgroundColor: "#F1F1F1"
+        backgroundColor: "#F1F1F1",
+        fontWeight: "bold"
         // position: 'sticky', top: 0
       },
       // maxBodyHeight: '650px',
