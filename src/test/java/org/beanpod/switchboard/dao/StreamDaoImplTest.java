@@ -7,7 +7,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-import java.nio.channels.Channel;
 import java.util.List;
 import org.beanpod.switchboard.dto.InputChannelDTO;
 import org.beanpod.switchboard.dto.OutputChannelDTO;
@@ -98,17 +97,16 @@ public class StreamDaoImplTest {
 
     when(streamRepository.existsDuplicate(
             createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId()))
-            .thenReturn(true);
+        .thenReturn(true);
 
     // when & then
-    assertThrows(ExceptionType.StreamAlreadyExistsException.class,
-            () -> streamService.createStream(createStreamRequest)
-    );
+    assertThrows(
+        ExceptionType.StreamAlreadyExistsException.class,
+        () -> streamService.createStream(createStreamRequest));
   }
 
-
   @Test
-  public void testCreateChannelDifferentPublicIp(){
+  public void testCreateChannelDifferentPublicIp() {
     String otherPublicIpAddress = "179.256.54.21";
     CreateStreamRequest createStreamRequest = StreamFixture.getCreateStreamRequest();
     InputChannelDTO inputChannelDto = ChannelFixture.getInputChannelDto();
@@ -116,15 +114,19 @@ public class StreamDaoImplTest {
     outputChannelDto.getEncoder().getDevice().setPublicIpAddress(otherPublicIpAddress);
     StreamEntity streamEntity = StreamFixture.getStreamEntity();
 
-    when(channelService.getInputChannelById(createStreamRequest.getInputChannelId())).thenReturn(inputChannelDto);
-    when(channelService.getOutputChannelById(createStreamRequest.getOutputChannelId())).thenReturn(outputChannelDto);
+    when(channelService.getInputChannelById(createStreamRequest.getInputChannelId()))
+        .thenReturn(inputChannelDto);
+    when(channelService.getOutputChannelById(createStreamRequest.getOutputChannelId()))
+        .thenReturn(outputChannelDto);
     when(streamMapper.toEntity(any())).thenReturn(streamEntity);
-    when(streamRepository.existsDuplicate( createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId())).thenReturn(false);
+    when(streamRepository.existsDuplicate(
+            createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId()))
+        .thenReturn(false);
 
-    //when
+    // when
     streamService.createStream(createStreamRequest);
 
-    //then
+    // then
     verify(streamRepository).save(streamEntity);
   }
 

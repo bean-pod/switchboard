@@ -21,7 +21,7 @@ public class DeviceDaoImpl {
     return deviceMapper.toDeviceDTO(deviceRepository.save(deviceMapper.toDeviceEntity(device)));
   }
 
-  public DeviceDTO createDevice(CreateDeviceRequest createDeviceRequest, String publicIpAddress){
+  public DeviceDTO createDevice(CreateDeviceRequest createDeviceRequest, String publicIpAddress) {
     DeviceDTO deviceDto = deviceMapper.toDeviceDto(createDeviceRequest, publicIpAddress);
     DeviceEntity deviceEntity = deviceMapper.toDeviceEntity(deviceDto);
     DeviceEntity savedDeviceEntity = deviceRepository.save(deviceEntity);

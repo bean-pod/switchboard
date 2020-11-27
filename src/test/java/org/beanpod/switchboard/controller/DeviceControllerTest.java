@@ -10,6 +10,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.List;
 import java.util.Optional;
+import javax.servlet.http.HttpServletRequest;
 import org.beanpod.switchboard.dao.DeviceDaoImpl;
 import org.beanpod.switchboard.dto.DeviceDTO;
 import org.beanpod.switchboard.dto.mapper.DeviceMapper;
@@ -25,8 +26,6 @@ import org.openapitools.model.CreateDeviceRequest;
 import org.openapitools.model.DeviceModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
-import javax.servlet.http.HttpServletRequest;
 
 class DeviceControllerTest {
   // stubbed DeviceEntity object
@@ -103,7 +102,8 @@ class DeviceControllerTest {
   final void testCreateDevice() {
     when(deviceService.save(deviceDTO)).thenReturn(deviceDTO);
     when(request.getRemoteAddr()).thenReturn(DeviceFixture.PUBLIC_IP_ADDRESS);
-    when(deviceService.createDevice(createDeviceRequest, DeviceFixture.PUBLIC_IP_ADDRESS)).thenReturn(deviceDTO);
+    when(deviceService.createDevice(createDeviceRequest, DeviceFixture.PUBLIC_IP_ADDRESS))
+        .thenReturn(deviceDTO);
     when(deviceMapper.toDeviceModel(deviceDTO)).thenReturn(deviceModel);
 
     ResponseEntity<DeviceModel> response = deviceController.createDevice(createDeviceRequest);

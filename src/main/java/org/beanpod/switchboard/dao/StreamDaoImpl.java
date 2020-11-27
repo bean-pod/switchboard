@@ -3,7 +3,11 @@ package org.beanpod.switchboard.dao;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.beanpod.switchboard.dto.*;
+import org.beanpod.switchboard.dto.DeviceDTO;
+import org.beanpod.switchboard.dto.InputChannelDTO;
+import org.beanpod.switchboard.dto.OutputChannelDTO;
+import org.beanpod.switchboard.dto.StreamDTO;
+import org.beanpod.switchboard.dto.StreamModeDTO;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
 import org.beanpod.switchboard.entity.StreamEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
@@ -32,18 +36,22 @@ public class StreamDaoImpl {
 
   public StreamDTO createStream(CreateStreamRequest createStreamRequest) {
     if (streamRepository.existsDuplicate(
-            createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId())) {
+        createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId())) {
       throw new ExceptionType.StreamAlreadyExistsException(
-              createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId());
+          createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId());
     }
 
-    InputChannelDTO inputChannelDTO = channelService.getInputChannelById(createStreamRequest.getInputChannelId());
-    OutputChannelDTO outputChannelDTO = channelService.getOutputChannelById(createStreamRequest.getOutputChannelId());
-    StreamDTO.StreamDTOBuilder streamDtoBuilder = StreamDTO.builder().inputChannel(inputChannelDTO).outputChannel(outputChannelDTO);
+    InputChannelDTO inputChannelDTO =
+        channelService.getInputChannelById(createStreamRequest.getInputChannelId());
+    OutputChannelDTO outputChannelDTO =
+        channelService.getOutputChannelById(createStreamRequest.getOutputChannelId());
+    StreamDTO.StreamDTOBuilder streamDtoBuilder =
+        StreamDTO.builder().inputChannel(inputChannelDTO).outputChannel(outputChannelDTO);
 
-    if (onSamePrivateNetwork(inputChannelDTO, outputChannelDTO) || onLocalNetwork(inputChannelDTO, outputChannelDTO)){
+    if (onSamePrivateNetwork(inputChannelDTO, outputChannelDTO)
+        || onLocalNetwork(inputChannelDTO, outputChannelDTO)) {
       streamDtoBuilder.mode(StreamModeDTO.SRT);
-    }else{
+    } else {
       streamDtoBuilder.mode(StreamModeDTO.SRT_RENDEZVOUS);
     }
 
@@ -64,15 +72,24 @@ public class StreamDaoImpl {
     streamRepository.save(streamEntity);
   }
 
-  private boolean onSamePrivateNetwork(InputChannelDTO inputChannelDto, OutputChannelDTO outputChannelDto){
-    return inputChannelDto.getDecoder().getDevice().getPublicIpAddress().equals(outputChannelDto.getEncoder().getDevice().getPublicIpAddress());
+  private boolean onSamePrivateNetwork(
+      InputChannelDTO inputChannelDto, OutputChannelDTO outputChannelDto) {
+    return inputChannelDto
+        .getDecoder()
+        .getDevice()
+        .getPublicIpAddress()
+        .equals(outputChannelDto.getEncoder().getDevice().getPublicIpAddress());
   }
 
-  private boolean deviceOnLocalNetwork(DeviceDTO deviceDto){
-    return deviceDto.getPublicIpAddress().equals(deviceDto.getPrivateIpAddress()) || deviceDto.getPublicIpAddress().equals(LOOPBACK_IP_V4) || deviceDto.getPublicIpAddress().equals(LOOPBACK_IP_V6);
+  private boolean deviceOnLocalNetwork(DeviceDTO deviceDto) {
+    return deviceDto.getPublicIpAddress().equals(deviceDto.getPrivateIpAddress())
+        || deviceDto.getPublicIpAddress().equals(LOOPBACK_IP_V4)
+        || deviceDto.getPublicIpAddress().equals(LOOPBACK_IP_V6);
   }
 
-  private boolean onLocalNetwork(InputChannelDTO inputChannelDTO, OutputChannelDTO outputChannelDTO){
-    return deviceOnLocalNetwork(inputChannelDTO.getDecoder().getDevice()) && deviceOnLocalNetwork(outputChannelDTO.getEncoder().getDevice());
+  private boolean onLocalNetwork(
+      InputChannelDTO inputChannelDTO, OutputChannelDTO outputChannelDTO) {
+    return deviceOnLocalNetwork(inputChannelDTO.getDecoder().getDevice())
+        && deviceOnLocalNetwork(outputChannelDTO.getEncoder().getDevice());
   }
 }

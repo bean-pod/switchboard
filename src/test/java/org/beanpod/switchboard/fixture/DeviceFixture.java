@@ -1,6 +1,5 @@
 package org.beanpod.switchboard.fixture;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import org.beanpod.switchboard.dto.DeviceDTO;
@@ -46,19 +45,19 @@ public class DeviceFixture {
 
   public static DeviceModel getDeviceModel() {
     return new DeviceModel()
-            .displayName(DISPLAY_NAME)
-            .serialNumber(SERIAL_NUMBER)
-            .privateIpAddress(PRIVATE_IP_ADDRESS)
-            .publicIpAddress(PUBLIC_IP_ADDRESS)
-            .status(STATUS);
+        .displayName(DISPLAY_NAME)
+        .serialNumber(SERIAL_NUMBER)
+        .privateIpAddress(PRIVATE_IP_ADDRESS)
+        .publicIpAddress(PUBLIC_IP_ADDRESS)
+        .status(STATUS);
   }
 
-  public static CreateDeviceRequest getCreateDeviceRequest(){
+  public static CreateDeviceRequest getCreateDeviceRequest() {
     return new CreateDeviceRequest()
-            .serialNumber(SERIAL_NUMBER)
-            .privateIpAddress(PRIVATE_IP_ADDRESS)
-            .displayName(DISPLAY_NAME)
-            .status(STATUS);
+        .serialNumber(SERIAL_NUMBER)
+        .privateIpAddress(PRIVATE_IP_ADDRESS)
+        .displayName(DISPLAY_NAME)
+        .status(STATUS);
   }
 
   public static DeviceDTO getDeviceDto() {
