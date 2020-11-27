@@ -10,8 +10,8 @@ export function getSenders(callback) {
     .then((senders) => {
       callback(
         senders.data.map((sender) => {
-          let channels = []
-          if(sender.output) {
+          let channels = [];
+          if (sender.output) {
             channels = sender.output.map((output) => {
               return new OutputChannelInfo(
                 output.id,
@@ -21,7 +21,10 @@ export function getSenders(callback) {
               );
             });
           }
-          const lastCommunication = sender.lastCommunication == null ? "Never" : sender.lastCommunication;
+          const lastCommunication =
+            sender.lastCommunication == null
+              ? "Never"
+              : sender.lastCommunication;
           return new DeviceInfo(
             sender.serialNumber,
             lastCommunication,
@@ -47,12 +50,20 @@ export function getReceivers(callback) {
       callback(
         receivers.data.map((receiver) => {
           let channels = [];
-          if(receiver.input) {
+          if (receiver.input) {
             channels = receiver.input.map((input) => {
-              return new InputChannelInfo(input.id, input.channel.name, input.channel.port, null);
+              return new InputChannelInfo(
+                input.id,
+                input.channel.name,
+                input.channel.port,
+                null
+              );
             });
           }
-          const lastCommunication = receiver.lastCommunication == null ? "Never" : receiver.lastCommunication;
+          const lastCommunication =
+            receiver.lastCommunication == null
+              ? "Never"
+              : receiver.lastCommunication;
           return new DeviceInfo(
             receiver.serialNumber,
             lastCommunication,
@@ -72,14 +83,14 @@ export function getReceivers(callback) {
 }
 
 function getStatus(lastCommunicationString) {
-  if(!lastCommunicationString) {
+  if (!lastCommunicationString) {
     return "Pending";
   }
 
   const lastCommunicationDate = new Date(`${lastCommunicationString}Z`);
   const diff = Date.now() - lastCommunicationDate.getTime();
   const tenMinutes = 10 * 60 * 1000;
-  if(diff < tenMinutes) {
+  if (diff < tenMinutes) {
     return "Online";
   }
   return "Offline";
