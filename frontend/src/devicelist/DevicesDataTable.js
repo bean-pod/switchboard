@@ -2,16 +2,18 @@ import React from "react";
 import {
   Box,
   TableContainer,
+  Typography,
 } from "@material-ui/core";
 
-import { FilterList } from "@material-ui/icons";
+import { FilterList, Search, MoreVert, ExpandLess, ExpandMore, ArrowDownward, Clear, SaveAlt } from "@material-ui/icons";
 
 import MaterialTable from "material-table";
 
+import ChannelDetailsTable from "./ChannelDetailsTable";
+import StatusIndicator from "../StatusIndicator";
+import ActionMenu from "./ActionMenu";
+
 export default class DevicesTable extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   getColumnInfo() {
     return [
@@ -26,6 +28,8 @@ export default class DevicesTable extends React.Component {
       {
         title: "Status",
         field: "status",
+        render: rowData => <StatusIndicator status={rowData.status} />,
+        lookup: { Online: 'Online', Pending: 'Pending', Error: 'Error', Offline: 'Offline'},
       },
       {
         title: "IP Address",
@@ -34,38 +38,88 @@ export default class DevicesTable extends React.Component {
     ];
   }
 
+  getDetailPanel() {
+    return [
+      {
+        icon: ExpandMore,
+        openIcon: ExpandLess,
+        tooltip: "Show Device Details",
+        render: rowData => {
+          return (
+            <div
+              style={{
+                backgroundColor: '#FAFAFA',
+              }}>
+              <Box margin={2}>
+                <Typography variant="h6">Channels</Typography>
+                {rowData.channels.map((channel) => {
+                  return (
+                    <ChannelDetailsTable
+                      channel={channel}
+                      key={`ch_${channel.id}_p${channel.port}`}
+                    />
+                  );
+                })}
+              </Box>
+            </div>
+          )
+        },
+      },
+    ]
+  }
+
+  getActions() {
+    return [
+      {
+        icon: MoreVert,
+        tooltip: "Show Actions",
+        onClick: (event, rowData) => {
+          // show dropdown
+        }
+      },
+    ]
+  }
+
+  getOptions() {
+    return {
+      toolbar: true,
+      search: true,
+      exportButton: true,
+      headerStyle: {
+        backgroundColor: '#FAFAFA',
+        // position: 'sticky', top: 0
+      },
+      // maxBodyHeight: '650px', 
+      actionsColumnIndex: -1,
+      filtering: true,
+      paging: false,
+      draggable: false,
+    }
+  }
+
+  getIcons() {
+    return {
+      Filter: FilterList,
+      Search: Search,
+      ResetSearch: Clear,
+      SortArrow: ArrowDownward,
+      Export: SaveAlt,
+    }
+  }
+
   render() {
     return (
       <>
         <Box>
           <TableContainer style={{ maxHeight: 500 }}>
             <MaterialTable
+                title={this.props.title}
                 columns={this.getColumnInfo()}
                 data={this.props.devices}
-                detailPanel={[
-                  {
-                    render: rowData => {
-                      return (
-                        <iframe
-                          width="100%"
-                          height="315"
-                          src="https://www.youtube.com/embed/C0DPdy98e4c"
-                          frameborder="0"
-                          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                          allowfullscreen
-                        />
-                      )
-                    },
-                  },
-                ]}        
-                options={{
-                    toolbar: false,
-                    filtering: true,
-                    paging: false,
-                }}
-                icons={{
-                  Filter: FilterList,
-                }}
+                detailPanel={this.getDetailPanel()}
+                actions={this.getActions()}        
+                options={this.getOptions()}
+                icons={this.getIcons()}
             />
           </TableContainer>
         </Box>
