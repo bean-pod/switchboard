@@ -86,7 +86,7 @@ export default class StreamingTable extends React.Component {
                 <SelectDevicesTable
                   name="Sender Devices"
                   dataSource={senders}
-                  onChange={this.onSenderSelected.bind(this)}
+                  onChange={this.onSenderSelected}
                 />
               </div>
             </Grid>
@@ -107,7 +107,7 @@ export default class StreamingTable extends React.Component {
                 <SelectDevicesTable
                   name="Receiver Devices"
                   dataSource={receivers}
-                  onChange={this.onReceiverSelected.bind(this)}
+                  onChange={this.onReceiverSelected}
                 />
               </div>
             </Grid>
