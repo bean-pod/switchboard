@@ -3,7 +3,7 @@ import { render, unmountComponentAtNode } from "react-dom";
 import ReactTestUtils, { act } from "react-dom/test-utils";
 
 import { BrowserRouter } from "react-router-dom";
-import { afterEach, beforeEach, expect, test } from "@jest/globals";
+import { afterEach, beforeEach, expect, jest, test } from "@jest/globals";
 import * as SampleData from "../../api/SampleData";
 
 import StreamingPage from "../StreamingPage";
@@ -36,10 +36,11 @@ afterEach(() => {
 
 // Select Devices Table row
 test("Select Devices Table Row renders properly and Inner dropdown opens", () => {
+  const mockOnChange = jest.fn();
   act(() => {
     render(
       <div id="testRow">
-        <SelectDeviceTableRow deviceDetails={sampleSenders[0]} />
+        <SelectDeviceTableRow deviceDetails={sampleSenders[0]} onChange={mockOnChange} />
       </div>,
       container
     );
@@ -53,6 +54,8 @@ test("Select Devices Table Row renders properly and Inner dropdown opens", () =>
     ReactTestUtils.Simulate.click(row);
   });
 
+  expect(mockOnChange.mock.calls.length).toBe(0);
+
   const collapse = document.getElementsByClassName(
     "MuiCollapse-container MuiCollapse-entered"
   );
@@ -63,11 +66,12 @@ test("Select Devices Table Row renders properly and Inner dropdown opens", () =>
 
 // Select Devices Table
 test("Select Devices Table renders with Title, search bar and List with SelectDeviceTable Rows", () => {
+  const mockOnChange = jest.fn();
   act(() => {
     render(
       <BrowserRouter>
         <div id="testSelectTable">
-          <SelectDevicesTable name="Test Table" dataSource={sampleSenders} />
+          <SelectDevicesTable name="Test Table" dataSource={sampleSenders} onChange={mockOnChange}/>
         </div>
       </BrowserRouter>,
       container
@@ -85,6 +89,8 @@ test("Select Devices Table renders with Title, search bar and List with SelectDe
   expect(table.children.item(2)).not.toBe(null);
   expect(list.childElementCount).toBe(9);
   expect(list.firstChild).not.toBe(null);
+
+  expect(mockOnChange.mock.calls.length).toBe(0);
 });
 
 // Streaming Table
