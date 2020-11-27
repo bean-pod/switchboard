@@ -12,13 +12,23 @@ import {
   SaveAlt
 } from "@material-ui/icons";
 
-import MaterialTable from "material-table";
+import MaterialTable, { MTableToolbar } from "material-table";
 
 import ChannelDetailsTable from "./ChannelDetailsTable";
 import StatusIndicator from "../StatusIndicator";
 import ActionMenu from "./ActionMenu";
 
 export default class DevicesTable extends React.Component {
+  getComponents() {
+    return {
+      Toolbar: (props) => (
+        <div style={{ backgroundColor: "#FAFAFA" }}>
+          <MTableToolbar {...props} />
+        </div>
+      )
+    };
+  }
+
   getColumnInfo() {
     return [
       {
@@ -92,7 +102,7 @@ export default class DevicesTable extends React.Component {
       search: true,
       exportButton: true,
       headerStyle: {
-        backgroundColor: "#FAFAFA"
+        backgroundColor: "#F1F1F1"
         // position: 'sticky', top: 0
       },
       // maxBodyHeight: '650px',
@@ -121,6 +131,7 @@ export default class DevicesTable extends React.Component {
           <TableContainer style={{ maxHeight: 500 }}>
             <MaterialTable
               title={this.props.title}
+              components={this.getComponents()}
               columns={this.getColumnInfo()}
               data={this.props.devices}
               detailPanel={this.getDetailPanel()}
