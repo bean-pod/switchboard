@@ -64,8 +64,10 @@ export default class ContentsTable extends React.Component {
             display: "flex",
             flexGrow: 1,
             maxHeight: 500,
-            paddingTop: 15
+            marginTop: 30
           }}
+          border={1}
+          borderColor="#f1f1f1"
         >
           <VerticalTabs
             value={value}
