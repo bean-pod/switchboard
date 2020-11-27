@@ -3,7 +3,6 @@ target/
 !../../.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-google-java-format-1.9-all-deps.jar
 
 ### STS ###
 .apt_generated
