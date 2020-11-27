@@ -11,10 +11,6 @@ import InputChannelInfo from "../model/InputChannelInfo";
 import OutputChannelInfo from "../model/OutputChannelInfo";
 
 export default class ChannelDetailsTable extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const {
       channel: { id, name, port }

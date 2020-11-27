@@ -5,10 +5,6 @@ import PropTypes from "prop-types";
 import { SwapHoriz } from "@material-ui/icons/";
 
 export default class StreamButton extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const { id, type } = this.props;
     const StyledButton = withStyles({

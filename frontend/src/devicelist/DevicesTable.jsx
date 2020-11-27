@@ -14,10 +14,6 @@ import HeadCells from "./HeadCells";
 import DeviceInfo from "../model/DeviceInfo";
 
 export default class DevicesTable extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const { devices } = this.props;
     return (
