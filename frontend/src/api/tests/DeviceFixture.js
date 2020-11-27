@@ -23,6 +23,26 @@ export function getSampleSendersResponse() {
                     }
                 }
             ]
+        },
+        {
+            "serialNumber": "asdf1234",
+            "lastCommunication": "2020-11-25 20:35:03",
+            "device": {
+                "serialNumber": "asdf1234",
+                "ipAddress": "255.255.255.255",
+                "displayName": "cool_sender",
+                "status": "Running"
+            },
+            "output": [
+                {
+                    "id": 4,
+                    "channel": {
+                        "id": 1,
+                        "name": "English Channel",
+                        "port": 2999
+                    }
+                }
+            ]
         }
     ]
 }
@@ -40,6 +60,20 @@ export function getExpectedSendersResponse() {
                 sampleSendersResponse[0].output[0].id,
                 sampleSendersResponse[0].output[0].channel.name,
                 sampleSendersResponse[0].output[0].channel.port,
+                null
+            )],
+            ["Additional Device details go here"]
+            ),
+        new DeviceInfo(
+            sampleSendersResponse[1].serialNumber,
+            sampleSendersResponse[1].lastCommunication,
+            sampleSendersResponse[1].device.ipAddress,
+            sampleSendersResponse[1].device.displayName,
+            "Offline",
+            [new OutputChannelInfo(
+                sampleSendersResponse[1].output[0].id,
+                sampleSendersResponse[1].output[0].channel.name,
+                sampleSendersResponse[1].output[0].channel.port,
                 null
             )],
             ["Additional Device details go here"]
