@@ -19,6 +19,12 @@ export default class HeadCells extends React.Component {
     this.handleStatusChange = this.handleStatusChange.bind(this);
   }
 
+  handleStatusChange(event) {
+    this.setState({
+      status: event.target.value
+    });
+  }
+
   getHeadCellData() {
     return [
       new HeadCell("name", "Name", false, false),
@@ -26,12 +32,6 @@ export default class HeadCells extends React.Component {
       new HeadCell("status", "Status", false, true),
       new HeadCell("ip", "IP Address", true, true)
     ];
-  }
-
-  handleStatusChange(event) {
-    this.setState({
-      status: event.target.value
-    });
   }
 
   render() {

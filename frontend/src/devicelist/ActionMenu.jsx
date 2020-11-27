@@ -15,18 +15,18 @@ export default class ActionMenu extends React.Component {
     this.handleClose = this.handleClose.bind(this);
   }
 
-  setAnchorElement(element) {
-    this.setState({
-      anchorElement: element
-    });
-  }
-
   handleClick(event) {
     this.setAnchorElement(event.currentTarget);
   }
 
   handleClose() {
     this.setAnchorElement(null);
+  }
+
+  setAnchorElement(element) {
+    this.setState({
+      anchorElement: element
+    });
   }
 
   render() {

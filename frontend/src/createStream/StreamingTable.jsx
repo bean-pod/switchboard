@@ -44,18 +44,6 @@ export default class StreamingTable extends React.Component {
     });
   }
 
-  onSenderSelected(selectedSender) {
-    this.setState({
-      selectedSenderID: selectedSender.target.value
-    });
-  }
-
-  onReceiverSelected(selectedReceiver) {
-    this.setState({
-      selectedReceiverID: selectedReceiver.target.value
-    });
-  }
-
   handleSubmit(event) {
     const { selectedReceiverID, selectedSenderID } = this.state;
     if (selectedReceiverID === "" || selectedSenderID === "") {
@@ -71,6 +59,18 @@ export default class StreamingTable extends React.Component {
         });
     }
     event.preventDefault();
+  }
+
+  onSenderSelected(selectedSender) {
+    this.setState({
+      selectedSenderID: selectedSender.target.value
+    });
+  }
+
+  onReceiverSelected(selectedReceiver) {
+    this.setState({
+      selectedReceiverID: selectedReceiver.target.value
+    });
   }
 
   render() {
