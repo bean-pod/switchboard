@@ -27,7 +27,8 @@ export default class AddDeviceButton extends React.Component {
     return (
       <StyledButton id={this.id}>
         <div className="buttonText">
-          <AddSharp /> Add Device
+          <AddSharp />
+          Add Device
         </div>
       </StyledButton>
     );

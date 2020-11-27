@@ -120,11 +120,11 @@ function verifyStaticElements() {
 
   const streamButton = document.getElementById("DeviceListStreamBtn");
   expect(streamButton).not.toBe(null);
-  expect(streamButton.textContent).toBe(" Stream");
+  expect(streamButton.textContent).toBe("Stream");
 
   const addDeviceButton = document.getElementById("DeviceListAddDevBtn");
   expect(addDeviceButton).not.toBe(null);
-  expect(addDeviceButton.textContent).toBe(" Add Device");
+  expect(addDeviceButton.textContent).toBe("Add Device");
 
   const searchBar = document.querySelector(
     "div.searchField div.MuiFormControl-root div.MuiInputBase-root input"

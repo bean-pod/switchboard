@@ -29,7 +29,8 @@ export default class StreamButton extends React.Component {
     return (
       <StyledButton id={id} type={type}>
         <div className="buttonText">
-          <SwapHoriz /> Stream
+          <SwapHoriz />
+          Stream
         </div>
       </StyledButton>
     );
