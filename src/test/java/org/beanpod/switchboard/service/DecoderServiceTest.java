@@ -2,8 +2,8 @@ package org.beanpod.switchboard.service;
 
 import org.beanpod.switchboard.dao.DecoderDaoImpl;
 import org.beanpod.switchboard.dao.StreamDaoImpl;
-import org.beanpod.switchboard.dto.DecoderDTO;
-import org.beanpod.switchboard.dto.StreamDTO;
+import org.beanpod.switchboard.dto.DecoderDto;
+import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.fixture.DecoderFixture;
 import org.beanpod.switchboard.fixture.StreamFixture;
@@ -39,15 +39,17 @@ public class DecoderServiceTest {
   @Test
   final void testGetDecoderStreams() {
     Date testDate = Date.from(Instant.ofEpochMilli(123513051350L));
-    DecoderDTO expectedUpdatedDecoder = DecoderFixture.getDecoderDto();
+    DecoderDto expectedUpdatedDecoder = DecoderFixture.getDecoderDto();
     expectedUpdatedDecoder.setLastCommunication(testDate);
 
-    when(decoderDao.findDecoder(any(String.class))).thenReturn(Optional.of(DecoderFixture.getDecoderDto()));
+    when(decoderDao.findDecoder(any(String.class)))
+        .thenReturn(Optional.of(DecoderFixture.getDecoderDto()));
     when(dateUtil.getCurrentDate()).thenReturn(testDate);
-    when(decoderDao.save(any(DecoderDTO.class))).thenReturn(null);
-    when(streamDao.getDecoderStreams(any(String.class))).thenReturn(List.of(StreamFixture.getStreamDto()));
+    when(decoderDao.save(any(DecoderDto.class))).thenReturn(null);
+    when(streamDao.getDecoderStreams(any(String.class)))
+        .thenReturn(List.of(StreamFixture.getStreamDto()));
 
-    List<StreamDTO> response = decoderService.getDecoderStreams(DecoderFixture.SERIAL_NUMBER);
+    List<StreamDto> response = decoderService.getDecoderStreams(DecoderFixture.SERIAL_NUMBER);
 
     verify(decoderDao).findDecoder(DecoderFixture.SERIAL_NUMBER);
     verify(dateUtil).getCurrentDate();
@@ -61,9 +63,11 @@ public class DecoderServiceTest {
   final void testGetDecoderStreams_encoderNotFound() {
     when(decoderDao.findDecoder(any(String.class))).thenReturn(Optional.empty());
 
-    assertThrows(ExceptionType.DeviceNotFoundException.class, () -> {
-      decoderService.getDecoderStreams(DecoderFixture.SERIAL_NUMBER);
-    });
+    assertThrows(
+        ExceptionType.DeviceNotFoundException.class,
+        () -> {
+          decoderService.getDecoderStreams(DecoderFixture.SERIAL_NUMBER);
+        });
 
     verify(decoderDao).findDecoder(DecoderFixture.SERIAL_NUMBER);
   }

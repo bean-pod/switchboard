@@ -79,8 +79,9 @@ class DecoderControllerTest {
   @Test
   final void testRetrieveDecoder() {
     when(decoderDao.findDecoder(DecoderFixture.SERIAL_NUMBER))
-        .thenReturn(Optional.of(decoderDto));
+      .thenReturn(Optional.of(decoderDto));
     ResponseEntity<DecoderDto> actualDecoder = decoderController.retrieveDecoder("1");
+
     assertNotNull(actualDecoder);
     assertEquals(200, actualDecoder.getStatusCodeValue());
     assertEquals(decoderDto, actualDecoder.getBody());
@@ -137,8 +138,7 @@ class DecoderControllerTest {
   // When a encoder is available in the DB
   @Test
   final void testUpdateDecoder() {
-    when(decoderDao.findDecoder(DecoderFixture.SERIAL_NUMBER))
-        .thenReturn(Optional.of(decoderDto));
+    when(decoderDao.findDecoder(DecoderFixture.SERIAL_NUMBER)).thenReturn(Optional.of(decoderDto));
     when(decoderDao.save(decoderDto)).thenReturn(decoderDto);
 
     ResponseEntity<DecoderDto> response = decoderController.updateDecoder(decoderDto);
@@ -161,10 +161,12 @@ class DecoderControllerTest {
 
   @Test
   final void testGetDecoderStreams() {
-    when(decoderService.getDecoderStreams(any(String.class))).thenReturn(List.of(StreamFixture.getStreamDto()));
+    when(decoderService.getDecoderStreams(any(String.class)))
+        .thenReturn(List.of(StreamFixture.getStreamDto()));
     when(streamMapper.toModel(anyList())).thenReturn(List.of(StreamFixture.getStreamModel()));
 
-    ResponseEntity<List<StreamModel>> response = decoderController.getDecoderStreams(DecoderFixture.SERIAL_NUMBER);
+    ResponseEntity<List<StreamModel>> response =
+        decoderController.getDecoderStreams(DecoderFixture.SERIAL_NUMBER);
 
     verify(decoderService).getDecoderStreams(DecoderFixture.SERIAL_NUMBER);
     verify(streamMapper).toModel(List.of(StreamFixture.getStreamDto()));

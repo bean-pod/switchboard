@@ -78,7 +78,7 @@ class EncoderControllerTest {
   @Test
   final void testRetrieveEncoder() {
     when(encoderDao.findEncoder(EncoderFixture.SERIAL_NUMBER))
-        .thenReturn(Optional.of(encoderDTO));
+      .thenReturn(Optional.of(encoderDTO));
     ResponseEntity<EncoderDto> actualEncoder =
         encoderController.retrieveEncoder(EncoderFixture.SERIAL_NUMBER);
 
@@ -140,7 +140,8 @@ class EncoderControllerTest {
   final void testUpdateEncoder() {
     EncoderDto encoderDto = EncoderFixture.getEncoderDto();
     when(encoderDao.findEncoder(EncoderFixture.SERIAL_NUMBER))
-        .thenReturn(Optional.of(encoderDto));
+      .thenReturn(Optional.of(encoderDto));
+
     when(encoderDao.save(encoderDto)).thenReturn(encoderDto);
 
     ResponseEntity<EncoderDto> response = encoderController.updateEncoder(encoderDto);
@@ -163,10 +164,12 @@ class EncoderControllerTest {
 
   @Test
   final void testGetEncoderStreams() {
-    when(encoderService.getEncoderStreams(any(String.class))).thenReturn(List.of(StreamFixture.getStreamDto()));
+    when(encoderService.getEncoderStreams(any(String.class)))
+        .thenReturn(List.of(StreamFixture.getStreamDto()));
     when(streamMapper.toModel(anyList())).thenReturn(List.of(StreamFixture.getStreamModel()));
 
-    ResponseEntity<List<StreamModel>> response = encoderController.getEncoderStreams(EncoderFixture.SERIAL_NUMBER);
+    ResponseEntity<List<StreamModel>> response =
+        encoderController.getEncoderStreams(EncoderFixture.SERIAL_NUMBER);
 
     verify(encoderService).getEncoderStreams(EncoderFixture.SERIAL_NUMBER);
     verify(streamMapper).toModel(List.of(StreamFixture.getStreamDto()));

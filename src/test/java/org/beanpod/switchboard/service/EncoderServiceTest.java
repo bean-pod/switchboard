@@ -2,9 +2,9 @@ package org.beanpod.switchboard.service;
 
 import org.beanpod.switchboard.dao.EncoderDaoImpl;
 import org.beanpod.switchboard.dao.StreamDaoImpl;
-import org.beanpod.switchboard.dto.DecoderDTO;
-import org.beanpod.switchboard.dto.EncoderDTO;
-import org.beanpod.switchboard.dto.StreamDTO;
+import org.beanpod.switchboard.dto.DecoderDto;
+import org.beanpod.switchboard.dto.EncoderDto;
+import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.fixture.DecoderFixture;
 import org.beanpod.switchboard.fixture.EncoderFixture;
@@ -28,10 +28,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class EncoderServiceTest {
-  @InjectMocks
-  private EncoderServiceImpl encoderService;
-  @Mock
-  private StreamDaoImpl streamDao;
+  @InjectMocks private EncoderServiceImpl encoderService;
+  @Mock private StreamDaoImpl streamDao;
   @Mock private EncoderDaoImpl encoderDao;
   @Mock private DateUtil dateUtil;
 
@@ -43,15 +41,17 @@ public class EncoderServiceTest {
   @Test
   final void testGetEncoderStreams() {
     Date testDate = Date.from(Instant.ofEpochMilli(123513051350L));
-    EncoderDTO expectedUpdatedEncoder = EncoderFixture.getEncoderDto();
+    EncoderDto expectedUpdatedEncoder = EncoderFixture.getEncoderDto();
     expectedUpdatedEncoder.setLastCommunication(testDate);
 
-    when(encoderDao.findEncoder(any(String.class))).thenReturn(Optional.of(EncoderFixture.getEncoderDto()));
+    when(encoderDao.findEncoder(any(String.class)))
+        .thenReturn(Optional.of(EncoderFixture.getEncoderDto()));
     when(dateUtil.getCurrentDate()).thenReturn(testDate);
-    when(encoderDao.save(any(EncoderDTO.class))).thenReturn(null);
-    when(streamDao.getEncoderStreams(any(String.class))).thenReturn(List.of(StreamFixture.getStreamDto()));
+    when(encoderDao.save(any(EncoderDto.class))).thenReturn(null);
+    when(streamDao.getEncoderStreams(any(String.class)))
+        .thenReturn(List.of(StreamFixture.getStreamDto()));
 
-    List<StreamDTO> response = encoderService.getEncoderStreams(EncoderFixture.SERIAL_NUMBER);
+    List<StreamDto> response = encoderService.getEncoderStreams(EncoderFixture.SERIAL_NUMBER);
 
     verify(encoderDao).findEncoder(EncoderFixture.SERIAL_NUMBER);
     verify(dateUtil).getCurrentDate();
@@ -65,9 +65,11 @@ public class EncoderServiceTest {
   final void testGetEncoderStreams_deviceNotFound() {
     when(encoderDao.findEncoder(any(String.class))).thenReturn(Optional.empty());
 
-    assertThrows(ExceptionType.DeviceNotFoundException.class, () -> {
-      encoderService.getEncoderStreams(EncoderFixture.SERIAL_NUMBER);
-    });
+    assertThrows(
+        ExceptionType.DeviceNotFoundException.class,
+        () -> {
+          encoderService.getEncoderStreams(EncoderFixture.SERIAL_NUMBER);
+        });
 
     verify(encoderDao).findEncoder(EncoderFixture.SERIAL_NUMBER);
   }
