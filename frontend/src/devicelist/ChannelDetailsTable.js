@@ -14,7 +14,10 @@ export default class ChannelDetailsTable extends React.Component {
 
   render() {
     return (
-      <Table style={{ margin: "1em" }} className="flexContents">
+      <Table
+        style={{ margin: "1em", maxWidth: "98%" }}
+        className="flexContents"
+      >
         <TableHead>
           <TableRow>
             <TableCell className="lightGrey">ID</TableCell>
