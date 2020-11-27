@@ -5,7 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
 
 import { afterEach, beforeEach, expect, test } from "@jest/globals";
-import HeaderBar from "../HeaderAppBar";
+import HeaderBar from "../HeaderBar";
 
 let container = null;
 const expectedTheme = makeStyles((theme) => ({

@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import HeaderBar from "./HeaderAppBar";
+import HeaderBar from "./HeaderBar";
 import HomePage from "./general/HomePage";
 import DeviceListPage from "./devicelist/DeviceListPage";
 import StreamingTablePage from "./createStream/StreamingPage";
