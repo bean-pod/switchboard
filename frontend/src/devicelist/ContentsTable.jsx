@@ -1,12 +1,11 @@
 import React from "react";
 import { Box } from "@material-ui/core";
 
-import PropTypes from "prop-types";
-import SearchBar from "./SearchBar";
-import DeviceListSortSelector from "./DeviceListSortSelector";
+// import SearchBar from "./SearchBar";
+// import DeviceListSortSelector from "./DeviceListSortSelector";
 import VerticalTabs from "./VerticalTabs";
 import TabPanel from "./TabPanel";
-import DevicesTable from "./DevicesTable";
+// import DevicesTable from "./DevicesTable";
 import DevicesDataTable from "./DevicesDataTable";
 
 
@@ -52,12 +51,12 @@ export default class ContentsTable extends React.Component {
     const { classes } = this.props;
     return (
       <>
-        <Box style={{ display: "flex", flexGrow: 1, margin: "1em 0em" }}>
+        {/* <Box style={{ display: "flex", flexGrow: 1, margin: "1em 0em" }}>
           <SearchBar />
           <Box className="alignRightFloat">
             <DeviceListSortSelector />
           </Box>
-        </Box>
+        </Box> */}
         <Box style={{ display: "flex", flexGrow: 1, maxHeight: 500 }}>
           <VerticalTabs
             value={value}
@@ -65,10 +64,10 @@ export default class ContentsTable extends React.Component {
             classes={classes}
           />
           <TabPanel value={this.state.value} index={0}>
-            <DevicesDataTable devices={this.state.senders}/>
+            <DevicesDataTable devices={this.state.senders} title={"List of Senders"}/>
           </TabPanel>
-          <TabPanel value={value} index={1}>
-            <DevicesTable devices={receivers} />
+          <TabPanel value={this.state.value} index={1}>
+            <DevicesDataTable devices={this.state.receivers} title={"List of Receivers"}/>
           </TabPanel>
         </Box>
       </>
