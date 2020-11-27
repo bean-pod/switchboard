@@ -40,7 +40,10 @@ test("Select Devices Table Row renders properly and Inner dropdown opens", () =>
   act(() => {
     render(
       <div id="testRow">
-        <SelectDeviceTableRow deviceDetails={sampleSenders[0]} onChange={mockOnChange} />
+        <SelectDeviceTableRow
+          deviceDetails={sampleSenders[0]}
+          onChange={mockOnChange}
+        />
       </div>,
       container
     );
@@ -71,7 +74,11 @@ test("Select Devices Table renders with Title, search bar and List with SelectDe
     render(
       <BrowserRouter>
         <div id="testSelectTable">
-          <SelectDevicesTable name="Test Table" dataSource={sampleSenders} onChange={mockOnChange}/>
+          <SelectDevicesTable
+            name="Test Table"
+            dataSource={sampleSenders}
+            onChange={mockOnChange}
+          />
         </div>
       </BrowserRouter>,
       container
