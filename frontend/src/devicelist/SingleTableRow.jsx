@@ -12,7 +12,7 @@ import { ExpandLess, ExpandMore } from "@material-ui/icons/";
 
 import PropTypes from "prop-types";
 import ActionMenu from "./ActionMenu";
-import StatusIndicator from "../StatusIndicator";
+import StatusIndicator from "../general/StatusIndicator";
 import ChannelDetailsTable from "./ChannelDetailsTable";
 import DeviceInfo from "../model/DeviceInfo";
 
