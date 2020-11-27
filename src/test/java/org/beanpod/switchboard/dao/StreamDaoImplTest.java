@@ -15,6 +15,7 @@ import org.beanpod.switchboard.dto.mapper.StreamMapper;
 import org.beanpod.switchboard.entity.StreamEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.fixture.ChannelFixture;
+import org.beanpod.switchboard.fixture.DeviceFixture;
 import org.beanpod.switchboard.fixture.StreamFixture;
 import org.beanpod.switchboard.repository.StreamRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -121,6 +122,81 @@ public class StreamDaoImplTest {
     when(streamMapper.toEntity(any())).thenReturn(streamEntity);
     when(streamRepository.existsDuplicate(
             createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId()))
+        .thenReturn(false);
+
+    // when
+    streamService.createStream(createStreamRequest);
+
+    // then
+    verify(streamRepository).save(streamEntity);
+  }
+
+  @Test
+  public void testCreateChannelSameDeviceIpV4() {
+    String otherPublicIpAddress = StreamDaoImpl.LOOPBACK_IP_V4;
+    CreateStreamRequest createStreamRequest = StreamFixture.getCreateStreamRequest();
+    InputChannelDTO inputChannelDto = ChannelFixture.getInputChannelDto();
+    OutputChannelDTO outputChannelDto = ChannelFixture.getOutputChannelDto();
+    outputChannelDto.getEncoder().getDevice().setPublicIpAddress(otherPublicIpAddress);
+    StreamEntity streamEntity = StreamFixture.getStreamEntity();
+
+    when(channelService.getInputChannelById(createStreamRequest.getInputChannelId()))
+        .thenReturn(inputChannelDto);
+    when(channelService.getOutputChannelById(createStreamRequest.getOutputChannelId()))
+        .thenReturn(outputChannelDto);
+    when(streamMapper.toEntity(any())).thenReturn(streamEntity);
+    when(streamRepository.existsDuplicate(
+        createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId()))
+        .thenReturn(false);
+
+    // when
+    streamService.createStream(createStreamRequest);
+
+    // then
+    verify(streamRepository).save(streamEntity);
+  }
+
+  @Test
+  public void testCreateChannelSameDeviceIpV6() {
+    String otherPublicIpAddress = StreamDaoImpl.LOOPBACK_IP_V6;
+    CreateStreamRequest createStreamRequest = StreamFixture.getCreateStreamRequest();
+    InputChannelDTO inputChannelDto = ChannelFixture.getInputChannelDto();
+    OutputChannelDTO outputChannelDto = ChannelFixture.getOutputChannelDto();
+    outputChannelDto.getEncoder().getDevice().setPublicIpAddress(otherPublicIpAddress);
+    StreamEntity streamEntity = StreamFixture.getStreamEntity();
+
+    when(channelService.getInputChannelById(createStreamRequest.getInputChannelId()))
+        .thenReturn(inputChannelDto);
+    when(channelService.getOutputChannelById(createStreamRequest.getOutputChannelId()))
+        .thenReturn(outputChannelDto);
+    when(streamMapper.toEntity(any())).thenReturn(streamEntity);
+    when(streamRepository.existsDuplicate(
+        createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId()))
+        .thenReturn(false);
+
+    // when
+    streamService.createStream(createStreamRequest);
+
+    // then
+    verify(streamRepository).save(streamEntity);
+  }
+
+  @Test
+  public void testCreateChannelLocalNetwork() {
+    String otherPublicIpAddress = DeviceFixture.PRIVATE_IP_ADDRESS;
+    CreateStreamRequest createStreamRequest = StreamFixture.getCreateStreamRequest();
+    InputChannelDTO inputChannelDto = ChannelFixture.getInputChannelDto();
+    OutputChannelDTO outputChannelDto = ChannelFixture.getOutputChannelDto();
+    outputChannelDto.getEncoder().getDevice().setPublicIpAddress(otherPublicIpAddress);
+    StreamEntity streamEntity = StreamFixture.getStreamEntity();
+
+    when(channelService.getInputChannelById(createStreamRequest.getInputChannelId()))
+        .thenReturn(inputChannelDto);
+    when(channelService.getOutputChannelById(createStreamRequest.getOutputChannelId()))
+        .thenReturn(outputChannelDto);
+    when(streamMapper.toEntity(any())).thenReturn(streamEntity);
+    when(streamRepository.existsDuplicate(
+        createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId()))
         .thenReturn(false);
 
     // when

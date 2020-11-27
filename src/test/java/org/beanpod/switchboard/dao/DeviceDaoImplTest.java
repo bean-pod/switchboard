@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.openapitools.model.CreateDeviceRequest;
 
 class DeviceDaoImplTest {
 
@@ -25,6 +26,8 @@ class DeviceDaoImplTest {
   private static DeviceEntity device;
   private static DeviceDTO deviceDto;
   private static List<DeviceEntity> listOfDevices;
+  private static CreateDeviceRequest createDeviceRequest;
+  private static DeviceEntity deviceEntity;
   @InjectMocks private DeviceDaoImpl deviceDaoImpl;
   @Mock private DeviceRepository deviceRepository;
   @Mock private DeviceMapper deviceMapper;
@@ -34,6 +37,8 @@ class DeviceDaoImplTest {
     device = DeviceFixture.getDevice1();
     deviceDto = DeviceFixture.getDeviceDto();
     listOfDevices = DeviceFixture.getListOfDevices();
+    createDeviceRequest = DeviceFixture.getCreateDeviceRequest();
+    deviceEntity = DeviceFixture.getDevice1();
   }
 
   @BeforeEach
@@ -73,5 +78,18 @@ class DeviceDaoImplTest {
         .thenReturn((long) 1);
     Long response = deviceDaoImpl.deleteDevice(DecoderFixture.SERIAL_NUMBER);
     assertEquals(1, response);
+  }
+
+  @Test
+  final void testCreateDevice(){
+    String ipAddress = DeviceFixture.PUBLIC_IP_ADDRESS;
+    when(deviceMapper.toDeviceDto(createDeviceRequest, ipAddress)).thenReturn(deviceDto);
+    when(deviceMapper.toDeviceEntity(deviceDto)).thenReturn(deviceEntity);
+    when(deviceRepository.save(deviceEntity)).thenReturn(deviceEntity);
+    when(deviceMapper.toDeviceDTO(deviceEntity)).thenReturn(deviceDto);
+
+    DeviceDTO result = deviceDaoImpl.createDevice(createDeviceRequest, ipAddress);
+
+    assertEquals(deviceDto, result);
   }
 }
