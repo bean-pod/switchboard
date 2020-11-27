@@ -181,10 +181,6 @@ describe("<StreamingTable/>", () => {
         "http://localhost:8080/stream",
         expected
       );
-
-      setTimeout(() => {
-        expect(console.log).toHaveBeenCalledWith("Success. Stream Started.");
-      }, 0);
     });
   });
 });
