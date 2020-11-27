@@ -111,80 +111,80 @@ describe("<StreamingTable/>", () => {
       // act
       wrapper.instance().handleSubmit(new DummyData());
       expect(axios.post).not.toHaveBeenCalled();
-    }),
-      it("should do nothing if a receiver but no sender has been selected", () => {
-        const mockReceiver = {
-          target: {
-            name: "selectedReceiverID",
-            value: "Test6"
-          }
-        };
+    });
+    it("should do nothing if a receiver but no sender has been selected", () => {
+      const mockReceiver = {
+        target: {
+          name: "selectedReceiverID",
+          value: "Test6"
+        }
+      };
 
-        const data = {
-          data: "test"
-        };
-        axios.post.mockImplementationOnce(() => Promise.resolve(data));
+      const data = {
+        data: "test"
+      };
+      axios.post.mockImplementationOnce(() => Promise.resolve(data));
 
-        // act
-        wrapper.instance().onReceiverSelected(mockReceiver);
+      // act
+      wrapper.instance().onReceiverSelected(mockReceiver);
 
-        wrapper.instance().handleSubmit(new DummyData());
-        expect(axios.post).not.toHaveBeenCalled();
-      }),
-      it("should do nothing if no receiver but a sender has been selected", () => {
-        const mockSender = {
-          target: {
-            name: "selectedSenderID",
-            value: "Test3"
-          }
-        };
-        const data = {
-          data: "test"
-        };
-        axios.post.mockImplementationOnce(() => Promise.resolve(data));
+      wrapper.instance().handleSubmit(new DummyData());
+      expect(axios.post).not.toHaveBeenCalled();
+    });
+    it("should do nothing if no receiver but a sender has been selected", () => {
+      const mockSender = {
+        target: {
+          name: "selectedSenderID",
+          value: "Test3"
+        }
+      };
+      const data = {
+        data: "test"
+      };
+      axios.post.mockImplementationOnce(() => Promise.resolve(data));
 
-        // act
-        wrapper.instance().onSenderSelected(mockSender);
-        wrapper.instance().handleSubmit(new DummyData());
-        expect(axios.post).not.toHaveBeenCalled();
-      }),
-      it("should call axios.post if a sender and a receiver have been selected", () => {
-        const mockReceiver = {
-          target: {
-            name: "selectedReceiverID",
-            value: "Test6"
-          }
-        };
-        const mockSender = {
-          target: {
-            name: "selectedSenderID",
-            value: "Test3"
-          }
-        };
+      // act
+      wrapper.instance().onSenderSelected(mockSender);
+      wrapper.instance().handleSubmit(new DummyData());
+      expect(axios.post).not.toHaveBeenCalled();
+    });
+    it("should call axios.post if a sender and a receiver have been selected", () => {
+      const mockReceiver = {
+        target: {
+          name: "selectedReceiverID",
+          value: "Test6"
+        }
+      };
+      const mockSender = {
+        target: {
+          name: "selectedSenderID",
+          value: "Test3"
+        }
+      };
 
-        const expected = {
-          outputChannelId: "Test3",
-          inputChannelId: "Test6"
-        };
+      const expected = {
+        outputChannelId: "Test3",
+        inputChannelId: "Test6"
+      };
 
-        const data = {
-          data: "test"
-        };
-        axios.post.mockImplementationOnce(() => Promise.resolve(data));
+      const data = {
+        data: "test"
+      };
+      axios.post.mockImplementationOnce(() => Promise.resolve(data));
 
-        wrapper.instance().onSenderSelected(mockSender);
-        wrapper.instance().onReceiverSelected(mockReceiver);
+      wrapper.instance().onSenderSelected(mockSender);
+      wrapper.instance().onReceiverSelected(mockReceiver);
 
-        wrapper.instance().handleSubmit(new DummyData());
+      wrapper.instance().handleSubmit(new DummyData());
 
-        expect(axios.post).toHaveBeenCalledWith(
-          "http://localhost:8080/stream",
-          expected
-        );
+      expect(axios.post).toHaveBeenCalledWith(
+        "http://localhost:8080/stream",
+        expected
+      );
 
-        setTimeout(() => {
-          expect(console.log).toHaveBeenCalledWith("Success. Stream Started.");
-        }, 0);
-      });
+      setTimeout(() => {
+        expect(console.log).toHaveBeenCalledWith("Success. Stream Started.");
+      }, 0);
+    });
   });
 });
