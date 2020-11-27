@@ -21,5 +21,5 @@ public interface StreamMapper {
 
   StreamModel toModel(StreamDto streamDto);
 
-  List<StreamModel> toModel(List<StreamDto> streamDTOList);
+  List<StreamModel> toModel(List<StreamDto> streamDtoList);
 }

@@ -4,6 +4,20 @@ import * as SampleData from "./SampleData";
 import OutputChannelInfo from "../model/OutputChannelInfo";
 import InputChannelInfo from "../model/InputChannelInfo";
 
+function getStatus(lastCommunicationString) {
+  if (!lastCommunicationString) {
+    return "Pending";
+  }
+
+  const lastCommunicationDate = new Date(`${lastCommunicationString}Z`);
+  const diff = Date.now() - lastCommunicationDate.getTime();
+  const tenMinutes = 10 * 60 * 1000;
+  if (diff < tenMinutes) {
+    return "Online";
+  }
+  return "Offline";
+}
+
 export function getSenders(callback) {
   axios
     .get("http://localhost:8080/encoder")
@@ -38,7 +52,6 @@ export function getSenders(callback) {
       );
     })
     .catch((error) => {
-      console.error(error);
       SampleData.getSenders(callback);
     });
 }
@@ -77,21 +90,6 @@ export function getReceivers(callback) {
       );
     })
     .catch((error) => {
-      console.error(error);
       SampleData.getReceivers(callback);
     });
-}
-
-function getStatus(lastCommunicationString) {
-  if (!lastCommunicationString) {
-    return "Pending";
-  }
-
-  const lastCommunicationDate = new Date(`${lastCommunicationString}Z`);
-  const diff = Date.now() - lastCommunicationDate.getTime();
-  const tenMinutes = 10 * 60 * 1000;
-  if (diff < tenMinutes) {
-    return "Online";
-  }
-  return "Offline";
 }

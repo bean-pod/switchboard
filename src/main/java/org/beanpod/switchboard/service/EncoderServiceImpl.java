@@ -25,10 +25,11 @@ public class EncoderServiceImpl implements EncoderService {
     if (encoderOptional.isEmpty()) {
       throw new ExceptionType.DeviceNotFoundException(encoderSerialNumber);
     }
-    EncoderDto encoderDTO = encoderOptional.get();
 
-    encoderDTO.setLastCommunication(dateUtil.getCurrentDate());
-    encoderDao.save(encoderDTO);
+    EncoderDto encoderDto = encoderOptional.get();
+
+    encoderDto.setLastCommunication(dateUtil.getCurrentDate());
+    encoderDao.save(encoderDto);
 
     return streamDao.getEncoderStreams(encoderSerialNumber);
   }
