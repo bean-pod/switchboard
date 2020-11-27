@@ -4,6 +4,7 @@ import { List } from "@material-ui/core";
 import PropTypes from "prop-types";
 import SearchBar from "../devicelist/SearchBar";
 import SelectDeviceTableRow from "./SelectDeviceTableRow";
+import DeviceInfo from "../model/DeviceInfo";
 
 export default class SelectDevicesTable extends React.Component {
   render() {
@@ -31,21 +32,6 @@ export default class SelectDevicesTable extends React.Component {
 }
 SelectDevicesTable.propTypes = {
   name: PropTypes.string.isRequired,
-  dataSource: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-      serialNumber: PropTypes.string,
-      status: PropTypes.string,
-      ip: PropTypes.string,
-      channels: PropTypes.arrayOf(
-        PropTypes.shape({
-          id: PropTypes.number,
-          name: PropTypes.string,
-          port: PropTypes.number
-        })
-      )
-    })
-  ).isRequired,
+  dataSource: PropTypes.arrayOf(PropTypes.instanceOf(DeviceInfo)).isRequired,
   onChange: PropTypes.func.isRequired
 };
