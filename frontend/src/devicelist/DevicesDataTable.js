@@ -43,6 +43,14 @@ export default class DevicesTable extends React.Component {
       {
         title: "IP Address",
         field: "ip"
+      },
+      {
+        title: "Actions",
+        field: "action",
+        filtering: false,
+        sorting: false,
+        render: (rowData) => <ActionMenu />,
+        align: "center"
       }
     ];
   }
@@ -78,18 +86,6 @@ export default class DevicesTable extends React.Component {
     ];
   }
 
-  getActions() {
-    return [
-      {
-        icon: MoreVert,
-        tooltip: "Show Actions",
-        onClick: (event, rowData) => {
-          // show dropdown
-        }
-      }
-    ];
-  }
-
   getOptions() {
     return {
       toolbar: true,
@@ -100,6 +96,7 @@ export default class DevicesTable extends React.Component {
         // position: 'sticky', top: 0
       },
       // maxBodyHeight: '650px',
+      // above commented out b/c scrollbar bug, see: https://github.com/mbrn/material-table/issues/780
       actionsColumnIndex: -1,
       filtering: true,
       paging: false,
@@ -127,7 +124,6 @@ export default class DevicesTable extends React.Component {
               columns={this.getColumnInfo()}
               data={this.props.devices}
               detailPanel={this.getDetailPanel()}
-              actions={this.getActions()}
               options={this.getOptions()}
               icons={this.getIcons()}
             />
