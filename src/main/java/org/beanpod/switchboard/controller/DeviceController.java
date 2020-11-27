@@ -57,7 +57,7 @@ public class DeviceController implements DeviceApi {
     }
 
     return Optional.of(createDeviceRequest)
-        .map((createRequest) -> service.createDevice(createRequest, request.getRemoteAddr()))
+        .map(createRequest -> service.createDevice(createRequest, request.getRemoteAddr()))
         .map(deviceMapper::toDeviceModel)
         .map(ResponseEntity::ok)
         .orElseThrow(this::getUnknownException);

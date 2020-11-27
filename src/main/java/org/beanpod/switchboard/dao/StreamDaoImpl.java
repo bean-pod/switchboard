@@ -41,15 +41,15 @@ public class StreamDaoImpl {
           createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId());
     }
 
-    InputChannelDTO inputChannelDTO =
+    InputChannelDTO inputChannelDto =
         channelService.getInputChannelById(createStreamRequest.getInputChannelId());
-    OutputChannelDTO outputChannelDTO =
+    OutputChannelDTO outputChannelDto =
         channelService.getOutputChannelById(createStreamRequest.getOutputChannelId());
     StreamDTO.StreamDTOBuilder streamDtoBuilder =
-        StreamDTO.builder().inputChannel(inputChannelDTO).outputChannel(outputChannelDTO);
+        StreamDTO.builder().inputChannel(inputChannelDto).outputChannel(outputChannelDto);
 
-    if (onSamePrivateNetwork(inputChannelDTO, outputChannelDTO)
-        || onLocalNetwork(inputChannelDTO, outputChannelDTO)) {
+    if (onSamePrivateNetwork(inputChannelDto, outputChannelDto)
+        || onLocalNetwork(inputChannelDto, outputChannelDto)) {
       streamDtoBuilder.mode(StreamModeDTO.SRT);
     } else {
       streamDtoBuilder.mode(StreamModeDTO.SRT_RENDEZVOUS);

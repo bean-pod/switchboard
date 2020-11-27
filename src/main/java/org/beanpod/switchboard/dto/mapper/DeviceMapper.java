@@ -21,5 +21,5 @@ public interface DeviceMapper {
   List<DeviceModel> toDeviceModels(List<DeviceDTO> deviceDtos);
 
   @Mapping(source = "publicIpAddress", target = "publicIpAddress")
-  DeviceDTO toDeviceDto(CreateDeviceRequest createDeviceRequest, String publicIpAddress);
+  DeviceDTO toDeviceDTO(CreateDeviceRequest createDeviceRequest, String publicIpAddress);
 }
