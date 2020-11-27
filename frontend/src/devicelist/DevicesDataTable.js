@@ -21,7 +21,7 @@ export default class DevicesTable extends React.Component {
   getComponents() {
     return {
       Toolbar: (props) => (
-        <div style={{ backgroundColor: "#FAFAFA" }}>
+        <div style={{ backgroundColor: "#f9f9f9" }}>
           <MTableToolbar {...props} />
         </div>
       )
@@ -72,11 +72,7 @@ export default class DevicesTable extends React.Component {
         tooltip: "Show Device Details",
         render: (rowData) => {
           return (
-            <div
-              style={{
-                backgroundColor: "#FAFAFA"
-              }}
-            >
+            <div style={{ backgroundColor: "#f9f9f9" }}>
               <Box margin={2}>
                 <Typography variant="h6">Channels</Typography>
                 {rowData.channels.map((channel) => {
@@ -101,7 +97,7 @@ export default class DevicesTable extends React.Component {
       search: true,
       exportButton: true,
       headerStyle: {
-        backgroundColor: "#F1F1F1",
+        backgroundColor: "#f1f1f1",
         fontWeight: "bold"
         // position: 'sticky', top: 0
       },
