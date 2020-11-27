@@ -1,4 +1,5 @@
 import DeviceInfo from "../../model/DeviceInfo"
+import InputChannelInfo from "../../model/InputChannelInfo";
 import OutputChannelInfo from "../../model/OutputChannelInfo"
 
 export function getSampleSendersResponse() {
@@ -76,14 +77,14 @@ export function getExpectedReceiversResponse() {
     return [
         new DeviceInfo(
             sampleReceiversResponse[0].serialNumber,
-            sampleReceiversResponse[0].lastCommunication,
+            "Never",
             sampleReceiversResponse[0].device.ipAddress,
             sampleReceiversResponse[0].device.displayName,
             "Pending",
-            [new OutputChannelInfo(
-                sampleReceiversResponse[0].output[0].id,
-                sampleReceiversResponse[0].output[0].channel.name,
-                sampleReceiversResponse[0].output[0].channel.port,
+            [new InputChannelInfo(
+                sampleReceiversResponse[0].input[0].id,
+                sampleReceiversResponse[0].input[0].channel.name,
+                sampleReceiversResponse[0].input[0].channel.port,
                 null
             )],
             ["Additional Device details go here"]

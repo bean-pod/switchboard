@@ -21,9 +21,10 @@ export function getSenders(callback) {
               );
             });
           }
+          const lastCommunication = sender.lastCommunication == null ? "Never" : sender.lastCommunication;
           return new DeviceInfo(
             sender.serialNumber,
-            sender.lastCommunication,
+            lastCommunication,
             sender.device.ipAddress,
             sender.device.displayName,
             getStatus(sender.lastCommunication),
@@ -48,17 +49,18 @@ export function getReceivers(callback) {
           let channels = [];
           if(receiver.input) {
             channels = receiver.input.map((input) => {
-              return new InputChannelInfo(input.id, input.name, input.port, null);
+              return new InputChannelInfo(input.id, input.channel.name, input.channel.port, null);
             });
           }
+          const lastCommunication = receiver.lastCommunication == null ? "Never" : receiver.lastCommunication;
           return new DeviceInfo(
             receiver.serialNumber,
-            "Last Communication",
+            lastCommunication,
             receiver.device.ipAddress,
             receiver.device.displayName,
             getStatus(receiver.lastCommunication),
             channels,
-            ["Sample Reciever"]
+            ["Additional Device details go here"]
           );
         })
       );
@@ -76,7 +78,6 @@ function getStatus(lastCommunicationString) {
 
   const lastCommunicationDate = new Date(`${lastCommunicationString}Z`);
   const diff = Date.now() - lastCommunicationDate.getTime();
-
   const tenMinutes = 10 * 60 * 1000;
   if(diff < tenMinutes) {
     return "Online";
