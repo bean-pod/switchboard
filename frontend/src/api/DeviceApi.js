@@ -15,20 +15,20 @@ export function getSenders(callback) {
             channels = sender.output.map((output) => {
               return new OutputChannelInfo(
                 output.id,
-                output.name,
-                output.port,
+                output.channel.name,
+                output.channel.port,
                 null
               );
             });
           }
           return new DeviceInfo(
             sender.serialNumber,
-            "Last Communication",
+            sender.lastCommunication,
             sender.device.ipAddress,
             sender.device.displayName,
             getStatus(sender.lastCommunication),
             channels,
-            ["Sample sender"]
+            ["Additional Device details go here"]
           );
         })
       );
