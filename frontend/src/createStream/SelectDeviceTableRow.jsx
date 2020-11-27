@@ -21,8 +21,7 @@ export default class SelectDeviceTableRow extends React.Component {
   }
 
   onClick() {
-    const { open } = this.state;
-    this.setState({ open: !open });
+    this.setState((state) => ({ open: !state.open }));
   }
 
   render() {
