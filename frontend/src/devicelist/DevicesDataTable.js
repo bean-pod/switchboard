@@ -1,11 +1,16 @@
 import React from "react";
-import {
-  Box,
-  TableContainer,
-  Typography,
-} from "@material-ui/core";
+import { Box, TableContainer, Typography } from "@material-ui/core";
 
-import { FilterList, Search, MoreVert, ExpandLess, ExpandMore, ArrowDownward, Clear, SaveAlt } from "@material-ui/icons";
+import {
+  FilterList,
+  Search,
+  MoreVert,
+  ExpandLess,
+  ExpandMore,
+  ArrowDownward,
+  Clear,
+  SaveAlt
+} from "@material-ui/icons";
 
 import MaterialTable from "material-table";
 
@@ -14,27 +19,31 @@ import StatusIndicator from "../StatusIndicator";
 import ActionMenu from "./ActionMenu";
 
 export default class DevicesTable extends React.Component {
-
   getColumnInfo() {
     return [
       {
         title: "Name",
-        field: "name",
+        field: "name"
       },
       {
         title: "Serial Number",
-        field: "serialNumber",
+        field: "serialNumber"
       },
       {
         title: "Status",
         field: "status",
-        render: rowData => <StatusIndicator status={rowData.status} />,
-        lookup: { Online: 'Online', Pending: 'Pending', Error: 'Error', Offline: 'Offline'},
+        render: (rowData) => <StatusIndicator status={rowData.status} />,
+        lookup: {
+          Online: "Online",
+          Pending: "Pending",
+          Error: "Error",
+          Offline: "Offline"
+        }
       },
       {
         title: "IP Address",
-        field: "ip",
-      },
+        field: "ip"
+      }
     ];
   }
 
@@ -44,12 +53,13 @@ export default class DevicesTable extends React.Component {
         icon: ExpandMore,
         openIcon: ExpandLess,
         tooltip: "Show Device Details",
-        render: rowData => {
+        render: (rowData) => {
           return (
             <div
               style={{
-                backgroundColor: '#FAFAFA',
-              }}>
+                backgroundColor: "#FAFAFA"
+              }}
+            >
               <Box margin={2}>
                 <Typography variant="h6">Channels</Typography>
                 {rowData.channels.map((channel) => {
@@ -62,10 +72,10 @@ export default class DevicesTable extends React.Component {
                 })}
               </Box>
             </div>
-          )
-        },
-      },
-    ]
+          );
+        }
+      }
+    ];
   }
 
   getActions() {
@@ -76,8 +86,8 @@ export default class DevicesTable extends React.Component {
         onClick: (event, rowData) => {
           // show dropdown
         }
-      },
-    ]
+      }
+    ];
   }
 
   getOptions() {
@@ -86,25 +96,25 @@ export default class DevicesTable extends React.Component {
       search: true,
       exportButton: true,
       headerStyle: {
-        backgroundColor: '#FAFAFA',
+        backgroundColor: "#FAFAFA"
         // position: 'sticky', top: 0
       },
-      // maxBodyHeight: '650px', 
+      // maxBodyHeight: '650px',
       actionsColumnIndex: -1,
       filtering: true,
       paging: false,
-      draggable: false,
-    }
+      draggable: false
+    };
   }
 
   getIcons() {
     return {
       Filter: FilterList,
-      Search: Search,
+      Search,
       ResetSearch: Clear,
       SortArrow: ArrowDownward,
-      Export: SaveAlt,
-    }
+      Export: SaveAlt
+    };
   }
 
   render() {
@@ -113,13 +123,13 @@ export default class DevicesTable extends React.Component {
         <Box>
           <TableContainer style={{ maxHeight: 500 }}>
             <MaterialTable
-                title={this.props.title}
-                columns={this.getColumnInfo()}
-                data={this.props.devices}
-                detailPanel={this.getDetailPanel()}
-                actions={this.getActions()}        
-                options={this.getOptions()}
-                icons={this.getIcons()}
+              title={this.props.title}
+              columns={this.getColumnInfo()}
+              data={this.props.devices}
+              detailPanel={this.getDetailPanel()}
+              actions={this.getActions()}
+              options={this.getOptions()}
+              icons={this.getIcons()}
             />
           </TableContainer>
         </Box>

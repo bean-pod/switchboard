@@ -8,7 +8,6 @@ import TabPanel from "./TabPanel";
 // import DevicesTable from "./DevicesTable";
 import DevicesDataTable from "./DevicesDataTable";
 
-
 export default class ContentsTable extends React.Component {
   constructor(props) {
     super(props);
@@ -62,10 +61,16 @@ export default class ContentsTable extends React.Component {
             classes={this.props.classes}
           />
           <TabPanel value={this.state.value} index={0}>
-            <DevicesDataTable devices={this.state.senders} title={"List of Senders"}/>
+            <DevicesDataTable
+              devices={this.state.senders}
+              title="List of Senders"
+            />
           </TabPanel>
           <TabPanel value={this.state.value} index={1}>
-            <DevicesDataTable devices={this.state.receivers} title={"List of Receivers"}/>
+            <DevicesDataTable
+              devices={this.state.receivers}
+              title="List of Receivers"
+            />
           </TabPanel>
         </Box>
       </>
