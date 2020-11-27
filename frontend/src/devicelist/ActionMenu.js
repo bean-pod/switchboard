@@ -36,6 +36,7 @@ export default class ActionMenu extends React.Component {
           aria-controls="simple-menu"
           aria-haspopup="true"
           onClick={this.handleClick}
+          size="small"
         >
           <MoreVert />
         </IconButton>

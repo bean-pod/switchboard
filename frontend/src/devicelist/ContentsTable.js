@@ -48,13 +48,23 @@ export default class ContentsTable extends React.Component {
   render() {
     return (
       <>
-        {/* <Box style={{ display: "flex", flexGrow: 1, margin: "1em 0em" }}>
-          <SearchBar />
-          <Box className="alignRightFloat">
-            <DeviceListSortSelector />
-          </Box>
-        </Box> */}
-        <Box style={{ display: "flex", flexGrow: 1, maxHeight: 500 }}>
+        {
+          // Removed below because search and sort by are probably going to be removed now that a data table library is used
+          /* <Box style={{ display: "flex", flexGrow: 1, margin: "1em 0em" }}>
+            <SearchBar />
+            <Box className="alignRightFloat">
+              <DeviceListSortSelector />
+            </Box>
+        </Box> */
+        }
+        <Box
+          style={{
+            display: "flex",
+            flexGrow: 1,
+            maxHeight: 500,
+            paddingTop: 15
+          }}
+        >
           <VerticalTabs
             value={this.state.value}
             setValue={this.handleValueChange}
