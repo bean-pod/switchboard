@@ -6,6 +6,7 @@ import TabPanel from "../General/TabPanelH";
 import DeviceDetailsConciseTable from "./DeviceDetailsConciseTable";
 import DeviceDetailsActivityPanel from "./DeviceDetailsActivityPanel";
 import DeviceDetailsNotesPanel from "./DeviceDetailsNotesPanel";
+import DeviceInfo from "../model/DeviceInfo";
 
 export default class DeviceDetailsTabTable extends React.Component {
   constructor(props) {
@@ -22,22 +23,22 @@ export default class DeviceDetailsTabTable extends React.Component {
     });
   }
 
-  getTabProps(index) {
-    return {
-      id: `full-width-tab-${index}`,
-      "aria-controls": `full-width-tabpanel-${index}`
-    };
-  }
+  // getTabProps(index) {
+  //   return {
+  //     id: `full-width-tab-${index}`,
+  //     "aria-controls": `full-width-tabpanel-${index}`
+  //   };
+  // }
 
   getPanelContents(tabInfo) {
-    ["Overview", "Activity Log", "Notes"];
+    const { device } = this.props;
     switch (tabInfo) {
       case "Overview":
-        return <DeviceDetailsConciseTable device={this.props.device} />;
+        return <DeviceDetailsConciseTable device={device} />;
       case "Activity Log":
-        return <DeviceDetailsActivityPanel device={this.props.device} />;
+        return <DeviceDetailsActivityPanel device={device} />;
       case "Notes":
-        return <DeviceDetailsNotesPanel device={this.props.device} />;
+        return <DeviceDetailsNotesPanel device={device} />;
 
       default:
         return <div />;
@@ -45,28 +46,26 @@ export default class DeviceDetailsTabTable extends React.Component {
   }
 
   render() {
+    const { value, device, tabs } = this.props;
     return (
       <Container component={Paper}>
         <Tabs
-          value={this.props.value}
+          value={value}
           onChange={this.handleValueChange}
-          class="lightGrey blackFont flexContents"
+          clasNames="lightGrey blackFont flexContents"
           indicatorColor="primary"
           textColor="primary"
           aria-label="full width tabs example"
         >
-          {this.props.tabs.map((tabInfo, index) => {
-            console.log(this.state.value);
-            return <Tab label={tabInfo} {...this.getTabProps(index)} />;
+          {tabs.map((tabInfo, index) => {
+            return (
+              <Tab label={tabInfo} key={tabInfo}  />
+            );
           })}
         </Tabs>
-        {this.props.tabs.map((tabInfo, index) => {
+        {tabs.map((tabInfo, index) => {
           return (
-            <TabPanel
-              value={this.state.value}
-              index={index}
-              device={this.props.device}
-            >
+            <TabPanel value={this.state.value} index={index} device={device}>
               {this.getPanelContents(tabInfo)}
             </TabPanel>
           );
@@ -76,6 +75,7 @@ export default class DeviceDetailsTabTable extends React.Component {
   }
 }
 DeviceDetailsTabTable.propTypes = {
+  value: PropTypes.number.isRequired,
   tabs: PropTypes.arrayOf(PropTypes.string).isRequired,
   device: PropTypes.instanceOf(DeviceInfo).isRequired
 };
