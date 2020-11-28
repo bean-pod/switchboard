@@ -1,7 +1,7 @@
 package org.beanpod.switchboard.fixture;
 
 import java.util.List;
-import org.beanpod.switchboard.dto.StreamDTO;
+import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.entity.StreamEntity;
 import org.openapitools.model.CreateStreamRequest;
 import org.openapitools.model.StreamModel;
@@ -21,8 +21,8 @@ public class StreamFixture {
         .build();
   }
 
-  public static StreamDTO getStreamDto() {
-    return StreamDTO.builder()
+  public static StreamDto getStreamDto() {
+    return StreamDto.builder()
         .id(ID)
         .inputChannel(ChannelFixture.getInputChannelDto())
         .outputChannel(ChannelFixture.getOutputChannelDto())
