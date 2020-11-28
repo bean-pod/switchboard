@@ -56,7 +56,7 @@ export default class DeviceDetailsConciseRow extends React.Component {
 }
 
 DeviceDetailsConciseRow.propTypes = {
-  name: Proptypes.instanceOf(Proptypes.string).isRequired,
+  name: Proptypes.string.isRequired,
   value: Proptypes.arrayOf(
     Proptypes.oneOfType([InputChannelInfo, OutputChannelInfo])
   ).isRequired
