@@ -23,8 +23,7 @@ export default class DeviceDetailsTabTable extends React.Component {
     });
   }
 
-  getPanelContents(tabInfo) {
-    const { device } = this.props;
+  static getPanelContents(tabInfo, device) {
     switch (tabInfo) {
       case "Overview":
         return <DeviceDetailsConciseTable device={device} />;
@@ -62,7 +61,7 @@ export default class DeviceDetailsTabTable extends React.Component {
               index={index}
               device={device}
             >
-              {this.getPanelContents(tabInfo)}
+              {DeviceDetailsTabTable.getPanelContents(tabInfo, device)}
             </TabPanel>
           );
         })}
