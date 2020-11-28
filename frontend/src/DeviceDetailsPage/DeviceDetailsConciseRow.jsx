@@ -25,6 +25,21 @@ export default class DeviceDetailsConciseRow extends React.Component {
     }
   }
 
+  createInnerTable(value) {
+    return (
+      <TableContainer>
+        {value.map((channel) => {
+          return (
+            <ChannelDetailsTable
+              channel={channel}
+              key={`chDetails_${channel.id}`}
+            />
+          );
+        })}
+      </TableContainer>
+    );
+  }
+
   render() {
     const { name, value } = this.props;
     return (
@@ -36,18 +51,7 @@ export default class DeviceDetailsConciseRow extends React.Component {
           {name !== "channels" ? (
             <TableCell align="center">{value}</TableCell>
           ) : (
-            <TableCell>
-              <TableContainer>
-                {value.map((channel, index) => {
-                  return (
-                    <ChannelDetailsTable
-                      channel={channel}
-                      key={`chDetails_${channel.id}`}
-                    />
-                  );
-                })}
-              </TableContainer>
-            </TableCell>
+            <TableCell>{this.createInnerTable(value)}</TableCell>
           )}
         </TableRow>
       </>
