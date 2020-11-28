@@ -60,7 +60,8 @@ function getColumnInfo() {
       filtering: false,
       sorting: false,
       render: () => <ActionMenu />,
-      align: "center"
+      align: "center",
+      export: false
     }
   ];
 }
