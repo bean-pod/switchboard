@@ -111,8 +111,8 @@ describe("DeviceDetailsConciseRow class", () => {
       expect(console.error).toHaveBeenCalled();
     });
     it("Throws an error when using name that is not a string", () => {
-        const dummyValue = [];
-        const badName = 2;
+      const dummyValue = [];
+      const badName = 2;
       wrapper = Enzyme.shallow(
         <DeviceDetailsConciseRow name={badName} value={dummyValue} />
       );

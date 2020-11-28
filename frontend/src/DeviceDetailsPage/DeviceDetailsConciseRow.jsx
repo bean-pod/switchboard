@@ -42,7 +42,7 @@ export default class DeviceDetailsConciseRow extends React.Component {
                   return (
                     <ChannelDetailsTable
                       channel={channel}
-                      key={`chDetails_${index}`}
+                      key={`chDetails_${channel.id}`}
                     />
                   );
                 })}
