@@ -1,9 +1,5 @@
 package org.beanpod.switchboard.fixture;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 import lombok.SneakyThrows;
 import org.beanpod.switchboard.dto.ChannelDto;
 import org.beanpod.switchboard.dto.InputChannelDto;
@@ -13,6 +9,11 @@ import org.beanpod.switchboard.entity.InputChannelEntity;
 import org.beanpod.switchboard.entity.OutputChannelEntity;
 import org.openapitools.model.InputChannelModel;
 import org.openapitools.model.OutputChannelModel;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class ChannelFixture {
   public static final long CHANNEL_ID = 4569L;

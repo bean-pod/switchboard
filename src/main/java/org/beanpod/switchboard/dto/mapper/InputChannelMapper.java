@@ -1,11 +1,12 @@
 package org.beanpod.switchboard.dto.mapper;
 
-import java.util.Set;
 import org.beanpod.switchboard.dto.InputChannelDto;
 import org.beanpod.switchboard.entity.InputChannelEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.openapitools.model.InputChannelModel;
+
+import java.util.Set;
 
 @Mapper(
     componentModel = "spring",
