@@ -23,13 +23,6 @@ export default class DeviceDetailsTabTable extends React.Component {
     });
   }
 
-  // getTabProps(index) {
-  //   return {
-  //     id: `full-width-tab-${index}`,
-  //     "aria-controls": `full-width-tabpanel-${index}`
-  //   };
-  // }
-
   getPanelContents(tabInfo) {
     const { device } = this.props;
     switch (tabInfo) {
@@ -52,7 +45,7 @@ export default class DeviceDetailsTabTable extends React.Component {
         <Tabs
           value={value}
           onChange={this.handleValueChange}
-          clasNames="lightGrey blackFont flexContents"
+          className="lightGrey blackFont flexContents"
           indicatorColor="primary"
           textColor="primary"
           aria-label="full width tabs example"
