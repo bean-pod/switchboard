@@ -38,7 +38,8 @@ export default class DeviceDetailsTabTable extends React.Component {
   }
 
   render() {
-    const { value, device, tabs } = this.props;
+    const { value } = this.state;
+    const { device, tabs } = this.props;
     return (
       <Container component={Paper}>
         <Tabs

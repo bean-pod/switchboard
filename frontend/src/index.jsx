@@ -40,7 +40,7 @@ ReactDOM.render(
         <Route
           exact
           path="/Test"
-          render={(props) => (
+          render={() => (
             <DeviceDetailsPage device={SampleData.getSampleSender()} />
           )}
         />
