@@ -126,12 +126,6 @@ function verifyStaticElements() {
   expect(addDeviceButton).not.toBe(null);
   expect(addDeviceButton.textContent).toBe("Add Device");
 
-  const searchBar = document.querySelector(
-    "div.searchField div.MuiFormControl-root div.MuiInputBase-root input"
-  );
-  expect(searchBar).not.toBe(null);
-  expect(searchBar.getAttribute("placeholder")).toBe("Search");
-
   const sortBy = document.querySelector("#sortBySelect");
   expect(sortBy).not.toBe(null);
 
