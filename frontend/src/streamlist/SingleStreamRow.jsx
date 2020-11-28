@@ -10,7 +10,7 @@ import {
 import { ExpandLess, ExpandMore } from "@material-ui/icons/";
 
 import PropTypes from "prop-types";
-import StatusIndicator from "../general/StatusIndicator";
+import StatusIndicator from "../General/StatusIndicator";
 import ActionButtons from "./ActionButtons";
 import StreamInfo from "../model/StreamInfo";
 
