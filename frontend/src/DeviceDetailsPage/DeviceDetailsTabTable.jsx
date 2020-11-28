@@ -55,12 +55,7 @@ export default class DeviceDetailsTabTable extends React.Component {
         </Tabs>
         {tabs.map((tabInfo, index) => {
           return (
-            <TabPanel
-              value={this.state.value}
-              key={tabInfo}
-              index={index}
-              device={device}
-            >
+            <TabPanel value={value} key={tabInfo} index={index} device={device}>
               {DeviceDetailsTabTable.getPanelContents(tabInfo, device)}
             </TabPanel>
           );

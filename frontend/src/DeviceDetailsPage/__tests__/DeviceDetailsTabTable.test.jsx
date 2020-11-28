@@ -91,49 +91,49 @@ describe("DeviceDetailsTabTable class", () => {
       });
     });
   });
-  describe("render()", ()=>{
-  describe("Renders the correct number of Tabs and Tab Panels", () => {
-    it("when passed an array of length 2", () => {
-      const tabs = ["a", "b"];
-      const device = null;
+  describe("render()", () => {
+    describe("Renders the correct number of Tabs and Tab Panels", () => {
+      it("when passed an array of length 2", () => {
+        const tabs = ["a", "b"];
+        const device = null;
 
-      wrapper = Enzyme.shallow(
-        <DeviceDetailsTabTable tabs={tabs} device={device} />
-      );
+        wrapper = Enzyme.shallow(
+          <DeviceDetailsTabTable tabs={tabs} device={device} />
+        );
 
-      expect(wrapper.find(Tab)).toHaveLength(2);
-      expect(wrapper.find(TabPanelH)).toHaveLength(2);
+        expect(wrapper.find(Tab)).toHaveLength(2);
+        expect(wrapper.find(TabPanelH)).toHaveLength(2);
+      });
+      it("when passed an array of length 5", () => {
+        const tabs = ["a", "b", "a", "b", "a"];
+        const device = null;
+
+        wrapper = Enzyme.shallow(
+          <DeviceDetailsTabTable tabs={tabs} device={device} />
+        );
+
+        expect(wrapper.find(Tab)).toHaveLength(5);
+        expect(wrapper.find(TabPanelH)).toHaveLength(5);
+      });
     });
-    it("when passed an array of length 5", () => {
-      const tabs = ["a", "b", "a", "b", "a"];
+
+    it("Calls getPanelContents() with the correct tabInfo and device", () => {
+      jest.spyOn(DeviceDetailsTabTable, "getPanelContents");
+
+      const tabs = ["TEST VALUE"];
       const device = null;
 
       wrapper = Enzyme.shallow(
         <DeviceDetailsTabTable tabs={tabs} device={device} />
       );
 
-      expect(wrapper.find(Tab)).toHaveLength(5);
-      expect(wrapper.find(TabPanelH)).toHaveLength(5);
+      expect(DeviceDetailsTabTable.getPanelContents).toHaveBeenCalledWith(
+        tabs[0],
+        device
+      );
     });
   });
-
-  it("Calls getPanelContents() with the correct tabInfo and device", ()=>{
-      
-    jest.spyOn(DeviceDetailsTabTable, "getPanelContents");
-
-    const tabs = [ "TEST VALUE"];
-    const device = null;
-
-    wrapper = Enzyme.shallow(
-      <DeviceDetailsTabTable tabs={tabs} device={device} />
-    );
-
-    expect(DeviceDetailsTabTable.getPanelContents).toHaveBeenCalledWith(tabs[0], device)
-
-  })
-  })
   it("Throws an error when using device that is not a DeviceInfo object", () => {
-
     const tabs = [""];
     const device = 454;
 
