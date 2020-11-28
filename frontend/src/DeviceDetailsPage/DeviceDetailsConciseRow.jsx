@@ -25,7 +25,7 @@ export default class DeviceDetailsConciseRow extends React.Component {
     }
   }
 
-  createInnerTable(value) {
+  static createInnerTable(value) {
     return (
       <TableContainer>
         {value.map((channel) => {
@@ -51,7 +51,9 @@ export default class DeviceDetailsConciseRow extends React.Component {
           {name !== "channels" ? (
             <TableCell align="center">{value}</TableCell>
           ) : (
-            <TableCell>{this.createInnerTable(value)}</TableCell>
+            <TableCell>
+              {DeviceDetailsConciseRow.createInnerTable(value)}
+            </TableCell>
           )}
         </TableRow>
       </>

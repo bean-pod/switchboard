@@ -80,8 +80,9 @@ describe("DeviceDetailsConciseRow class", () => {
         name: "channels",
         value: [new InputChannelInfo(), new OutputChannelInfo()]
       };
-      const row = new DeviceDetailsConciseRow(dummyProps);
-      wrapper = Enzyme.shallow(row.createInnerTable(dummyProps.value));
+      wrapper = Enzyme.shallow(
+        DeviceDetailsConciseRow.createInnerTable(dummyProps.value)
+      );
 
       expect(wrapper.find(ChannelDetailsTable)).toHaveLength(2);
     });
