@@ -62,17 +62,11 @@ export default class ContentsTable extends React.Component {
             setValue={this.handleValueChange}
             classes={classes}
           />
-          <TabPanel value={this.state.value} index={0}>
-            <DevicesTable
-              devices={senders}
-              title="List of Senders"
-            />
+          <TabPanel value={value} index={0}>
+            <DevicesTable devices={senders} title="List of Senders" />
           </TabPanel>
-          <TabPanel value={this.state.value} index={1}>
-            <DevicesTable
-              devices={receivers}
-              title="List of Receivers"
-            />
+          <TabPanel value={value} index={1}>
+            <DevicesTable devices={receivers} title="List of Receivers" />
           </TabPanel>
         </Box>
       </>
