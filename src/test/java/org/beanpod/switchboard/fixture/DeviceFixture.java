@@ -1,12 +1,11 @@
 package org.beanpod.switchboard.fixture;
 
-import org.beanpod.switchboard.dto.DeviceDto;
-import org.beanpod.switchboard.entity.DeviceEntity;
-import org.openapitools.model.DeviceModel;
-
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import org.beanpod.switchboard.dto.DeviceDto;
+import org.beanpod.switchboard.entity.DeviceEntity;
+import org.openapitools.model.DeviceModel;
 
 public class DeviceFixture {
   public static final String SERIAL_NUMBER = "1";

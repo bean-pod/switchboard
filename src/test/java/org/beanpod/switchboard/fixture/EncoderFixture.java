@@ -1,15 +1,14 @@
 package org.beanpod.switchboard.fixture;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 import lombok.SneakyThrows;
 import org.beanpod.switchboard.dto.EncoderDto;
 import org.beanpod.switchboard.entity.EncoderEntity;
 import org.beanpod.switchboard.entity.OutputChannelEntity;
 import org.openapitools.model.EncoderModel;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 public class EncoderFixture {
   public static final String SERIAL_NUMBER = "1";

@@ -1,5 +1,6 @@
 package org.beanpod.switchboard.dao;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.beanpod.switchboard.dto.InputChannelDto;
@@ -11,8 +12,6 @@ import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.repository.StreamRepository;
 import org.openapitools.model.CreateStreamRequest;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @Slf4j

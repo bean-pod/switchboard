@@ -1,5 +1,7 @@
 package org.beanpod.switchboard.dao;
 
+import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.dto.ChannelDto;
 import org.beanpod.switchboard.dto.InputChannelDto;
@@ -14,9 +16,6 @@ import org.beanpod.switchboard.repository.ChannelRepository;
 import org.beanpod.switchboard.repository.InputChannelRepository;
 import org.beanpod.switchboard.repository.OutputChannelRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

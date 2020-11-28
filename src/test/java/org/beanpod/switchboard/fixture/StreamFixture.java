@@ -1,11 +1,10 @@
 package org.beanpod.switchboard.fixture;
 
+import java.util.List;
 import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.entity.StreamEntity;
 import org.openapitools.model.CreateStreamRequest;
 import org.openapitools.model.StreamModel;
-
-import java.util.List;
 
 public class StreamFixture {
   public static final long ID = 2429L;
