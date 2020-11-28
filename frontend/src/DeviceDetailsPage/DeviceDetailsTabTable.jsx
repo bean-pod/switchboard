@@ -31,7 +31,7 @@ export default class DeviceDetailsTabTable extends React.Component {
       case "Activity Log":
         return <DeviceDetailsActivityPanel device={device} />;
       case "Notes":
-        return <DeviceDetailsNotesPanel device={device} />;
+        return <DeviceDetailsNotesPanel extras={device.extras} />;
 
       default:
         return <div />;

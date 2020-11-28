@@ -3,11 +3,11 @@ import PropTypes from "prop-types";
 import { Container } from "@material-ui/core";
 import DeviceInfo from "../model/DeviceInfo";
 
-export default function DeviceDetailsNotesPanel() {
-  const { extras } = props.device;
+export default function DeviceDetailsNotesPanel(props) {
+  const { extras } = props;
   return <Container>{extras}</Container>;
 }
 
 DeviceDetailsNotesPanel.propTypes = {
-  device: PropTypes.instanceOf(DeviceInfo).isRequired
+  extras: PropTypes.arrayOf(PropTypes.string).isRequired
 };
