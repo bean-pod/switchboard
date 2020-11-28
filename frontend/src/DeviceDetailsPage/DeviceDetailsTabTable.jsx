@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Paper, Tab, Tabs } from "@material-ui/core";
 import PropTypes from "prop-types";
 
-import TabPanel from "../General/TabPanelH";
+import TabPanel from "../general/TabPanelH";
 import DeviceDetailsConciseTable from "./DeviceDetailsConciseTable";
 import DeviceDetailsActivityPanel from "./DeviceDetailsActivityPanel";
 import DeviceDetailsNotesPanel from "./DeviceDetailsNotesPanel";
@@ -58,9 +58,7 @@ export default class DeviceDetailsTabTable extends React.Component {
           aria-label="full width tabs example"
         >
           {tabs.map((tabInfo, index) => {
-            return (
-              <Tab label={tabInfo} key={tabInfo}  />
-            );
+            return <Tab label={tabInfo} key={tabInfo} />;
           })}
         </Tabs>
         {tabs.map((tabInfo, index) => {
