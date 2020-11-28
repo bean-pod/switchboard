@@ -1,6 +1,6 @@
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import { describe, expect, jest, it } from "@jest/globals";
+import { describe, expect, it } from "@jest/globals";
 
 import DeviceInfo from "../DeviceInfo";
 
@@ -14,7 +14,7 @@ describe("Device Info", () => {
 
       expect(actual).toHaveLength(expected.length);
 
-      for (let i = 0; i < expected.length; i++) {
+      for (let i = 0; i < expected.length; i += 1) {
         expect(actual[i]).toEqual(expected[i]);
       }
     });
