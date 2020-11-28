@@ -11,7 +11,6 @@ import DeviceInfo from "../../model/DeviceInfo";
 import TabPanelH from "../../general/TabPanelH";
 
 Enzyme.configure({ adapter: new Adapter() });
-jest.mock("axios");
 jest.spyOn(global.console, "error");
 describe("DeviceDetailsTabTable class", () => {
   let wrapper;
@@ -19,6 +18,7 @@ describe("DeviceDetailsTabTable class", () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
+
   describe("Static Functions", () => {
     describe("getPanelContents()", () => {
       it('Returns a DeviceDetailsConciseTable component if passed "Overview"', () => {
