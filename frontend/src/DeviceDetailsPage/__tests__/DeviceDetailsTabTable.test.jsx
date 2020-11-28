@@ -2,7 +2,7 @@ import React from "react";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import { afterEach, describe, expect, jest, it } from "@jest/globals";
-import { TableCell, TableContainer, TableRow } from "@material-ui/core";
+import { Tab, TableCell, TableContainer, TableRow } from "@material-ui/core";
 import DeviceDetailsConciseRow from "../DeviceDetailsConciseRow";
 import ChannelDetailsTable from "../../devicelist/ChannelDetailsTable";
 import InputChannelInfo from "../../model/InputChannelInfo";
@@ -12,11 +12,11 @@ import DeviceDetailsConciseTable from "../DeviceDetailsConciseTable";
 import DeviceDetailsActivityPanel from "../TabPanels/DeviceDetailsActivityPanel";
 import DeviceDetailsNotesPanel from "../TabPanels/DeviceDetailsNotesPanel";
 import DeviceInfo from "../../model/DeviceInfo";
+import TabPanelH from "../../general/TabPanelH";
 
 Enzyme.configure({ adapter: new Adapter() });
 jest.mock("axios");
 jest.spyOn(global.console, "error");
-
 describe("DeviceDetailsTabTable class", () => {
   let wrapper;
 
@@ -90,5 +90,56 @@ describe("DeviceDetailsTabTable class", () => {
         expect(wrapper.state()).toEqual(expected);
       });
     });
+  });
+  describe("render()", ()=>{
+  describe("Renders the correct number of Tabs and Tab Panels", () => {
+    it("when passed an array of length 2", () => {
+      const tabs = ["a", "b"];
+      const device = null;
+
+      wrapper = Enzyme.shallow(
+        <DeviceDetailsTabTable tabs={tabs} device={device} />
+      );
+
+      expect(wrapper.find(Tab)).toHaveLength(2);
+      expect(wrapper.find(TabPanelH)).toHaveLength(2);
+    });
+    it("when passed an array of length 5", () => {
+      const tabs = ["a", "b", "a", "b", "a"];
+      const device = null;
+
+      wrapper = Enzyme.shallow(
+        <DeviceDetailsTabTable tabs={tabs} device={device} />
+      );
+
+      expect(wrapper.find(Tab)).toHaveLength(5);
+      expect(wrapper.find(TabPanelH)).toHaveLength(5);
+    });
+  });
+
+  it("Calls getPanelContents() with the correct tabInfo and device", ()=>{
+      
+    jest.spyOn(DeviceDetailsTabTable, "getPanelContents");
+
+    const tabs = [ "TEST VALUE"];
+    const device = null;
+
+    wrapper = Enzyme.shallow(
+      <DeviceDetailsTabTable tabs={tabs} device={device} />
+    );
+
+    expect(DeviceDetailsTabTable.getPanelContents).toHaveBeenCalledWith(tabs[0], device)
+
+  })
+  })
+  it("Throws an error when using device that is not a DeviceInfo object", () => {
+
+    const tabs = [""];
+    const device = 454;
+
+    wrapper = Enzyme.shallow(
+      <DeviceDetailsTabTable tabs={tabs} device={device} />
+    );
+    expect(console.error).toHaveBeenCalled();
   });
 });
