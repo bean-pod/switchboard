@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class HttpHandler {
-     public static Response postRequest(String endPoint, HashMap<String, String> bodyParam) throws IOException {
+     public static Response postRequest(String endPoint, HashMap<String, String> bodyParam){
          OkHttpClient client = new OkHttpClient().newBuilder()
                  .build();
          MediaType mediaType = MediaType.parse("application/json");
@@ -16,7 +16,14 @@ public class HttpHandler {
                  .method("POST", body)
                  .addHeader("Content-Type", "application/json")
                  .build();
-         Response response = client.newCall(request).execute();
+
+         Response response;
+         try{
+             response = client.newCall(request).execute();
+         }catch(IOException e){
+             response = null;
+             System.err.println(e);
+         }
 
          return response;
      }
