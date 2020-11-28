@@ -1,27 +1,11 @@
 package system_tests;
 
 import okhttp3.*;
-import org.apache.http.NameValuePair;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.message.BasicNameValuePair;
-
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class HttpHandler {
-    public static void main(String[] args) throws IOException {
-        HashMap<String, String> params = new HashMap();
-        params.put("serialNumber","2");
-        params.put("displayName","Device3");
-        params.put("status","Running");
-        params.put("ipAddress","212.150.5.74");
-
-        postRequest("http://localhost:8080/device", params);
-    }
-
      public static Response postRequest(String endPoint, HashMap<String, String> bodyParam) throws IOException {
          OkHttpClient client = new OkHttpClient().newBuilder()
                  .build();
