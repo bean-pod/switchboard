@@ -2,11 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Box } from "@material-ui/core";
 
-// import SearchBar from "./SearchBar";
-// import DeviceListSortSelector from "./DeviceListSortSelector";
 import VerticalTabs from "./VerticalTabs";
 import TabPanel from "./TabPanel";
-// import DevicesTable from "./DevicesTable";
 import DevicesDataTable from "./DevicesDataTable";
 
 export default class ContentsTable extends React.Component {
@@ -55,7 +52,7 @@ export default class ContentsTable extends React.Component {
           style={{
             display: "flex",
             flexGrow: 1,
-            maxHeight: 500,
+            maxHeight: 500
           }}
           border={1}
           borderColor="#f1f1f1"
