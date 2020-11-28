@@ -58,4 +58,14 @@ public class StreamDaoImpl {
     StreamEntity streamEntity = mapper.toEntity(streamDto);
     streamRepository.save(streamEntity);
   }
+
+  public List<StreamDto> getEncoderStreams(String encoderSerialNumber) {
+    List<StreamEntity> streamEntities = streamRepository.getEncoderStreams(encoderSerialNumber);
+    return mapper.toDtoList(streamEntities);
+  }
+
+  public List<StreamDto> getDecoderStreams(String decoderSerialNumber) {
+    List<StreamEntity> streamEntities = streamRepository.getDecoderStreams(decoderSerialNumber);
+    return mapper.toDtoList(streamEntities);
+  }
 }

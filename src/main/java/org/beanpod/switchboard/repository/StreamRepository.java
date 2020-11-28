@@ -19,4 +19,10 @@ public interface StreamRepository extends JpaRepository<StreamEntity, Long> {
   boolean existsDuplicate(
       @Param(value = "inputChannelId") long inputChannelId,
       @Param(value = "outputChannelId") long outputChannelId);
+
+  @Query("SELECT s FROM Stream s WHERE s.outputChannel.encoder.serialNumber = :encoderSerial")
+  List<StreamEntity> getEncoderStreams(@Param(value = "encoderSerial") String encoderSerial);
+
+  @Query("SELECT s FROM Stream s WHERE s.inputChannel.decoder.serialNumber = :decoderSerial")
+  List<StreamEntity> getDecoderStreams(@Param(value = "decoderSerial") String decoderSerial);
 }
