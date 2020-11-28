@@ -17,7 +17,7 @@ import ChannelDetailsTable from "./ChannelDetailsTable";
 import StatusIndicator from "../general/StatusIndicator";
 import ActionMenu from "./ActionMenu";
 
-export default class DevicesDataTable extends React.Component {
+export default class DevicesTable extends React.Component {
   getComponents() {
     return {
       Toolbar: (props) => (
