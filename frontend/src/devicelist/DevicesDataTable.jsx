@@ -21,7 +21,7 @@ export default class DevicesTable extends React.Component {
   getComponents() {
     return {
       Toolbar: (props) => (
-        <div style={{ backgroundColor: "#f9f9f9" }}>
+        <div id="lightestGrey">
           <MTableToolbar {...props} />
         </div>
       )
@@ -72,7 +72,7 @@ export default class DevicesTable extends React.Component {
         tooltip: "Show Device Details",
         render: (rowData) => {
           return (
-            <div style={{ backgroundColor: "#f9f9f9" }}>
+            <div id="lightestGrey">
               <Box margin={2}>
                 <Typography variant="h6">Channels</Typography>
                 {rowData.channels.map((channel) => {
@@ -102,7 +102,7 @@ export default class DevicesTable extends React.Component {
         // position: 'sticky', top: 0
       },
       // maxBodyHeight: '650px',
-      // above commented out b/c scrollbar bug, see: https://github.com/mbrn/material-table/issues/780
+      // above lines commented out b/c scrollbar bug, see: https://github.com/mbrn/material-table/issues/780
       actionsColumnIndex: -1,
       filtering: true,
       paging: false,
