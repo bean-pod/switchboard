@@ -17,8 +17,8 @@ import ChannelDetailsTable from "./ChannelDetailsTable";
 import StatusIndicator from "../general/StatusIndicator";
 import ActionMenu from "./ActionMenu";
 
-export default class DevicesTable extends React.Component {
-  getComponents() {
+export default class DevicesDataTable extends React.Component {
+  getComponents = () => {
     return {
       Toolbar: (props) => (
         <div id="lightestGrey">
@@ -28,7 +28,7 @@ export default class DevicesTable extends React.Component {
     };
   }
 
-  getColumnInfo() {
+  getColumnInfo = () => {
     return [
       {
         title: "Name",
@@ -64,7 +64,7 @@ export default class DevicesTable extends React.Component {
     ];
   }
 
-  getDetailPanel() {
+  getDetailsPanel = () => {
     return [
       {
         icon: ExpandMore,
@@ -91,7 +91,7 @@ export default class DevicesTable extends React.Component {
     ];
   }
 
-  getOptions() {
+  getOptions = () => {
     return {
       toolbar: true,
       search: true,
@@ -110,7 +110,7 @@ export default class DevicesTable extends React.Component {
     };
   }
 
-  getIcons() {
+  getIcons = () => {
     return {
       Filter: FilterList,
       Search,
@@ -130,7 +130,7 @@ export default class DevicesTable extends React.Component {
               components={this.getComponents()}
               columns={this.getColumnInfo()}
               data={this.props.devices}
-              detailPanel={this.getDetailPanel()}
+              detailPanel={this.getDetailsPanel()}
               options={this.getOptions()}
               icons={this.getIcons()}
             />
