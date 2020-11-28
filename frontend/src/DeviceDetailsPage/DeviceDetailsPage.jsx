@@ -6,6 +6,7 @@ import DeviceDetailsConciseTable from "./DeviceDetailsConciseTable";
 import DynamicBreadcrumb from "../general/DynamicBreadcrumb";
 import DeviceDetailsTabTable from "./DeviceDetailsTabTable";
 import DeviceInfo from "../model/DeviceInfo";
+import { getSampleSender } from "../api/SampleData";
 
 export default class DeviceDetailsPage extends React.Component {
   constructor(props) {
@@ -14,7 +15,12 @@ export default class DeviceDetailsPage extends React.Component {
   }
 
   render() {
-    const { device } = this.props;
+    const {
+      location: {
+        state: { device }
+      }
+    } = this.props;
+
     return (
       <Container>
         <DynamicBreadcrumb
@@ -53,7 +59,14 @@ export default class DeviceDetailsPage extends React.Component {
     );
   }
 }
+DeviceDetailsPage.defaultProps = {
+  location: { state: { device: getSampleSender() } }
+};
 
 DeviceDetailsPage.propTypes = {
-  device: PropTypes.instanceOf(DeviceInfo).isRequired
+  location: PropTypes.shape({
+    state: PropTypes.shape({
+      device: PropTypes.instanceOf(DeviceInfo)
+    })
+  })
 };
