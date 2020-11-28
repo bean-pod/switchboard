@@ -18,7 +18,7 @@ import StatusIndicator from "../general/StatusIndicator";
 import ActionMenu from "./ActionMenu";
 
 export default class DevicesDataTable extends React.Component {
-  getComponents = () => {
+  getComponents() {
     return {
       Toolbar: (props) => (
         <div id="lightestGrey">
@@ -28,7 +28,7 @@ export default class DevicesDataTable extends React.Component {
     };
   }
 
-  getColumnInfo = () => {
+  getColumnInfo() {
     return [
       {
         title: "Name",
@@ -64,7 +64,7 @@ export default class DevicesDataTable extends React.Component {
     ];
   }
 
-  getDetailsPanel = () => {
+  getDetailPanel() {
     return [
       {
         icon: ExpandMore,
@@ -91,7 +91,7 @@ export default class DevicesDataTable extends React.Component {
     ];
   }
 
-  getOptions = () => {
+  getOptions() {
     return {
       toolbar: true,
       search: true,
@@ -110,7 +110,7 @@ export default class DevicesDataTable extends React.Component {
     };
   }
 
-  getIcons = () => {
+  getIcons() {
     return {
       Filter: FilterList,
       Search,
@@ -130,7 +130,7 @@ export default class DevicesDataTable extends React.Component {
               components={this.getComponents()}
               columns={this.getColumnInfo()}
               data={this.props.devices}
-              detailPanel={this.getDetailsPanel()}
+              detailPanel={this.getDetailPanel()}
               options={this.getOptions()}
               icons={this.getIcons()}
             />
