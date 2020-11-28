@@ -2,7 +2,7 @@ import React from "react";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import { describe, expect, jest, it } from "@jest/globals";
-import { Box, Container } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import TabPanelH from "../TabPanelH";
 
 Enzyme.configure({ adapter: new Adapter() });
