@@ -17,58 +17,78 @@ Enzyme.configure({ adapter: new Adapter() });
 jest.mock("axios");
 jest.spyOn(global.console, "error");
 
-describe("DeviceDetailsConciseRow class", () => {
+describe("DeviceDetailsTabTable class", () => {
   let wrapper;
 
   afterEach(() => {
     jest.clearAllMocks();
   });
+  describe("Static Functions", () => {
+    describe("getPanelContents()", () => {
+      it('Returns a DeviceDetailsConciseTable component if passed "Overview"', () => {
+        const dummyTabInfo = "Overview";
+        const dummyDevice = new DeviceInfo(1, 1, 1, 1, 1, 1, ["Hello"]);
 
-  describe("getPanelContents()", () => {
-    it('Returns a DeviceDetailsConciseTable component if passed "Overview"', () => {
-      const dummyTabInfo = "Overview";
-      const dummyDevice = new DeviceInfo(1, 1, 1, 1, 1, 1, ["Hello"]);
+        wrapper = Enzyme.shallow(
+          <div>
+            {DeviceDetailsTabTable.getPanelContents(dummyTabInfo, dummyDevice)}
+          </div>
+        );
+        expect(wrapper.find(DeviceDetailsConciseTable)).toHaveLength(1);
+      });
+      it('Returns a DeviceDetailsActivityPanel component if passed "Activity Log"', () => {
+        const dummyTabInfo = "Activity Log";
+        const dummyDevice = new DeviceInfo(1, 1, 1, 1, 1, 1, ["Hello"]);
 
-      wrapper = Enzyme.shallow(
-        <div>
-          {DeviceDetailsTabTable.getPanelContents(dummyTabInfo, dummyDevice)}
-        </div>
-      );
-      expect(wrapper.find(DeviceDetailsConciseTable)).toHaveLength(1);
-    });
-    it('Returns a DeviceDetailsActivityPanel component if passed "Activity Log"', () => {
-      const dummyTabInfo = "Activity Log";
-      const dummyDevice = new DeviceInfo(1, 1, 1, 1, 1, 1, ["Hello"]);
+        wrapper = Enzyme.shallow(
+          <div>
+            {DeviceDetailsTabTable.getPanelContents(dummyTabInfo, dummyDevice)}
+          </div>
+        );
+        expect(wrapper.find(DeviceDetailsActivityPanel)).toHaveLength(1);
+      });
+      it('Returns a DeviceDetailsNotesPanel component if passed "Notes"', () => {
+        const dummyTabInfo = "Notes";
+        const dummyDevice = new DeviceInfo(1, 1, 1, 1, 1, 1, ["Hello"]);
 
-      wrapper = Enzyme.shallow(
-        <div>
-          {DeviceDetailsTabTable.getPanelContents(dummyTabInfo, dummyDevice)}
-        </div>
-      );
-      expect(wrapper.find(DeviceDetailsActivityPanel)).toHaveLength(1);
+        wrapper = Enzyme.shallow(
+          <div>
+            {DeviceDetailsTabTable.getPanelContents(dummyTabInfo, dummyDevice)}
+          </div>
+        );
+        expect(wrapper.find(DeviceDetailsNotesPanel)).toHaveLength(1);
+      });
+      it("Returns a div component if passed an invalid value", () => {
+        const dummyTabInfo = "Not a valid Value";
+        const dummyDevice = new DeviceInfo(1, 1, 1, 1, 1, 1, ["Hello"]);
+
+        wrapper = Enzyme.shallow(
+          <div>
+            {DeviceDetailsTabTable.getPanelContents(dummyTabInfo, dummyDevice)}
+          </div>
+        );
+        expect(wrapper.children).toHaveLength(1);
+        expect(wrapper.childAt(0).text()).toEqual("Whoops not a valid value");
+      });
     });
   });
-  it('Returns a DeviceDetailsNotesPanel component if passed "Notes"', () => {
-    const dummyTabInfo = "Notes";
-    const dummyDevice = new DeviceInfo(1, 1, 1, 1, 1, 1, ["Hello"]);
+  describe("non-static functions", () => {
+    describe("handleValueChange", () => {
+      it("Should call setState", () => {
+        const tabs = ["a", "b"];
+        const device = null;
 
-    wrapper = Enzyme.shallow(
-      <div>
-        {DeviceDetailsTabTable.getPanelContents(dummyTabInfo, dummyDevice)}
-      </div>
-    );
-    expect(wrapper.find(DeviceDetailsNotesPanel)).toHaveLength(1);
-  });
-  it("Returns a div component if passed an invalid value", () => {
-    const dummyTabInfo = "Not a valid Value";
-    const dummyDevice = new DeviceInfo(1, 1, 1, 1, 1, 1, ["Hello"]);
+        wrapper = Enzyme.shallow(
+          <DeviceDetailsTabTable tabs={tabs} device={device} />
+        );
 
-    wrapper = Enzyme.shallow(
-      <div>
-        {DeviceDetailsTabTable.getPanelContents(dummyTabInfo, dummyDevice)}
-      </div>
-    );
-    expect(wrapper.children).toHaveLength(1);
-    expect(wrapper.childAt(0).text()).toEqual("Whoops not a valid value");
+        const expected = {
+          value: 69
+        };
+
+        wrapper.instance().handleValueChange(null, 69);
+        expect(wrapper.state()).toEqual(expected);
+      });
+    });
   });
 });
