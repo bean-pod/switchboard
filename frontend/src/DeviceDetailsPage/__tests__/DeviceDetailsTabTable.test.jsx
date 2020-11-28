@@ -59,5 +59,16 @@ describe("DeviceDetailsConciseRow class", () => {
     );
     expect(wrapper.find(DeviceDetailsNotesPanel)).toHaveLength(1);
   });
+  it("Returns a div component if passed an invalid value", () => {
+    const dummyTabInfo = "Not a valid Value";
+    const dummyDevice = new DeviceInfo(1, 1, 1, 1, 1, 1, ["Hello"]);
 
+    wrapper = Enzyme.shallow(
+      <div>
+        {DeviceDetailsTabTable.getPanelContents(dummyTabInfo, dummyDevice)}
+      </div>
+    );
+    expect(wrapper.children).toHaveLength(1);
+    expect(wrapper.childAt(0).text()).toEqual("Whoops not a valid value");
+  });
 });

@@ -33,7 +33,7 @@ export default class DeviceDetailsTabTable extends React.Component {
         return <DeviceDetailsNotesPanel extras={device.extras} />;
 
       default:
-        return <div />;
+        return <div>Whoops not a valid value</div>;
     }
   }
 
