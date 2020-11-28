@@ -39,11 +39,11 @@ describe("DeviceDetailsPanels", () => {
       expect(wrapper.text()).toBe("TEST");
     });
     it("Throws an error if no props are passed", () => {
-      wrapper = Enzyme.shallow(<DeviceDetailsNotesPanel/>);
+      wrapper = Enzyme.shallow(<DeviceDetailsNotesPanel />);
       expect(console.error).toHaveBeenCalled();
     });
     it("Throws an error if invalid props are passed", () => {
-      wrapper = Enzyme.shallow(<DeviceDetailsNotesPanel extras=""/>);
+      wrapper = Enzyme.shallow(<DeviceDetailsNotesPanel extras="" />);
       expect(console.error).toHaveBeenCalled();
     });
   });
