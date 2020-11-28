@@ -7,8 +7,7 @@ import {
   describe,
   expect,
   jest,
-  it,
-  test
+  it
 } from "@jest/globals";
 import DeviceInfo from "../../model/DeviceInfo";
 import DeviceDetailsConciseTable from "../DeviceDetailsConciseTable";

@@ -16,6 +16,7 @@ export default function DeviceDetailsConciseTable(props) {
               <DeviceDetailsConciseRow
                 name={property}
                 value={device[property]}
+                key={`device_${property}`}
               />
             ))}
           </TableBody>

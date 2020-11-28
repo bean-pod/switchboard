@@ -1,15 +1,7 @@
 import React from "react";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import {
-  afterEach,
-  beforeEach,
-  describe,
-  expect,
-  jest,
-  it,
-  test
-} from "@jest/globals";
+import { describe, expect, jest, it } from "@jest/globals";
 import { Container } from "@material-ui/core";
 
 import DeviceDetailsActivityPanel from "../TabPanels/DeviceDetailsActivityPanel";

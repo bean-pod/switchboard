@@ -50,13 +50,18 @@ export default class DeviceDetailsTabTable extends React.Component {
           textColor="primary"
           aria-label="full width tabs example"
         >
-          {tabs.map((tabInfo, index) => {
+          {tabs.map((tabInfo) => {
             return <Tab label={tabInfo} key={tabInfo} />;
           })}
         </Tabs>
         {tabs.map((tabInfo, index) => {
           return (
-            <TabPanel value={this.state.value} index={index} device={device}>
+            <TabPanel
+              value={this.state.value}
+              key={tabInfo}
+              index={index}
+              device={device}
+            >
               {this.getPanelContents(tabInfo)}
             </TabPanel>
           );
