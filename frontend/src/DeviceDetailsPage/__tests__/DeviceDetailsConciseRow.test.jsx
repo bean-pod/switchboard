@@ -13,6 +13,9 @@ import {
 } from "@jest/globals";
 import { TableCell, TableContainer, TableRow } from "@material-ui/core";
 import DeviceDetailsConciseRow from "../DeviceDetailsConciseRow";
+import ChannelDetailsTable from "../../devicelist/ChannelDetailsTable";
+import InputChannelInfo from "../../model/InputChannelInfo";
+import OutputChannelInfo from "../../model/OutputChannelInfo";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -79,6 +82,18 @@ describe("DeviceDetailsConciseRow class", () => {
       const result = DeviceDetailsConciseRow.getPropertyDisplayName("");
       // assert
       expect(result).toEqual(expected);
+    });
+  });
+  describe("createInnerTable", () => {
+    it("Creates two ChannelDetailsTable components when passed a value of length 2 ", () => {
+      const dummyProps = {
+        name: "channels",
+        value: [new InputChannelInfo(), new OutputChannelInfo()]
+      };
+      const row = new DeviceDetailsConciseRow(dummyProps);
+      wrapper = Enzyme.shallow(row.createInnerTable(dummyProps.value));
+
+      expect(wrapper.find(ChannelDetailsTable)).toHaveLength(2);
     });
   });
   describe("<DeviceDetailsConciseRow/>", () => {
