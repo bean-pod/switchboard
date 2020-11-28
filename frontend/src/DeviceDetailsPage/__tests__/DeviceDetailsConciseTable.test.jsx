@@ -23,7 +23,7 @@ jest.spyOn(DeviceInfo, "getProperties");
 describe("DeviceDetailsConciseTable", () => {
   let wrapper;
 
-  beforeEach(()=>{
+  beforeEach(() => {
     const dummyDevice = new DeviceInfo(1, 1, 1, 1, 1, 1, [1, 1]);
 
     const dummyResponse = ["1", "2", "3"];
@@ -34,17 +34,15 @@ describe("DeviceDetailsConciseTable", () => {
     wrapper = Enzyme.shallow(
       <DeviceDetailsConciseTable device={dummyDevice} />
     );
-  })
+  });
   afterEach(() => {
     jest.clearAllMocks();
   });
 
   it("Call DeviceInfo.getProperties()", () => {
-
     expect(DeviceInfo.getProperties).toHaveBeenCalled();
   });
   it("Renders the correct number of properties", () => {
-
     expect(wrapper.find(DeviceDetailsConciseRow)).toHaveLength(3);
   });
 });

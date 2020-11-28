@@ -17,7 +17,6 @@ import InputChannelInfo from "../../model/InputChannelInfo";
 import OutputChannelInfo from "../../model/OutputChannelInfo";
 
 Enzyme.configure({ adapter: new Adapter() });
-
 jest.mock("axios");
 jest.spyOn(global.console, "error");
 

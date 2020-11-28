@@ -12,8 +12,8 @@ import {
 } from "@jest/globals";
 import { Container } from "@material-ui/core";
 
-import DeviceDetailsActivityPanel from "../DeviceDetailsActivityPanel";
-import DeviceDetailsNotesPanel from "../DeviceDetailsNotesPanel";
+import DeviceDetailsActivityPanel from "../TabPanels/DeviceDetailsActivityPanel";
+import DeviceDetailsNotesPanel from "../TabPanels/DeviceDetailsNotesPanel";
 
 Enzyme.configure({ adapter: new Adapter() });
 

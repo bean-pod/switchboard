@@ -4,8 +4,8 @@ import PropTypes from "prop-types";
 
 import TabPanel from "../general/TabPanelH";
 import DeviceDetailsConciseTable from "./DeviceDetailsConciseTable";
-import DeviceDetailsActivityPanel from "./DeviceDetailsActivityPanel";
-import DeviceDetailsNotesPanel from "./DeviceDetailsNotesPanel";
+import DeviceDetailsActivityPanel from "./TabPanels/DeviceDetailsActivityPanel";
+import DeviceDetailsNotesPanel from "./TabPanels/DeviceDetailsNotesPanel";
 import DeviceInfo from "../model/DeviceInfo";
 
 export default class DeviceDetailsTabTable extends React.Component {
