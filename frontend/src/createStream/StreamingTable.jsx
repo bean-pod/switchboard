@@ -5,7 +5,7 @@ import axios from "axios";
 
 import PropTypes from "prop-types";
 import SelectDevicesTable from "./SelectDevicesTable";
-import StreamButton from "../General/Buttons/StreamButton";
+import StreamButton from "../general/Buttons/StreamButton";
 
 export default class StreamingTable extends React.Component {
   constructor(props) {

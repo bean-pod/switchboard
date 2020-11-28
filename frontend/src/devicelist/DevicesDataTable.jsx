@@ -14,7 +14,7 @@ import {
 import MaterialTable, { MTableToolbar } from "material-table";
 
 import ChannelDetailsTable from "./ChannelDetailsTable";
-import StatusIndicator from "../General/StatusIndicator";
+import StatusIndicator from "../general/StatusIndicator";
 import ActionMenu from "./ActionMenu";
 
 export default class DevicesTable extends React.Component {
