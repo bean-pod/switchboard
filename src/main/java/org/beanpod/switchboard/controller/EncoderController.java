@@ -6,7 +6,6 @@ import org.beanpod.switchboard.dao.DeviceDaoImpl;
 import org.beanpod.switchboard.dao.EncoderDaoImpl;
 import org.beanpod.switchboard.dto.DeviceDto;
 import org.beanpod.switchboard.dto.EncoderDto;
-import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.dto.mapper.EncoderMapper;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
 import org.beanpod.switchboard.entity.EncoderEntity;
@@ -78,7 +77,10 @@ public class EncoderController {
 
   @GetMapping("/{serialNumber}/streams")
   public ResponseEntity<List<StreamModel>> getEncoderStreams(@PathVariable String serialNumber) {
-    List<StreamDto> streamDtos = encoderService.getEncoderStreams(serialNumber);
-    return ResponseEntity.ok(streamMapper.toModel(streamDtos));
+    return Optional.of(serialNumber)
+        .map(encoderService::getEncoderStreams)
+        .map(streamMapper::toModelList)
+        .map(ResponseEntity::ok)
+        .orElseThrow();
   }
 }

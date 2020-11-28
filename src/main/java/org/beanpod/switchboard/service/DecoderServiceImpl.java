@@ -10,7 +10,6 @@ import org.beanpod.switchboard.util.DateUtil;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -21,11 +20,10 @@ public class DecoderServiceImpl implements DecoderService {
 
   @Override
   public List<StreamDto> getDecoderStreams(String decoderSerialNumber) {
-    Optional<DecoderDto> decoderOptional = decoderDao.findDecoder(decoderSerialNumber);
-    if (decoderOptional.isEmpty()) {
-      throw new ExceptionType.DeviceNotFoundException(decoderSerialNumber);
-    }
-    DecoderDto decoder = decoderOptional.get();
+    DecoderDto decoder =
+        decoderDao
+            .findDecoder(decoderSerialNumber)
+            .orElseThrow(() -> new ExceptionType.DeviceNotFoundException(decoderSerialNumber));
 
     decoder.setLastCommunication(dateUtil.getCurrentDate());
     decoderDao.save(decoder);

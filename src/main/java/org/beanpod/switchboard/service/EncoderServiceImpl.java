@@ -10,7 +10,6 @@ import org.beanpod.switchboard.util.DateUtil;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -21,12 +20,10 @@ public class EncoderServiceImpl implements EncoderService {
 
   @Override
   public List<StreamDto> getEncoderStreams(String encoderSerialNumber) {
-    Optional<EncoderDto> encoderOptional = encoderDao.findEncoder(encoderSerialNumber);
-    if (encoderOptional.isEmpty()) {
-      throw new ExceptionType.DeviceNotFoundException(encoderSerialNumber);
-    }
-
-    EncoderDto encoderDto = encoderOptional.get();
+    EncoderDto encoderDto =
+        encoderDao
+            .findEncoder(encoderSerialNumber)
+            .orElseThrow(() -> new ExceptionType.DeviceNotFoundException(encoderSerialNumber));
 
     encoderDto.setLastCommunication(dateUtil.getCurrentDate());
     encoderDao.save(encoderDto);

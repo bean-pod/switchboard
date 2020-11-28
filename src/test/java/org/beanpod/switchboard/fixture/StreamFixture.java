@@ -22,12 +22,20 @@ public class StreamFixture {
         .build();
   }
 
+  public static List<StreamEntity> getStreamEntityList() {
+    return List.of(getStreamEntity());
+  }
+
   public static StreamDto getStreamDto() {
     return StreamDto.builder()
         .id(ID)
         .inputChannel(ChannelFixture.getInputChannelDto())
         .outputChannel(ChannelFixture.getOutputChannelDto())
         .build();
+  }
+
+  public static List<StreamDto> getStreamDtoList() {
+    return List.of(getStreamDto());
   }
 
   public static CreateStreamRequest getCreateStreamRequest() {
@@ -41,5 +49,9 @@ public class StreamFixture {
         .id(ID)
         .inputChannel(ChannelFixture.getInputChannelModel())
         .outputChannel(ChannelFixture.getOutputChannelModel());
+  }
+
+  public static List<StreamModel> getStreamModelList() {
+    return List.of(getStreamModel());
   }
 }
