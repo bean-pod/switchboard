@@ -21,7 +21,7 @@ export default class DevicesDataTable extends React.Component {
   getComponents() {
     return {
       Toolbar: (props) => (
-        <div id="lightestGrey">
+        <div className="lightestGrey">
           <MTableToolbar {...props} />
         </div>
       )
@@ -72,7 +72,7 @@ export default class DevicesDataTable extends React.Component {
         tooltip: "Show Device Details",
         render: (rowData) => {
           return (
-            <div id="lightestGrey">
+            <div className="lightestGrey">
               <Box margin={2}>
                 <Typography variant="h6">Channels</Typography>
                 {rowData.channels.map((channel) => {
