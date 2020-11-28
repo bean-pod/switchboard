@@ -41,12 +41,10 @@ ReactDOM.render(
           exact
           path="/Test"
           render={(props) => (
-            <DeviceDetailsPage
-              {...props}
-              device={SampleData.getSampleSender()}
-            />
+            <DeviceDetailsPage device={SampleData.getSampleSender()} />
           )}
         />
+        <Route exact path="/Devices/:deviceId" component={DeviceDetailsPage} />
       </Switch>
     </BrowserRouter>
   </React.StrictMode>,
