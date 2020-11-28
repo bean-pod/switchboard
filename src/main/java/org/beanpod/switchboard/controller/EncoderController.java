@@ -8,8 +8,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.beanpod.switchboard.dao.DeviceDaoImpl;
 import org.beanpod.switchboard.dao.EncoderDaoImpl;
-import org.beanpod.switchboard.dto.DeviceDto;
-import org.beanpod.switchboard.dto.EncoderDto;
+import org.beanpod.switchboard.dto.DeviceDTO;
+import org.beanpod.switchboard.dto.EncoderDTO;
 import org.beanpod.switchboard.dto.mapper.EncoderMapper;
 import org.beanpod.switchboard.entity.EncoderEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
@@ -34,13 +34,13 @@ public class EncoderController {
   private final EncoderMapper encoderMapper;
 
   @GetMapping
-  public List<EncoderDto> retrieveAllEncoders() {
+  public List<EncoderDTO> retrieveAllEncoders() {
     List<EncoderEntity> encoderEntities = encoderService.getEncoders();
-    return encoderMapper.toEncoderDtos(encoderEntities);
+    return encoderMapper.toEncoderDTOs(encoderEntities);
   }
 
   @GetMapping("/{serialNumber}")
-  public ResponseEntity<EncoderDto> retrieveEncoder(@PathVariable @Valid String serialNumber) {
+  public ResponseEntity<EncoderDTO> retrieveEncoder(@PathVariable @Valid String serialNumber) {
     return encoderService
         .findEncoder(serialNumber)
         .map(ResponseEntity::ok)
@@ -48,13 +48,13 @@ public class EncoderController {
   }
 
   @PostMapping
-  public ResponseEntity<EncoderDto> createEncoder(@RequestBody @Valid EncoderDto encoderDto) {
-    Optional<DeviceDto> deviceOptional = deviceService.findDevice(encoderDto.getSerialNumber());
+  public ResponseEntity<EncoderDTO> createEncoder(@RequestBody @Valid EncoderDTO encoderDTO) {
+    Optional<DeviceDTO> deviceOptional = deviceService.findDevice(encoderDTO.getSerialNumber());
     if (deviceOptional.isEmpty()) {
-      throw new ExceptionType.DeviceNotFoundException(encoderDto.getSerialNumber());
+      throw new ExceptionType.DeviceNotFoundException(encoderDTO.getSerialNumber());
     }
-    encoderDto.setDevice(deviceOptional.get());
-    return ResponseEntity.ok(encoderService.save(encoderDto));
+    encoderDTO.setDevice(deviceOptional.get());
+    return ResponseEntity.ok(encoderService.save(encoderDTO));
   }
 
   @DeleteMapping("/{serialNumber}")
@@ -68,11 +68,11 @@ public class EncoderController {
   }
 
   @PutMapping
-  public ResponseEntity<EncoderDto> updateEncoder(@RequestBody EncoderDto encoderDto) {
-    Optional<EncoderDto> encoder = encoderService.findEncoder(encoderDto.getSerialNumber());
+  public ResponseEntity<EncoderDTO> updateEncoder(@RequestBody EncoderDTO encoderDTO) {
+    Optional<EncoderDTO> encoder = encoderService.findEncoder(encoderDTO.getSerialNumber());
     if (encoder.isEmpty()) {
-      throw new ExceptionType.DeviceNotFoundException(encoderDto.getSerialNumber());
+      throw new ExceptionType.DeviceNotFoundException(encoderDTO.getSerialNumber());
     }
-    return ResponseEntity.ok(encoderService.save(encoderDto));
+    return ResponseEntity.ok(encoderService.save(encoderDTO));
   }
 }

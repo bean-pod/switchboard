@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import lombok.SneakyThrows;
-import org.beanpod.switchboard.dto.DecoderDto;
+import org.beanpod.switchboard.dto.DecoderDTO;
 import org.beanpod.switchboard.entity.DecoderEntity;
 import org.beanpod.switchboard.entity.InputChannelEntity;
 import org.openapitools.model.DecoderModel;
@@ -45,13 +45,13 @@ public class DecoderFixture {
     return listOfDecoders;
   }
 
-  public static List<DecoderDto> getDecoderDtos() {
+  public static List<DecoderDTO> getDecoderDtos() {
     return List.of(getDecoderDto());
   }
 
   @SneakyThrows
-  public static DecoderDto getDecoderDto() {
-    return DecoderDto.builder()
+  public static DecoderDTO getDecoderDto() {
+    return DecoderDTO.builder()
         .serialNumber(SERIAL_NUMBER)
         .lastCommunication(simpleDateFormat.parse("2020-10-31 05:05:05"))
         .device(DeviceFixture.getDeviceDto())

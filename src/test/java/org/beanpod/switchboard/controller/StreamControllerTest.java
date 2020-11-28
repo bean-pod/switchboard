@@ -7,7 +7,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.List;
 import org.beanpod.switchboard.dao.StreamDaoImpl;
-import org.beanpod.switchboard.dto.StreamDto;
+import org.beanpod.switchboard.dto.StreamDTO;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
 import org.beanpod.switchboard.fixture.ChannelFixture;
 import org.beanpod.switchboard.fixture.StreamFixture;
@@ -70,7 +70,7 @@ class StreamControllerTest {
   @Test
   void testGetChannelById() {
     // given
-    StreamDto streamDto = StreamFixture.getStreamDto();
+    StreamDTO streamDto = StreamFixture.getStreamDto();
     when(channelService.getStreamById(StreamFixture.ID)).thenReturn(streamDto);
     when(channelMapper.toModel(streamDto)).thenReturn(StreamFixture.getStreamModel());
 

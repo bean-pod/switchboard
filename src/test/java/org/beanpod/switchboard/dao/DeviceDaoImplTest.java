@@ -7,7 +7,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.List;
 import java.util.Optional;
-import org.beanpod.switchboard.dto.DeviceDto;
+import org.beanpod.switchboard.dto.DeviceDTO;
 import org.beanpod.switchboard.dto.mapper.DeviceMapper;
 import org.beanpod.switchboard.entity.DeviceEntity;
 import org.beanpod.switchboard.fixture.DecoderFixture;
@@ -23,7 +23,7 @@ class DeviceDaoImplTest {
 
   // stubbed DeviceEntity object
   private static DeviceEntity device;
-  private static DeviceDto deviceDto;
+  private static DeviceDTO deviceDto;
   private static List<DeviceEntity> listOfDevices;
   @InjectMocks private DeviceDaoImpl deviceDaoImpl;
   @Mock private DeviceRepository deviceRepository;
@@ -43,20 +43,20 @@ class DeviceDaoImplTest {
 
   @Test
   final void testSave() {
-    when(deviceMapper.toDeviceDto(any())).thenReturn(deviceDto);
+    when(deviceMapper.toDeviceDTO(any())).thenReturn(deviceDto);
     when(deviceMapper.toDeviceEntity(any())).thenReturn(device);
     when(deviceRepository.save(device)).thenReturn(device);
-    DeviceDto deviceDTO = deviceDaoImpl.save(deviceDto);
+    DeviceDTO deviceDTO = deviceDaoImpl.save(deviceDto);
     assertEquals(deviceDto, deviceDTO);
   }
 
   @Test
   final void testFindDevice() {
-    when(deviceMapper.toDeviceDto(any())).thenReturn(deviceDto);
+    when(deviceMapper.toDeviceDTO(any())).thenReturn(deviceDto);
     when(deviceMapper.toDeviceEntity(any())).thenReturn(device);
     when(deviceRepository.findDeviceBySerialNumber(DecoderFixture.SERIAL_NUMBER))
         .thenReturn(java.util.Optional.of(device));
-    Optional<DeviceDto> deviceDTO = deviceDaoImpl.findDevice(DecoderFixture.SERIAL_NUMBER);
+    Optional<DeviceDTO> deviceDTO = deviceDaoImpl.findDevice(DecoderFixture.SERIAL_NUMBER);
     assertEquals(deviceDTO.get(), deviceDto);
   }
 

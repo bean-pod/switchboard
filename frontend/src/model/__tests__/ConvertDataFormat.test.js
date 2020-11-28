@@ -1,30 +1,21 @@
-import { expect, test } from "@jest/globals";
 import {
   convertToDataObject,
   convertToServiceObject
 } from "../ConvertDataFormat";
 import DeviceInfo from "../DeviceInfo";
-import InChannelInfo from "../InputChannelInfo";
-import OutChannelInfo from "../OutputChannelInfo";
+import {
+  sampleInputChannels,
+  sampleOutputChannels
+} from "../../api/SampleData";
 
-const sampleInputChannels = [
-  new InChannelInfo(1, "test input ch 1", 500, null),
-  new InChannelInfo(2, "test input ch 2", 456, null),
-  new InChannelInfo(3, "test input ch 3", 800, null)
-];
-const sampleOutputChannels = [
-  new OutChannelInfo(1, "test output ch 1", 500, null),
-  new OutChannelInfo(2, "test output ch 2", 456, null),
-  new OutChannelInfo(3, "test output ch 3", 800, null)
-];
 const sampleLocalSender = new DeviceInfo(
   "test sender serial",
   null,
   "test sender ip",
   "test sender display",
   "offline",
-  undefined,
-  undefined
+  sampleOutputChannels,
+  ["Additional Device Info goes here."]
 );
 const sampleLocalReceiver = new DeviceInfo(
   "test receiver serial",
@@ -32,8 +23,8 @@ const sampleLocalReceiver = new DeviceInfo(
   "test receiver ip",
   "test receiver display",
   "offline",
-  undefined,
-  undefined
+  sampleInputChannels,
+  ["Additional Device Info goes here."]
 );
 const sampleAxiosSender = {
   serialNumber: "test sender serial",
@@ -44,8 +35,7 @@ const sampleAxiosSender = {
     displayName: "test sender display",
     status: "offline"
   },
-  outputs: undefined,
-  extras: undefined
+  outputs: sampleOutputChannels
 };
 const sampleAxiosReceiver = {
   serialNumber: "test receiver serial",
@@ -56,8 +46,7 @@ const sampleAxiosReceiver = {
     displayName: "test receiver display",
     status: "offline"
   },
-  inputs: undefined,
-  extras: undefined
+  inputs: sampleInputChannels
 };
 
 test("convertToDataObject returns DeviceInfo object with correct data", () => {

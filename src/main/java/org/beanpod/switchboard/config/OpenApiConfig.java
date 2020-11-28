@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 public class OpenApiConfig {
 
   @Bean
-  public OpenAPI springShopOpenApi() {
+  public OpenAPI springShopOpenAPI() {
     return new OpenAPI()
         .info(
             new Info()

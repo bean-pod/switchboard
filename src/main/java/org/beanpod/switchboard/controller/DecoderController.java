@@ -7,8 +7,8 @@ import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.dao.DecoderDaoImpl;
 import org.beanpod.switchboard.dao.DeviceDaoImpl;
-import org.beanpod.switchboard.dto.DecoderDto;
-import org.beanpod.switchboard.dto.DeviceDto;
+import org.beanpod.switchboard.dto.DecoderDTO;
+import org.beanpod.switchboard.dto.DeviceDTO;
 import org.beanpod.switchboard.dto.mapper.DecoderMapper;
 import org.beanpod.switchboard.entity.DecoderEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
@@ -32,13 +32,13 @@ public class DecoderController {
   private final DecoderMapper decoderMapper;
 
   @GetMapping
-  public List<DecoderDto> retrieveAllDecoders() {
+  public List<DecoderDTO> retrieveAllDecoders() {
     List<DecoderEntity> decoderEntity = decoderService.getDecoders();
-    return decoderMapper.toDecoderDtos(decoderEntity);
+    return decoderMapper.toDecoderDTOs(decoderEntity);
   }
 
   @GetMapping("/{serialNumber}")
-  public ResponseEntity<DecoderDto> retrieveDecoder(@PathVariable @Valid String serialNumber) {
+  public ResponseEntity<DecoderDTO> retrieveDecoder(@PathVariable @Valid String serialNumber) {
     return decoderService
         .findDecoder(serialNumber)
         .map(ResponseEntity::ok)
@@ -46,13 +46,13 @@ public class DecoderController {
   }
 
   @PostMapping
-  public ResponseEntity<DecoderDto> createDecoder(@RequestBody @Valid DecoderDto decoderDto) {
-    Optional<DeviceDto> deviceOptional = deviceService.findDevice(decoderDto.getSerialNumber());
+  public ResponseEntity<DecoderDTO> createDecoder(@RequestBody @Valid DecoderDTO decoderDTO) {
+    Optional<DeviceDTO> deviceOptional = deviceService.findDevice(decoderDTO.getSerialNumber());
     if (deviceOptional.isEmpty()) {
-      throw new ExceptionType.DeviceNotFoundException(decoderDto.getSerialNumber());
+      throw new ExceptionType.DeviceNotFoundException(decoderDTO.getSerialNumber());
     }
-    decoderDto.setDevice(deviceOptional.get());
-    return ResponseEntity.ok(decoderService.save(decoderDto));
+    decoderDTO.setDevice(deviceOptional.get());
+    return ResponseEntity.ok(decoderService.save(decoderDTO));
   }
 
   @DeleteMapping("/{serialNumber}")
@@ -66,11 +66,11 @@ public class DecoderController {
   }
 
   @PutMapping
-  public ResponseEntity<DecoderDto> updateDecoder(@RequestBody DecoderDto decoderDto) {
-    Optional<DecoderDto> decoder = decoderService.findDecoder(decoderDto.getSerialNumber());
+  public ResponseEntity<DecoderDTO> updateDecoder(@RequestBody DecoderDTO decoderDTO) {
+    Optional<DecoderDTO> decoder = decoderService.findDecoder(decoderDTO.getSerialNumber());
     if (decoder.isEmpty()) {
-      throw new ExceptionType.DeviceNotFoundException(decoderDto.getSerialNumber());
+      throw new ExceptionType.DeviceNotFoundException(decoderDTO.getSerialNumber());
     }
-    return ResponseEntity.ok(decoderService.save(decoderDto));
+    return ResponseEntity.ok(decoderService.save(decoderDTO));
   }
 }

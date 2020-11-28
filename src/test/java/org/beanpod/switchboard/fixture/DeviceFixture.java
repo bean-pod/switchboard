@@ -3,7 +3,7 @@ package org.beanpod.switchboard.fixture;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-import org.beanpod.switchboard.dto.DeviceDto;
+import org.beanpod.switchboard.dto.DeviceDTO;
 import org.beanpod.switchboard.entity.DeviceEntity;
 import org.openapitools.model.DeviceModel;
 
@@ -44,8 +44,8 @@ public class DeviceFixture {
     return new DeviceModel().displayName(SERIAL_NUMBER).serialNumber(DISPLAY_NAME).status(STATUS);
   }
 
-  public static DeviceDto getDeviceDto() {
-    return DeviceDto.builder()
+  public static DeviceDTO getDeviceDto() {
+    return DeviceDTO.builder()
         .serialNumber(SERIAL_NUMBER)
         .ipAddress(IP_ADDRESS)
         .displayName(DISPLAY_NAME)
@@ -53,7 +53,7 @@ public class DeviceFixture {
         .build();
   }
 
-  public static List<DeviceDto> getDeviceDtos() throws ParseException {
+  public static List<DeviceDTO> getDeviceDtos() throws ParseException {
     return List.of(getDeviceDto());
   }
 }

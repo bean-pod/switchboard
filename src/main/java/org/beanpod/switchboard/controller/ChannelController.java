@@ -7,11 +7,11 @@ import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.dao.ChannelDaoImpl;
 import org.beanpod.switchboard.dao.DecoderDaoImpl;
 import org.beanpod.switchboard.dao.EncoderDaoImpl;
-import org.beanpod.switchboard.dto.ChannelDto;
-import org.beanpod.switchboard.dto.DecoderDto;
-import org.beanpod.switchboard.dto.EncoderDto;
-import org.beanpod.switchboard.dto.InputChannelDto;
-import org.beanpod.switchboard.dto.OutputChannelDto;
+import org.beanpod.switchboard.dto.ChannelDTO;
+import org.beanpod.switchboard.dto.DecoderDTO;
+import org.beanpod.switchboard.dto.EncoderDTO;
+import org.beanpod.switchboard.dto.InputChannelDTO;
+import org.beanpod.switchboard.dto.OutputChannelDTO;
 import org.beanpod.switchboard.dto.mapper.ChannelMapper;
 import org.beanpod.switchboard.entity.ChannelEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
@@ -36,13 +36,13 @@ public class ChannelController {
   private final ChannelMapper channelMapper;
 
   @GetMapping
-  public List<ChannelDto> retrieveAllChannels() {
+  public List<ChannelDTO> retrieveAllChannels() {
     List<ChannelEntity> channelEntities = channelService.getChannels();
-    return channelMapper.toChannelDtos(channelEntities);
+    return channelMapper.toChannelDTOs(channelEntities);
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<ChannelDto> retrieveChannel(@PathVariable Long id) {
+  public ResponseEntity<ChannelDTO> retrieveChannel(@PathVariable Long id) {
     return channelService
         .findChannel(id)
         .map(ResponseEntity::ok)
@@ -50,8 +50,8 @@ public class ChannelController {
   }
 
   @PostMapping
-  public ResponseEntity<ChannelDto> createChannel(@RequestBody ChannelDto channel) {
-    Optional<ChannelDto> channelLookup = channelService.findChannel(channel.getId());
+  public ResponseEntity<ChannelDTO> createChannel(@RequestBody ChannelDTO channel) {
+    Optional<ChannelDTO> channelLookup = channelService.findChannel(channel.getId());
     if (channelLookup.isPresent()) {
       throw new ExceptionType.DeviceAlreadyExistsException(channel.getId().toString());
     }
@@ -60,38 +60,38 @@ public class ChannelController {
 
   @PostMapping("/input/{id}/decoder/{serial}")
   @Transactional
-  public ResponseEntity<InputChannelDto> createInputChannel(
+  public ResponseEntity<InputChannelDTO> createInputChannel(
       @PathVariable Long id, @PathVariable String serial) {
     // TODO change device not found exception to channel not found
-    ChannelDto channelDto =
+    ChannelDTO channelDTO =
         channelService
             .findChannel(id)
             .orElseThrow(() -> new ExceptionType.DeviceNotFoundException(id.toString()));
-    DecoderDto decoderDto =
+    DecoderDTO decoderDTO =
         decoderService
             .findDecoder(serial)
             .orElseThrow(() -> new ExceptionType.DeviceNotFoundException(serial));
-    InputChannelDto inputChannelDto =
-        InputChannelDto.builder().channel(channelDto).decoder(decoderDto).build();
-    return ResponseEntity.ok(channelService.saveInputChannel(inputChannelDto));
+    InputChannelDTO inputChannelDTO =
+        InputChannelDTO.builder().channel(channelDTO).decoder(decoderDTO).build();
+    return ResponseEntity.ok(channelService.saveInputChannel(inputChannelDTO));
   }
 
   @PostMapping("/output/{id}/encoder/{serial}")
   @Transactional
-  public ResponseEntity<OutputChannelDto> createOutputChannel(
+  public ResponseEntity<OutputChannelDTO> createOutputChannel(
       @PathVariable Long id, @PathVariable String serial) {
     // TODO change device not found exception to channel not found
-    ChannelDto channelDto =
+    ChannelDTO channelDTO =
         channelService
             .findChannel(id)
             .orElseThrow(() -> new ExceptionType.DeviceNotFoundException(id.toString()));
-    EncoderDto encoderDto =
+    EncoderDTO encoderDTO =
         encoderService
             .findEncoder(serial)
             .orElseThrow(() -> new ExceptionType.DeviceNotFoundException(serial));
-    OutputChannelDto outputChannelDto =
-        OutputChannelDto.builder().channel(channelDto).encoder(encoderDto).build();
-    return ResponseEntity.ok(channelService.saveOutputChannel(outputChannelDto));
+    OutputChannelDTO outputChannelDTO =
+        OutputChannelDTO.builder().channel(channelDTO).encoder(encoderDTO).build();
+    return ResponseEntity.ok(channelService.saveOutputChannel(outputChannelDTO));
   }
 
   @DeleteMapping("/output/{id}")

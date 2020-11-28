@@ -8,7 +8,7 @@ import static org.mockito.Mockito.when;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
-import org.beanpod.switchboard.dto.DecoderDto;
+import org.beanpod.switchboard.dto.DecoderDTO;
 import org.beanpod.switchboard.dto.mapper.DecoderMapper;
 import org.beanpod.switchboard.entity.DecoderEntity;
 import org.beanpod.switchboard.fixture.DecoderFixture;
@@ -23,7 +23,7 @@ class DecoderDaoImplTest {
 
   // stubbed DeviceEntity object
   private static DecoderEntity decoder;
-  private static DecoderDto decoderDto;
+  private static DecoderDTO decoderDto;
   private static List<DecoderEntity> listOfdecoders;
   @InjectMocks private DecoderDaoImpl decoderDaoImpl;
   @Mock private DecoderRepository decoderRepository;
@@ -43,20 +43,20 @@ class DecoderDaoImplTest {
 
   @Test
   final void testSave() {
-    when(decoderMapper.toDecoderDto(any())).thenReturn(decoderDto);
+    when(decoderMapper.toDecoderDTO(any())).thenReturn(decoderDto);
     when(decoderMapper.toDecoderEntity(any())).thenReturn(decoder);
     when(decoderRepository.save(decoder)).thenReturn(decoder);
-    DecoderDto decoderDTO = decoderDaoImpl.save(decoderDto);
+    DecoderDTO decoderDTO = decoderDaoImpl.save(decoderDto);
     assertEquals(decoderDTO, decoderDto);
   }
 
   @Test
   final void testFindDecoder() {
-    when(decoderMapper.toDecoderDto(any())).thenReturn(decoderDto);
+    when(decoderMapper.toDecoderDTO(any())).thenReturn(decoderDto);
     when(decoderMapper.toDecoderEntity(any())).thenReturn(decoder);
     when(decoderRepository.findDecoderBySerialNumber(DecoderFixture.SERIAL_NUMBER))
         .thenReturn(java.util.Optional.of(decoder));
-    Optional<DecoderDto> decoderDTO = decoderDaoImpl.findDecoder(DecoderFixture.SERIAL_NUMBER);
+    Optional<DecoderDTO> decoderDTO = decoderDaoImpl.findDecoder(DecoderFixture.SERIAL_NUMBER);
     assertEquals(decoderDto, decoderDTO.get());
   }
 

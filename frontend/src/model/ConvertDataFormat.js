@@ -7,7 +7,8 @@ export function convertToDataObject(databaseDevice) {
     databaseDevice.device.ipAddress,
     databaseDevice.device.displayName,
     databaseDevice.device.status,
-    databaseDevice.inputs
+    databaseDevice.inputs,
+    ["Additional Device Info goes here."]
   );
 }
 

@@ -11,7 +11,7 @@ import static org.mockito.Mockito.when;
 import java.util.List;
 import java.util.Optional;
 import org.beanpod.switchboard.dao.DeviceDaoImpl;
-import org.beanpod.switchboard.dto.DeviceDto;
+import org.beanpod.switchboard.dto.DeviceDTO;
 import org.beanpod.switchboard.dto.mapper.DeviceMapper;
 import org.beanpod.switchboard.entity.DeviceEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
@@ -26,7 +26,7 @@ import org.springframework.http.ResponseEntity;
 class DeviceControllerTest {
   // stubbed DeviceEntity object
   private static DeviceEntity device;
-  private static DeviceDto deviceDTO;
+  private static DeviceDTO deviceDTO;
   private static List<DeviceEntity> listOfDevices;
   @InjectMocks private DeviceController deviceController;
   @Mock private DeviceDaoImpl deviceService;
@@ -47,8 +47,8 @@ class DeviceControllerTest {
   @Test
   final void testRetrieveAllDevices() {
     when(deviceService.getDevices()).thenReturn(List.of(device));
-    when(deviceMapper.toDeviceDtos(any())).thenReturn(List.of(deviceDTO));
-    List<DeviceDto> allDevices = deviceController.retrieveAllDevices();
+    when(deviceMapper.toDeviceDTOs(any())).thenReturn(List.of(deviceDTO));
+    List<DeviceDTO> allDevices = deviceController.retrieveAllDevices();
     assertFalse(allDevices.isEmpty()); // check if an empty list was returned
     assertIterableEquals(List.of(deviceDTO), allDevices); // check both lists contents
   }
@@ -57,7 +57,7 @@ class DeviceControllerTest {
   @Test
   final void testRetrieveDevice() {
     when(deviceService.findDevice(DeviceFixture.SERIAL_NUMBER)).thenReturn(Optional.of(deviceDTO));
-    ResponseEntity<DeviceDto> actualDevice = deviceController.retrieveDevice("1");
+    ResponseEntity<DeviceDTO> actualDevice = deviceController.retrieveDevice("1");
 
     assertNotNull(actualDevice);
     assertEquals(200, actualDevice.getStatusCodeValue());
@@ -118,7 +118,7 @@ class DeviceControllerTest {
     when(deviceService.findDevice(DeviceFixture.SERIAL_NUMBER)).thenReturn(Optional.of(deviceDTO));
     deviceDTO.setStatus("Stopped");
     when(deviceService.save(deviceDTO)).thenReturn(deviceDTO);
-    ResponseEntity<DeviceDto> response = deviceController.updateDevice(deviceDTO);
+    ResponseEntity<DeviceDTO> response = deviceController.updateDevice(deviceDTO);
 
     assertEquals(200, response.getStatusCodeValue());
     assertEquals("Stopped", response.getBody().getStatus());

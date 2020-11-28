@@ -5,9 +5,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import lombok.SneakyThrows;
-import org.beanpod.switchboard.dto.ChannelDto;
-import org.beanpod.switchboard.dto.InputChannelDto;
-import org.beanpod.switchboard.dto.OutputChannelDto;
+import org.beanpod.switchboard.dto.ChannelDTO;
+import org.beanpod.switchboard.dto.InputChannelDTO;
+import org.beanpod.switchboard.dto.OutputChannelDTO;
 import org.beanpod.switchboard.entity.ChannelEntity;
 import org.beanpod.switchboard.entity.InputChannelEntity;
 import org.beanpod.switchboard.entity.OutputChannelEntity;
@@ -37,8 +37,8 @@ public class ChannelFixture {
     return listOfChannels;
   }
 
-  public static ChannelDto getChannelDto() {
-    return ChannelDto.builder().id(CHANNEL_ID).name(NAME).port(PORT).build();
+  public static ChannelDTO getChannelDto() {
+    return ChannelDTO.builder().id(CHANNEL_ID).name(NAME).port(PORT).build();
   }
 
   @SneakyThrows
@@ -60,15 +60,15 @@ public class ChannelFixture {
   }
 
   @SneakyThrows
-  public static InputChannelDto getInputChannelDto() {
-    return InputChannelDto.builder()
+  public static InputChannelDTO getInputChannelDto() {
+    return InputChannelDTO.builder()
         .id(INPUT_CHANNEL_ID)
         .decoder(DecoderFixture.getDecoderDto())
         .build();
   }
 
-  public static OutputChannelDto getOutputChannelDto() {
-    return OutputChannelDto.builder()
+  public static OutputChannelDTO getOutputChannelDto() {
+    return OutputChannelDTO.builder()
         .id(OUTPUT_CHANNEL_ID)
         .encoder(EncoderFixture.getEncoderDto())
         .build();
@@ -98,7 +98,7 @@ public class ChannelFixture {
     };
   }
 
-  public static Set<InputChannelDto> getInputChannelDtos() {
+  public static Set<InputChannelDTO> getInputChannelDtos() {
     return new HashSet<>() {
       {
         getInputChannelDto();
@@ -106,7 +106,7 @@ public class ChannelFixture {
     };
   }
 
-  public static Set<OutputChannelDto> getOutputChannelDtos() {
+  public static Set<OutputChannelDTO> getOutputChannelDtos() {
     return new HashSet<>() {
       {
         getOutputChannelDto();
