@@ -19,7 +19,7 @@ Enzyme.configure({ adapter: new Adapter() });
 jest.mock("axios");
 jest.spyOn(global.console, "error");
 
-describe("DeviceDetailsConciseRow", () => {
+describe("DeviceDetailsConciseRow class", () => {
   let wrapper;
 
   afterEach(() => {
@@ -48,36 +48,28 @@ describe("DeviceDetailsConciseRow", () => {
     it('should return "IP Address" when passed "ip"', () => {
       const expected = "IP Address";
       // act
-      const result = DeviceDetailsConciseRow.getPropertyDisplayName(
-        "ip"
-      );
+      const result = DeviceDetailsConciseRow.getPropertyDisplayName("ip");
       // assert
       expect(result).toEqual(expected);
     });
     it('should return "Name" when passed "name"', () => {
       const expected = "Name";
       // act
-      const result = DeviceDetailsConciseRow.getPropertyDisplayName(
-        "name"
-      );
+      const result = DeviceDetailsConciseRow.getPropertyDisplayName("name");
       // assert
       expect(result).toEqual(expected);
     });
     it('should return "Status" when passed "status"', () => {
       const expected = "Status";
       // act
-      const result = DeviceDetailsConciseRow.getPropertyDisplayName(
-        "status"
-      );
+      const result = DeviceDetailsConciseRow.getPropertyDisplayName("status");
       // assert
       expect(result).toEqual(expected);
     });
     it('should return "Channels" when passed "channels"', () => {
       const expected = "Channels";
       // act
-      const result = DeviceDetailsConciseRow.getPropertyDisplayName(
-        "channels"
-      );
+      const result = DeviceDetailsConciseRow.getPropertyDisplayName("channels");
       // assert
       expect(result).toEqual(expected);
     });
