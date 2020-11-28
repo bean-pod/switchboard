@@ -8,7 +8,7 @@
       "sizes": "500x500"
     }
   ],
-  "start_url": "/Home",
+  "start_url": "switchboard/Home",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"

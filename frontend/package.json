@@ -1,7 +1,7 @@
 {
   "name": "switchboard_frontend",
   "version": "0.1.0",
-  "homepage": "https://bean-pod.github.io/switchboard/frontend/home",
+  "homepage": "https://bean-pod.github.io/",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.0",
@@ -10,6 +10,7 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.20.0",
+    "env-cmd": "^10.1.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.5",
     "gh-pages": "^3.1.0",
@@ -24,7 +25,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "predeploy": "npm run build",
+    "build:staging": "env-cmd -f src/.env.staging npm run build",
+    "predeploy": "npm run build:staging",
     "deploy": "gh-pages -d build",
     "test": "react-scripts test",
     "test:all": "react-scripts test --watchAll=false",
