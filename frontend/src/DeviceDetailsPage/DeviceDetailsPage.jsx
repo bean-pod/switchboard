@@ -19,8 +19,8 @@ export default class DeviceDetailsPage extends React.Component {
       <Container>
         <DynamicBreadcrumb
           breadcrumbs={[
-            ["Home", ""],
-            ["My Devices", "Devices"],
+            ["Home", "/"],
+            ["My Devices", "/Devices"],
             [device.name, device.id]
           ]}
         />
