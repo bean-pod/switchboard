@@ -2,7 +2,7 @@ import React from "react";
 import { List } from "@material-ui/core";
 
 import PropTypes from "prop-types";
-import SearchBar from "../devicelist/SearchBar";
+import SearchBar from "./SearchBar";
 import SelectDeviceTableRow from "./SelectDeviceTableRow";
 import DeviceInfo from "../model/DeviceInfo";
 
