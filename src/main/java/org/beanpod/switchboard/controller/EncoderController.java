@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/encoder")
 @RequiredArgsConstructor
 public class EncoderController {
+  public static final String UNKNOWN_ERROR_MESSAGE = "Unknown error in EncoderController";
 
   private final EncoderDaoImpl encoderDao;
   private final DeviceDaoImpl deviceService;
@@ -87,6 +88,10 @@ public class EncoderController {
         .map(encoderService::getEncoderStreams)
         .map(streamMapper::toModelList)
         .map(ResponseEntity::ok)
-        .orElseThrow();
+        .orElseThrow(this::getUnknownException);
+  }
+
+  private RuntimeException getUnknownException() {
+    return new RuntimeException(UNKNOWN_ERROR_MESSAGE);
   }
 }

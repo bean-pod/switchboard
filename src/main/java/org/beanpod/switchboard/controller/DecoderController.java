@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/decoder")
 @RequiredArgsConstructor
 public class DecoderController {
+  public static final String UNKNOWN_ERROR_MESSAGE = "Unknown error in DecoderController";
 
   private final DecoderDaoImpl decoderDao;
   private final DeviceDaoImpl deviceService;
@@ -85,6 +86,10 @@ public class DecoderController {
         .map(decoderService::getDecoderStreams)
         .map(streamMapper::toModelList)
         .map(ResponseEntity::ok)
-        .orElseThrow();
+        .orElseThrow(this::getUnknownException);
+  }
+
+  private RuntimeException getUnknownException() {
+    return new RuntimeException(UNKNOWN_ERROR_MESSAGE);
   }
 }
