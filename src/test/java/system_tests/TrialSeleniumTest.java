@@ -20,7 +20,7 @@ public class TrialSeleniumTest {
 
     @BeforeAll
     static void setUp(){
-
+        //TODO set it up for mac/linux: https://stackoverflow.com/questions/228477/how-do-i-programmatically-determine-operating-system-in-java
         System.setProperty("webdriver.chrome.driver","src\\test\\java\\system_tests\\chromedriver.exe");
         driver = new ChromeDriver();
 
@@ -43,7 +43,7 @@ public class TrialSeleniumTest {
     void testAddDecoder(){
         driver.get("http://localhost:3000/Devices");
         driver.manage().window().setSize(new Dimension(782, 818));
-        
+
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 
         List<WebElement> devicesRows = driver.findElements(By.className("singleDeviceRow"));
