@@ -45,9 +45,7 @@ export default class DeviceDetailsPage extends React.Component {
               </Button>
             </Grid>
             <Grid item xs={2}>
-              <Button variant="outlined" color="red">
-                Delete
-              </Button>
+              <Button variant="outlined">Delete</Button>
             </Grid>
           </Grid>
           <Grid item xs={1} />
