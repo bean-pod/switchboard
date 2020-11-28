@@ -1,6 +1,6 @@
 {
   "switchboard": "Switchboard Application",
-  "name": "Create Switchboard Application Sample",
+  "name": "Switchboard Application",
   "icons": [
     {
       "src": "BeanPodB.png",
@@ -8,7 +8,7 @@
       "sizes": "500x500"
     }
   ],
-  "start_url": ".",
+  "start_url": "/Home",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
