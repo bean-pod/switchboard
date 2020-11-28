@@ -2,25 +2,18 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Box } from "@material-ui/core";
 
-export default class TabPanelH extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <div
-        role="tabpanel"
-        hidden={this.props.value !== this.props.index}
-        id={`full-width-tabpanel-${this.props.index}`}
-        aria-labelledby={`full-width-tab-${this.props.index}`}
-      >
-        {this.props.value === this.props.index && (
-          <Box p={0}>{this.props.children}</Box>
-        )}
-      </div>
-    );
-  }
+export default function TabPanelH(props) {
+  const { value, index, children } = props;
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`full-width-tabpanel-${index}`}
+      aria-labelledby={`full-width-tab-${index}`}
+    >
+      {value === index && <Box p={0}>{children}</Box>}
+    </div>
+  );
 }
 
 TabPanelH.propTypes = {
