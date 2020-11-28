@@ -4,7 +4,7 @@ import { Box } from "@material-ui/core";
 
 import VerticalTabs from "./VerticalTabs";
 import TabPanel from "./TabPanel";
-import DevicesDataTable from "./DevicesDataTable";
+import DevicesTable from "./DevicesTable";
 
 export default class ContentsTable extends React.Component {
   constructor(props) {
@@ -63,14 +63,14 @@ export default class ContentsTable extends React.Component {
             classes={classes}
           />
           <TabPanel value={this.state.value} index={0}>
-            <DevicesDataTable
-              devices={this.state.senders}
+            <DevicesTable
+              devices={senders}
               title="List of Senders"
             />
           </TabPanel>
           <TabPanel value={this.state.value} index={1}>
-            <DevicesDataTable
-              devices={this.state.receivers}
+            <DevicesTable
+              devices={receivers}
               title="List of Receivers"
             />
           </TabPanel>
