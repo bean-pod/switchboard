@@ -6,8 +6,7 @@ import InputChannelInfo from "../model/InputChannelInfo";
 import OutputChannelInfo from "../model/OutputChannelInfo";
 
 export default class DeviceDetailsConciseRow extends React.Component {
-  getPropertyDisplayName() {
-    const { name } = this.props;
+  static getPropertyDisplayName(name) {
     switch (name) {
       case "serialNumber":
         return "Serial Number";
@@ -31,7 +30,9 @@ export default class DeviceDetailsConciseRow extends React.Component {
     return (
       <>
         <TableRow>
-          <TableCell>{this.getPropertyDisplayName()}</TableCell>
+          <TableCell>
+            {DeviceDetailsConciseRow.getPropertyDisplayName(name)}
+          </TableCell>
           {name !== "channels" ? (
             <TableCell align="center">{value}</TableCell>
           ) : (
