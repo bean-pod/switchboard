@@ -11,8 +11,6 @@ import DeviceDetailsPage from "./DeviceDetailsPage/DeviceDetailsPage";
 import * as DeviceApi from "./api/DeviceApi";
 import * as StreamApi from "./api/StreamApi";
 
-import * as SampleData from "./api/SampleData";
-
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
@@ -35,13 +33,6 @@ ReactDOM.render(
               deviceDataSource={DeviceApi}
               streamDataSource={StreamApi}
             />
-          )}
-        />
-        <Route
-          exact
-          path="/Test"
-          render={() => (
-            <DeviceDetailsPage device={SampleData.getSampleSender()} />
           )}
         />
         <Route exact path="/Devices/:deviceId" component={DeviceDetailsPage} />
