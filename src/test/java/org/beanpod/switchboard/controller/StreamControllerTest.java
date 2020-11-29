@@ -89,7 +89,7 @@ class StreamControllerTest {
 
   @Test
   void testCreateChannel() {
-    //given
+    // given
     var createStreamRequest = StreamFixture.getCreateStreamRequest();
     var streamDto = StreamFixture.getStreamDto();
     var streamModel = StreamFixture.getStreamModel();
