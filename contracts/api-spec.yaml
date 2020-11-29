@@ -274,7 +274,7 @@ paths:
               $ref: '#/components/schemas/CreateStreamRequest'
       responses:
         '200':
-          description: Successful creation of the decoder
+          description: Successful creation of the stream
           content:
             application/json:
               schema:
@@ -452,12 +452,10 @@ components:
           $ref: '#/components/schemas/InputChannelModel'
         outputChannel:
           $ref: '#/components/schemas/OutputChannelModel'
-        mode:
-          description: The streaming mode to use
-          type: string
-          enum:
-            - SRT
-            - SRT_RENDEZVOUS
+        isRendezvous:
+          description: Flag that indicates that the clients should use SRT's Rendezvous mode
+          type: boolean
+          example: true
 
     StreamsModel:
       description: A list of stream IDs

@@ -2,7 +2,10 @@ package org.beanpod.switchboard.dao;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.beanpod.switchboard.dto.*;
+import org.beanpod.switchboard.dto.DeviceDTO;
+import org.beanpod.switchboard.dto.InputChannelDTO;
+import org.beanpod.switchboard.dto.OutputChannelDTO;
+import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
 import org.beanpod.switchboard.entity.StreamEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
@@ -26,28 +29,28 @@ public class StreamDaoImpl {
     return streamRepository.getAllId();
   }
 
-  public StreamDTO getStreamById(Long id) {
+  public StreamDto getStreamById(Long id) {
     StreamEntity streamEntity = streamRepository.getOne(id);
     return mapper.toDto(streamEntity);
   }
 
-  public StreamDTO createStream(CreateStreamRequest createStreamRequest) {
+  public StreamDto createStream(CreateStreamRequest createStreamRequest) {
     if (streamRepository.existsDuplicate(
-        createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId())) {
+            createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId())) {
       throw new ExceptionType.StreamAlreadyExistsException(
-          createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId());
+              createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId());
     }
 
     InputChannelDTO inputChannelDto =
-        channelService.getInputChannelById(createStreamRequest.getInputChannelId());
+            channelService.getInputChannelById(createStreamRequest.getInputChannelId());
     OutputChannelDTO outputChannelDto =
-        channelService.getOutputChannelById(createStreamRequest.getOutputChannelId());
-    StreamDTO.StreamDTOBuilder streamDtoBuilder =
-        StreamDTO.builder().inputChannel(inputChannelDto).outputChannel(outputChannelDto);
+            channelService.getOutputChannelById(createStreamRequest.getOutputChannelId());
+    StreamDto.StreamDtoBuilder streamDtoBuilder =
+            StreamDto.builder().inputChannel(inputChannelDto).outputChannel(outputChannelDto);
 
     setStreamingMode(inputChannelDto, outputChannelDto, streamDtoBuilder);
 
-    StreamDTO streamDto = streamDtoBuilder.build();
+    StreamDto streamDto = streamDtoBuilder.build();
     StreamEntity streamEntity = mapper.toEntity(streamDto);
     return mapper.toDto(streamRepository.save(streamEntity));
   }
@@ -56,7 +59,7 @@ public class StreamDaoImpl {
     streamRepository.deleteById(id);
   }
 
-  public void updateStream(StreamDTO streamDto) {
+  public void updateStream(StreamDto streamDto) {
     if (!streamRepository.existsById(streamDto.getId())) {
       throw new ExceptionType.StreamDoesNotExistException(streamDto.getId());
     }
@@ -64,12 +67,12 @@ public class StreamDaoImpl {
     streamRepository.save(streamEntity);
   }
 
-  private void setStreamingMode(InputChannelDTO inputChannelDto, OutputChannelDTO outputChannelDto, StreamDTO.StreamDTOBuilder streamDtoBuilder) {
+  private void setStreamingMode(InputChannelDTO inputChannelDto, OutputChannelDTO outputChannelDto, StreamDto.StreamDtoBuilder streamDtoBuilder) {
     if (onSamePrivateNetwork(inputChannelDto, outputChannelDto)
             || onLocalNetwork(inputChannelDto, outputChannelDto)) {
-      streamDtoBuilder.mode(StreamModeDTO.SRT);
+      streamDtoBuilder.isRendezvous(false);
     } else {
-      streamDtoBuilder.mode(StreamModeDTO.SRT_RENDEZVOUS);
+      streamDtoBuilder.isRendezvous(true);
     }
   }
 
@@ -81,7 +84,7 @@ public class StreamDaoImpl {
   }
 
   private boolean deviceOnLocalNetwork(DeviceDTO deviceDto) {
-    //If the public IP address of a device is equal to its private IP address, then the device must be on the same local network as the service.
+    // If the public IP address of a device is equal to its private IP address, then the device must be on the same local network as the service. Additionally, if the public IP address of a device is the Loopback IP address, then the device is running on the same computer as the service and therefore is on the same local network.
     return deviceDto.getPublicIpAddress().equals(deviceDto.getPrivateIpAddress())
         || deviceDto.getPublicIpAddress().equals(LOOPBACK_IP_V4)
         || deviceDto.getPublicIpAddress().equals(LOOPBACK_IP_V6);

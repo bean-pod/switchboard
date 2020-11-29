@@ -1,16 +1,8 @@
 package org.beanpod.switchboard.dao;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.mockito.MockitoAnnotations.initMocks;
-
-import java.util.List;
 import org.beanpod.switchboard.dto.InputChannelDTO;
 import org.beanpod.switchboard.dto.OutputChannelDTO;
-import org.beanpod.switchboard.dto.StreamDTO;
+import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
 import org.beanpod.switchboard.entity.StreamEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
@@ -22,6 +14,15 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.openapitools.model.CreateStreamRequest;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.initMocks;
 
 public class StreamDaoImplTest {
   private StreamDaoImpl streamService;
@@ -37,7 +38,7 @@ public class StreamDaoImplTest {
   }
 
   @Test
-  public void testGetChannels() {
+  public void testGetStreams() {
     // given
     List<Long> channelIdList = StreamFixture.getIdList();
     when(streamRepository.getAllId()).thenReturn(channelIdList);
@@ -50,16 +51,16 @@ public class StreamDaoImplTest {
   }
 
   @Test
-  public void testGetChannelById() {
+  public void testGetStreamById() {
     long streamId = StreamFixture.ID;
     StreamEntity streamEntity = StreamFixture.getStreamEntity();
-    StreamDTO streamDto = StreamFixture.getStreamDto();
+    StreamDto streamDto = StreamFixture.getStreamDto();
 
     when(streamRepository.getOne(streamId)).thenReturn(streamEntity);
     when(streamMapper.toDto(streamEntity)).thenReturn(streamDto);
 
     // when
-    StreamDTO result = streamService.getStreamById(streamId);
+    StreamDto result = streamService.getStreamById(streamId);
 
     // then
     assertEquals(result.getId(), streamId);
@@ -68,7 +69,7 @@ public class StreamDaoImplTest {
   }
 
   @Test
-  public void testCreateChannel() {
+  public void testCreateStream() {
     // given
     CreateStreamRequest createStreamRequest = StreamFixture.getCreateStreamRequest();
     InputChannelDTO inputChannelDto = ChannelFixture.getInputChannelDto();
@@ -76,9 +77,9 @@ public class StreamDaoImplTest {
     StreamEntity streamEntity = StreamFixture.getStreamEntity();
 
     when(channelService.getInputChannelById(createStreamRequest.getInputChannelId()))
-        .thenReturn(inputChannelDto);
+            .thenReturn(inputChannelDto);
     when(channelService.getOutputChannelById(createStreamRequest.getOutputChannelId()))
-        .thenReturn(outputChannelDto);
+            .thenReturn(outputChannelDto);
     when(streamMapper.toEntity(any())).thenReturn(streamEntity);
     when(streamRepository.existsDuplicate(
             createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId()))
@@ -92,22 +93,22 @@ public class StreamDaoImplTest {
   }
 
   @Test
-  public void testCreateChannelAlreadyExists() {
+  public void testCreateStreamAlreadyExists() {
     // given
     CreateStreamRequest createStreamRequest = StreamFixture.getCreateStreamRequest();
 
     when(streamRepository.existsDuplicate(
             createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId()))
-        .thenReturn(true);
+            .thenReturn(true);
 
     // when & then
     assertThrows(
-        ExceptionType.StreamAlreadyExistsException.class,
-        () -> streamService.createStream(createStreamRequest));
+            ExceptionType.StreamAlreadyExistsException.class,
+            () -> streamService.createStream(createStreamRequest));
   }
 
   @Test
-  public void testCreateChannelDifferentPublicIp() {
+  public void testCreateStreamDifferentPublicIp() {
     String otherPublicIpAddress = "179.256.54.21";
     CreateStreamRequest createStreamRequest = StreamFixture.getCreateStreamRequest();
     InputChannelDTO inputChannelDto = ChannelFixture.getInputChannelDto();
@@ -116,9 +117,9 @@ public class StreamDaoImplTest {
     StreamEntity streamEntity = StreamFixture.getStreamEntity();
 
     when(channelService.getInputChannelById(createStreamRequest.getInputChannelId()))
-        .thenReturn(inputChannelDto);
+            .thenReturn(inputChannelDto);
     when(channelService.getOutputChannelById(createStreamRequest.getOutputChannelId()))
-        .thenReturn(outputChannelDto);
+            .thenReturn(outputChannelDto);
     when(streamMapper.toEntity(any())).thenReturn(streamEntity);
     when(streamRepository.existsDuplicate(
             createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId()))
@@ -132,7 +133,7 @@ public class StreamDaoImplTest {
   }
 
   @Test
-  public void testCreateChannelSameDeviceIpV4() {
+  public void testCreateStreamSameDeviceIpV4() {
     String otherPublicIpAddress = StreamDaoImpl.LOOPBACK_IP_V4;
     CreateStreamRequest createStreamRequest = StreamFixture.getCreateStreamRequest();
     InputChannelDTO inputChannelDto = ChannelFixture.getInputChannelDto();
@@ -141,9 +142,9 @@ public class StreamDaoImplTest {
     StreamEntity streamEntity = StreamFixture.getStreamEntity();
 
     when(channelService.getInputChannelById(createStreamRequest.getInputChannelId()))
-        .thenReturn(inputChannelDto);
+            .thenReturn(inputChannelDto);
     when(channelService.getOutputChannelById(createStreamRequest.getOutputChannelId()))
-        .thenReturn(outputChannelDto);
+            .thenReturn(outputChannelDto);
     when(streamMapper.toEntity(any())).thenReturn(streamEntity);
     when(streamRepository.existsDuplicate(
             createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId()))
@@ -182,7 +183,7 @@ public class StreamDaoImplTest {
   }
 
   @Test
-  public void testCreateChannelLocalNetwork() {
+  public void testCreateStreamLocalNetwork() {
     String otherPublicIpAddress = DeviceFixture.PRIVATE_IP_ADDRESS;
     CreateStreamRequest createStreamRequest = StreamFixture.getCreateStreamRequest();
     InputChannelDTO inputChannelDto = ChannelFixture.getInputChannelDto();
@@ -191,9 +192,9 @@ public class StreamDaoImplTest {
     StreamEntity streamEntity = StreamFixture.getStreamEntity();
 
     when(channelService.getInputChannelById(createStreamRequest.getInputChannelId()))
-        .thenReturn(inputChannelDto);
+            .thenReturn(inputChannelDto);
     when(channelService.getOutputChannelById(createStreamRequest.getOutputChannelId()))
-        .thenReturn(outputChannelDto);
+            .thenReturn(outputChannelDto);
     when(streamMapper.toEntity(any())).thenReturn(streamEntity);
     when(streamRepository.existsDuplicate(
             createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId()))
@@ -207,7 +208,7 @@ public class StreamDaoImplTest {
   }
 
   @Test
-  public void testDeleteChannel() {
+  public void testDeleteStream() {
     // given
     long channelId = StreamFixture.ID;
 
@@ -219,9 +220,9 @@ public class StreamDaoImplTest {
   }
 
   @Test
-  public void testUpdateChannel() {
+  public void testUpdateStream() {
     // given
-    StreamDTO streamDto = StreamFixture.getStreamDto();
+    StreamDto streamDto = StreamFixture.getStreamDto();
     StreamEntity streamEntity = StreamFixture.getStreamEntity();
 
     when(streamRepository.existsById(StreamFixture.ID)).thenReturn(true);

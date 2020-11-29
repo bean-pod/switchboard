@@ -1,10 +1,5 @@
 package org.beanpod.switchboard.controller;
 
-import java.util.List;
-import java.util.Optional;
-import javax.servlet.http.HttpServletRequest;
-import javax.transaction.Transactional;
-import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.beanpod.switchboard.dao.DeviceDaoImpl;
@@ -18,11 +13,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
+import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
 public class DeviceController implements DeviceApi {
-  public static final String UNKNOWN_ERROR_MESSAGE = "Unknown error in Device Controller";
+  public static final String CONTROLLER_NAME = "Device";
   private final DeviceDaoImpl service;
   private final DeviceMapper deviceMapper;
   private final HttpServletRequest request;
@@ -30,10 +31,10 @@ public class DeviceController implements DeviceApi {
   @Override
   public ResponseEntity<List<DeviceModel>> retrieveAllDevices() {
     return Optional.of(service.getDevices())
-        .map(deviceMapper::toDeviceDTOs)
-        .map(deviceMapper::toDeviceModels)
-        .map(ResponseEntity::ok)
-        .orElseThrow(this::getUnknownException);
+            .map(deviceMapper::toDeviceDTOs)
+            .map(deviceMapper::toDeviceModels)
+            .map(ResponseEntity::ok)
+            .orElseThrow(() -> new ExceptionType.UnknownException(CONTROLLER_NAME));
   }
 
   @Override
@@ -44,9 +45,9 @@ public class DeviceController implements DeviceApi {
             .orElseThrow(() -> new ExceptionType.DeviceNotFoundException(serialNumber));
 
     return Optional.of(deviceDto)
-        .map(deviceMapper::toDeviceModel)
-        .map(ResponseEntity::ok)
-        .orElseThrow(this::getUnknownException);
+            .map(deviceMapper::toDeviceModel)
+            .map(ResponseEntity::ok)
+            .orElseThrow(() -> new ExceptionType.UnknownException(CONTROLLER_NAME));
   }
 
   @Override
@@ -57,10 +58,10 @@ public class DeviceController implements DeviceApi {
     }
 
     return Optional.of(createDeviceRequest)
-        .map(createRequest -> service.createDevice(createRequest, request.getRemoteAddr()))
-        .map(deviceMapper::toDeviceModel)
-        .map(ResponseEntity::ok)
-        .orElseThrow(this::getUnknownException);
+            .map(createRequest -> service.createDevice(createRequest, request.getRemoteAddr()))
+            .map(deviceMapper::toDeviceModel)
+            .map(ResponseEntity::ok)
+            .orElseThrow(() -> new ExceptionType.UnknownException(CONTROLLER_NAME));
   }
 
   @Override
@@ -83,13 +84,10 @@ public class DeviceController implements DeviceApi {
                 () -> new ExceptionType.DeviceNotFoundException(deviceModel.getSerialNumber()));
 
     return Optional.of(deviceDto)
-        .map(service::save)
-        .map(deviceMapper::toDeviceModel)
-        .map(ResponseEntity::ok)
-        .orElseThrow(this::getUnknownException);
+            .map(service::save)
+            .map(deviceMapper::toDeviceModel)
+            .map(ResponseEntity::ok)
+            .orElseThrow(() -> new ExceptionType.UnknownException(CONTROLLER_NAME));
   }
 
-  private RuntimeException getUnknownException() {
-    return new RuntimeException(UNKNOWN_ERROR_MESSAGE);
-  }
 }

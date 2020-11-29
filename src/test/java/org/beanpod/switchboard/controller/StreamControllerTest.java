@@ -1,14 +1,9 @@
 package org.beanpod.switchboard.controller;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.when;
-
-import java.util.List;
 import org.beanpod.switchboard.dao.StreamDaoImpl;
-import org.beanpod.switchboard.dto.StreamDTO;
+import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
+import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.fixture.ChannelFixture;
 import org.beanpod.switchboard.fixture.StreamFixture;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,6 +13,11 @@ import org.mockito.MockitoAnnotations;
 import org.openapitools.model.StreamModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 class StreamControllerTest {
   private StreamController streamController;
@@ -32,7 +32,7 @@ class StreamControllerTest {
   }
 
   @Test
-  void testGetChannels() {
+  void testGetStreams() {
     // given
     when(streamService.getStreams()).thenReturn(StreamFixture.getIdList());
 
@@ -41,36 +41,37 @@ class StreamControllerTest {
 
     // then
     assertNotNull(result);
+    assertNotNull(result.getBody());
     List<Long> responseBody = result.getBody();
     assertEquals(StreamFixture.ID, responseBody.get(0));
   }
 
   @Test
-  void testGetChannelsDtoReturnsNull() {
+  void testGetStreamsDtoReturnsNull() {
     // given
     when(streamService.getStreams()).thenReturn(null);
 
     // when & then
     RuntimeException exception =
-        assertThrows(RuntimeException.class, () -> streamController.getStreams());
+            assertThrows(ExceptionType.UnknownException.class, () -> streamController.getStreams());
 
-    assertEquals(StreamController.UNKNOWN_ERROR_MESSAGE, exception.getMessage());
+    assertEquals("Unknown error the Stream controller", exception.getMessage());
   }
 
   @Test
-  void testGetChannelsThrowsException() {
+  void testGetStreamsThrowsException() {
     // given
     when(streamService.getStreams()).thenThrow(new RuntimeException());
 
     // when & then
     RuntimeException exception =
-        assertThrows(RuntimeException.class, () -> streamController.getStreams());
+            assertThrows(RuntimeException.class, () -> streamController.getStreams());
   }
 
   @Test
-  void testGetChannelById() {
+  void testGetStreamById() {
     // given
-    StreamDTO streamDto = StreamFixture.getStreamDto();
+    StreamDto streamDto = StreamFixture.getStreamDto();
     when(streamService.getStreamById(StreamFixture.ID)).thenReturn(streamDto);
     when(streamMapper.toModel(streamDto)).thenReturn(StreamFixture.getStreamModel());
 
@@ -88,7 +89,7 @@ class StreamControllerTest {
   }
 
   @Test
-  void testCreateChannel() {
+  void testCreateStream() {
     // given
     var createStreamRequest = StreamFixture.getCreateStreamRequest();
     var streamDto = StreamFixture.getStreamDto();
@@ -107,7 +108,7 @@ class StreamControllerTest {
   }
 
   @Test
-  void testDeleteChannel() {
+  void testDeleteStream() {
     // when
     ResponseEntity<Void> result = streamController.deleteStream(StreamFixture.ID);
 
@@ -116,7 +117,7 @@ class StreamControllerTest {
   }
 
   @Test
-  void testUpdateChannel() {
+  void testUpdateStream() {
     // given
     StreamModel streamModel = StreamFixture.getStreamModel();
     when(streamMapper.toDto(streamModel)).thenReturn(StreamFixture.getStreamDto());

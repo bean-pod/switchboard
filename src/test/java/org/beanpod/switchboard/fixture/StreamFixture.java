@@ -1,12 +1,11 @@
 package org.beanpod.switchboard.fixture;
 
-import java.util.List;
-import org.beanpod.switchboard.dto.StreamDTO;
-import org.beanpod.switchboard.dto.StreamModeDTO;
+import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.entity.StreamEntity;
-import org.beanpod.switchboard.entity.StreamModeEntity;
 import org.openapitools.model.CreateStreamRequest;
 import org.openapitools.model.StreamModel;
+
+import java.util.List;
 
 public class StreamFixture {
   public static final long ID = 2429L;
@@ -17,33 +16,33 @@ public class StreamFixture {
 
   public static StreamEntity getStreamEntity() {
     return StreamEntity.builder()
-        .id(ID)
-        .inputChannel(ChannelFixture.getInputChannelEntity())
-        .outputChannel(ChannelFixture.getOutputChannelEntity())
-        .mode(StreamModeEntity.SRT)
-        .build();
+            .id(ID)
+            .inputChannel(ChannelFixture.getInputChannelEntity())
+            .outputChannel(ChannelFixture.getOutputChannelEntity())
+            .isRendezvous(false)
+            .build();
   }
 
-  public static StreamDTO getStreamDto() {
-    return StreamDTO.builder()
-        .id(ID)
-        .inputChannel(ChannelFixture.getInputChannelDto())
-        .outputChannel(ChannelFixture.getOutputChannelDto())
-        .mode(StreamModeDTO.SRT)
-        .build();
+  public static StreamDto getStreamDto() {
+    return StreamDto.builder()
+            .id(ID)
+            .inputChannel(ChannelFixture.getInputChannelDto())
+            .outputChannel(ChannelFixture.getOutputChannelDto())
+            .isRendezvous(false)
+            .build();
   }
 
   public static CreateStreamRequest getCreateStreamRequest() {
     return new CreateStreamRequest()
-        .inputChannelId(ChannelFixture.INPUT_CHANNEL_ID)
-        .outputChannelId(ChannelFixture.OUTPUT_CHANNEL_ID);
+            .inputChannelId(ChannelFixture.INPUT_CHANNEL_ID)
+            .outputChannelId(ChannelFixture.OUTPUT_CHANNEL_ID);
   }
 
   public static StreamModel getStreamModel() {
     return new StreamModel()
-        .id(ID)
-        .inputChannel(ChannelFixture.getInputChannelModel())
-        .outputChannel(ChannelFixture.getOutputChannelModel())
-        .mode(StreamModel.ModeEnum.SRT);
+            .id(ID)
+            .inputChannel(ChannelFixture.getInputChannelModel())
+            .outputChannel(ChannelFixture.getOutputChannelModel())
+            .isRendezvous(false);
   }
 }
