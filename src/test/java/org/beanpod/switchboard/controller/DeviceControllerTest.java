@@ -56,7 +56,7 @@ class DeviceControllerTest {
   final void testRetrieveAllDevices() {
     when(deviceService.getDevices()).thenReturn(List.of(device));
     when(deviceMapper.toDeviceDTOs(any())).thenReturn(List.of(deviceDTO));
-    when(deviceMapper.toDeviceModels(any())).thenReturn(List.of(deviceModel));
+    when(deviceMapper.toDeviceModelList(any())).thenReturn(List.of(deviceModel));
     ResponseEntity<List<DeviceModel>> response = deviceController.retrieveAllDevices();
 
     assertEquals(HttpStatus.OK, response.getStatusCode());
