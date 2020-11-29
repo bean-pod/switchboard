@@ -17,7 +17,7 @@ export default class StreamingPage extends React.Component {
       <Container>
         <DynamicBreadcrumb
           breadcrumbs={[
-            ["Home", ""],
+            ["Home", "/"],
             ["My Devices", "Devices"],
             ["Streaming", "Streaming"]
           ]}

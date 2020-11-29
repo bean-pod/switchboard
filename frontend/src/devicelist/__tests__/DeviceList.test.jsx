@@ -6,6 +6,28 @@ import { afterEach, beforeEach, expect, test } from "@jest/globals";
 import DeviceListPage from "../DeviceListPage";
 import * as SampleData from "../../api/SampleData";
 
+function verifyStaticElements() {
+  const title = document.querySelector("div.title");
+  expect(title).not.toBe(null);
+  expect(title.innerHTML).toBe("My Devices");
+
+  const streamButton = document.getElementById("DeviceListStreamBtn");
+  expect(streamButton).not.toBe(null);
+  expect(streamButton.textContent).toBe("Stream");
+
+  const addDeviceButton = document.getElementById("DeviceListAddDevBtn");
+  expect(addDeviceButton).not.toBe(null);
+  expect(addDeviceButton.textContent).toBe("Add Device");
+
+  const senderTab = document.querySelector("#vertical-tab-0 span");
+  expect(senderTab).not.toBe(null);
+  expect(senderTab.textContent).toBe("Senders");
+
+  const receiverTab = document.querySelector("#vertical-tab-1 span");
+  expect(receiverTab).not.toBe(null);
+  expect(receiverTab.textContent).toBe("Receivers");
+}
+
 let container = null;
 let sampleSenders = null;
 let sampleReceivers = null;
@@ -40,7 +62,7 @@ test("Device list renders sender page by default", () => {
 
   verifyStaticElements();
 
-  const devices = document.getElementsByClassName("singleDeviceRow");
+  const devices = document.querySelectorAll("tr.MuiTableRow-root[index]");
   expect(devices).not.toBe(null);
   expect(devices.length).toBe(sampleSenders.length);
 
@@ -72,7 +94,7 @@ test("Clicking receivers tabs renders the receiver list ", () => {
     ReactTestUtils.Simulate.click(receiverTabButton);
   });
 
-  const devices = document.getElementsByClassName("singleDeviceRow");
+  const devices = document.querySelectorAll("tr.MuiTableRow-root[index]");
   expect(devices).not.toBe(null);
   expect(devices.length).toBe(sampleReceivers.length);
 
@@ -99,47 +121,16 @@ test("Clicking dropdown on table row displays additional information", () => {
 
   verifyStaticElements();
 
-  const dropdownButton = document.querySelectorAll(
-    "td.dropdownButton button"
-  )[0];
+  const dropdownButton = document.querySelector(
+    "tr.MuiTableRow-root[index] button"
+  );
   act(() => {
     ReactTestUtils.Simulate.click(dropdownButton);
   });
 
   const textElement = document.querySelector(
-    "tr.deviceDetails td div div div div h6"
+    "tr.MuiTableRow-root td.MuiTableCell-root[colspan] h6"
   );
   expect(textElement).not.toBe(null);
   expect(textElement.innerHTML).toBe("Channels");
 });
-
-function verifyStaticElements() {
-  const title = document.querySelector("div.title");
-  expect(title).not.toBe(null);
-  expect(title.innerHTML).toBe("My Devices");
-
-  const streamButton = document.getElementById("DeviceListStreamBtn");
-  expect(streamButton).not.toBe(null);
-  expect(streamButton.textContent).toBe("Stream");
-
-  const addDeviceButton = document.getElementById("DeviceListAddDevBtn");
-  expect(addDeviceButton).not.toBe(null);
-  expect(addDeviceButton.textContent).toBe("Add Device");
-
-  const searchBar = document.querySelector(
-    "div.searchField div.MuiFormControl-root div.MuiInputBase-root input"
-  );
-  expect(searchBar).not.toBe(null);
-  expect(searchBar.getAttribute("placeholder")).toBe("Search");
-
-  const sortBy = document.querySelector("#sortBySelect");
-  expect(sortBy).not.toBe(null);
-
-  const senderTab = document.querySelector("#vertical-tab-0 span");
-  expect(senderTab).not.toBe(null);
-  expect(senderTab.textContent).toBe("Senders");
-
-  const receiverTab = document.querySelector("#vertical-tab-1 span");
-  expect(receiverTab).not.toBe(null);
-  expect(receiverTab.textContent).toBe("Receivers");
-}

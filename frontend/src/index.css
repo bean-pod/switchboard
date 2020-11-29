@@ -18,6 +18,10 @@ code {
   border-bottom: 1px solid #d3d3d3;
 }
 
+.headerAreaDeviceList {
+  margin-bottom: 1em;
+}
+
 input {
   padding: 0.5em;
 }

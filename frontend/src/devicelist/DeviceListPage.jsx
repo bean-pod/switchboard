@@ -14,11 +14,11 @@ export default class DeviceListPage extends React.Component {
       <Container>
         <DynamicBreadcrumb
           breadcrumbs={[
-            ["Home", ""],
+            ["Home", "/"],
             ["My Devices", "Devices"]
           ]}
         />
-        <Box padding="1em">
+        <Box padding="1em" paddingTop="2em">
           <TitleBox />
           <ContentsTable classes={useStyles} dataSource={dataSource} />
         </Box>
