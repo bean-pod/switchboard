@@ -27,6 +27,12 @@ code {
   margin-bottom: 1em;
 }
 
+.lightGreyBorder {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #f1f1f1;
+}
+
 input {
   padding: 0.5em;
 }
