@@ -22,7 +22,7 @@ export default class StreamingPage extends React.Component {
             ["Streaming", "Streaming"]
           ]}
         />
-        <Box padding="1em">
+        <Box className="areaUnderBreadcrumbs">
           <Box className="flexContents headerArea">
             <div className="title">Streaming</div>
           </Box>
