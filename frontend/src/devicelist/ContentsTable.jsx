@@ -51,8 +51,7 @@ export default class ContentsTable extends React.Component {
         <Box
           style={{
             display: "flex",
-            flexGrow: 1,
-            maxHeight: 500
+            flexGrow: 1
           }}
           border={1}
           borderColor="#f1f1f1"

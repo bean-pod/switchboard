@@ -9,7 +9,11 @@ import {
   ExpandMore,
   ArrowDownward,
   Clear,
-  SaveAlt
+  SaveAlt,
+  FirstPage,
+  LastPage,
+  ChevronRight,
+  ChevronLeft
 } from "@material-ui/icons";
 
 import MaterialTable, { MTableToolbar } from "material-table";
@@ -107,7 +111,6 @@ function getOptions() {
     // above lines commented out b/c scrollbar bug, see: https://github.com/mbrn/material-table/issues/780
     actionsColumnIndex: -1,
     filtering: true,
-    paging: false,
     draggable: false
   };
 }
@@ -118,7 +121,11 @@ function getIcons() {
     Search,
     ResetSearch: Clear,
     SortArrow: ArrowDownward,
-    Export: SaveAlt
+    Export: SaveAlt,
+    FirstPage,
+    LastPage,
+    NextPage: ChevronRight,
+    PreviousPage: ChevronLeft
   };
 }
 
@@ -128,7 +135,7 @@ export default class DevicesTable extends React.Component {
     return (
       <>
         <Box>
-          <TableContainer style={{ maxHeight: 500 }}>
+          <TableContainer style={{ maxHeight: 570 }}>
             <MaterialTable
               title={title}
               components={getComponents()}
