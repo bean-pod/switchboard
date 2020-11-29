@@ -46,7 +46,9 @@ public class TrialSeleniumTest {
 
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 
-        List<WebElement> devicesRows = driver.findElements(By.className("singleDeviceRow"));
+        WebElement encodersTable = driver.findElement(By.tagName("table")); //find encoders table
+        List<WebElement> devicesRows = encodersTable.findElements(By.tagName("tr")); //find all tr elements inside found table
+
         boolean assertValue = false;
         for(WebElement element : devicesRows){
            if(element.getText().contains("Sender Test10")) {
