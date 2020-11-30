@@ -35,7 +35,11 @@ ReactDOM.render(
             />
           )}
         />
-        <Route exact path="/Devices/:deviceId" component={DeviceDetailsPage} />
+        <Route
+          exact
+          path="/Devices/Details/:deviceId"
+          component={DeviceDetailsPage}
+        />
       </Switch>
     </BrowserRouter>
   </React.StrictMode>,
