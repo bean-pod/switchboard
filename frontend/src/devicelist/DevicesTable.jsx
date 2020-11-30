@@ -20,6 +20,7 @@ import ActionMenu from "./ActionMenu";
 import DeviceInfo from "../model/DeviceInfo";
 
 function getMTableToolbar(props) {
+  /* eslint-disable react/jsx-props-no-spreading */
   return (
     <div className="lightestGrey">
       <MTableToolbar {...props} />
