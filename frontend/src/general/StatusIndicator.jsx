@@ -5,13 +5,13 @@ export default class StatusIndicator extends React.Component {
   getStatusStyle(status) {
     switch (status) {
       case "Online":
-        return "green statusText";
+        return "green statusIndicatorBody statusTextOnline ";
       case "Pending":
-        return "yellow statusText";
+        return "yellow statusIndicatorBody statusTextOnline";
       case "Error":
-        return "red statusText";
+        return "red statusIndicatorBody statusTextOnline";
       default:
-        return "lightGrey statusOfflineText";
+        return "lightGrey statusIndicatorBody statusTextOffline";
     }
   }
 
