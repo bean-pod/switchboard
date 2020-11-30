@@ -1,19 +1,15 @@
 package org.beanpod.switchboard.dao;
 
-import org.beanpod.switchboard.dto.InputChannelDto;
-import org.beanpod.switchboard.dto.OutputChannelDto;
 import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
 import org.beanpod.switchboard.entity.StreamEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.fixture.ChannelFixture;
-import org.beanpod.switchboard.fixture.DeviceFixture;
 import org.beanpod.switchboard.fixture.StreamFixture;
 import org.beanpod.switchboard.repository.StreamRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.openapitools.model.CreateStreamRequest;
 
 import java.util.List;
 
@@ -70,141 +66,35 @@ public class StreamDaoImplTest {
 
   @Test
   public void testCreateStream() {
-    // given
-    CreateStreamRequest createStreamRequest = StreamFixture.getCreateStreamRequest();
-    InputChannelDto inputChannelDto = ChannelFixture.getInputChannelDto();
-    OutputChannelDto outputChannelDto = ChannelFixture.getOutputChannelDto();
-    StreamEntity streamEntity = StreamFixture.getStreamEntity();
+      // given
+      StreamDto streamDto = StreamFixture.getStreamDto();
+      long inputChannelId = streamDto.getInputChannel().getId();
+      long outputChannelId = streamDto.getOutputChannel().getId();
+      StreamEntity streamEntity = StreamFixture.getStreamEntity();
 
-    when(channelService.getInputChannelById(createStreamRequest.getInputChannelId()))
-            .thenReturn(inputChannelDto);
-    when(channelService.getOutputChannelById(createStreamRequest.getOutputChannelId()))
-            .thenReturn(outputChannelDto);
-    when(streamMapper.toEntity(any())).thenReturn(streamEntity);
-    when(streamRepository.existsDuplicate(
-            createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId()))
-            .thenReturn(false);
+      when(streamMapper.toEntity(any())).thenReturn(streamEntity);
+      when(streamRepository.existsDuplicate(inputChannelId, outputChannelId)).thenReturn(false);
 
-    // when
-    streamService.createStream(createStreamRequest);
+      // when
+      streamService.saveStream(streamDto);
 
-    // then
-    verify(streamRepository).save(streamEntity);
+      // then
+      verify(streamRepository).save(streamEntity);
   }
 
   @Test
   public void testCreateStreamAlreadyExists() {
-    // given
-    CreateStreamRequest createStreamRequest = StreamFixture.getCreateStreamRequest();
+      // given
+      StreamDto streamDto = StreamFixture.getStreamDto();
+      long inputChannelId = streamDto.getInputChannel().getId();
+      long outputChannelId = streamDto.getOutputChannel().getId();
 
-    when(streamRepository.existsDuplicate(
-            createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId()))
-            .thenReturn(true);
+      when(streamRepository.existsDuplicate(inputChannelId, outputChannelId)).thenReturn(true);
 
-    // when & then
-    assertThrows(
-            ExceptionType.StreamAlreadyExistsException.class,
-            () -> streamService.createStream(createStreamRequest));
-  }
-
-  @Test
-  public void testCreateStreamDifferentPublicIp() {
-    String otherPublicIpAddress = "179.256.54.21";
-    CreateStreamRequest createStreamRequest = StreamFixture.getCreateStreamRequest();
-    InputChannelDto inputChannelDto = ChannelFixture.getInputChannelDto();
-    OutputChannelDto outputChannelDto = ChannelFixture.getOutputChannelDto();
-    outputChannelDto.getEncoder().getDevice().setPublicIpAddress(otherPublicIpAddress);
-    StreamEntity streamEntity = StreamFixture.getStreamEntity();
-
-    when(channelService.getInputChannelById(createStreamRequest.getInputChannelId()))
-            .thenReturn(inputChannelDto);
-    when(channelService.getOutputChannelById(createStreamRequest.getOutputChannelId()))
-            .thenReturn(outputChannelDto);
-    when(streamMapper.toEntity(any())).thenReturn(streamEntity);
-    when(streamRepository.existsDuplicate(
-            createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId()))
-        .thenReturn(false);
-
-    // when
-    streamService.createStream(createStreamRequest);
-
-    // then
-    verify(streamRepository).save(streamEntity);
-  }
-
-  @Test
-  public void testCreateStreamSameDeviceIpV4() {
-    String otherPublicIpAddress = StreamDaoImpl.LOOPBACK_IP_V4;
-    CreateStreamRequest createStreamRequest = StreamFixture.getCreateStreamRequest();
-    InputChannelDto inputChannelDto = ChannelFixture.getInputChannelDto();
-    OutputChannelDto outputChannelDto = ChannelFixture.getOutputChannelDto();
-    outputChannelDto.getEncoder().getDevice().setPublicIpAddress(otherPublicIpAddress);
-    StreamEntity streamEntity = StreamFixture.getStreamEntity();
-
-    when(channelService.getInputChannelById(createStreamRequest.getInputChannelId()))
-            .thenReturn(inputChannelDto);
-    when(channelService.getOutputChannelById(createStreamRequest.getOutputChannelId()))
-            .thenReturn(outputChannelDto);
-    when(streamMapper.toEntity(any())).thenReturn(streamEntity);
-    when(streamRepository.existsDuplicate(
-            createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId()))
-        .thenReturn(false);
-
-    // when
-    streamService.createStream(createStreamRequest);
-
-    // then
-    verify(streamRepository).save(streamEntity);
-  }
-
-  @Test
-  public void testCreateChannelSameDeviceIpV6() {
-    String otherPublicIpAddress = StreamDaoImpl.LOOPBACK_IP_V6;
-    CreateStreamRequest createStreamRequest = StreamFixture.getCreateStreamRequest();
-    InputChannelDto inputChannelDto = ChannelFixture.getInputChannelDto();
-    OutputChannelDto outputChannelDto = ChannelFixture.getOutputChannelDto();
-    outputChannelDto.getEncoder().getDevice().setPublicIpAddress(otherPublicIpAddress);
-    StreamEntity streamEntity = StreamFixture.getStreamEntity();
-
-    when(channelService.getInputChannelById(createStreamRequest.getInputChannelId()))
-            .thenReturn(inputChannelDto);
-    when(channelService.getOutputChannelById(createStreamRequest.getOutputChannelId()))
-            .thenReturn(outputChannelDto);
-    when(streamMapper.toEntity(any())).thenReturn(streamEntity);
-    when(streamRepository.existsDuplicate(
-            createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId()))
-        .thenReturn(false);
-
-    // when
-    streamService.createStream(createStreamRequest);
-
-    // then
-    verify(streamRepository).save(streamEntity);
-  }
-
-  @Test
-  public void testCreateStreamLocalNetwork() {
-    String otherPublicIpAddress = DeviceFixture.PRIVATE_IP_ADDRESS;
-    CreateStreamRequest createStreamRequest = StreamFixture.getCreateStreamRequest();
-    InputChannelDto inputChannelDto = ChannelFixture.getInputChannelDto();
-    OutputChannelDto outputChannelDto = ChannelFixture.getOutputChannelDto();
-    outputChannelDto.getEncoder().getDevice().setPublicIpAddress(otherPublicIpAddress);
-    StreamEntity streamEntity = StreamFixture.getStreamEntity();
-
-    when(channelService.getInputChannelById(createStreamRequest.getInputChannelId()))
-            .thenReturn(inputChannelDto);
-    when(channelService.getOutputChannelById(createStreamRequest.getOutputChannelId()))
-            .thenReturn(outputChannelDto);
-    when(streamMapper.toEntity(any())).thenReturn(streamEntity);
-    when(streamRepository.existsDuplicate(
-            createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId()))
-        .thenReturn(false);
-
-    // when
-    streamService.createStream(createStreamRequest);
-
-    // then
-    verify(streamRepository).save(streamEntity);
+      // when & then
+      assertThrows(
+              ExceptionType.StreamAlreadyExistsException.class,
+              () -> streamService.saveStream(streamDto));
   }
 
   @Test

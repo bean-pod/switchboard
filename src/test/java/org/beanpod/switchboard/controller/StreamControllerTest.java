@@ -6,6 +6,7 @@ import org.beanpod.switchboard.dto.mapper.StreamMapper;
 import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.fixture.ChannelFixture;
 import org.beanpod.switchboard.fixture.StreamFixture;
+import org.beanpod.switchboard.service.StreamService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -22,19 +23,23 @@ import static org.mockito.Mockito.when;
 class StreamControllerTest {
   private StreamController streamController;
 
-  @Mock private StreamDaoImpl streamService;
-  @Mock private StreamMapper streamMapper;
+  @Mock
+  private StreamDaoImpl streamDao;
+  @Mock
+  private StreamMapper streamMapper;
+  @Mock
+  private StreamService streamService;
 
   @BeforeEach
   public void setup() {
     MockitoAnnotations.initMocks(this);
-    streamController = new StreamController(streamService, streamMapper);
+    streamController = new StreamController(streamDao, streamService, streamMapper);
   }
 
   @Test
   void testGetStreams() {
     // given
-    when(streamService.getStreams()).thenReturn(StreamFixture.getIdList());
+    when(streamDao.getStreams()).thenReturn(StreamFixture.getIdList());
 
     // when
     ResponseEntity<List<Long>> result = streamController.getStreams();
@@ -49,7 +54,7 @@ class StreamControllerTest {
   @Test
   void testGetStreamsDtoReturnsNull() {
     // given
-    when(streamService.getStreams()).thenReturn(null);
+    when(streamDao.getStreams()).thenReturn(null);
 
     // when & then
     RuntimeException exception =
@@ -61,7 +66,7 @@ class StreamControllerTest {
   @Test
   void testGetStreamsThrowsException() {
     // given
-    when(streamService.getStreams()).thenThrow(new RuntimeException());
+    when(streamDao.getStreams()).thenThrow(new RuntimeException());
 
     // when & then
     RuntimeException exception =
@@ -72,7 +77,7 @@ class StreamControllerTest {
   void testGetStreamById() {
     // given
     StreamDto streamDto = StreamFixture.getStreamDto();
-    when(streamService.getStreamById(StreamFixture.ID)).thenReturn(streamDto);
+    when(streamDao.getStreamById(StreamFixture.ID)).thenReturn(streamDto);
     when(streamMapper.toModel(streamDto)).thenReturn(StreamFixture.getStreamModel());
 
     // when
