@@ -30,21 +30,25 @@ function getComponents() {
   };
 }
 
+function buildNavlink(deviceInfo) {
+  return (
+    <NavLink
+      to={{
+        pathname: `/Devices/Details/${deviceInfo.name}`,
+        state: { device: deviceInfo }
+      }}
+    >
+      {deviceInfo.name}
+    </NavLink>
+  );
+}
+
 function getColumnInfo() {
   return [
     {
       title: "Name",
       field: "name",
-      render: (rowData) => (
-        <NavLink
-          to={{
-            pathname: `/Devices/Details/${rowData.name}`,
-            state: { device: rowData }
-          }}
-        >
-          {rowData.name}
-        </NavLink>
-      )
+      render: (rowData) => buildNavlink(rowData)
     },
     {
       title: "Serial Number",
