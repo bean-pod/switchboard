@@ -1,46 +1,31 @@
 import React from "react";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow
-} from "@material-ui/core";
+import { Table, TableBody, TableHead } from "@material-ui/core";
 import PropTypes from "prop-types";
 import InputChannelInfo from "../model/InputChannelInfo";
 import OutputChannelInfo from "../model/OutputChannelInfo";
+import ChannelDetailsTableHead from "./ChannelDetailsTableHead";
+import ChannelDetailsTableRow from "./ChannelDetailsTableRow";
 
-export default class ChannelDetailsTable extends React.Component {
-  render() {
-    const {
-      channel: { id, name, port }
-    } = this.props;
-    return (
-      <Table
-        style={{ margin: "1em", maxWidth: "98%" }}
-        className="flexContents"
-      >
-        <TableHead>
-          <TableRow>
-            <TableCell className="lightGrey">ID</TableCell>
-            <TableCell className="lightGrey">Name</TableCell>
-            <TableCell className="lightGrey">Port</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          <TableRow>
-            <TableCell>{id}</TableCell>
-            <TableCell>{name}</TableCell>
-            <TableCell>{port}</TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
-    );
-  }
+export default function ChannelDetailsTable(props) {
+  const { channels } = props;
+  return (
+    <Table style={{ margin: "1em", maxWidth: "98%" }} className="flexContents">
+      <TableHead>
+        <ChannelDetailsTableHead />
+      </TableHead>
+      <TableBody>
+        {channels.map((channel) => {
+          return <ChannelDetailsTableRow channel={channel} />;
+        })}
+      </TableBody>
+    </Table>
+  );
 }
 ChannelDetailsTable.propTypes = {
-  channel: PropTypes.oneOfType([
-    PropTypes.instanceOf(InputChannelInfo),
-    PropTypes.instanceOf(OutputChannelInfo)
-  ]).isRequired
+  channels: PropTypes.arrayOf(
+    PropTypes.oneOfType([
+      PropTypes.instanceOf(InputChannelInfo),
+      PropTypes.instanceOf(OutputChannelInfo)
+    ])
+  ).isRequired
 };
