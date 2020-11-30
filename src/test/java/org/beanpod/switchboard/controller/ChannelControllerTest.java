@@ -1,22 +1,9 @@
 package org.beanpod.switchboard.controller;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-import static org.mockito.MockitoAnnotations.initMocks;
-
-import java.text.ParseException;
-import java.util.List;
-import java.util.Optional;
 import org.beanpod.switchboard.dao.ChannelDaoImpl;
 import org.beanpod.switchboard.dao.DecoderDaoImpl;
 import org.beanpod.switchboard.dao.EncoderDaoImpl;
-import org.beanpod.switchboard.dto.ChannelDTO;
-import org.beanpod.switchboard.dto.DecoderDTO;
-import org.beanpod.switchboard.dto.EncoderDTO;
-import org.beanpod.switchboard.dto.InputChannelDTO;
-import org.beanpod.switchboard.dto.OutputChannelDTO;
+import org.beanpod.switchboard.dto.*;
 import org.beanpod.switchboard.dto.mapper.ChannelMapper;
 import org.beanpod.switchboard.entity.ChannelEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
@@ -29,25 +16,40 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.http.ResponseEntity;
 
+import java.text.ParseException;
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.initMocks;
+
 class ChannelControllerTest {
 
-  public static List<ChannelEntity> channelEntityList;
-  public static List<ChannelDTO> channelDtoList;
-  public static EncoderDTO encoderDto;
-  public static DecoderDTO decoderDto;
-  public static ChannelDTO channelDto;
-  public static InputChannelDTO inputChannelDto;
-  public static OutputChannelDTO outputChannelDto;
-  @InjectMocks ChannelController channelController;
-  @Mock ChannelDaoImpl channelService;
-  @Mock DecoderDaoImpl decoderService;
-  @Mock EncoderDaoImpl encoderService;
-  @Mock ChannelMapper channelMapper;
+    public static List<ChannelEntity> channelEntityList;
+    public static List<ChannelDto> channelDtoList;
+    public static EncoderDto encoderDto;
+    public static DecoderDto decoderDto;
+    public static ChannelDto channelDto;
+    public static InputChannelDto inputChannelDto;
+    public static OutputChannelDto outputChannelDto;
+    @InjectMocks
+    ChannelController channelController;
+    @Mock
+    ChannelDaoImpl channelService;
+    @Mock
+    DecoderDaoImpl decoderService;
+    @Mock
+    EncoderDaoImpl encoderService;
+    @Mock
+    ChannelMapper channelMapper;
 
-  @BeforeEach
-  void setupChannelFixture() throws ParseException {
-    channelEntityList = List.of(ChannelFixture.getChannelEntity());
-    channelDtoList = List.of(ChannelFixture.getChannelDto());
+    @BeforeEach
+    void setupChannelFixture() throws ParseException {
+        channelEntityList = List.of(ChannelFixture.getChannelEntity());
+        channelDtoList = List.of(ChannelFixture.getChannelDto());
     encoderDto = EncoderFixture.getEncoderDto();
     decoderDto = DecoderFixture.getDecoderDto();
     channelDto = ChannelFixture.getChannelDto();
@@ -62,17 +64,17 @@ class ChannelControllerTest {
 
   @Test
   void testRetrieveAllChannels() {
-    when(channelService.getChannels()).thenReturn(channelEntityList);
-    when(channelMapper.toChannelDTOs(any())).thenReturn(channelDtoList);
-    List<ChannelDTO> channelDTOS = channelController.retrieveAllChannels();
-    assertEquals(channelDtoList, channelDTOS);
+      when(channelService.getChannels()).thenReturn(channelEntityList);
+      when(channelMapper.toChannelDtos(any())).thenReturn(channelDtoList);
+      List<ChannelDto> channelDtos = channelController.retrieveAllChannels();
+      assertEquals(channelDtoList, channelDtos);
   }
 
   @Test
   void testRetrieveChannel() {
     when(channelService.findChannel(ChannelFixture.CHANNEL_ID)).thenReturn(Optional.of(channelDto));
-    ResponseEntity<ChannelDTO> channelDTOResponseEntity =
-        channelController.retrieveChannel(ChannelFixture.CHANNEL_ID);
+      ResponseEntity<ChannelDto> channelDTOResponseEntity =
+              channelController.retrieveChannel(ChannelFixture.CHANNEL_ID);
     assertEquals(channelDto, channelDTOResponseEntity.getBody());
   }
 
@@ -88,7 +90,7 @@ class ChannelControllerTest {
   @Test
   void createChannel() {
     when(channelService.findChannel(ChannelFixture.CHANNEL_ID)).thenReturn(Optional.empty());
-    ResponseEntity<ChannelDTO> channel = channelController.createChannel(channelDto);
+      ResponseEntity<ChannelDto> channel = channelController.createChannel(channelDto);
     assertEquals(200, channel.getStatusCodeValue());
   }
 
@@ -107,8 +109,8 @@ class ChannelControllerTest {
     when(channelService.saveInputChannel(any())).thenReturn(inputChannelDto);
     when(channelService.findChannel(ChannelFixture.CHANNEL_ID)).thenReturn(Optional.of(channelDto));
     when(decoderService.findDecoder("1")).thenReturn(Optional.of(decoderDto));
-    ResponseEntity<InputChannelDTO> inputChannel =
-        channelController.createInputChannel(ChannelFixture.CHANNEL_ID, "1");
+      ResponseEntity<InputChannelDto> inputChannel =
+              channelController.createInputChannel(ChannelFixture.CHANNEL_ID, "1");
     assertEquals(inputChannelDto, inputChannel.getBody());
   }
 
@@ -117,8 +119,8 @@ class ChannelControllerTest {
     when(channelService.saveOutputChannel(any())).thenReturn(outputChannelDto);
     when(channelService.findChannel(ChannelFixture.CHANNEL_ID)).thenReturn(Optional.of(channelDto));
     when(encoderService.findEncoder("1")).thenReturn(Optional.of(encoderDto));
-    ResponseEntity<OutputChannelDTO> outputChannel =
-        channelController.createOutputChannel(ChannelFixture.CHANNEL_ID, "1");
+      ResponseEntity<OutputChannelDto> outputChannel =
+              channelController.createOutputChannel(ChannelFixture.CHANNEL_ID, "1");
     assertEquals(outputChannelDto, outputChannel.getBody());
   }
 

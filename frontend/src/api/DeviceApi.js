@@ -4,28 +4,49 @@ import * as SampleData from "./SampleData";
 import OutputChannelInfo from "../model/OutputChannelInfo";
 import InputChannelInfo from "../model/InputChannelInfo";
 
+function getStatus(lastCommunicationString) {
+  if (!lastCommunicationString) {
+    return "Pending";
+  }
+
+  const lastCommunicationDate = new Date(`${lastCommunicationString}Z`);
+  const diff = Date.now() - lastCommunicationDate.getTime();
+  const tenMinutes = 10 * 60 * 1000;
+  if (diff < tenMinutes) {
+    return "Online";
+  }
+  return "Offline";
+}
+
 export function getSenders(callback) {
   axios
     .get("http://localhost:8080/encoder")
     .then((senders) => {
       callback(
         senders.data.map((sender) => {
-          const channels = sender.outputs.map((output) => {
-            return new OutputChannelInfo(
-              output.id,
-              output.name,
-              output.port,
-              null
-            );
-          });
+          let channels = [];
+          if (sender.output) {
+            channels = sender.output.map((output) => {
+              return new OutputChannelInfo(
+                output.id,
+                output.channel.name,
+                output.channel.port,
+                null
+              );
+            });
+          }
+          const lastCommunication =
+            sender.lastCommunication == null
+              ? "Never"
+              : sender.lastCommunication;
           return new DeviceInfo(
             sender.serialNumber,
-            "Last Communication",
+            lastCommunication,
             sender.device.ipAddress,
             sender.device.displayName,
-            "Online",
+            getStatus(sender.lastCommunication),
             channels,
-            ["Sample sender"]
+            ["Additional Device details go here"]
           );
         })
       );
@@ -41,17 +62,29 @@ export function getReceivers(callback) {
     .then((receivers) => {
       callback(
         receivers.data.map((receiver) => {
-          const channels = receiver.inputs.map((input) => {
-            return new InputChannelInfo(input.id, input.name, input.port, null);
-          });
+          let channels = [];
+          if (receiver.input) {
+            channels = receiver.input.map((input) => {
+              return new InputChannelInfo(
+                input.id,
+                input.channel.name,
+                input.channel.port,
+                null
+              );
+            });
+          }
+          const lastCommunication =
+            receiver.lastCommunication == null
+              ? "Never"
+              : receiver.lastCommunication;
           return new DeviceInfo(
             receiver.serialNumber,
-            "Last Communication",
+            lastCommunication,
             receiver.device.ipAddress,
             receiver.device.displayName,
-            "Online",
+            getStatus(receiver.lastCommunication),
             channels,
-            ["Sample Reciever"]
+            ["Additional Device details go here"]
           );
         })
       );

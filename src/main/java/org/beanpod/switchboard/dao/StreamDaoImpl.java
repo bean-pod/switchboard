@@ -2,9 +2,9 @@ package org.beanpod.switchboard.dao;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.beanpod.switchboard.dto.DeviceDTO;
-import org.beanpod.switchboard.dto.InputChannelDTO;
-import org.beanpod.switchboard.dto.OutputChannelDTO;
+import org.beanpod.switchboard.dto.DeviceDto;
+import org.beanpod.switchboard.dto.InputChannelDto;
+import org.beanpod.switchboard.dto.OutputChannelDto;
 import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
 import org.beanpod.switchboard.entity.StreamEntity;
@@ -41,12 +41,12 @@ public class StreamDaoImpl {
               createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId());
     }
 
-    InputChannelDTO inputChannelDto =
-            channelService.getInputChannelById(createStreamRequest.getInputChannelId());
-    OutputChannelDTO outputChannelDto =
-            channelService.getOutputChannelById(createStreamRequest.getOutputChannelId());
-    StreamDto.StreamDtoBuilder streamDtoBuilder =
-            StreamDto.builder().inputChannel(inputChannelDto).outputChannel(outputChannelDto);
+      InputChannelDto inputChannelDto =
+              channelService.getInputChannelById(createStreamRequest.getInputChannelId());
+      OutputChannelDto outputChannelDto =
+              channelService.getOutputChannelById(createStreamRequest.getOutputChannelId());
+      StreamDto.StreamDtoBuilder streamDtoBuilder =
+              StreamDto.builder().inputChannel(inputChannelDto).outputChannel(outputChannelDto);
 
     setStreamingMode(inputChannelDto, outputChannelDto, streamDtoBuilder);
 
@@ -59,41 +59,51 @@ public class StreamDaoImpl {
     streamRepository.deleteById(id);
   }
 
-  public void updateStream(StreamDto streamDto) {
-    if (!streamRepository.existsById(streamDto.getId())) {
-      throw new ExceptionType.StreamDoesNotExistException(streamDto.getId());
+    public void updateStream(StreamDto streamDto) {
+        if (!streamRepository.existsById(streamDto.getId())) {
+            throw new ExceptionType.StreamDoesNotExistException(streamDto.getId());
+        }
+        StreamEntity streamEntity = mapper.toEntity(streamDto);
+        streamRepository.save(streamEntity);
     }
-    StreamEntity streamEntity = mapper.toEntity(streamDto);
-    streamRepository.save(streamEntity);
-  }
 
-  private void setStreamingMode(InputChannelDTO inputChannelDto, OutputChannelDTO outputChannelDto, StreamDto.StreamDtoBuilder streamDtoBuilder) {
-    if (onSamePrivateNetwork(inputChannelDto, outputChannelDto)
-            || onLocalNetwork(inputChannelDto, outputChannelDto)) {
-      streamDtoBuilder.isRendezvous(false);
-    } else {
-      streamDtoBuilder.isRendezvous(true);
+    public List<StreamDto> getEncoderStreams(String encoderSerialNumber) {
+        List<StreamEntity> streamEntities = streamRepository.getEncoderStreams(encoderSerialNumber);
+        return mapper.toDtoList(streamEntities);
     }
-  }
 
-  private boolean onSamePrivateNetwork(
-          InputChannelDTO inputChannelDto, OutputChannelDTO outputChannelDto) {
-    String decoderPublicIpAddress = inputChannelDto.getDecoder().getDevice().getPublicIpAddress();
-    String encoderPublicIpAddress = outputChannelDto.getEncoder().getDevice().getPublicIpAddress();
-    return decoderPublicIpAddress.equals(encoderPublicIpAddress);
-  }
+    public List<StreamDto> getDecoderStreams(String decoderSerialNumber) {
+        List<StreamEntity> streamEntities = streamRepository.getDecoderStreams(decoderSerialNumber);
+        return mapper.toDtoList(streamEntities);
+    }
 
-  private boolean deviceOnLocalNetwork(DeviceDTO deviceDto) {
-    // If the public IP address of a device is equal to its private IP address, then the device must be on the same local network as the service. Additionally, if the public IP address of a device is the Loopback IP address, then the device is running on the same computer as the service and therefore is on the same local network.
-    return deviceDto.getPublicIpAddress().equals(deviceDto.getPrivateIpAddress())
-        || deviceDto.getPublicIpAddress().equals(LOOPBACK_IP_V4)
-        || deviceDto.getPublicIpAddress().equals(LOOPBACK_IP_V6);
-  }
+    private void setStreamingMode(InputChannelDto inputChannelDto, OutputChannelDto outputChannelDto, StreamDto.StreamDtoBuilder streamDtoBuilder) {
+        if (onSamePrivateNetwork(inputChannelDto, outputChannelDto)
+                || onLocalNetwork(inputChannelDto, outputChannelDto)) {
+            streamDtoBuilder.isRendezvous(false);
+        } else {
+            streamDtoBuilder.isRendezvous(true);
+        }
+    }
 
-  // Tests if the two devices are on the same local network as the service.
-  private boolean onLocalNetwork(
-          InputChannelDTO inputChannelDTO, OutputChannelDTO outputChannelDTO) {
-    return deviceOnLocalNetwork(inputChannelDTO.getDecoder().getDevice())
-            && deviceOnLocalNetwork(outputChannelDTO.getEncoder().getDevice());
-  }
+    private boolean onSamePrivateNetwork(
+            InputChannelDto inputChannelDto, OutputChannelDto outputChannelDto) {
+        String decoderPublicIpAddress = inputChannelDto.getDecoder().getDevice().getPublicIpAddress();
+        String encoderPublicIpAddress = outputChannelDto.getEncoder().getDevice().getPublicIpAddress();
+        return decoderPublicIpAddress.equals(encoderPublicIpAddress);
+    }
+
+    private boolean deviceOnLocalNetwork(DeviceDto deviceDto) {
+        // If the public IP address of a device is equal to its private IP address, then the device must be on the same local network as the service. Additionally, if the public IP address of a device is the Loopback IP address, then the device is running on the same computer as the service and therefore is on the same local network.
+        return deviceDto.getPublicIpAddress().equals(deviceDto.getPrivateIpAddress())
+                || deviceDto.getPublicIpAddress().equals(LOOPBACK_IP_V4)
+                || deviceDto.getPublicIpAddress().equals(LOOPBACK_IP_V6);
+    }
+
+    // Tests if the two devices are on the same local network as the service.
+    private boolean onLocalNetwork(
+            InputChannelDto inputChannelDto, OutputChannelDto outputChannelDto) {
+        return deviceOnLocalNetwork(inputChannelDto.getDecoder().getDevice())
+                && deviceOnLocalNetwork(outputChannelDto.getEncoder().getDevice());
+    }
 }

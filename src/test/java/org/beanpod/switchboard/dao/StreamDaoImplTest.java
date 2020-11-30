@@ -1,7 +1,7 @@
 package org.beanpod.switchboard.dao;
 
-import org.beanpod.switchboard.dto.InputChannelDTO;
-import org.beanpod.switchboard.dto.OutputChannelDTO;
+import org.beanpod.switchboard.dto.InputChannelDto;
+import org.beanpod.switchboard.dto.OutputChannelDto;
 import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
 import org.beanpod.switchboard.entity.StreamEntity;
@@ -72,8 +72,8 @@ public class StreamDaoImplTest {
   public void testCreateStream() {
     // given
     CreateStreamRequest createStreamRequest = StreamFixture.getCreateStreamRequest();
-    InputChannelDTO inputChannelDto = ChannelFixture.getInputChannelDto();
-    OutputChannelDTO outputChannelDto = ChannelFixture.getOutputChannelDto();
+    InputChannelDto inputChannelDto = ChannelFixture.getInputChannelDto();
+    OutputChannelDto outputChannelDto = ChannelFixture.getOutputChannelDto();
     StreamEntity streamEntity = StreamFixture.getStreamEntity();
 
     when(channelService.getInputChannelById(createStreamRequest.getInputChannelId()))
@@ -83,7 +83,7 @@ public class StreamDaoImplTest {
     when(streamMapper.toEntity(any())).thenReturn(streamEntity);
     when(streamRepository.existsDuplicate(
             createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId()))
-        .thenReturn(false);
+            .thenReturn(false);
 
     // when
     streamService.createStream(createStreamRequest);
@@ -111,8 +111,8 @@ public class StreamDaoImplTest {
   public void testCreateStreamDifferentPublicIp() {
     String otherPublicIpAddress = "179.256.54.21";
     CreateStreamRequest createStreamRequest = StreamFixture.getCreateStreamRequest();
-    InputChannelDTO inputChannelDto = ChannelFixture.getInputChannelDto();
-    OutputChannelDTO outputChannelDto = ChannelFixture.getOutputChannelDto();
+    InputChannelDto inputChannelDto = ChannelFixture.getInputChannelDto();
+    OutputChannelDto outputChannelDto = ChannelFixture.getOutputChannelDto();
     outputChannelDto.getEncoder().getDevice().setPublicIpAddress(otherPublicIpAddress);
     StreamEntity streamEntity = StreamFixture.getStreamEntity();
 
@@ -136,8 +136,8 @@ public class StreamDaoImplTest {
   public void testCreateStreamSameDeviceIpV4() {
     String otherPublicIpAddress = StreamDaoImpl.LOOPBACK_IP_V4;
     CreateStreamRequest createStreamRequest = StreamFixture.getCreateStreamRequest();
-    InputChannelDTO inputChannelDto = ChannelFixture.getInputChannelDto();
-    OutputChannelDTO outputChannelDto = ChannelFixture.getOutputChannelDto();
+    InputChannelDto inputChannelDto = ChannelFixture.getInputChannelDto();
+    OutputChannelDto outputChannelDto = ChannelFixture.getOutputChannelDto();
     outputChannelDto.getEncoder().getDevice().setPublicIpAddress(otherPublicIpAddress);
     StreamEntity streamEntity = StreamFixture.getStreamEntity();
 
@@ -161,15 +161,15 @@ public class StreamDaoImplTest {
   public void testCreateChannelSameDeviceIpV6() {
     String otherPublicIpAddress = StreamDaoImpl.LOOPBACK_IP_V6;
     CreateStreamRequest createStreamRequest = StreamFixture.getCreateStreamRequest();
-    InputChannelDTO inputChannelDto = ChannelFixture.getInputChannelDto();
-    OutputChannelDTO outputChannelDto = ChannelFixture.getOutputChannelDto();
+    InputChannelDto inputChannelDto = ChannelFixture.getInputChannelDto();
+    OutputChannelDto outputChannelDto = ChannelFixture.getOutputChannelDto();
     outputChannelDto.getEncoder().getDevice().setPublicIpAddress(otherPublicIpAddress);
     StreamEntity streamEntity = StreamFixture.getStreamEntity();
 
     when(channelService.getInputChannelById(createStreamRequest.getInputChannelId()))
-        .thenReturn(inputChannelDto);
+            .thenReturn(inputChannelDto);
     when(channelService.getOutputChannelById(createStreamRequest.getOutputChannelId()))
-        .thenReturn(outputChannelDto);
+            .thenReturn(outputChannelDto);
     when(streamMapper.toEntity(any())).thenReturn(streamEntity);
     when(streamRepository.existsDuplicate(
             createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId()))
@@ -186,8 +186,8 @@ public class StreamDaoImplTest {
   public void testCreateStreamLocalNetwork() {
     String otherPublicIpAddress = DeviceFixture.PRIVATE_IP_ADDRESS;
     CreateStreamRequest createStreamRequest = StreamFixture.getCreateStreamRequest();
-    InputChannelDTO inputChannelDto = ChannelFixture.getInputChannelDto();
-    OutputChannelDTO outputChannelDto = ChannelFixture.getOutputChannelDto();
+    InputChannelDto inputChannelDto = ChannelFixture.getInputChannelDto();
+    OutputChannelDto outputChannelDto = ChannelFixture.getOutputChannelDto();
     outputChannelDto.getEncoder().getDevice().setPublicIpAddress(otherPublicIpAddress);
     StreamEntity streamEntity = StreamFixture.getStreamEntity();
 

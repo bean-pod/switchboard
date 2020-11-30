@@ -1,12 +1,13 @@
 package org.beanpod.switchboard.dao;
 
-import java.util.List;
-import java.util.Optional;
-import org.beanpod.switchboard.dto.DecoderDTO;
+import org.beanpod.switchboard.dto.DecoderDto;
 import org.beanpod.switchboard.dto.mapper.DecoderMapper;
 import org.beanpod.switchboard.entity.DecoderEntity;
 import org.beanpod.switchboard.repository.DecoderRepository;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.Optional;
 
 @Component
 public class DecoderDaoImpl {
@@ -23,15 +24,15 @@ public class DecoderDaoImpl {
     return decoderRepository.findAll();
   }
 
-  public Optional<DecoderDTO> findDecoder(String serialNumber) {
+  public Optional<DecoderDto> findDecoder(String serialNumber) {
     return decoderRepository
-        .findDecoderBySerialNumber(serialNumber)
-        .map(decoderMapper::toDecoderDTO);
+            .findDecoderBySerialNumber(serialNumber)
+            .map(decoderMapper::toDecoderDto);
   }
 
-  public DecoderDTO save(DecoderDTO decoderDTO) {
-    return decoderMapper.toDecoderDTO(
-        decoderRepository.save(decoderMapper.toDecoderEntity(decoderDTO)));
+  public DecoderDto save(DecoderDto decoderDto) {
+    return decoderMapper.toDecoderDto(
+            decoderRepository.save(decoderMapper.toDecoderEntity(decoderDto)));
   }
 
   public Long deleteDecoder(String serialNumber) {

@@ -3,7 +3,7 @@ package org.beanpod.switchboard.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.beanpod.switchboard.dao.DeviceDaoImpl;
-import org.beanpod.switchboard.dto.DeviceDTO;
+import org.beanpod.switchboard.dto.DeviceDto;
 import org.beanpod.switchboard.dto.mapper.DeviceMapper;
 import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.openapitools.api.DeviceApi;
@@ -31,7 +31,7 @@ public class DeviceController implements DeviceApi {
   @Override
   public ResponseEntity<List<DeviceModel>> retrieveAllDevices() {
     return Optional.of(service.getDevices())
-            .map(deviceMapper::toDeviceDTOs)
+            .map(deviceMapper::toDeviceDtos)
             .map(deviceMapper::toDeviceModels)
             .map(ResponseEntity::ok)
             .orElseThrow(() -> new ExceptionType.UnknownException(CONTROLLER_NAME));
@@ -39,10 +39,10 @@ public class DeviceController implements DeviceApi {
 
   @Override
   public ResponseEntity<DeviceModel> retrieveDevice(@PathVariable String serialNumber) {
-    DeviceDTO deviceDto =
-        service
-            .findDevice(serialNumber)
-            .orElseThrow(() -> new ExceptionType.DeviceNotFoundException(serialNumber));
+      DeviceDto deviceDto =
+              service
+                      .findDevice(serialNumber)
+                      .orElseThrow(() -> new ExceptionType.DeviceNotFoundException(serialNumber));
 
     return Optional.of(deviceDto)
             .map(deviceMapper::toDeviceModel)
@@ -52,7 +52,7 @@ public class DeviceController implements DeviceApi {
 
   @Override
   public ResponseEntity<DeviceModel> createDevice(@Valid CreateDeviceRequest createDeviceRequest) {
-    Optional<DeviceDTO> deviceLookup = service.findDevice(createDeviceRequest.getSerialNumber());
+      Optional<DeviceDto> deviceLookup = service.findDevice(createDeviceRequest.getSerialNumber());
     if (deviceLookup.isPresent()) {
       throw new ExceptionType.DeviceAlreadyExistsException(createDeviceRequest.getSerialNumber());
     }
@@ -77,11 +77,11 @@ public class DeviceController implements DeviceApi {
   @Override
   @Transactional
   public ResponseEntity<DeviceModel> updateDevice(@Valid DeviceModel deviceModel) {
-    DeviceDTO deviceDto =
-        service
-            .findDevice(deviceModel.getSerialNumber())
-            .orElseThrow(
-                () -> new ExceptionType.DeviceNotFoundException(deviceModel.getSerialNumber()));
+      DeviceDto deviceDto =
+              service
+                      .findDevice(deviceModel.getSerialNumber())
+                      .orElseThrow(
+                              () -> new ExceptionType.DeviceNotFoundException(deviceModel.getSerialNumber()));
 
     return Optional.of(deviceDto)
             .map(service::save)

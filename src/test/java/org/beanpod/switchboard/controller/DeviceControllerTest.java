@@ -1,18 +1,7 @@
 package org.beanpod.switchboard.controller;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertIterableEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-
-import java.util.List;
-import java.util.Optional;
-import javax.servlet.http.HttpServletRequest;
 import org.beanpod.switchboard.dao.DeviceDaoImpl;
-import org.beanpod.switchboard.dto.DeviceDTO;
+import org.beanpod.switchboard.dto.DeviceDto;
 import org.beanpod.switchboard.dto.mapper.DeviceMapper;
 import org.beanpod.switchboard.entity.DeviceEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
@@ -27,10 +16,18 @@ import org.openapitools.model.DeviceModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
 class DeviceControllerTest {
   // stubbed DeviceEntity object
   private static DeviceEntity device;
-  private static DeviceDTO deviceDTO;
+  private static DeviceDto deviceDTO;
   private static CreateDeviceRequest createDeviceRequest;
   private static DeviceModel deviceModel;
   @InjectMocks private DeviceController deviceController;
@@ -54,7 +51,7 @@ class DeviceControllerTest {
   @Test
   final void testRetrieveAllDevices() {
     when(deviceService.getDevices()).thenReturn(List.of(device));
-    when(deviceMapper.toDeviceDTOs(any())).thenReturn(List.of(deviceDTO));
+    when(deviceMapper.toDeviceDtos(any())).thenReturn(List.of(deviceDTO));
     when(deviceMapper.toDeviceModels(any())).thenReturn(List.of(deviceModel));
     ResponseEntity<List<DeviceModel>> response = deviceController.retrieveAllDevices();
 

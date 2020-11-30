@@ -1,54 +1,55 @@
 package org.beanpod.switchboard.fixture;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 import lombok.SneakyThrows;
-import org.beanpod.switchboard.dto.ChannelDTO;
-import org.beanpod.switchboard.dto.InputChannelDTO;
-import org.beanpod.switchboard.dto.OutputChannelDTO;
+import org.beanpod.switchboard.dto.ChannelDto;
+import org.beanpod.switchboard.dto.InputChannelDto;
+import org.beanpod.switchboard.dto.OutputChannelDto;
 import org.beanpod.switchboard.entity.ChannelEntity;
 import org.beanpod.switchboard.entity.InputChannelEntity;
 import org.beanpod.switchboard.entity.OutputChannelEntity;
 import org.openapitools.model.InputChannelModel;
 import org.openapitools.model.OutputChannelModel;
 
-public class ChannelFixture {
-  public static final long CHANNEL_ID = 4569L;
-  public static final long CHANNEL_ID2 = 4568L;
-  public static final long INPUT_CHANNEL_ID = 113L;
-  public static final long OUTPUT_CHANNEL_ID = 7301L;
-  public static final String NAME = "local";
-  public static final int PORT = 8080;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-  public static ChannelEntity getChannelEntity() {
+public class ChannelFixture {
+    public static final long CHANNEL_ID = 4569L;
+    public static final long CHANNEL_ID2 = 4568L;
+    public static final long INPUT_CHANNEL_ID = 113L;
+    public static final long OUTPUT_CHANNEL_ID = 7301L;
+    public static final String NAME = "local";
+    public static final int PORT = 8080;
+
+    public static ChannelEntity getChannelEntity() {
     return ChannelEntity.builder().id(CHANNEL_ID).name(NAME).port(PORT).build();
   }
 
   public static ChannelEntity getChannelEntity2() {
-    return ChannelEntity.builder().id(CHANNEL_ID2).name(NAME).port(PORT).build();
+      return ChannelEntity.builder().id(CHANNEL_ID2).name(NAME).port(PORT).build();
   }
 
-  public static List<ChannelEntity> getListOfChannels() {
-    List<ChannelEntity> listOfChannels = new ArrayList<>();
-    listOfChannels.add(getChannelEntity());
-    listOfChannels.add(getChannelEntity2());
-    return listOfChannels;
-  }
+    public static List<ChannelEntity> getListOfChannels() {
+        List<ChannelEntity> listOfChannels = new ArrayList<>();
+        listOfChannels.add(getChannelEntity());
+        listOfChannels.add(getChannelEntity2());
+        return listOfChannels;
+    }
 
-  public static ChannelDTO getChannelDto() {
-    return ChannelDTO.builder().id(CHANNEL_ID).name(NAME).port(PORT).build();
-  }
+    public static ChannelDto getChannelDto() {
+        return ChannelDto.builder().id(CHANNEL_ID).name(NAME).port(PORT).build();
+    }
 
-  @SneakyThrows
-  public static InputChannelEntity getInputChannelEntity() {
-    return InputChannelEntity.builder()
-        .id(INPUT_CHANNEL_ID)
-        .channel(getChannelEntity())
-        .decoder(DecoderFixture.getDecoderEntity1())
-        .build();
-  }
+    @SneakyThrows
+    public static InputChannelEntity getInputChannelEntity() {
+        return InputChannelEntity.builder()
+                .id(INPUT_CHANNEL_ID)
+                .channel(getChannelEntity())
+                .decoder(DecoderFixture.getDecoderEntity1())
+                .build();
+    }
 
   @SneakyThrows
   public static OutputChannelEntity getOutputChannelEntity() {
@@ -59,26 +60,26 @@ public class ChannelFixture {
         .build();
   }
 
-  @SneakyThrows
-  public static InputChannelDTO getInputChannelDto() {
-    return InputChannelDTO.builder()
-        .id(INPUT_CHANNEL_ID)
-        .decoder(DecoderFixture.getDecoderDto())
-        .build();
-  }
+    @SneakyThrows
+    public static InputChannelDto getInputChannelDto() {
+        return InputChannelDto.builder()
+                .id(INPUT_CHANNEL_ID)
+                .decoder(DecoderFixture.getDecoderDto())
+                .build();
+    }
 
-  public static OutputChannelDTO getOutputChannelDto() {
-    return OutputChannelDTO.builder()
-        .id(OUTPUT_CHANNEL_ID)
-        .encoder(EncoderFixture.getEncoderDto())
-        .build();
-  }
+    public static OutputChannelDto getOutputChannelDto() {
+        return OutputChannelDto.builder()
+                .id(OUTPUT_CHANNEL_ID)
+                .encoder(EncoderFixture.getEncoderDto())
+                .build();
+    }
 
-  public static InputChannelModel getInputChannelModel() {
-    return new InputChannelModel().id(INPUT_CHANNEL_ID).decoder(DecoderFixture.getDecoderModel());
-  }
+    public static InputChannelModel getInputChannelModel() {
+        return new InputChannelModel().id(INPUT_CHANNEL_ID).decoder(DecoderFixture.getDecoderModel());
+    }
 
-  public static OutputChannelModel getOutputChannelModel() {
+    public static OutputChannelModel getOutputChannelModel() {
     return new OutputChannelModel().id(OUTPUT_CHANNEL_ID).encoder(EncoderFixture.getEncoderModel());
   }
 
@@ -98,19 +99,19 @@ public class ChannelFixture {
     };
   }
 
-  public static Set<InputChannelDTO> getInputChannelDtos() {
-    return new HashSet<>() {
-      {
-        getInputChannelDto();
-      }
-    };
-  }
+    public static Set<InputChannelDto> getInputChannelDtos() {
+        return new HashSet<>() {
+            {
+                getInputChannelDto();
+            }
+        };
+    }
 
-  public static Set<OutputChannelDTO> getOutputChannelDtos() {
-    return new HashSet<>() {
-      {
-        getOutputChannelDto();
-      }
-    };
-  }
+    public static Set<OutputChannelDto> getOutputChannelDtos() {
+        return new HashSet<>() {
+            {
+                getOutputChannelDto();
+            }
+        };
+    }
 }

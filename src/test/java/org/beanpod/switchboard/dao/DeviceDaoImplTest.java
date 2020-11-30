@@ -1,13 +1,6 @@
 package org.beanpod.switchboard.dao;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertIterableEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-
-import java.util.List;
-import java.util.Optional;
-import org.beanpod.switchboard.dto.DeviceDTO;
+import org.beanpod.switchboard.dto.DeviceDto;
 import org.beanpod.switchboard.dto.mapper.DeviceMapper;
 import org.beanpod.switchboard.entity.DeviceEntity;
 import org.beanpod.switchboard.fixture.DecoderFixture;
@@ -20,11 +13,19 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.openapitools.model.CreateDeviceRequest;
 
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
 class DeviceDaoImplTest {
 
   // stubbed DeviceEntity object
   private static DeviceEntity device;
-  private static DeviceDTO deviceDto;
+  private static DeviceDto deviceDto;
   private static List<DeviceEntity> listOfDevices;
   private static CreateDeviceRequest createDeviceRequest;
   private static DeviceEntity deviceEntity;
@@ -48,20 +49,20 @@ class DeviceDaoImplTest {
 
   @Test
   final void testSave() {
-    when(deviceMapper.toDeviceDTO(any())).thenReturn(deviceDto);
+    when(deviceMapper.toDeviceDto(any())).thenReturn(deviceDto);
     when(deviceMapper.toDeviceEntity(any())).thenReturn(device);
     when(deviceRepository.save(device)).thenReturn(device);
-    DeviceDTO deviceDTO = deviceDaoImpl.save(deviceDto);
+    DeviceDto deviceDTO = deviceDaoImpl.save(deviceDto);
     assertEquals(deviceDto, deviceDTO);
   }
 
   @Test
   final void testFindDevice() {
-    when(deviceMapper.toDeviceDTO(any())).thenReturn(deviceDto);
+    when(deviceMapper.toDeviceDto(any())).thenReturn(deviceDto);
     when(deviceMapper.toDeviceEntity(any())).thenReturn(device);
     when(deviceRepository.findDeviceBySerialNumber(DecoderFixture.SERIAL_NUMBER))
         .thenReturn(java.util.Optional.of(device));
-    Optional<DeviceDTO> deviceDTO = deviceDaoImpl.findDevice(DecoderFixture.SERIAL_NUMBER);
+    Optional<DeviceDto> deviceDTO = deviceDaoImpl.findDevice(DecoderFixture.SERIAL_NUMBER);
     assertEquals(deviceDTO.get(), deviceDto);
   }
 
@@ -83,12 +84,12 @@ class DeviceDaoImplTest {
   @Test
   final void testCreateDevice() {
     String ipAddress = DeviceFixture.PUBLIC_IP_ADDRESS;
-    when(deviceMapper.toDeviceDTO(createDeviceRequest, ipAddress)).thenReturn(deviceDto);
+    when(deviceMapper.toDeviceDto(createDeviceRequest, ipAddress)).thenReturn(deviceDto);
     when(deviceMapper.toDeviceEntity(deviceDto)).thenReturn(deviceEntity);
     when(deviceRepository.save(deviceEntity)).thenReturn(deviceEntity);
-    when(deviceMapper.toDeviceDTO(deviceEntity)).thenReturn(deviceDto);
+    when(deviceMapper.toDeviceDto(deviceEntity)).thenReturn(deviceDto);
 
-    DeviceDTO result = deviceDaoImpl.createDevice(createDeviceRequest, ipAddress);
+    DeviceDto result = deviceDaoImpl.createDevice(createDeviceRequest, ipAddress);
 
     assertEquals(deviceDto, result);
   }

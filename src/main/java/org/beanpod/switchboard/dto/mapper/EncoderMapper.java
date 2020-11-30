@@ -1,23 +1,24 @@
 package org.beanpod.switchboard.dto.mapper;
 
-import java.util.List;
-import org.beanpod.switchboard.dto.EncoderDTO;
+import org.beanpod.switchboard.dto.EncoderDto;
 import org.beanpod.switchboard.entity.EncoderEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 
+import java.util.List;
+
 @Mapper(
-    componentModel = "spring",
-    uses = {DeviceMapper.class, OutputChannelMapper.class})
+        componentModel = "spring",
+        uses = {DeviceMapper.class, OutputChannelMapper.class})
 public interface EncoderMapper {
-  EncoderDTO toEncoderDTO(EncoderEntity encoderEntity);
+  EncoderDto toEncoderDto(EncoderEntity encoderEntity);
 
-  @Named("toEncoderDTOShallow")
+  @Named("toEncoderDtoShallow")
   @Mapping(target = "output", ignore = true)
-  EncoderDTO toEncoderDTOShallow(EncoderEntity encoderEntity);
+  EncoderDto toEncoderDtoShallow(EncoderEntity encoderEntity);
 
-  List<EncoderDTO> toEncoderDTOs(List<EncoderEntity> encoderEntities);
+  List<EncoderDto> toEncoderDtos(List<EncoderEntity> encoderEntities);
 
-  EncoderEntity toEncoderEntity(EncoderDTO encoderDTO);
+  EncoderEntity toEncoderEntity(EncoderDto encoderDto);
 }
