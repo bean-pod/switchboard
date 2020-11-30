@@ -7,6 +7,7 @@ import DeviceDetailsConciseRow from "../DeviceDetailsConciseRow";
 import ChannelDetailsTable from "../../devicelist/ChannelDetailsTable";
 import InputChannelInfo from "../../model/InputChannelInfo";
 import OutputChannelInfo from "../../model/OutputChannelInfo";
+import StatusIndicator from "../../general/StatusIndicator";
 
 Enzyme.configure({ adapter: new Adapter() });
 jest.mock("axios");
@@ -74,7 +75,7 @@ describe("DeviceDetailsConciseRow class", () => {
       expect(result).toEqual(expected);
     });
   });
-  describe("createInnerTable", () => {
+  describe("createInnerTable()", () => {
     it("Creates two ChannelDetailsTable components when passed a value of length 2 ", () => {
       const dummyProps = {
         name: "channels",
@@ -123,6 +124,29 @@ describe("DeviceDetailsConciseRow class", () => {
         <DeviceDetailsConciseRow name={badName} value={dummyValue} />
       );
       expect(console.error).toHaveBeenCalled();
+    });
+  });
+  describe("createTableCellContents()", () => {
+    it('should create a StatusIndicator component when passed "status"', () => {
+      const name = "status";
+      const value = "Offline";
+      wrapper = Enzyme.shallow(
+        DeviceDetailsConciseRow.createTableCellContents(name, value)
+      );
+
+      expect(wrapper.type()).toEqual("div");
+      expect(wrapper.instance()).toBeInstanceOf(StatusIndicator);
+    });
+    it('should call createInnerTable() when passed "channels"', () => {
+      jest.spyOn(DeviceDetailsConciseRow, "createInnerTable");
+
+      const name = "channels";
+      const value = [];
+      DeviceDetailsConciseRow.createTableCellContents(name, value);
+
+      expect(DeviceDetailsConciseRow.createInnerTable).toHaveBeenCalledWith(
+        value
+      );
     });
   });
 });
