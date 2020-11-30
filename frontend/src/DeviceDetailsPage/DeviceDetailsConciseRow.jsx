@@ -4,6 +4,7 @@ import { TableContainer, TableCell, TableRow } from "@material-ui/core";
 import ChannelDetailsTable from "../devicelist/ChannelDetailsTable";
 import InputChannelInfo from "../model/InputChannelInfo";
 import OutputChannelInfo from "../model/OutputChannelInfo";
+import StatusIndicator from "../general/StatusIndicator";
 
 export default class DeviceDetailsConciseRow extends React.Component {
   static getPropertyDisplayName(name) {
@@ -40,6 +41,17 @@ export default class DeviceDetailsConciseRow extends React.Component {
     );
   }
 
+  static getTableCellContents(name, value) {
+    switch (name) {
+      case "channels":
+        return DeviceDetailsConciseRow.createInnerTable(value);
+      case "status":
+        return <StatusIndicator status={value} />;
+      default:
+        return value;
+    }
+  }
+
   render() {
     const { name, value } = this.props;
     return (
@@ -48,13 +60,9 @@ export default class DeviceDetailsConciseRow extends React.Component {
           <TableCell>
             {DeviceDetailsConciseRow.getPropertyDisplayName(name)}
           </TableCell>
-          {name !== "channels" ? (
-            <TableCell align="center">{value}</TableCell>
-          ) : (
-            <TableCell>
-              {DeviceDetailsConciseRow.createInnerTable(value)}
-            </TableCell>
-          )}
+          <TableCell align="center">
+            {DeviceDetailsConciseRow.getTableCellContents(name, value)}
+          </TableCell>
         </TableRow>
       </>
     );
