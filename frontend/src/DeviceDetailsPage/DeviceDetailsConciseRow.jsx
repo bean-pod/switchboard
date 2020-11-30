@@ -41,7 +41,7 @@ export default class DeviceDetailsConciseRow extends React.Component {
     );
   }
 
-  static getTableCellContents(name, value) {
+  static createTableCellContents(name, value) {
     switch (name) {
       case "channels":
         return DeviceDetailsConciseRow.createInnerTable(value);
@@ -61,7 +61,7 @@ export default class DeviceDetailsConciseRow extends React.Component {
             {DeviceDetailsConciseRow.getPropertyDisplayName(name)}
           </TableCell>
           <TableCell align="center">
-            {DeviceDetailsConciseRow.getTableCellContents(name, value)}
+            {DeviceDetailsConciseRow.createTableCellContents(name, value)}
           </TableCell>
         </TableRow>
       </>
