@@ -38,20 +38,21 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
   @ExceptionHandler(ExceptionType.StreamAlreadyExistsException.class)
   public final ResponseEntity<Object> handleStreamAlreadyExistsException(Exception ex) {
     ExceptionResponse exceptionResponse =
-            new ExceptionResponse(HttpStatus.CONFLICT, ex.getMessage(), "Stream already exists");
+        new ExceptionResponse(HttpStatus.CONFLICT, ex.getMessage(), "Stream already exists");
     return new ResponseEntity<>(exceptionResponse, exceptionResponse.getStatus());
   }
 
   @ExceptionHandler(ExceptionType.StreamDoesNotExistException.class)
   public final ResponseEntity<Object> handleStreamDoesNotExistException(Exception ex) {
     ExceptionResponse exceptionResponse =
-            new ExceptionResponse(HttpStatus.NOT_FOUND, ex.getMessage(), "Stream doesnt exist");
+        new ExceptionResponse(HttpStatus.NOT_FOUND, ex.getMessage(), "Stream doesnt exist");
     return new ResponseEntity<>(exceptionResponse, exceptionResponse.getStatus());
   }
 
   @ExceptionHandler(ExceptionType.UnknownException.class)
   public final ResponseEntity<ExceptionResponse> handleUnknownException(Exception ex) {
-    ExceptionResponse exceptionResponse = new ExceptionResponse(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), "Unknown Error");
+    ExceptionResponse exceptionResponse =
+        new ExceptionResponse(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), "Unknown Error");
     return new ResponseEntity<>(exceptionResponse, exceptionResponse.getStatus());
   }
 }

@@ -1,5 +1,13 @@
 package org.beanpod.switchboard.dao;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.initMocks;
+
+import java.util.List;
 import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
 import org.beanpod.switchboard.entity.StreamEntity;
@@ -10,15 +18,6 @@ import org.beanpod.switchboard.repository.StreamRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.mockito.MockitoAnnotations.initMocks;
 
 public class StreamDaoImplTest {
   private StreamDaoImpl streamService;
@@ -66,35 +65,35 @@ public class StreamDaoImplTest {
 
   @Test
   public void testCreateStream() {
-      // given
-      StreamDto streamDto = StreamFixture.getStreamDto();
-      long inputChannelId = streamDto.getInputChannel().getId();
-      long outputChannelId = streamDto.getOutputChannel().getId();
-      StreamEntity streamEntity = StreamFixture.getStreamEntity();
+    // given
+    StreamDto streamDto = StreamFixture.getStreamDto();
+    long inputChannelId = streamDto.getInputChannel().getId();
+    long outputChannelId = streamDto.getOutputChannel().getId();
+    StreamEntity streamEntity = StreamFixture.getStreamEntity();
 
-      when(streamMapper.toEntity(any())).thenReturn(streamEntity);
-      when(streamRepository.existsDuplicate(inputChannelId, outputChannelId)).thenReturn(false);
+    when(streamMapper.toEntity(any())).thenReturn(streamEntity);
+    when(streamRepository.existsDuplicate(inputChannelId, outputChannelId)).thenReturn(false);
 
-      // when
-      streamService.saveStream(streamDto);
+    // when
+    streamService.saveStream(streamDto);
 
-      // then
-      verify(streamRepository).save(streamEntity);
+    // then
+    verify(streamRepository).save(streamEntity);
   }
 
   @Test
   public void testCreateStreamAlreadyExists() {
-      // given
-      StreamDto streamDto = StreamFixture.getStreamDto();
-      long inputChannelId = streamDto.getInputChannel().getId();
-      long outputChannelId = streamDto.getOutputChannel().getId();
+    // given
+    StreamDto streamDto = StreamFixture.getStreamDto();
+    long inputChannelId = streamDto.getInputChannel().getId();
+    long outputChannelId = streamDto.getOutputChannel().getId();
 
-      when(streamRepository.existsDuplicate(inputChannelId, outputChannelId)).thenReturn(true);
+    when(streamRepository.existsDuplicate(inputChannelId, outputChannelId)).thenReturn(true);
 
-      // when & then
-      assertThrows(
-              ExceptionType.StreamAlreadyExistsException.class,
-              () -> streamService.saveStream(streamDto));
+    // when & then
+    assertThrows(
+        ExceptionType.StreamAlreadyExistsException.class,
+        () -> streamService.saveStream(streamDto));
   }
 
   @Test

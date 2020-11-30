@@ -1,5 +1,8 @@
 package org.beanpod.switchboard.controller;
 
+import java.util.List;
+import java.util.Optional;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.dao.StreamDaoImpl;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
@@ -12,10 +15,6 @@ import org.openapitools.model.StreamModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import java.util.List;
-import java.util.Optional;
-
 @RestController
 @RequiredArgsConstructor
 public class StreamController implements StreamApi {
@@ -27,44 +26,48 @@ public class StreamController implements StreamApi {
   @Override
   public ResponseEntity<List<Long>> getStreams() {
     return Optional.ofNullable(streamDao.getStreams())
-            .map(ResponseEntity::ok)
-            .orElseThrow(() -> new UnknownException(CONTROLLER_NAME));
+        .map(ResponseEntity::ok)
+        .orElseThrow(() -> new UnknownException(CONTROLLER_NAME));
   }
 
   @Override
   public ResponseEntity<StreamModel> getStreamById(Long id) {
     return Optional.of(id)
-            .map(streamDao::getStreamById)
-            .map(mapper::toModel)
-            .map(ResponseEntity::ok)
-            .orElseThrow(() -> new UnknownException(CONTROLLER_NAME));
+        .map(streamDao::getStreamById)
+        .map(mapper::toModel)
+        .map(ResponseEntity::ok)
+        .orElseThrow(() -> new UnknownException(CONTROLLER_NAME));
   }
 
   @Override
   public ResponseEntity<StreamModel> createStream(@Valid CreateStreamRequest createStreamRequest) {
     return Optional.of(createStreamRequest)
-            .map(streamService::createStream)
-            .map(mapper::toModel)
-            .map(ResponseEntity::ok)
-            .orElseThrow(() -> new ExceptionType.UnknownException(CONTROLLER_NAME));
+        .map(streamService::createStream)
+        .map(mapper::toModel)
+        .map(ResponseEntity::ok)
+        .orElseThrow(() -> new ExceptionType.UnknownException(CONTROLLER_NAME));
   }
 
   @Override
   public ResponseEntity<Void> deleteStream(Long id) {
-    Optional.of(id).ifPresentOrElse(streamDao::deleteStream, () -> {
-      throw new UnknownException(CONTROLLER_NAME);
-    });
+    Optional.of(id)
+        .ifPresentOrElse(
+            streamDao::deleteStream,
+            () -> {
+              throw new UnknownException(CONTROLLER_NAME);
+            });
     return ResponseEntity.ok().build();
   }
 
   @Override
   public ResponseEntity<Void> updateStream(@Valid StreamModel streamModel) {
     Optional.of(streamModel)
-            .map(mapper::toDto)
-            .ifPresentOrElse(streamDao::updateStream, () -> {
+        .map(mapper::toDto)
+        .ifPresentOrElse(
+            streamDao::updateStream,
+            () -> {
               throw new UnknownException(CONTROLLER_NAME);
             });
     return ResponseEntity.ok().build();
   }
-
 }

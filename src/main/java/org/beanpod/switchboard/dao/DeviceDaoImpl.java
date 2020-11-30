@@ -1,5 +1,7 @@
 package org.beanpod.switchboard.dao;
 
+import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.dto.DeviceDto;
 import org.beanpod.switchboard.dto.mapper.DeviceMapper;
@@ -7,9 +9,6 @@ import org.beanpod.switchboard.entity.DeviceEntity;
 import org.beanpod.switchboard.repository.DeviceRepository;
 import org.openapitools.model.CreateDeviceRequest;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
-import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor

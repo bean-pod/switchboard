@@ -14,30 +14,32 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class StreamServiceImpl implements StreamService {
-    private final StreamDaoImpl streamDao;
-    private final ChannelDaoImpl channelDao;
-    private final NetworkingUtil networkingUtil;
+  private final StreamDaoImpl streamDao;
+  private final ChannelDaoImpl channelDao;
+  private final NetworkingUtil networkingUtil;
 
-    @Override
-    public StreamDto createStream(CreateStreamRequest createStreamRequest) {
-        InputChannelDto inputChannelDto =
-                channelDao.getInputChannelById(createStreamRequest.getInputChannelId());
-        OutputChannelDto outputChannelDto =
-                channelDao.getOutputChannelById(createStreamRequest.getOutputChannelId());
+  @Override
+  public StreamDto createStream(CreateStreamRequest createStreamRequest) {
+    InputChannelDto inputChannelDto =
+        channelDao.getInputChannelById(createStreamRequest.getInputChannelId());
+    OutputChannelDto outputChannelDto =
+        channelDao.getOutputChannelById(createStreamRequest.getOutputChannelId());
 
-        StreamDto streamDto = StreamDto.builder()
-                .inputChannel(inputChannelDto)
-                .outputChannel(outputChannelDto)
-                .isRendezvous(shouldUseRendezvousMode(inputChannelDto, outputChannelDto))
-                .build();
+    StreamDto streamDto =
+        StreamDto.builder()
+            .inputChannel(inputChannelDto)
+            .outputChannel(outputChannelDto)
+            .isRendezvous(shouldUseRendezvousMode(inputChannelDto, outputChannelDto))
+            .build();
 
-        return streamDao.saveStream(streamDto);
-    }
+    return streamDao.saveStream(streamDto);
+  }
 
-    private boolean shouldUseRendezvousMode(InputChannelDto inputChannelDto, OutputChannelDto outputChannelDto) {
-        DeviceDto decoderDevice = inputChannelDto.getDecoder().getDevice();
-        DeviceDto encoderDevice = outputChannelDto.getEncoder().getDevice();
-        return !(networkingUtil.areDevicesOnSameLocalNetworkAsService(decoderDevice, encoderDevice)
-                || networkingUtil.areDevicesOnSamePrivateNetwork(decoderDevice, encoderDevice));
-    }
+  private boolean shouldUseRendezvousMode(
+      InputChannelDto inputChannelDto, OutputChannelDto outputChannelDto) {
+    DeviceDto decoderDevice = inputChannelDto.getDecoder().getDevice();
+    DeviceDto encoderDevice = outputChannelDto.getEncoder().getDevice();
+    return !(networkingUtil.areDevicesOnSameLocalNetworkAsService(decoderDevice, encoderDevice)
+        || networkingUtil.areDevicesOnSamePrivateNetwork(decoderDevice, encoderDevice));
+  }
 }

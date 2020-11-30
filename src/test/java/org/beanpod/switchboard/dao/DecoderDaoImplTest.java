@@ -1,5 +1,13 @@
 package org.beanpod.switchboard.dao;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
+import java.text.ParseException;
+import java.util.List;
+import java.util.Optional;
 import org.beanpod.switchboard.dto.DecoderDto;
 import org.beanpod.switchboard.dto.mapper.DecoderMapper;
 import org.beanpod.switchboard.entity.DecoderEntity;
@@ -11,27 +19,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.text.ParseException;
-import java.util.List;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertIterableEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-
 class DecoderDaoImplTest {
 
-    // stubbed DeviceEntity object
-    private static DecoderEntity decoder;
-    private static DecoderDto decoderDto;
-    private static List<DecoderEntity> listOfdecoders;
-    @InjectMocks
-    private DecoderDaoImpl decoderDaoImpl;
-    @Mock
-    private DecoderRepository decoderRepository;
-    @Mock
-    private DecoderMapper decoderMapper;
+  // stubbed DeviceEntity object
+  private static DecoderEntity decoder;
+  private static DecoderDto decoderDto;
+  private static List<DecoderEntity> listOfdecoders;
+  @InjectMocks private DecoderDaoImpl decoderDaoImpl;
+  @Mock private DecoderRepository decoderRepository;
+  @Mock private DecoderMapper decoderMapper;
 
   @BeforeEach
   void setupDecoderFixture() throws ParseException {
@@ -47,20 +43,20 @@ class DecoderDaoImplTest {
 
   @Test
   final void testSave() {
-      when(decoderMapper.toDecoderDto(any())).thenReturn(decoderDto);
-      when(decoderMapper.toDecoderEntity(any())).thenReturn(decoder);
+    when(decoderMapper.toDecoderDto(any())).thenReturn(decoderDto);
+    when(decoderMapper.toDecoderEntity(any())).thenReturn(decoder);
     when(decoderRepository.save(decoder)).thenReturn(decoder);
-      DecoderDto decoderDTO = decoderDaoImpl.save(decoderDto);
+    DecoderDto decoderDTO = decoderDaoImpl.save(decoderDto);
     assertEquals(decoderDTO, decoderDto);
   }
 
   @Test
   final void testFindDecoder() {
-      when(decoderMapper.toDecoderDto(any())).thenReturn(decoderDto);
-      when(decoderMapper.toDecoderEntity(any())).thenReturn(decoder);
+    when(decoderMapper.toDecoderDto(any())).thenReturn(decoderDto);
+    when(decoderMapper.toDecoderEntity(any())).thenReturn(decoder);
     when(decoderRepository.findDecoderBySerialNumber(DecoderFixture.SERIAL_NUMBER))
         .thenReturn(java.util.Optional.of(decoder));
-      Optional<DecoderDto> decoderDTO = decoderDaoImpl.findDecoder(DecoderFixture.SERIAL_NUMBER);
+    Optional<DecoderDto> decoderDTO = decoderDaoImpl.findDecoder(DecoderFixture.SERIAL_NUMBER);
     assertEquals(decoderDto, decoderDTO.get());
   }
 

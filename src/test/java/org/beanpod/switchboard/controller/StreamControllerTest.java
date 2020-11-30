@@ -1,5 +1,11 @@
 package org.beanpod.switchboard.controller;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.when;
+
+import java.util.List;
 import org.beanpod.switchboard.dao.StreamDaoImpl;
 import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
@@ -15,20 +21,12 @@ import org.openapitools.model.StreamModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
-
 class StreamControllerTest {
   private StreamController streamController;
 
-  @Mock
-  private StreamDaoImpl streamDao;
-  @Mock
-  private StreamMapper streamMapper;
-  @Mock
-  private StreamService streamService;
+  @Mock private StreamDaoImpl streamDao;
+  @Mock private StreamMapper streamMapper;
+  @Mock private StreamService streamService;
 
   @BeforeEach
   public void setup() {
@@ -58,7 +56,7 @@ class StreamControllerTest {
 
     // when & then
     RuntimeException exception =
-            assertThrows(ExceptionType.UnknownException.class, () -> streamController.getStreams());
+        assertThrows(ExceptionType.UnknownException.class, () -> streamController.getStreams());
 
     assertEquals("Unknown error the Stream controller", exception.getMessage());
   }
@@ -70,7 +68,7 @@ class StreamControllerTest {
 
     // when & then
     RuntimeException exception =
-            assertThrows(RuntimeException.class, () -> streamController.getStreams());
+        assertThrows(RuntimeException.class, () -> streamController.getStreams());
   }
 
   @Test

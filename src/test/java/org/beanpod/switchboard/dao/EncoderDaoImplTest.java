@@ -1,5 +1,13 @@
 package org.beanpod.switchboard.dao;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
+import java.text.ParseException;
+import java.util.List;
+import java.util.Optional;
 import org.beanpod.switchboard.dto.EncoderDto;
 import org.beanpod.switchboard.dto.mapper.EncoderMapper;
 import org.beanpod.switchboard.entity.EncoderEntity;
@@ -11,27 +19,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.text.ParseException;
-import java.util.List;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertIterableEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-
 class EncoderDaoImplTest {
 
-    // stubbed DeviceEntity object
-    private static EncoderEntity encoder;
-    private static EncoderDto encoderDto;
-    private static List<EncoderEntity> listOfEncoders;
-    @InjectMocks
-    private EncoderDaoImpl encoderDaoImpl;
-    @Mock
-    private EncoderRepository encoderRepository;
-    @Mock
-    private EncoderMapper encoderMapper;
+  // stubbed DeviceEntity object
+  private static EncoderEntity encoder;
+  private static EncoderDto encoderDto;
+  private static List<EncoderEntity> listOfEncoders;
+  @InjectMocks private EncoderDaoImpl encoderDaoImpl;
+  @Mock private EncoderRepository encoderRepository;
+  @Mock private EncoderMapper encoderMapper;
 
   @BeforeEach
   void setupEncoderFixture() throws ParseException {
@@ -47,20 +43,20 @@ class EncoderDaoImplTest {
 
   @Test
   final void testSave() {
-      when(encoderMapper.toEncoderDto(any())).thenReturn(encoderDto);
-      when(encoderMapper.toEncoderEntity(any())).thenReturn(encoder);
+    when(encoderMapper.toEncoderDto(any())).thenReturn(encoderDto);
+    when(encoderMapper.toEncoderEntity(any())).thenReturn(encoder);
     when(encoderRepository.save(encoder)).thenReturn(encoder);
-      EncoderDto encoderDTO = encoderDaoImpl.save(encoderDto);
+    EncoderDto encoderDTO = encoderDaoImpl.save(encoderDto);
     assertEquals(encoderDTO, encoderDto);
   }
 
   @Test
   final void testFindEncoder() {
-      when(encoderMapper.toEncoderDto(any())).thenReturn(encoderDto);
-      when(encoderMapper.toEncoderEntity(any())).thenReturn(encoder);
+    when(encoderMapper.toEncoderDto(any())).thenReturn(encoderDto);
+    when(encoderMapper.toEncoderEntity(any())).thenReturn(encoder);
     when(encoderRepository.findEncoderBySerialNumber(EncoderFixture.SERIAL_NUMBER))
         .thenReturn(java.util.Optional.of(encoder));
-      Optional<EncoderDto> encoderDTO = encoderDaoImpl.findEncoder(EncoderFixture.SERIAL_NUMBER);
+    Optional<EncoderDto> encoderDTO = encoderDaoImpl.findEncoder(EncoderFixture.SERIAL_NUMBER);
     assertEquals(encoderDTO.get(), encoderDto);
   }
 
