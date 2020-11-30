@@ -19,13 +19,40 @@ import StatusIndicator from "../general/StatusIndicator";
 import ActionMenu from "./ActionMenu";
 import DeviceInfo from "../model/DeviceInfo";
 
+function getMTableToolbar(props) {
+  return (
+    <div className="lightestGrey">
+      <MTableToolbar {...props} />
+    </div>
+  );
+}
+function getStatusIndicator(status) {
+  return <StatusIndicator status={status} />;
+}
+function getActionMenu() {
+  return <ActionMenu />;
+}
+function getChannelDetailsTable(deviceInfo) {
+  return (
+    <div className="lightestGrey">
+      <Box margin={2}>
+        <Typography variant="h6">Channels</Typography>
+        {deviceInfo.channels.map((channel) => {
+          return (
+            <ChannelDetailsTable
+              channel={channel}
+              key={`ch_${channel.id}_p${channel.port}`}
+            />
+          );
+        })}
+      </Box>
+    </div>
+  );
+}
+
 function getComponents() {
   return {
-    Toolbar: (props) => (
-      <div className="lightestGrey">
-        <MTableToolbar {...props} />
-      </div>
-    )
+    Toolbar: (props) => getMTableToolbar(props)
   };
 }
 
@@ -42,7 +69,7 @@ function getColumnInfo() {
     {
       title: "Status",
       field: "status",
-      render: (rowData) => <StatusIndicator status={rowData.status} />,
+      render: (rowData) => getStatusIndicator(rowData.status),
       lookup: {
         Online: "Online",
         Pending: "Pending",
@@ -59,7 +86,7 @@ function getColumnInfo() {
       field: "action",
       filtering: false,
       sorting: false,
-      render: () => <ActionMenu />,
+      render: () => getActionMenu(),
       align: "center",
       export: false
     }
@@ -72,23 +99,7 @@ function getDetailPanel() {
       icon: ExpandMore,
       openIcon: ExpandLess,
       tooltip: "Show Device Details",
-      render: (rowData) => {
-        return (
-          <div className="lightestGrey">
-            <Box margin={2}>
-              <Typography variant="h6">Channels</Typography>
-              {rowData.channels.map((channel) => {
-                return (
-                  <ChannelDetailsTable
-                    channel={channel}
-                    key={`ch_${channel.id}_p${channel.port}`}
-                  />
-                );
-              })}
-            </Box>
-          </div>
-        );
-      }
+      render: (rowData) => getChannelDetailsTable(rowData)
     }
   ];
 }
@@ -122,27 +133,25 @@ function getIcons() {
   };
 }
 
-export default class DevicesTable extends React.Component {
-  render() {
-    const { title, devices } = this.props;
-    return (
-      <>
-        <Box>
-          <TableContainer style={{ maxHeight: 500 }}>
-            <MaterialTable
-              title={title}
-              components={getComponents()}
-              columns={getColumnInfo()}
-              data={devices}
-              detailPanel={getDetailPanel()}
-              options={getOptions()}
-              icons={getIcons()}
-            />
-          </TableContainer>
-        </Box>
-      </>
-    );
-  }
+export default function DevicesTable(props) {
+  const { title, devices } = props;
+  return (
+    <>
+      <Box>
+        <TableContainer style={{ maxHeight: 500 }}>
+          <MaterialTable
+            title={title}
+            components={getComponents()}
+            columns={getColumnInfo()}
+            data={devices}
+            detailPanel={getDetailPanel()}
+            options={getOptions()}
+            icons={getIcons()}
+          />
+        </TableContainer>
+      </Box>
+    </>
+  );
 }
 
 DevicesTable.propTypes = {
