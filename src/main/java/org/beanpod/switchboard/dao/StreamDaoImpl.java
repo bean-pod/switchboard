@@ -2,66 +2,52 @@ package org.beanpod.switchboard.dao;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.beanpod.switchboard.dto.DeviceDto;
-import org.beanpod.switchboard.dto.InputChannelDto;
-import org.beanpod.switchboard.dto.OutputChannelDto;
 import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
 import org.beanpod.switchboard.entity.StreamEntity;
-import org.beanpod.switchboard.exceptions.ExceptionType;
+import org.beanpod.switchboard.exceptions.ExceptionType.StreamAlreadyExistsException;
+import org.beanpod.switchboard.exceptions.ExceptionType.StreamDoesNotExistException;
 import org.beanpod.switchboard.repository.StreamRepository;
-import org.openapitools.model.CreateStreamRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
 public class StreamDaoImpl {
-  public static final String LOOPBACK_IP_V4 = "127.0.0.1";
-  public static final String LOOPBACK_IP_V6 = "0:0:0:0:0:0:0:1";
-  private final StreamRepository streamRepository;
-  private final StreamMapper mapper;
-  private final ChannelDaoImpl channelService;
+    private final StreamRepository streamRepository;
+    private final StreamMapper mapper;
+    private final ChannelDaoImpl channelService;
 
-  public List<Long> getStreams() {
-    return streamRepository.getAllId();
-  }
-
-  public StreamDto getStreamById(Long id) {
-    StreamEntity streamEntity = streamRepository.getOne(id);
-    return mapper.toDto(streamEntity);
-  }
-
-  public StreamDto createStream(CreateStreamRequest createStreamRequest) {
-    if (streamRepository.existsDuplicate(
-            createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId())) {
-      throw new ExceptionType.StreamAlreadyExistsException(
-              createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId());
+    public List<Long> getStreams() {
+        return streamRepository.getAllId();
     }
 
-      InputChannelDto inputChannelDto =
-              channelService.getInputChannelById(createStreamRequest.getInputChannelId());
-      OutputChannelDto outputChannelDto =
-              channelService.getOutputChannelById(createStreamRequest.getOutputChannelId());
-      StreamDto.StreamDtoBuilder streamDtoBuilder =
-              StreamDto.builder().inputChannel(inputChannelDto).outputChannel(outputChannelDto);
+    public StreamDto getStreamById(Long id) {
+        StreamEntity streamEntity = streamRepository.getOne(id);
+        return mapper.toDto(streamEntity);
+    }
 
-    setStreamingMode(inputChannelDto, outputChannelDto, streamDtoBuilder);
+    public StreamDto saveStream(StreamDto streamDto) {
+        long inputChannelId = streamDto.getInputChannel().getId();
+        long outputChannelId = streamDto.getOutputChannel().getId();
+        if (streamRepository.existsDuplicate(inputChannelId, outputChannelId)) {
+            throw new StreamAlreadyExistsException(inputChannelId, outputChannelId);
+        }
 
-    StreamDto streamDto = streamDtoBuilder.build();
-    StreamEntity streamEntity = mapper.toEntity(streamDto);
-    return mapper.toDto(streamRepository.save(streamEntity));
-  }
+        StreamEntity streamEntity = mapper.toEntity(streamDto);
+        return mapper.toDto(streamRepository.save(streamEntity));
+    }
 
-  public void deleteStream(Long id) {
-    streamRepository.deleteById(id);
-  }
+    public void deleteStream(Long id) {
+        streamRepository.deleteById(id);
+    }
 
     public void updateStream(StreamDto streamDto) {
         if (!streamRepository.existsById(streamDto.getId())) {
-            throw new ExceptionType.StreamDoesNotExistException(streamDto.getId());
+            throw new StreamDoesNotExistException(streamDto.getId());
         }
         StreamEntity streamEntity = mapper.toEntity(streamDto);
         streamRepository.save(streamEntity);
@@ -75,35 +61,5 @@ public class StreamDaoImpl {
     public List<StreamDto> getDecoderStreams(String decoderSerialNumber) {
         List<StreamEntity> streamEntities = streamRepository.getDecoderStreams(decoderSerialNumber);
         return mapper.toDtoList(streamEntities);
-    }
-
-    private void setStreamingMode(InputChannelDto inputChannelDto, OutputChannelDto outputChannelDto, StreamDto.StreamDtoBuilder streamDtoBuilder) {
-        if (onSamePrivateNetwork(inputChannelDto, outputChannelDto)
-                || onLocalNetwork(inputChannelDto, outputChannelDto)) {
-            streamDtoBuilder.isRendezvous(false);
-        } else {
-            streamDtoBuilder.isRendezvous(true);
-        }
-    }
-
-    private boolean onSamePrivateNetwork(
-            InputChannelDto inputChannelDto, OutputChannelDto outputChannelDto) {
-        String decoderPublicIpAddress = inputChannelDto.getDecoder().getDevice().getPublicIpAddress();
-        String encoderPublicIpAddress = outputChannelDto.getEncoder().getDevice().getPublicIpAddress();
-        return decoderPublicIpAddress.equals(encoderPublicIpAddress);
-    }
-
-    private boolean deviceOnLocalNetwork(DeviceDto deviceDto) {
-        // If the public IP address of a device is equal to its private IP address, then the device must be on the same local network as the service. Additionally, if the public IP address of a device is the Loopback IP address, then the device is running on the same computer as the service and therefore is on the same local network.
-        return deviceDto.getPublicIpAddress().equals(deviceDto.getPrivateIpAddress())
-                || deviceDto.getPublicIpAddress().equals(LOOPBACK_IP_V4)
-                || deviceDto.getPublicIpAddress().equals(LOOPBACK_IP_V6);
-    }
-
-    // Tests if the two devices are on the same local network as the service.
-    private boolean onLocalNetwork(
-            InputChannelDto inputChannelDto, OutputChannelDto outputChannelDto) {
-        return deviceOnLocalNetwork(inputChannelDto.getDecoder().getDevice())
-                && deviceOnLocalNetwork(outputChannelDto.getEncoder().getDevice());
     }
 }

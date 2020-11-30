@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.dao.StreamDaoImpl;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
 import org.beanpod.switchboard.exceptions.ExceptionType;
+import org.beanpod.switchboard.exceptions.ExceptionType.UnknownException;
+import org.beanpod.switchboard.service.StreamService;
 import org.openapitools.api.StreamApi;
 import org.openapitools.model.CreateStreamRequest;
 import org.openapitools.model.StreamModel;
@@ -18,23 +20,24 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class StreamController implements StreamApi {
   public static final String CONTROLLER_NAME = "Stream";
-  private final StreamDaoImpl streamService;
+  private final StreamDaoImpl streamDao;
+  private final StreamService streamService;
   private final StreamMapper mapper;
 
   @Override
   public ResponseEntity<List<Long>> getStreams() {
-    return Optional.ofNullable(streamService.getStreams())
+    return Optional.ofNullable(streamDao.getStreams())
             .map(ResponseEntity::ok)
-            .orElseThrow(() -> new ExceptionType.UnknownException(CONTROLLER_NAME));
+            .orElseThrow(() -> new UnknownException(CONTROLLER_NAME));
   }
 
   @Override
   public ResponseEntity<StreamModel> getStreamById(Long id) {
     return Optional.of(id)
-            .map(streamService::getStreamById)
+            .map(streamDao::getStreamById)
             .map(mapper::toModel)
             .map(ResponseEntity::ok)
-            .orElseThrow(() -> new ExceptionType.UnknownException(CONTROLLER_NAME));
+            .orElseThrow(() -> new UnknownException(CONTROLLER_NAME));
   }
 
   @Override
@@ -48,7 +51,9 @@ public class StreamController implements StreamApi {
 
   @Override
   public ResponseEntity<Void> deleteStream(Long id) {
-    Optional.of(id).ifPresentOrElse(streamService::deleteStream, () -> new ExceptionType.UnknownException(CONTROLLER_NAME));
+    Optional.of(id).ifPresentOrElse(streamDao::deleteStream, () -> {
+      throw new UnknownException(CONTROLLER_NAME);
+    });
     return ResponseEntity.ok().build();
   }
 
@@ -56,7 +61,9 @@ public class StreamController implements StreamApi {
   public ResponseEntity<Void> updateStream(@Valid StreamModel streamModel) {
     Optional.of(streamModel)
             .map(mapper::toDto)
-            .ifPresentOrElse(streamService::updateStream, () -> new ExceptionType.UnknownException(CONTROLLER_NAME));
+            .ifPresentOrElse(streamDao::updateStream, () -> {
+              throw new UnknownException(CONTROLLER_NAME);
+            });
     return ResponseEntity.ok().build();
   }
 
