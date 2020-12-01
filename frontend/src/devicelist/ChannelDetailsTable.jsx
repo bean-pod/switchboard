@@ -15,7 +15,9 @@ export default function ChannelDetailsTable(props) {
       </TableHead>
       <TableBody>
         {channels.map((channel) => {
-          return <ChannelDetailsTableRow channel={channel} />;
+          return (
+            <ChannelDetailsTableRow channel={channel} key={channel.name} />
+          );
         })}
       </TableBody>
     </Table>

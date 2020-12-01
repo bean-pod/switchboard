@@ -1,5 +1,5 @@
 import React from "react";
-import { TableCell, TableHead, TableRow } from "@material-ui/core";
+import { TableCell, TableRow } from "@material-ui/core";
 
 export default function ChannelDetailsTableHead() {
   return (
