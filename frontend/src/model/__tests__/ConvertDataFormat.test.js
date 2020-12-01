@@ -20,7 +20,8 @@ const sampleOutputChannels = [
 const sampleLocalSender = new DeviceInfo(
   "test sender serial",
   null,
-  "test sender ip",
+  "test sender public ip",
+  "test sender private ip",
   "test sender display",
   "offline",
   undefined,
@@ -29,7 +30,8 @@ const sampleLocalSender = new DeviceInfo(
 const sampleLocalReceiver = new DeviceInfo(
   "test receiver serial",
   null,
-  "test receiver ip",
+  "test receiver public ip",
+  "test receiver private ip",
   "test receiver display",
   "offline",
   undefined,
@@ -40,7 +42,8 @@ const sampleAxiosSender = {
   lastCommunication: null,
   device: {
     serialNumber: "test sender serial",
-    ipAddress: "test sender ip",
+    publicIpAddress: "test sender public ip",
+    privateIpAddress: "test sender private ip",
     displayName: "test sender display",
     status: "offline"
   },
@@ -52,7 +55,8 @@ const sampleAxiosReceiver = {
   lastCommunication: null,
   device: {
     serialNumber: "test receiver serial",
-    ipAddress: "test receiver ip",
+    publicIpAddress: "test receiver public ip",
+    privateIpAddress: "test receiver private ip",
     displayName: "test receiver display",
     status: "offline"
   },

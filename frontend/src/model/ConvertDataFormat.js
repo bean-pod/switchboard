@@ -4,7 +4,8 @@ export function convertToDataObject(databaseDevice) {
   return new DeviceInfo(
     databaseDevice.serialNumber,
     databaseDevice.lastCommunication,
-    databaseDevice.device.ipAddress,
+    databaseDevice.device.publicIpAddress,
+    databaseDevice.device.privateIpAddress,
     databaseDevice.device.displayName,
     databaseDevice.device.status,
     databaseDevice.inputs
@@ -18,7 +19,8 @@ export function convertToServiceObject(deviceInfo) {
       lastCommunication: deviceInfo.lastCommunication,
       device: {
         serialNumber: deviceInfo.serialNumber,
-        ipAddress: deviceInfo.ip,
+        publicIpAddress: deviceInfo.publicIp,
+        privateIpAddress: deviceInfo.privateIp,
         displayName: deviceInfo.name,
         status: deviceInfo.status
       },
@@ -30,7 +32,8 @@ export function convertToServiceObject(deviceInfo) {
     lastCommunication: deviceInfo.lastCommunication,
     device: {
       serialNumber: deviceInfo.serialNumber,
-      ipAddress: deviceInfo.ip,
+      publicIpAddress: deviceInfo.publicIp,
+        privateIpAddress: deviceInfo.privateIp,
       displayName: deviceInfo.name,
       status: deviceInfo.status
     },

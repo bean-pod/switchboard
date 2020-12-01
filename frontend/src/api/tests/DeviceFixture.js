@@ -9,7 +9,8 @@ export function getSampleSendersResponse() {
       lastCommunication: "2020-11-25 20:48:03",
       device: {
         serialNumber: "d7TxFn7o",
-        ipAddress: "127.0.0.1",
+        publicIpAddress: "189.167.89.9",
+        privateIpAddress: "127.0.0.1",
         displayName: "sample_sender",
         status: "Running"
       },
@@ -29,7 +30,8 @@ export function getSampleSendersResponse() {
       lastCommunication: "2020-11-25 20:35:03",
       device: {
         serialNumber: "asdf1234",
-        ipAddress: "255.255.255.255",
+        publicIpAddress: "189.167.89.14",
+        privateIpAddress: "255.255.255.255",
         displayName: "cool_sender",
         status: "Running"
       },
@@ -53,7 +55,8 @@ export function getExpectedSendersResponse() {
     new DeviceInfo(
       sampleSendersResponse[0].serialNumber,
       sampleSendersResponse[0].lastCommunication,
-      sampleSendersResponse[0].device.ipAddress,
+      sampleSendersResponse[0].device.publicIpAddress,
+      sampleSendersResponse[0].device.privateIpAddress,
       sampleSendersResponse[0].device.displayName,
       "Online",
       [
@@ -69,7 +72,8 @@ export function getExpectedSendersResponse() {
     new DeviceInfo(
       sampleSendersResponse[1].serialNumber,
       sampleSendersResponse[1].lastCommunication,
-      sampleSendersResponse[1].device.ipAddress,
+      sampleSendersResponse[1].device.publicIpAddress,
+      sampleSendersResponse[1].device.privateIpAddress,
       sampleSendersResponse[1].device.displayName,
       "Offline",
       [
@@ -92,7 +96,8 @@ export function getSampleReceiversResponse() {
       lastCommunication: null,
       device: {
         serialNumber: "z7VBn9aK",
-        ipAddress: "127.0.0.1",
+        publicIpAddress: "189.167.89.9",
+        privateIpAddress: "127.0.0.1",
         displayName: "sample_receiver",
         status: "Running"
       },
@@ -116,7 +121,8 @@ export function getExpectedReceiversResponse() {
     new DeviceInfo(
       sampleReceiversResponse[0].serialNumber,
       "Never",
-      sampleReceiversResponse[0].device.ipAddress,
+      sampleReceiversResponse[0].device.publicIpAddress,
+      sampleReceiversResponse[0].device.privateIpAddress,
       sampleReceiversResponse[0].device.displayName,
       "Pending",
       [
