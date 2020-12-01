@@ -9,7 +9,7 @@ import OutputChannelInfo from "../../model/OutputChannelInfo";
 import ChannelDetailsTableRow from "../ChannelDetailsTableRow";
 
 Enzyme.configure({ adapter: new Adapter() });
-
+jest.spyOn(global.console, "error");
 describe("ChannelDetailsTableRow", () => {
   let wrapper;
   const dummyId = 69;
@@ -38,6 +38,25 @@ describe("ChannelDetailsTableRow", () => {
     });
     it("the third TableCell Component contains the channel port", () => {
       expect(wrapper.childAt(2).text()).toBe(`${dummyPort}`);
+    });
+  });
+  describe("Props validation", () => {
+    /*  eslint-disable no-console */
+    it("works with an InputChannelInfo", () => {
+      wrapper = Enzyme.shallow(<ChannelDetailsTableRow channel={inChannel} />);
+      expect(wrapper.find(TableRow)).toHaveLength(1);
+      expect(wrapper.find(TableCell)).toHaveLength(3);
+      expect(console.error).not.toHaveBeenCalled();
+    });
+    it("works with an OutputChannelInfo", () => {
+      wrapper = Enzyme.shallow(<ChannelDetailsTableRow channel={outChannel} />);
+      expect(wrapper.find(TableRow)).toHaveLength(1);
+      expect(wrapper.find(TableCell)).toHaveLength(3);
+      expect(console.error).not.toHaveBeenCalled();
+    });
+    it("fails if passed an invalid type", () => {
+      wrapper = Enzyme.shallow(<ChannelDetailsTableRow channel="outChannel" />);
+      expect(console.error).toHaveBeenCalled();
     });
   });
 });
