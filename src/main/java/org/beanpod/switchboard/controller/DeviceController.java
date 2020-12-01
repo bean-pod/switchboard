@@ -31,7 +31,7 @@ public class DeviceController implements DeviceApi {
   public ResponseEntity<List<DeviceModel>> retrieveAllDevices() {
     return Optional.of(service.getDevices())
         .map(deviceMapper::toDeviceDtos)
-        .map(deviceMapper::toDeviceModels)
+        .map(deviceMapper::toDeviceModelList)
         .map(ResponseEntity::ok)
         .orElseThrow(() -> new ExceptionType.UnknownException(CONTROLLER_NAME));
   }
