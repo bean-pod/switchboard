@@ -25,6 +25,7 @@
         <maven-checkstyle-plugin-version>3.1.1</maven-checkstyle-plugin-version>
         <lombok-version>1.18.12</lombok-version>
         <mapstruct-version>1.4.1.Final</mapstruct-version>
+        <cucumber-version>6.9.0</cucumber-version>
         <sonar.projectKey>bean-pod_switchboard</sonar.projectKey>
         <sonar.organization>bean-pod</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
@@ -104,6 +105,24 @@
             <groupId>org.openapitools</groupId>
             <artifactId>openapi-generator</artifactId>
             <version>${openapi-generator-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber-version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-spring</artifactId>
+            <version>${cucumber-version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>${cucumber-version}</version>
+            <scope>test</scope>
         </dependency>
         <!--TODO remove this dependency when org.openapitools.openapi-generator releases version 5.0.0-->
         <dependency>
