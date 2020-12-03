@@ -19,8 +19,7 @@ import org.springframework.http.ResponseEntity;
 public class DeviceStepDefinition extends SpringIntegrationTest {
 
   private final String baseUrl = "http://localhost:8080/device";
-  @Autowired
-  private TestRestTemplate testRestTemplate;
+  @Autowired private TestRestTemplate testRestTemplate;
   private ResponseEntity responseEntity;
   private URI uri;
 

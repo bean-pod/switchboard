@@ -29,12 +29,9 @@ class DeviceControllerTest {
   private static DeviceEntity device;
   private static DeviceDto deviceDTO;
   private static List<DeviceEntity> listOfDevices;
-  @InjectMocks
-  private DeviceController deviceController;
-  @Mock
-  private DeviceDaoImpl deviceService;
-  @Mock
-  private DeviceMapper deviceMapper;
+  @InjectMocks private DeviceController deviceController;
+  @Mock private DeviceDaoImpl deviceService;
+  @Mock private DeviceMapper deviceMapper;
 
   @BeforeEach
   void setupDeviceFixture() {
