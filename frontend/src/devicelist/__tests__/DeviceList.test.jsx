@@ -28,6 +28,20 @@ function verifyStaticElements() {
   expect(receiverTab.textContent).toBe("Receivers");
 }
 
+function nextTablePage(){
+  act(() => {
+    const nextPageButton = document.querySelector("span[title=\"Next Page\"] button");
+    ReactTestUtils.Simulate.click(nextPageButton);
+  })
+}
+
+function prevTablePage(){
+  act(() => {
+    const prevPageButton = document.querySelector("span[title=\"Previous Page\"] button");
+    ReactTestUtils.Simulate.click(prevPageButton);
+  })
+}
+
 let container = null;
 let sampleSenders = null;
 let sampleReceivers = null;
@@ -62,18 +76,35 @@ test("Device list renders sender page by default", () => {
 
   verifyStaticElements();
 
-  const devices = document.querySelectorAll("tr.MuiTableRow-root[index]");
+  // get to last page
+  var numClicks = Math.ceil(sampleSenders.length / 5.0) - 1; // sub 1st page already displayed
+  for(var i = 0; i < numClicks; i++) {
+    nextTablePage();
+  }
+  var devices = document.querySelectorAll("tr.MuiTableRow-root[index]");
   expect(devices).not.toBe(null);
-  expect(devices.length).toBe(sampleSenders.length);
+  expect(devices.length).toBe(sampleSenders.length % 5);
 
-  sampleSenders.forEach((sender, index) => {
-    const rowElements = devices[index].querySelectorAll("td");
+  // go back to first page
+  for(var i = 0; i < numClicks; i++) {
+    prevTablePage();
+  }
+  var count = 0;
+  sampleSenders.forEach((sender) => {
+    const rowElements = devices[count].querySelectorAll("td");
     expect(rowElements[0].querySelector("button span svg")).not.toBe(null);
     expect(rowElements[1].textContent).toBe(sender.name);
     expect(rowElements[2].textContent).toBe(sender.serialNumber);
     expect(rowElements[3].firstChild.textContent).toBe(sender.status);
     expect(rowElements[4].textContent).toBe(sender.ip);
     expect(rowElements[5].querySelector("button span svg")).not.toBe(null);
+
+    count++;
+    if(count % 5 == 0) {
+      nextTablePage();
+      devices = document.querySelectorAll("tr.MuiTableRow-root[index]");
+      count = 0;
+    }
   });
 });
 
