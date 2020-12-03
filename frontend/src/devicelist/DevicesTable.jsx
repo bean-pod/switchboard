@@ -81,14 +81,7 @@ function getDetailPanel() {
           <div className="lightestGrey">
             <Box margin={2}>
               <Typography variant="h6">Channels</Typography>
-              {rowData.channels.map((channel) => {
-                return (
-                  <ChannelDetailsTable
-                    channel={channel}
-                    key={`ch_${channel.id}_p${channel.port}`}
-                  />
-                );
-              })}
+              <ChannelDetailsTable channels={rowData.channels} />
             </Box>
           </div>
         );
