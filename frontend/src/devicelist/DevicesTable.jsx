@@ -24,6 +24,7 @@ import ActionMenu from "./ActionMenu";
 import DeviceInfo from "../model/DeviceInfo";
 
 function getComponents() {
+  /*  eslint-disable react/jsx-props-no-spreading */
   return {
     Toolbar: (props) => (
       <div className="lightestGrey">
