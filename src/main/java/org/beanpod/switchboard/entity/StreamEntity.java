@@ -39,5 +39,5 @@ public class StreamEntity {
 
   @Column(name = "isRendezvous")
   @NotNull
-  private boolean isRendezvous;
+  private Boolean isRendezvous;
 }

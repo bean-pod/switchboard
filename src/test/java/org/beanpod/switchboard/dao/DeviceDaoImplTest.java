@@ -48,7 +48,7 @@ class DeviceDaoImplTest {
 
   @Test
   final void testSave() {
-    when(deviceMapper.toDeviceDto(any())).thenReturn(deviceDto);
+    when(deviceMapper.toDeviceDto(any(DeviceEntity.class))).thenReturn(deviceDto);
     when(deviceMapper.toDeviceEntity(any())).thenReturn(device);
     when(deviceRepository.save(device)).thenReturn(device);
     DeviceDto deviceDTO = deviceDaoImpl.save(deviceDto);
@@ -57,7 +57,7 @@ class DeviceDaoImplTest {
 
   @Test
   final void testFindDevice() {
-    when(deviceMapper.toDeviceDto(any())).thenReturn(deviceDto);
+    when(deviceMapper.toDeviceDto(any(DeviceEntity.class))).thenReturn(deviceDto);
     when(deviceMapper.toDeviceEntity(any())).thenReturn(device);
     when(deviceRepository.findDeviceBySerialNumber(DecoderFixture.SERIAL_NUMBER))
         .thenReturn(java.util.Optional.of(device));

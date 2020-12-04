@@ -76,13 +76,12 @@ public class DeviceController implements DeviceApi {
   @Override
   @Transactional
   public ResponseEntity<DeviceModel> updateDevice(@Valid DeviceModel deviceModel) {
-    DeviceDto deviceDto =
-        service
-            .findDevice(deviceModel.getSerialNumber())
-            .orElseThrow(
-                () -> new ExceptionType.DeviceNotFoundException(deviceModel.getSerialNumber()));
+    service.findDevice(deviceModel.getSerialNumber())
+      .orElseThrow(
+          () -> new ExceptionType.DeviceNotFoundException(deviceModel.getSerialNumber()));
 
-    return Optional.of(deviceDto)
+    return Optional.of(deviceModel)
+        .map(deviceMapper::toDeviceDto)
         .map(service::save)
         .map(deviceMapper::toDeviceModel)
         .map(ResponseEntity::ok)
