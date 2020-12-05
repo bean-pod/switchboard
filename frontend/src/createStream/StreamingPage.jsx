@@ -4,8 +4,6 @@ import PropTypes from "prop-types";
 import StreamingTable from "./StreamingTable";
 import DynamicBreadcrumb from "../general/DynamicBreadcrumb";
 import StreamList from "../streamlist/StreamList";
-import DeviceInfo from "../model/DeviceInfo";
-import StreamInfo from "../model/StreamInfo";
 
 export default class StreamingPage extends React.Component {
   constructor(props) {
