@@ -3,7 +3,7 @@ import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import { describe, expect, jest, it } from "@jest/globals";
 import { Box } from "@material-ui/core";
-import TabPanelH from "../TabPanelH";
+import HorizontalTabPanel from "../HorizontalTabPanel";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -22,21 +22,21 @@ describe("Horizontal Tab Panel TabPanelH", () => {
       value: 9
     };
     it("Not called with props", () => {
-      wrapper = Enzyme.shallow(<TabPanelH />);
+      wrapper = Enzyme.shallow(<HorizontalTabPanel />);
       expect(console.error).toHaveBeenCalled();
     });
     it("called with an index that is not a number", () => {
       const badIndex = "BadIndex";
       wrapper = Enzyme.shallow(
-        <TabPanelH index={badIndex} value={goodValues.value} />
+        <HorizontalTabPanel index={badIndex} value={goodValues.value} />
       );
       expect(console.error).toHaveBeenCalled();
     });
     it("Does not render children if the index and value are different", () => {
       wrapper = Enzyme.shallow(
-        <TabPanelH index={1} value={5}>
+        <HorizontalTabPanel index={1} value={5}>
           <div id="unique" />
-        </TabPanelH>
+        </HorizontalTabPanel>
       );
 
       expect(wrapper.children).toHaveLength(1);
@@ -45,9 +45,9 @@ describe("Horizontal Tab Panel TabPanelH", () => {
   });
   it("Renders any children passed only if the index and value are the same", () => {
     wrapper = Enzyme.shallow(
-      <TabPanelH index={1} value={1}>
+      <HorizontalTabPanel index={1} value={1}>
         <div id="unique" />
-      </TabPanelH>
+      </HorizontalTabPanel>
     );
 
     expect(wrapper.children).toHaveLength(1);

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Box } from "@material-ui/core";
 
-export default function TabPanelH(props) {
+export default function HorizontalTabPanel(props) {
   const { value, index, children } = props;
   return (
     <div
@@ -16,7 +16,7 @@ export default function TabPanelH(props) {
   );
 }
 
-TabPanelH.propTypes = {
+HorizontalTabPanel.propTypes = {
   index: PropTypes.number.isRequired,
   value: PropTypes.number.isRequired,
   children: PropTypes.oneOfType([

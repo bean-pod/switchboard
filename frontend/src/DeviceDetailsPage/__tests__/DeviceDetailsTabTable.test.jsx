@@ -8,7 +8,7 @@ import DeviceDetailsConciseTable from "../DeviceDetailsConciseTable";
 import DeviceDetailsActivityPanel from "../TabPanels/DeviceDetailsActivityPanel";
 import DeviceDetailsNotesPanel from "../TabPanels/DeviceDetailsNotesPanel";
 import DeviceInfo from "../../model/DeviceInfo";
-import TabPanelH from "../../general/TabPanelH";
+import HorizontalTabPanel from "../../general/HorizontalTabPanel";
 
 Enzyme.configure({ adapter: new Adapter() });
 jest.spyOn(global.console, "error");
@@ -98,7 +98,7 @@ describe("DeviceDetailsTabTable class", () => {
         );
 
         expect(wrapper.find(Tab)).toHaveLength(2);
-        expect(wrapper.find(TabPanelH)).toHaveLength(2);
+        expect(wrapper.find(HorizontalTabPanel)).toHaveLength(2);
       });
       it("when passed an array of length 5", () => {
         const tabs = ["a", "b", "a", "b", "a"];
@@ -109,7 +109,7 @@ describe("DeviceDetailsTabTable class", () => {
         );
 
         expect(wrapper.find(Tab)).toHaveLength(5);
-        expect(wrapper.find(TabPanelH)).toHaveLength(5);
+        expect(wrapper.find(HorizontalTabPanel)).toHaveLength(5);
       });
     });
 

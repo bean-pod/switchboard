@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Paper, Tab, Tabs } from "@material-ui/core";
 import PropTypes from "prop-types";
 
-import TabPanel from "../general/TabPanelH";
+import HorizontalTabPanel from "../general/HorizontalTabPanel";
 import DeviceDetailsConciseTable from "./DeviceDetailsConciseTable";
 import DeviceDetailsActivityPanel from "./TabPanels/DeviceDetailsActivityPanel";
 import DeviceDetailsNotesPanel from "./TabPanels/DeviceDetailsNotesPanel";
@@ -56,9 +56,14 @@ export default class DeviceDetailsTabTable extends React.Component {
         </Tabs>
         {tabs.map((tabInfo, index) => {
           return (
-            <TabPanel value={value} key={tabInfo} index={index} device={device}>
+            <HorizontalTabPanel
+              value={value}
+              key={tabInfo}
+              index={index}
+              device={device}
+            >
               {DeviceDetailsTabTable.getPanelContents(tabInfo, device)}
-            </TabPanel>
+            </HorizontalTabPanel>
           );
         })}
       </Container>
