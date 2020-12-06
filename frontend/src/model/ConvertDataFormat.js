@@ -33,7 +33,7 @@ export function convertToServiceObject(deviceInfo) {
     device: {
       serialNumber: deviceInfo.serialNumber,
       publicIpAddress: deviceInfo.publicIp,
-        privateIpAddress: deviceInfo.privateIp,
+      privateIpAddress: deviceInfo.privateIp,
       displayName: deviceInfo.name,
       status: deviceInfo.status
     },

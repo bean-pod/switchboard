@@ -136,6 +136,7 @@ class DeviceControllerTest {
   final void testUpdateDevice() {
     when(deviceService.findDevice(DeviceFixture.SERIAL_NUMBER)).thenReturn(Optional.of(deviceDTO));
     deviceModel.setStatus("Stopped");
+    when(deviceMapper.toDeviceDto(deviceModel)).thenReturn(deviceDTO);
     when(deviceService.save(deviceDTO)).thenReturn(deviceDTO);
     when(deviceMapper.toDeviceModel(deviceDTO)).thenReturn(deviceModel);
     ResponseEntity<DeviceModel> response = deviceController.updateDevice(deviceModel);

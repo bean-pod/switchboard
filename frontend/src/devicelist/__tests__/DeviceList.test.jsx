@@ -73,7 +73,7 @@ test("Device list renders sender page by default", () => {
     expect(rowElements[2].textContent).toBe(sender.serialNumber);
     expect(rowElements[3].firstChild.textContent).toBe(sender.status);
     expect(rowElements[4].textContent).toBe(sender.privateIp);
-    expect(rowElements[5].textContent).toBe(sender.publicIp)
+    expect(rowElements[5].textContent).toBe(sender.publicIp);
     expect(rowElements[6].querySelector("button span svg")).not.toBe(null);
   });
 });
