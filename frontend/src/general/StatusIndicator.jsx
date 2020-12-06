@@ -2,7 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 
 export default class StatusIndicator extends React.Component {
-  getStatusStyle(status) {
+  getStatusStyle() {
+    const { status } = this.props;
     switch (status) {
       case "Online":
         return "green statusIndicatorBody statusTextOnline ";
@@ -17,7 +18,7 @@ export default class StatusIndicator extends React.Component {
 
   render() {
     const { status } = this.props;
-    return <div className={this.getStatusStyle(status)}>{status}</div>;
+    return <div className={this.getStatusStyle()}>{status}</div>;
   }
 }
 StatusIndicator.propTypes = {
