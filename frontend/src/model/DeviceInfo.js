@@ -17,7 +17,7 @@ export default class DeviceInfo {
     this.extras = extras;
   }
 
-  static getProperties() {
+  static getConciseProperties() {
     return ["name", "serialNumber", "status", "ip", "channels"];
   }
 }

@@ -12,7 +12,7 @@ export default function DeviceDetailsConciseTable(props) {
       <TableContainer component={Paper}>
         <Table>
           <TableBody>
-            {DeviceInfo.getProperties().map((property) => (
+            {DeviceInfo.getConciseProperties().map((property) => (
               <DeviceDetailsConciseRow
                 name={property}
                 value={device[property]}

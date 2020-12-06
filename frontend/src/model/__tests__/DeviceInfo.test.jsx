@@ -7,10 +7,10 @@ import DeviceInfo from "../DeviceInfo";
 Enzyme.configure({ adapter: new Adapter() });
 
 describe("Device Info", () => {
-  describe("getProperties()", () => {
+  describe("getConciseProperties()", () => {
     it("should return an array of strings", () => {
       const expected = ["name", "serialNumber", "status", "ip", "channels"];
-      const actual = DeviceInfo.getProperties();
+      const actual = DeviceInfo.getConciseProperties();
 
       expect(actual).toHaveLength(expected.length);
 
