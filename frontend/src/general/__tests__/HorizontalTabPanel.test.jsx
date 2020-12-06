@@ -9,7 +9,7 @@ Enzyme.configure({ adapter: new Adapter() });
 
 jest.spyOn(global.console, "error");
 
-describe("Horizontal Tab Panel TabPanelH", () => {
+describe("Horizontal Tab Panel", () => {
   let wrapper;
 
   afterEach(() => {
