@@ -29,14 +29,7 @@ export default class DeviceDetailsConciseRow extends React.Component {
   static createInnerTable(value) {
     return (
       <TableContainer>
-        {value.map((channel) => {
-          return (
-            <ChannelDetailsTable
-              channel={channel}
-              key={`chDetails_${channel.id}`}
-            />
-          );
-        })}
+        <ChannelDetailsTable channels={value} />
       </TableContainer>
     );
   }
