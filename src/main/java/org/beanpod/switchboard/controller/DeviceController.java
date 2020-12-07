@@ -11,6 +11,7 @@ import org.beanpod.switchboard.dao.DeviceDaoImpl;
 import org.beanpod.switchboard.dto.DeviceDto;
 import org.beanpod.switchboard.dto.mapper.DeviceMapper;
 import org.beanpod.switchboard.exceptions.ExceptionType;
+import org.beanpod.switchboard.exceptions.ExceptionType.DeviceNotFoundException;
 import org.openapitools.api.DeviceApi;
 import org.openapitools.model.CreateDeviceRequest;
 import org.openapitools.model.DeviceModel;
@@ -76,10 +77,9 @@ public class DeviceController implements DeviceApi {
   @Override
   @Transactional
   public ResponseEntity<DeviceModel> updateDevice(@Valid DeviceModel deviceModel) {
-    service
-        .findDevice(deviceModel.getSerialNumber())
-        .orElseThrow(
-            () -> new ExceptionType.DeviceNotFoundException(deviceModel.getSerialNumber()));
+    if (service.findDevice(deviceModel.getSerialNumber()).isEmpty()) {
+      throw new DeviceNotFoundException(deviceModel.getSerialNumber());
+    }
 
     return Optional.of(deviceModel)
         .map(deviceMapper::toDeviceDto)
