@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import { Box, TableContainer, Typography } from "@material-ui/core";
 import PropTypes from "prop-types";
 
@@ -29,11 +30,25 @@ function getComponents() {
   };
 }
 
+function buildNavlink(deviceInfo) {
+  return (
+    <NavLink
+      to={{
+        pathname: `/Devices/Details/${deviceInfo.name}`,
+        state: { device: deviceInfo }
+      }}
+    >
+      {deviceInfo.name}
+    </NavLink>
+  );
+}
+
 function getColumnInfo() {
   return [
     {
       title: "Name",
-      field: "name"
+      field: "name",
+      render: (rowData) => buildNavlink(rowData)
     },
     {
       title: "Serial Number",
@@ -81,14 +96,7 @@ function getDetailPanel() {
           <div className="lightestGrey">
             <Box margin={2}>
               <Typography variant="h6">Channels</Typography>
-              {rowData.channels.map((channel) => {
-                return (
-                  <ChannelDetailsTable
-                    channel={channel}
-                    key={`ch_${channel.id}_p${channel.port}`}
-                  />
-                );
-              })}
+              <ChannelDetailsTable channels={rowData.channels} />
             </Box>
           </div>
         );
