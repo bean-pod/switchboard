@@ -76,7 +76,7 @@ describe("DeviceDetailsConciseRow class", () => {
     });
   });
   describe("createInnerTable()", () => {
-    it("Creates two ChannelDetailsTable components when passed a value of length 2 ", () => {
+    describe("When passed a value of length 2 ", () => {
       const dummyProps = {
         name: "channels",
         value: [new InputChannelInfo(), new OutputChannelInfo()]
@@ -84,8 +84,9 @@ describe("DeviceDetailsConciseRow class", () => {
       wrapper = Enzyme.shallow(
         DeviceDetailsConciseRow.createInnerTable(dummyProps.value)
       );
-
-      expect(wrapper.find(ChannelDetailsTable)).toHaveLength(2);
+      it("Creates one (1) ChannelDetailsTable component", ()=>{
+        expect(wrapper.find(ChannelDetailsTable)).toHaveLength(1);
+      });
     });
   });
   describe("<DeviceDetailsConciseRow/>", () => {

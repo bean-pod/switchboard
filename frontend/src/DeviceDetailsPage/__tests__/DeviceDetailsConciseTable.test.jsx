@@ -17,7 +17,7 @@ Enzyme.configure({ adapter: new Adapter() });
 jest.mock("axios");
 jest.mock("../../model/DeviceInfo");
 jest.spyOn(global.console, "error");
-jest.spyOn(DeviceInfo, "getProperties");
+jest.spyOn(DeviceInfo, "getConciseProperties");
 
 describe("DeviceDetailsConciseTable", () => {
   let wrapper;
@@ -26,7 +26,7 @@ describe("DeviceDetailsConciseTable", () => {
     const dummyDevice = new DeviceInfo(1, 1, 1, 1, 1, 1, [1, 1]);
 
     const dummyResponse = ["1", "2", "3"];
-    DeviceInfo.getProperties.mockImplementation(() => {
+    DeviceInfo.getConciseProperties.mockImplementation(() => {
       return dummyResponse;
     });
 
@@ -38,8 +38,8 @@ describe("DeviceDetailsConciseTable", () => {
     jest.clearAllMocks();
   });
 
-  it("Call DeviceInfo.getProperties()", () => {
-    expect(DeviceInfo.getProperties).toHaveBeenCalled();
+  it("Call DeviceInfo.getConciseProperties()", () => {
+    expect(DeviceInfo.getConciseProperties).toHaveBeenCalled();
   });
   it("Renders the correct number of properties", () => {
     expect(wrapper.find(DeviceDetailsConciseRow)).toHaveLength(3);
