@@ -84,7 +84,7 @@ describe("DeviceDetailsConciseRow class", () => {
       wrapper = Enzyme.shallow(
         DeviceDetailsConciseRow.createInnerTable(dummyProps.value)
       );
-      it("Creates one (1) ChannelDetailsTable component", ()=>{
+      it("Creates one (1) ChannelDetailsTable component", () => {
         expect(wrapper.find(ChannelDetailsTable)).toHaveLength(1);
       });
     });
