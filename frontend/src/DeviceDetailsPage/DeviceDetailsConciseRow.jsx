@@ -13,8 +13,10 @@ export default class DeviceDetailsConciseRow extends React.Component {
         return "Serial Number";
       case "lastCommunication":
         return "Last Communication";
-      case "ip":
-        return "IP Address";
+      case "privateIp":
+        return "Private IP Address";
+      case "publicIp":
+        return "Public IP Address";
       case "name":
         return "Name";
       case "status":
