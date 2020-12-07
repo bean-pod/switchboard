@@ -103,6 +103,18 @@ export function getSenders(callback) {
   callback(sampleSenders);
 }
 
+export function getSampleSender() {
+  return new DeviceInfo(
+    "1:10:111:999",
+    null,
+    "123:456",
+    "Sender 1",
+    "Online",
+    sampleOutputChannels,
+    extras
+  );
+}
+
 export function getReceivers(callback) {
   const sampleReceivers = [
     new DeviceInfo(
