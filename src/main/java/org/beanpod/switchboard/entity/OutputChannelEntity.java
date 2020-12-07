@@ -1,6 +1,5 @@
 package org.beanpod.switchboard.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -38,10 +37,9 @@ public class OutputChannelEntity {
   private ChannelEntity channel;
 
   @ManyToOne(
-      optional = false,
       fetch = FetchType.LAZY,
-      cascade = {CascadeType.MERGE})
+      cascade = {CascadeType.MERGE, CascadeType.PERSIST})
   @JoinColumn(name = "encoder_serial")
-  @JsonBackReference
+  @JsonIgnoreProperties("output")
   private EncoderEntity encoder;
 }
