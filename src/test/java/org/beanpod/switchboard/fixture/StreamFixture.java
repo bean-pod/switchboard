@@ -18,6 +18,7 @@ public class StreamFixture {
         .id(ID)
         .inputChannel(ChannelFixture.getInputChannelEntity())
         .outputChannel(ChannelFixture.getOutputChannelEntity())
+        .isRendezvous(false)
         .build();
   }
 
@@ -30,6 +31,7 @@ public class StreamFixture {
         .id(ID)
         .inputChannel(ChannelFixture.getInputChannelDto())
         .outputChannel(ChannelFixture.getOutputChannelDto())
+        .isRendezvous(false)
         .build();
   }
 
@@ -47,7 +49,8 @@ public class StreamFixture {
     return new StreamModel()
         .id(ID)
         .inputChannel(ChannelFixture.getInputChannelModel())
-        .outputChannel(ChannelFixture.getOutputChannelModel());
+        .outputChannel(ChannelFixture.getOutputChannelModel())
+        .isRendezvous(false);
   }
 
   public static List<StreamModel> getStreamModelList() {

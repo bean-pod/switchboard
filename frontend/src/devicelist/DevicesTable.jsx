@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import { Box, TableContainer, Typography } from "@material-ui/core";
 import PropTypes from "prop-types";
 
@@ -35,42 +36,60 @@ export default class DevicesTable extends React.Component {
     };
   }
 
-  static getColumnInfo() {
-    return [
-      {
-        title: "Name",
-        field: "name"
-      },
-      {
-        title: "Serial Number",
-        field: "serialNumber"
-      },
-      {
-        title: "Status",
-        field: "status",
-        render: (rowData) => <StatusIndicator status={rowData.status} />,
-        lookup: {
-          Online: "Online",
-          Pending: "Pending",
-          Error: "Error",
-          Offline: "Offline"
-        }
-      },
-      {
-        title: "IP Address",
-        field: "ip"
-      },
-      {
-        title: "Actions",
-        field: "action",
-        filtering: false,
-        sorting: false,
-        render: () => <ActionMenu />,
-        align: "center",
-        export: false
+function buildNavlink(deviceInfo) {
+  return (
+    <NavLink
+      to={{
+        pathname: `/Devices/Details/${deviceInfo.name}`,
+        state: { device: deviceInfo }
+      }}
+    >
+      {deviceInfo.name}
+    </NavLink>
+  );
+}
+
+static function getColumnInfo() {
+  return [
+    {
+      title: "Name",
+      field: "name",
+      render: (rowData) => buildNavlink(rowData)
+    },
+    {
+      title: "Serial Number",
+      field: "serialNumber"
+    },
+    {
+      title: "Status",
+      field: "status",
+      render: (rowData) => <StatusIndicator status={rowData.status} />,
+      lookup: {
+        Online: "Online",
+        Pending: "Pending",
+        Error: "Error",
+        Offline: "Offline"
       }
-    ];
-  }
+    },
+    {
+      title: "Private IP Address",
+      field: "privateIp"
+    },
+    {
+      title: "Public IP Address",
+      field: "publicIp"
+    },
+    {
+      title: "Actions",
+      field: "action",
+      filtering: false,
+      sorting: false,
+      render: () => <ActionMenu />,
+      align: "center",
+      export: false
+    }
+  ];
+}
 
   static getDetailPanel() {
     return [

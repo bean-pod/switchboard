@@ -2,9 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Box } from "@material-ui/core";
 
-import VerticalTabs from "./VerticalTabs";
 import TabPanel from "./TabPanel";
 import DevicesTable from "./DevicesTable";
+import VerticalTabs from "../general/VerticalTabs";
 
 export default class ContentsTable extends React.Component {
   constructor(props) {

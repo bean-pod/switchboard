@@ -2,6 +2,7 @@ package org.beanpod.switchboard.controller;
 
 import java.util.List;
 import java.util.Optional;
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -10,65 +11,81 @@ import org.beanpod.switchboard.dao.DeviceDaoImpl;
 import org.beanpod.switchboard.dto.DeviceDto;
 import org.beanpod.switchboard.dto.mapper.DeviceMapper;
 import org.beanpod.switchboard.exceptions.ExceptionType;
+import org.beanpod.switchboard.exceptions.ExceptionType.DeviceNotFoundException;
+import org.openapitools.api.DeviceApi;
+import org.openapitools.model.CreateDeviceRequest;
+import org.openapitools.model.DeviceModel;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping("/device")
 @RequiredArgsConstructor
-public class DeviceController {
-
+public class DeviceController implements DeviceApi {
+  public static final String CONTROLLER_NAME = "Device";
   private final DeviceDaoImpl service;
   private final DeviceMapper deviceMapper;
+  private final HttpServletRequest request;
 
-  @GetMapping
-  public List<DeviceDto> retrieveAllDevices() {
-    return (deviceMapper.toDeviceDtos(service.getDevices()));
+  @Override
+  public ResponseEntity<List<DeviceModel>> retrieveAllDevices() {
+    return Optional.of(service.getDevices())
+        .map(deviceMapper::toDeviceDtos)
+        .map(deviceMapper::toDeviceModelList)
+        .map(ResponseEntity::ok)
+        .orElseThrow(() -> new ExceptionType.UnknownException(CONTROLLER_NAME));
   }
 
-  @GetMapping("/{serialNumber}")
-  public ResponseEntity<DeviceDto> retrieveDevice(@PathVariable String serialNumber) {
-    Optional<DeviceDto> device = service.findDevice(serialNumber);
-    if (device.isEmpty()) {
-      throw new ExceptionType.DeviceNotFoundException(serialNumber);
-    }
-    return ResponseEntity.ok(device.get());
+  @Override
+  public ResponseEntity<DeviceModel> retrieveDevice(@PathVariable String serialNumber) {
+    DeviceDto deviceDto =
+        service
+            .findDevice(serialNumber)
+            .orElseThrow(() -> new ExceptionType.DeviceNotFoundException(serialNumber));
+
+    return Optional.of(deviceDto)
+        .map(deviceMapper::toDeviceModel)
+        .map(ResponseEntity::ok)
+        .orElseThrow(() -> new ExceptionType.UnknownException(CONTROLLER_NAME));
   }
 
-  @PostMapping
-  public ResponseEntity<DeviceDto> createDevice(@RequestBody @Valid DeviceDto device) {
-    Optional<DeviceDto> deviceLookup = service.findDevice(device.getSerialNumber());
+  @Override
+  public ResponseEntity<DeviceModel> createDevice(@Valid CreateDeviceRequest createDeviceRequest) {
+    Optional<DeviceDto> deviceLookup = service.findDevice(createDeviceRequest.getSerialNumber());
     if (deviceLookup.isPresent()) {
-      throw new ExceptionType.DeviceAlreadyExistsException(device.getSerialNumber());
+      throw new ExceptionType.DeviceAlreadyExistsException(createDeviceRequest.getSerialNumber());
     }
-    return ResponseEntity.ok(service.save(device));
+
+    return Optional.of(createDeviceRequest)
+        .map(createRequest -> service.createDevice(createRequest, request.getRemoteAddr()))
+        .map(deviceMapper::toDeviceModel)
+        .map(ResponseEntity::ok)
+        .orElseThrow(() -> new ExceptionType.UnknownException(CONTROLLER_NAME));
   }
 
-  @DeleteMapping("/{serialNumber}")
+  @Override
   @Transactional
   public ResponseEntity<String> deleteDevice(@PathVariable String serialNumber) {
     Long response = service.deleteDevice(serialNumber);
     if (response != 1) {
       throw new ExceptionType.DeviceNotFoundException(serialNumber);
     }
-    return ResponseEntity.ok("Device with serial number " + serialNumber + " Deleted");
+    return ResponseEntity.ok("Device with serial number " + serialNumber + " deleted");
   }
 
-  @PutMapping
+  @Override
   @Transactional
-  public ResponseEntity<DeviceDto> updateDevice(@RequestBody @Valid DeviceDto device) {
-    Optional<DeviceDto> deviceLookup = service.findDevice(device.getSerialNumber());
-    if (deviceLookup.isEmpty()) {
-      throw new ExceptionType.DeviceNotFoundException(device.getSerialNumber());
+  public ResponseEntity<DeviceModel> updateDevice(@Valid DeviceModel deviceModel) {
+    if (service.findDevice(deviceModel.getSerialNumber()).isEmpty()) {
+      throw new DeviceNotFoundException(deviceModel.getSerialNumber());
     }
-    return ResponseEntity.ok(service.save(device));
+
+    return Optional.of(deviceModel)
+        .map(deviceMapper::toDeviceDto)
+        .map(service::save)
+        .map(deviceMapper::toDeviceModel)
+        .map(ResponseEntity::ok)
+        .orElseThrow(() -> new ExceptionType.UnknownException(CONTROLLER_NAME));
   }
 }

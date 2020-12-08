@@ -42,7 +42,8 @@ export function getSenders(callback) {
           return new DeviceInfo(
             sender.serialNumber,
             lastCommunication,
-            sender.device.ipAddress,
+            sender.device.publicIpAddress,
+            sender.device.privateIpAddress,
             sender.device.displayName,
             getStatus(sender.lastCommunication),
             channels,
@@ -80,7 +81,8 @@ export function getReceivers(callback) {
           return new DeviceInfo(
             receiver.serialNumber,
             lastCommunication,
-            receiver.device.ipAddress,
+            receiver.device.publicIpAddress,
+            receiver.device.privateIpAddress,
             receiver.device.displayName,
             getStatus(receiver.lastCommunication),
             channels,
