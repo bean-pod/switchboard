@@ -9,7 +9,14 @@ Enzyme.configure({ adapter: new Adapter() });
 describe("Device Info", () => {
   describe("getConciseProperties()", () => {
     it("should return an array of strings", () => {
-      const expected = ["name", "serialNumber", "status", "ip", "channels"];
+      const expected = [
+        "name",
+        "serialNumber",
+        "status",
+        "publicIp",
+        "privateIp",
+        "channels"
+      ];
       const actual = DeviceInfo.getConciseProperties();
 
       expect(actual).toHaveLength(expected.length);

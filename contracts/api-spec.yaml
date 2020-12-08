@@ -33,10 +33,63 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DeviceModel'
+              $ref: '#/components/schemas/CreateDeviceRequest'
       responses:
         '200':
           description: Successful creation of device
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceModel'
+    put:
+      operationId: updateDevice
+      description: Update the properties of a device
+      tags:
+        - Devices
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceModel'
+      responses:
+        '200':
+          description: Succesful update of the device
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceModel'
+
+  /device/{serialNumber}:
+    get:
+      operationId: retrieveDevice
+      description: Retrieve a single device
+      parameters:
+        - $ref: '#/components/parameters/DeviceSerialNumber'
+      tags:
+        - Devices
+      responses:
+        '200':
+          description: Succesful retrieval of the device
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceModel'
+    delete:
+      operationId: deleteDevice
+      description: Deletes a device from the database
+      parameters:
+        - $ref: '#/components/parameters/DeviceSerialNumber'
+      tags:
+        - Devices
+      responses:
+        '200':
+          description: Succesful deletion of the device
+          content:
+            application/json:
+              schema:
+                type: string
+                example: 'Device with serial number BtmC8ckj deleted'
 
   /encoder:
     get:
@@ -221,7 +274,11 @@ paths:
               $ref: '#/components/schemas/CreateStreamRequest'
       responses:
         '200':
-          description: Successful creation of the decoder
+          description: Successful creation of the stream
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StreamModel'
     put:
       operationId: updateStream
       description: update a stream's definition
@@ -269,8 +326,7 @@ components:
       description: A list of device serial numbers
       type: array
       items:
-        type: 'string'
-      example: ['BtmC8ckj']
+        $ref: '#/components/schemas/DeviceModel'
 
     DeviceModel:
       description: A device thats either an  encoder or decoder
@@ -278,9 +334,28 @@ components:
         serialNumber:
           type: string
           example: 'BtmC8ckj'
-        ipAddress:
+        publicIpAddress:
           type: string
-          example: '127.0.0.1'
+          example: '178.156.52.3'
+        privateIpAddress:
+          type: string
+          example: '192.168.0.129'
+        displayName:
+          type: string
+          example: 'Device 1'
+        status:
+          type: string
+          example: 'running'
+
+    CreateDeviceRequest:
+      description: A request to create a new device
+      properties:
+        serialNumber:
+          type: string
+          example: 'BtmC8ckj'
+        privateIpAddress:
+          type: string
+          example: '192.168.0.129'
         displayName:
           type: string
           example: 'Device 1'
@@ -377,6 +452,10 @@ components:
           $ref: '#/components/schemas/InputChannelModel'
         outputChannel:
           $ref: '#/components/schemas/OutputChannelModel'
+        isRendezvous:
+          description: Flag that indicates that the clients should use SRT's Rendezvous mode
+          type: boolean
+          example: true
 
     StreamsModel:
       description: A list of stream IDs
@@ -399,6 +478,14 @@ components:
           example: '2'
 
   parameters:
+    DeviceSerialNumber:
+      in: path
+      name: serialNumber
+      required: true
+      description: The serial number of the device
+      schema:
+        type: string
+        example: 'BtmC8ckj'
     EncoderId:
       in: path
       name: uuid

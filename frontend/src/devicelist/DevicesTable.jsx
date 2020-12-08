@@ -66,8 +66,12 @@ function getColumnInfo() {
       }
     },
     {
-      title: "IP Address",
-      field: "ip"
+      title: "Private IP Address",
+      field: "privateIp"
+    },
+    {
+      title: "Public IP Address",
+      field: "publicIp"
     },
     {
       title: "Actions",

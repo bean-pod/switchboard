@@ -20,6 +20,7 @@ export function getSenders(callback) {
     new DeviceInfo(
       "1:10:111:999",
       null,
+      "175.214.12.96",
       "123:456",
       "Sender 1",
       "Online",
@@ -29,6 +30,7 @@ export function getSenders(callback) {
     new DeviceInfo(
       "1:20:111:999",
       null,
+      "175.214.12.96",
       "123:456",
       "Sender 2",
       "Error",
@@ -38,6 +40,7 @@ export function getSenders(callback) {
     new DeviceInfo(
       "1:30:111:999",
       null,
+      "175.214.12.96",
       "123:456",
       "Sender 3",
       "Offline",
@@ -47,6 +50,7 @@ export function getSenders(callback) {
     new DeviceInfo(
       "1:40:111:999",
       null,
+      "175.214.12.96",
       "123:456",
       "Sender 4",
       "Pending",
@@ -56,6 +60,7 @@ export function getSenders(callback) {
     new DeviceInfo(
       "1:50:111:999",
       null,
+      "175.214.12.96",
       "123:456",
       "Sender 5",
       "Online",
@@ -65,6 +70,7 @@ export function getSenders(callback) {
     new DeviceInfo(
       "1:60:111:999",
       null,
+      "175.214.12.96",
       "123:456",
       "Sender 6",
       "Error",
@@ -74,6 +80,7 @@ export function getSenders(callback) {
     new DeviceInfo(
       "1:70:111:999",
       null,
+      "175.214.12.96",
       "123:456",
       "Sender 7",
       "Offline",
@@ -83,6 +90,7 @@ export function getSenders(callback) {
     new DeviceInfo(
       "1:80:111:999",
       null,
+      "175.214.12.96",
       "123:456",
       "Sender 8",
       "Pending",
@@ -92,6 +100,7 @@ export function getSenders(callback) {
     new DeviceInfo(
       "1:90:111:999",
       null,
+      "175.214.12.96",
       "123:456",
       "Sender 9",
       "Online",
@@ -120,6 +129,7 @@ export function getReceivers(callback) {
     new DeviceInfo(
       "1:01:111:999",
       null,
+      "175.214.12.96",
       "123:456",
       "Receiver 1",
       "Online",
@@ -129,6 +139,7 @@ export function getReceivers(callback) {
     new DeviceInfo(
       "1:02:111:999",
       null,
+      "175.214.12.96",
       "123:456",
       "Receiver 2",
       "Error",
@@ -138,6 +149,7 @@ export function getReceivers(callback) {
     new DeviceInfo(
       "1:03:111:999",
       null,
+      "175.214.12.96",
       "123:456",
       "Receiver 3",
       "Offline",
@@ -147,6 +159,7 @@ export function getReceivers(callback) {
     new DeviceInfo(
       "1:04:111:999",
       null,
+      "175.214.12.96",
       "123:456",
       "Receiver 4",
       "Pending",
@@ -156,6 +169,7 @@ export function getReceivers(callback) {
     new DeviceInfo(
       "1:05:111:999",
       null,
+      "175.214.12.96",
       "123:456",
       "Receiver 5",
       "Online",
@@ -165,6 +179,7 @@ export function getReceivers(callback) {
     new DeviceInfo(
       "1:06:111:999",
       null,
+      "175.214.12.96",
       "123:456",
       "Receiver 6",
       "Error",
@@ -174,6 +189,7 @@ export function getReceivers(callback) {
     new DeviceInfo(
       "1:07:111:999",
       null,
+      "175.214.12.96",
       "123:456",
       "Receiver 7",
       "Offline",
@@ -183,6 +199,7 @@ export function getReceivers(callback) {
     new DeviceInfo(
       "1:08:111:999",
       null,
+      "175.214.12.96",
       "123:456",
       "Receiver 8",
       "Pending",
@@ -192,6 +209,7 @@ export function getReceivers(callback) {
     new DeviceInfo(
       "1:09:111:999",
       null,
+      "175.214.12.96",
       "123:456",
       "Receiver 9",
       "Online",
@@ -201,6 +219,7 @@ export function getReceivers(callback) {
     new DeviceInfo(
       "1:11:111:999",
       null,
+      "175.214.12.96",
       "123:456",
       "Receiver 11",
       "Online",
@@ -210,6 +229,7 @@ export function getReceivers(callback) {
     new DeviceInfo(
       "1:21:111:999",
       null,
+      "175.214.12.96",
       "123:456",
       "Receiver 12",
       "Error",
@@ -219,6 +239,7 @@ export function getReceivers(callback) {
     new DeviceInfo(
       "1:31:111:999",
       null,
+      "175.214.12.96",
       "123:456",
       "Receiver 13",
       "Offline",
@@ -228,6 +249,7 @@ export function getReceivers(callback) {
     new DeviceInfo(
       "1:41:111:999",
       null,
+      "175.214.12.96",
       "123:456",
       "Receiver 14",
       "Pending",
@@ -237,6 +259,7 @@ export function getReceivers(callback) {
     new DeviceInfo(
       "1:51:111:999",
       null,
+      "175.214.12.96",
       "123:456",
       "Receiver 15",
       "Online",
@@ -246,6 +269,7 @@ export function getReceivers(callback) {
     new DeviceInfo(
       "1:61:111:999",
       null,
+      "175.214.12.96",
       "123:456",
       "Receiver 16",
       "Error",
@@ -255,6 +279,7 @@ export function getReceivers(callback) {
     new DeviceInfo(
       "1:71:111:999",
       null,
+      "175.214.12.96",
       "123:456",
       "Receiver 17",
       "Offline",
@@ -264,6 +289,7 @@ export function getReceivers(callback) {
     new DeviceInfo(
       "1:81:111:999",
       null,
+      "175.214.12.96",
       "123:456",
       "Receiver 18",
       "Pending",
@@ -273,6 +299,7 @@ export function getReceivers(callback) {
     new DeviceInfo(
       "1:91:111:999",
       null,
+      "175.214.12.96",
       "123:456",
       "Receiver 19",
       "Online",
@@ -289,6 +316,7 @@ export function getAllStreams(callback) {
     new DeviceInfo(
       "1:10:111:999",
       null,
+      "175.214.12.96",
       "123:456",
       "Sender 1",
       "Online",
@@ -298,6 +326,7 @@ export function getAllStreams(callback) {
     new DeviceInfo(
       "1:20:111:999",
       null,
+      "175.214.12.96",
       "123:456",
       "Sender 2",
       "Error",
@@ -309,6 +338,7 @@ export function getAllStreams(callback) {
     new DeviceInfo(
       "1:01:111:999",
       null,
+      "175.214.12.96",
       "123:456",
       "Receiver 1",
       "Online",
@@ -318,6 +348,7 @@ export function getAllStreams(callback) {
     new DeviceInfo(
       "1:02:111:999",
       null,
+      "175.214.12.96",
       "123:456",
       "Receiver 2",
       "Error",

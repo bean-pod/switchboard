@@ -2,7 +2,8 @@ export default class DeviceInfo {
   constructor(
     serial,
     lastCommunication,
-    ipAddress,
+    publicIpAddress,
+    privateIpAddress,
     displayName,
     status,
     channels,
@@ -10,7 +11,8 @@ export default class DeviceInfo {
   ) {
     this.serialNumber = serial;
     this.lastCommunication = lastCommunication;
-    this.ip = ipAddress;
+    this.publicIp = publicIpAddress;
+    this.privateIp = privateIpAddress;
     this.name = displayName;
     this.status = status;
     this.channels = channels;
@@ -18,6 +20,13 @@ export default class DeviceInfo {
   }
 
   static getConciseProperties() {
-    return ["name", "serialNumber", "status", "ip", "channels"];
+    return [
+      "name",
+      "serialNumber",
+      "status",
+      "publicIp",
+      "privateIp",
+      "channels"
+    ];
   }
 }

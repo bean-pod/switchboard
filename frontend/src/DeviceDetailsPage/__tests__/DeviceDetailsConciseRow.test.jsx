@@ -39,10 +39,19 @@ describe("DeviceDetailsConciseRow class", () => {
       // assert
       expect(result).toEqual(expected);
     });
-    it('should return "IP Address" when passed "ip"', () => {
-      const expected = "IP Address";
+    it('should return "Public IP Address" when passed "publicIp"', () => {
+      const expected = "Public IP Address";
       // act
-      const result = DeviceDetailsConciseRow.getPropertyDisplayName("ip");
+      const result = DeviceDetailsConciseRow.getPropertyDisplayName("publicIp");
+      // assert
+      expect(result).toEqual(expected);
+    });
+    it('should return "Private IP Address" when passed "privateIp"', () => {
+      const expected = "Private IP Address";
+      // act
+      const result = DeviceDetailsConciseRow.getPropertyDisplayName(
+        "privateIp"
+      );
       // assert
       expect(result).toEqual(expected);
     });
