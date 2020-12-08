@@ -37,18 +37,9 @@ function nextTablePage() {
   });
 }
 
-function prevTablePage() {
-  act(() => {
-    const prevPageButton = document.querySelector(
-      'span[title="Previous Page"] button'
-    );
-    ReactTestUtils.Simulate.click(prevPageButton);
-  });
-}
-
 let container = null;
 let sampleSenders = null;
-let sampleReceivers = null;
+// let sampleReceivers = null;
 beforeEach(() => {
   container = document.createElement("div");
   document.body.appendChild(container);
@@ -57,9 +48,9 @@ beforeEach(() => {
   SampleData.getSenders((senders) => {
     sampleSenders = senders;
   });
-  SampleData.getReceivers((receivers) => {
-    sampleReceivers = receivers;
-  });
+  // SampleData.getReceivers((receivers) => {
+  //   sampleReceivers = receivers;
+  // });
 });
 
 afterEach(() => {
@@ -77,6 +68,8 @@ test("Verify all expected components are mounted", () => {
       container
     );
   });
+
+  verifyStaticElements();
 });
 
 test("Device table contains the correct number of devices on the last page", () => {
@@ -91,7 +84,7 @@ test("Device table contains the correct number of devices on the last page", () 
 
   // get to last page
   const numClicks = Math.ceil(sampleSenders.length / 5.0) - 1; // sub 1st page already displayed
-  for (let i = 0; i < numClicks; i++) {
+  for (let i = 0; i < numClicks; i += 1) {
     nextTablePage();
   }
   const devices = document.querySelectorAll("tr.MuiTableRow-root[index]");
