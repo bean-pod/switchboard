@@ -150,20 +150,21 @@ select {
   text-decoration: none;
 }
 
-.statusText {
-  color: white;
-  text-align: center;
+.statusIndicatorBody {
+  margin: auto;
   padding: 0.3em;
   width: 90px;
   border-radius: 0.2em;
 }
 
-.statusOfflineText {
+.statusTextOnline {
+  color: white;
+  text-align: center;
+}
+
+.statusTextOffline {
   color: black;
   text-align: center;
-  padding: 0.3em;
-  width: 90px;
-  border-radius: 0.2em;
 }
 
 .chevronText {
