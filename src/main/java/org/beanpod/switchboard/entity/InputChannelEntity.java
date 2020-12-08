@@ -31,14 +31,13 @@ public class InputChannelEntity {
   private Long id;
 
   @OneToOne(
-      optional = false,
       cascade = {CascadeType.MERGE})
   @JoinColumn(name = "channel_id")
   private ChannelEntity channel;
 
   @ManyToOne(
       fetch = FetchType.LAZY,
-      cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+      cascade = {CascadeType.MERGE})
   @JoinColumn(name = "decoder_serial")
   @JsonIgnoreProperties("input")
   private DecoderEntity decoder;
