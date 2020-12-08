@@ -24,7 +24,6 @@ import ActionMenu from "./ActionMenu";
 import DeviceInfo from "../model/DeviceInfo";
 
 export default class DevicesTable extends React.Component {
-  
   static getComponents() {
     /*  eslint-disable react/jsx-props-no-spreading */
     return {
@@ -35,7 +34,7 @@ export default class DevicesTable extends React.Component {
       )
     };
   }
-  
+
   static getColumnInfo() {
     return [
       {
@@ -72,7 +71,7 @@ export default class DevicesTable extends React.Component {
       }
     ];
   }
-  
+
   static getDetailPanel() {
     return [
       {
@@ -92,7 +91,7 @@ export default class DevicesTable extends React.Component {
       }
     ];
   }
-  
+
   static getOptions() {
     return {
       toolbar: true,
@@ -110,7 +109,7 @@ export default class DevicesTable extends React.Component {
       draggable: false
     };
   }
-  
+
   static getIcons() {
     return {
       Filter: FilterList,
@@ -124,7 +123,7 @@ export default class DevicesTable extends React.Component {
       PreviousPage: ChevronLeft
     };
   }
-  
+
   render() {
     const { title, devices } = this.props;
     return (
