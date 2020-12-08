@@ -28,6 +28,7 @@ public class EncoderDto {
   private Date lastCommunication;
 
   private DeviceDto device;
+
   @JsonIgnoreProperties("encoder")
   private Set<OutputChannelDto> output;
 }

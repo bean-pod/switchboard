@@ -30,8 +30,7 @@ public class OutputChannelEntity {
   @Column(name = "id")
   private Long id;
 
-  @OneToOne(
-      cascade = {CascadeType.MERGE})
+  @OneToOne(cascade = {CascadeType.MERGE})
   @JoinColumn(name = "channel_id")
   private ChannelEntity channel;
 

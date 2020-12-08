@@ -30,8 +30,7 @@ public class InputChannelEntity {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
-  @OneToOne(
-      cascade = {CascadeType.MERGE})
+  @OneToOne(cascade = {CascadeType.MERGE})
   @JoinColumn(name = "channel_id")
   private ChannelEntity channel;
 

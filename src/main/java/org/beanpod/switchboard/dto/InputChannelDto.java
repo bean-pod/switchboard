@@ -18,6 +18,7 @@ public class InputChannelDto {
   @NotNull
   private Long id;
   private ChannelDto channel;
+
   @JsonIgnoreProperties("input")
   private DecoderDto decoder;
 }
