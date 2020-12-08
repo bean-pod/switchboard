@@ -20,6 +20,13 @@ export default class DeviceInfo {
   }
 
   static getConciseProperties() {
-    return ["name", "serialNumber", "status", "publicIp","privateIp", "channels"];
+    return [
+      "name",
+      "serialNumber",
+      "status",
+      "publicIp",
+      "privateIp",
+      "channels"
+    ];
   }
 }

@@ -49,7 +49,9 @@ describe("DeviceDetailsConciseRow class", () => {
     it('should return "Private IP Address" when passed "privateIp"', () => {
       const expected = "Private IP Address";
       // act
-      const result = DeviceDetailsConciseRow.getPropertyDisplayName("privateIp");
+      const result = DeviceDetailsConciseRow.getPropertyDisplayName(
+        "privateIp"
+      );
       // assert
       expect(result).toEqual(expected);
     });
