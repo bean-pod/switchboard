@@ -10,18 +10,19 @@ import org.openapitools.model.DeviceModel;
 
 @Mapper(componentModel = "spring")
 public interface DeviceMapper {
+
   DeviceDto toDeviceDto(DeviceEntity deviceEntity);
 
   List<DeviceDto> toDeviceDtos(List<DeviceEntity> deviceEntities);
 
   DeviceDto toDeviceDto(DeviceModel deviceModel);
 
+  @Mapping(source = "publicIpAddress", target = "publicIpAddress")
+  DeviceDto toDeviceDto(CreateDeviceRequest createDeviceRequest, String publicIpAddress);
+
   DeviceEntity toDeviceEntity(DeviceDto deviceDto);
 
   DeviceModel toDeviceModel(DeviceDto deviceDto);
 
   List<DeviceModel> toDeviceModelList(List<DeviceDto> deviceDtos);
-
-  @Mapping(source = "publicIpAddress", target = "publicIpAddress")
-  DeviceDto toDeviceDto(CreateDeviceRequest createDeviceRequest, String publicIpAddress);
 }
