@@ -24,17 +24,16 @@ import StatusIndicator from "../general/StatusIndicator";
 import ActionMenu from "./ActionMenu";
 import DeviceInfo from "../model/DeviceInfo";
 
-export default class DevicesTable extends React.Component {
-  static getComponents() {
+function getComponents() {
+  return {
     /*  eslint-disable react/jsx-props-no-spreading */
-    return {
-      Toolbar: (props) => (
-        <div className="lightestGrey">
-          <MTableToolbar {...props} />
-        </div>
-      )
-    };
-  }
+    Toolbar: (props) => (
+      <div className="lightestGrey">
+        <MTableToolbar {...props} />
+      </div>
+    )
+  };
+}
 
 function buildNavlink(deviceInfo) {
   return (
@@ -49,7 +48,7 @@ function buildNavlink(deviceInfo) {
   );
 }
 
-static function getColumnInfo() {
+function getColumnInfo() {
   return [
     {
       title: "Name",
@@ -91,58 +90,59 @@ static function getColumnInfo() {
   ];
 }
 
-  static getDetailPanel() {
-    return [
-      {
-        icon: ExpandMore,
-        openIcon: ExpandLess,
-        tooltip: "Show Device Details",
-        render: (rowData) => {
-          return (
-            <div className="lightestGrey">
-              <Box margin={2}>
-                <Typography variant="h6">Channels</Typography>
-                <ChannelDetailsTable channels={rowData.channels} />
-              </Box>
-            </div>
-          );
-        }
+function getDetailPanel() {
+  return [
+    {
+      icon: ExpandMore,
+      openIcon: ExpandLess,
+      tooltip: "Show Device Details",
+      render: (rowData) => {
+        return (
+          <div className="lightestGrey">
+            <Box margin={2}>
+              <Typography variant="h6">Channels</Typography>
+              <ChannelDetailsTable channels={rowData.channels} />
+            </Box>
+          </div>
+        );
       }
-    ];
-  }
+    }
+  ];
+}
 
-  static getOptions() {
-    return {
-      toolbar: true,
-      search: true,
-      exportButton: true,
-      headerStyle: {
-        backgroundColor: "#f1f1f1",
-        fontWeight: "bold"
-        // position: 'sticky', top: 0
-      },
-      // maxBodyHeight: '650px',
-      // above lines commented out b/c scrollbar bug, see: https://github.com/mbrn/material-table/issues/780
-      actionsColumnIndex: -1,
-      filtering: true,
-      draggable: false
-    };
-  }
+function getOptions() {
+  return {
+    toolbar: true,
+    search: true,
+    exportButton: true,
+    headerStyle: {
+      backgroundColor: "#f1f1f1",
+      fontWeight: "bold"
+      // position: 'sticky', top: 0
+    },
+    // maxBodyHeight: '650px',
+    // above lines commented out b/c scrollbar bug, see: https://github.com/mbrn/material-table/issues/780
+    actionsColumnIndex: -1,
+    filtering: true,
+    draggable: false
+  };
+}
 
-  static getIcons() {
-    return {
-      Filter: FilterList,
-      Search,
-      ResetSearch: Clear,
-      SortArrow: ArrowDownward,
-      Export: SaveAlt,
-      FirstPage,
-      LastPage,
-      NextPage: ChevronRight,
-      PreviousPage: ChevronLeft
-    };
-  }
+function getIcons() {
+  return {
+    Filter: FilterList,
+    Search,
+    ResetSearch: Clear,
+    SortArrow: ArrowDownward,
+    Export: SaveAlt,
+    FirstPage,
+    LastPage,
+    NextPage: ChevronRight,
+    PreviousPage: ChevronLeft
+  };
+}
 
+export default class DevicesTable extends React.Component {
   render() {
     const { title, devices } = this.props;
     return (
@@ -151,12 +151,12 @@ static function getColumnInfo() {
           <TableContainer style={{ maxHeight: 570 }}>
             <MaterialTable
               title={title}
-              components={DevicesTable.getComponents()}
-              columns={DevicesTable.getColumnInfo()}
+              components={getComponents()}
+              columns={getColumnInfo()}
               data={devices}
-              detailPanel={DevicesTable.getDetailPanel()}
-              options={DevicesTable.getOptions()}
-              icons={DevicesTable.getIcons()}
+              detailPanel={getDetailPanel()}
+              options={getOptions()}
+              icons={getIcons()}
             />
           </TableContainer>
         </Box>
