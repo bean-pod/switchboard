@@ -92,6 +92,8 @@ test("Device table contains the correct number of devices on the last page", () 
   expect(devices.length).toBe(sampleSenders.length % 5);
 });
 
+// TESTS BELOW COMMENTED OUT AS REFERENCE FOR FUTURE REFACTORING
+
 // test("Device list renders sender page by default", () => {
 //   act(() => {
 //     render(
