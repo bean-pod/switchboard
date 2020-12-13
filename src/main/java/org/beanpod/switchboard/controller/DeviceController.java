@@ -30,8 +30,8 @@ public class DeviceController {
   private final DeviceMapper deviceMapper;
 
   @GetMapping
-  public List<DeviceDto> retrieveAllDevices() {
-    return (deviceMapper.toDeviceDtos(service.getDevices()));
+  public ResponseEntity<List<DeviceDto>> retrieveAllDevices() {
+    return ResponseEntity.ok(deviceMapper.toDeviceDtos(service.getDevices()));
   }
 
   @GetMapping("/{serialNumber}")

@@ -36,7 +36,6 @@ public class DeviceFixture {
   public static List<DeviceEntity> getListOfDevices() {
     List<DeviceEntity> listOfDevices = new ArrayList<>();
     listOfDevices.add(getDevice1());
-    listOfDevices.add(getDevice2());
     return listOfDevices;
   }
 
@@ -53,7 +52,7 @@ public class DeviceFixture {
         .build();
   }
 
-  public static List<DeviceDto> getDeviceDtos() throws ParseException {
+  public static List<DeviceDto> getDeviceDtos() {
     return List.of(getDeviceDto());
   }
 }

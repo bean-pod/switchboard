@@ -10,6 +10,16 @@ Feature: Testing Device API
       | code |
       | 200  |
 
+  Scenario Outline: Get Devices
+    Given I want to get all devices
+    When I get all devices
+    Then I should get a response with status <code>
+    And I should get a response with body list
+
+    Examples:
+      | code |
+      | 200  |
+
   Scenario Outline: Create Same Device
     Given I want to create a device
     When I create a device
@@ -18,15 +28,6 @@ Feature: Testing Device API
     Examples:
       | code |
       | 409  |
-
-  Scenario Outline: Get Devices
-    Given I want to get all devices
-    When I get all devices
-    Then I should get a response with status <code>
-
-    Examples:
-      | code |
-      | 200  |
 
   Scenario Outline: Get a Device
     Given I want to get the device with serialNumber <serialNumber>

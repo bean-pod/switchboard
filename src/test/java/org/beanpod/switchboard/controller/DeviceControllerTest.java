@@ -49,9 +49,8 @@ class DeviceControllerTest {
   final void testRetrieveAllDevices() {
     when(deviceService.getDevices()).thenReturn(List.of(device));
     when(deviceMapper.toDeviceDtos(any())).thenReturn(List.of(deviceDTO));
-    List<DeviceDto> allDevices = deviceController.retrieveAllDevices();
-    assertFalse(allDevices.isEmpty()); // check if an empty list was returned
-    assertIterableEquals(List.of(deviceDTO), allDevices); // check both lists contents
+    ResponseEntity<List<DeviceDto>> allDevices = deviceController.retrieveAllDevices();
+    assertIterableEquals(List.of(deviceDTO), allDevices.getBody()); // check both lists contents
   }
 
   // When a device is available in the DB
