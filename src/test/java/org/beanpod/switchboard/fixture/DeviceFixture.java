@@ -1,6 +1,5 @@
 package org.beanpod.switchboard.fixture;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import org.beanpod.switchboard.dto.DeviceDto;
