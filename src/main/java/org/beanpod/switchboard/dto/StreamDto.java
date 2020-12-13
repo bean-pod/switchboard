@@ -13,4 +13,5 @@ public class StreamDto {
   private Long id;
   private OutputChannelDto outputChannel;
   private InputChannelDto inputChannel;
+  private Boolean isRendezvous;
 }

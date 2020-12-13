@@ -72,8 +72,9 @@ test("Device list renders sender page by default", () => {
     expect(rowElements[1].textContent).toBe(sender.name);
     expect(rowElements[2].textContent).toBe(sender.serialNumber);
     expect(rowElements[3].firstChild.textContent).toBe(sender.status);
-    expect(rowElements[4].textContent).toBe(sender.ip);
-    expect(rowElements[5].querySelector("button span svg")).not.toBe(null);
+    expect(rowElements[4].textContent).toBe(sender.privateIp);
+    expect(rowElements[5].textContent).toBe(sender.publicIp);
+    expect(rowElements[6].querySelector("button span svg")).not.toBe(null);
   });
 });
 
@@ -104,8 +105,9 @@ test("Clicking receivers tabs renders the receiver list ", () => {
     expect(rowElements[1].textContent).toBe(receiver.name);
     expect(rowElements[2].textContent).toBe(receiver.serialNumber);
     expect(rowElements[3].firstChild.textContent).toBe(receiver.status);
-    expect(rowElements[4].textContent).toBe(receiver.ip);
-    expect(rowElements[5].querySelector("button span svg")).not.toBe(null);
+    expect(rowElements[4].textContent).toBe(receiver.privateIp);
+    expect(rowElements[5].textContent).toBe(receiver.publicIp);
+    expect(rowElements[6].querySelector("button span svg")).not.toBe(null);
   });
 });
 
