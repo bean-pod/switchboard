@@ -56,7 +56,7 @@ public class DeviceStepDefinition extends SpringIntegrationTest {
   @When("I create a device")
   public void i_create_a_device() {
     responseEntity =
-        testRestTemplate.postForEntity(uri, DeviceFixture.getDeviceDto(), DeviceDto.class);
+        testRestTemplate.postForEntity(uri, DeviceFixture.getDeviceDto1(), DeviceDto.class);
   }
 
   @When("I delete a device")
@@ -66,7 +66,7 @@ public class DeviceStepDefinition extends SpringIntegrationTest {
 
   @When("I update a device")
   public void i_update_a_device() {
-    DeviceDto deviceDto = DeviceFixture.getDeviceDto();
+    DeviceDto deviceDto = DeviceFixture.getDeviceDto1();
     deviceDto.setDisplayName("New display name");
     HttpEntity httpEntity = new HttpEntity(deviceDto);
     responseEntity = testRestTemplate.exchange(uri, HttpMethod.PUT, httpEntity, DeviceDto.class);
@@ -83,12 +83,12 @@ public class DeviceStepDefinition extends SpringIntegrationTest {
 
   @Then("I should get a response with body")
   public void i_should_get_a_response_with_body() {
-    assertEquals(DeviceFixture.getDeviceDto(), responseEntity.getBody());
+    assertEquals(DeviceFixture.getDeviceDto1(), responseEntity.getBody());
   }
 
   @Then("I should get an updated response with body")
   public void i_should_get_an_update_response_with_body() {
-    DeviceDto deviceDto = DeviceFixture.getDeviceDto();
+    DeviceDto deviceDto = DeviceFixture.getDeviceDto1();
     deviceDto.setDisplayName("New display name");
     assertEquals(deviceDto, responseEntity.getBody());
   }

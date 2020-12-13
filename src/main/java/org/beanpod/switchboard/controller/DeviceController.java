@@ -28,9 +28,6 @@ public class DeviceController implements DeviceApi {
   private final DeviceMapper deviceMapper;
   private final HttpServletRequest request;
 
-  @GetMapping
-  public ResponseEntity<List<DeviceDto>> retrieveAllDevices() {
-    return ResponseEntity.ok(deviceMapper.toDeviceDtos(service.getDevices()));
   @Override
   public ResponseEntity<List<DeviceModel>> retrieveAllDevices() {
     return Optional.of(service.getDevices())

@@ -69,7 +69,17 @@ public class DeviceFixture {
         .build();
   }
 
+  public static DeviceDto getDeviceDto1() {
+    return DeviceDto.builder()
+        .serialNumber(SERIAL_NUMBER)
+        .privateIpAddress(PRIVATE_IP_ADDRESS)
+        .publicIpAddress("127.0.0.1")
+        .displayName(DISPLAY_NAME)
+        .status(STATUS)
+        .build();
+  }
+
   public static List<DeviceDto> getDeviceDtos() {
-    return List.of(getDeviceDto());
+    return List.of(getDeviceDto1());
   }
 }
