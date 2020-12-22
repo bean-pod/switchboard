@@ -34,8 +34,10 @@
         <sonar.test.inclusions>src/test/java,frontend/src/**/__tests__/**</sonar.test.inclusions>
         <sonar.cpd.exclusions>frontend/src/api/SampleData.js</sonar.cpd.exclusions>
         <sonar.javascript.lcov.reportPaths>frontend/coverage/lcov.info</sonar.javascript.lcov.reportPaths>
-        <sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
-        <sonar.java.checkstyle.reportPaths>${project.build.directory}/checkstyle-result.xml</sonar.java.checkstyle.reportPaths>
+        <sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/site/jacoco/jacoco.xml
+        </sonar.coverage.jacoco.xmlReportPaths>
+        <sonar.java.checkstyle.reportPaths>${project.build.directory}/checkstyle-result.xml
+        </sonar.java.checkstyle.reportPaths>
         <sonar.eslint.reportPaths>frontend/lint/report.json</sonar.eslint.reportPaths>
     </properties>
 

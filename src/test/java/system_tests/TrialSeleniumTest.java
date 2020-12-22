@@ -16,52 +16,55 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class TrialSeleniumTest {
-    private static WebDriver driver;
+  private static WebDriver driver;
 
-    @BeforeAll
-    static void setUp(){
-        //TODO set it up for mac/linux: https://stackoverflow.com/questions/228477/how-do-i-programmatically-determine-operating-system-in-java
-        System.setProperty("webdriver.chrome.driver","src\\test\\java\\system_tests\\chromedriver.exe");
-        driver = new ChromeDriver();
+  @BeforeAll
+  static void setUp() {
+    // TODO set it up for mac/linux:
+    // https://stackoverflow.com/questions/228477/how-do-i-programmatically-determine-operating-system-in-java
+    System.setProperty(
+        "webdriver.chrome.driver", "src\\test\\java\\system_tests\\chromedriver.exe");
+    driver = new ChromeDriver();
 
-        //create a test device
-        HashMap<String, String> deviceParam = new HashMap();
-        deviceParam.put("serialNumber","10");
-        deviceParam.put("displayName","Sender Test10");
-        deviceParam.put("status","Running");
-        deviceParam.put("ipAddress","212.150.5.74");
-        postRequest("http://localhost:8080/device",deviceParam);
+    // create a test device
+    HashMap<String, String> deviceParam = new HashMap();
+    deviceParam.put("serialNumber", "10");
+    deviceParam.put("displayName", "Sender Test10");
+    deviceParam.put("status", "Running");
+    deviceParam.put("ipAddress", "212.150.5.74");
+    postRequest("http://localhost:8080/device", deviceParam);
 
-        //create a test decoder
-        HashMap<String, String> encoderParam = new HashMap();
-        encoderParam.put("serialNumber","10");
-        encoderParam.put("lastCommunication","2020-11-28 09:40:00");
-        postRequest("http://localhost:8080/encoder",encoderParam);
+    // create a test decoder
+    HashMap<String, String> encoderParam = new HashMap();
+    encoderParam.put("serialNumber", "10");
+    encoderParam.put("lastCommunication", "2020-11-28 09:40:00");
+    postRequest("http://localhost:8080/encoder", encoderParam);
+  }
+
+  @Test
+  void testAddDecoder() {
+    driver.get("http://localhost:3000/Devices");
+    driver.manage().window().setSize(new Dimension(782, 818));
+
+    driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+
+    WebElement encodersTable = driver.findElement(By.tagName("table")); // find encoders table
+    List<WebElement> devicesRows =
+        encodersTable.findElements(By.tagName("tr")); // find all tr elements inside found table
+
+    boolean assertValue = false;
+    for (WebElement element : devicesRows) {
+      if (element.getText().contains("Sender Test10")) {
+        assertValue = true;
+        break;
+      }
     }
 
-    @Test
-    void testAddDecoder(){
-        driver.get("http://localhost:3000/Devices");
-        driver.manage().window().setSize(new Dimension(782, 818));
+    assertTrue(assertValue);
+  }
 
-        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-
-        WebElement encodersTable = driver.findElement(By.tagName("table")); //find encoders table
-        List<WebElement> devicesRows = encodersTable.findElements(By.tagName("tr")); //find all tr elements inside found table
-
-        boolean assertValue = false;
-        for(WebElement element : devicesRows){
-           if(element.getText().contains("Sender Test10")) {
-               assertValue = true;
-               break;
-           }
-        }
-
-        assertTrue(assertValue);
-    }
-
-    @AfterEach
-    void tearDown(){
-        driver.quit();
-    }
+  @AfterEach
+  void tearDown() {
+    driver.quit();
+  }
 }
