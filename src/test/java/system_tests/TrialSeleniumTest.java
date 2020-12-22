@@ -1,5 +1,7 @@
 package system_tests;
 
+import org.beanpod.switchboard.entity.DeviceEntity;
+import org.beanpod.switchboard.fixture.DeviceFixture;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -8,15 +10,17 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static system_tests.HttpHandler.postRequest;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static system_tests.HttpHandler.postRequest;
+
 public class TrialSeleniumTest {
   private static WebDriver driver;
+  private static DeviceEntity deviceEntity;
 
   @BeforeAll
   static void setUp() {
@@ -27,16 +31,17 @@ public class TrialSeleniumTest {
     driver = new ChromeDriver();
 
     // create a test device
+    deviceEntity = DeviceFixture.getDevice1();
     HashMap<String, String> deviceParam = new HashMap();
-    deviceParam.put("serialNumber", "10");
-    deviceParam.put("displayName", "Sender Test10");
-    deviceParam.put("status", "Running");
-    deviceParam.put("ipAddress", "212.150.5.74");
+    deviceParam.put("serialNumber", deviceEntity.getSerialNumber());
+    deviceParam.put("displayName", deviceEntity.getDisplayName());
+    deviceParam.put("status", deviceEntity.getStatus());
+    deviceParam.put("ipAddress", deviceEntity.getIpAddress());
     postRequest("http://localhost:8080/device", deviceParam);
 
-    // create a test decoder
+    // create a test encoder
     HashMap<String, String> encoderParam = new HashMap();
-    encoderParam.put("serialNumber", "10");
+    encoderParam.put("serialNumber", deviceEntity.getSerialNumber());
     encoderParam.put("lastCommunication", "2020-11-28 09:40:00");
     postRequest("http://localhost:8080/encoder", encoderParam);
   }
@@ -52,13 +57,8 @@ public class TrialSeleniumTest {
     List<WebElement> devicesRows =
         encodersTable.findElements(By.tagName("tr")); // find all tr elements inside found table
 
-    boolean assertValue = false;
-    for (WebElement element : devicesRows) {
-      if (element.getText().contains("Sender Test10")) {
-        assertValue = true;
-        break;
-      }
-    }
+    boolean assertValue =
+        devicesRows.stream().anyMatch(row -> row.getText().contains(deviceEntity.getDisplayName()));
 
     assertTrue(assertValue);
   }

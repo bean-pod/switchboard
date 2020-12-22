@@ -1,15 +1,16 @@
 package system_tests;
 
 import okhttp3.*;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
 
 public class HttpHandler {
   public static Response postRequest(String endPoint, HashMap<String, String> bodyParam) {
     OkHttpClient client = new OkHttpClient().newBuilder().build();
     MediaType mediaType = MediaType.parse("application/json");
-    RequestBody body = RequestBody.create(mediaType, convertHashMapToString(bodyParam));
+    RequestBody body = RequestBody.create(mediaType, new JSONObject(bodyParam).toString());
     Request request =
         new Request.Builder()
             .url(endPoint)
@@ -36,26 +37,5 @@ public class HttpHandler {
     } catch (Exception e) {
       return false; // value isn't int
     }
-  }
-
-  // converts a hashMap to a string
-  private static String convertHashMapToString(HashMap<String, String> hashMap) {
-    String result = "{";
-    int hashMapSize = hashMap.size();
-
-    for (Map.Entry<String, String> entry : hashMap.entrySet()) {
-      hashMapSize--;
-      result +=
-          "\r\n\""
-              + entry.getKey()
-              + "\":"
-              + (isInteger(entry.getValue()) ? entry.getValue() : "\"" + entry.getValue() + "\"")
-              + (hashMapSize != 0 ? "," : "")
-              + "\r\n";
-    }
-
-    result += "}";
-
-    return result;
   }
 }
