@@ -10,6 +10,17 @@ servers:
     description: Local Enviorment
 
 paths:
+  /logs:
+    get:
+      operationId: retrieveAllLogs
+      description: Get a list of logs
+      responses:
+        '200':
+          description: Successful retrival of logs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogsModel'
   /device:
     get:
       operationId: retrieveAllDevices
@@ -23,6 +34,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DevicesModel'
+
     post:
       operationId: createDevice
       description: Create a new device
@@ -322,6 +334,29 @@ paths:
 
 components:
   schemas:
+    LogsModel:
+      description: A list of all logs
+      type: array
+      items:
+        $ref: '#/components/schemas/LogModel'
+
+    LogModel:
+      description: a log object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: '123'
+        dateTime:
+          type: string
+          format: date-time
+        message:
+          type: string
+          example: 'A log message'
+        level:
+          type: string
+          example: 'info'
+
     DevicesModel:
       description: A list of device serial numbers
       type: array
@@ -368,7 +403,7 @@ components:
       type: array
       items:
         type: string
-      example: ['0e4e430f-8b9c-47da-b9af-7ef9cfb13e9e']
+      example: [ '0e4e430f-8b9c-47da-b9af-7ef9cfb13e9e' ]
 
     EncoderModel:
       description: A client that sends a video stream
@@ -377,7 +412,7 @@ components:
           type: string
           example: 'BtmC8ckj'
         device:
-          $ref:  '#/components/schemas/DeviceModel'
+          $ref: '#/components/schemas/DeviceModel'
 
     CreateEncoderRequest:
       description: A client that sends a video stream
@@ -391,7 +426,7 @@ components:
       type: array
       items:
         type: string
-      example: ['1ea52153-c196-4cc6-8d9f-714248abf31c']
+      example: [ '1ea52153-c196-4cc6-8d9f-714248abf31c' ]
 
     DecoderModel:
       description: A client that receives a video stream
@@ -400,7 +435,7 @@ components:
           type: string
           example: 'v7BM3ejS'
         device:
-          $ref:  '#/components/schemas/DeviceModel'
+          $ref: '#/components/schemas/DeviceModel'
 
     CreateDecoderRequest:
       description: Body for the creation of a decoder object
@@ -463,7 +498,7 @@ components:
       items:
         type: integer
         format: int64
-      example: ['1234']
+      example: [ '1234' ]
 
     CreateStreamRequest:
       description: An object to request the creation of a stream between an input and output channel
