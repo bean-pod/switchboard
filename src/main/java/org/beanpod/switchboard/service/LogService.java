@@ -1,5 +1,6 @@
 package org.beanpod.switchboard.service;
 
+import java.time.OffsetDateTime;
 import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.entity.LogEntity;
 import org.beanpod.switchboard.repository.LogRepository;
@@ -19,7 +20,7 @@ public class LogService {
         LogEntity.builder()
             .message(message)
             .level(level)
-            .dateTime(dateUtil.getCurrentDate())
+            .dateTime(OffsetDateTime.now())
             .build();
     logRepository.save(logEntity);
   }

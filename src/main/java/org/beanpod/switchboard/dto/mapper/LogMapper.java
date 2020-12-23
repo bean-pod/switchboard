@@ -9,4 +9,5 @@ import org.openapitools.model.LogModel;
 public interface LogMapper {
 
   List<LogModel> toLogModels(List<LogEntity> logEntityList);
+  LogModel toLogModel(LogEntity logEntity);
 }

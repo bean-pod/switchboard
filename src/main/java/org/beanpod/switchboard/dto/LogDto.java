@@ -1,9 +1,6 @@
 package org.beanpod.switchboard.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import java.util.Date;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import java.time.OffsetDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -19,9 +16,7 @@ public class LogDto {
 
   private Long id;
 
-  @Temporal(TemporalType.TIMESTAMP)
-  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-  private Date dateTime;
+  private OffsetDateTime dateTime;
 
   private String message;
 
