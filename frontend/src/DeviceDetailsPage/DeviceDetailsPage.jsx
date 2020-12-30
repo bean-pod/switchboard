@@ -26,7 +26,7 @@ export default function DeviceDetailsPage(props) {
         ]}
       />
       <Grid container spacing={1}>
-        <Grid item xs={12} className="flexContents headerArea">
+        <Grid item xs={12} className="flexContents headerAreaUnderline">
           <div className="title">{device.name}</div>
         </Grid>
         <Grid item xs={12} />

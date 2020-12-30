@@ -51,21 +51,18 @@ export default class ContentsTable extends React.Component {
         <Box
           style={{
             display: "flex",
-            flexGrow: 1,
-            maxHeight: 500
+            flexGrow: 1
           }}
-          border={1}
-          borderColor="#f1f1f1"
         >
           <VerticalTabs
             value={value}
             setValue={this.handleValueChange}
             classes={classes}
           />
-          <TabPanel value={value} index={0}>
+          <TabPanel value={value} index={0} className="lightGreyBorder">
             <DevicesTable devices={senders} title="List of Senders" />
           </TabPanel>
-          <TabPanel value={value} index={1}>
+          <TabPanel value={value} index={1} className="lightGreyBorder">
             <DevicesTable devices={receivers} title="List of Receivers" />
           </TabPanel>
         </Box>

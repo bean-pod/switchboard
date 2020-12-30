@@ -18,7 +18,7 @@ export default class DeviceListPage extends React.Component {
             ["My Devices", "Devices"]
           ]}
         />
-        <Box padding="1em" paddingTop="2em">
+        <Box className="areaUnderBreadcrumbs">
           <TitleBox />
           <ContentsTable classes={useStyles} dataSource={dataSource} />
         </Box>
