@@ -27,11 +27,12 @@ public class DataSourceConfig {
   @Profile("development")
   public DataSource mySqlDevDataSource() {
     DataSourceBuilder<?> dataSourceBuilder = DataSourceBuilder.create();
+    //TODO if applicable, edit credentials (CAUTION: do not push changes to version control)
     dataSourceBuilder.url(
         "jdbc:mysql://localhost:3306/"
             + "switchboard?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC");
     dataSourceBuilder.username("root");
-    dataSourceBuilder.password("password");
+    dataSourceBuilder.password("root");
 
     return dataSourceBuilder.build();
   }
