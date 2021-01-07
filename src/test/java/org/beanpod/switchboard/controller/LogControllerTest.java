@@ -22,7 +22,7 @@ class LogControllerTest {
   @Mock LogDaoImpl logDao;
 
   @BeforeEach
-  void setupEncoderFixture()  {
+  void setupLogFixture()  {
     logModels = LogFixture.getListOfLogs();
   }
 
