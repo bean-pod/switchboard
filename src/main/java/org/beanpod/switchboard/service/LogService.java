@@ -17,11 +17,7 @@ public class LogService {
   public void createLog(String message, String level) {
 
     LogEntity logEntity =
-        LogEntity.builder()
-            .message(message)
-            .level(level)
-            .dateTime(OffsetDateTime.now())
-            .build();
+        LogEntity.builder().message(message).level(level).dateTime(OffsetDateTime.now()).build();
     logRepository.save(logEntity);
   }
 }

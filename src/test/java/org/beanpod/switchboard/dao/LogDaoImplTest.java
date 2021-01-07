@@ -20,15 +20,12 @@ class LogDaoImplTest {
   public static List<LogModel> logModels;
   public static List<LogEntity> logEntities;
 
-  @InjectMocks
-  LogDaoImpl logDao;
-  @Mock
-  LogRepository logRepository;
-  @Mock
-  LogMapper logMapper;
+  @InjectMocks LogDaoImpl logDao;
+  @Mock LogRepository logRepository;
+  @Mock LogMapper logMapper;
 
   @BeforeEach
-  void setupLogFixture()  {
+  void setupLogFixture() {
     logModels = LogFixture.getListOfLogs();
     logEntities = LogFixture.getListOfLogEntity();
   }

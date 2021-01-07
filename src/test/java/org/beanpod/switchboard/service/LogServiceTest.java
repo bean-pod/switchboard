@@ -19,15 +19,12 @@ class LogServiceTest {
 
   public static LogEntity logEntity;
 
-  @InjectMocks
-  LogService logService;
-  @Mock
-  LogRepository logRepository;
-  @Mock
-  LogMapper logMapper;
+  @InjectMocks LogService logService;
+  @Mock LogRepository logRepository;
+  @Mock LogMapper logMapper;
 
   @BeforeEach
-  void setupLogFixture()  {
+  void setupLogFixture() {
     logEntity = LogFixture.getLogEntity();
   }
 
@@ -37,7 +34,7 @@ class LogServiceTest {
   }
 
   @Test
-  final void testGetLog(){
+  final void testGetLog() {
     when(logRepository.save(any())).thenReturn(logEntity);
     logService.createLog("im a log", "info");
     verify(logRepository, times(1)).save(any());

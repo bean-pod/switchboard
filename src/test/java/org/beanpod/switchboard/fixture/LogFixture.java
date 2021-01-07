@@ -22,7 +22,6 @@ public class LogFixture {
 
   public static LogEntity getLogEntity() {
     return LogEntity.builder().id(id).dateTime(dateTime).message(message).level(level).build();
-
   }
 
   public static List<LogModel> getListOfLogs() {

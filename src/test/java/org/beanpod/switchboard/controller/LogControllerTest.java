@@ -23,7 +23,7 @@ class LogControllerTest {
   @Mock private LogDaoImpl logDao;
 
   @BeforeEach
-  void setupLogFixture()  {
+  void setupLogFixture() {
     logModels = LogFixture.getListOfLogs();
   }
 
@@ -33,11 +33,10 @@ class LogControllerTest {
   }
 
   @Test
-  final void testRetrieveAllLogs(){
+  final void testRetrieveAllLogs() {
     when(logDao.getLogs()).thenReturn(logModels);
     ResponseEntity<List<LogModel>> response = logController.retrieveAllLogs();
     assertEquals(HttpStatus.OK, response.getStatusCode());
-    assertIterableEquals(logModels, response.getBody() );
-
+    assertIterableEquals(logModels, response.getBody());
   }
 }
