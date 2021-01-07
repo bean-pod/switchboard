@@ -31,7 +31,7 @@
     <sonar.organization>bean-pod</sonar.organization>
     <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     <sonar.sources>src/main/java,frontend/src</sonar.sources>
-    <sonar.exclusions>frontend/src/**/__tests__/**,frontend/src/**/tests/**</sonar.exclusions>
+    <sonar.exclusions>frontend/src/**/__tests__/**,frontend/src/**/tests/**,**/*Aspect.java</sonar.exclusions>
     <sonar.tests>src/test/java,frontend/src</sonar.tests>
     <sonar.test.inclusions>src/test/java,frontend/src/**/__tests__/**</sonar.test.inclusions>
     <sonar.cpd.exclusions>frontend/src/api/SampleData.js</sonar.cpd.exclusions>
