@@ -13,6 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.openapitools.model.LogModel;
 
 class LogDaoImplTest {
@@ -30,6 +31,11 @@ class LogDaoImplTest {
   void setupLogFixture()  {
     logModels = LogFixture.getListOfLogs();
     logEntities = LogFixture.getListOfLogEntity();
+  }
+
+  @BeforeEach
+  void setup() {
+    MockitoAnnotations.initMocks(this);
   }
 
   @Test

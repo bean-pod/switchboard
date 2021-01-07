@@ -6,9 +6,9 @@ import org.beanpod.switchboard.dao.LogDaoImpl;
 import org.openapitools.api.LogsApi;
 import org.openapitools.model.LogModel;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 public class LogController implements LogsApi {
 
