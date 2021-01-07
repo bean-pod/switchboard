@@ -24,16 +24,11 @@ import org.openapitools.model.CreateStreamRequest;
 
 public class StreamServiceTest {
 
-  @InjectMocks
-  private StreamServiceImpl streamService;
-  @Mock
-  private StreamDaoImpl streamDao;
-  @Mock
-  private StreamMapper mapper;
-  @Mock
-  private ChannelDaoImpl channelDao;
-  @Mock
-  private NetworkingUtil networkingUtil;
+  @InjectMocks private StreamServiceImpl streamService;
+  @Mock private StreamDaoImpl streamDao;
+  @Mock private StreamMapper mapper;
+  @Mock private ChannelDaoImpl channelDao;
+  @Mock private NetworkingUtil networkingUtil;
 
   @BeforeEach
   public void setup() {
