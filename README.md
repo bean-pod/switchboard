@@ -45,7 +45,7 @@ Developed as a Concordia University Capstone project.
     * Take note of your root user password. 
         * If you were not prompted for a password during installation, go to the bin folder of your MySQL installation and run the command `mysqld --initialize --console`. This should initialize the database and print a randomly-generated one-time password to the console.
     * Open MySQL workbench and connect to your database.
-    * Create a new schema named `switchboard`. If you ever need to reset the contents of your database, delete this schema and re-create it.    * You must create a schema named `switchboard` for use with the application.
+    * Create a new schema named `switchboard`. If you ever need to reset the contents of your database, delete this schema and re-create it. 
     
 #### Running
 * `./mvnw install` to install dependencies.
