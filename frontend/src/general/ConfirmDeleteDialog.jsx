@@ -5,6 +5,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import PropTypes from "prop-types";
 
 export default function ConfirmDeleteDialog(props) {
   const { open, onCancel, onConfirm, message } = props;
@@ -34,3 +35,10 @@ export default function ConfirmDeleteDialog(props) {
     </Dialog>
   );
 }
+
+ConfirmDeleteDialog.propTypes = {
+  open: PropTypes.objectOf(PropTypes.bool).isRequired,
+  onCancel: PropTypes.objectOf(PropTypes.func).isRequired,
+  onConfirm: PropTypes.objectOf(PropTypes.func).isRequired,
+  message: PropTypes.objectOf(PropTypes.string).isRequired
+};
