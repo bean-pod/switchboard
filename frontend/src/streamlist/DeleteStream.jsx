@@ -36,7 +36,8 @@ export default function DeleteStream(props) {
         <DialogTitle id="alert-dialog-title">Confirm Delete</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Are you sure you want to end stream {deleteId}?
+            Are you sure you want to end stream
+            {deleteId}?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
