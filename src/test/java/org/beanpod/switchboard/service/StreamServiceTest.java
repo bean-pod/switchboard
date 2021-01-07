@@ -115,17 +115,17 @@ public class StreamServiceTest {
 
   @Test
   public void testUpdateStream() {
-    //given
+    // given
     StreamDto streamDto = StreamFixture.getStreamDto();
     StreamEntity streamEntity = StreamFixture.getStreamEntity();
 
     when(streamDao.updateStream(streamDto)).thenReturn(streamEntity);
     when(mapper.toDto(streamEntity)).thenReturn(streamDto);
 
-    //when
+    // when
     var result = streamService.updateStream(streamDto);
 
-    //then
+    // then
     assertEquals(streamDto, result);
   }
 }
