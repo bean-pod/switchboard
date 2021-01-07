@@ -5,11 +5,12 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 import { IconButton } from "@material-ui/core";
 import { Block } from "@material-ui/icons";
 
-export default function DeleteStream() {
+export default function DeleteStream(props) {
+  const { deleteId } = props;
   const [open, setOpen] = React.useState(false);
   const openDeleteDialog = () => {
     return setOpen(true);
@@ -35,7 +36,7 @@ export default function DeleteStream() {
         <DialogTitle id="alert-dialog-title">Confirm Delete</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Are you sure you want to end this stream?
+            Are you sure you want to end stream {deleteId}?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -51,9 +52,6 @@ export default function DeleteStream() {
   );
 }
 
-// DeleteStream.propTypes = {
-//   open: PropTypes.objectOf(PropTypes.bool).isRequired,
-//   onCancel: PropTypes.objectOf(PropTypes.func).isRequired,
-//   onConfirm: PropTypes.objectOf(PropTypes.func).isRequired,
-//   message: PropTypes.objectOf(PropTypes.string).isRequired
-// };
+DeleteStream.propTypes = {
+  deleteId: PropTypes.objectOf(PropTypes.number).isRequired
+};
