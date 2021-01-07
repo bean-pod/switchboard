@@ -9,7 +9,7 @@ export default class TitleBox extends React.Component {
   render() {
     return (
       <>
-        <Box className="flexContents headerAreaDeviceList">
+        <Box className="flexContents headerAreaNoUnderline">
           <div className="title">My Devices</div>
           <div className="alignRightFloat" spacing={2}>
             <NavLink

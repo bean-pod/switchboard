@@ -1,7 +1,7 @@
 package org.beanpod.switchboard.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.Date;
 import java.util.Set;
 import javax.persistence.Temporal;
@@ -16,11 +16,12 @@ import lombok.Setter;
 
 @Setter
 @Getter
-@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 @Builder
 public class EncoderDto {
+
   @NotNull private String serialNumber;
 
   @Temporal(TemporalType.TIMESTAMP)
@@ -28,5 +29,7 @@ public class EncoderDto {
   private Date lastCommunication;
 
   private DeviceDto device;
-  @JsonManagedReference private Set<OutputChannelDto> output;
+
+  @JsonIgnoreProperties("encoder")
+  private Set<OutputChannelDto> output;
 }

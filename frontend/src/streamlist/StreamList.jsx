@@ -8,7 +8,7 @@ export default function StreamList(props) {
   const { dataSource } = props;
   return (
     <Container>
-      <Box className="headerArea">
+      <Box className="headerAreaUnderline">
         <div className="title">Current Streams</div>
       </Box>
       <StreamsTable classes={useStyles} dataSource={dataSource} />
