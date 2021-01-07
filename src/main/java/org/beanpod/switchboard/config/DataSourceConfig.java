@@ -28,7 +28,8 @@ public class DataSourceConfig {
   public DataSource mySqlDevDataSource() {
     DataSourceBuilder<?> dataSourceBuilder = DataSourceBuilder.create();
     dataSourceBuilder.url(
-        "jdbc:mysql://localhost:3306/switchboard?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC");
+        "jdbc:mysql://localhost:3306/"
+            + "switchboard?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC");
     dataSourceBuilder.username("root");
     dataSourceBuilder.password("password");
 
