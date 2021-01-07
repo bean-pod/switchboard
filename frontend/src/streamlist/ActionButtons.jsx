@@ -2,11 +2,11 @@ import React from "react";
 import { IconButton } from "@material-ui/core";
 import { Block, Pause, Sync } from "@material-ui/icons";
 
-import AlertDialog from "../general/ConfirmDeleteDialog";
+import ConfirmDeleteDialog from "../general/ConfirmDeleteDialog";
 
 export default function ActionButtons() {
   const [open, setOpen] = React.useState(false);
-  const openDeleteDialog = () => setOpen(true);
+  const openDeleteDialog = () => setOpen(true); // problem is here with how we're defining these methods
   const cancelDelete = () => setOpen(false);
   const confirmDelete = () => setOpen(false); // call hook here, actually
 
@@ -22,7 +22,7 @@ export default function ActionButtons() {
         <IconButton onClick={openDeleteDialog}>
           <Block />
         </IconButton>
-        <AlertDialog
+        <ConfirmDeleteDialog
           open={open}
           onCancel={cancelDelete}
           onDelete={confirmDelete}
