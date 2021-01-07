@@ -12,14 +12,14 @@ import { Block } from "@material-ui/icons";
 export default function DeleteStream() {
   const [open, setOpen] = React.useState(false);
   const openDeleteDialog = () => {
-    return setOpen(true); // problem is here with how we're defining these methods
+    return setOpen(true);
   };
   const cancelDelete = () => {
     return setOpen(false);
   };
   const confirmDelete = () => {
     return setOpen(false);
-  }; // call hook here, actually
+  }; // call endpoint here, actually
 
   return (
     <>
