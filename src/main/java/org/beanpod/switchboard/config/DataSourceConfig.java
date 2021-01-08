@@ -7,6 +7,7 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.core.env.Environment;
 
 @Configuration
 public class DataSourceConfig {
@@ -25,14 +26,25 @@ public class DataSourceConfig {
 
   @Bean(name = "mySqlDevDataSource")
   @Profile("development")
-  public DataSource mySqlDevDataSource() {
+  public DataSource mySqlDevDataSource(Environment env) {
+    String username =
+        env.getProperty("spring.datasource.username") == null
+            ? "root"
+            : env.getProperty("spring.datasource.username");
+    String password =
+        env.getProperty("spring.datasource.password") == null
+            ? "root"
+            : env.getProperty("spring.datasource.password");
+    String dbUrl =
+        env.getProperty("spring.datasource.url") == null
+            ? "jdbc:mysql://localhost:3306/"
+                + "switchboard?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC"
+            : env.getProperty("spring.datasource.url");
+
     DataSourceBuilder<?> dataSourceBuilder = DataSourceBuilder.create();
-    // TODO if applicable, edit credentials (CAUTION: do not push changes to version control)
-    dataSourceBuilder.url(
-        "jdbc:mysql://localhost:3306/"
-            + "switchboard?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC");
-    dataSourceBuilder.username("root");
-    dataSourceBuilder.password("root");
+    dataSourceBuilder.url(dbUrl);
+    dataSourceBuilder.username(username);
+    dataSourceBuilder.password(password);
 
     return dataSourceBuilder.build();
   }
