@@ -5,7 +5,7 @@ import * as SampleData from "./SampleData";
 
 export function getAllStreams(callback) {
   axios
-    .get("http://localhost:8080/stream")
+    .get(process.env.REACT_APP_STREAM)
     .then((streams) => {
       Promise.all(
         streams.data.map((streamId) => {
@@ -21,7 +21,7 @@ export function getAllStreams(callback) {
 export function getStream(streamId) {
   return new Promise((resolve, reject) => {
     axios
-      .get(`http://localhost:8080/stream/${streamId}`)
+      .get(`${process.env.REACT_APP_STREAM}/${streamId}`)
       .then((response) => {
         const stream = response.data;
         resolve(
