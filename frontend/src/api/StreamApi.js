@@ -36,3 +36,12 @@ export function getStream(streamId) {
       .catch(reject);
   });
 }
+
+export function deleteStream(streamId) {
+  axios
+    .delete(`http://localhost:8080/stream/${streamId}`)
+    // .then(callback)
+    .catch((error) => {
+      // SampleData.deleteStream(streamId, callback);
+    });
+}

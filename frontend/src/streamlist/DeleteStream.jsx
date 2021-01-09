@@ -8,6 +8,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import PropTypes from "prop-types";
 import { IconButton } from "@material-ui/core";
 import { Block } from "@material-ui/icons";
+import * as StreamApi from "../api/StreamApi";
 
 export default function DeleteStream(props) {
   const { deleteId } = props;
@@ -19,6 +20,7 @@ export default function DeleteStream(props) {
     return setOpen(false);
   };
   const confirmDelete = () => {
+    StreamApi.deleteStream(deleteId);
     return setOpen(false);
   }; // call endpoint here, actually
 
@@ -36,7 +38,7 @@ export default function DeleteStream(props) {
         <DialogTitle id="alert-dialog-title">Confirm Delete</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Are you sure you want to end stream
+            Are you sure you want to end stream 
             {deleteId}?
           </DialogContentText>
         </DialogContent>
