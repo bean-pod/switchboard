@@ -1,11 +1,10 @@
 import React from "react";
 import { render, unmountComponentAtNode } from "react-dom";
 import ReactTestUtils, { act } from "react-dom/test-utils";
-import { afterEach, beforeEach, expect, test } from "@jest/globals";
+import { afterEach, beforeEach, expect, test, jest } from "@jest/globals";
+import axios from "axios";
 import StreamList from "../StreamList";
 import * as SampleData from "../../api/SampleData";
-import axios from "axios";
-import { jest } from "@jest/globals";
 
 jest.mock("axios");
 let container = null;
@@ -99,7 +98,7 @@ test("Clicking dropdown on table row displays additional information", () => {
 test("Clicking the delete button shows appropriate popup dialog", () => {
   act(() => {
     render(<StreamList dataSource={SampleData} />, container);
-  })
+  });
 
   // get delete dialog
   clickDelete();
@@ -109,11 +108,17 @@ test("Clicking the delete button shows appropriate popup dialog", () => {
   expect(dialogTitle.textContent).toBe("Confirm Delete");
 
   // check description
-  const dialogDescription = document.getElementById("delete-stream-dialog-description");
-  expect(dialogDescription.textContent).toBe("Are you sure you want to end stream 1?");
+  const dialogDescription = document.getElementById(
+    "delete-stream-dialog-description"
+  );
+  expect(dialogDescription.textContent).toBe(
+    "Are you sure you want to end stream 1?"
+  );
 
   // check buttons
-  const dialogButtons = document.querySelectorAll("div.MuiDialogActions-root button");
+  const dialogButtons = document.querySelectorAll(
+    "div.MuiDialogActions-root button"
+  );
   expect(dialogButtons[0].textContent).toBe("Cancel");
   expect(dialogButtons[1].textContent).toBe("Confirm");
 });
@@ -126,7 +131,9 @@ test("Clicking outside the dialog or 'Cancel' should close the dialog", () => {
   // get dialog
   clickDelete();
   // click cancel
-  const cancelButton = document.querySelectorAll("div.MuiDialogActions-root button")[0];
+  const cancelButton = document.querySelectorAll(
+    "div.MuiDialogActions-root button"
+  )[0];
   act(() => {
     ReactTestUtils.Simulate.click(cancelButton);
   });
@@ -140,26 +147,25 @@ test("Clicking 'Confirm' should call axios.delete with the correct stream ID", (
   act(() => {
     render(<StreamList dataSource={SampleData} />, container);
   });
-  
+
   axios.delete.mockImplementationOnce(() => Promise.resolve());
 
   // get dialog
   clickDelete();
   // click confirm
-  const confirmButton = document.querySelectorAll("div.MuiDialogActions-root button")[1];
+  const confirmButton = document.querySelectorAll(
+    "div.MuiDialogActions-root button"
+  )[1];
   act(() => {
     ReactTestUtils.Simulate.click(confirmButton);
-    
   });
 
   // try to get dialog and find it is null
   const dialog = document.getElementById("delete-stream-dialog");
   expect(dialog).toBeNull;
-  
+
   // expect axios.delete to have been called
-  expect(axios.delete).toHaveBeenCalledWith(
-    "http://localhost:8080/stream/1"
-  );
+  expect(axios.delete).toHaveBeenCalledWith("http://localhost:8080/stream/1");
 
   jest.clearAllMocks();
 });
