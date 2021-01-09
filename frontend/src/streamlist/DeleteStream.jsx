@@ -26,7 +26,7 @@ export default function DeleteStream(props) {
 
   return (
     <>
-      <IconButton onClick={openDeleteDialog}>
+      <IconButton class="deleteButton" onClick={openDeleteDialog}>
         <Block />
       </IconButton>
       <Dialog
@@ -34,6 +34,7 @@ export default function DeleteStream(props) {
         onClose={cancelDelete}
         aria-labelledby="delete-stream-dialog-title"
         aria-describedby="delete-stream-dialog-description"
+        id="delete-stream-dialog"
       >
         <DialogTitle id="delete-stream-dialog-title">Confirm Delete</DialogTitle>
         <DialogContent>
