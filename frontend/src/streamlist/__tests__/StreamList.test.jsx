@@ -115,6 +115,24 @@ test("Clicking the delete button shows appropriate popup dialog", () => {
   expect(dialogButtons[1].textContent).toBe("Confirm");
 });
 
+test("Clicking outside the dialog or 'Cancel' should close the dialog", () => {
+  act(() => {
+    render(<StreamList dataSource={SampleData} />, container);
+  });
+
+  // get dialog
+  clickDelete();
+  // click cancel
+  const cancelButton = document.querySelectorAll("div.MuiDialogActions-root button")[0];
+  act(() => {
+    ReactTestUtils.Simulate.click(cancelButton);
+  });
+
+  // try to get dialog and find it is null
+  const dialog = document.getElementById("delete-stream-dialog");
+  expect(dialog).toBeNull;
+});
+
 function clickDelete() {
   const deleteButton = document.getElementsByClassName("deleteButton")[0];
   act(() => {
