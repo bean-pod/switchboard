@@ -32,14 +32,13 @@ export default function DeleteStream(props) {
       <Dialog
         open={open}
         onClose={cancelDelete}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
+        aria-labelledby="delete-stream-dialog-title"
+        aria-describedby="delete-stream-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">Confirm Delete</DialogTitle>
+        <DialogTitle id="delete-stream-dialog-title">Confirm Delete</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Are you sure you want to end stream 
-            {deleteId}?
+          <DialogContentText id="delete-stream-dialog-description">
+            Are you sure you want to end stream {deleteId}?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
