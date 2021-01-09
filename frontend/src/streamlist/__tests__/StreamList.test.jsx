@@ -92,3 +92,32 @@ test("Clicking dropdown on table row displays additional information", () => {
     "Additional Stream Details go here"
   );
 });
+
+test("Clicking the delete button shows appropriate popup dialog", () => {
+  act(() => {
+    render(<StreamList dataSource={SampleData} />, container);
+  })
+
+  // get delete dialog
+  clickDelete();
+
+  // check title
+  const dialogTitle = document.getElementById("delete-stream-dialog-title");
+  expect(dialogTitle.textContent).toBe("Confirm Delete");
+
+  // check description
+  const dialogDescription = document.getElementById("delete-stream-dialog-description");
+  expect(dialogDescription.textContent).toBe("Are you sure you want to end stream 1?");
+
+  // check buttons
+  const dialogButtons = document.querySelectorAll("div.MuiDialogActions-root button");
+  expect(dialogButtons[0].textContent).toBe("Cancel");
+  expect(dialogButtons[1].textContent).toBe("Confirm");
+});
+
+function clickDelete() {
+  const deleteButton = document.getElementsByClassName("deleteButton")[0];
+  act(() => {
+    ReactTestUtils.Simulate.click(deleteButton);
+  });
+}
