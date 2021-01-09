@@ -36,10 +36,12 @@ export default function DeleteStream(props) {
         aria-describedby="delete-stream-dialog-description"
         id="delete-stream-dialog"
       >
-        <DialogTitle id="delete-stream-dialog-title">Confirm Delete</DialogTitle>
+        <DialogTitle id="delete-stream-dialog-title">
+          Confirm Delete
+        </DialogTitle>
         <DialogContent>
           <DialogContentText id="delete-stream-dialog-description">
-            Are you sure you want to end stream {deleteId}?
+            {`Are you sure you want to end stream ${deleteId}?`}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
