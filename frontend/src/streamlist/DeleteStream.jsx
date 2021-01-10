@@ -22,7 +22,7 @@ export default function DeleteStream(props) {
   const confirmDelete = () => {
     StreamApi.deleteStream(deleteId);
     return setOpen(false);
-  }; // call endpoint here, actually
+  };
 
   return (
     <>
