@@ -23,12 +23,11 @@ public class StreamAspect {
       returning = "result")
   public void createStream(Object result) {
     ResponseEntity<StreamModel> response = (ResponseEntity<StreamModel>) result;
-    StreamModel body = response.getBody();
-    if (body != null) {
-      String decoderSerial = response.getBody().getInputChannel().getDecoder().getSerialNumber();
-      String encoderSerial = response.getBody().getOutputChannel().getEncoder().getSerialNumber();
-      Long outputId = response.getBody().getOutputChannel().getId();
-      Long inputId = response.getBody().getInputChannel().getId();
+    String decoderSerial = response.getBody().getInputChannel().getDecoder().getSerialNumber();
+    String encoderSerial = response.getBody().getOutputChannel().getEncoder().getSerialNumber();
+    Long outputId = response.getBody().getOutputChannel().getId();
+    Long inputId = response.getBody().getInputChannel().getId();
+    if (decoderSerial != null && encoderSerial != null && outputId != null && inputId != null) {
       String message =
           String.format(
               "A stream started from output channel %d of decoder %s"
