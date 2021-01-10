@@ -54,7 +54,7 @@ function getColumnInfo() {
       field: "action",
       filtering: false,
       sorting: false,
-      render: (rowData) =>  <ActionButtons streamId={rowData.id} />,
+      render: (rowData) => <ActionButtons streamId={rowData.id} />,
       align: "center",
       export: false
     }

@@ -93,13 +93,13 @@ test("Clicking dropdown on table row displays additional information", () => {
     "tr.MuiTableRow-root td.MuiTableCell-root[colspan] h6"
   );
   expect(additionalInfoElement).not.toBe(null);
-  expect(additionalInfoElement.innerHTML).toBe(
-    "Stream Details"
-  );
+  expect(additionalInfoElement.innerHTML).toBe("Stream Details");
 });
 
 function clickDelete() {
-  const deleteButton = document.querySelectorAll("tr.MuiTableRow-root[index] button")[3];
+  const deleteButton = document.querySelectorAll(
+    "tr.MuiTableRow-root[index] button"
+  )[3];
   act(() => {
     ReactTestUtils.Simulate.click(deleteButton);
   });

@@ -26,9 +26,7 @@ describe("<StreamsTable/> component", () => {
   describe("has the correct components", () => {
     const dummyStreams = [];
     beforeEach(() => {
-      wrapper = Enzyme.shallow(
-        <StreamsTable streamDetails={dummyStreams} />
-      );
+      wrapper = Enzyme.shallow(<StreamsTable streamDetails={dummyStreams} />);
     });
     it("contains one (1) Box component", () => {
       expect(wrapper.find(Box)).toHaveLength(1);
@@ -44,9 +42,7 @@ describe("<StreamsTable/> component", () => {
     /*  eslint-disable no-console */
     const validStreams = [];
     it("Does not log error if inputs are valid", () => {
-      wrapper = Enzyme.shallow(
-        <StreamsTable streamDetails={validStreams} />
-      );
+      wrapper = Enzyme.shallow(<StreamsTable streamDetails={validStreams} />);
       expect(console.error).not.toHaveBeenCalled();
     });
     it("logs an error if streams is not an array of StreamInfo objects", () => {
