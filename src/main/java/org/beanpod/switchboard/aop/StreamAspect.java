@@ -23,7 +23,8 @@ public class StreamAspect {
       returning = "result")
   public void createStream(Object result) {
     ResponseEntity<StreamModel> response = (ResponseEntity<StreamModel>) result;
-    if (response.getBody() != null) {
+    StreamModel body = response.getBody();
+    if (body != null) {
       String decoderSerial = response.getBody().getInputChannel().getDecoder().getSerialNumber();
       String encoderSerial = response.getBody().getOutputChannel().getEncoder().getSerialNumber();
       Long outputId = response.getBody().getOutputChannel().getId();
