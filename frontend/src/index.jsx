@@ -6,6 +6,8 @@ import HeaderBar from "./general/HeaderBar";
 import HomePage from "./general/HomePage";
 import DeviceListPage from "./devicelist/DeviceListPage";
 import StreamingTablePage from "./createStream/StreamingPage";
+import DeviceDetailsPage from "./DeviceDetailsPage/DeviceDetailsPage";
+
 import * as DeviceApi from "./api/DeviceApi";
 import * as StreamApi from "./api/StreamApi";
 
@@ -32,6 +34,11 @@ ReactDOM.render(
               streamDataSource={StreamApi}
             />
           )}
+        />
+        <Route
+          exact
+          path="/Devices/Details/:deviceId"
+          component={DeviceDetailsPage}
         />
       </Switch>
     </BrowserRouter>

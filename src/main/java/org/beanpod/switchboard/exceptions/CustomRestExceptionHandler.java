@@ -48,4 +48,11 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         new ExceptionResponse(HttpStatus.NOT_FOUND, ex.getMessage(), "Stream doesnt exist");
     return new ResponseEntity<>(exceptionResponse, exceptionResponse.getStatus());
   }
+
+  @ExceptionHandler(ExceptionType.UnknownException.class)
+  public final ResponseEntity<ExceptionResponse> handleUnknownException(Exception ex) {
+    ExceptionResponse exceptionResponse =
+        new ExceptionResponse(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), "Unknown Error");
+    return new ResponseEntity<>(exceptionResponse, exceptionResponse.getStatus());
+  }
 }

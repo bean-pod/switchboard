@@ -1,6 +1,7 @@
 package org.beanpod.switchboard.exceptions;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -58,5 +59,15 @@ class CustomRestExceptionHandlerTest {
     ResponseEntity<Object> responseEntity =
         customRestExceptionHandler.handleStreamDoesNotExistException(exception);
     assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
+  }
+
+  @Test
+  final void testUnknownError() {
+    ResponseEntity<ExceptionResponse> exceptionResponse =
+        customRestExceptionHandler.handleUnknownException(exception);
+    assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, exceptionResponse.getStatusCode());
+    assertNotNull(exceptionResponse.getBody());
+    assertEquals(exception.getMessage(), exceptionResponse.getBody().getMessage());
+    assertEquals("Unknown Error", exceptionResponse.getBody().getError());
   }
 }

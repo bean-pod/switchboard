@@ -33,10 +33,63 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DeviceModel'
+              $ref: '#/components/schemas/CreateDeviceRequest'
       responses:
         '200':
           description: Successful creation of device
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceModel'
+    put:
+      operationId: updateDevice
+      description: Update the properties of a device
+      tags:
+        - Devices
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceModel'
+      responses:
+        '200':
+          description: Succesful update of the device
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceModel'
+
+  /device/{serialNumber}:
+    get:
+      operationId: retrieveDevice
+      description: Retrieve a single device
+      parameters:
+        - $ref: '#/components/parameters/DeviceSerialNumber'
+      tags:
+        - Devices
+      responses:
+        '200':
+          description: Succesful retrieval of the device
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceModel'
+    delete:
+      operationId: deleteDevice
+      description: Deletes a device from the database
+      parameters:
+        - $ref: '#/components/parameters/DeviceSerialNumber'
+      tags:
+        - Devices
+      responses:
+        '200':
+          description: Succesful deletion of the device
+          content:
+            application/json:
+              schema:
+                type: string
+                example: 'Device with serial number BtmC8ckj deleted'
 
   /encoder:
     get:
@@ -53,10 +106,11 @@ paths:
                 $ref: '#/components/schemas/EncodersModel'
     post:
       operationId: createEncoder
-      description: Create a new encoder client
+      description: Create a new encoder device
       tags:
         - Encoders
       requestBody:
+        description: The serial number of the device which should be registered as an encoder
         required: true
         content:
           application/json:
@@ -65,15 +119,20 @@ paths:
       responses:
         '200':
           description: Successful creation the encoder
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EncoderModel'
 
-  /encoder/{uuid}:
+
+  /encoder/{serialNumber}:
     get:
       operationId: getEncoderById
       description: Retrieve a specific encoder
       tags:
         - Encoders
       parameters:
-        - $ref: '#/components/parameters/EncoderId'
+        - $ref: '#/components/parameters/EncoderSerialNumber'
       responses:
         '200':
           description: Successful retrieval of the encoder
@@ -87,7 +146,7 @@ paths:
       tags:
         - Encoders
       parameters:
-        - $ref: '#/components/parameters/EncoderId'
+        - $ref: '#/components/parameters/EncoderSerialNumber'
       requestBody:
         required: true
         content:
@@ -97,18 +156,22 @@ paths:
       responses:
         '200':
           description: Successful update of the Encoder
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EncoderModel'
     delete:
       operationId: deleteEncoder
       description: Delete a encoder
       tags:
         - Encoders
       parameters:
-        - $ref: '#/components/parameters/EncoderId'
+        - $ref: '#/components/parameters/EncoderSerialNumber'
       responses:
         '200':
           description: Successful deletion of the encoder
 
-  /encoder/{uuid}/stream:
+  /encoder/{serialNumber}/stream:
     get:
       operationId: getEncoderStreams
       description: Retrieve the sending streams for the encoder
@@ -116,14 +179,16 @@ paths:
         - Encoders
         - Streams
       parameters:
-        - $ref: '#/components/parameters/EncoderId'
+        - $ref: '#/components/parameters/EncoderSerialNumber'
       responses:
         '200':
           description: Successful retrieval of video streams for an encoder
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StreamsModel'
+                type: array
+                items:
+                  $ref: '#/components/schemas/StreamModel'
 
   /decoder:
     get:
@@ -152,15 +217,19 @@ paths:
       responses:
         '200':
           description: Successful creation of the decoder
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DecoderModel'
 
-  /decoder/{uuid}:
+  /decoder/{serialNumber}:
     get:
       operationId: getDecoderById
       description: Retrieve a specific decoder
       tags:
         - Decoders
       parameters:
-        - $ref: '#/components/parameters/DecoderId'
+        - $ref: '#/components/parameters/DecoderSerialNumber'
       responses:
         '200':
           description: Successful retrieval of the decoder
@@ -174,7 +243,7 @@ paths:
       tags:
         - Decoders
       parameters:
-        - $ref: '#/components/parameters/DecoderId'
+        - $ref: '#/components/parameters/DecoderSerialNumber'
       requestBody:
         required: true
         content:
@@ -184,16 +253,39 @@ paths:
       responses:
         '200':
           description: Successful update of the decoder
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DecoderModel'
     delete:
       operationId: deleteDecoder
       description: Delete a decoder
       tags:
         - Decoders
       parameters:
-        - $ref: '#/components/parameters/DecoderId'
+        - $ref: '#/components/parameters/DecoderSerialNumber'
       responses:
         '200':
           description: Successful deletion of the decoder
+
+  /decoder/{serialNumber}/stream:
+    get:
+      operationId: getDecoderStreams
+      description: Retrieve the sending streams for the decoder
+      tags:
+        - Decoders
+        - Streams
+      parameters:
+        - $ref: '#/components/parameters/DecoderSerialNumber'
+      responses:
+        '200':
+          description: Successful retrieval of video streams for a decoder
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StreamModel'
 
   /stream:
     get:
@@ -221,7 +313,11 @@ paths:
               $ref: '#/components/schemas/CreateStreamRequest'
       responses:
         '200':
-          description: Successful creation of the decoder
+          description: Successful creation of the stream
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StreamModel'
     put:
       operationId: updateStream
       description: update a stream's definition
@@ -236,6 +332,10 @@ paths:
       responses:
         '200':
           description: Successful update of the stream
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StreamModel'
 
   /stream/{id}:
     get:
@@ -269,8 +369,7 @@ components:
       description: A list of device serial numbers
       type: array
       items:
-        type: 'string'
-      example: ['BtmC8ckj']
+        $ref: '#/components/schemas/DeviceModel'
 
     DeviceModel:
       description: A device thats either an  encoder or decoder
@@ -278,9 +377,28 @@ components:
         serialNumber:
           type: string
           example: 'BtmC8ckj'
-        ipAddress:
+        publicIpAddress:
           type: string
-          example: '127.0.0.1'
+          example: '178.156.52.3'
+        privateIpAddress:
+          type: string
+          example: '192.168.0.129'
+        displayName:
+          type: string
+          example: 'Device 1'
+        status:
+          type: string
+          example: 'running'
+
+    CreateDeviceRequest:
+      description: A request to create a new device
+      properties:
+        serialNumber:
+          type: string
+          example: 'BtmC8ckj'
+        privateIpAddress:
+          type: string
+          example: '192.168.0.129'
         displayName:
           type: string
           example: 'Device 1'
@@ -289,11 +407,10 @@ components:
           example: 'running'
 
     EncodersModel:
-      description: A list of UUIDs
+      description: A list of encoders registered to the service
       type: array
       items:
-        type: string
-      example: ['0e4e430f-8b9c-47da-b9af-7ef9cfb13e9e']
+        $ref: '#/components/schemas/EncoderModel'
 
     EncoderModel:
       description: A client that sends a video stream
@@ -302,7 +419,11 @@ components:
           type: string
           example: 'BtmC8ckj'
         device:
-          $ref:  '#/components/schemas/DeviceModel'
+          $ref: '#/components/schemas/DeviceModel'
+        output:
+          type: array
+          items:
+            $ref: '#/components/schemas/OutputChannelModel'
 
     CreateEncoderRequest:
       description: A client that sends a video stream
@@ -315,8 +436,7 @@ components:
       description: A list of decoder UUIDs
       type: array
       items:
-        type: string
-      example: ['1ea52153-c196-4cc6-8d9f-714248abf31c']
+        $ref: '#/components/schemas/DecoderModel'
 
     DecoderModel:
       description: A client that receives a video stream
@@ -325,7 +445,11 @@ components:
           type: string
           example: 'v7BM3ejS'
         device:
-          $ref:  '#/components/schemas/DeviceModel'
+          $ref: '#/components/schemas/DeviceModel'
+        input:
+          type: array
+          items:
+            $ref: '#/components/schemas/InputChannelModel'
 
     CreateDecoderRequest:
       description: Body for the creation of a decoder object
@@ -334,8 +458,8 @@ components:
           type: string
           example: 'v7BM3ejS'
 
-    OutputChannelModel:
-      description: A channel through which an encoder outputs a video stream
+    ChannelModel:
+      description: Parent for input and output channels
       properties:
         id:
           type: integer
@@ -347,6 +471,16 @@ components:
         port:
           type: integer
           example: '2'
+
+    OutputChannelModel:
+      description: A channel through which an encoder outputs a video stream
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: '123'
+        channel:
+          $ref: '#/components/schemas/ChannelModel'
         encoder:
           $ref: '#/components/schemas/EncoderModel'
 
@@ -357,12 +491,8 @@ components:
           type: integer
           format: int64
           example: '123'
-        name:
-          type: string
-          example: 'cam 1'
-        port:
-          type: integer
-          example: '1'
+        channel:
+          $ref: '#/components/schemas/ChannelModel'
         decoder:
           $ref: '#/components/schemas/DecoderModel'
 
@@ -377,6 +507,10 @@ components:
           $ref: '#/components/schemas/InputChannelModel'
         outputChannel:
           $ref: '#/components/schemas/OutputChannelModel'
+        isRendezvous:
+          description: Flag that indicates that the clients should use SRT's Rendezvous mode
+          type: boolean
+          example: true
 
     StreamsModel:
       description: A list of stream IDs
@@ -399,22 +533,30 @@ components:
           example: '2'
 
   parameters:
-    EncoderId:
+    DeviceSerialNumber:
+      in: path
+      name: serialNumber
+      required: true
+      description: The serial number of the device
+      schema:
+        type: string
+        example: 'BtmC8ckj'
+    EncoderSerialNumber:
       in: path
       name: uuid
       required: true
-      description: The UUID of an encoder
+      description: The serial number of an encoder
       schema:
         type: string
-        example: '0e4e430f-8b9c-47da-b9af-7ef9cfb13e9e'
-    DecoderId:
+        example: 'BtmC8ckj'
+    DecoderSerialNumber:
       in: path
       name: uuid
       required: true
-      description: The UUID of a decoder
+      description: The serial number of a decoder
       schema:
         type: string
-        example: '1ea52153-c196-4cc6-8d9f-714248abf31c'
+        example: 'v7BM3ejS'
     StreamId:
       in: path
       name: id
@@ -433,4 +575,4 @@ tags:
   - name: Decoders
     description: Decoders endpoints
   - name: Stream
-    description: Steams endpoints
+    description: Streams endpoints

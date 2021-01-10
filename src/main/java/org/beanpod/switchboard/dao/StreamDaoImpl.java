@@ -3,21 +3,18 @@ package org.beanpod.switchboard.dao;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.beanpod.switchboard.dto.InputChannelDto;
-import org.beanpod.switchboard.dto.OutputChannelDto;
 import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
 import org.beanpod.switchboard.entity.StreamEntity;
-import org.beanpod.switchboard.exceptions.ExceptionType;
+import org.beanpod.switchboard.exceptions.ExceptionType.StreamAlreadyExistsException;
+import org.beanpod.switchboard.exceptions.ExceptionType.StreamDoesNotExistException;
 import org.beanpod.switchboard.repository.StreamRepository;
-import org.openapitools.model.CreateStreamRequest;
 import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
 public class StreamDaoImpl {
-
   private final StreamRepository streamRepository;
   private final StreamMapper mapper;
   private final ChannelDaoImpl channelService;
@@ -31,32 +28,27 @@ public class StreamDaoImpl {
     return mapper.toDto(streamEntity);
   }
 
-  public void createStream(CreateStreamRequest createStreamRequest) {
-    InputChannelDto inputChannelDto =
-        channelService.getInputChannelById(createStreamRequest.getInputChannelId());
-    OutputChannelDto outputChannelDto =
-        channelService.getOutputChannelById(createStreamRequest.getOutputChannelId());
-    StreamDto streamDto =
-        StreamDto.builder().inputChannel(inputChannelDto).outputChannel(outputChannelDto).build();
-    StreamEntity streamEntity = mapper.toEntity(streamDto);
-    if (streamRepository.existsDuplicate(
-        createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId())) {
-      throw new ExceptionType.StreamAlreadyExistsException(
-          createStreamRequest.getInputChannelId(), createStreamRequest.getOutputChannelId());
+  public StreamDto saveStream(StreamDto streamDto) {
+    long inputChannelId = streamDto.getInputChannel().getId();
+    long outputChannelId = streamDto.getOutputChannel().getId();
+    if (streamRepository.existsDuplicate(inputChannelId, outputChannelId)) {
+      throw new StreamAlreadyExistsException(inputChannelId, outputChannelId);
     }
-    streamRepository.save(streamEntity);
+
+    StreamEntity streamEntity = mapper.toEntity(streamDto);
+    return mapper.toDto(streamRepository.save(streamEntity));
   }
 
   public void deleteStream(Long id) {
     streamRepository.deleteById(id);
   }
 
-  public void updateStream(StreamDto streamDto) {
+  public StreamEntity updateStream(StreamDto streamDto) {
     if (!streamRepository.existsById(streamDto.getId())) {
-      throw new ExceptionType.StreamDoesNotExistException(streamDto.getId());
+      throw new StreamDoesNotExistException(streamDto.getId());
     }
     StreamEntity streamEntity = mapper.toEntity(streamDto);
-    streamRepository.save(streamEntity);
+    return streamRepository.save(streamEntity);
   }
 
   public List<StreamDto> getEncoderStreams(String encoderSerialNumber) {

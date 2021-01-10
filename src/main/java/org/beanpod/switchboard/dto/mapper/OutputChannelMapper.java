@@ -19,7 +19,5 @@ public interface OutputChannelMapper {
 
   OutputChannelEntity toOutputChannelEntity(OutputChannelDto outputChannelDto);
 
-  @Mapping(target = "name", source = "channel.name")
-  @Mapping(target = "port", source = "channel.port")
   OutputChannelModel outputChannelDtoToOutputChannelModel(OutputChannelDto outputChannelDto);
 }

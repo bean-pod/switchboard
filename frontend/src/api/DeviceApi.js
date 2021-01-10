@@ -20,7 +20,7 @@ function getStatus(lastCommunicationString) {
 
 export function getSenders(callback) {
   axios
-    .get("http://localhost:8080/encoder")
+    .get(process.env.REACT_APP_ENCODER)
     .then((senders) => {
       callback(
         senders.data.map((sender) => {
@@ -42,7 +42,8 @@ export function getSenders(callback) {
           return new DeviceInfo(
             sender.serialNumber,
             lastCommunication,
-            sender.device.ipAddress,
+            sender.device.publicIpAddress,
+            sender.device.privateIpAddress,
             sender.device.displayName,
             getStatus(sender.lastCommunication),
             channels,
@@ -58,7 +59,7 @@ export function getSenders(callback) {
 
 export function getReceivers(callback) {
   axios
-    .get("http://localhost:8080/decoder")
+    .get(process.env.REACT_APP_DECODER)
     .then((receivers) => {
       callback(
         receivers.data.map((receiver) => {
@@ -80,7 +81,8 @@ export function getReceivers(callback) {
           return new DeviceInfo(
             receiver.serialNumber,
             lastCommunication,
-            receiver.device.ipAddress,
+            receiver.device.publicIpAddress,
+            receiver.device.privateIpAddress,
             receiver.device.displayName,
             getStatus(receiver.lastCommunication),
             channels,

@@ -1,0 +1,15 @@
+{
+  "name": "Switchboard",
+  "description": "A web service that enables peer-to-peer video streaming between senders and receivers.",
+  "repository": "https://github.com/bean-pod/switchboard",
+  "addons": [
+    "cleardb:ignite"
+  ],
+  "environments": {
+    "review": {
+      "addons": [
+        "cleardb:ignite"
+      ]
+    }
+  }
+}

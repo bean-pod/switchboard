@@ -37,4 +37,12 @@ public class ExceptionType {
       super(String.format(MESSAGE_TEMPLATE, ID, streamId));
     }
   }
+
+  public static class UnknownException extends RuntimeException {
+    public static final String MESSAGE_TEMPLATE = "Unknown error the %s controller";
+
+    public UnknownException(String controllerName) {
+      super(String.format(MESSAGE_TEMPLATE, controllerName));
+    }
+  }
 }

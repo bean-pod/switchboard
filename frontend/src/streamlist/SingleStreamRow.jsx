@@ -61,7 +61,7 @@ export default class SingleStreamRow extends React.Component {
           <TableCell className="tableCell">{type}</TableCell>
           <TableCell className="tableCell">{time}</TableCell>
           <TableCell className="tableCell actionButtons">
-            {ActionButtons()}
+            <ActionButtons streamId={id} />
           </TableCell>
         </TableRow>
         <TableRow className="streamDetails">

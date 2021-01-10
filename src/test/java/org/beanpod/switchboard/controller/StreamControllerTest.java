@@ -9,8 +9,10 @@ import java.util.List;
 import org.beanpod.switchboard.dao.StreamDaoImpl;
 import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
+import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.fixture.ChannelFixture;
 import org.beanpod.switchboard.fixture.StreamFixture;
+import org.beanpod.switchboard.service.StreamService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -22,57 +24,59 @@ import org.springframework.http.ResponseEntity;
 class StreamControllerTest {
   private StreamController streamController;
 
-  @Mock private StreamDaoImpl channelService;
-  @Mock private StreamMapper channelMapper;
+  @Mock private StreamDaoImpl streamDao;
+  @Mock private StreamMapper streamMapper;
+  @Mock private StreamService streamService;
 
   @BeforeEach
   public void setup() {
     MockitoAnnotations.initMocks(this);
-    streamController = new StreamController(channelService, channelMapper);
+    streamController = new StreamController(streamDao, streamService, streamMapper);
   }
 
   @Test
-  void testGetChannels() {
+  void testGetStreams() {
     // given
-    when(channelService.getStreams()).thenReturn(StreamFixture.getIdList());
+    when(streamDao.getStreams()).thenReturn(StreamFixture.getIdList());
 
     // when
     ResponseEntity<List<Long>> result = streamController.getStreams();
 
     // then
     assertNotNull(result);
+    assertNotNull(result.getBody());
     List<Long> responseBody = result.getBody();
     assertEquals(StreamFixture.ID, responseBody.get(0));
   }
 
   @Test
-  void testGetChannelsDtoReturnsNull() {
+  void testGetStreamsDtoReturnsNull() {
     // given
-    when(channelService.getStreams()).thenReturn(null);
+    when(streamDao.getStreams()).thenReturn(null);
+
+    // when & then
+    RuntimeException exception =
+        assertThrows(ExceptionType.UnknownException.class, () -> streamController.getStreams());
+
+    assertEquals("Unknown error the Stream controller", exception.getMessage());
+  }
+
+  @Test
+  void testGetStreamsThrowsException() {
+    // given
+    when(streamDao.getStreams()).thenThrow(new RuntimeException());
 
     // when & then
     RuntimeException exception =
         assertThrows(RuntimeException.class, () -> streamController.getStreams());
-
-    assertEquals(StreamController.UNKNOWN_ERROR_MESSAGE, exception.getMessage());
   }
 
   @Test
-  void testGetChannelsThrowsException() {
-    // given
-    when(channelService.getStreams()).thenThrow(new RuntimeException());
-
-    // when & then
-    RuntimeException exception =
-        assertThrows(RuntimeException.class, () -> streamController.getStreams());
-  }
-
-  @Test
-  void testGetChannelById() {
+  void testGetStreamById() {
     // given
     StreamDto streamDto = StreamFixture.getStreamDto();
-    when(channelService.getStreamById(StreamFixture.ID)).thenReturn(streamDto);
-    when(channelMapper.toModel(streamDto)).thenReturn(StreamFixture.getStreamModel());
+    when(streamDao.getStreamById(StreamFixture.ID)).thenReturn(streamDto);
+    when(streamMapper.toModel(streamDto)).thenReturn(StreamFixture.getStreamModel());
 
     // when
     ResponseEntity<StreamModel> result = streamController.getStreamById(StreamFixture.ID);
@@ -88,17 +92,26 @@ class StreamControllerTest {
   }
 
   @Test
-  void testCreateChannel() {
+  void testCreateStream() {
+    // given
+    var createStreamRequest = StreamFixture.getCreateStreamRequest();
+    var streamDto = StreamFixture.getStreamDto();
+    var streamModel = StreamFixture.getStreamModel();
+
+    when(streamService.createStream(createStreamRequest)).thenReturn(streamDto);
+    when(streamMapper.toModel(streamDto)).thenReturn(streamModel);
+
     // when
-    ResponseEntity<Void> result =
-        streamController.createStream(StreamFixture.getCreateStreamRequest());
+    ResponseEntity<StreamModel> result = streamController.createStream(createStreamRequest);
 
     // then
     assertEquals(HttpStatus.OK, result.getStatusCode());
+    assertNotNull(result.getBody());
+    assertEquals(streamModel, result.getBody());
   }
 
   @Test
-  void testDeleteChannel() {
+  void testDeleteStream() {
     // when
     ResponseEntity<Void> result = streamController.deleteStream(StreamFixture.ID);
 
@@ -107,13 +120,16 @@ class StreamControllerTest {
   }
 
   @Test
-  void testUpdateChannel() {
+  void testUpdateStream() {
     // given
     StreamModel streamModel = StreamFixture.getStreamModel();
-    when(channelMapper.toDto(streamModel)).thenReturn(StreamFixture.getStreamDto());
+    StreamDto streamDto = StreamFixture.getStreamDto();
+    when(streamMapper.toDto(streamModel)).thenReturn(streamDto);
+    when(streamService.updateStream(streamDto)).thenReturn(streamDto);
+    when(streamMapper.toModel(streamDto)).thenReturn(streamModel);
 
     // when
-    ResponseEntity<Void> result = streamController.updateStream(streamModel);
+    ResponseEntity<StreamModel> result = streamController.updateStream(streamModel);
 
     // then
     assertEquals(HttpStatus.OK, result.getStatusCode());
