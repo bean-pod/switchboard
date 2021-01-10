@@ -26,6 +26,20 @@ afterEach(() => {
   container = null;
 });
 
+function verifyActionButtons(rowElement) {
+  const buttonsConatiner = rowElement.firstChild;
+  // check 3 buttons
+  expect(buttonsConatiner.firstChild.querySelector("button span svg")).not.toBe(
+    null
+  );
+  expect(
+    buttonsConatiner.firstChild.nextSibling.querySelector("button span svg")
+  ).not.toBe(null);
+  expect(buttonsConatiner.lastChild.querySelector("button span svg")).not.toBe(
+    null
+  );
+}
+
 // stream list is a fragment that shows up at the bottom of the stream creation page
 // according to mockups.
 test("Stream list fragment renders title and stream list table", () => {
@@ -60,20 +74,6 @@ test("Stream list fragment renders title and stream list table", () => {
   });
 });
 
-function verifyActionButtons(rowElement) {
-  const buttonsConatiner = rowElement.firstChild;
-  // check 3 buttons
-  expect(buttonsConatiner.firstChild.querySelector("button span svg")).not.toBe(
-    null
-  );
-  expect(
-    buttonsConatiner.firstChild.nextSibling.querySelector("button span svg")
-  ).not.toBe(null);
-  expect(buttonsConatiner.lastChild.querySelector("button span svg")).not.toBe(
-    null
-  );
-}
-
 test("Clicking dropdown on table row displays additional information", () => {
   act(() => {
     render(<StreamList dataSource={SampleData} />, container);
@@ -94,6 +94,13 @@ test("Clicking dropdown on table row displays additional information", () => {
     "Additional Stream Details go here"
   );
 });
+
+function clickDelete() {
+  const deleteButton = document.getElementsByClassName("deleteButton")[0];
+  act(() => {
+    ReactTestUtils.Simulate.click(deleteButton);
+  });
+}
 
 test("Clicking the delete button shows appropriate popup dialog", () => {
   act(() => {
@@ -169,10 +176,3 @@ test("Clicking 'Confirm' should call axios.delete with the correct stream ID", (
 
   jest.clearAllMocks();
 });
-
-function clickDelete() {
-  const deleteButton = document.getElementsByClassName("deleteButton")[0];
-  act(() => {
-    ReactTestUtils.Simulate.click(deleteButton);
-  });
-}
