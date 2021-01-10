@@ -34,10 +34,8 @@ public class StreamAspect {
                   + " to input channel %d of encoder %s",
               outputId, decoderSerial, inputId, encoderSerial);
       logService.createLog(message, "info");
-      }
-    else{
+    } else {
       throw new ExceptionType.UnknownException("stream");
     }
-
   }
 }
