@@ -67,7 +67,7 @@ function getDetailPanel() {
       icon: ExpandMore,
       openIcon: ExpandLess,
       tooltip: "Show Stream Details",
-      render: (rowData) => {
+      render: () => {
         return (
           <div className="lightestGrey">
             <Typography variant="h6">Stream Details</Typography>
