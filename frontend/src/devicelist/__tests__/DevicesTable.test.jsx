@@ -31,13 +31,13 @@ describe("<DevicesTable/> component", () => {
         <DevicesTable title={dummyTitle} devices={dummyDevices} />
       );
     });
-    it("contains one (1) Box component", () => {
+    it("contains one Box component", () => {
       expect(wrapper.find(Box)).toHaveLength(1);
     });
-    it("contains one (1) TableContainer component", () => {
+    it("contains one TableContainer component", () => {
       expect(wrapper.find(TableContainer)).toHaveLength(1);
     });
-    it("contains one (1) MaterialTable component", () => {
+    it("contains one MaterialTable component", () => {
       expect(wrapper.find(MaterialTable)).toHaveLength(1);
     });
   });
