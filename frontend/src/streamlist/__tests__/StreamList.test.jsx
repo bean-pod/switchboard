@@ -96,7 +96,7 @@ test("Clicking dropdown on table row displays additional information", () => {
 });
 
 function clickDelete() {
-  const deleteButton = document.getElementsByClassName("deleteButton")[0];
+  const deleteButton = document.querySelectorAll("td.actionButtons button")[2];
   act(() => {
     ReactTestUtils.Simulate.click(deleteButton);
   });

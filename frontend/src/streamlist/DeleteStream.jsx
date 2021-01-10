@@ -26,7 +26,7 @@ export default function DeleteStream(props) {
 
   return (
     <>
-      <IconButton class="deleteButton" onClick={openDeleteDialog}>
+      <IconButton onClick={openDeleteDialog}>
         <Block />
       </IconButton>
       <Dialog
