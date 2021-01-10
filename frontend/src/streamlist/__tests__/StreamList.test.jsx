@@ -68,8 +68,8 @@ test("Stream list fragment renders title and streams fetched aren't null", () =>
     // order: 1 id, 2 date, 3 sender name, 4 receiver name, 5 status, 6 type, 7 time, 8 actions
     expect(rowElements[1].textContent).toBe(stream.id.toString());
     expect(rowElements[2].textContent).toBe(stream.date);
-    expect(rowElements[3].textContent).toBe(stream.sender);
-    expect(rowElements[4].textContent).toBe(stream.receiver);
+    expect(rowElements[3].textContent).toBe(stream.sender.name);
+    expect(rowElements[4].textContent).toBe(stream.receiver.name);
     expect(rowElements[5].firstChild.textContent).toBe(stream.status); // not checking that status is correct :/
     expect(rowElements[6].textContent).toBe(stream.type);
     expect(rowElements[7].textContent).toBe(stream.time);
