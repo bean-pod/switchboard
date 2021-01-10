@@ -32,15 +32,16 @@ public class TrialSeleniumTest {
 
     // create a test device
     deviceEntity = DeviceFixture.getDevice1();
-    HashMap<String, String> deviceParam = new HashMap();
+    HashMap<String, String> deviceParam = new HashMap<>();
     deviceParam.put("serialNumber", deviceEntity.getSerialNumber());
     deviceParam.put("displayName", deviceEntity.getDisplayName());
     deviceParam.put("status", deviceEntity.getStatus());
-    deviceParam.put("ipAddress", deviceEntity.getIpAddress());
+    deviceParam.put("privateIpAddress", deviceEntity.getPrivateIpAddress());
+    deviceParam.put("publicIpAddress", deviceEntity.getPublicIpAddress());
     postRequest("http://localhost:8080/device", deviceParam);
 
     // create a test encoder
-    HashMap<String, String> encoderParam = new HashMap();
+    HashMap<String, String> encoderParam = new HashMap<>();
     encoderParam.put("serialNumber", deviceEntity.getSerialNumber());
     encoderParam.put("lastCommunication", "2020-11-28 09:40:00");
     postRequest("http://localhost:8080/encoder", encoderParam);
