@@ -10,6 +10,17 @@ servers:
     description: Local Enviorment
 
 paths:
+  /logs:
+    get:
+      operationId: retrieveAllLogs
+      description: Get a list of logs
+      responses:
+        '200':
+          description: Successful retrival of logs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogsModel'
   /device:
     get:
       operationId: retrieveAllDevices
@@ -365,6 +376,29 @@ paths:
 
 components:
   schemas:
+    LogsModel:
+      description: A list of all logs
+      type: array
+      items:
+        $ref: '#/components/schemas/LogModel'
+
+    LogModel:
+      description: a log object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: '123'
+        dateTime:
+          type: string
+          format: date-time
+        message:
+          type: string
+          example: 'A log message'
+        level:
+          type: string
+          example: 'info'
+
     DevicesModel:
       description: A list of device serial numbers
       type: array
