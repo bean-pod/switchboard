@@ -28,14 +28,4 @@ public class HttpHandler {
 
     return response;
   }
-
-  // checks if a value is an integer
-  private static boolean isInteger(String value) {
-    try {
-      Integer.parseInt(value);
-      return true; // value is int
-    } catch (Exception e) {
-      return false; // value isn't int
-    }
-  }
 }
