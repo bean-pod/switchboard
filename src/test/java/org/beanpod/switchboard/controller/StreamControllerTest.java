@@ -123,10 +123,13 @@ class StreamControllerTest {
   void testUpdateStream() {
     // given
     StreamModel streamModel = StreamFixture.getStreamModel();
-    when(streamMapper.toDto(streamModel)).thenReturn(StreamFixture.getStreamDto());
+    StreamDto streamDto = StreamFixture.getStreamDto();
+    when(streamMapper.toDto(streamModel)).thenReturn(streamDto);
+    when(streamService.updateStream(streamDto)).thenReturn(streamDto);
+    when(streamMapper.toModel(streamDto)).thenReturn(streamModel);
 
     // when
-    ResponseEntity<Void> result = streamController.updateStream(streamModel);
+    ResponseEntity<StreamModel> result = streamController.updateStream(streamModel);
 
     // then
     assertEquals(HttpStatus.OK, result.getStatusCode());

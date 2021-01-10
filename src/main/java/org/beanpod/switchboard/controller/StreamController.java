@@ -60,14 +60,12 @@ public class StreamController implements StreamApi {
   }
 
   @Override
-  public ResponseEntity<Void> updateStream(@Valid StreamModel streamModel) {
-    Optional.of(streamModel)
+  public ResponseEntity<StreamModel> updateStream(@Valid StreamModel streamModel) {
+    return Optional.of(streamModel)
         .map(mapper::toDto)
-        .ifPresentOrElse(
-            streamDao::updateStream,
-            () -> {
-              throw new UnknownException(CONTROLLER_NAME);
-            });
-    return ResponseEntity.ok().build();
+        .map(streamService::updateStream)
+        .map(mapper::toModel)
+        .map(ResponseEntity::ok)
+        .orElseThrow(() -> new UnknownException(CONTROLLER_NAME));
   }
 }
