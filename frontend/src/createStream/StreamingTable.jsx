@@ -47,7 +47,7 @@ export default class StreamingTable extends React.Component {
   handleSubmit(event) {
     const { selectedReceiverID, selectedSenderID } = this.state;
     if (selectedReceiverID !== "" && selectedSenderID !== "") {
-      axios.post("http://localhost:8080/stream", {
+      axios.post(process.env.REACT_APP_STREAM, {
         inputChannelId: selectedReceiverID,
         outputChannelId: selectedSenderID
       });

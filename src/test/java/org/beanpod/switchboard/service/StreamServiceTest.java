@@ -11,6 +11,8 @@ import org.beanpod.switchboard.dto.DeviceDto;
 import org.beanpod.switchboard.dto.InputChannelDto;
 import org.beanpod.switchboard.dto.OutputChannelDto;
 import org.beanpod.switchboard.dto.StreamDto;
+import org.beanpod.switchboard.dto.mapper.StreamMapper;
+import org.beanpod.switchboard.entity.StreamEntity;
 import org.beanpod.switchboard.fixture.ChannelFixture;
 import org.beanpod.switchboard.fixture.StreamFixture;
 import org.beanpod.switchboard.util.NetworkingUtil;
@@ -21,15 +23,17 @@ import org.mockito.Mock;
 import org.openapitools.model.CreateStreamRequest;
 
 public class StreamServiceTest {
+
   @InjectMocks private StreamServiceImpl streamService;
   @Mock private StreamDaoImpl streamDao;
+  @Mock private StreamMapper mapper;
   @Mock private ChannelDaoImpl channelDao;
   @Mock private NetworkingUtil networkingUtil;
 
   @BeforeEach
   public void setup() {
     initMocks(this);
-    streamService = new StreamServiceImpl(streamDao, channelDao, networkingUtil);
+    streamService = new StreamServiceImpl(streamDao, mapper, channelDao, networkingUtil);
   }
 
   @Test
@@ -101,6 +105,22 @@ public class StreamServiceTest {
 
     StreamDto result = streamService.createStream(createStreamRequest);
 
+    assertEquals(streamDto, result);
+  }
+
+  @Test
+  public void testUpdateStream() {
+    // given
+    StreamDto streamDto = StreamFixture.getStreamDto();
+    StreamEntity streamEntity = StreamFixture.getStreamEntity();
+
+    when(streamDao.updateStream(streamDto)).thenReturn(streamEntity);
+    when(mapper.toDto(streamEntity)).thenReturn(streamDto);
+
+    // when
+    var result = streamService.updateStream(streamDto);
+
+    // then
     assertEquals(streamDto, result);
   }
 }

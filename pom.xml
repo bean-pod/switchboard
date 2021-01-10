@@ -35,6 +35,7 @@
     <sonar.tests>src/test/java,frontend/src</sonar.tests>
     <sonar.test.inclusions>src/test/java,frontend/src/**/__tests__/**</sonar.test.inclusions>
     <sonar.cpd.exclusions>frontend/src/api/SampleData.js</sonar.cpd.exclusions>
+    <sonar.coverage.exclusions>**/config/*</sonar.coverage.exclusions>
     <sonar.javascript.lcov.reportPaths>frontend/coverage/lcov.info
     </sonar.javascript.lcov.reportPaths>
     <sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/site/jacoco/jacoco.xml
