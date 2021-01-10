@@ -39,7 +39,7 @@ export function getStream(streamId) {
 
 export function deleteStream(streamId) {
   axios
-    .delete(`http://localhost:8080/stream/${streamId}`)
+    .delete(`${process.env.REACT_APP_STREAM}/${streamId}`)
     // .then(callback)
     .catch((error) => {
       // SampleData.deleteStream(streamId, callback);

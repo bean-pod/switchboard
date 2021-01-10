@@ -165,7 +165,7 @@ test("Clicking 'Confirm' should call axios.delete with the correct stream ID", (
   expect(dialog).toBeNull;
 
   // expect axios.delete to have been called
-  expect(axios.delete).toHaveBeenCalledWith("http://localhost:8080/stream/1");
+  expect(axios.delete).toHaveBeenCalledWith(`${process.env.REACT_APP_STREAM}/1`);
 
   jest.clearAllMocks();
 });
