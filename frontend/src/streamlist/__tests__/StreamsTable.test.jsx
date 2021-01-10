@@ -48,7 +48,7 @@ describe("<StreamsTable/> component", () => {
     it("logs an error if streams is not an array of StreamInfo objects", () => {
       const notAnArrayOfStreamInfo = 47384;
       wrapper = Enzyme.shallow(
-        <StreamsTable streamDetails={notAnArrayOfStreamInfo} />
+        <StreamsTable streams={notAnArrayOfStreamInfo} />
       );
       expect(console.error).toHaveBeenCalled();
     });

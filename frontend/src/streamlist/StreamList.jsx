@@ -31,7 +31,7 @@ export default class StreamList extends React.Component {
           <Box className="headerAreaUnderline">
             <div className="title">Current Streams</div>
           </Box>
-          <StreamsTable streamDetails={streams} />
+          <StreamsTable streams={streams} />
         </Container>
       </>
     );
