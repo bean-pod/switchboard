@@ -30,11 +30,11 @@ function getColumnInfo() {
     },
     {
       title: "Sender",
-      field: "sender"
+      field: "sender.name"
     },
     {
       title: "Receiver",
-      field: "receiver"
+      field: "receiver.name"
     },
     {
       title: "Status",
@@ -105,14 +105,15 @@ function getIcons() {
 
 export default class StreamsTable extends React.Component {
   render() {
-    const { streamDetails } = this.props;
+    const { streams } = this.props;
+    console.log(streams);
     return (
       <>
         <Box>
           <TableContainer>
             <MaterialTable
               columns={getColumnInfo()}
-              data={streamDetails}
+              data={streams}
               detailPanel={getDetailPanel()}
               options={getOptions()}
               icons={getIcons()}
@@ -125,5 +126,5 @@ export default class StreamsTable extends React.Component {
 }
 
 StreamsTable.propTypes = {
-  streamDetails: PropTypes.arrayOf(PropTypes.instanceOf(StreamInfo)).isRequired
+  streams: PropTypes.arrayOf(PropTypes.instanceOf(StreamInfo)).isRequired
 };

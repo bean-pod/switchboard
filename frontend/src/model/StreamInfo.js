@@ -15,8 +15,8 @@ export default class StreamInfo {
   constructor(id, sender, receiver, extras) {
     this.id = id;
     this.date = "2020-10-31T08:15:30";
-    this.sender = sender.name;
-    this.receiver = receiver.name;
+    this.sender = sender;
+    this.receiver = receiver;
     this.status = "Online";
     this.type = "Type 1";
     this.time = "00:34:44";
