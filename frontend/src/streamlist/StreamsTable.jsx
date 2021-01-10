@@ -113,6 +113,7 @@ export default class StreamsTable extends React.Component {
             <MaterialTable
               columns={getColumnInfo()}
               data={streams}
+              detailPanel={getDetailPanel()}
               options={getOptions()}
               icons={getIcons()}
             />
