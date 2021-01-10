@@ -27,15 +27,15 @@ afterEach(() => {
 });
 
 function verifyActionButtons(rowElement) {
-  const buttonsConatiner = rowElement.firstChild;
+  const buttonsContainer = rowElement.firstChild;
   // check 3 buttons
-  expect(buttonsConatiner.firstChild.querySelector("button span svg")).not.toBe(
+  expect(buttonsContainer.firstChild.querySelector("button span svg")).not.toBe(
     null
   );
   expect(
-    buttonsConatiner.firstChild.nextSibling.querySelector("button span svg")
+    buttonsContainer.firstChild.nextSibling.querySelector("button span svg")
   ).not.toBe(null);
-  expect(buttonsConatiner.lastChild.querySelector("button span svg")).not.toBe(
+  expect(buttonsContainer.lastChild.querySelector("button span svg")).not.toBe(
     null
   );
 }
@@ -77,20 +77,6 @@ test("Stream list fragment renders title and streams fetched aren't null", () =>
   });
 });
 
-function verifyActionButtons(rowElement) {
-  const buttonsContainer = rowElement.firstChild;
-  // check 3 buttons
-  expect(buttonsContainer.firstChild.querySelector("button span svg")).not.toBe(
-    null
-  );
-  expect(
-    buttonsContainer.firstChild.nextSibling.querySelector("button span svg")
-  ).not.toBe(null);
-  expect(buttonsContainer.lastChild.querySelector("button span svg")).not.toBe(
-    null
-  );
-}
-
 test("Clicking dropdown on table row displays additional information", () => {
   act(() => {
     render(<StreamList dataSource={SampleData} />, container);
@@ -113,7 +99,7 @@ test("Clicking dropdown on table row displays additional information", () => {
 });
 
 function clickDelete() {
-  const deleteButton = document.querySelectorAll("td.actionButtons button")[2];
+  const deleteButton = document.querySelectorAll("tr.MuiTableRow-root[index] button")[3];
   act(() => {
     ReactTestUtils.Simulate.click(deleteButton);
   });
