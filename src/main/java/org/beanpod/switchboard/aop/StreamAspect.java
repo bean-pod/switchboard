@@ -21,8 +21,8 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class StreamAspect {
 
-  String stream = "stream";
   private final LogService logService;
+  String stream = "stream";
 
   @AfterReturning(
       value = "execution(* org.beanpod.switchboard.controller.StreamController.createStream(..))",
@@ -30,33 +30,36 @@ public class StreamAspect {
   public void createStream(Object result) {
     ResponseEntity<StreamModel> response = (ResponseEntity<StreamModel>) result;
 
-    String decoderSerial = Optional.of(response.getBody())
-        .map(StreamModel::getInputChannel)
-        .map(InputChannelModel::getDecoder)
-        .map(DecoderModel::getSerialNumber)
-        .orElseThrow(() -> new UnknownException(stream));
+    String decoderSerial =
+        Optional.of(response.getBody())
+            .map(StreamModel::getInputChannel)
+            .map(InputChannelModel::getDecoder)
+            .map(DecoderModel::getSerialNumber)
+            .orElseThrow(() -> new UnknownException(stream));
 
-    String encoderSerial = Optional.of(response.getBody())
-        .map(StreamModel::getOutputChannel)
-        .map(OutputChannelModel::getEncoder)
-        .map(EncoderModel::getSerialNumber)
-        .orElseThrow(() -> new UnknownException(stream));
+    String encoderSerial =
+        Optional.of(response.getBody())
+            .map(StreamModel::getOutputChannel)
+            .map(OutputChannelModel::getEncoder)
+            .map(EncoderModel::getSerialNumber)
+            .orElseThrow(() -> new UnknownException(stream));
 
-    Long outputId = Optional.of(response.getBody())
-        .map(StreamModel::getOutputChannel)
-        .map(OutputChannelModel::getId)
-        .orElseThrow(() -> new UnknownException(stream));
+    Long outputId =
+        Optional.of(response.getBody())
+            .map(StreamModel::getOutputChannel)
+            .map(OutputChannelModel::getId)
+            .orElseThrow(() -> new UnknownException(stream));
 
-    Long inputId = Optional.of(response.getBody())
-        .map(StreamModel::getInputChannel)
-        .map(InputChannelModel::getId)
-        .orElseThrow(() -> new UnknownException(stream));
-     String message =
-          String.format(
-              "A stream started from output channel %d of decoder %s"
-                  + " to input channel %d of encoder %s",
-              outputId, decoderSerial, inputId, encoderSerial);
-      logService.createLog(message, "info");
-
+    Long inputId =
+        Optional.of(response.getBody())
+            .map(StreamModel::getInputChannel)
+            .map(InputChannelModel::getId)
+            .orElseThrow(() -> new UnknownException(stream));
+    String message =
+        String.format(
+            "A stream started from output channel %d of decoder %s"
+                + " to input channel %d of encoder %s",
+            outputId, decoderSerial, inputId, encoderSerial);
+    logService.createLog(message, "info");
   }
 }
