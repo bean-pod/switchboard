@@ -1,8 +1,12 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { IconButton } from "@material-ui/core";
-import { Block, Pause, Sync } from "@material-ui/icons";
+import { Pause, Sync } from "@material-ui/icons";
 
-export default function ActionButtons() {
+import DeleteStream from "./DeleteStream";
+
+export default function ActionButtons(props) {
+  const { streamId } = props;
   return (
     <>
       <div align="center">
@@ -12,10 +16,12 @@ export default function ActionButtons() {
         <IconButton>
           <Pause />
         </IconButton>
-        <IconButton>
-          <Block />
-        </IconButton>
+        <DeleteStream deleteId={streamId} />
       </div>
     </>
   );
 }
+
+ActionButtons.propTypes = {
+  streamId: PropTypes.objectOf(PropTypes.string).isRequired
+};
