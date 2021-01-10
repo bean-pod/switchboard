@@ -48,7 +48,7 @@ public class TrialSeleniumTest {
   }
 
   @Test
-  void testAddDecoder() {
+  void testAddEncoder() {
     driver.get("http://localhost:3000/Devices");
     driver.manage().window().setSize(new Dimension(782, 818));
 
