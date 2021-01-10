@@ -106,7 +106,6 @@ function getIcons() {
 export default class StreamsTable extends React.Component {
   render() {
     const { streams } = this.props;
-    console.log(streams);
     return (
       <>
         <Box>
@@ -114,7 +113,6 @@ export default class StreamsTable extends React.Component {
             <MaterialTable
               columns={getColumnInfo()}
               data={streams}
-              detailPanel={getDetailPanel()}
               options={getOptions()}
               icons={getIcons()}
             />
