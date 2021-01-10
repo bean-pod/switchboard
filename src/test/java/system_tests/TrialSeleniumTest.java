@@ -1,5 +1,11 @@
 package system_tests;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static system_tests.HttpHandler.postRequest;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 import org.beanpod.switchboard.entity.DeviceEntity;
 import org.beanpod.switchboard.fixture.DeviceFixture;
 import org.junit.jupiter.api.AfterEach;
@@ -11,14 +17,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static system_tests.HttpHandler.postRequest;
-
 public class TrialSeleniumTest {
+
   private static WebDriver driver;
   private static DeviceEntity deviceEntity;
 
