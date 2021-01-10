@@ -39,8 +39,8 @@ test("Stream list fragment renders title and streams fetched aren't null", () =>
   // check streams aren't null
   expect(sampleStreams.length).not.toBe(null);
 
-  /* // check streams
-  const streams = document.getElementsByClassName("singleStreamRow");
+  // check streams
+  const streams = document.querySelectorAll("tr.MuiTableRow-root[index]");
   expect(streams).not.toBe(null);
   expect(streams.length).toBe(sampleStreams.length);
 
@@ -52,25 +52,25 @@ test("Stream list fragment renders title and streams fetched aren't null", () =>
     // order: 1 id, 2 date, 3 sender name, 4 receiver name, 5 status, 6 type, 7 time, 8 actions
     expect(rowElements[1].textContent).toBe(stream.id.toString());
     expect(rowElements[2].textContent).toBe(stream.date);
-    expect(rowElements[3].textContent).toBe(stream.sender.name);
-    expect(rowElements[4].textContent).toBe(stream.receiver.name);
+    expect(rowElements[3].textContent).toBe(stream.sender);
+    expect(rowElements[4].textContent).toBe(stream.receiver);
     expect(rowElements[5].firstChild.textContent).toBe(stream.status); // not checking that status is correct :/
     expect(rowElements[6].textContent).toBe(stream.type);
     expect(rowElements[7].textContent).toBe(stream.time);
     verifyActionButtons(rowElements[8]);
-  }); */
+  });
 });
 
-/* function verifyActionButtons(rowElement) {
-  const buttonsConatiner = rowElement.firstChild;
+function verifyActionButtons(rowElement) {
+  const buttonsContainer = rowElement.firstChild;
   // check 3 buttons
-  expect(buttonsConatiner.firstChild.querySelector("button span svg")).not.toBe(
+  expect(buttonsContainer.firstChild.querySelector("button span svg")).not.toBe(
     null
   );
   expect(
-    buttonsConatiner.firstChild.nextSibling.querySelector("button span svg")
+    buttonsContainer.firstChild.nextSibling.querySelector("button span svg")
   ).not.toBe(null);
-  expect(buttonsConatiner.lastChild.querySelector("button span svg")).not.toBe(
+  expect(buttonsContainer.lastChild.querySelector("button span svg")).not.toBe(
     null
   );
 }
@@ -81,17 +81,17 @@ test("Clicking dropdown on table row displays additional information", () => {
   });
 
   const dropdownButton = document.querySelectorAll(
-    "td.dropdownButton button"
+    "tr.MuiTableRow-root[index] button"
   )[0];
   act(() => {
     ReactTestUtils.Simulate.click(dropdownButton);
   });
 
   const additionalInfoElement = document.querySelector(
-    "tr.streamDetails td div div div div span.MuiTypography-caption"
+    "tr.MuiTableRow-root td.MuiTableCell-root[colspan] h6"
   );
   expect(additionalInfoElement).not.toBe(null);
   expect(additionalInfoElement.innerHTML).toBe(
-    "Additional Stream Details go here"
+    "Stream Details"
   );
-}); */
+});
