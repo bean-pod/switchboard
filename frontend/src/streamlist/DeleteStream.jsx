@@ -7,7 +7,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import PropTypes from "prop-types";
 import { IconButton } from "@material-ui/core";
-import { Block } from "@material-ui/icons";
+import { Delete } from "@material-ui/icons";
 import * as StreamApi from "../api/StreamApi";
 
 export default function DeleteStream(props) {
@@ -27,7 +27,7 @@ export default function DeleteStream(props) {
   return (
     <>
       <IconButton onClick={openDeleteDialog}>
-        <Block />
+        <Delete />
       </IconButton>
       <Dialog
         open={open}
