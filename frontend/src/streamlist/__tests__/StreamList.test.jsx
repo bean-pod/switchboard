@@ -27,22 +27,22 @@ afterEach(() => {
 });
 
 function verifyActionButtons(rowElement) {
-  const buttonsConatiner = rowElement.firstChild;
+  const buttonsContainer = rowElement.firstChild;
   // check 3 buttons
-  expect(buttonsConatiner.firstChild.querySelector("button span svg")).not.toBe(
+  expect(buttonsContainer.firstChild.querySelector("button span svg")).not.toBe(
     null
   );
   expect(
-    buttonsConatiner.firstChild.nextSibling.querySelector("button span svg")
+    buttonsContainer.firstChild.nextSibling.querySelector("button span svg")
   ).not.toBe(null);
-  expect(buttonsConatiner.lastChild.querySelector("button span svg")).not.toBe(
+  expect(buttonsContainer.lastChild.querySelector("button span svg")).not.toBe(
     null
   );
 }
 
 // stream list is a fragment that shows up at the bottom of the stream creation page
 // according to mockups.
-test("Stream list fragment renders title and stream list table", () => {
+test("Stream list fragment renders title and streams fetched aren't null", () => {
   act(() => {
     render(<StreamList dataSource={SampleData} />, container);
   });
@@ -52,8 +52,11 @@ test("Stream list fragment renders title and stream list table", () => {
   expect(title).not.toBe(null);
   expect(title.innerHTML).toBe("Current Streams");
 
+  // check streams aren't null
+  expect(sampleStreams.length).not.toBe(null);
+
   // check streams
-  const streams = document.getElementsByClassName("singleStreamRow");
+  const streams = document.querySelectorAll("tr.MuiTableRow-root[index]");
   expect(streams).not.toBe(null);
   expect(streams.length).toBe(sampleStreams.length);
 
@@ -80,23 +83,23 @@ test("Clicking dropdown on table row displays additional information", () => {
   });
 
   const dropdownButton = document.querySelectorAll(
-    "td.dropdownButton button"
+    "tr.MuiTableRow-root[index] button"
   )[0];
   act(() => {
     ReactTestUtils.Simulate.click(dropdownButton);
   });
 
   const additionalInfoElement = document.querySelector(
-    "tr.streamDetails td div div div div span.MuiTypography-caption"
+    "tr.MuiTableRow-root td.MuiTableCell-root[colspan] h6"
   );
   expect(additionalInfoElement).not.toBe(null);
-  expect(additionalInfoElement.innerHTML).toBe(
-    "Additional Stream Details go here"
-  );
+  expect(additionalInfoElement.innerHTML).toBe("Stream Details");
 });
 
 function clickDelete() {
-  const deleteButton = document.querySelectorAll("td.actionButtons button")[2];
+  const deleteButton = document.querySelectorAll(
+    "tr.MuiTableRow-root[index] button"
+  )[3];
   act(() => {
     ReactTestUtils.Simulate.click(deleteButton);
   });

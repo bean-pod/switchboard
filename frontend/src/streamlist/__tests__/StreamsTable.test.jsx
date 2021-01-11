@@ -11,12 +11,12 @@ import {
 } from "@jest/globals";
 import { Box, TableContainer } from "@material-ui/core";
 import MaterialTable from "material-table";
-import DevicesTable from "../DevicesTable";
+import StreamsTable from "../StreamsTable";
 
 Enzyme.configure({ adapter: new Adapter() });
 jest.spyOn(global.console, "error");
 
-describe("<DevicesTable/> component", () => {
+describe("<StreamsTable/> component", () => {
   let wrapper;
 
   afterEach(() => {
@@ -24,12 +24,9 @@ describe("<DevicesTable/> component", () => {
   });
 
   describe("has the correct components", () => {
-    const dummyTitle = "TEST TITLE";
-    const dummyDevices = [];
+    const dummyStreams = [];
     beforeEach(() => {
-      wrapper = Enzyme.shallow(
-        <DevicesTable title={dummyTitle} devices={dummyDevices} />
-      );
+      wrapper = Enzyme.shallow(<StreamsTable streamDetails={dummyStreams} />);
     });
     it("contains one Box component", () => {
       expect(wrapper.find(Box)).toHaveLength(1);
@@ -43,25 +40,15 @@ describe("<DevicesTable/> component", () => {
   });
   describe("Props validation", () => {
     /*  eslint-disable no-console */
-    const validTitle = "TEST TITLE";
-    const validDevices = [];
+    const validStreams = [];
     it("Does not log error if inputs are valid", () => {
-      wrapper = Enzyme.shallow(
-        <DevicesTable title={validTitle} devices={validDevices} />
-      );
+      wrapper = Enzyme.shallow(<StreamsTable streamDetails={validStreams} />);
       expect(console.error).not.toHaveBeenCalled();
     });
-    it("logs an error if title is a string", () => {
-      const notAString = 47384;
+    it("logs an error if streams is not an array of StreamInfo objects", () => {
+      const notAnArrayOfStreamInfo = 47384;
       wrapper = Enzyme.shallow(
-        <DevicesTable title={notAString} devices={validDevices} />
-      );
-      expect(console.error).toHaveBeenCalled();
-    });
-    it("logs an error if devices is not an array of DeviceInfo objects", () => {
-      const notAnArrayOfDeviceInfo = 47384;
-      wrapper = Enzyme.shallow(
-        <DevicesTable title={validTitle} devices={notAnArrayOfDeviceInfo} />
+        <StreamsTable streams={notAnArrayOfStreamInfo} />
       );
       expect(console.error).toHaveBeenCalled();
     });
