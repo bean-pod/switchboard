@@ -11,7 +11,8 @@ import org.json.JSONObject;
 
 public class HttpHandler {
 
-  public static Response postRequest(String endPoint, HashMap<String, String> bodyParam) {
+  public static Response postRequest(String endPoint, HashMap<String, String> bodyParam)
+      throws IOException {
     OkHttpClient client = new OkHttpClient().newBuilder().build();
     MediaType mediaType = MediaType.parse("application/json");
     RequestBody body = RequestBody.create(mediaType, new JSONObject(bodyParam).toString());
@@ -22,14 +23,6 @@ public class HttpHandler {
             .addHeader("Content-Type", "application/json")
             .build();
 
-    Response response;
-    try {
-      response = client.newCall(request).execute();
-    } catch (IOException e) {
-      response = null;
-      System.err.println(e);
-    }
-
-    return response;
+    return client.newCall(request).execute();
   }
 }

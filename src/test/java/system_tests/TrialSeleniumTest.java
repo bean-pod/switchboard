@@ -3,6 +3,7 @@ package system_tests;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static system_tests.HttpHandler.postRequest;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -23,7 +24,7 @@ public class TrialSeleniumTest {
   private static DeviceEntity deviceEntity;
 
   @BeforeAll
-  static void setUp() {
+  static void setUp() throws IOException {
     // TODO set it up for mac/linux:
     // https://stackoverflow.com/questions/228477/how-do-i-programmatically-determine-operating-system-in-java
     System.setProperty(
@@ -38,12 +39,13 @@ public class TrialSeleniumTest {
     deviceParam.put("status", deviceEntity.getStatus());
     deviceParam.put("privateIpAddress", deviceEntity.getPrivateIpAddress());
     deviceParam.put("publicIpAddress", deviceEntity.getPublicIpAddress());
-    postRequest("http://localhost:8080/device", deviceParam);
 
     // create a test encoder
     HashMap<String, String> encoderParam = new HashMap<>();
     encoderParam.put("serialNumber", deviceEntity.getSerialNumber());
     encoderParam.put("lastCommunication", "2020-11-28 09:40:00");
+
+    postRequest("http://localhost:8080/device", deviceParam);
     postRequest("http://localhost:8080/encoder", encoderParam);
   }
 
