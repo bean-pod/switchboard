@@ -7,6 +7,7 @@ import DynamicBreadcrumb from "../general/DynamicBreadcrumb";
 import DeviceDetailsTabTable from "./DeviceDetailsTabTable";
 import DeviceInfo from "../model/DeviceInfo";
 import { getSampleSender } from "../api/SampleData";
+import DeleteDevice from "./DeleteDevice";
 
 export default function DeviceDetailsPage(props) {
   const {
@@ -40,7 +41,7 @@ export default function DeviceDetailsPage(props) {
             </Button>
           </Grid>
           <Grid item xs={2}>
-            <Button variant="outlined">Delete</Button>
+            <DeleteDevice deleteId={device.id} />
           </Grid>
         </Grid>
         <Grid item xs={1} />
