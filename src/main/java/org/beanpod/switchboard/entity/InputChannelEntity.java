@@ -35,8 +35,7 @@ public class InputChannelEntity {
   private ChannelEntity channel;
 
   @ManyToOne(
-      fetch = FetchType.LAZY,
-      cascade = {CascadeType.MERGE})
+      fetch = FetchType.LAZY)
   @JoinColumn(name = "decoder_serial")
   @JsonIgnoreProperties("input")
   private DecoderEntity decoder;
