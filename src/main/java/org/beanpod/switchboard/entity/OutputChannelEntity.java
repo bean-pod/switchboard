@@ -34,8 +34,7 @@ public class OutputChannelEntity {
   @JoinColumn(name = "channel_id")
   private ChannelEntity channel;
 
-  @ManyToOne(
-      fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "encoder_serial")
   @JsonIgnoreProperties("output")
   private EncoderEntity encoder;
