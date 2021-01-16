@@ -25,7 +25,8 @@ export function getSenders(callback) {
       "Sender 1",
       "Online",
       sampleOutputChannels,
-      extras
+      extras,
+      "encoder"
     ),
     new DeviceInfo(
       "1:20:111:999",
@@ -35,7 +36,8 @@ export function getSenders(callback) {
       "Sender 2",
       "Error",
       sampleOutputChannels,
-      extras
+      extras,
+      "encoder"
     ),
     new DeviceInfo(
       "1:30:111:999",
@@ -45,7 +47,8 @@ export function getSenders(callback) {
       "Sender 3",
       "Offline",
       sampleOutputChannels,
-      extras
+      extras,
+      "encoder"
     ),
     new DeviceInfo(
       "1:40:111:999",
@@ -55,7 +58,8 @@ export function getSenders(callback) {
       "Sender 4",
       "Pending",
       sampleOutputChannels,
-      extras
+      extras,
+      "encoder"
     ),
     new DeviceInfo(
       "1:50:111:999",
@@ -65,7 +69,8 @@ export function getSenders(callback) {
       "Sender 5",
       "Online",
       sampleOutputChannels,
-      extras
+      extras,
+      "encoder"
     ),
     new DeviceInfo(
       "1:60:111:999",
@@ -75,7 +80,8 @@ export function getSenders(callback) {
       "Sender 6",
       "Error",
       sampleOutputChannels,
-      extras
+      extras,
+      "encoder"
     ),
     new DeviceInfo(
       "1:70:111:999",
@@ -85,7 +91,8 @@ export function getSenders(callback) {
       "Sender 7",
       "Offline",
       sampleOutputChannels,
-      extras
+      extras,
+      "encoder"
     ),
     new DeviceInfo(
       "1:80:111:999",
@@ -95,7 +102,8 @@ export function getSenders(callback) {
       "Sender 8",
       "Pending",
       sampleOutputChannels,
-      extras
+      extras,
+      "encoder"
     ),
     new DeviceInfo(
       "1:90:111:999",
@@ -105,7 +113,8 @@ export function getSenders(callback) {
       "Sender 9",
       "Online",
       sampleOutputChannels,
-      extras
+      extras,
+      "encoder"
     )
   ];
 
@@ -120,7 +129,8 @@ export function getSampleSender() {
     "Sender 1",
     "Online",
     sampleOutputChannels,
-    extras
+    extras,
+    "encoder"
   );
 }
 
@@ -134,7 +144,8 @@ export function getReceivers(callback) {
       "Receiver 1",
       "Online",
       sampleInputChannels,
-      extras
+      extras,
+      "decoder"
     ),
     new DeviceInfo(
       "1:02:111:999",
@@ -144,7 +155,8 @@ export function getReceivers(callback) {
       "Receiver 2",
       "Error",
       sampleInputChannels,
-      extras
+      extras,
+      "decoder"
     ),
     new DeviceInfo(
       "1:03:111:999",
@@ -154,7 +166,8 @@ export function getReceivers(callback) {
       "Receiver 3",
       "Offline",
       sampleInputChannels,
-      extras
+      extras,
+      "decoder"
     ),
     new DeviceInfo(
       "1:04:111:999",
@@ -164,7 +177,8 @@ export function getReceivers(callback) {
       "Receiver 4",
       "Pending",
       sampleInputChannels,
-      extras
+      extras,
+      "decoder"
     ),
     new DeviceInfo(
       "1:05:111:999",
@@ -174,7 +188,8 @@ export function getReceivers(callback) {
       "Receiver 5",
       "Online",
       sampleInputChannels,
-      extras
+      extras,
+      "decoder"
     ),
     new DeviceInfo(
       "1:06:111:999",
@@ -184,7 +199,8 @@ export function getReceivers(callback) {
       "Receiver 6",
       "Error",
       sampleInputChannels,
-      extras
+      extras,
+      "decoder"
     ),
     new DeviceInfo(
       "1:07:111:999",
@@ -194,7 +210,8 @@ export function getReceivers(callback) {
       "Receiver 7",
       "Offline",
       sampleInputChannels,
-      extras
+      extras,
+      "decoder"
     ),
     new DeviceInfo(
       "1:08:111:999",
@@ -204,7 +221,8 @@ export function getReceivers(callback) {
       "Receiver 8",
       "Pending",
       sampleInputChannels,
-      extras
+      extras,
+      "decoder"
     ),
     new DeviceInfo(
       "1:09:111:999",
@@ -214,7 +232,8 @@ export function getReceivers(callback) {
       "Receiver 9",
       "Online",
       sampleInputChannels,
-      extras
+      extras,
+      "decoder"
     ),
     new DeviceInfo(
       "1:11:111:999",
@@ -224,7 +243,8 @@ export function getReceivers(callback) {
       "Receiver 11",
       "Online",
       sampleInputChannels,
-      extras
+      extras,
+      "decoder"
     ),
     new DeviceInfo(
       "1:21:111:999",
@@ -234,7 +254,8 @@ export function getReceivers(callback) {
       "Receiver 12",
       "Error",
       sampleInputChannels,
-      extras
+      extras,
+      "decoder"
     ),
     new DeviceInfo(
       "1:31:111:999",
@@ -244,7 +265,8 @@ export function getReceivers(callback) {
       "Receiver 13",
       "Offline",
       sampleInputChannels,
-      extras
+      extras,
+      "decoder"
     ),
     new DeviceInfo(
       "1:41:111:999",
@@ -254,7 +276,8 @@ export function getReceivers(callback) {
       "Receiver 14",
       "Pending",
       sampleInputChannels,
-      extras
+      extras,
+      "decoder"
     ),
     new DeviceInfo(
       "1:51:111:999",
@@ -264,7 +287,8 @@ export function getReceivers(callback) {
       "Receiver 15",
       "Online",
       sampleInputChannels,
-      extras
+      extras,
+      "decoder"
     ),
     new DeviceInfo(
       "1:61:111:999",
@@ -274,7 +298,8 @@ export function getReceivers(callback) {
       "Receiver 16",
       "Error",
       sampleInputChannels,
-      extras
+      extras,
+      "decoder"
     ),
     new DeviceInfo(
       "1:71:111:999",
@@ -284,7 +309,8 @@ export function getReceivers(callback) {
       "Receiver 17",
       "Offline",
       sampleInputChannels,
-      extras
+      extras,
+      "decoder"
     ),
     new DeviceInfo(
       "1:81:111:999",
@@ -294,7 +320,8 @@ export function getReceivers(callback) {
       "Receiver 18",
       "Pending",
       sampleInputChannels,
-      extras
+      extras,
+      "decoder"
     ),
     new DeviceInfo(
       "1:91:111:999",
@@ -304,7 +331,8 @@ export function getReceivers(callback) {
       "Receiver 19",
       "Online",
       sampleInputChannels,
-      extras
+      extras,
+      "decoder"
     )
   ];
 
@@ -321,7 +349,8 @@ export function getAllStreams(callback) {
       "Sender 1",
       "Online",
       sampleOutputChannels,
-      extras
+      extras,
+      "encoder"
     ),
     new DeviceInfo(
       "1:20:111:999",
@@ -331,7 +360,8 @@ export function getAllStreams(callback) {
       "Sender 2",
       "Error",
       sampleOutputChannels,
-      extras
+      extras,
+      "encoder"
     )
   ];
   const sampleReceivers = [
@@ -343,7 +373,8 @@ export function getAllStreams(callback) {
       "Receiver 1",
       "Online",
       sampleInputChannels,
-      extras
+      extras,
+      "decoder"
     ),
     new DeviceInfo(
       "1:02:111:999",
@@ -353,7 +384,8 @@ export function getAllStreams(callback) {
       "Receiver 2",
       "Error",
       sampleInputChannels,
-      extras
+      extras,
+      "decoder"
     )
   ];
 
