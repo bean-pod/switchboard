@@ -129,8 +129,8 @@ export function getSampleSender() {
     "Sender 1",
     "Online",
     sampleOutputChannels,
-    extras,
-    "encodr",
+    "encoder",
+    extras
   );
 }
 
