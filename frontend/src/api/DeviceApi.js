@@ -47,6 +47,7 @@ export function getSenders(callback) {
             sender.device.displayName,
             getStatus(sender.lastCommunication),
             channels,
+            "encoder",
             ["Additional Device details go here"]
           );
         })
@@ -86,6 +87,7 @@ export function getReceivers(callback) {
             receiver.device.displayName,
             getStatus(receiver.lastCommunication),
             channels,
+            "decoder",
             ["Additional Device details go here"]
           );
         })
