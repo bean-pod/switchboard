@@ -69,8 +69,8 @@ export function getExpectedSendersResponse() {
           null
         )
       ],
-      ["Additional Device details go here"],
-      "encoder"
+      "encoder",
+      ["Additional Device details go here"]
     ),
     new DeviceInfo(
       sampleSendersResponse[1].serialNumber,
@@ -87,8 +87,8 @@ export function getExpectedSendersResponse() {
           null
         )
       ],
-      ["Additional Device details go here"],
-      "encoder"
+      "encoder",
+      ["Additional Device details go here"]
     )
   ];
 }
@@ -138,8 +138,8 @@ export function getExpectedReceiversResponse() {
           null
         )
       ],
-      ["Additional Device details go here"],
-      "decoder"
+      "decoder",
+      ["Additional Device details go here"]
     )
   ];
 }

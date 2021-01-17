@@ -7,8 +7,8 @@ export default class DeviceInfo {
     displayName,
     status,
     channels,
-    extras,
-    deviceType
+    deviceType,
+    extras
   ) {
     this.serialNumber = serial;
     this.lastCommunication = lastCommunication;
@@ -17,8 +17,8 @@ export default class DeviceInfo {
     this.name = displayName;
     this.status = status;
     this.channels = channels;
-    this.extras = extras;
     this.deviceType = deviceType;
+    this.extras = extras;
   }
 
   static getConciseProperties() {
