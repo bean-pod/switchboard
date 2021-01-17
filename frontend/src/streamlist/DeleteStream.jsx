@@ -5,6 +5,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import Tooltip from "@material-ui/core/Tooltip";
 import PropTypes from "prop-types";
 import { IconButton } from "@material-ui/core";
 import { Delete } from "@material-ui/icons";
@@ -26,9 +27,11 @@ export default function DeleteStream(props) {
 
   return (
     <>
-      <IconButton onClick={openDeleteDialog}>
-        <Delete />
-      </IconButton>
+      <Tooltip title="Delete Stream" aria-label="delete stream">
+        <IconButton onClick={openDeleteDialog}>
+          <Delete />
+        </IconButton>
+      </Tooltip>
       <Dialog
         open={open}
         onClose={cancelDelete}

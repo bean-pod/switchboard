@@ -50,8 +50,8 @@ function getColumnInfo() {
       field: "time"
     },
     {
-      title: "Delete?",
-      field: "delete",
+      title: "Actions",
+      field: "action",
       filtering: false,
       sorting: false,
       render: (rowData) => <DeleteStream deleteId={rowData.id} />,
