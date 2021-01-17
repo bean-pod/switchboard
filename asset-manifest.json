@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/switchboard/static/css/main.a095bd70.chunk.css",
-    "main.js": "/switchboard/static/js/main.00f7f3f2.chunk.js",
-    "main.js.map": "/switchboard/static/js/main.00f7f3f2.chunk.js.map",
+    "main.js": "/switchboard/static/js/main.f97fc678.chunk.js",
+    "main.js.map": "/switchboard/static/js/main.f97fc678.chunk.js.map",
     "runtime-main.js": "/switchboard/static/js/runtime-main.61f27a93.js",
     "runtime-main.js.map": "/switchboard/static/js/runtime-main.61f27a93.js.map",
     "static/js/2.814885ac.chunk.js": "/switchboard/static/js/2.814885ac.chunk.js",
@@ -24,6 +24,6 @@
     "static/js/runtime-main.61f27a93.js",
     "static/js/2.814885ac.chunk.js",
     "static/css/main.a095bd70.chunk.css",
-    "static/js/main.00f7f3f2.chunk.js"
+    "static/js/main.f97fc678.chunk.js"
   ]
 }
