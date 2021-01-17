@@ -41,7 +41,7 @@ export default function DeviceDetailsPage(props) {
             </Button>
           </Grid>
           <Grid item xs={2}>
-            <DeleteDevice deleteId={device.id} />
+            <DeleteDevice deviceType={device.deviceType} deleteId={device.id} />
           </Grid>
         </Grid>
         <Grid item xs={1} />
