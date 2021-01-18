@@ -66,5 +66,5 @@ export default function DeleteDeviceButton(props) {
 
 DeleteDeviceButton.propTypes = {
   deviceType: PropTypes.string.isRequired,
-  deleteId: PropTypes.number.isRequired
+  deleteId: PropTypes.string.isRequired
 };
