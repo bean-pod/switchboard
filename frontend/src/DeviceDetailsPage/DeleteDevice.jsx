@@ -29,7 +29,9 @@ export default function DeleteDevice(props) {
 
   return (
     <>
-      <Button variant="outlined" onClick={openDeleteDialog}>Delete</Button>
+      <Button variant="outlined" onClick={openDeleteDialog}>
+        Delete
+      </Button>
       <Dialog
         open={open}
         onClose={cancelDelete}
@@ -42,7 +44,7 @@ export default function DeleteDevice(props) {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="delete-stream-dialog-description">
-            {`Are you sure you want to delete this device?`}
+            Are you sure you want to delete this device?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
