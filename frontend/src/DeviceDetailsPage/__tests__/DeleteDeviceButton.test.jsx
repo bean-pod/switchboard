@@ -12,7 +12,6 @@ import Adapter from "enzyme-adapter-react-16";
 import { afterEach, describe, expect, jest, it } from "@jest/globals";
 import axios from "axios";
 
-import DeviceInfo from "../../model/DeviceInfo";
 import DeleteDeviceButton from "../DeleteDeviceButton";
 
 Enzyme.configure({ adapter: new Adapter() });
