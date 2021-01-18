@@ -45,7 +45,7 @@ describe("DeviceDetailsPage", () => {
     expect(wrapper.find(DynamicBreadcrumb)).toHaveLength(1);
     expect(wrapper.find(DeviceDetailsConciseTable)).toHaveLength(1);
     expect(wrapper.find(Button)).toHaveLength(1);
-    expect(wrapper.find('DeleteDeviceButton')).toHaveLength(1);
+    expect(wrapper.find("DeleteDeviceButton")).toHaveLength(1);
     expect(wrapper.find(DeviceDetailsTabTable)).toHaveLength(1);
   });
 });
