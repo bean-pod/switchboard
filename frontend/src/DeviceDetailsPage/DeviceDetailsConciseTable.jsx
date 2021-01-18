@@ -1,5 +1,5 @@
 import React from "react";
-import { TableContainer, Table, TableBody, Paper } from "@material-ui/core";
+import { TableContainer, Table, TableBody } from "@material-ui/core";
 import PropTypes from "prop-types";
 
 import DeviceDetailsConciseRow from "./DeviceDetailsConciseRow";
@@ -9,7 +9,7 @@ export default function DeviceDetailsConciseTable(props) {
   const { device } = props;
   return (
     <>
-      <TableContainer component={Paper}>
+      <TableContainer>
         <Table>
           <TableBody>
             {DeviceInfo.getConciseProperties().map((property) => (
