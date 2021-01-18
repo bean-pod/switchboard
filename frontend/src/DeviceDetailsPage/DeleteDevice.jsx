@@ -9,7 +9,7 @@ import PropTypes from "prop-types";
 import * as StreamApi from "../api/StreamApi";
 
 export default function DeleteDevice(props) {
-  const { deleteId } = props;
+  const { deviceType, deleteId } = props;
   const [open, setOpen] = React.useState(false);
   const openDeleteDialog = () => {
     return setOpen(true);
@@ -54,5 +54,6 @@ export default function DeleteDevice(props) {
 }
 
 DeleteDevice.propTypes = {
-  deleteId: PropTypes.objectOf(PropTypes.number).isRequired
+  deviceType: PropTypes.instanceOf(DeviceInfo).isRequired,
+  deleteId: PropTypes.number.isRequired
 };
