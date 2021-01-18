@@ -15,7 +15,11 @@ jest.mock("axios");
 describe("DeleteButton", () => {
     let wrapper;
 
+    const setOpen = jest.fn();
+    const handleClick = jest.spyOn(React, "useState");
+
     beforeEach(() => {
+        handleClick.mockImplementation(open => [open, setOpen]);
         wrapper = Enzyme.shallow(<DeleteDeviceButton deviceType="encoder" deleteId={123} />);
     })
     afterEach(() => {
@@ -27,13 +31,10 @@ describe("DeleteButton", () => {
         expect(wrapper.find(Dialog)).toHaveLength(1);
     });
     it("Should open a confirmation dialog when clicked", () => {
-        // check that open is false
-        const setOpen = jest.fn();
-        const handleClick = jest.spyOn(React, "useState");
+        // check that open is false to begin with
         expect(setOpen).toBeFalsy;
 
-        // click and check
-        handleClick.mockImplementationOnce(open => [open, setOpen]);
+        // click delete button and check that dialog state is open
         wrapper.find('#deleteBtn').simulate("click");
         expect(setOpen).toBeTruthy;
     });
@@ -47,38 +48,28 @@ describe("DeleteButton", () => {
 
         describe("Cancel button", () => {
             it("Should close the dialog when clicked", () => {
-                // open should be true
-                const setOpen = jest.fn();
-                const handleClick = jest.spyOn(React, "useState");
-                // click delete button
-                handleClick.mockImplementationOnce(open => [open, setOpen]);
+                // click delete button to set open to true
                 wrapper.find('#deleteBtn').simulate("click");
                 expect(setOpen).toBeTruthy;
 
                 // click cancel
-                handleClick.mockImplementationOnce(open => [open, setOpen]);
                 wrapper.find('#cancelDeleteBtn').simulate("click");
 
-                // open should be false
+                // open should be false now
                 expect(setOpen).toBeFalsy;
             });
         });
 
-        describe("DeleteButton", () => {
+        describe("ConfirmButton", () => {
             it("Should call axios.delete and close the dialog when clicked", () => {
-                // open should be true
-                const setOpen = jest.fn();
-                const handleClick = jest.spyOn(React, "useState");
-                // click delete button
-                handleClick.mockImplementationOnce(open => [open, setOpen]);
+                // click the delete button to set open to true
                 wrapper.find('#deleteBtn').simulate("click");
                 expect(setOpen).toBeTruthy;
 
-                // mock axios before confirming
+                // mock axios before clicking confirm
                 axios.delete.mockImplementationOnce(() => Promise.resolve());
                 
-                // click delete
-                handleClick.mockImplementationOnce(open => [open, setOpen]);
+                // click confirm
                 wrapper.find('#confirmDeleteBtn').simulate("click");
 
                 // check that axios.delete was called
