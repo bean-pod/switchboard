@@ -41,9 +41,7 @@ describe("DeviceDetailsPage", () => {
 
     wrapper = Enzyme.shallow(<DeviceDetailsPage location={dummyLocation} />);
     expect(wrapper.find(Container)).toHaveLength(1);
-    expect(wrapper.find(Grid)).toHaveLength(9);
     expect(wrapper.find(DynamicBreadcrumb)).toHaveLength(1);
-    expect(wrapper.find(DeviceDetailsConciseTable)).toHaveLength(1);
     expect(wrapper.find(Button)).toHaveLength(1);
     expect(wrapper.find("DeleteDeviceButton")).toHaveLength(1);
     expect(wrapper.find(DeviceDetailsTabTable)).toHaveLength(1);
