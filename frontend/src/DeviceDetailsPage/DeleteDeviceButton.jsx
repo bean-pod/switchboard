@@ -9,7 +9,7 @@ import PropTypes from "prop-types";
 import DeviceInfo from "../model/DeviceInfo";
 import * as DeviceApi from "../api/DeviceApi";
 
-export default function DeleteDevice(props) {
+export default function DeleteDeviceButton(props) {
   const { deviceType, deleteId } = props;
   const [open, setOpen] = React.useState(false);
   const openDeleteDialog = () => {
@@ -60,7 +60,7 @@ export default function DeleteDevice(props) {
   );
 }
 
-DeleteDevice.propTypes = {
+DeleteDeviceButton.propTypes = {
   deviceType: PropTypes.instanceOf(DeviceInfo).isRequired,
   deleteId: PropTypes.number.isRequired
 };
