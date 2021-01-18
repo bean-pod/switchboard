@@ -6,7 +6,8 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import PropTypes from "prop-types";
-import * as StreamApi from "../api/StreamApi";
+import DeviceInfo from "../model/DeviceInfo";
+import * as DeviceApi from "../api/DeviceApi";
 
 export default function DeleteDevice(props) {
   const { deviceType, deleteId } = props;
@@ -18,7 +19,11 @@ export default function DeleteDevice(props) {
     return setOpen(false);
   };
   const confirmDelete = () => {
-    // device api call
+    if (deviceType === "encoder") {
+      DeviceApi.deleteSender(deleteId);
+    } else {
+      DeviceApi.deleteReceiver(deleteId);
+    }
     return setOpen(false);
   };
 
