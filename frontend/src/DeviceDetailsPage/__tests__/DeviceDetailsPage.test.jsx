@@ -35,7 +35,7 @@ describe("DeviceDetailsPage", () => {
   it("Renders the correct number of child elements", () => {
     const dummyLocation = {
       state: {
-        device: new DeviceInfo(1, 1, 1, 1, 1, [1, 1], [2, 2])
+        device: new DeviceInfo(1, 1, 1, 1, 1, [1, 1], "encoder", [2, 2])
       }
     };
 
