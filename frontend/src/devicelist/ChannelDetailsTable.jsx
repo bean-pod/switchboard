@@ -9,7 +9,7 @@ import ChannelDetailsTableRow from "./ChannelDetailsTableRow";
 export default function ChannelDetailsTable(props) {
   const { channels } = props;
   return (
-    <Table style={{ margin: "1em", maxWidth: "98%" }} className="flexContents">
+    <Table style={{ maxWidth: "98%" }} className="flexContents">
       <TableHead>
         <ChannelDetailsTableHead />
       </TableHead>
