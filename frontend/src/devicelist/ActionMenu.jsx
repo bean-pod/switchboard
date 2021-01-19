@@ -50,7 +50,17 @@ export default class ActionMenu extends React.Component {
           anchorOrigin={{ horizontal: "right", vertical: "top" }}
           transformOrigin={{ horizontal: "right", vertical: "top" }}
         >
-          <MenuItem onClick={this.handleClose}>View details</MenuItem>
+          <MenuItem onClick={this.handleClose}>
+            <NavLink
+              to={{
+                pathname: `/Devices/Details/${this.props.device.name}`,
+                state: { device: this.props.device }
+              }}
+              className="invisibleLink"
+            >
+              View Details
+            </NavLink>
+          </MenuItem>
           <MenuItem onClick={this.handleClose}>
             Start stream with this as receiver
           </MenuItem>
