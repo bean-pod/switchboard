@@ -48,11 +48,11 @@ export default function DeleteStream(props) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={cancelDelete} color="secondary">
+          <Button onClick={cancelDelete} color="primary">
             Cancel
           </Button>
-          <Button onClick={confirmDelete} color="primary" autoFocus>
-            Confirm
+          <Button onClick={confirmDelete} color="secondary" autoFocus>
+            Delete
           </Button>
         </DialogActions>
       </Dialog>
