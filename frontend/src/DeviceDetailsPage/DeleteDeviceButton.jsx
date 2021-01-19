@@ -18,11 +18,7 @@ export default function DeleteDeviceButton(props) {
     return setOpen(false);
   };
   const confirmDelete = () => {
-    if (deviceType === "encoder") {
-      DeviceApi.deleteSender(deleteId);
-    } else {
-      DeviceApi.deleteReceiver(deleteId);
-    }
+    DeviceApi.deleteDevice(deleteId);
     return setOpen(false);
   };
 
