@@ -1,7 +1,9 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import { IconButton, Menu, MenuItem } from "@material-ui/core";
-
 import { MoreVert } from "@material-ui/icons/";
+
+import * as DeviceApi from "../api/DeviceApi";
 
 export default class ActionMenu extends React.Component {
   constructor() {
@@ -21,6 +23,11 @@ export default class ActionMenu extends React.Component {
 
   handleClose() {
     this.setAnchorElement(null);
+  }
+
+  handleDelete(deleteId) {
+    DeviceApi.deleteDevice(deleteId);
+    this.handleClose();
   }
 
   setAnchorElement(element) {
