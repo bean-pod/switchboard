@@ -58,10 +58,10 @@ export default function DeleteDeviceButton(props) {
           <Button
             id="confirmDeleteBtn"
             onClick={confirmDelete}
-            color="secondary"
+            color="primary"
             autoFocus
           >
-            Delete
+            Confirm
           </Button>
         </DialogActions>
       </Dialog>
