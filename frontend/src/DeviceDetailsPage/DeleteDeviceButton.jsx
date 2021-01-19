@@ -28,7 +28,7 @@ export default function DeleteDeviceButton(props) {
 
   return (
     <>
-      <Button id="deleteBtn" variant="outlined" onClick={openDeleteDialog}>
+      <Button id="deleteBtn" variant="outlined" color="secondary" onClick={openDeleteDialog}>
         Delete
       </Button>
       <Dialog
@@ -47,7 +47,7 @@ export default function DeleteDeviceButton(props) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button id="cancelDeleteBtn" onClick={cancelDelete} color="primary">
+          <Button id="cancelDeleteBtn" onClick={cancelDelete} color="secondary">
             Cancel
           </Button>
           <Button
