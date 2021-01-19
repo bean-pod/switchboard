@@ -121,7 +121,7 @@ test("Clicking the delete button shows appropriate popup dialog", () => {
     "div.MuiDialogActions-root button"
   );
   expect(dialogButtons[0].textContent).toBe("Cancel");
-  expect(dialogButtons[1].textContent).toBe("Confirm");
+  expect(dialogButtons[1].textContent).toBe("Delete");
 });
 
 test("Clicking outside the dialog or 'Cancel' should close the dialog", () => {
