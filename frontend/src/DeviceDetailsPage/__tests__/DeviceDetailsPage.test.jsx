@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Button, Container, Grid } from "@material-ui/core";
-import EditIcon from '@material-ui/icons/Edit';
+import EditIcon from "@material-ui/icons/Edit";
 
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
