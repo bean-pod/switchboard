@@ -3,7 +3,6 @@ import { Container, Tab, Tabs } from "@material-ui/core";
 import PropTypes from "prop-types";
 
 import HorizontalTabPanel from "../general/HorizontalTabPanel";
-import DeviceDetailsConciseTable from "./DeviceDetailsConciseTable";
 import DeviceDetailsActivityPanel from "./TabPanels/DeviceDetailsActivityPanel";
 import DeviceDetailsNotesPanel from "./TabPanels/DeviceDetailsNotesPanel";
 import DeviceInfo from "../model/DeviceInfo";
@@ -25,8 +24,6 @@ export default class DeviceDetailsTabTable extends React.Component {
 
   static getPanelContents(tabInfo, device) {
     switch (tabInfo) {
-      case "Overview":
-        return <DeviceDetailsConciseTable device={device} />;
       case "Activity Log":
         return <DeviceDetailsActivityPanel device={device} />;
       case "Notes":

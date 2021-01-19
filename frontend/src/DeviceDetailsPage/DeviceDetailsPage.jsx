@@ -1,12 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Box, Button, Container } from "@material-ui/core";
+import { Box, Button, Container, Grid } from "@material-ui/core";
+import EditIcon from '@material-ui/icons/Edit';
 
 import DynamicBreadcrumb from "../general/DynamicBreadcrumb";
 import DeviceDetailsTabTable from "./DeviceDetailsTabTable";
 import DeviceInfo from "../model/DeviceInfo";
 import { getSampleSender } from "../api/SampleData";
 import DeleteDeviceButton from "./DeleteDeviceButton";
+import DeviceDetailsConciseTable from "./DeviceDetailsConciseTable";
 
 export default function DeviceDetailsPage(props) {
   const {
@@ -14,7 +16,7 @@ export default function DeviceDetailsPage(props) {
       state: { device }
     }
   } = props;
-  const tabs = ["Overview", "Activity Log", "Notes"];
+  const tabs = ["Activity Log", "Notes"];
 
   return (
     <Container>
@@ -27,13 +29,15 @@ export default function DeviceDetailsPage(props) {
       />
       <Box className="areaUnderBreadcrumbs">
         <Box className="flexContents headerAreaUnderline">
-          <div className="title">{device.name}</div>
-          <div className="alignRightFloat">
-            <Box marginRight={2} marginTop={2}>
-              <Button variant="contained" color="primary">
-                Edit
+          <Box className="flexContents">
+            <div className="title">{device.name}</div>
+            <Box padding={4} paddingLeft={1}>
+              <Button>
+                <EditIcon color="action" />
               </Button>
             </Box>
+          </Box>
+          <div className="alignRightFloat">
             <Box marginRight={2} marginTop={2}>
               <DeleteDeviceButton
                 deviceType={device.deviceType}
@@ -43,7 +47,14 @@ export default function DeviceDetailsPage(props) {
           </div>
         </Box>
       </Box>
-      <DeviceDetailsTabTable tabs={tabs} device={device} />
+      <Grid container spacing={1}>
+        <Grid item xs={6} spacing={2}>
+          <DeviceDetailsConciseTable device={device} />
+        </Grid>
+        <Grid item xs={6} spacing={2}>
+          <DeviceDetailsTabTable tabs={tabs} device={device} />
+        </Grid>
+      </Grid>
     </Container>
   );
 }
