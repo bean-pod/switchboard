@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -12,6 +12,8 @@ import * as DeviceApi from "../api/DeviceApi";
 export default function DeleteDeviceButton(props) {
   const { deleteId } = props;
   const [open, setOpen] = React.useState(false);
+  const history = useHistory();
+
   const openDeleteDialog = () => {
     return setOpen(true);
   };
@@ -20,6 +22,7 @@ export default function DeleteDeviceButton(props) {
   };
   const confirmDelete = () => {
     DeviceApi.deleteDevice(deleteId);
+    history.push("/Devices");
     return setOpen(false);
   };
 
