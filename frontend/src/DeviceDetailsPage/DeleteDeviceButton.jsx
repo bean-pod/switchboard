@@ -9,7 +9,7 @@ import PropTypes from "prop-types";
 import * as DeviceApi from "../api/DeviceApi";
 
 export default function DeleteDeviceButton(props) {
-  const { deviceType, deleteId } = props;
+  const deleteId = props;
   const [open, setOpen] = React.useState(false);
   const openDeleteDialog = () => {
     return setOpen(true);
@@ -61,6 +61,5 @@ export default function DeleteDeviceButton(props) {
 }
 
 DeleteDeviceButton.propTypes = {
-  deviceType: PropTypes.string.isRequired,
   deleteId: PropTypes.string.isRequired
 };
