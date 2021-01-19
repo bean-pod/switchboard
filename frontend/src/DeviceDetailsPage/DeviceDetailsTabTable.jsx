@@ -6,6 +6,7 @@ import HorizontalTabPanel from "../general/HorizontalTabPanel";
 import DeviceDetailsActivityPanel from "./TabPanels/DeviceDetailsActivityPanel";
 import DeviceDetailsNotesPanel from "./TabPanels/DeviceDetailsNotesPanel";
 import DeviceInfo from "../model/DeviceInfo";
+import DeviceDetailsConciseTable from "./DeviceDetailsConciseTable";
 
 export default class DeviceDetailsTabTable extends React.Component {
   constructor(props) {
@@ -24,6 +25,8 @@ export default class DeviceDetailsTabTable extends React.Component {
 
   static getPanelContents(tabInfo, device) {
     switch (tabInfo) {
+      case "Overview":
+        return <DeviceDetailsConciseTable device={device} />;
       case "Activity Log":
         return <DeviceDetailsActivityPanel device={device} />;
       case "Notes":
@@ -47,7 +50,18 @@ export default class DeviceDetailsTabTable extends React.Component {
           textColor="primary"
         >
           {tabs.map((tabInfo) => {
-            return <Tab label={tabInfo} key={tabInfo} />;
+            switch (tabInfo) {
+              case "Overview":
+                return (
+                  <Tab
+                    label={tabInfo}
+                    key={tabInfo}
+                    style={{ pointerEvents: "none" }}
+                  />
+                );
+              default:
+                return <Tab label={tabInfo} key={tabInfo} />;
+            }
           })}
         </Tabs>
         {tabs.map((tabInfo, index) => {

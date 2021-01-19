@@ -47,13 +47,11 @@ export default function DeviceDetailsPage(props) {
           </div>
         </Box>
       </Box>
-      <Grid container spacing={1}>
-        <Grid item xs={6} spacing={2}>
-          <Box paddingLeft={3}>
-            <DeviceDetailsConciseTable device={device} />
-          </Box>
+      <Grid container>
+        <Grid item xs={6}>
+          <DeviceDetailsTabTable tabs={["Overview"]} device={device} />
         </Grid>
-        <Grid item xs={6} spacing={2}>
+        <Grid item xs={6}>
           <DeviceDetailsTabTable tabs={tabs} device={device} />
         </Grid>
       </Grid>
