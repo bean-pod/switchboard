@@ -8,7 +8,6 @@ import DeviceDetailsTabTable from "./DeviceDetailsTabTable";
 import DeviceInfo from "../model/DeviceInfo";
 import { getSampleSender } from "../api/SampleData";
 import DeleteDeviceButton from "./DeleteDeviceButton";
-import DeviceDetailsConciseTable from "./DeviceDetailsConciseTable";
 
 export default function DeviceDetailsPage(props) {
   const {
