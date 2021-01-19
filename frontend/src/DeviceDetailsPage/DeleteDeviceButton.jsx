@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
 import * as DeviceApi from "../api/DeviceApi";
 
 export default function DeleteDeviceButton(props) {
-  const deleteId = props;
+  const { deleteId } = props;
   const [open, setOpen] = React.useState(false);
   const openDeleteDialog = () => {
     return setOpen(true);
