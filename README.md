@@ -20,7 +20,7 @@ Developed as a Concordia University Capstone project.
 
 ## Setting up the project
 
-### Front-end
+### Frontend
 
 #### Set up
 * Install Node.js
