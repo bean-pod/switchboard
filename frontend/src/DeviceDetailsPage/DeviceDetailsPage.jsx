@@ -31,7 +31,7 @@ export default function DeviceDetailsPage(props) {
         <Box className="flexContents headerAreaUnderline">
           <Box className="flexContents">
             <div className="title">{device.name}</div>
-            <Box padding={4} paddingLeft={1}>
+            <Box padding={4} paddingLeft={1} paddingBottom={0}>
               <Button>
                 <EditIcon color="action" />
               </Button>
