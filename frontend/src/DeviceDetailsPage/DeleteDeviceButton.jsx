@@ -52,16 +52,16 @@ export default function DeleteDeviceButton(props) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button id="cancelDeleteBtn" onClick={cancelDelete} color="secondary">
+          <Button id="cancelDeleteBtn" onClick={cancelDelete} color="primary">
             Cancel
           </Button>
           <Button
             id="confirmDeleteBtn"
             onClick={confirmDelete}
-            color="primary"
+            color="secondary"
             autoFocus
           >
-            Confirm
+            Delete
           </Button>
         </DialogActions>
       </Dialog>
