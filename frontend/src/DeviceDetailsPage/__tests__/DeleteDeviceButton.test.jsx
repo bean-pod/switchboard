@@ -20,7 +20,7 @@ jest.mock("axios");
 const mockHistoryPush = jest.fn();
 jest.mock("react-router-dom", () => ({
   useHistory: () => ({
-    push: mockHistoryPush,
+    push: mockHistoryPush
   })
 }));
 
@@ -33,7 +33,7 @@ describe("DeleteButton", () => {
   beforeEach(() => {
     handleClick.mockImplementation((open) => [open, setOpen]);
     wrapper = Enzyme.shallow(
-      <DeleteDeviceButton deviceType="encoder" deleteId={"1:10:111:999"} />
+      <DeleteDeviceButton deviceType="encoder" deleteId="1:10:111:999" />
     );
   });
   afterEach(() => {
