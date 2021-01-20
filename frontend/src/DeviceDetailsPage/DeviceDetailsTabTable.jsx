@@ -50,18 +50,19 @@ export default class DeviceDetailsTabTable extends React.Component {
           textColor="primary"
         >
           {tabs.map((tabInfo) => {
-            switch (tabInfo) {
-              case "Overview":
-                return (
-                  <Tab
-                    label={tabInfo}
-                    key={tabInfo}
-                    style={{ pointerEvents: "none" }}
-                  />
-                );
-              default:
-                return <Tab label={tabInfo} key={tabInfo} />;
+            let tab;
+            if (tabInfo === "Overview") {
+              tab = (
+                <Tab
+                  label={tabInfo}
+                  key={tabInfo}
+                  style={{ pointerEvents: "none" }}
+                />
+              );
+            } else {
+              tab = <Tab label={tabInfo} key={tabInfo} />;
             }
+            return tab;
           })}
         </Tabs>
         {tabs.map((tabInfo, index) => {
