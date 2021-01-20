@@ -1,12 +1,14 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { IconButton, Menu, MenuItem } from "@material-ui/core";
+import PropTypes from "prop-types";
 
 import { MoreVert } from "@material-ui/icons/";
+import DeviceInfo from "../model/DeviceInfo";
 
 export default class ActionMenu extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       anchorElement: null
     };
@@ -32,6 +34,7 @@ export default class ActionMenu extends React.Component {
 
   render() {
     const { anchorElement } = this.state;
+    const { device } = this.props;
     return (
       <>
         <IconButton
@@ -54,8 +57,8 @@ export default class ActionMenu extends React.Component {
           <MenuItem onClick={this.handleClose}>
             <NavLink
               to={{
-                pathname: `/Devices/Details/${this.props.device.name}`,
-                state: { device: this.props.device }
+                pathname: `/Devices/Details/${device.name}`,
+                state: { device }
               }}
               className="invisibleLink"
             >
@@ -73,3 +76,7 @@ export default class ActionMenu extends React.Component {
     );
   }
 }
+
+ActionMenu.propTypes = {
+  device: PropTypes.instanceOf(DeviceInfo).isRequired
+};
