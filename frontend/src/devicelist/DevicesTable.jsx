@@ -98,7 +98,7 @@ function getDetailPanel() {
       tooltip: "Show Device Details",
       render: (rowData) => {
         return (
-          <div className="lightestGrey" style={{padding: "1.5em"}}>
+          <div className="lightestGrey" style={{ padding: "1.5em" }}>
             <Typography variant="h6">Channels</Typography>
             <ChannelDetailsTable channels={rowData.channels} />
           </div>
