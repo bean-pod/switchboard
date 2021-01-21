@@ -47,7 +47,7 @@ public class TrialSeleniumTest {
     testSenderEncoderParams = new HashMap<>();
     testSenderEncoderParams.put("serialNumber", testSender.getSerialNumber());
     testSenderEncoderParams.put("lastCommunication", simpleDateFormat.format(testSender.getLastCommunication()));
-    //testSenderEncoderParams.put("output", testSender.getOutput().toString());
+    // TODO testSenderEncoderParams.put("output", testSender.getOutput().toString());
 
     // create a test receiver
     DecoderEntity testReceiver = DecoderFixture.getDecoderEntity2();
@@ -62,7 +62,7 @@ public class TrialSeleniumTest {
     testReceiverDecoderParams = new HashMap<>();
     testReceiverDecoderParams.put("serialNumber", testReceiver.getSerialNumber());
     testReceiverDecoderParams.put("lastCommunication", simpleDateFormat.format(testReceiver.getLastCommunication()));
-    //testReceiverDecoderParams.put("input", testReceiver.getInput().toString());
+    // TODO testReceiverDecoderParams.put("input", testReceiver.getInput().toString());
 
     // Set up Selenium Chrome Driver
     // TODO set it up for mac/linux:
