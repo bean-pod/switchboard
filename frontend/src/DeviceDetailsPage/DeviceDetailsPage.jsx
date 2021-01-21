@@ -38,10 +38,7 @@ export default function DeviceDetailsPage(props) {
           </Box>
           <div className="alignRightFloat">
             <Box marginRight={2} marginTop={2}>
-              <DeleteDeviceButton
-                deviceType={device.deviceType}
-                deleteId={device.id}
-              />
+              <DeleteDeviceButton deleteId={device.serialNumber} />
             </Box>
           </div>
         </Box>

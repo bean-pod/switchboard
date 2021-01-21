@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -9,8 +10,10 @@ import PropTypes from "prop-types";
 import * as DeviceApi from "../api/DeviceApi";
 
 export default function DeleteDeviceButton(props) {
-  const { deviceType, deleteId } = props;
+  const { deleteId } = props;
   const [open, setOpen] = React.useState(false);
+  const history = useHistory();
+
   const openDeleteDialog = () => {
     return setOpen(true);
   };
@@ -18,11 +21,8 @@ export default function DeleteDeviceButton(props) {
     return setOpen(false);
   };
   const confirmDelete = () => {
-    if (deviceType === "encoder") {
-      DeviceApi.deleteSender(deleteId);
-    } else {
-      DeviceApi.deleteReceiver(deleteId);
-    }
+    DeviceApi.deleteDevice(deleteId);
+    history.push("/Devices");
     return setOpen(false);
   };
 
@@ -58,10 +58,10 @@ export default function DeleteDeviceButton(props) {
           <Button
             id="confirmDeleteBtn"
             onClick={confirmDelete}
-            color="primary"
+            color="secondary"
             autoFocus
           >
-            Confirm
+            Delete
           </Button>
         </DialogActions>
       </Dialog>
@@ -70,6 +70,5 @@ export default function DeleteDeviceButton(props) {
 }
 
 DeleteDeviceButton.propTypes = {
-  deviceType: PropTypes.string.isRequired,
-  deleteId: PropTypes.number.isRequired
+  deleteId: PropTypes.string.isRequired
 };
