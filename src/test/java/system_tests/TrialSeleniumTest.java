@@ -70,7 +70,7 @@ public class TrialSeleniumTest {
     System.setProperty(
         "webdriver.chrome.driver", "src\\test\\java\\system_tests\\chromedriver.exe");
     driver = new ChromeDriver();
-    driver.manage().window().setSize(new Dimension(782, 818));
+    driver.manage().window().setSize(new Dimension(1280, 1024));
     driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
   }
 
@@ -100,7 +100,8 @@ public class TrialSeleniumTest {
     postRequest("http://localhost:8080/decoder", testReceiverDecoderParams);
 
     // Go to List of Receivers
-    driver.findElement(By.xpath("//button[@id=\'vertical-tab-1\']/span")).click();
+    driver.get("http://localhost:3000/Devices");
+    driver.findElement(By.xpath("//button[@id='vertical-tab-1']/span")).click();
 
     // Check for decoder
     WebElement decodersTable = driver.findElement(By.tagName("table")); // find encoders table
