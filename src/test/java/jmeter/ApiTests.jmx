@@ -103,15 +103,6 @@ vars.put(&quot;serialNumber&quot;,result);</stringProp>
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
                 <stringProp name="Argument.value">{&#xd;
 &quot;serialNumber&quot;: &quot;${serialNumber}&quot;,&#xd;
-    &quot;output&quot;: [&#xd;
-        {&#xd;
-            &quot;channel&quot;: {&#xd;
-            	 &quot;id&quot;: &quot;${serialNumber}&quot;,&#xd;
-                &quot;name&quot;: &quot;testChannel&quot;,&#xd;
-                &quot;port&quot;: 5000&#xd;
-            }&#xd;
-        }&#xd;
-    ]&#xd;
 }&#xd;
 </stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
@@ -123,7 +114,7 @@ vars.put(&quot;serialNumber&quot;,result);</stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
           <stringProp name="HTTPSampler.path">/encoder</stringProp>
-          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -155,15 +146,6 @@ vars.put(&quot;serialNumber&quot;,result);</stringProp>
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
                 <stringProp name="Argument.value">{&#xd;
 &quot;serialNumber&quot;: &quot;${serialNumber}&quot;,&#xd;
-    &quot;input&quot;: [&#xd;
-        {&#xd;
-            &quot;channel&quot;: {&#xd;
-            	  &quot;id&quot;: &quot;${serialNumber}&quot;,&#xd;
-                &quot;name&quot;: &quot;testChannel&quot;,&#xd;
-                &quot;port&quot;: 5000&#xd;
-            }&#xd;
-        }&#xd;
-    ]&#xd;
 }&#xd;
 </stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
@@ -174,7 +156,7 @@ vars.put(&quot;serialNumber&quot;,result);</stringProp>
           <stringProp name="HTTPSampler.port"></stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.path">/decoder</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
