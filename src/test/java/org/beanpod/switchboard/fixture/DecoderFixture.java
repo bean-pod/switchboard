@@ -24,7 +24,7 @@ public class DecoderFixture {
         .serialNumber(SERIAL_NUMBER)
         .lastCommunication(simpleDateFormat.parse("2020-10-31 05:05:05"))
         .device(DeviceFixture.getDevice1())
-        .input(null)
+        .input(setOfChannels)
         .build();
   }
 
@@ -34,7 +34,7 @@ public class DecoderFixture {
         .serialNumber(SERIAL_NUMBER2)
         .lastCommunication(simpleDateFormat.parse("2020-10-31 05:05:05"))
         .device(DeviceFixture.getDevice2())
-        .input(null)
+        .input(setOfChannels)
         .build();
   }
 
