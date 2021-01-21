@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static system_tests.HttpHandler.postRequest;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -30,6 +31,9 @@ public class TrialSeleniumTest {
 
   @BeforeAll
   static void setUp() {
+    String pattern = "yyyy-MM-dd HH:mm:ss";
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
     // create a test sender
     EncoderEntity testSender = EncoderFixture.getEncoderEntity1();
 
@@ -42,7 +46,8 @@ public class TrialSeleniumTest {
 
     testSenderEncoderParams = new HashMap<>();
     testSenderEncoderParams.put("serialNumber", testSender.getSerialNumber());
-    testSenderEncoderParams.put("lastCommunication", testSender.getLastCommunication().toString());
+    testSenderEncoderParams.put("lastCommunication", simpleDateFormat.format(testSender.getLastCommunication()));
+    //testSenderEncoderParams.put("output", testSender.getOutput().toString());
 
     // create a test receiver
     DecoderEntity testReceiver = DecoderFixture.getDecoderEntity2();
@@ -55,8 +60,9 @@ public class TrialSeleniumTest {
     testReceiverDeviceParams.put("publicIpAddress", testReceiver.getDevice().getPublicIpAddress());
 
     testReceiverDecoderParams = new HashMap<>();
-    testReceiverDecoderParams.put("serialNumber", testSender.getSerialNumber());
-    testReceiverDecoderParams.put("lastCommunication", testSender.getLastCommunication().toString());
+    testReceiverDecoderParams.put("serialNumber", testReceiver.getSerialNumber());
+    testReceiverDecoderParams.put("lastCommunication", simpleDateFormat.format(testReceiver.getLastCommunication()));
+    //testReceiverDecoderParams.put("input", testReceiver.getInput().toString());
 
     // Set up Selenium Chrome Driver
     // TODO set it up for mac/linux:
@@ -64,7 +70,6 @@ public class TrialSeleniumTest {
     System.setProperty(
         "webdriver.chrome.driver", "src\\test\\java\\system_tests\\chromedriver.exe");
     driver = new ChromeDriver();
-    driver.get("http://localhost:3000/");
     driver.manage().window().setSize(new Dimension(782, 818));
     driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
   }
@@ -76,7 +81,7 @@ public class TrialSeleniumTest {
     postRequest("http://localhost:8080/encoder", testSenderEncoderParams);
 
     // Go to List of Senders
-    driver.navigate().to("http://localhost:3000/Devices");
+    driver.get("http://localhost:3000/Devices");
 
     // Check for encoder
     WebElement encodersTable = driver.findElement(By.tagName("table")); // find encoders table
@@ -95,7 +100,7 @@ public class TrialSeleniumTest {
     postRequest("http://localhost:8080/decoder", testReceiverDecoderParams);
 
     // Go to List of Receivers
-    driver.findElement(By.xpath("//button[@id='vertical-tab-1']/span")).click();
+    driver.findElement(By.xpath("//button[@id=\'vertical-tab-1\']/span")).click();
 
     // Check for decoder
     WebElement decodersTable = driver.findElement(By.tagName("table")); // find encoders table
