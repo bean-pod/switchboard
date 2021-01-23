@@ -73,7 +73,7 @@ public class StreamServiceImpl implements StreamService {
             || networkingUtil.areDevicesOnSamePrivateNetwork(decoderDevice, encoderDevice));
     log.debug(
         "RendezvousMode is {} between decoder device {} and encoder device {}",
-        Boolean.TRUE.equals(rendezVousAllowed)?"allowed":"not allowed",
+        Boolean.TRUE.equals(rendezVousAllowed) ? "allowed" : "not allowed",
         decoderDevice.getSerialNumber(),
         encoderDevice.getSerialNumber());
     return rendezVousAllowed;
