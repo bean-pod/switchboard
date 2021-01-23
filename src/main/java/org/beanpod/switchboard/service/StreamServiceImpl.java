@@ -24,6 +24,7 @@ public class StreamServiceImpl implements StreamService {
 
   @Override
   public StreamDto createStream(CreateStreamRequest createStreamRequest) {
+
     InputChannelDto inputChannelDto =
         channelDao.getInputChannelById(createStreamRequest.getInputChannelId());
     OutputChannelDto outputChannelDto =

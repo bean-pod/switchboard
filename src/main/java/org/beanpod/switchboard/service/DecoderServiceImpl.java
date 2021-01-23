@@ -29,7 +29,7 @@ public class DecoderServiceImpl implements DecoderService {
 
     decoder.setLastCommunication(dateUtil.getCurrentDate());
     decoderDao.save(decoder);
-    log.debug("Updating decoder's last communication date");
+    log.debug("Updated decoder's last communication date");
 
     return streamDao.getDecoderStreams(decoderSerialNumber);
   }
