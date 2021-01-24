@@ -2,6 +2,7 @@ package org.beanpod.switchboard.aop;
 
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.beanpod.switchboard.exceptions.ExceptionType.UnknownException;
@@ -62,4 +63,16 @@ public class StreamAspect {
             outputId, decoderSerial, inputId, encoderSerial);
     logService.createLog(message, "info");
   }
+
+  @AfterReturning(
+      "execution(* org.beanpod.switchboard.controller.StreamController.deleteStream(..))")
+  public void deleteStream(JoinPoint joinPoint) {
+    Object[] args = joinPoint.getArgs();
+    Long streamId = (Long) args[0];
+    String message =
+        String.format(
+        "Stream of ID %l is deleted", streamId);
+    logService.createLog(message, "info");
+  }
+
 }
