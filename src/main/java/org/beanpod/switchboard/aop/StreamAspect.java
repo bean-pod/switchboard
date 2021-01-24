@@ -5,9 +5,9 @@ import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.beanpod.switchboard.dao.StreamDaoImpl;
 import org.beanpod.switchboard.dto.StreamDto;
+import org.aspectj.lang.annotation.Before;
 import org.beanpod.switchboard.exceptions.ExceptionType.UnknownException;
 import org.beanpod.switchboard.service.LogService;
 import org.openapitools.model.DecoderModel;
@@ -81,16 +81,4 @@ public class StreamAspect {
             streamId, decoderSerial, encoderSerial);
     logService.createLog(message, "info", decoderSerial + "," + encoderSerial);
   }
-
-  @AfterReturning(
-      "execution(* org.beanpod.switchboard.controller.StreamController.deleteStream(..))")
-  public void deleteStream(JoinPoint joinPoint) {
-    Object[] args = joinPoint.getArgs();
-    Long streamId = (Long) args[0];
-    String message =
-        String.format(
-        "Stream of ID %l is deleted", streamId);
-    logService.createLog(message, "info");
-  }
-
 }
