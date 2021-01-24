@@ -83,7 +83,7 @@ function getColumnInfo() {
       field: "action",
       filtering: false,
       sorting: false,
-      render: () => <ActionMenu />,
+      render: (rowData) => <ActionMenu device={rowData} />,
       align: "center",
       export: false
     }
