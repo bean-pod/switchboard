@@ -27,7 +27,7 @@ import lombok.Setter;
 public class InputChannelEntity {
   @Id
   @NotNull
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @OneToOne(cascade = {CascadeType.MERGE})
