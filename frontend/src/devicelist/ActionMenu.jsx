@@ -6,8 +6,6 @@ import PropTypes from "prop-types";
 import { MoreVert } from "@material-ui/icons/";
 import DeviceInfo from "../model/DeviceInfo";
 
-import * as DeviceApi from "../api/DeviceApi";
-
 export default class ActionMenu extends React.Component {
   constructor(props) {
     super(props);
@@ -26,11 +24,6 @@ export default class ActionMenu extends React.Component {
 
   handleClose() {
     this.setAnchorElement(null);
-  }
-
-  handleDelete(deleteId) {
-    DeviceApi.deleteDevice(deleteId);
-    this.handleClose();
   }
 
   setAnchorElement(element) {
