@@ -102,5 +102,5 @@ export function deleteDevice(deviceId, callback) {
   axios
     .delete(`REACT_APP_DEVICE=$DOMAIN/device/${deviceId}`)
     .then(callback)
-    .catch((error) => {});
+    .catch(() => {});
 }

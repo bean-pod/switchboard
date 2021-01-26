@@ -15,7 +15,7 @@ import {
 import MaterialTable from "material-table";
 
 import StatusIndicator from "../general/StatusIndicator";
-import ActionButtons from "./ActionButtons";
+import DeleteStream from "./DeleteStream";
 import StreamInfo from "../model/StreamInfo";
 
 function getColumnInfo() {
@@ -54,7 +54,7 @@ function getColumnInfo() {
       field: "action",
       filtering: false,
       sorting: false,
-      render: (rowData) => <ActionButtons streamId={rowData.id} />,
+      render: (rowData) => <DeleteStream deleteId={rowData.id} />,
       align: "center",
       export: false
     }
@@ -70,7 +70,7 @@ function getDetailPanel() {
       render: () => {
         return (
           <div className="lightestGrey">
-            <Typography variant="h6">Stream Details</Typography>
+            <Typography variant="h6">Additional stream details</Typography>
           </div>
         );
       }
@@ -81,8 +81,6 @@ function getDetailPanel() {
 function getOptions() {
   return {
     toolbar: false,
-    search: true,
-    exportButton: true,
     headerStyle: {
       backgroundColor: "#f1f1f1",
       fontWeight: "bold"
