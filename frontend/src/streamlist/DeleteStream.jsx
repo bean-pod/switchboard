@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -14,6 +15,8 @@ import * as StreamApi from "../api/StreamApi";
 export default function DeleteStream(props) {
   const { deleteId } = props;
   const [open, setOpen] = React.useState(false);
+  const history = useHistory();
+
   const openDeleteDialog = () => {
     return setOpen(true);
   };
@@ -22,6 +25,7 @@ export default function DeleteStream(props) {
   };
   const confirmDelete = () => {
     StreamApi.deleteStream(deleteId);
+    history.push("/Streaming");
     return setOpen(false);
   };
 
