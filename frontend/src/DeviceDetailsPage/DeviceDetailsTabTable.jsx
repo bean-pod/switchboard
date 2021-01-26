@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Tab, Tabs } from "@material-ui/core";
+import { Container, Tab, Tabs, Paper } from "@material-ui/core";
 import PropTypes from "prop-types";
 
 import HorizontalTabPanel from "../general/HorizontalTabPanel";
@@ -41,7 +41,7 @@ export default class DeviceDetailsTabTable extends React.Component {
     const { value } = this.state;
     const { device, tabs } = this.props;
     return (
-      <Container>
+      <Container component={Paper}>
         <Tabs
           value={value}
           onChange={this.handleValueChange}

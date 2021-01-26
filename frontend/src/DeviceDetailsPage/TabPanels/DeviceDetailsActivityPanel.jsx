@@ -1,6 +1,6 @@
-import { Container, Paper } from "@material-ui/core";
+import { Container } from "@material-ui/core";
 import React from "react";
 
 export default function DeviceDetailsActivityPanel() {
-  return <Container component={Paper}>TODO: Design activity log</Container>;
+  return <Container>TODO: Design activity log</Container>;
 }
