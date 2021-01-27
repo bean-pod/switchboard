@@ -3,9 +3,9 @@ package system_tests;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static system_tests.HttpHandler.postRequest;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import org.beanpod.switchboard.entity.DecoderEntity;
@@ -24,51 +24,30 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public class TrialSeleniumTest {
 
   private static WebDriver driver;
-  private static HashMap<String, String> testSenderDeviceParams;
-  private static HashMap<String, String> testSenderEncoderParams;
-  private static HashMap<String, String> testReceiverDeviceParams;
-  private static HashMap<String, String> testReceiverDecoderParams;
+  private static String testSenderDeviceParams;
+  private static String testSenderEncoderParams;
+  private static String testReceiverDeviceParams;
+  private static String testReceiverDecoderParams;
 
   @BeforeAll
-  static void setUp() {
-    String pattern = "yyyy-MM-dd HH:mm:ss";
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+  static void setUp() throws JsonProcessingException {
+    ObjectMapper objectMapper = new ObjectMapper();
 
     // create a test sender
     EncoderEntity testSender = EncoderFixture.getEncoderEntity1();
-
-    testSenderDeviceParams = new HashMap<>();
-    testSenderDeviceParams.put("serialNumber", testSender.getDevice().getSerialNumber());
-    testSenderDeviceParams.put("displayName", testSender.getDevice().getDisplayName());
-    testSenderDeviceParams.put("status", testSender.getDevice().getStatus());
-    testSenderDeviceParams.put("privateIpAddress", testSender.getDevice().getPrivateIpAddress());
-    testSenderDeviceParams.put("publicIpAddress", testSender.getDevice().getPublicIpAddress());
-
-    testSenderEncoderParams = new HashMap<>();
-    testSenderEncoderParams.put("serialNumber", testSender.getSerialNumber());
-    testSenderEncoderParams.put("lastCommunication", simpleDateFormat.format(testSender.getLastCommunication()));
-    // TODO testSenderEncoderParams.put("output", testSender.getOutput().toString());
+    testSenderDeviceParams = objectMapper.writeValueAsString(testSender.getDevice());
+    testSenderEncoderParams = objectMapper.writeValueAsString(testSender);
 
     // create a test receiver
     DecoderEntity testReceiver = DecoderFixture.getDecoderEntity2();
-
-    testReceiverDeviceParams = new HashMap<>();
-    testReceiverDeviceParams.put("serialNumber", testReceiver.getDevice().getSerialNumber());
-    testReceiverDeviceParams.put("displayName", testReceiver.getDevice().getDisplayName());
-    testReceiverDeviceParams.put("status", testReceiver.getDevice().getStatus());
-    testReceiverDeviceParams.put("privateIpAddress", testReceiver.getDevice().getPrivateIpAddress());
-    testReceiverDeviceParams.put("publicIpAddress", testReceiver.getDevice().getPublicIpAddress());
-
-    testReceiverDecoderParams = new HashMap<>();
-    testReceiverDecoderParams.put("serialNumber", testReceiver.getSerialNumber());
-    testReceiverDecoderParams.put("lastCommunication", simpleDateFormat.format(testReceiver.getLastCommunication()));
-    // TODO testReceiverDecoderParams.put("input", testReceiver.getInput().toString());
+    testReceiverDeviceParams = objectMapper.writeValueAsString(testReceiver.getDevice());
+    testReceiverDecoderParams = objectMapper.writeValueAsString(testReceiver);
 
     // Set up Selenium Chrome Driver
     // TODO set it up for mac/linux:
     // https://stackoverflow.com/questions/228477/how-do-i-programmatically-determine-operating-system-in-java
     System.setProperty(
-        "webdriver.chrome.driver", "src\\test\\java\\system_tests\\chromedriver.exe");
+        "webdriver.chrome.driver", "src/test/java/system_tests/chromedriver");
     driver = new ChromeDriver();
     driver.manage().window().setSize(new Dimension(1280, 1024));
     driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
@@ -88,7 +67,7 @@ public class TrialSeleniumTest {
     List<WebElement> devicesRows =
         encodersTable.findElements(By.tagName("tr")); // find all tr elements inside found table
     boolean assertValue =
-        devicesRows.stream().anyMatch(row -> row.getText().contains(testSenderDeviceParams.get("displayName")));
+        devicesRows.stream().anyMatch(row -> row.getText().contains(EncoderFixture.getEncoderEntity1().getDevice().getDisplayName()));
 
     assertTrue(assertValue);
   }
@@ -108,7 +87,7 @@ public class TrialSeleniumTest {
     List<WebElement> devicesRows =
         decodersTable.findElements(By.tagName("tr")); // find all tr elements inside found table
     boolean assertValue =
-        devicesRows.stream().anyMatch(row -> row.getText().contains(testReceiverDeviceParams.get("displayName")));
+        devicesRows.stream().anyMatch(row -> row.getText().contains(DecoderFixture.getDecoderEntity2().getDevice().getDisplayName()));
 
     assertTrue(assertValue);
   }
