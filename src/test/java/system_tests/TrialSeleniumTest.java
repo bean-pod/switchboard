@@ -1,5 +1,6 @@
 package system_tests;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static system_tests.HttpHandler.postRequest;
 
@@ -14,12 +15,16 @@ import org.beanpod.switchboard.fixture.DecoderFixture;
 import org.beanpod.switchboard.fixture.EncoderFixture;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class TrialSeleniumTest {
 
@@ -44,8 +49,6 @@ public class TrialSeleniumTest {
     testReceiverDecoderParams = objectMapper.writeValueAsString(testReceiver);
 
     // Set up Selenium Chrome Driver
-    // TODO set it up for mac/linux:
-    // https://stackoverflow.com/questions/228477/how-do-i-programmatically-determine-operating-system-in-java
     System.setProperty(
         "webdriver.chrome.driver", "src/test/java/system_tests/chromedriver");
     driver = new ChromeDriver();
@@ -54,6 +57,7 @@ public class TrialSeleniumTest {
   }
 
   @Test
+  @Order(1)
   void testAddEncoder() throws IOException {
     // Mock sender self-registration
     postRequest("http://localhost:8080/device", testSenderDeviceParams);
@@ -73,6 +77,7 @@ public class TrialSeleniumTest {
   }
 
   @Test
+  @Order(2)
   void testAddDecoder() throws IOException {
     // mock receiver self-registration
     postRequest("http://localhost:8080/device", testReceiverDeviceParams);
@@ -92,21 +97,82 @@ public class TrialSeleniumTest {
     assertTrue(assertValue);
   }
 
-  // TODO
   @Test
+  @Order(3)
   void testCreateStream() {
-
+    driver.get("http://localhost:3000/Streaming");
+    {
+      WebDriverWait wait = new WebDriverWait(driver, 100);
+      wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#SenderTable .MuiList-root .MuiSvgIcon-root")));
+    }
+    driver.findElement(By.cssSelector("#SenderTable .MuiList-root .MuiSvgIcon-root")).click();
+    {
+      WebElement element;
+      WebDriverWait wait = new WebDriverWait(driver, 100);
+      element= wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".MuiInput-input")));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).clickAndHold().perform();
+    }
+    {
+      WebElement element;
+      WebDriverWait wait = new WebDriverWait(driver, 100);
+      element= wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".MuiMenuItem-root")));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).release().perform();
+    }
+    driver.findElement(By.cssSelector("body")).click();
+    driver.findElement(By.cssSelector(".MuiMenuItem-root")).click();
+    driver.findElement(By.cssSelector("#ReceiverTable .MuiList-root .MuiSvgIcon-root")).click();
+    {
+      WebElement element;
+      WebDriverWait wait = new WebDriverWait(driver, 100);
+      element= wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@id=\'ReceiverTable\']/div[3]/ul/div[2]/div/div/div/li/div[2]/div")));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).clickAndHold().perform();
+    }
+    {
+      WebElement element;
+      WebDriverWait wait = new WebDriverWait(driver, 100);
+      element= wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".MuiMenuItem-root")));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).release().perform();
+    }
+    driver.findElement(By.cssSelector("body")).click();
+    driver.findElement(By.cssSelector(".MuiMenuItem-root")).click();
+    driver.findElement(By.cssSelector(".buttonText")).click();
   }
 
-  // TODO
   @Test
+  @Order(4)
   void testViewStream() {
+    driver.get("http://localhost:3000/Streaming");
 
+    // Check for stream creation
+    WebElement streamsTable = driver.findElement(By.tagName("table")); // find streams table
+    List<WebElement> devicesRows =
+        streamsTable.findElements(By.tagName("td")); // find all td elements inside found table
+    boolean assertValue =
+        devicesRows.stream().anyMatch(data -> data.getText().contains("Online"));
+
+    assertTrue(assertValue);
   }
 
-  // TODO
   @Test
+  @Order(5)
   void testDeleteStream() {
+    driver.get("http://localhost:3000/Streaming");
+    driver.findElement(By.cssSelector(".MuiTableCell-root > .MuiButtonBase-root > .MuiIconButton-label > .MuiSvgIcon-root")).click();
+    driver.findElement(By.cssSelector(".MuiButton-textSecondary > .MuiButton-label")).click();
+
+    // Check for stream deletion
+    driver.navigate().refresh();
+    WebElement streamsTable = driver.findElement(By.tagName("table")); // find streams table
+    List<WebElement> devicesRows =
+        streamsTable.findElements(By.tagName("td")); // find all td elements inside found table
+    boolean assertValue =
+        devicesRows.stream().anyMatch(data -> data.getText().contains("Online"));
+
+    assertFalse(assertValue);
 
   }
 
