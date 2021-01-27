@@ -9,8 +9,7 @@ import okhttp3.Response;
 
 public class HttpHandler {
 
-  public static Response postRequest(String endPoint, String json)
-      throws IOException {
+  public static Response postRequest(String endPoint, String json) throws IOException {
     OkHttpClient client = new OkHttpClient().newBuilder().build();
     MediaType mediaType = MediaType.parse("application/json");
     RequestBody body = RequestBody.create(mediaType, json);
