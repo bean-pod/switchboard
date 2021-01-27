@@ -49,8 +49,11 @@ public class TrialSeleniumTest {
     testReceiverDecoderParams = objectMapper.writeValueAsString(testReceiver);
 
     // Set up Selenium Chrome Driver
-    System.setProperty(
-        "webdriver.chrome.driver", "src/test/java/system_tests/chromedriver");
+    if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+      System.setProperty("webdriver.chrome.driver", "src\\test\\java\\system_tests\\chromedriver.exe");
+    } else {
+      System.setProperty("webdriver.chrome.driver", "src/test/java/system_tests/chromedriver");
+    }
     driver = new ChromeDriver();
     driver.manage().window().setSize(new Dimension(1280, 1024));
     driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
