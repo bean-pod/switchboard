@@ -40,7 +40,6 @@ public class TrialSeleniumTest {
   @BeforeAll
   static void setUp() throws JsonProcessingException {
     ObjectMapper objectMapper = new ObjectMapper();
-
     // create a test sender
     EncoderEntity testSender = EncoderFixture.getEncoderEntity1();
     testSenderDeviceParams = objectMapper.writeValueAsString(testSender.getDevice());
@@ -144,7 +143,7 @@ public class TrialSeleniumTest {
       WebElement element;
       WebDriverWait wait = new WebDriverWait(driver, 100);
       element = wait.until(ExpectedConditions.elementToBeClickable(
-          By.xpath("//div[@id=\'ReceiverTable\']/div[3]/ul/div[2]/div/div/div/li/div[2]/div")));
+          By.xpath("//div[@id='ReceiverTable']/div[3]/ul/div[2]/div/div/div/li/div[2]/div")));
       Actions builder = new Actions(driver);
       builder.moveToElement(element).clickAndHold().perform();
     }
@@ -194,6 +193,5 @@ public class TrialSeleniumTest {
         devicesRows.stream().anyMatch(data -> data.getText().contains("Online"));
 
     assertFalse(assertValue);
-
   }
 }
