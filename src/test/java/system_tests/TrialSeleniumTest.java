@@ -15,8 +15,10 @@ import org.beanpod.switchboard.fixture.DecoderFixture;
 import org.beanpod.switchboard.fixture.EncoderFixture;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
@@ -26,6 +28,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class TrialSeleniumTest {
 
   private static WebDriver driver;
