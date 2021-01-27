@@ -50,13 +50,19 @@ public class TrialSeleniumTest {
 
     // Set up Selenium Chrome Driver
     if (System.getProperty("os.name").toLowerCase().contains("windows")) {
-      System.setProperty("webdriver.chrome.driver", "src\\test\\java\\system_tests\\chromedriver.exe");
+      System.setProperty("webdriver.chrome.driver",
+          "src\\test\\java\\system_tests\\chromedriver.exe");
     } else {
       System.setProperty("webdriver.chrome.driver", "src/test/java/system_tests/chromedriver");
     }
     driver = new ChromeDriver();
     driver.manage().window().setSize(new Dimension(1280, 1024));
     driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+  }
+
+  @AfterAll
+  static void tearDown() {
+    driver.quit();
   }
 
   @Test
@@ -74,7 +80,8 @@ public class TrialSeleniumTest {
     List<WebElement> devicesRows =
         encodersTable.findElements(By.tagName("tr")); // find all tr elements inside found table
     boolean assertValue =
-        devicesRows.stream().anyMatch(row -> row.getText().contains(EncoderFixture.getEncoderEntity1().getDevice().getDisplayName()));
+        devicesRows.stream().anyMatch(row -> row.getText()
+            .contains(EncoderFixture.getEncoderEntity1().getDevice().getDisplayName()));
 
     assertTrue(assertValue);
   }
@@ -95,7 +102,8 @@ public class TrialSeleniumTest {
     List<WebElement> devicesRows =
         decodersTable.findElements(By.tagName("tr")); // find all tr elements inside found table
     boolean assertValue =
-        devicesRows.stream().anyMatch(row -> row.getText().contains(DecoderFixture.getDecoderEntity2().getDevice().getDisplayName()));
+        devicesRows.stream().anyMatch(row -> row.getText()
+            .contains(DecoderFixture.getDecoderEntity2().getDevice().getDisplayName()));
 
     assertTrue(assertValue);
   }
@@ -106,20 +114,23 @@ public class TrialSeleniumTest {
     driver.get("http://localhost:3000/Streaming");
     {
       WebDriverWait wait = new WebDriverWait(driver, 100);
-      wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#SenderTable .MuiList-root .MuiSvgIcon-root")));
+      wait.until(ExpectedConditions
+          .elementToBeClickable(By.cssSelector("#SenderTable .MuiList-root .MuiSvgIcon-root")));
     }
     driver.findElement(By.cssSelector("#SenderTable .MuiList-root .MuiSvgIcon-root")).click();
     {
       WebElement element;
       WebDriverWait wait = new WebDriverWait(driver, 100);
-      element= wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".MuiInput-input")));
+      element = wait
+          .until(ExpectedConditions.elementToBeClickable(By.cssSelector(".MuiInput-input")));
       Actions builder = new Actions(driver);
       builder.moveToElement(element).clickAndHold().perform();
     }
     {
       WebElement element;
       WebDriverWait wait = new WebDriverWait(driver, 100);
-      element= wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".MuiMenuItem-root")));
+      element = wait
+          .until(ExpectedConditions.elementToBeClickable(By.cssSelector(".MuiMenuItem-root")));
       Actions builder = new Actions(driver);
       builder.moveToElement(element).release().perform();
     }
@@ -129,14 +140,16 @@ public class TrialSeleniumTest {
     {
       WebElement element;
       WebDriverWait wait = new WebDriverWait(driver, 100);
-      element= wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@id=\'ReceiverTable\']/div[3]/ul/div[2]/div/div/div/li/div[2]/div")));
+      element = wait.until(ExpectedConditions.elementToBeClickable(
+          By.xpath("//div[@id=\'ReceiverTable\']/div[3]/ul/div[2]/div/div/div/li/div[2]/div")));
       Actions builder = new Actions(driver);
       builder.moveToElement(element).clickAndHold().perform();
     }
     {
       WebElement element;
       WebDriverWait wait = new WebDriverWait(driver, 100);
-      element= wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".MuiMenuItem-root")));
+      element = wait
+          .until(ExpectedConditions.elementToBeClickable(By.cssSelector(".MuiMenuItem-root")));
       Actions builder = new Actions(driver);
       builder.moveToElement(element).release().perform();
     }
@@ -164,7 +177,9 @@ public class TrialSeleniumTest {
   @Order(5)
   void testDeleteStream() {
     driver.get("http://localhost:3000/Streaming");
-    driver.findElement(By.cssSelector(".MuiTableCell-root > .MuiButtonBase-root > .MuiIconButton-label > .MuiSvgIcon-root")).click();
+    driver.findElement(By.cssSelector(
+        ".MuiTableCell-root > .MuiButtonBase-root > .MuiIconButton-label > .MuiSvgIcon-root"))
+        .click();
     driver.findElement(By.cssSelector(".MuiButton-textSecondary > .MuiButton-label")).click();
 
     // Check for stream deletion
@@ -177,10 +192,5 @@ public class TrialSeleniumTest {
 
     assertFalse(assertValue);
 
-  }
-
-  @AfterAll
-  static void tearDown() {
-    driver.quit();
   }
 }
