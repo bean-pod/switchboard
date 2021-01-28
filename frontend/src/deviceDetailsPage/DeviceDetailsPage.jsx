@@ -7,7 +7,7 @@ import DynamicBreadcrumb from "../general/DynamicBreadcrumb";
 import DeviceDetailsTabTable from "./DeviceDetailsTabTable";
 import DeviceInfo from "../model/DeviceInfo";
 import { getSampleSender } from "../api/SampleData";
-import DeleteDeviceButton from "./DeleteDeviceButton";
+import DeleteDeviceButton from "../general/DeleteDeviceButton";
 
 export default function DeviceDetailsPage(props) {
   const {
