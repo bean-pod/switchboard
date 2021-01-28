@@ -40,6 +40,7 @@ export default function DeleteDeviceButton(props) {
   const confirmDelete = () => {
     DeviceApi.deleteDevice(deleteId);
     history.push("/Devices");
+    history.go(0);
     return setOpen(false);
   };
 
