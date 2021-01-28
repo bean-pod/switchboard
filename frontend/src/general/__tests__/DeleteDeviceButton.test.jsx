@@ -18,9 +18,11 @@ Enzyme.configure({ adapter: new Adapter() });
 jest.mock("axios");
 
 const mockHistoryPush = jest.fn();
+const mockHistoryGo = jest.fn();
 jest.mock("react-router-dom", () => ({
   useHistory: () => ({
-    push: mockHistoryPush
+    push: mockHistoryPush,
+    go: mockHistoryGo
   })
 }));
 
@@ -33,7 +35,7 @@ describe("DeleteButton", () => {
   beforeEach(() => {
     handleClick.mockImplementation((open) => [open, setOpen]);
     wrapper = Enzyme.shallow(
-      <DeleteDeviceButton deviceType="encoder" deleteId="1:10:111:999" />
+      <DeleteDeviceButton button deleteId="1:10:111:999" />
     );
   });
   afterEach(() => {
@@ -89,8 +91,9 @@ describe("DeleteButton", () => {
         // check that axios.delete was called
         expect(axios.delete).toHaveBeenCalled();
 
-        // check that redirect (history.push) has been called
-        expect(mockHistoryPush).toHaveBeenCalled();
+        // check that redirect/refresh has been called
+        expect(mockHistoryPush).toHaveBeenCalledWith("/Devices");
+        expect(mockHistoryGo).toHaveBeenCalledWith(0);
 
         // open should be false
         expect(setOpen).toBeFalsy;
