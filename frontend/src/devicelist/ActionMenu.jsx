@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 
 import { MoreVert } from "@material-ui/icons/";
 import DeviceInfo from "../model/DeviceInfo";
+import DeleteDeviceButton from "../deviceDetailsPage/DeleteDeviceButton";
 
 export default class ActionMenu extends React.Component {
   constructor(props) {
@@ -68,9 +69,7 @@ export default class ActionMenu extends React.Component {
           <MenuItem onClick={this.handleClose}>
             Start stream with this as receiver
           </MenuItem>
-          <MenuItem onClick={this.handleClose}>
-            <span className="warningText">Delete</span>
-          </MenuItem>
+          <DeleteDeviceButton button={false} deleteId={device.serialNumber} />
         </Menu>
       </>
     );
