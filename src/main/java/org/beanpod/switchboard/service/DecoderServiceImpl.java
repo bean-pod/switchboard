@@ -21,7 +21,7 @@ public class DecoderServiceImpl implements DecoderService {
 
   @Override
   public List<StreamDto> getDecoderStreams(String decoderSerialNumber) {
-    log.info("Getting Decoder's {} streams", decoderSerialNumber);
+    log.info("Getting decoder {} streams", decoderSerialNumber);
     DecoderDto decoder =
         decoderDao
             .findDecoder(decoderSerialNumber)
@@ -29,7 +29,7 @@ public class DecoderServiceImpl implements DecoderService {
 
     decoder.setLastCommunication(dateUtil.getCurrentDate());
     decoderDao.save(decoder);
-    log.debug("Updated decoder's last communication date");
+    log.debug("Updated decoder {} last communication date", decoderSerialNumber);
 
     return streamDao.getDecoderStreams(decoderSerialNumber);
   }

@@ -21,7 +21,7 @@ public class EncoderServiceImpl implements EncoderService {
 
   @Override
   public List<StreamDto> getEncoderStreams(String encoderSerialNumber) {
-    log.info("Getting Encoder's {} streams", encoderSerialNumber);
+    log.info("Getting encoder {} streams", encoderSerialNumber);
     EncoderDto encoderDto =
         encoderDao
             .findEncoder(encoderSerialNumber)
@@ -29,7 +29,7 @@ public class EncoderServiceImpl implements EncoderService {
 
     encoderDto.setLastCommunication(dateUtil.getCurrentDate());
     encoderDao.save(encoderDto);
-    log.debug("Updated encoder's last communication date");
+    log.debug("Updated encoder {} last communication date", encoderSerialNumber);
 
     return streamDao.getEncoderStreams(encoderSerialNumber);
   }
