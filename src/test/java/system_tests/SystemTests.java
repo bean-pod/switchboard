@@ -29,7 +29,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class TrialSeleniumTest {
+public class SystemTests {
 
   private static WebDriver driver;
   private static String testSenderDeviceParams;
