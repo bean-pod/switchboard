@@ -181,6 +181,6 @@ test("Clicking 'Confirm' should call axios.delete with the correct stream ID", (
 
   expect(mockHistoryPush).toHaveBeenCalledWith("/Streaming");
   expect(mockHistoryGo).toHaveBeenCalledWith(0);
-  
+
   jest.clearAllMocks();
 });
