@@ -8,9 +8,11 @@ import * as SampleData from "../../api/SampleData";
 
 jest.mock("axios");
 const mockHistoryPush = jest.fn();
+const mockHistoryGo = jest.fn();
 jest.mock("react-router-dom", () => ({
   useHistory: () => ({
-    push: mockHistoryPush
+    push: mockHistoryPush,
+    go: mockHistoryGo
   })
 }));
 
@@ -177,7 +179,8 @@ test("Clicking 'Confirm' should call axios.delete with the correct stream ID", (
     `${process.env.REACT_APP_STREAM}/1`
   );
 
-  expect(mockHistoryPush).toHaveBeenCalled();
-
+  expect(mockHistoryPush).toHaveBeenCalledWith("/Streaming");
+  expect(mockHistoryGo).toHaveBeenCalledWith(0);
+  
   jest.clearAllMocks();
 });
