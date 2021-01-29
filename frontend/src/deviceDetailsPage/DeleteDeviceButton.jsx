@@ -28,7 +28,12 @@ export default function DeleteDeviceButton(props) {
 
   return (
     <>
-      <Button id="deleteBtn" variant="outlined" onClick={openDeleteDialog}>
+      <Button
+        id="deleteBtn"
+        variant="outlined"
+        color="secondary"
+        onClick={openDeleteDialog}
+      >
         Delete
       </Button>
       <Dialog
