@@ -24,7 +24,6 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class StreamAspect {
 
-
   private final LogService logService;
   private final StreamDaoImpl streamDao;
   String stream = "stream";
@@ -78,8 +77,8 @@ public class StreamAspect {
     String encoderSerial = streamDto.getOutputChannel().getEncoder().getSerialNumber();
     String message =
         String.format(
-        "Deleted stream of ID %l between decoder %s and encoder %s", streamId,decoderSerial,encoderSerial);
+            "Deleted stream of ID %l between decoder %s and encoder %s",
+            streamId, decoderSerial, encoderSerial);
     logService.createLog(message, "info");
   }
-
 }
