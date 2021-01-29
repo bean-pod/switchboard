@@ -168,12 +168,8 @@ public class SystemTests {
     driver.findElement(By.cssSelector("body")).click();
     driver.findElement(By.cssSelector(".MuiMenuItem-root")).click();
     driver.findElement(By.cssSelector(".buttonText")).click();
-  }
 
-  @Test
-  @Order(4)
-  void testViewStream() {
-    driver.get("http://localhost:3000/Streaming");
+    driver.navigate().refresh();
 
     // Check for stream creation
     WebElement streamsTable = driver.findElement(By.tagName("table")); // find streams table
@@ -185,7 +181,7 @@ public class SystemTests {
   }
 
   @Test
-  @Order(5)
+  @Order(4)
   void testDeleteStream() {
     driver.get("http://localhost:3000/Streaming");
     driver
