@@ -26,23 +26,17 @@ afterEach(() => {
   container = null;
 });
 
-function verifyActionButtons(rowElement) {
-  const buttonsContainer = rowElement.firstChild;
-  // check 3 buttons
-  expect(buttonsContainer.firstChild.querySelector("button span svg")).not.toBe(
-    null
-  );
-  expect(
-    buttonsContainer.firstChild.nextSibling.querySelector("button span svg")
-  ).not.toBe(null);
-  expect(buttonsContainer.lastChild.querySelector("button span svg")).not.toBe(
+function verifyDeleteButton(rowElement) {
+  const deleteButton = rowElement.firstChild;
+  // check for delete button to not be null
+  expect(deleteButton.firstChild.querySelector("button span svg")).not.toBe(
     null
   );
 }
 
 // stream list is a fragment that shows up at the bottom of the stream creation page
 // according to mockups.
-test("Stream list fragment renders title and streams fetched aren't null", () => {
+test("Stream list fragment renders title and streams displayed match sample stream data", () => {
   act(() => {
     render(<StreamList dataSource={SampleData} />, container);
   });
@@ -52,20 +46,17 @@ test("Stream list fragment renders title and streams fetched aren't null", () =>
   expect(title).not.toBe(null);
   expect(title.innerHTML).toBe("Current Streams");
 
-  // check streams aren't null
-  expect(sampleStreams.length).not.toBe(null);
-
   // check streams
   const streams = document.querySelectorAll("tr.MuiTableRow-root[index]");
   expect(streams).not.toBe(null);
   expect(streams.length).toBe(sampleStreams.length);
 
-  // check that stream info is rendering right
+  // check that stream info is rendering with the expected stream info
   sampleStreams.forEach((stream, index) => {
     const rowElements = streams[index].querySelectorAll("td");
     // chevron
     expect(rowElements[0].querySelector("button span svg")).not.toBe(null);
-    // order: 1 id, 2 date, 3 sender name, 4 receiver name, 5 status, 6 type, 7 time, 8 actions
+    // order: 1 id, 2 date, 3 sender name, 4 receiver name, 5 status, 6 type, 7 time, 8 delete
     expect(rowElements[1].textContent).toBe(stream.id.toString());
     expect(rowElements[2].textContent).toBe(stream.date);
     expect(rowElements[3].textContent).toBe(stream.sender.name);
@@ -73,11 +64,11 @@ test("Stream list fragment renders title and streams fetched aren't null", () =>
     expect(rowElements[5].firstChild.textContent).toBe(stream.status); // not checking that status is correct :/
     expect(rowElements[6].textContent).toBe(stream.type);
     expect(rowElements[7].textContent).toBe(stream.time);
-    verifyActionButtons(rowElements[8]);
+    verifyDeleteButton(rowElements[8]);
   });
 });
 
-test("Clicking dropdown on table row displays additional information", () => {
+test("Additional stream information is displayed when dropdown is clicked", () => {
   act(() => {
     render(<StreamList dataSource={SampleData} />, container);
   });
@@ -93,13 +84,13 @@ test("Clicking dropdown on table row displays additional information", () => {
     "tr.MuiTableRow-root td.MuiTableCell-root[colspan] h6"
   );
   expect(additionalInfoElement).not.toBe(null);
-  expect(additionalInfoElement.innerHTML).toBe("Stream Details");
+  expect(additionalInfoElement.innerHTML).toBe("Additional stream details");
 });
 
 function clickDelete() {
   const deleteButton = document.querySelectorAll(
     "tr.MuiTableRow-root[index] button"
-  )[3];
+  )[1];
   act(() => {
     ReactTestUtils.Simulate.click(deleteButton);
   });
@@ -130,7 +121,7 @@ test("Clicking the delete button shows appropriate popup dialog", () => {
     "div.MuiDialogActions-root button"
   );
   expect(dialogButtons[0].textContent).toBe("Cancel");
-  expect(dialogButtons[1].textContent).toBe("Confirm");
+  expect(dialogButtons[1].textContent).toBe("Delete");
 });
 
 test("Clicking outside the dialog or 'Cancel' should close the dialog", () => {

@@ -7,6 +7,7 @@ export default class DeviceInfo {
     displayName,
     status,
     channels,
+    deviceType,
     extras
   ) {
     this.serialNumber = serial;
@@ -16,6 +17,7 @@ export default class DeviceInfo {
     this.name = displayName;
     this.status = status;
     this.channels = channels;
+    this.deviceType = deviceType;
     this.extras = extras;
   }
 
