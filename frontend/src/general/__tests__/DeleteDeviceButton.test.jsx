@@ -4,7 +4,8 @@ import {
   Dialog,
   DialogTitle,
   DialogContentText,
-  DialogActions
+  DialogActions,
+  MenuItem
 } from "@material-ui/core";
 
 import Enzyme from "enzyme";
@@ -42,8 +43,17 @@ describe("DeleteButton", () => {
     jest.clearAllMocks();
   });
 
-  it("Should have 3 total buttons and one dialog", () => {
+  it("Should have 3 total buttons and one dialog for button = true", () => {
     expect(wrapper.find(Button)).toHaveLength(3);
+    expect(wrapper.find(Dialog)).toHaveLength(1);
+  });
+  it("Should have 2 buttons, one dialog, and one menu item for button = false", () => {
+    wrapper = Enzyme.shallow(
+      <DeleteDeviceButton button={false} deleteId="1:10:111:999" />
+    );
+
+    expect(wrapper.find(Button)).toHaveLength(2);
+    expect(wrapper.find(MenuItem)).toHaveLength(1);
     expect(wrapper.find(Dialog)).toHaveLength(1);
   });
   it("Should open a confirmation dialog when clicked", () => {
