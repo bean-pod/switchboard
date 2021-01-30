@@ -6,7 +6,7 @@ import HeaderBar from "./general/HeaderBar";
 import HomePage from "./general/HomePage";
 import DeviceListPage from "./devicelist/DeviceListPage";
 import StreamingTablePage from "./createStream/StreamingPage";
-import DeviceDetailsPage from "./DeviceDetailsPage/DeviceDetailsPage";
+import DeviceDetailsPage from "./deviceDetailsPage/DeviceDetailsPage";
 
 import * as DeviceApi from "./api/DeviceApi";
 import * as StreamApi from "./api/StreamApi";

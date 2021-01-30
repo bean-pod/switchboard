@@ -46,7 +46,7 @@ class ChannelControllerTest {
 
   @BeforeEach
   void setupChannelFixture() throws ParseException {
-    channelEntityList = List.of(ChannelFixture.getChannelEntity());
+    channelEntityList = List.of(ChannelFixture.getChannelEntity1());
     channelDtoList = List.of(ChannelFixture.getChannelDto());
     encoderDto = EncoderFixture.getEncoderDto();
     decoderDto = DecoderFixture.getDecoderDto();
