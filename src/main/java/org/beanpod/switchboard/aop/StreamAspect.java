@@ -6,7 +6,6 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.beanpod.switchboard.dao.StreamDaoImpl;
-import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.exceptions.ExceptionType.UnknownException;
 import org.beanpod.switchboard.service.LogService;
 import org.openapitools.model.DecoderModel;
@@ -72,13 +71,7 @@ public class StreamAspect {
   public void deleteStream(JoinPoint joinPoint) {
     Object[] args = joinPoint.getArgs();
     Long streamId = (Long) args[0];
-    StreamDto streamDto = streamDao.getStreamById(streamId);
-    String decoderSerial = streamDto.getInputChannel().getDecoder().getSerialNumber();
-    String encoderSerial = streamDto.getOutputChannel().getEncoder().getSerialNumber();
-    String message =
-        String.format(
-            "Deleted stream of ID %l between decoder %s and encoder %s",
-            streamId, decoderSerial, encoderSerial);
+    String message = String.format("Deleted stream of ID %d", streamId);
     logService.createLog(message, "info");
   }
 }

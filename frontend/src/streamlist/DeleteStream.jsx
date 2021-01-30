@@ -24,9 +24,10 @@ export default function DeleteStream(props) {
     return setOpen(false);
   };
   const confirmDelete = () => {
-    StreamApi.deleteStream(deleteId);
-    history.push("/Streaming");
-    history.go(0);
+    StreamApi.deleteStream(deleteId, () => {
+      history.push("/Streaming");
+      history.go(0);
+    });
     return setOpen(false);
   };
 
