@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Container } from "@material-ui/core";
+import { Container, Paper } from "@material-ui/core";
 
 export default function DeviceDetailsNotesPanel(props) {
   const { extras } = props;
-  return <Container>{extras}</Container>;
+  return <Container component={Paper}>{extras}</Container>;
 }
 
 DeviceDetailsNotesPanel.propTypes = {
