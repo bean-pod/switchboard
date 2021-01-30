@@ -32,7 +32,12 @@ Developed as a Concordia University Capstone project.
     * Run the command `npm start` for a non-optimized development build 
     * Run the command `npm run build` for a production build
     
-### Backend
+#### Code styling
+* How to use ESLint/Prettier
+    * Execute command `npm run lint:fix` within frontend directory
+      ([README](https://github.com/bean-pod/switchboard/blob/master/frontend/README.md))
+    
+### Back-end
 
 #### Setup
 * Install Java 11 SDK
@@ -52,28 +57,26 @@ Developed as a Concordia University Capstone project.
 * `./mvnw compile` to compile the code.
 * `./mvnw spring-boot:run` to run the application.
 
-### Code styling tools
-
-#### Backend
+#### Code styling
 * Install the IntelliJ plugin for google java format. This will replace the normal Reformat Code action.
 * You must import the intellij java google style XML configuration file into IntelliJ in order to handle import ordering.
     * Download the [IntelliJ Java Google Style file](https://raw.githubusercontent.com/google/styleguide/gh-pages/intellij-java-google-style.xml) and import it into File -> Settings -> Editor -> Code Style.
 * Consult the [Google Java Format README](https://github.com/google/google-java-format) for more information.
 
-#### Frontend
-* How to use ESLint/Prettier
-    * Execute command `npm run lint:fix` within frontend directory
-    ([README](https://github.com/bean-pod/switchboard/blob/master/frontend/README.md))
+## System Testing
+* [Download](https://chromedriver.chromium.org/downloads) and move chromedriver into `src/test/java/system_tests/` (You may need to give permission to run chromedriver on your OS)
+* chromedriver expects that you have the corresponding chrome browser installed on your system.
+* Run back-end and front-end locally, preferably your database should be empty before running the system test.
 
 ## Troubleshooting
 
-#### Frontend does not compile
+### Frontend does not compile
 Usually you need to run `npm install` in the frontend folder to fix most compilation issues.
 
-#### Database is not online / Database connection information is incorrect
+### Database is not online / Database connection information is incorrect
 Usually this will cause an error when starting up the application indicating an error when creating a bean or service related to Jdbc. Check that your MySQL database is running, and check that the database connection information in `application.properties` is correct. If you need to override the information in `application.properties`, you should add command-line arguments to your runtime configuration.
 * For example: `spring-boot:run "-Dspring-boot.run.arguments=--spring.datasource.password=password --spring.datasource.url=jdbc:mysql://localhost:3306/switchboard?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true -Dspring-boot.run.fork=false"`
 
-#### Public key retrieval is not allowed
+### Public key retrieval is not allowed
 This error happens the first time you connect to the database. You can fix the problem by adding `useSSL=false&allowPublicKeyRetrieval=true` to the datasource URL.
 * Example: `spring-boot:run "-Dspring-boot.run.arguments=--spring.datasource.url=jdbc:mysql://localhost:3306/switchboard?useSSL=false&allowPublicKeyRetrieval=true"`
