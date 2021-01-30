@@ -33,6 +33,7 @@ export default class VerticalTabs extends React.Component {
           aria-label="Vertical tabs"
           className={`${tabs} lightGrey blackFont flexContents`}
           orientation="vertical"
+          indicatorColor="primary"
           variant="scrollable"
         >
           <Tab label="Senders" {...this.getTabProps(0)} />
