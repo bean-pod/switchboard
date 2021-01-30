@@ -68,8 +68,7 @@ public class StreamAspect {
     logService.createLog(message, "info");
   }
 
-  @Before(
-      "execution(* org.beanpod.switchboard.controller.StreamController.deleteStream(..))")
+  @Before("execution(* org.beanpod.switchboard.controller.StreamController.deleteStream(..))")
   public void deleteStream(JoinPoint joinPoint) {
     Object[] args = joinPoint.getArgs();
     Long streamId = (Long) args[0];
