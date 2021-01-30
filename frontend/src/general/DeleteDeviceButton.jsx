@@ -12,7 +12,12 @@ import * as DeviceApi from "../api/DeviceApi";
 
 function renderDeleteButton(openDeleteDialog) {
   return (
-    <Button id="deleteBtn" variant="outlined" onClick={openDeleteDialog}>
+    <Button
+      id="deleteBtn"
+      variant="outlined"
+      color="secondary"
+      onClick={openDeleteDialog}
+    >
       Delete
     </Button>
   );
