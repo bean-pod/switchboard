@@ -7,6 +7,15 @@ import StreamList from "../StreamList";
 import * as SampleData from "../../api/SampleData";
 
 jest.mock("axios");
+const mockHistoryPush = jest.fn();
+const mockHistoryGo = jest.fn();
+jest.mock("react-router-dom", () => ({
+  useHistory: () => ({
+    push: mockHistoryPush,
+    go: mockHistoryGo
+  })
+}));
+
 let container = null;
 let sampleStreams = null;
 
@@ -144,7 +153,7 @@ test("Clicking outside the dialog or 'Cancel' should close the dialog", () => {
   expect(dialog).toBeNull;
 });
 
-test("Clicking 'Confirm' should call axios.delete with the correct stream ID", () => {
+test("Clicking 'Confirm' should call axios.delete with the correct stream ID", async () => {
   act(() => {
     render(<StreamList dataSource={SampleData} />, container);
   });
@@ -169,6 +178,11 @@ test("Clicking 'Confirm' should call axios.delete with the correct stream ID", (
   expect(axios.delete).toHaveBeenCalledWith(
     `${process.env.REACT_APP_STREAM}/1`
   );
+
+  const flushPromises = () => new Promise(setImmediate);
+  await flushPromises();
+  expect(mockHistoryPush).toHaveBeenCalledWith("/Streaming");
+  expect(mockHistoryGo).toHaveBeenCalledWith(0);
 
   jest.clearAllMocks();
 });
