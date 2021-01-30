@@ -98,9 +98,8 @@ export function getReceivers(callback) {
     });
 }
 
-export function deleteDevice(deviceId, callback) {
-  axios
+export function deleteDevice(deviceId) {
+  return axios
     .delete(`${process.env.REACT_APP_DEVICE}/${deviceId}`)
-    .then(callback)
     .catch(() => {});
 }
