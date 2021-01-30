@@ -22,7 +22,13 @@ public class LogFixture {
   }
 
   public static LogEntity getLogEntity() {
-    return LogEntity.builder().id(id).dateTime(dateTime).message(message).level(level).serialNumber(DeviceFixture.SERIAL_NUMBER).build();
+    return LogEntity.builder()
+        .id(id)
+        .dateTime(dateTime)
+        .message(message)
+        .level(level)
+        .serialNumber(DeviceFixture.SERIAL_NUMBER)
+        .build();
   }
 
   public static List<LogModel> getListOfLogs() {

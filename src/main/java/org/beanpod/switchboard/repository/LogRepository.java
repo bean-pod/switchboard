@@ -14,7 +14,8 @@ public interface LogRepository extends JpaRepository<LogEntity, Long> {
 
   List<LogEntity> findAll();
 
-  //The Query covers three cases: 1- serialNumber = X,Y 2- serialNumber = Y,X 3- serialNumber = X
-  @Query("SELECT l FROM LogEntity l WHERE l.serialNumber LIKE CONCAT(?1,',%') OR l.serialNumber LIKE CONCAT('%,',?1) OR l.serialNumber = ?1")
+  // The Query covers three cases: 1- serialNumber = X,Y 2- serialNumber = Y,X 3- serialNumber = X
+  @Query(
+      "SELECT l FROM LogEntity l WHERE l.serialNumber LIKE CONCAT(?1,',%') OR l.serialNumber LIKE CONCAT('%,',?1) OR l.serialNumber = ?1")
   List<LogEntity> findBySerialNumber(String serialNumber);
 }

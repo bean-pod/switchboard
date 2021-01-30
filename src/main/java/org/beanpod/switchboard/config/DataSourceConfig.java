@@ -52,7 +52,6 @@ public class DataSourceConfig {
 
   @Bean(name = "mySqlProdDataSource")
   @Profile("production")
-
   public DataSource mySqlProdDataSource() throws URISyntaxException {
     URI dbUri = new URI(System.getenv("CLEARDB_DATABASE_URL"));
 

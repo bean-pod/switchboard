@@ -57,6 +57,6 @@ public class StreamAspect {
             "A stream started from output channel %d of decoder %s"
                 + " to input channel %d of encoder %s",
             outputId, decoderSerial, inputId, encoderSerial);
-    logService.createLog(message, "info",decoderSerial+','+encoderSerial);
+    logService.createLog(message, "info", decoderSerial + ',' + encoderSerial);
   }
 }
