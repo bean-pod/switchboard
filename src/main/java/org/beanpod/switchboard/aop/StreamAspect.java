@@ -76,6 +76,6 @@ public class StreamAspect {
         String.format(
             "Deleted stream of ID %l between decoder %s and encoder %s",
             streamId, decoderSerial, encoderSerial);
-    logService.createLog(message, "info");
+    logService.createLog(message, "info", decoderSerial + "," + encoderSerial);
   }
 }
