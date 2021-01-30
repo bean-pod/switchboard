@@ -1,12 +1,12 @@
 import React from "react";
-import { TableCell, TableRow } from "@material-ui/core";
+import {TableCell, TableRow} from "@material-ui/core";
 
 export default function ChannelDetailsTableHead() {
-  return (
-    <TableRow>
-      <TableCell className="lightGrey">ID</TableCell>
-      <TableCell className="lightGrey">Name</TableCell>
-      <TableCell className="lightGrey">Port</TableCell>
-    </TableRow>
-  );
+    return (
+        <TableRow>
+            <TableCell className="lightGrey">ID</TableCell>
+            <TableCell className="lightGrey">Name</TableCell>
+            <TableCell className="lightGrey">Port</TableCell>
+        </TableRow>
+    );
 }

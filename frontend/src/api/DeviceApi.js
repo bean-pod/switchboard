@@ -5,95 +5,95 @@ import OutputChannelInfo from "../model/OutputChannelInfo";
 import InputChannelInfo from "../model/InputChannelInfo";
 
 function getStatus(lastCommunicationString) {
-  if (!lastCommunicationString) {
-    return "Pending";
-  }
+    if (!lastCommunicationString) {
+        return "Pending";
+    }
 
-  const lastCommunicationDate = new Date(`${lastCommunicationString}Z`);
-  const diff = Date.now() - lastCommunicationDate.getTime();
-  const tenMinutes = 10 * 60 * 1000;
-  if (diff < tenMinutes) {
-    return "Online";
-  }
-  return "Offline";
+    const lastCommunicationDate = new Date(`${lastCommunicationString}Z`);
+    const diff = Date.now() - lastCommunicationDate.getTime();
+    const tenMinutes = 10 * 60 * 1000;
+    if (diff < tenMinutes) {
+        return "Online";
+    }
+    return "Offline";
 }
 
 export function getSenders(callback) {
-  axios
-    .get(process.env.REACT_APP_ENCODER)
-    .then((senders) => {
-      callback(
-        senders.data.map((sender) => {
-          let channels = [];
-          if (sender.output) {
-            channels = sender.output.map((output) => {
-              return new OutputChannelInfo(
-                output.id,
-                output.channel.name,
-                output.channel.port,
-                null
-              );
-            });
-          }
-          const lastCommunication =
-            sender.lastCommunication == null
-              ? "Never"
-              : sender.lastCommunication;
-          return new DeviceInfo(
-            sender.serialNumber,
-            lastCommunication,
-            sender.device.publicIpAddress,
-            sender.device.privateIpAddress,
-            sender.device.displayName,
-            getStatus(sender.lastCommunication),
-            channels,
-            "encoder",
-            ["Additional Device details go here"]
-          );
+    axios
+        .get(process.env.REACT_APP_ENCODER)
+        .then((senders) => {
+            callback(
+                senders.data.map((sender) => {
+                    let channels = [];
+                    if (sender.output) {
+                        channels = sender.output.map((output) => {
+                            return new OutputChannelInfo(
+                                output.id,
+                                output.channel.name,
+                                output.channel.port,
+                                null
+                            );
+                        });
+                    }
+                    const lastCommunication =
+                        sender.lastCommunication == null
+                            ? "Never"
+                            : sender.lastCommunication;
+                    return new DeviceInfo(
+                        sender.serialNumber,
+                        lastCommunication,
+                        sender.device.publicIpAddress,
+                        sender.device.privateIpAddress,
+                        sender.device.displayName,
+                        getStatus(sender.lastCommunication),
+                        channels,
+                        "encoder",
+                        ["Additional Device details go here"]
+                    );
+                })
+            );
         })
-      );
-    })
-    .catch((error) => {
-      SampleData.getSenders(callback);
-    });
+        .catch((error) => {
+            SampleData.getSenders(callback);
+        });
 }
 
 export function getReceivers(callback) {
-  axios
-    .get(process.env.REACT_APP_DECODER)
-    .then((receivers) => {
-      callback(
-        receivers.data.map((receiver) => {
-          let channels = [];
-          if (receiver.input) {
-            channels = receiver.input.map((input) => {
-              return new InputChannelInfo(
-                input.id,
-                input.channel.name,
-                input.channel.port,
-                null
-              );
-            });
-          }
-          const lastCommunication =
-            receiver.lastCommunication == null
-              ? "Never"
-              : receiver.lastCommunication;
-          return new DeviceInfo(
-            receiver.serialNumber,
-            lastCommunication,
-            receiver.device.publicIpAddress,
-            receiver.device.privateIpAddress,
-            receiver.device.displayName,
-            getStatus(receiver.lastCommunication),
-            channels,
-            "decoder",
-            ["Additional Device details go here"]
-          );
+    axios
+        .get(process.env.REACT_APP_DECODER)
+        .then((receivers) => {
+            callback(
+                receivers.data.map((receiver) => {
+                    let channels = [];
+                    if (receiver.input) {
+                        channels = receiver.input.map((input) => {
+                            return new InputChannelInfo(
+                                input.id,
+                                input.channel.name,
+                                input.channel.port,
+                                null
+                            );
+                        });
+                    }
+                    const lastCommunication =
+                        receiver.lastCommunication == null
+                            ? "Never"
+                            : receiver.lastCommunication;
+                    return new DeviceInfo(
+                        receiver.serialNumber,
+                        lastCommunication,
+                        receiver.device.publicIpAddress,
+                        receiver.device.privateIpAddress,
+                        receiver.device.displayName,
+                        getStatus(receiver.lastCommunication),
+                        channels,
+                        "decoder",
+                        ["Additional Device details go here"]
+                    );
+                })
+            );
         })
-      );
-    })
-    .catch((error) => {
-      SampleData.getReceivers(callback);
-    });
+        .catch((error) => {
+            SampleData.getReceivers(callback);
+        });
 }
