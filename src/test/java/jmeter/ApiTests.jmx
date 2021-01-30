@@ -105,7 +105,7 @@
         <hashTree>
           <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
             <boolProp name="LoopController.continue_forever">true</boolProp>
-            <stringProp name="LoopController.loops">5</stringProp>
+            <stringProp name="LoopController.loops">7</stringProp>
           </LoopController>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="createDevice" enabled="true">
@@ -153,7 +153,7 @@ vars.put(&quot;deviceSerial&quot;,String.valueOf(deviceSerial));</stringProp>
           </hashTree>
           <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
             <boolProp name="LoopController.continue_forever">true</boolProp>
-            <stringProp name="LoopController.loops">5</stringProp>
+            <stringProp name="LoopController.loops">6</stringProp>
           </LoopController>
           <hashTree>
             <CriticalSectionController guiclass="CriticalSectionControllerGui" testclass="CriticalSectionController" testname="Critical Section Controller" enabled="true">
@@ -360,7 +360,7 @@ vars.put(&quot;inputChannelId&quot;,String.valueOf(inputChannelId));</stringProp
           </hashTree>
           <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
             <boolProp name="LoopController.continue_forever">true</boolProp>
-            <stringProp name="LoopController.loops">5</stringProp>
+            <stringProp name="LoopController.loops">4</stringProp>
           </LoopController>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="createStream" enabled="true">
@@ -1224,7 +1224,7 @@ vars.put(&quot;id&quot;,result);</stringProp>
           </BeanShellPreProcessor>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="getStreamsById" enabled="false">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="getStreamsById" enabled="true">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
@@ -1252,12 +1252,12 @@ vars.put(&quot;id&quot;,result);</stringProp>
 Random r = new Random();
 int low = 1;
 int high = 5;
-String result = String.valueOf(r.nextInt(high-low) + low);
+String result = String.valueOf(r.nextInt(high-low)*10 + low);
 vars.put(&quot;id&quot;,result);</stringProp>
           </BeanShellPreProcessor>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="getEncoderStreams" enabled="false">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="getEncoderStreams" enabled="true">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
@@ -1290,7 +1290,7 @@ vars.put(&quot;id&quot;,result);</stringProp>
           </BeanShellPreProcessor>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="getDecoderStreams" enabled="false">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="getDecoderStreams" enabled="true">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
@@ -1317,7 +1317,7 @@ vars.put(&quot;id&quot;,result);</stringProp>
 
 Random r = new Random();
 int low = 1;
-int high = 100;
+int high = 5;
 String result = String.valueOf(r.nextInt(high-low) + low);
 vars.put(&quot;id&quot;,result);</stringProp>
           </BeanShellPreProcessor>
@@ -1573,7 +1573,7 @@ vars.put(&quot;id&quot;,result);</stringProp>
 
 Random r = new Random();
 int low = 1;
-int high = 5;
+int high = 7;
 String result = String.valueOf(r.nextInt(high-low) + low);
 vars.put(&quot;serialNumber&quot;,result);</stringProp>
           </BeanShellPreProcessor>
@@ -1606,7 +1606,7 @@ vars.put(&quot;serialNumber&quot;,result);</stringProp>
 
 Random r = new Random();
 int low = 1;
-int high = 5;
+int high = 6;
 String result = String.valueOf(r.nextInt(high-low) + low);
 vars.put(&quot;serialNumber&quot;,result);</stringProp>
           </BeanShellPreProcessor>
@@ -1639,7 +1639,7 @@ vars.put(&quot;serialNumber&quot;,result);</stringProp>
 
 Random r = new Random();
 int low = 1;
-int high = 5;
+int high = 6;
 String result = String.valueOf(r.nextInt(high-low) + low);
 vars.put(&quot;serialNumber&quot;,result);</stringProp>
           </BeanShellPreProcessor>
@@ -1672,9 +1672,9 @@ vars.put(&quot;serialNumber&quot;,result);</stringProp>
 
 Random r = new Random();
 int low = 1;
-int high = 5;
+int high = 10;
 String result = String.valueOf(r.nextInt(high-low)*10 + low);
-vars.put(&quot;serialNumber&quot;,result);</stringProp>
+vars.put(&quot;id&quot;,result);</stringProp>
           </BeanShellPreProcessor>
           <hashTree/>
         </hashTree>
@@ -1744,7 +1744,7 @@ vars.put(&quot;id&quot;,result);</stringProp>
           </BeanShellPreProcessor>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="deleteStream" enabled="false">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="deleteStream" enabled="true">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
@@ -1772,7 +1772,7 @@ vars.put(&quot;id&quot;,result);</stringProp>
 Random r = new Random();
 int low = 1;
 int high = 5;
-String result = String.valueOf(r.nextInt(high-low) + low);
+String result = String.valueOf(r.nextInt(high-low)*10 + low);
 vars.put(&quot;id&quot;,result);</stringProp>
           </BeanShellPreProcessor>
           <hashTree/>
