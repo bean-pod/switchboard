@@ -1,7 +1,8 @@
 package org.beanpod.switchboard.service;
 
-import java.util.List;
 import org.beanpod.switchboard.dto.StreamDto;
+
+import java.util.List;
 
 public interface DecoderService {
   List<StreamDto> getDecoderStreams(String decoderSerialNumber);

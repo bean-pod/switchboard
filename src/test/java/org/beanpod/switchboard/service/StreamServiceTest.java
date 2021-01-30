@@ -1,10 +1,5 @@
 package org.beanpod.switchboard.service;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-import static org.mockito.MockitoAnnotations.initMocks;
-
 import org.beanpod.switchboard.dao.ChannelDaoImpl;
 import org.beanpod.switchboard.dao.StreamDaoImpl;
 import org.beanpod.switchboard.dto.DeviceDto;
@@ -21,6 +16,11 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.openapitools.model.CreateStreamRequest;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.initMocks;
 
 public class StreamServiceTest {
 

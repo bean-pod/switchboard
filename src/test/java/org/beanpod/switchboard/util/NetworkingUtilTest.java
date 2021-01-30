@@ -1,12 +1,12 @@
 package org.beanpod.switchboard.util;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import org.beanpod.switchboard.dto.DeviceDto;
 import org.beanpod.switchboard.fixture.DeviceFixture;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class NetworkingUtilTest {
   private NetworkingUtil networkingUtil;

@@ -1,8 +1,5 @@
 package org.beanpod.switchboard.controller;
 
-import java.util.List;
-import java.util.Optional;
-import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.dao.StreamDaoImpl;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
@@ -14,6 +11,10 @@ import org.openapitools.model.CreateStreamRequest;
 import org.openapitools.model.StreamModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor

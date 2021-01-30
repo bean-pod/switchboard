@@ -1,10 +1,5 @@
 package org.beanpod.switchboard.controller;
 
-import java.util.List;
-import java.util.Optional;
-import javax.servlet.http.HttpServletRequest;
-import javax.transaction.Transactional;
-import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.beanpod.switchboard.dao.DeviceDaoImpl;
@@ -18,6 +13,12 @@ import org.openapitools.model.DeviceModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
+import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @RestController

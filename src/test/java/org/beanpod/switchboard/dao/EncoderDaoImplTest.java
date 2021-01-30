@@ -1,13 +1,5 @@
 package org.beanpod.switchboard.dao;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertIterableEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-
-import java.text.ParseException;
-import java.util.List;
-import java.util.Optional;
 import org.beanpod.switchboard.dto.EncoderDto;
 import org.beanpod.switchboard.dto.mapper.EncoderMapper;
 import org.beanpod.switchboard.entity.EncoderEntity;
@@ -18,6 +10,15 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import java.text.ParseException;
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 class EncoderDaoImplTest {
 

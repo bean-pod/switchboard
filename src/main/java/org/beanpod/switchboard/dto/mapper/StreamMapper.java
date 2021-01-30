@@ -1,10 +1,11 @@
 package org.beanpod.switchboard.dto.mapper;
 
-import java.util.List;
 import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.entity.StreamEntity;
 import org.mapstruct.Mapper;
 import org.openapitools.model.StreamModel;
+
+import java.util.List;
 
 @Mapper(
     componentModel = "spring",
