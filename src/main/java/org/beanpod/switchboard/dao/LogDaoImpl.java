@@ -17,4 +17,8 @@ public class LogDaoImpl {
   public List<LogModel> getLogs() {
     return logMapper.toLogModels(logRepository.findAll());
   }
+
+  public List<LogModel> getDeviceLogs(String serialNumber) {
+    return logMapper.toLogModels(logRepository.findBySerialNumber(serialNumber));
+  }
 }

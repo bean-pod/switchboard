@@ -1,11 +1,8 @@
 package org.beanpod.switchboard.dto;
 
+import lombok.*;
+
 import java.time.OffsetDateTime;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 
 @Setter
 @Getter
@@ -21,4 +18,6 @@ public class LogDto {
   private String message;
 
   private String level;
+
+  private String serialNumber;
 }
