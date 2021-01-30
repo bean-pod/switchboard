@@ -27,5 +27,5 @@ public class LogEntity {
   private String level;
 
   private String
-          serialNumber; // This can be a single serialNumber or two serialNumbers seperated by a comma
+      serialNumber; // This can be a single serialNumber or two serialNumbers seperated by a comma
 }

@@ -1,12 +1,13 @@
 package org.beanpod.switchboard.fixture;
 
+import org.beanpod.switchboard.entity.LogEntity;
+import org.openapitools.model.LogModel;
+
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
-import org.beanpod.switchboard.entity.LogEntity;
-import org.openapitools.model.LogModel;
 
 public class LogFixture {
 
@@ -21,7 +22,13 @@ public class LogFixture {
   }
 
   public static LogEntity getLogEntity() {
-    return LogEntity.builder().id(id).dateTime(dateTime).message(message).level(level).build();
+    return LogEntity.builder()
+        .id(id)
+        .dateTime(dateTime)
+        .message(message)
+        .level(level)
+        .serialNumber(DeviceFixture.SERIAL_NUMBER)
+        .build();
   }
 
   public static List<LogModel> getListOfLogs() {
