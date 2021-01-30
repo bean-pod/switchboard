@@ -38,13 +38,12 @@ export default function DeleteDeviceButton(props) {
     return setOpen(false);
   };
   const confirmDelete = () => {
-    DeviceApi.deleteDevice(deleteId)
-    .then(() => {
-        if(history.location.pathname.endsWith("Devices")) {
-            history.go(0);
-        } else {
-            history.push("/Devices");
-        }
+    DeviceApi.deleteDevice(deleteId).then(() => {
+      if (history.location.pathname.endsWith("Devices")) {
+        history.go(0);
+      } else {
+        history.push("/Devices");
+      }
     });
     return setOpen(false);
   };
