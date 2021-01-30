@@ -1,6 +1,5 @@
 import React from "react";
 import { Grid } from "@material-ui/core";
-import { withRouter } from "react-router-dom";
 
 import axios from "axios";
 
@@ -8,7 +7,7 @@ import PropTypes from "prop-types";
 import SelectDevicesTable from "./SelectDevicesTable";
 import StreamButton from "../general/Buttons/StreamButton";
 
-class StreamingTable extends React.Component {
+export default class StreamingTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -52,10 +51,6 @@ class StreamingTable extends React.Component {
         .post(process.env.REACT_APP_STREAM, {
           inputChannelId: selectedReceiverID,
           outputChannelId: selectedSenderID
-        })
-        .then(() => {
-          const { history } = this.props;
-          history.go(0);
         });
     }
     event.preventDefault();
@@ -124,5 +119,3 @@ class StreamingTable extends React.Component {
 StreamingTable.propTypes = {
   dataSource: PropTypes.objectOf(PropTypes.func).isRequired
 };
-
-export default withRouter(StreamingTable);

@@ -153,7 +153,7 @@ test("Clicking outside the dialog or 'Cancel' should close the dialog", () => {
   expect(dialog).toBeNull;
 });
 
-test("Clicking 'Confirm' should call axios.delete with the correct stream ID", () => {
+test("Clicking 'Confirm' should call axios.delete with the correct stream ID", async () => {
   act(() => {
     render(<StreamList dataSource={SampleData} />, container);
   });
@@ -179,6 +179,8 @@ test("Clicking 'Confirm' should call axios.delete with the correct stream ID", (
     `${process.env.REACT_APP_STREAM}/1`
   );
 
+  const flushPromises = () => new Promise(setImmediate);
+  await flushPromises();
   expect(mockHistoryPush).toHaveBeenCalledWith("/Streaming");
   expect(mockHistoryGo).toHaveBeenCalledWith(0);
 
