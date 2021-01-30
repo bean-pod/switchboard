@@ -1,15 +1,9 @@
 package org.beanpod.switchboard.entity;
 
+import lombok.*;
+
+import javax.persistence.*;
 import java.time.OffsetDateTime;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Builder
@@ -28,4 +22,6 @@ public class LogEntity {
   private String message;
 
   private String level;
+
+  private String serialNumber;//This can be a single serialNumber or two serialNumbers seperated by a comma
 }

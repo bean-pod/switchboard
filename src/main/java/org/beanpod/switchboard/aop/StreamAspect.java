@@ -1,19 +1,16 @@
 package org.beanpod.switchboard.aop;
 
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.beanpod.switchboard.exceptions.ExceptionType.UnknownException;
 import org.beanpod.switchboard.service.LogService;
-import org.openapitools.model.DecoderModel;
-import org.openapitools.model.EncoderModel;
-import org.openapitools.model.InputChannelModel;
-import org.openapitools.model.OutputChannelModel;
-import org.openapitools.model.StreamModel;
+import org.openapitools.model.*;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+
+import java.util.Optional;
 
 @Configuration
 @Aspect
@@ -60,6 +57,6 @@ public class StreamAspect {
             "A stream started from output channel %d of decoder %s"
                 + " to input channel %d of encoder %s",
             outputId, decoderSerial, inputId, encoderSerial);
-    logService.createLog(message, "info");
+    logService.createLog(message, "info",decoderSerial+','+encoderSerial);
   }
 }

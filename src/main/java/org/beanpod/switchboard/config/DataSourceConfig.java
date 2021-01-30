@@ -1,13 +1,14 @@
 package org.beanpod.switchboard.config;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import javax.sql.DataSource;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
+
+import javax.sql.DataSource;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 @Configuration
 public class DataSourceConfig {
@@ -51,6 +52,7 @@ public class DataSourceConfig {
 
   @Bean(name = "mySqlProdDataSource")
   @Profile("production")
+
   public DataSource mySqlProdDataSource() throws URISyntaxException {
     URI dbUri = new URI(System.getenv("CLEARDB_DATABASE_URL"));
 

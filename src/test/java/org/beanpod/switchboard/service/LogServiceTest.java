@@ -1,12 +1,8 @@
 package org.beanpod.switchboard.service;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 import org.beanpod.switchboard.dto.mapper.LogMapper;
 import org.beanpod.switchboard.entity.LogEntity;
+import org.beanpod.switchboard.fixture.DeviceFixture;
 import org.beanpod.switchboard.fixture.LogFixture;
 import org.beanpod.switchboard.repository.LogRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,6 +10,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 class LogServiceTest {
 
@@ -36,7 +35,7 @@ class LogServiceTest {
   @Test
   final void testGetLog() {
     when(logRepository.save(any())).thenReturn(logEntity);
-    logService.createLog("im a log", "info");
+    logService.createLog("im a log", "info", DeviceFixture.SERIAL_NUMBER);
     verify(logRepository, times(1)).save(any());
   }
 }
