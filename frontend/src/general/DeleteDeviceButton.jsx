@@ -38,8 +38,8 @@ export default function DeleteDeviceButton(props) {
     return setOpen(false);
   };
   const confirmDelete = () => {
-    DeviceApi.deleteDevice(deleteId, () => {
-        console.log(history.location)
+    DeviceApi.deleteDevice(deleteId)
+    .then(() => {
         if(history.location.pathname.endsWith("Devices")) {
             history.go(0);
         } else {
