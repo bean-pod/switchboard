@@ -1,17 +1,17 @@
-import { makeStyles } from "@material-ui/core";
-import { expect, test } from "@jest/globals";
+import {makeStyles} from "@material-ui/core";
+import {expect, test} from "@jest/globals";
 import DefaultMakeStylesTheme from "../DefaultMakeStylesTheme";
 
 const expectedTheme = makeStyles((theme) => ({
-  root: {
-    backgroundColor: theme.palette.background.paper
-  },
-  tabs: {
-    borderRight: `1px solid ${theme.palette.divider}`
-  }
+    root: {
+        backgroundColor: theme.palette.background.paper
+    },
+    tabs: {
+        borderRight: `1px solid ${theme.palette.divider}`
+    }
 }));
 
 test("useStyles returns expected default theme", () => {
-  const usedStyles = DefaultMakeStylesTheme();
-  expect(usedStyles.toString()).toBe(expectedTheme.toString());
+    const usedStyles = DefaultMakeStylesTheme();
+    expect(usedStyles.toString()).toBe(expectedTheme.toString());
 });

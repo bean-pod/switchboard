@@ -1,265 +1,265 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
 .areaUnderBreadcrumbs {
-  padding: 1em;
-  padding-top: 2em;
+    padding: 1em;
+    padding-top: 2em;
 }
 
 .headerAreaUnderline {
-  /* margin-top: 1em; */
-  margin-bottom: 1em;
-  border-bottom: 1px solid #d3d3d3;
+    /* margin-top: 1em; */
+    margin-bottom: 1em;
+    border-bottom: 1px solid #d3d3d3;
 }
 
 .headerAreaNoUnderline {
-  margin-bottom: 1em;
+    margin-bottom: 1em;
 }
 
 .lightGreyBorder {
-  border-style: solid;
-  border-width: 1px;
-  border-color: #f1f1f1;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #f1f1f1;
 }
 
 input {
-  padding: 0.5em;
+    padding: 0.5em;
 }
 
 select {
-  padding: 0.5em;
+    padding: 0.5em;
 }
 
 .tableCell {
-  padding: 1px 2em;
-  font-size: 0.875rem;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  font-weight: 400;
-  line-height: 1.43;
-  vertical-align: inherit;
+    padding: 1px 2em;
+    font-size: 0.875rem;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 400;
+    line-height: 1.43;
+    vertical-align: inherit;
 }
 
 .numeric {
-  text-align: right;
+    text-align: right;
 }
 
 .tableHeadCell {
-  padding: 1em;
-  text-align: left;
-  border-bottom: 1px solid rgba(224, 224, 224, 1);
-  border-top: 1px solid rgba(224, 224, 224, 1);
+    padding: 1em;
+    text-align: left;
+    border-bottom: 1px solid rgba(224, 224, 224, 1);
+    border-top: 1px solid rgba(224, 224, 224, 1);
 }
 
 .tableHeadCell input {
-  padding: 0.5em;
-  text-align: left;
-  background-color: white;
+    padding: 0.5em;
+    text-align: left;
+    background-color: white;
 }
 
 #statusSearch {
-  padding: 0.5em;
+    padding: 0.5em;
 }
 
 #sortBySelect {
-  padding: 0.5em 2em 0.5em 0.5em;
-  width: max-content;
+    padding: 0.5em 2em 0.5em 0.5em;
+    width: max-content;
 }
 
 #TableStartStreaming {
-  display: flex;
+    display: flex;
 }
 
 .streamingTable {
-  height: 500;
+    height: 500;
 }
 
 .searchField {
-  margin: 0em;
+    margin: 0em;
 }
 
 .searchField input {
-  padding: 7px 5px;
+    padding: 7px 5px;
 }
 
 .sortBy {
-  color: #8f8f8f;
-  font-size: 13px;
-  margin: 1em 0.5em;
+    color: #8f8f8f;
+    font-size: 13px;
+    margin: 1em 0.5em;
 }
 
 /* Text Style Classes */
 .flexContents {
-  display: flex;
+    display: flex;
 }
 
 .alignRight {
-  position: absolute;
-  top: 0.5em;
-  right: 0.2em;
+    position: absolute;
+    top: 0.5em;
+    right: 0.2em;
 }
 
 .alignRightFloat {
-  display: flex;
-  position: relative;
-  float: right;
-  align-items: center;
-  margin-left: auto;
-  margin-right: 0;
+    display: flex;
+    position: relative;
+    float: right;
+    align-items: center;
+    margin-left: auto;
+    margin-right: 0;
 }
 
 .invisibleLink {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 .headerTitle {
-  color: white;
-  text-decoration: none;
-  font-size: 24px;
-  vertical-align: middle;
-  flex-grow: 1;
+    color: white;
+    text-decoration: none;
+    font-size: 24px;
+    vertical-align: middle;
+    flex-grow: 1;
 }
 
 .title {
-  font-size: 40px;
-  vertical-align: middle;
-  flex-grow: 1;
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
+    font-size: 40px;
+    vertical-align: middle;
+    flex-grow: 1;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
 }
 
 .subtitle {
-  font-size: 36px;
-  vertical-align: middle;
-  font-weight: 300;
-  padding-bottom: 0.5em;
+    font-size: 36px;
+    vertical-align: middle;
+    font-weight: 300;
+    padding-bottom: 0.5em;
 }
 
 .buttonText {
-  display: inline-flex;
-  text-decoration: none;
-  align-items: center;
-  text-transform: uppercase;
-  color: white;
-  padding: 0.6em 1.3em;
-  border: 0px;
-  border-radius: 2em;
-  margin: 0.4em;
+    display: inline-flex;
+    text-decoration: none;
+    align-items: center;
+    text-transform: uppercase;
+    color: white;
+    padding: 0.6em 1.3em;
+    border: 0px;
+    border-radius: 2em;
+    margin: 0.4em;
 }
 
 .hideLinkStyle {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 .statusIndicatorBody {
-  margin: auto;
-  padding: 0.3em;
-  width: 90px;
-  border-radius: 0.2em;
+    margin: auto;
+    padding: 0.3em;
+    width: 90px;
+    border-radius: 0.2em;
 }
 
 .statusTextOnline {
-  color: white;
-  text-align: center;
+    color: white;
+    text-align: center;
 }
 
 .statusTextOffline {
-  color: black;
-  text-align: center;
+    color: black;
+    text-align: center;
 }
 
 .chevronText {
-  padding-bottom: 0;
-  padding-top: 0;
+    padding-bottom: 0;
+    padding-top: 0;
 }
 
 .blackFont {
-  color: #000000;
+    color: #000000;
 }
 
 .hamburger {
-  background-color: inherit;
-  color: inherit;
-  /* margin: 0; */
-  /* padding: 0; */
+    background-color: inherit;
+    color: inherit;
+    /* margin: 0; */
+    /* padding: 0; */
 }
 
 .warningText {
-  color: #ea5757;
+    color: #ea5757;
 }
 
 /* Button styling */
 .greenFill {
-  fill: #59bc31;
+    fill: #59bc31;
 }
 
 .yellowFill {
-  fill: #fec300;
+    fill: #fec300;
 }
 
 .redFill {
-  fill: #ea5757;
+    fill: #ea5757;
 }
 
 .lightGreyFill {
-  fill: #d3d3d3;
+    fill: #d3d3d3;
 }
 
 .darkGreyFill {
-  fill: #373737;
+    fill: #373737;
 }
 
 /* Scroll bar styling*/
 
 ::-webkit-scrollbar {
-  width: 8px;
+    width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  border-radius: 10px;
+    border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  opacity: 30%;
-  border-radius: 10px;
-  background-color: rgba(0, 0, 0, 0.3);
+    opacity: 30%;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
 /* Background Color Classes */
 .darkGrey {
-  background-color: #373737;
+    background-color: #373737;
 }
 
 .lightGrey {
-  background-color: #d3d3d3;
+    background-color: #d3d3d3;
 }
 
 .lightestGrey {
-  background-color: #f9f9f9;
+    background-color: #f9f9f9;
 }
 
 .green {
-  background-color: #59bc31;
+    background-color: #59bc31;
 }
 
 .yellow {
-  background-color: #fec300;
+    background-color: #fec300;
 }
 
 .red {
-  background-color: #ea5757;
+    background-color: #ea5757;
 }
 
 .blue {
-  background-color: #01b2fe;
+    background-color: #01b2fe;
 }

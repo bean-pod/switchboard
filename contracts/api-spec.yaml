@@ -565,7 +565,7 @@ components:
       items:
         type: integer
         format: int64
-      example: ['1234']
+      example: [ '1234' ]
 
     CreateStreamRequest:
       description: An object to request the creation of a stream between an input and output channel
