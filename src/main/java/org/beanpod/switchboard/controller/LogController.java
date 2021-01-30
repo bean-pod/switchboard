@@ -18,4 +18,9 @@ public class LogController implements LogsApi {
   public ResponseEntity<List<LogModel>> retrieveAllLogs() {
     return ResponseEntity.ok(logDao.getLogs());
   }
+
+  @Override
+  public ResponseEntity<List<LogModel>> retrieveDeviceLogs(@PathVariable String serialNumber) {
+    return ResponseEntity.ok(logDao.getDeviceLogs(serialNumber));
+  }
 }
