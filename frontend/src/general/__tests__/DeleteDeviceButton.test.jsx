@@ -20,12 +20,19 @@ jest.mock("axios");
 
 const mockHistoryPush = jest.fn();
 const mockHistoryGo = jest.fn();
+const mockHistory = {
+  location: { pathname: null },
+  push: mockHistoryPush,
+  go: mockHistoryGo
+};
+
 jest.mock("react-router-dom", () => ({
-  useHistory: () => ({
-    push: mockHistoryPush,
-    go: mockHistoryGo
-  })
+  useHistory: () => {
+    return mockHistory;
+  }
 }));
+
+const flushPromises = () => new Promise(setImmediate);
 
 describe("DeleteButton", () => {
   let wrapper;
@@ -87,26 +94,64 @@ describe("DeleteButton", () => {
     });
 
     describe("ConfirmButton", () => {
-      it("Should call axios.delete and close the dialog when clicked", () => {
-        // click the delete button to set open to true
-        wrapper.find("#deleteBtn").simulate("click");
-        expect(setOpen).toBeTruthy;
+      describe("on DeviceListPage", () => {
+        it("Should call axios.delete, close the dialog and refresh the page when clicked", async () => {
+          // Pretend we are on the device list page
+          mockHistory.location.pathname = "/Devices";
 
-        // mock axios before clicking confirm
-        axios.delete.mockImplementationOnce(() => Promise.resolve());
+          // click the delete button to set open to true
+          wrapper.find("#deleteBtn").simulate("click");
+          expect(setOpen).toBeTruthy;
 
-        // click confirm
-        wrapper.find("#confirmDeleteBtn").simulate("click");
+          // mock axios before clicking confirm
+          const axiosPromise = Promise.resolve();
+          axios.delete.mockImplementationOnce(() => axiosPromise);
 
-        // check that axios.delete was called
-        expect(axios.delete).toHaveBeenCalled();
+          // click confirm
+          wrapper.find("#confirmDeleteBtn").simulate("click");
 
-        // check that redirect/refresh has been called
-        expect(mockHistoryPush).toHaveBeenCalledWith("/Devices");
-        expect(mockHistoryGo).toHaveBeenCalledWith(0);
+          // check that axios.delete was called
+          expect(axios.delete).toHaveBeenCalled();
 
-        // open should be false
-        expect(setOpen).toBeFalsy;
+          // Wait for axios promise to finish
+          await flushPromises();
+
+          // check that refresh has been called
+          expect(mockHistoryGo).toHaveBeenCalledWith(0);
+
+          // open should be false
+          expect(setOpen).toBeFalsy;
+        });
+      });
+
+      describe("on DeviceDetailsPage", () => {
+        it("Should call axios.delete, close the dialog and redirect to device list page when clicked", async () => {
+          // Pretend we are on the device details page
+          mockHistory.location.pathname = "Devices/Details/sample_sender";
+
+          // click the delete button to set open to true
+          wrapper.find("#deleteBtn").simulate("click");
+          expect(setOpen).toBeTruthy;
+
+          // mock axios before clicking confirm
+          const axiosPromise = Promise.resolve();
+          axios.delete.mockImplementationOnce(() => axiosPromise);
+
+          // click confirm
+          wrapper.find("#confirmDeleteBtn").simulate("click");
+
+          // check that axios.delete was called
+          expect(axios.delete).toHaveBeenCalled();
+
+          // Wait for axios promise to finish
+          await flushPromises();
+
+          // check that redirect has been called
+          expect(mockHistoryPush).toHaveBeenCalledWith("/Devices");
+
+          // open should be false
+          expect(setOpen).toBeFalsy;
+        });
       });
     });
   });
