@@ -1,13 +1,12 @@
 package org.beanpod.switchboard.fixture;
 
-import org.beanpod.switchboard.entity.LogEntity;
-import org.openapitools.model.LogModel;
-
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
+import org.beanpod.switchboard.entity.LogEntity;
+import org.openapitools.model.LogModel;
 
 public class LogFixture {
 

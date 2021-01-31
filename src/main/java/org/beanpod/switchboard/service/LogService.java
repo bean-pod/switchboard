@@ -1,12 +1,11 @@
 package org.beanpod.switchboard.service;
 
+import java.time.OffsetDateTime;
 import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.entity.LogEntity;
 import org.beanpod.switchboard.repository.LogRepository;
 import org.beanpod.switchboard.util.DateUtil;
 import org.springframework.stereotype.Component;
-
-import java.time.OffsetDateTime;
 
 @Component
 @RequiredArgsConstructor
