@@ -39,4 +39,12 @@ class LogControllerTest {
     assertEquals(HttpStatus.OK, response.getStatusCode());
     assertIterableEquals(logModels, response.getBody());
   }
+
+  @Test
+  final void testRetrieveDeviceLogs() {
+    when(logDao.getDeviceLogs("1")).thenReturn(logModels);
+    ResponseEntity<List<LogModel>> response = logController.retrieveDeviceLogs("1");
+    assertEquals(HttpStatus.OK, response.getStatusCode());
+    assertIterableEquals(logModels, response.getBody());
+  }
 }

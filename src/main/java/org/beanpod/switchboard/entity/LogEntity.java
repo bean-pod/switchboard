@@ -28,4 +28,7 @@ public class LogEntity {
   private String message;
 
   private String level;
+
+  private String
+      serialNumber; // This can be a single serialNumber or two serialNumbers seperated by a comma
 }

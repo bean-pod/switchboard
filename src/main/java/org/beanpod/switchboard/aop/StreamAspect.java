@@ -65,7 +65,7 @@ public class StreamAspect {
             "A stream started from output channel %d of decoder %s"
                 + " to input channel %d of encoder %s",
             outputId, decoderSerial, inputId, encoderSerial);
-    logService.createLog(message, "info");
+    logService.createLog(message, "info", decoderSerial + "," + encoderSerial);
   }
 
   @Before("execution(* org.beanpod.switchboard.controller.StreamController.deleteStream(..))")
@@ -79,6 +79,6 @@ public class StreamAspect {
         String.format(
             "Deleted stream of ID %d between decoder %s and encoder %s",
             streamId, decoderSerial, encoderSerial);
-    logService.createLog(message, "info");
+    logService.createLog(message, "info", decoderSerial + "," + encoderSerial);
   }
 }

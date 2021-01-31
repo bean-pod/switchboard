@@ -34,7 +34,7 @@ public class DeviceAspect {
       message = message.concat(" with status " + status);
     }
 
-    logService.createLog(message, "info");
+    logService.createLog(message, "info", serialNumber);
   }
 
   @AfterReturning(
@@ -48,7 +48,7 @@ public class DeviceAspect {
 
     if (status.equals("online") || status.equals("offline")) {
       message = "A device has been updated with a status of " + status;
-      logService.createLog(message, "info");
+      logService.createLog(message, "info", deviceModel.getSerialNumber());
     }
   }
 }
