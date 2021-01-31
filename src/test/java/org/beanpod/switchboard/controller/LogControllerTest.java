@@ -1,5 +1,10 @@
 package org.beanpod.switchboard.controller;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
+import static org.mockito.Mockito.when;
+
+import java.util.List;
 import org.beanpod.switchboard.dao.LogDaoImpl;
 import org.beanpod.switchboard.fixture.LogFixture;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,12 +15,6 @@ import org.mockito.MockitoAnnotations;
 import org.openapitools.model.LogModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertIterableEquals;
-import static org.mockito.Mockito.when;
 
 class LogControllerTest {
 
