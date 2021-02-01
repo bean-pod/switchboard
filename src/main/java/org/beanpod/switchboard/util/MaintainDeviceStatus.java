@@ -1,0 +1,41 @@
+package org.beanpod.switchboard.util;
+
+import lombok.RequiredArgsConstructor;
+import org.beanpod.switchboard.dao.DeviceDaoImpl;
+import org.beanpod.switchboard.dto.mapper.DeviceMapper;
+import org.beanpod.switchboard.entity.EncoderEntity;
+import org.springframework.stereotype.Component;
+
+import java.util.Date;
+import java.util.List;
+import java.util.TimeZone;
+
+@Component
+@RequiredArgsConstructor
+public class MaintainDeviceStatus {
+    private static DateUtil date = new DateUtil();
+    private final DeviceDaoImpl service;
+    private final DeviceMapper deviceMapper;
+    //E should be of type DecoderEntity or EncoderEntity
+    public <E> void maintainStatusField(List<EncoderEntity> devices){
+        //subtract 10minutes from the current date
+        Date dateToBeCompared = date.getCurrentDate();
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+        dateToBeCompared.setTime(System.currentTimeMillis()-600000);
+
+        for(int i=0;i<devices.size();i++){
+
+            //if lastCommunication is more than 10minutes old
+            if((devices.get(i).getDevice().getStatus()).equalsIgnoreCase("online")
+                    && dateToBeCompared.after(devices.get(i).getLastCommunication())){
+                System.out.print("--------------------> b4");
+                devices.get(i).getDevice().setStatus("offline");
+                service.save(deviceMapper.toDeviceDto(devices.get(i).getDevice()));
+                System.out.print("--------------------> in");
+            }
+        }
+
+    }
+
+
+}
