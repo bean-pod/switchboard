@@ -19,8 +19,10 @@ import org.springframework.http.ResponseEntity;
 class LogControllerTest {
 
   private static List<LogModel> logModels;
-  @InjectMocks private LogController logController;
-  @Mock private LogDaoImpl logDao;
+  @InjectMocks
+  private LogController logController;
+  @Mock
+  private LogDaoImpl logDao;
 
   @BeforeEach
   void setupLogFixture() {

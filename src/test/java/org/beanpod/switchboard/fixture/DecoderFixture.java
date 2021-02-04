@@ -11,6 +11,7 @@ import org.beanpod.switchboard.entity.InputChannelEntity;
 import org.openapitools.model.DecoderModel;
 
 public class DecoderFixture {
+
   public static final String SERIAL_NUMBER = "1";
   public static final String SERIAL_NUMBER2 = "2";
   private static final String pattern = "yyyy-MM-dd HH:mm:ss";

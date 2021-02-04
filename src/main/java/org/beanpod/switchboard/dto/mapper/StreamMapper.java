@@ -1,25 +1,25 @@
 package org.beanpod.switchboard.dto.mapper;
 
+import java.util.List;
 import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.entity.StreamEntity;
 import org.mapstruct.Mapper;
 import org.openapitools.model.StreamModel;
 
-import java.util.List;
-
 @Mapper(
-        componentModel = "spring",
-        uses = {InputChannelMapper.class, OutputChannelMapper.class})
+    componentModel = "spring",
+    uses = {InputChannelMapper.class, OutputChannelMapper.class})
 public interface StreamMapper {
-    StreamDto toDto(StreamModel streamModel);
 
-    StreamDto toDto(StreamEntity streamEntity);
+  StreamDto toDto(StreamModel streamModel);
 
-    List<StreamDto> toDtoList(List<StreamEntity> streamEntityList);
+  StreamDto toDto(StreamEntity streamEntity);
 
-    StreamEntity toEntity(StreamDto streamDto);
+  List<StreamDto> toDtoList(List<StreamEntity> streamEntityList);
 
-    StreamModel toModel(StreamDto streamDto);
+  StreamEntity toEntity(StreamDto streamDto);
 
-    List<StreamModel> toModelList(List<StreamDto> streamDtoList);
+  StreamModel toModel(StreamDto streamDto);
+
+  List<StreamModel> toModelList(List<StreamDto> streamDtoList);
 }

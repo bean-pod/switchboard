@@ -14,7 +14,8 @@ import org.springframework.http.ResponseEntity;
 class CustomRestExceptionHandlerTest {
 
   private static Exception exception;
-  @InjectMocks private CustomRestExceptionHandler customRestExceptionHandler;
+  @InjectMocks
+  private CustomRestExceptionHandler customRestExceptionHandler;
 
   @BeforeAll
   static void exceptionFixture() {

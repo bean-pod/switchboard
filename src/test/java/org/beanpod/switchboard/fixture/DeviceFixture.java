@@ -8,6 +8,7 @@ import org.openapitools.model.CreateDeviceRequest;
 import org.openapitools.model.DeviceModel;
 
 public class DeviceFixture {
+
   public static final String SERIAL_NUMBER = "1";
   public static final String SERIAL_NUMBER2 = "2";
   public static final String PRIVATE_IP_ADDRESS = "192.168.0.158";

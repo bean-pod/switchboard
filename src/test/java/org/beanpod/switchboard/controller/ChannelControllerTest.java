@@ -38,11 +38,16 @@ class ChannelControllerTest {
   public static ChannelDto channelDto;
   public static InputChannelDto inputChannelDto;
   public static OutputChannelDto outputChannelDto;
-  @InjectMocks ChannelController channelController;
-  @Mock ChannelDaoImpl channelService;
-  @Mock DecoderDaoImpl decoderService;
-  @Mock EncoderDaoImpl encoderService;
-  @Mock ChannelMapper channelMapper;
+  @InjectMocks
+  ChannelController channelController;
+  @Mock
+  ChannelDaoImpl channelService;
+  @Mock
+  DecoderDaoImpl decoderService;
+  @Mock
+  EncoderDaoImpl encoderService;
+  @Mock
+  ChannelMapper channelMapper;
 
   @BeforeEach
   void setupChannelFixture() throws ParseException {

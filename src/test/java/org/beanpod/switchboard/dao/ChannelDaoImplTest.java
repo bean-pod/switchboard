@@ -35,13 +35,20 @@ class ChannelDaoImplTest {
   private static OutputChannelDto outputDto;
   private static ChannelDto channelDto;
   private static List<ChannelEntity> listOfChannels;
-  @InjectMocks private ChannelDaoImpl channelService;
-  @Mock private InputChannelRepository inputChannelRepository;
-  @Mock private OutputChannelRepository outputChannelRepository;
-  @Mock private InputChannelMapper inputChannelMapper;
-  @Mock private OutputChannelMapper outputChannelMapper;
-  @Mock private ChannelRepository channelRepository;
-  @Mock private ChannelMapper channelMapper;
+  @InjectMocks
+  private ChannelDaoImpl channelService;
+  @Mock
+  private InputChannelRepository inputChannelRepository;
+  @Mock
+  private OutputChannelRepository outputChannelRepository;
+  @Mock
+  private InputChannelMapper inputChannelMapper;
+  @Mock
+  private OutputChannelMapper outputChannelMapper;
+  @Mock
+  private ChannelRepository channelRepository;
+  @Mock
+  private ChannelMapper channelMapper;
 
   @BeforeEach
   public void setup() {

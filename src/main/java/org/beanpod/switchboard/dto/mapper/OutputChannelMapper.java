@@ -1,24 +1,24 @@
 package org.beanpod.switchboard.dto.mapper;
 
+import java.util.Set;
 import org.beanpod.switchboard.dto.OutputChannelDto;
 import org.beanpod.switchboard.entity.OutputChannelEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.openapitools.model.OutputChannelModel;
 
-import java.util.Set;
-
 @Mapper(
-        componentModel = "spring",
-        uses = {EncoderMapper.class, ChannelMapper.class})
+    componentModel = "spring",
+    uses = {EncoderMapper.class, ChannelMapper.class})
 public interface OutputChannelMapper {
-    @Mapping(target = "encoder", qualifiedByName = "toEncoderDtoShallow")
-    OutputChannelDto toOutputChannelDto(OutputChannelEntity outputChannelEntity);
 
-    @Mapping(target = "encoder", ignore = true)
-    Set<OutputChannelDto> toOutputChannelDtos(Set<OutputChannelEntity> outputChannelEntities);
+  @Mapping(target = "encoder", qualifiedByName = "toEncoderDtoShallow")
+  OutputChannelDto toOutputChannelDto(OutputChannelEntity outputChannelEntity);
 
-    OutputChannelEntity toOutputChannelEntity(OutputChannelDto outputChannelDto);
+  @Mapping(target = "encoder", ignore = true)
+  Set<OutputChannelDto> toOutputChannelDtos(Set<OutputChannelEntity> outputChannelEntities);
 
-    OutputChannelModel outputChannelDtoToOutputChannelModel(OutputChannelDto outputChannelDto);
+  OutputChannelEntity toOutputChannelEntity(OutputChannelDto outputChannelDto);
+
+  OutputChannelModel outputChannelDtoToOutputChannelModel(OutputChannelDto outputChannelDto);
 }

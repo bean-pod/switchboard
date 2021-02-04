@@ -20,9 +20,12 @@ class LogServiceTest {
 
   public static LogEntity logEntity;
 
-  @InjectMocks LogService logService;
-  @Mock LogRepository logRepository;
-  @Mock LogMapper logMapper;
+  @InjectMocks
+  LogService logService;
+  @Mock
+  LogRepository logRepository;
+  @Mock
+  LogMapper logMapper;
 
   @BeforeEach
   void setupLogFixture() {

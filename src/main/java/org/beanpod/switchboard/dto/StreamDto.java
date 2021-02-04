@@ -10,8 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class StreamDto {
-    private Long id;
-    private OutputChannelDto outputChannel;
-    private InputChannelDto inputChannel;
-    private Boolean isRendezvous;
+
+  private Long id;
+  private OutputChannelDto outputChannel;
+  private InputChannelDto inputChannel;
+  private Boolean isRendezvous;
 }

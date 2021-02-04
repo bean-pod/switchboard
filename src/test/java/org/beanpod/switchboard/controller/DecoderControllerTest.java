@@ -1,5 +1,17 @@
 package org.beanpod.switchboard.controller;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.util.List;
+import java.util.Optional;
 import org.beanpod.switchboard.dao.DecoderDaoImpl;
 import org.beanpod.switchboard.dao.DeviceDaoImpl;
 import org.beanpod.switchboard.dto.DecoderDto;
@@ -22,15 +34,6 @@ import org.mockito.MockitoAnnotations;
 import org.openapitools.model.StreamModel;
 import org.springframework.http.ResponseEntity;
 
-import java.util.List;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyList;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 class DecoderControllerTest {
 
   // stubbed Objects
@@ -39,13 +42,20 @@ class DecoderControllerTest {
   private static DecoderEntity decoder;
   private static DecoderDto decoderDto;
   private static List<DecoderEntity> listOfDecoders;
-  @InjectMocks private DecoderController decoderController;
-  @Mock private DecoderDaoImpl decoderDao;
-  @Mock private DecoderService decoderService;
-  @Mock private DeviceDaoImpl deviceService;
-  @Mock private DecoderMapper decoderMapper;
-  @Mock private StreamMapper streamMapper;
-  @Mock private MaintainDeviceStatus maintainDeviceStatus;
+  @InjectMocks
+  private DecoderController decoderController;
+  @Mock
+  private DecoderDaoImpl decoderDao;
+  @Mock
+  private DecoderService decoderService;
+  @Mock
+  private DeviceDaoImpl deviceService;
+  @Mock
+  private DecoderMapper decoderMapper;
+  @Mock
+  private StreamMapper streamMapper;
+  @Mock
+  private MaintainDeviceStatus maintainDeviceStatus;
 
   @BeforeEach
   void setupDecoderFixture() {
