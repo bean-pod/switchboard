@@ -62,7 +62,8 @@ public class EncoderController {
 
     @PostMapping
     public ResponseEntity<EncoderDto> createEncoder(@RequestBody @Valid EncoderDto encoderDto) {
-        Optional<DeviceDto> deviceOptional = deviceService.findDevice(encoderDto.getSerialNumber());
+        Optional<DeviceDto> deviceOptional =
+                deviceService.findDevice(encoderDto.getSerialNumber());
         if (deviceOptional.isEmpty()) {
             throw new ExceptionType.DeviceNotFoundException(encoderDto.getSerialNumber());
         }

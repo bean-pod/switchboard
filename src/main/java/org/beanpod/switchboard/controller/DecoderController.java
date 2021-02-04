@@ -44,7 +44,8 @@ public class DecoderController {
     @GetMapping("/{serialNumber}")
     public ResponseEntity<DecoderDto> retrieveDecoder(@PathVariable @Valid String serialNumber) {
         //maintain status field and create a log if status changed
-        Optional<DecoderDto> decoder = decoderDao.findDecoder(serialNumber);
+        Optional<DecoderDto> decoder =
+                decoderDao.findDecoder(serialNumber);
         if (decoder.isPresent()) {
             List<DecoderEntity> decodersListTemp = new LinkedList<DecoderEntity>();
             decodersListTemp.add(decoderMapper.toDecoderEntity(decoder.get()));
@@ -59,7 +60,8 @@ public class DecoderController {
 
     @PostMapping
     public ResponseEntity<DecoderDto> createDecoder(@RequestBody @Valid DecoderDto decoderDto) {
-        Optional<DeviceDto> deviceOptional = deviceService.findDevice(decoderDto.getSerialNumber());
+        Optional<DeviceDto> deviceOptional =
+                deviceService.findDevice(decoderDto.getSerialNumber());
         if (deviceOptional.isEmpty()) {
             throw new ExceptionType.DeviceNotFoundException(decoderDto.getSerialNumber());
         }

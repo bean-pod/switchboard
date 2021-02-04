@@ -31,7 +31,8 @@ public class MaintainDeviceStatus {
 
         for (int i = 0; i < devices.size(); i++) {
             //if status field equals online and lastCommunication is more than 10minutes old
-            if (((devices.get(i)).getDevice().getStatus()).equalsIgnoreCase("online")
+            if (((devices.get(i)).getDevice().getStatus())
+                    .equalsIgnoreCase("online")
                     && dateToBeCompared.after(devices.get(i).getLastCommunication())) {
                 //update last_communication field to offline
                 (devices.get(i).getDevice()).setStatus("offline");
@@ -39,7 +40,8 @@ public class MaintainDeviceStatus {
 
                 //create a log
                 createLog("offline", (devices.get(i)).getSerialNumber());
-            } else if (((devices.get(i)).getDevice().getStatus()).equalsIgnoreCase("offline")
+            } else if (((devices.get(i)).getDevice().getStatus())
+                    .equalsIgnoreCase("offline")
                     && dateToBeCompared.before(devices.get(i).getLastCommunication())) {
                 //update last_communication field to offline
                 (devices.get(i).getDevice()).setStatus("online");
