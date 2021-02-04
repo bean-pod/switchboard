@@ -39,6 +39,14 @@ public class MaintainDeviceStatus {
 
                 //create a log
                 createLog("offline", (devices.get(i)).getSerialNumber());
+            }else if(((devices.get(i)).getDevice().getStatus()).equalsIgnoreCase("offline")
+                    && dateToBeCompared.before(devices.get(i).getLastCommunication())){
+                //update last_communication field to offline
+                (devices.get(i).getDevice()).setStatus("online");
+                service.save(deviceMapper.toDeviceDto(devices.get(i).getDevice()));
+
+                //create a log
+                createLog("online", (devices.get(i)).getSerialNumber());
             }
         }
     }
