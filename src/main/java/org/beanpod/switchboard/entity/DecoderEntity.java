@@ -16,7 +16,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(value = {"hibernateLazyIntializer", "handler"})
-public class DecoderEntity implements dummyInterface{
+public class DecoderEntity implements DummyInterface{
 
   @Id
   @NotNull

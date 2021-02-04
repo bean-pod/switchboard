@@ -3,7 +3,7 @@ package org.beanpod.switchboard.util;
 import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.dao.DeviceDaoImpl;
 import org.beanpod.switchboard.dto.mapper.DeviceMapper;
-import org.beanpod.switchboard.entity.EncoderEntity;
+import org.beanpod.switchboard.entity.DummyInterface;
 import org.beanpod.switchboard.service.LogService;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +20,7 @@ public class MaintainDeviceStatus {
     private final LogService logService;
 
     //E should be of type DecoderEntity or EncoderEntity
-    public void maintainStatusField(List<EncoderEntity> devices){
+    public <T extends DummyInterface> void maintainStatusField(List<T> devices){
         Date dateToBeCompared = getDateToBeCompared();
 
         for(int i=0;i<devices.size();i++){
@@ -28,11 +28,11 @@ public class MaintainDeviceStatus {
             if(((devices.get(i)).getDevice().getStatus()).equalsIgnoreCase("online")
                     && dateToBeCompared.after(devices.get(i).getLastCommunication())){
                 //update last_communication field to offline
-                devices.get(i).getDevice().setStatus("offline");
+                (devices.get(i).getDevice()).setStatus("offline");
                 service.save(deviceMapper.toDeviceDto(devices.get(i).getDevice()));
 
                 //create a log
-                createLog("offline", devices.get(i).getSerialNumber());
+                createLog("offline", (devices.get(i)).getSerialNumber());
             }
         }
     }
