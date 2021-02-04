@@ -2,6 +2,9 @@ package org.beanpod.switchboard.util;
 
 import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.dao.DeviceDaoImpl;
+import org.beanpod.switchboard.dto.DecoderDto;
+import org.beanpod.switchboard.dto.EncoderDto;
+import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.dto.mapper.DeviceMapper;
 import org.beanpod.switchboard.entity.DummyInterface;
 import org.beanpod.switchboard.service.LogService;
@@ -19,7 +22,10 @@ public class MaintainDeviceStatus {
     private final DeviceMapper deviceMapper;
     private final LogService logService;
 
-    //E should be of type DecoderEntity or EncoderEntity
+    /*
+     * maintain and create logs when decoders or encoders are retrieved
+     * T should be of type DecoderEntity or EncoderEntity
+    */
     public <T extends DummyInterface> void maintainStatusField(List<T> devices){
         Date dateToBeCompared = getDateToBeCompared();
 
@@ -37,6 +43,31 @@ public class MaintainDeviceStatus {
         }
     }
 
+    //maintain and create logs when streams are retrieved
+    public void maintainStatusField(StreamDto streamDto){
+        Date dateToBeCompared = getDateToBeCompared();
+
+        DecoderDto decoder = streamDto.getInputChannel().getDecoder();
+        EncoderDto encoder = streamDto.getOutputChannel().getEncoder();
+
+        //update the status field for decoder
+        if((decoder.getDevice().getStatus()).equalsIgnoreCase("offline")){
+            decoder.getDevice().setStatus("online");
+            service.save(decoder.getDevice());
+
+            //create a log
+            createLog("online", decoder.getSerialNumber());
+        }
+
+        //update the status field for encoder
+        if((encoder.getDevice().getStatus()).equalsIgnoreCase("offline")){
+            encoder.getDevice().setStatus("online");
+            service.save(encoder.getDevice());
+
+            //create a log
+            createLog("online", encoder.getSerialNumber());
+        }
+    }
 
     private void createLog(String status, String serialNumber){
         String message = "A device has been updated with a status of " + status;
