@@ -1,12 +1,9 @@
 package org.beanpod.switchboard.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
+
 import javax.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 
 @Setter
 @Getter
@@ -15,9 +12,10 @@ import lombok.Setter;
 @AllArgsConstructor
 public class OutputChannelDto {
 
-  @NotNull private Long id;
-  private ChannelDto channel;
+    @NotNull
+    private Long id;
+    private ChannelDto channel;
 
-  @JsonIgnoreProperties("output")
-  private EncoderDto encoder;
+    @JsonIgnoreProperties("output")
+    private EncoderDto encoder;
 }

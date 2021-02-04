@@ -5,7 +5,7 @@ import org.openapitools.model.CreateStreamRequest;
 
 public interface StreamService {
 
-  StreamDto createStream(CreateStreamRequest createStreamRequest);
+    StreamDto createStream(CreateStreamRequest createStreamRequest);
 
-  StreamDto updateStream(StreamDto streamDto);
+    StreamDto updateStream(StreamDto streamDto);
 }

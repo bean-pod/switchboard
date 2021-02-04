@@ -18,37 +18,37 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class DeviceAspect {
 
-  private final LogService logService;
+    private final LogService logService;
 
-  @AfterReturning(
-      "execution(* org.beanpod.switchboard.controller.DeviceController.createDevice(..))")
-  public void createDevice(JoinPoint joinPoint) {
-    Object[] args = joinPoint.getArgs();
-    CreateDeviceRequest createDeviceRequest = (CreateDeviceRequest) args[0];
+    @AfterReturning(
+            "execution(* org.beanpod.switchboard.controller.DeviceController.createDevice(..))")
+    public void createDevice(JoinPoint joinPoint) {
+        Object[] args = joinPoint.getArgs();
+        CreateDeviceRequest createDeviceRequest = (CreateDeviceRequest) args[0];
 
-    String status = createDeviceRequest.getStatus();
-    String serialNumber = createDeviceRequest.getSerialNumber();
-    String message = String.format("Device with serial number %s has been created", serialNumber);
+        String status = createDeviceRequest.getStatus();
+        String serialNumber = createDeviceRequest.getSerialNumber();
+        String message = String.format("Device with serial number %s has been created", serialNumber);
 
-    if (status.equals("online") || status.equals("offline")) {
-      message = message.concat(" with status " + status);
+        if (status.equals("online") || status.equals("offline")) {
+            message = message.concat(" with status " + status);
+        }
+
+        logService.createLog(message, "info", serialNumber);
     }
 
-    logService.createLog(message, "info", serialNumber);
-  }
+    @AfterReturning(
+            "execution(* org.beanpod.switchboard.controller.DeviceController.updateDevice(..))")
+    public void updateDevice(JoinPoint joinPoint) {
+        Object[] args = joinPoint.getArgs();
+        DeviceModel deviceModel = (DeviceModel) args[0];
 
-  @AfterReturning(
-      "execution(* org.beanpod.switchboard.controller.DeviceController.updateDevice(..))")
-  public void updateDevice(JoinPoint joinPoint) {
-    Object[] args = joinPoint.getArgs();
-    DeviceModel deviceModel = (DeviceModel) args[0];
+        String message;
+        String status = deviceModel.getStatus();
 
-    String message;
-    String status = deviceModel.getStatus();
-
-    if (status.equals("online") || status.equals("offline")) {
-      message = "A device has been updated with a status of " + status;
-      logService.createLog(message, "info", deviceModel.getSerialNumber());
+        if (status.equals("online") || status.equals("offline")) {
+            message = "A device has been updated with a status of " + status;
+            logService.createLog(message, "info", deviceModel.getSerialNumber());
+        }
     }
-  }
 }

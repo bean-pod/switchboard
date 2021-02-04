@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface OutputChannelRepository extends JpaRepository<OutputChannelEntity, Long> {
-  OutputChannelEntity save(OutputChannelEntity outputChannelEntity);
+    OutputChannelEntity save(OutputChannelEntity outputChannelEntity);
 
-  Long deleteOutputChannelEntitiesById(Long id);
+    Long deleteOutputChannelEntitiesById(Long id);
 }

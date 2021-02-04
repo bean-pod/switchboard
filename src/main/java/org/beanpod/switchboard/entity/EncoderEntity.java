@@ -18,25 +18,25 @@ import java.util.Set;
 @JsonIgnoreProperties(value = {"hibernateLazyIntializer", "handler"})
 public class EncoderEntity implements DummyInterface {
 
-  @Id
-  @NotNull
-  @Column(name = "serial_number")
-  private String serialNumber;
+    @Id
+    @NotNull
+    @Column(name = "serial_number")
+    private String serialNumber;
 
-  @Column(name = "last_communication")
-  @Temporal(TemporalType.TIMESTAMP)
-  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-  private Date lastCommunication;
+    @Column(name = "last_communication")
+    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date lastCommunication;
 
-  @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-  @JoinColumn(name = "serial_number", referencedColumnName = "serial_number")
-  @MapsId
-  private DeviceEntity device;
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "serial_number", referencedColumnName = "serial_number")
+    @MapsId
+    private DeviceEntity device;
 
-  @OneToMany(
-      fetch = FetchType.LAZY,
-      cascade = {CascadeType.ALL})
-  @JoinColumn(name = "encoder_serial")
-  @JsonIgnoreProperties("encoder")
-  private Set<OutputChannelEntity> output;
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            cascade = {CascadeType.ALL})
+    @JoinColumn(name = "encoder_serial")
+    @JsonIgnoreProperties("encoder")
+    private Set<OutputChannelEntity> output;
 }

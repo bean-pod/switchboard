@@ -11,48 +11,48 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestController
 public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
 
-  @ExceptionHandler(Exception.class)
-  public final ResponseEntity<Object> handleAllExceptions(Exception ex) {
+    @ExceptionHandler(Exception.class)
+    public final ResponseEntity<Object> handleAllExceptions(Exception ex) {
 
-    ExceptionResponse exceptionResponse =
-        new ExceptionResponse(
-            HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), "An unknown error occured");
-    return new ResponseEntity<>(exceptionResponse, exceptionResponse.getStatus());
-  }
+        ExceptionResponse exceptionResponse =
+                new ExceptionResponse(
+                        HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), "An unknown error occured");
+        return new ResponseEntity<>(exceptionResponse, exceptionResponse.getStatus());
+    }
 
-  @ExceptionHandler(ExceptionType.DeviceNotFoundException.class)
-  public final ResponseEntity<Object> handleDeviceNotFoundException(Exception ex) {
-    ExceptionResponse exceptionResponse =
-        new ExceptionResponse(HttpStatus.NOT_FOUND, ex.getMessage(), "The device was not found");
-    return new ResponseEntity<>(exceptionResponse, exceptionResponse.getStatus());
-  }
+    @ExceptionHandler(ExceptionType.DeviceNotFoundException.class)
+    public final ResponseEntity<Object> handleDeviceNotFoundException(Exception ex) {
+        ExceptionResponse exceptionResponse =
+                new ExceptionResponse(HttpStatus.NOT_FOUND, ex.getMessage(), "The device was not found");
+        return new ResponseEntity<>(exceptionResponse, exceptionResponse.getStatus());
+    }
 
-  @ExceptionHandler(ExceptionType.DeviceAlreadyExistsException.class)
-  public final ResponseEntity<Object> handleDeviceAlreadyExistsException(Exception ex) {
-    ExceptionResponse exceptionResponse =
-        new ExceptionResponse(
-            HttpStatus.CONFLICT, ex.getMessage(), "The device already exists, change primary key");
-    return new ResponseEntity<>(exceptionResponse, exceptionResponse.getStatus());
-  }
+    @ExceptionHandler(ExceptionType.DeviceAlreadyExistsException.class)
+    public final ResponseEntity<Object> handleDeviceAlreadyExistsException(Exception ex) {
+        ExceptionResponse exceptionResponse =
+                new ExceptionResponse(
+                        HttpStatus.CONFLICT, ex.getMessage(), "The device already exists, change primary key");
+        return new ResponseEntity<>(exceptionResponse, exceptionResponse.getStatus());
+    }
 
-  @ExceptionHandler(ExceptionType.StreamAlreadyExistsException.class)
-  public final ResponseEntity<Object> handleStreamAlreadyExistsException(Exception ex) {
-    ExceptionResponse exceptionResponse =
-        new ExceptionResponse(HttpStatus.CONFLICT, ex.getMessage(), "Stream already exists");
-    return new ResponseEntity<>(exceptionResponse, exceptionResponse.getStatus());
-  }
+    @ExceptionHandler(ExceptionType.StreamAlreadyExistsException.class)
+    public final ResponseEntity<Object> handleStreamAlreadyExistsException(Exception ex) {
+        ExceptionResponse exceptionResponse =
+                new ExceptionResponse(HttpStatus.CONFLICT, ex.getMessage(), "Stream already exists");
+        return new ResponseEntity<>(exceptionResponse, exceptionResponse.getStatus());
+    }
 
-  @ExceptionHandler(ExceptionType.StreamDoesNotExistException.class)
-  public final ResponseEntity<Object> handleStreamDoesNotExistException(Exception ex) {
-    ExceptionResponse exceptionResponse =
-        new ExceptionResponse(HttpStatus.NOT_FOUND, ex.getMessage(), "Stream doesnt exist");
-    return new ResponseEntity<>(exceptionResponse, exceptionResponse.getStatus());
-  }
+    @ExceptionHandler(ExceptionType.StreamDoesNotExistException.class)
+    public final ResponseEntity<Object> handleStreamDoesNotExistException(Exception ex) {
+        ExceptionResponse exceptionResponse =
+                new ExceptionResponse(HttpStatus.NOT_FOUND, ex.getMessage(), "Stream doesnt exist");
+        return new ResponseEntity<>(exceptionResponse, exceptionResponse.getStatus());
+    }
 
-  @ExceptionHandler(ExceptionType.UnknownException.class)
-  public final ResponseEntity<ExceptionResponse> handleUnknownException(Exception ex) {
-    ExceptionResponse exceptionResponse =
-        new ExceptionResponse(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), "Unknown Error");
-    return new ResponseEntity<>(exceptionResponse, exceptionResponse.getStatus());
-  }
+    @ExceptionHandler(ExceptionType.UnknownException.class)
+    public final ResponseEntity<ExceptionResponse> handleUnknownException(Exception ex) {
+        ExceptionResponse exceptionResponse =
+                new ExceptionResponse(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), "Unknown Error");
+        return new ResponseEntity<>(exceptionResponse, exceptionResponse.getStatus());
+    }
 }

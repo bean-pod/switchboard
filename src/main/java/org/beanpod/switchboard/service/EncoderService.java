@@ -1,10 +1,11 @@
 package org.beanpod.switchboard.service;
 
-import java.util.List;
 import org.beanpod.switchboard.dto.StreamDto;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public interface EncoderService {
-  List<StreamDto> getEncoderStreams(String encoderSerialNumber);
+    List<StreamDto> getEncoderStreams(String encoderSerialNumber);
 }

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface InputChannelRepository extends JpaRepository<InputChannelEntity, Long> {
-  InputChannelEntity save(InputChannelEntity inputChannelEntity);
+    InputChannelEntity save(InputChannelEntity inputChannelEntity);
 
-  Long deleteInputChannelEntityById(Long id);
+    Long deleteInputChannelEntityById(Long id);
 }
