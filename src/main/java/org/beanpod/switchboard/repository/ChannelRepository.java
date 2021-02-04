@@ -1,17 +1,17 @@
 package org.beanpod.switchboard.repository;
 
+import java.util.List;
+import java.util.Optional;
 import org.beanpod.switchboard.entity.ChannelEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-import java.util.Optional;
-
 public interface ChannelRepository extends JpaRepository<ChannelEntity, Long> {
-    List<ChannelEntity> findAll();
 
-    ChannelEntity save(ChannelEntity channel);
+  List<ChannelEntity> findAll();
 
-    Optional<ChannelEntity> findChannelEntitiesById(Long id);
+  ChannelEntity save(ChannelEntity channel);
 
-    Long deleteChannelEntitiesById(Long id);
+  Optional<ChannelEntity> findChannelEntitiesById(Long id);
+
+  Long deleteChannelEntitiesById(Long id);
 }
