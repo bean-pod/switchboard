@@ -1,19 +1,22 @@
 package org.beanpod.switchboard.controller;
 
-import java.util.List;
-import java.util.Optional;
-import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.dao.StreamDaoImpl;
+import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
 import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.exceptions.ExceptionType.UnknownException;
 import org.beanpod.switchboard.service.StreamService;
+import org.beanpod.switchboard.util.MaintainDeviceStatus;
 import org.openapitools.api.StreamApi;
 import org.openapitools.model.CreateStreamRequest;
 import org.openapitools.model.StreamModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,6 +25,7 @@ public class StreamController implements StreamApi {
   private final StreamDaoImpl streamDao;
   private final StreamService streamService;
   private final StreamMapper mapper;
+  private final MaintainDeviceStatus maintainDeviceStatus;
 
   @Override
   public ResponseEntity<List<Long>> getStreams() {
@@ -32,8 +36,14 @@ public class StreamController implements StreamApi {
 
   @Override
   public ResponseEntity<StreamModel> getStreamById(Long id) {
-    return Optional.of(id)
-        .map(streamDao::getStreamById)
+    Optional<StreamDto> streamDto = Optional.of(id)
+            .map(streamDao::getStreamById);
+
+    //maintain status field and create a log
+    if(streamDto.isPresent())
+      maintainDeviceStatus.maintainStatusField(streamDto.get());
+
+    return streamDto
         .map(mapper::toModel)
         .map(ResponseEntity::ok)
         .orElseThrow(() -> new UnknownException(CONTROLLER_NAME));
