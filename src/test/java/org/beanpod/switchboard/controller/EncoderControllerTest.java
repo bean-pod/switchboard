@@ -1,18 +1,5 @@
 package org.beanpod.switchboard.controller;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertIterableEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyList;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.text.ParseException;
-import java.util.List;
-import java.util.Optional;
 import org.beanpod.switchboard.dao.DeviceDaoImpl;
 import org.beanpod.switchboard.dao.EncoderDaoImpl;
 import org.beanpod.switchboard.dto.DeviceDto;
@@ -26,6 +13,7 @@ import org.beanpod.switchboard.fixture.DeviceFixture;
 import org.beanpod.switchboard.fixture.EncoderFixture;
 import org.beanpod.switchboard.fixture.StreamFixture;
 import org.beanpod.switchboard.service.EncoderService;
+import org.beanpod.switchboard.util.MaintainDeviceStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -33,6 +21,16 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.openapitools.model.StreamModel;
 import org.springframework.http.ResponseEntity;
+
+import java.text.ParseException;
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 class EncoderControllerTest {
   // stubbed Objects
@@ -47,6 +45,7 @@ class EncoderControllerTest {
   @Mock private EncoderService encoderService;
   @Mock private EncoderMapper encoderMapper;
   @Mock private StreamMapper streamMapper;
+  @Mock private MaintainDeviceStatus maintainDeviceStatus;
 
   @BeforeEach
   void setupEncoderFixture() throws ParseException {
