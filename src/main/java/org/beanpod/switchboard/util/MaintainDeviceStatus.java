@@ -30,51 +30,49 @@ public class MaintainDeviceStatus {
     Date dateToBeCompared = getDateToBeCompared();
 
     for (int i = 0; i < devices.size(); i++) {
-      //if status field equals online and lastCommunication is more than 10minutes old
-      if (((devices.get(i)).getDevice().getStatus())
-          .equalsIgnoreCase("online")
+      // if status field equals online and lastCommunication is more than 10minutes old
+      if (((devices.get(i)).getDevice().getStatus()).equalsIgnoreCase("online")
           && dateToBeCompared.after(devices.get(i).getLastCommunication())) {
-        //update last_communication field to offline
+        // update last_communication field to offline
         (devices.get(i).getDevice()).setStatus("offline");
         service.save(deviceMapper.toDeviceDto(devices.get(i).getDevice()));
 
-        //create a log
+        // create a log
         createLog("offline", (devices.get(i)).getSerialNumber());
-      } else if (((devices.get(i)).getDevice().getStatus())
-          .equalsIgnoreCase("offline")
+      } else if (((devices.get(i)).getDevice().getStatus()).equalsIgnoreCase("offline")
           && dateToBeCompared.before(devices.get(i).getLastCommunication())) {
-        //update last_communication field to offline
+        // update last_communication field to offline
         (devices.get(i).getDevice()).setStatus("online");
         service.save(deviceMapper.toDeviceDto(devices.get(i).getDevice()));
 
-        //create a log
+        // create a log
         createLog("online", (devices.get(i)).getSerialNumber());
       }
     }
   }
 
-  //maintain and create logs when streams are retrieved
+  // maintain and create logs when streams are retrieved
   public void maintainStatusField(StreamDto streamDto) {
     Date dateToBeCompared = getDateToBeCompared();
 
     DecoderDto decoder = streamDto.getInputChannel().getDecoder();
     EncoderDto encoder = streamDto.getOutputChannel().getEncoder();
 
-    //update the status field for decoder
+    // update the status field for decoder
     if ((decoder.getDevice().getStatus()).equalsIgnoreCase("offline")) {
       decoder.getDevice().setStatus("online");
       service.save(decoder.getDevice());
 
-      //create a log
+      // create a log
       createLog("online", decoder.getSerialNumber());
     }
 
-    //update the status field for encoder
+    // update the status field for encoder
     if ((encoder.getDevice().getStatus()).equalsIgnoreCase("offline")) {
       encoder.getDevice().setStatus("online");
       service.save(encoder.getDevice());
 
-      //create a log
+      // create a log
       createLog("online", encoder.getSerialNumber());
     }
   }
@@ -85,12 +83,11 @@ public class MaintainDeviceStatus {
   }
 
   private Date getDateToBeCompared() {
-    //subtract 10minutes from the current date
+    // subtract 10minutes from the current date
     Date dateToBeCompared = date.getCurrentDate();
     TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
     dateToBeCompared.setTime(System.currentTimeMillis() - 600000);
 
     return dateToBeCompared;
   }
-
 }
