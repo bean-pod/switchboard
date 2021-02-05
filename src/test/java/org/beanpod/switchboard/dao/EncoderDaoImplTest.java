@@ -25,12 +25,9 @@ class EncoderDaoImplTest {
   private static EncoderEntity encoder;
   private static EncoderDto encoderDto;
   private static List<EncoderEntity> listOfEncoders;
-  @InjectMocks
-  private EncoderDaoImpl encoderDaoImpl;
-  @Mock
-  private EncoderRepository encoderRepository;
-  @Mock
-  private EncoderMapper encoderMapper;
+  @InjectMocks private EncoderDaoImpl encoderDaoImpl;
+  @Mock private EncoderRepository encoderRepository;
+  @Mock private EncoderMapper encoderMapper;
 
   @BeforeEach
   void setupEncoderFixture() throws ParseException {

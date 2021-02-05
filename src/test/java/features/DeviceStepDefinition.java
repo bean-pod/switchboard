@@ -21,8 +21,7 @@ import org.springframework.http.ResponseEntity;
 public class DeviceStepDefinition extends SpringIntegrationTest {
 
   private final String baseUrl = "http://localhost:8080/device";
-  @Autowired
-  private TestRestTemplate testRestTemplate;
+  @Autowired private TestRestTemplate testRestTemplate;
   private ResponseEntity responseEntity;
   private ResponseEntity<List<DeviceDto>> responseEntityDtos;
   private URI uri;
@@ -51,8 +50,7 @@ public class DeviceStepDefinition extends SpringIntegrationTest {
   public void i_get_all_devices() {
     responseEntityDtos =
         testRestTemplate.exchange(
-            uri, HttpMethod.GET, null, new ParameterizedTypeReference<List<DeviceDto>>() {
-            });
+            uri, HttpMethod.GET, null, new ParameterizedTypeReference<List<DeviceDto>>() {});
   }
 
   @When("I create a device")

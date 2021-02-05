@@ -36,10 +36,9 @@ public class StreamController implements StreamApi {
 
   @Override
   public ResponseEntity<StreamModel> getStreamById(Long id) {
-    Optional<StreamDto> streamDto = Optional.of(id)
-        .map(streamDao::getStreamById);
+    Optional<StreamDto> streamDto = Optional.of(id).map(streamDao::getStreamById);
 
-    //maintain status field and create a log
+    // maintain status field and create a log
     if (streamDto.isPresent()) {
       maintainDeviceStatus.maintainStatusField(streamDto.get());
     }

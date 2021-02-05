@@ -26,20 +26,16 @@ class StreamControllerTest {
 
   private StreamController streamController;
 
-  @Mock
-  private StreamDaoImpl streamDao;
-  @Mock
-  private StreamMapper streamMapper;
-  @Mock
-  private StreamService streamService;
-  @Mock
-  private MaintainDeviceStatus maintainDeviceStatus;
+  @Mock private StreamDaoImpl streamDao;
+  @Mock private StreamMapper streamMapper;
+  @Mock private StreamService streamService;
+  @Mock private MaintainDeviceStatus maintainDeviceStatus;
 
   @BeforeEach
   public void setup() {
     MockitoAnnotations.initMocks(this);
-    streamController = new StreamController(streamDao, streamService, streamMapper,
-        maintainDeviceStatus);
+    streamController =
+        new StreamController(streamDao, streamService, streamMapper, maintainDeviceStatus);
   }
 
   @Test

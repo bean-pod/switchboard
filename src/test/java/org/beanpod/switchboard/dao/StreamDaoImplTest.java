@@ -23,12 +23,9 @@ public class StreamDaoImplTest {
 
   private StreamDaoImpl streamService;
 
-  @Mock
-  private StreamRepository streamRepository;
-  @Mock
-  private StreamMapper streamMapper;
-  @Mock
-  private ChannelDaoImpl channelService;
+  @Mock private StreamRepository streamRepository;
+  @Mock private StreamMapper streamMapper;
+  @Mock private ChannelDaoImpl channelService;
 
   @BeforeEach
   public void setup() {

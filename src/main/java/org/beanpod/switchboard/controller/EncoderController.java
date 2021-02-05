@@ -53,7 +53,7 @@ public class EncoderController {
   @GetMapping("/{serialNumber}")
   public ResponseEntity<EncoderDto> retrieveEncoder(@PathVariable @Valid String serialNumber) {
 
-    //maintain status field and create a log if status changed
+    // maintain status field and create a log if status changed
     Optional<EncoderDto> encoder = encoderDao.findEncoder(serialNumber);
     if (encoder.isPresent()) {
       List<EncoderEntity> encodersListTemp = new LinkedList<EncoderEntity>();
@@ -61,7 +61,7 @@ public class EncoderController {
       maintainDeviceStatus.maintainStatusField(encodersListTemp);
     }
 
-    //return encoder
+    // return encoder
     return encoder
         .map(ResponseEntity::ok)
         .orElseThrow(() -> new ExceptionType.DeviceNotFoundException(serialNumber));
@@ -69,8 +69,7 @@ public class EncoderController {
 
   @PostMapping
   public ResponseEntity<EncoderDto> createEncoder(@RequestBody @Valid EncoderDto encoderDto) {
-    Optional<DeviceDto> deviceOptional =
-        deviceService.findDevice(encoderDto.getSerialNumber());
+    Optional<DeviceDto> deviceOptional = deviceService.findDevice(encoderDto.getSerialNumber());
     if (deviceOptional.isEmpty()) {
       throw new ExceptionType.DeviceNotFoundException(encoderDto.getSerialNumber());
     }
