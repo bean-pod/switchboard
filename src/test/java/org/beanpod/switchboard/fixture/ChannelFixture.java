@@ -56,7 +56,7 @@ public class ChannelFixture {
     return OutputChannelEntity.builder()
         .id(OUTPUT_CHANNEL_ID)
         .channel(getChannelEntity2())
-        .encoder(EncoderFixture.getEncoderEntity1())
+        .encoder(EncoderFixture.getEncoderEntity2())
         .build();
   }
 
