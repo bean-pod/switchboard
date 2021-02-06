@@ -53,7 +53,7 @@ public class DecoderController {
     // maintain status field and create a log if status changed
     Optional<DecoderDto> decoder = decoderDao.findDecoder(serialNumber);
     if (decoder.isPresent()) {
-      List<DecoderEntity> decodersListTemp = new LinkedList<DecoderEntity>();
+      List<DecoderEntity> decodersListTemp = new LinkedList<>();
       decodersListTemp.add(decoderMapper.toDecoderEntity(decoder.get()));
       maintainDeviceStatus.maintainStatusField(decodersListTemp);
     }

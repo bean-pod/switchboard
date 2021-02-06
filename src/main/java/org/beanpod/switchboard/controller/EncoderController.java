@@ -56,7 +56,7 @@ public class EncoderController {
     // maintain status field and create a log if status changed
     Optional<EncoderDto> encoder = encoderDao.findEncoder(serialNumber);
     if (encoder.isPresent()) {
-      List<EncoderEntity> encodersListTemp = new LinkedList<EncoderEntity>();
+      List<EncoderEntity> encodersListTemp = new LinkedList<>();
       encodersListTemp.add(encoderMapper.toEncoderEntity(encoder.get()));
       maintainDeviceStatus.maintainStatusField(encodersListTemp);
     }
