@@ -12,13 +12,9 @@ import lombok.NoArgsConstructor;
 @Builder
 public class DeviceDto {
 
-  @NotNull
-  private String serialNumber;
-  @NotNull
-  private String publicIpAddress;
-  @NotNull
-  private String privateIpAddress;
-  @NotNull
-  private String displayName;
+  @NotNull private String serialNumber;
+  @NotNull private String publicIpAddress;
+  @NotNull private String privateIpAddress;
+  @NotNull private String displayName;
   private String status;
 }

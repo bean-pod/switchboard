@@ -26,14 +26,10 @@ import org.mockito.MockitoAnnotations;
 
 public class DecoderServiceTest {
 
-  @InjectMocks
-  private DecoderServiceImpl decoderService;
-  @Mock
-  private StreamDaoImpl streamDao;
-  @Mock
-  private DecoderDaoImpl decoderDao;
-  @Mock
-  private DateUtil dateUtil;
+  @InjectMocks private DecoderServiceImpl decoderService;
+  @Mock private StreamDaoImpl streamDao;
+  @Mock private DecoderDaoImpl decoderDao;
+  @Mock private DateUtil dateUtil;
 
   @BeforeEach
   void setup() {

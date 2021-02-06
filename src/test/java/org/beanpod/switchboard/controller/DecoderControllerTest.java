@@ -42,20 +42,13 @@ class DecoderControllerTest {
   private static DecoderEntity decoder;
   private static DecoderDto decoderDto;
   private static List<DecoderEntity> listOfDecoders;
-  @InjectMocks
-  private DecoderController decoderController;
-  @Mock
-  private DecoderDaoImpl decoderDao;
-  @Mock
-  private DecoderService decoderService;
-  @Mock
-  private DeviceDaoImpl deviceService;
-  @Mock
-  private DecoderMapper decoderMapper;
-  @Mock
-  private StreamMapper streamMapper;
-  @Mock
-  private MaintainDeviceStatus maintainDeviceStatus;
+  @InjectMocks private DecoderController decoderController;
+  @Mock private DecoderDaoImpl decoderDao;
+  @Mock private DecoderService decoderService;
+  @Mock private DeviceDaoImpl deviceService;
+  @Mock private DecoderMapper decoderMapper;
+  @Mock private StreamMapper streamMapper;
+  @Mock private MaintainDeviceStatus maintainDeviceStatus;
 
   @BeforeEach
   void setupDecoderFixture() {

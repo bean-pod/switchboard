@@ -8,6 +8,4 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest(
     classes = {SwitchboardApplication.class},
     webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-public class SpringIntegrationTest {
-
-}
+public class SpringIntegrationTest {}

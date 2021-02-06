@@ -34,14 +34,10 @@ class DeviceControllerTest {
   private static DeviceDto deviceDTO;
   private static CreateDeviceRequest createDeviceRequest;
   private static DeviceModel deviceModel;
-  @InjectMocks
-  private DeviceController deviceController;
-  @Mock
-  private DeviceDaoImpl deviceService;
-  @Mock
-  private DeviceMapper deviceMapper;
-  @Mock
-  private HttpServletRequest request;
+  @InjectMocks private DeviceController deviceController;
+  @Mock private DeviceDaoImpl deviceService;
+  @Mock private DeviceMapper deviceMapper;
+  @Mock private HttpServletRequest request;
 
   @BeforeEach
   void setupDeviceFixture() {

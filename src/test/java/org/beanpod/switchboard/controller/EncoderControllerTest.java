@@ -43,20 +43,13 @@ class EncoderControllerTest {
   private static EncoderEntity encoder;
   private static EncoderDto encoderDTO;
   private static List<EncoderEntity> listOfEncoders;
-  @InjectMocks
-  private EncoderController encoderController;
-  @Mock
-  private EncoderDaoImpl encoderDao;
-  @Mock
-  private DeviceDaoImpl deviceService;
-  @Mock
-  private EncoderService encoderService;
-  @Mock
-  private EncoderMapper encoderMapper;
-  @Mock
-  private StreamMapper streamMapper;
-  @Mock
-  private MaintainDeviceStatus maintainDeviceStatus;
+  @InjectMocks private EncoderController encoderController;
+  @Mock private EncoderDaoImpl encoderDao;
+  @Mock private DeviceDaoImpl deviceService;
+  @Mock private EncoderService encoderService;
+  @Mock private EncoderMapper encoderMapper;
+  @Mock private StreamMapper streamMapper;
+  @Mock private MaintainDeviceStatus maintainDeviceStatus;
 
   @BeforeEach
   void setupEncoderFixture() throws ParseException {
