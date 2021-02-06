@@ -18,8 +18,8 @@ import org.springframework.stereotype.Component;
 public class MaintainDeviceStatus {
 
   private static final DateUtil date = new DateUtil();
-  private static final String onlineStatus = "online";
-  private static final String offlineStatus = "offline";
+  private static final String ONLINE_STATUS = "online";
+  private static final String OFFLINE_STATUS = "offline";
   private final DeviceDaoImpl service;
   private final DeviceMapper deviceMapper;
   private final LogService logService;
@@ -33,22 +33,22 @@ public class MaintainDeviceStatus {
 
     for (int i = 0; i < devices.size(); i++) {
       // if status field equals online and lastCommunication is more than 10minutes old
-      if (((devices.get(i)).getDevice().getStatus()).equalsIgnoreCase(onlineStatus)
+      if (((devices.get(i)).getDevice().getStatus()).equalsIgnoreCase(ONLINE_STATUS)
           && dateToBeCompared.after(devices.get(i).getLastCommunication())) {
         // update last_communication field to offline
-        (devices.get(i).getDevice()).setStatus(offlineStatus);
+        (devices.get(i).getDevice()).setStatus(OFFLINE_STATUS);
         service.save(deviceMapper.toDeviceDto(devices.get(i).getDevice()));
 
         // create a log
-        createLog(offlineStatus, (devices.get(i)).getSerialNumber());
-      } else if (((devices.get(i)).getDevice().getStatus()).equalsIgnoreCase(offlineStatus)
+        createLog(OFFLINE_STATUS, (devices.get(i)).getSerialNumber());
+      } else if (((devices.get(i)).getDevice().getStatus()).equalsIgnoreCase(OFFLINE_STATUS)
           && dateToBeCompared.before(devices.get(i).getLastCommunication())) {
         // update last_communication field to offline
-        (devices.get(i).getDevice()).setStatus(onlineStatus);
+        (devices.get(i).getDevice()).setStatus(ONLINE_STATUS);
         service.save(deviceMapper.toDeviceDto(devices.get(i).getDevice()));
 
         // create a log
-        createLog(onlineStatus, (devices.get(i)).getSerialNumber());
+        createLog(ONLINE_STATUS, (devices.get(i)).getSerialNumber());
       }
     }
   }
@@ -59,21 +59,21 @@ public class MaintainDeviceStatus {
     EncoderDto encoder = streamDto.getOutputChannel().getEncoder();
 
     // update the status field for decoder
-    if ((decoder.getDevice().getStatus()).equalsIgnoreCase(offlineStatus)) {
-      decoder.getDevice().setStatus(onlineStatus);
+    if ((decoder.getDevice().getStatus()).equalsIgnoreCase(OFFLINE_STATUS)) {
+      decoder.getDevice().setStatus(ONLINE_STATUS);
       service.save(decoder.getDevice());
 
       // create a log
-      createLog(onlineStatus, decoder.getSerialNumber());
+      createLog(ONLINE_STATUS, decoder.getSerialNumber());
     }
 
     // update the status field for encoder
-    if ((encoder.getDevice().getStatus()).equalsIgnoreCase(offlineStatus)) {
-      encoder.getDevice().setStatus(onlineStatus);
+    if ((encoder.getDevice().getStatus()).equalsIgnoreCase(OFFLINE_STATUS)) {
+      encoder.getDevice().setStatus(ONLINE_STATUS);
       service.save(encoder.getDevice());
 
       // create a log
-      createLog(onlineStatus, encoder.getSerialNumber());
+      createLog(ONLINE_STATUS, encoder.getSerialNumber());
     }
   }
 
