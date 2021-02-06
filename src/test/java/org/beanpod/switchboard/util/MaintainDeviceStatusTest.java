@@ -29,16 +29,11 @@ public class MaintainDeviceStatusTest {
   private static EncoderEntity encoderEntity;
   private static StreamDto streamDto;
   private final DateUtil dateUtil = new DateUtil();
-  @InjectMocks
-  private MaintainDeviceStatus maintainDeviceStatus;
-  @Mock
-  private DeviceDaoImpl deviceService;
-  @Mock
-  private DeviceMapper deviceMapper;
-  @Mock
-  private LogService logService;
-  @Mock
-  private LogRepository logRepository;
+  @InjectMocks private MaintainDeviceStatus maintainDeviceStatus;
+  @Mock private DeviceDaoImpl deviceService;
+  @Mock private DeviceMapper deviceMapper;
+  @Mock private LogService logService;
+  @Mock private LogRepository logRepository;
 
   @BeforeEach
   public void setup() {
@@ -50,13 +45,13 @@ public class MaintainDeviceStatusTest {
 
   @Test
   final void testMaintainStatusFieldForDecodersAndEncoders() {
-    //TEST CASE 1: status field should be updated to offline
-    //update device information
+    // TEST CASE 1: status field should be updated to offline
+    // update device information
     encoderEntity.getDevice().setStatus("online");
 
     TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
     Date date = dateUtil.getCurrentDate();
-    //-15 minutes from now
+    // -15 minutes from now
     date.setTime(System.currentTimeMillis() - 900000);
 
     encoderEntity.setLastCommunication(date);
@@ -69,8 +64,8 @@ public class MaintainDeviceStatusTest {
 
     assertEquals("offline", encoderEntity.getDevice().getStatus());
 
-    //TEST CASE 2: status field should be updated to online
-    //-8 minutes from now
+    // TEST CASE 2: status field should be updated to online
+    // -8 minutes from now
     date.setTime(System.currentTimeMillis() - 480000);
 
     (encodersList.get(0)).setLastCommunication(date);
@@ -92,5 +87,4 @@ public class MaintainDeviceStatusTest {
     assertEquals("online", deviceDto.getStatus());
     assertEquals("online", deviceDto1.getStatus());
   }
-
 }
