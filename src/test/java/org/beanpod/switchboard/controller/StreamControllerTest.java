@@ -26,10 +26,14 @@ class StreamControllerTest {
 
   private StreamController streamController;
 
-  @Mock private StreamDaoImpl streamDao;
-  @Mock private StreamMapper streamMapper;
-  @Mock private StreamService streamService;
-  @Mock private MaintainDeviceStatus maintainDeviceStatus;
+  @Mock
+  private StreamDaoImpl streamDao;
+  @Mock
+  private StreamMapper streamMapper;
+  @Mock
+  private StreamService streamService;
+  @Mock
+  private MaintainDeviceStatus maintainDeviceStatus;
 
   @BeforeEach
   public void setup() {

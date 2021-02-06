@@ -25,9 +25,12 @@ class DecoderDaoImplTest {
   private static DecoderEntity decoder;
   private static DecoderDto decoderDto;
   private static List<DecoderEntity> listOfdecoders;
-  @InjectMocks private DecoderDaoImpl decoderDaoImpl;
-  @Mock private DecoderRepository decoderRepository;
-  @Mock private DecoderMapper decoderMapper;
+  @InjectMocks
+  private DecoderDaoImpl decoderDaoImpl;
+  @Mock
+  private DecoderRepository decoderRepository;
+  @Mock
+  private DecoderMapper decoderMapper;
 
   @BeforeEach
   void setupDecoderFixture() throws ParseException {

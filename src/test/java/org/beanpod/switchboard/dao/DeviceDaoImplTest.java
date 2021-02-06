@@ -28,9 +28,12 @@ class DeviceDaoImplTest {
   private static List<DeviceEntity> listOfDevices;
   private static CreateDeviceRequest createDeviceRequest;
   private static DeviceEntity deviceEntity;
-  @InjectMocks private DeviceDaoImpl deviceDaoImpl;
-  @Mock private DeviceRepository deviceRepository;
-  @Mock private DeviceMapper deviceMapper;
+  @InjectMocks
+  private DeviceDaoImpl deviceDaoImpl;
+  @Mock
+  private DeviceRepository deviceRepository;
+  @Mock
+  private DeviceMapper deviceMapper;
 
   @BeforeEach
   void setupDecoderFixture() {
