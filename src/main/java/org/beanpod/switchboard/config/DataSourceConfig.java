@@ -38,7 +38,7 @@ public class DataSourceConfig {
     String dbUrl =
         env.getProperty("spring.datasource.url") == null
             ? "jdbc:mysql://localhost:3306/"
-                + "switchboard?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC"
+            + "switchboard?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC"
             : env.getProperty("spring.datasource.url");
 
     DataSourceBuilder<?> dataSourceBuilder = DataSourceBuilder.create();

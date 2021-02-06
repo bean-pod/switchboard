@@ -22,7 +22,8 @@ import lombok.Setter;
 @Builder
 public class EncoderDto {
 
-  @NotNull private String serialNumber;
+  @NotNull
+  private String serialNumber;
 
   @Temporal(TemporalType.TIMESTAMP)
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
