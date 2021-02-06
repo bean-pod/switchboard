@@ -82,9 +82,16 @@ public class MaintainDeviceStatusTest {
     DeviceDto deviceDto1 = streamDto.getOutputChannel().getEncoder().getDevice();
     deviceDto1.setStatus("offline");
 
+    //TEST CASE 1: status is equal to offline
     maintainDeviceStatus.maintainStatusField(streamDto);
 
-    assertEquals("online", deviceDto.getStatus());
-    assertEquals("online", deviceDto1.getStatus());
+    assertEquals("online", deviceDto.getStatus(), "Status attribute is expected to be online");
+    assertEquals("online", deviceDto1.getStatus(), "Status attribute is expected to be online");
+
+    //Test Case 2: status is equal to online
+    maintainDeviceStatus.maintainStatusField(streamDto);
+
+    assertEquals("online", deviceDto.getStatus(),"Status attribute is expected to be online");
+    assertEquals("online", deviceDto1.getStatus(), "Status attribute is expected to be online");
   }
 }
