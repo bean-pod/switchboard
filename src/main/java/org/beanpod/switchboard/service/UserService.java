@@ -21,6 +21,19 @@ public class UserService implements UserDetailsService {
   private final ConfirmationTokenService confirmationTokenService;
   private final EmailSenderService emailSenderSevice;
 
+  void sendConfirmationMail(String userMail, String token) {
+
+    final SimpleMailMessage mailMessage = new SimpleMailMessage();
+    mailMessage.setTo(userMail);
+    mailMessage.setSubject("Mail Confirmation Link!");
+    mailMessage.setFrom("<MAIL>");
+    mailMessage.setText(
+        "Thank you for registering. Please click on the below link to activate your account." + "http://localhost:8080/sign-up/confirm?token="
+            + token);
+
+    emailSenderService.sendEmail(mailMessage);
+  }
+
   @Override
   public UserDetails loadUserByUsername(String email){
 
