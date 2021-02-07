@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { Box, Button, Container, makeStyles, TextField } from "@material-ui/core";
 import DynamicBreadcrumb from "../general/DynamicBreadcrumb";
 
@@ -20,6 +20,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function LogIn() {
   const classes = useStyles();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    alert(`Submitting username:${username} password:${password}`);
+  }
 
   return (
     <Container>
@@ -35,7 +42,7 @@ export default function LogIn() {
         </Box>
         <Container component="main" maxWidth="xs">
           <div className={classes.paper}>
-            <form className={classes.form} noValidate>
+            <form className={classes.form} noValidate onSubmit={handleSubmit}>
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -46,6 +53,7 @@ export default function LogIn() {
                 name="username"
                 autoComplete="username"
                 autoFocus
+                onChange={event => setUsername(event.target.value)}
               />
               <TextField
                 variant="outlined"
@@ -57,6 +65,7 @@ export default function LogIn() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={event => setPassword(event.target.value)}
               />
               <Button
                 type="submit"
