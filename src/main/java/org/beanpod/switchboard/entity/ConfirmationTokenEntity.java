@@ -35,7 +35,7 @@ public class ConfirmationTokenEntity {
   @JoinColumn(nullable = false, name = "user_id")
   private UserEntity user;
 
-  ConfirmationTokenEntity(UserEntity user) {
+  public ConfirmationTokenEntity(UserEntity user) {
     this.user = user;
     this.createdDate = LocalDate.now();
     this.confirmationToken = UUID.randomUUID().toString();
