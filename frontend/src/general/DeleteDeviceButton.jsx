@@ -7,10 +7,32 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import PropTypes from "prop-types";
+import { MenuItem } from "@material-ui/core";
 import * as DeviceApi from "../api/DeviceApi";
 
+function renderDeleteButton(openDeleteDialog) {
+  return (
+    <Button
+      id="deleteBtn"
+      variant="outlined"
+      color="secondary"
+      onClick={openDeleteDialog}
+    >
+      Delete
+    </Button>
+  );
+}
+
+function renderDeleteMenuItem(openDeleteDialog) {
+  return (
+    <MenuItem onClick={openDeleteDialog}>
+      <span className="warningText">Delete</span>
+    </MenuItem>
+  );
+}
+
 export default function DeleteDeviceButton(props) {
-  const { deleteId } = props;
+  const { button, deleteId } = props;
   const [open, setOpen] = React.useState(false);
   const history = useHistory();
 
@@ -21,21 +43,21 @@ export default function DeleteDeviceButton(props) {
     return setOpen(false);
   };
   const confirmDelete = () => {
-    DeviceApi.deleteDevice(deleteId);
-    history.push("/Devices");
+    DeviceApi.deleteDevice(deleteId).then(() => {
+      if (history.location.pathname.endsWith("Devices")) {
+        history.go(0);
+      } else {
+        history.push("/Devices");
+      }
+    });
     return setOpen(false);
   };
 
   return (
     <>
-      <Button
-        id="deleteBtn"
-        variant="outlined"
-        color="secondary"
-        onClick={openDeleteDialog}
-      >
-        Delete
-      </Button>
+      {button
+        ? renderDeleteButton(openDeleteDialog)
+        : renderDeleteMenuItem(openDeleteDialog)}
       <Dialog
         open={open}
         onClose={cancelDelete}
@@ -70,5 +92,6 @@ export default function DeleteDeviceButton(props) {
 }
 
 DeleteDeviceButton.propTypes = {
+  button: PropTypes.bool.isRequired,
   deleteId: PropTypes.string.isRequired
 };
