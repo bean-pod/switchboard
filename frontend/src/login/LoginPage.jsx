@@ -1,6 +1,14 @@
-import React, {useState} from "react";
-import { Box, Button, Container, makeStyles, TextField } from "@material-ui/core";
+import React, { useState } from "react";
+import {
+  Box,
+  Button,
+  Container,
+  makeStyles,
+  Snackbar,
+  TextField
+} from "@material-ui/core";
 import DynamicBreadcrumb from "../general/DynamicBreadcrumb";
+import * as AuthenticationApi from "../api/AuthenticationApi";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -22,11 +30,18 @@ export default function LogIn() {
   const classes = useStyles();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const open = true;
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    alert(`Submitting username:${username} password:${password}`);
-  }
+    AuthenticationApi.logIn({ username, password }).catch((error) => {
+      if(error.response && error.response.status === "403") {
+        // Incorrect credentials popup
+      } else {
+        // Unknown error occurred
+      }
+    });
+  };
 
   return (
     <Container>
@@ -53,7 +68,7 @@ export default function LogIn() {
                 name="username"
                 autoComplete="username"
                 autoFocus
-                onChange={event => setUsername(event.target.value)}
+                onChange={(event) => setUsername(event.target.value)}
               />
               <TextField
                 variant="outlined"
@@ -65,7 +80,7 @@ export default function LogIn() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
-                onChange={event => setPassword(event.target.value)}
+                onChange={(event) => setPassword(event.target.value)}
               />
               <Button
                 type="submit"

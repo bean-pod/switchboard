@@ -67,6 +67,7 @@
       "spaced-comment": "warn",
       "class-methods-use-this": "warn",
       "import/named": "warn",
+      "import/prefer-default-export": "warn",
       "no-plusplus": "warn",
       "no-sequences": "warn",
       "no-undef": "warn",
