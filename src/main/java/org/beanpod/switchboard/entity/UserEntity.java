@@ -23,11 +23,9 @@ public class UserEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @NotNull
-  private String userName;
+  @NotNull private String userName;
 
-  @NotNull
-  private String password;
+  @NotNull private String password;
 
   @Builder.Default private UserRole userRole = UserRole.USER;
 }

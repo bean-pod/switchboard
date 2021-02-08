@@ -1,4 +1,5 @@
 package org.beanpod.switchboard.entity;
+
 import java.util.Collection;
 import java.util.Collections;
 import javax.validation.constraints.NotNull;
@@ -7,18 +8,15 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class MyUserDetails implements UserDetails{
+public class MyUserDetails implements UserDetails {
 
-  @NotNull
-  private String userName;
+  @NotNull private String userName;
 
-  @NotNull
-  private String password;
+  @NotNull private String password;
 
   @Builder.Default private UserRole userRole = UserRole.USER;
 
-
-  public MyUserDetails(UserEntity userEntity){
+  public MyUserDetails(UserEntity userEntity) {
     this.userName = userEntity.getUserName();
     this.password = userEntity.getPassword();
     this.userRole = userEntity.getUserRole();
@@ -26,7 +24,8 @@ public class MyUserDetails implements UserDetails{
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    final SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(userRole.name());
+    final SimpleGrantedAuthority simpleGrantedAuthority =
+        new SimpleGrantedAuthority(userRole.name());
     return Collections.singletonList(simpleGrantedAuthority);
   }
 
