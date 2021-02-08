@@ -24,7 +24,7 @@ public class UserController implements UserApi {
   @Override
   public ResponseEntity<String> signUp(UserModel user) {
     userDao.save(user);
-    return ResponseEntity.ok("User "+ user.getEmail() + " has been successfully saved");
+    return ResponseEntity.ok("User "+ user.getEmail() + " has been successfully created");
   }
 
 
