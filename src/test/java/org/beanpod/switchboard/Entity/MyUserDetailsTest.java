@@ -15,34 +15,29 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 class MyUserDetailsTest {
 
+  private static UserEntity userEntity = UserFixture.getUserEntity();
 
-  private static UserEntity userEntity  = UserFixture.getUserEntity();
-
-  @InjectMocks
-  private MyUserDetails myUserDetails = new MyUserDetails(userEntity);
-
+  @InjectMocks private MyUserDetails myUserDetails = new MyUserDetails(userEntity);
 
   @BeforeEach
-  void setup(){
+  void setup() {
     MockitoAnnotations.initMocks(this);
   }
 
   @Test
-  void getAuthorities(){
-    final SimpleGrantedAuthority simpleGrantedAuthority =
-        new SimpleGrantedAuthority("USER");
+  void getAuthorities() {
+    final SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority("USER");
     assertEquals(myUserDetails.getAuthorities(), Collections.singletonList(simpleGrantedAuthority));
   }
 
   @Test
-  void testGetPassword(){
+  void testGetPassword() {
     assertEquals("1234.", myUserDetails.getPassword());
   }
 
   @Test
-  void testGetUserName(){
-    assertEquals("moh@gmail.com",myUserDetails.getUsername());
-
+  void testGetUserName() {
+    assertEquals("moh@gmail.com", myUserDetails.getUsername());
   }
 
   @Test
