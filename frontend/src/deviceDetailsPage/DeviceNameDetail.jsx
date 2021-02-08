@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Box, Button, TextField } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
@@ -6,6 +7,7 @@ import EditIcon from "@material-ui/icons/Edit";
 export default function DeviceNameDetail(props) {
   const { deviceName } = props;
   const [editing, setEditing] = React.useState(false);
+  const history = useHistory();
 
   const startEdit = () => {
     return setEditing(true);
@@ -18,6 +20,7 @@ export default function DeviceNameDetail(props) {
   const confirmEditing = () => {
     // api call
     // history (refresh)
+    history.go(0);
     return setEditing(false);
   };
 
@@ -46,7 +49,7 @@ export default function DeviceNameDetail(props) {
             defaultValue={deviceName}
             label="Device Name"
           />
-          <Box padding={4} paddingLeft={1}>
+          <Box padding={4} paddingLeft={1} paddingRight={1}>
             <Button
               id="cancelEditBtn"
               onClick={cancelEditing}
@@ -64,7 +67,7 @@ export default function DeviceNameDetail(props) {
               variant="contained"
               disableElevation
             >
-              Confirm
+              Save Changes
             </Button>
           </Box>
         </Box>
