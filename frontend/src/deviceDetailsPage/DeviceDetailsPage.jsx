@@ -8,6 +8,7 @@ import DeviceDetailsTabTable from "./DeviceDetailsTabTable";
 import DeviceInfo from "../model/DeviceInfo";
 import { getSampleSender } from "../api/SampleData";
 import DeleteDeviceButton from "../general/DeleteDeviceButton";
+import DeviceNameDetail from "./DeviceNameDetail";
 
 export default function DeviceDetailsPage(props) {
   const {
@@ -28,14 +29,7 @@ export default function DeviceDetailsPage(props) {
       />
       <Box className="areaUnderBreadcrumbs">
         <Box className="flexContents headerAreaUnderline">
-          <Box className="flexContents">
-            <div className="title">{device.name}</div>
-            <Box padding={4} paddingLeft={1} paddingBottom={0}>
-              <Button>
-                <EditIcon color="action" />
-              </Button>
-            </Box>
-          </Box>
+          <DeviceNameDetail deviceName={device.name} />
           <div className="alignRightFloat">
             <Box marginRight={2} marginTop={2}>
               <DeleteDeviceButton button deleteId={device.serialNumber} />
