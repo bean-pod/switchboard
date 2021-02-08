@@ -52,7 +52,7 @@ class MyUserDetailsTest {
 
   @Test
   void testIsCredentialsNonExpired() {
-    assertTrue(myUserDetails.isAccountNonExpired());
+    assertTrue(myUserDetails.isCredentialsNonExpired());
   }
 
   @Test
