@@ -16,21 +16,19 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.openapitools.model.UserModel;
 
-
 class UserDaoImplTest {
 
-  @InjectMocks
-  private UserDaoImpl userDaoImpl;
-  @Mock private UserService userService;
-  @Mock private UserMapper userMapper;
   private static UserModel userModel;
   private static UserDto userDto;
   private static UserEntity userEntity;
+  @InjectMocks private UserDaoImpl userDaoImpl;
+  @Mock private UserService userService;
+  @Mock private UserMapper userMapper;
 
   @BeforeEach
-  void setupUserFixture(){
+  void setupUserFixture() {
     userModel = UserFixture.getUserModel();
-    userDto  = UserFixture.getUserDto();
+    userDto = UserFixture.getUserDto();
     userEntity = UserFixture.getUserEntity();
   }
 
@@ -39,14 +37,13 @@ class UserDaoImplTest {
     MockitoAnnotations.initMocks(this);
   }
 
-
   @Test
-  final void testSave(){
+  final void testSave() {
     when(userMapper.toUserEntity(any(UserModel.class))).thenReturn(userEntity);
     when(userMapper.toUserDto(any(UserEntity.class))).thenReturn(userDto);
     when(userService.signUpUser(any())).thenReturn(userEntity);
 
     UserDto response = userDaoImpl.save(userModel);
-    assertEquals("moh@gmail.com",response.getEmail());
+    assertEquals("moh@gmail.com", response.getEmail());
   }
 }

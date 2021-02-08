@@ -1,6 +1,5 @@
 package org.beanpod.switchboard.entity;
 
-
 import java.time.LocalDate;
 import java.util.UUID;
 import javax.persistence.Entity;
@@ -21,7 +20,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ConfirmationTokenEntity {
-
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

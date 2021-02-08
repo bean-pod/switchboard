@@ -16,15 +16,15 @@ import org.springframework.http.ResponseEntity;
 
 class UserControllerTest {
 
-  @InjectMocks private UserController userController;
-  @Mock private UserDaoImpl userDao;
   private static UserModel userModel;
   private static UserDto userDto;
+  @InjectMocks private UserController userController;
+  @Mock private UserDaoImpl userDao;
 
   @BeforeEach
-  void setupUserFixture(){
+  void setupUserFixture() {
     userModel = UserFixture.getUserModel();
-    userDto  = UserFixture.getUserDto();
+    userDto = UserFixture.getUserDto();
   }
 
   @BeforeEach
@@ -33,7 +33,7 @@ class UserControllerTest {
   }
 
   @Test
-  final void signUp(){
+  final void signUp() {
     when(userDao.save(userModel)).thenReturn(userDto);
     ResponseEntity<String> response = userController.signUp(userModel);
     assertEquals("User moh@gmail.com has been successfully created", response.getBody());

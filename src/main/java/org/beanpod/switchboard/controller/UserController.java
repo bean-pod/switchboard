@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-
 @Controller
 @AllArgsConstructor
 public class UserController implements UserApi {
@@ -24,8 +23,6 @@ public class UserController implements UserApi {
   @Override
   public ResponseEntity<String> signUp(UserModel user) {
     userDao.save(user);
-    return ResponseEntity.ok("User "+ user.getEmail() + " has been successfully created");
+    return ResponseEntity.ok("User " + user.getEmail() + " has been successfully created");
   }
-
-
 }

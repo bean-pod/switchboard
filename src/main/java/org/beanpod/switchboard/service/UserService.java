@@ -19,29 +19,24 @@ public class UserService implements UserDetailsService {
   private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
   @Override
-  public UserDetails loadUserByUsername(String email){
+  public UserDetails loadUserByUsername(String email) {
 
     final Optional<UserEntity> optionalUser = userRepository.findByEmail(email);
 
     if (optionalUser.isPresent()) {
       return optionalUser.get();
-    }
-    else {
+    } else {
       throw new UsernameNotFoundException(
           MessageFormat.format("User with email {0} cannot be found.", email));
     }
   }
 
-
   public UserEntity signUpUser(UserEntity user) {
-
-    final String encryptedPassword = bCryptPasswordEncoder.encode(user.getPassword());
+    String password = user.getPassword();
+    final String encryptedPassword = bCryptPasswordEncoder.encode(password);
 
     user.setPassword(encryptedPassword);
 
-    final UserEntity createdUser = userRepository.save(user);
-
-    return createdUser;
+    return userRepository.save(user);
   }
-
 }

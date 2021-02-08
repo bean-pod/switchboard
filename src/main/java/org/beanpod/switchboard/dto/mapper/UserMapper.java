@@ -6,17 +6,16 @@ import org.beanpod.switchboard.entity.UserEntity;
 import org.mapstruct.Mapper;
 import org.openapitools.model.UserModel;
 
-@Mapper(
-    componentModel = "spring")
+@Mapper(componentModel = "spring")
 public interface UserMapper {
 
-UserDto toUserDto(UserEntity userEntity);
+  UserDto toUserDto(UserEntity userEntity);
 
-DeviceDto toUserDto(UserModel userModel);
+  DeviceDto toUserDto(UserModel userModel);
 
-UserModel toUserModel(UserDto userDto);
+  UserModel toUserModel(UserDto userDto);
 
-UserEntity toUserEntity(UserDto userDto);
+  UserEntity toUserEntity(UserDto userDto);
 
-UserEntity toUserEntity(UserModel userModel);
+  UserEntity toUserEntity(UserModel userModel);
 }

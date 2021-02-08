@@ -17,18 +17,13 @@ public class UserDto {
 
   private String name;
 
-  @NotEmpty
-  private String email;
+  @NotEmpty private String email;
 
   private String password;
 
-  @Builder.Default
-  private UserRole userRole = UserRole.USER;
+  @Builder.Default private UserRole userRole = UserRole.USER;
 
-  @Builder.Default
-  private Boolean locked = false;
+  @Builder.Default private Boolean locked = false;
 
-  @Builder.Default
-  private Boolean enabled = false;
-
+  @Builder.Default private Boolean enabled = false;
 }

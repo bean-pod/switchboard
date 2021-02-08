@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,10 +19,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Getter
 @Setter
 @Builder
-@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name="User")
+@Entity(name = "User")
 public class UserEntity implements UserDetails {
 
   @Id
@@ -32,23 +30,20 @@ public class UserEntity implements UserDetails {
 
   private String name;
 
-  @NotEmpty
-  private String email;
+  @NotEmpty private String email;
 
   private String password;
 
-  @Builder.Default
-  private UserRole userRole = UserRole.USER;
+  @Builder.Default private UserRole userRole = UserRole.USER;
 
-  @Builder.Default
-  private Boolean locked = false;
+  @Builder.Default private Boolean locked = false;
 
-  @Builder.Default
-  private Boolean enabled = false;
+  @Builder.Default private Boolean enabled = false;
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    final SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(userRole.name());
+    final SimpleGrantedAuthority simpleGrantedAuthority =
+        new SimpleGrantedAuthority(userRole.name());
     return Collections.singletonList(simpleGrantedAuthority);
   }
 

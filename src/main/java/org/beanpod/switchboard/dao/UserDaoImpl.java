@@ -14,10 +14,7 @@ public class UserDaoImpl {
   private final UserService userService;
   private final UserMapper userMapper;
 
-  public UserDto save(UserModel userModel){
-    return userMapper.toUserDto(userService.signUpUser(
-       userMapper.toUserEntity(userModel)
-    ));
+  public UserDto save(UserModel userModel) {
+    return userMapper.toUserDto(userService.signUpUser(userMapper.toUserEntity(userModel)));
   }
-
 }
