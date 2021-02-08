@@ -1,10 +1,12 @@
 package org.beanpod.switchboard.entity;
+
 import java.util.Collection;
 import java.util.Collections;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -32,6 +34,7 @@ public class UserEntity implements UserDetails {
 
   private String surname;
 
+  @NotEmpty
   private String email;
 
   private String password;
@@ -68,7 +71,7 @@ public class UserEntity implements UserDetails {
 
   @Override
   public boolean isAccountNonLocked() {
-    return true;
+    return !locked;
   }
 
   @Override
