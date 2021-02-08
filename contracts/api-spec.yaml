@@ -10,6 +10,19 @@ servers:
     description: Local Enviorment
 
 paths:
+  /logs/{serialNumber}:
+    get:
+      operationId: retrieveDeviceLogs
+      description: Get a list of logs for a specific device
+      parameters:
+        - $ref: '#/components/parameters/DeviceSerialNumber'
+      responses:
+        '200':
+          description: Succesful retrieval of the device logs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogsModel'
   /logs:
     get:
       operationId: retrieveAllLogs

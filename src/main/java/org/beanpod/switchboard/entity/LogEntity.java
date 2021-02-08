@@ -20,7 +20,7 @@ import lombok.Setter;
 public class LogEntity {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   private OffsetDateTime dateTime;
@@ -28,4 +28,7 @@ public class LogEntity {
   private String message;
 
   private String level;
+
+  private String
+      serialNumber; // This can be a single serialNumber or two serialNumbers seperated by a comma
 }

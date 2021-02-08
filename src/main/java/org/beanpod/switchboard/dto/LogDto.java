@@ -21,4 +21,6 @@ public class LogDto {
   private String message;
 
   private String level;
+
+  private String serialNumber;
 }

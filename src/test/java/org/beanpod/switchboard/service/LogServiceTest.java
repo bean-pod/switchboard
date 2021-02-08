@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 
 import org.beanpod.switchboard.dto.mapper.LogMapper;
 import org.beanpod.switchboard.entity.LogEntity;
+import org.beanpod.switchboard.fixture.DeviceFixture;
 import org.beanpod.switchboard.fixture.LogFixture;
 import org.beanpod.switchboard.repository.LogRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,7 +37,7 @@ class LogServiceTest {
   @Test
   final void testGetLog() {
     when(logRepository.save(any())).thenReturn(logEntity);
-    logService.createLog("im a log", "info");
+    logService.createLog("im a log", "info", DeviceFixture.SERIAL_NUMBER);
     verify(logRepository, times(1)).save(any());
   }
 }

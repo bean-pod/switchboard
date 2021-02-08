@@ -14,10 +14,15 @@ public class LogService {
   private final DateUtil dateUtil;
   private final LogRepository logRepository;
 
-  public void createLog(String message, String level) {
+  public void createLog(String message, String level, String serialNumber) {
 
     LogEntity logEntity =
-        LogEntity.builder().message(message).level(level).dateTime(OffsetDateTime.now()).build();
+        LogEntity.builder()
+            .message(message)
+            .level(level)
+            .dateTime(OffsetDateTime.now())
+            .serialNumber(serialNumber)
+            .build();
     logRepository.save(logEntity);
   }
 }

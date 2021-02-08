@@ -1,6 +1,7 @@
 package org.beanpod.switchboard.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.beanpod.switchboard.dao.ChannelDaoImpl;
 import org.beanpod.switchboard.dao.StreamDaoImpl;
 import org.beanpod.switchboard.dto.DeviceDto;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class StreamServiceImpl implements StreamService {
 
   private final StreamDaoImpl streamDao;
@@ -24,6 +26,12 @@ public class StreamServiceImpl implements StreamService {
 
   @Override
   public StreamDto createStream(CreateStreamRequest createStreamRequest) {
+
+    log.info(
+        "Creating a stream request between input channel {} and output channel {}",
+        createStreamRequest.getInputChannelId(),
+        createStreamRequest.getOutputChannelId());
+
     InputChannelDto inputChannelDto =
         channelDao.getInputChannelById(createStreamRequest.getInputChannelId());
     OutputChannelDto outputChannelDto =
@@ -36,20 +44,38 @@ public class StreamServiceImpl implements StreamService {
             .isRendezvous(shouldUseRendezvousMode(inputChannelDto, outputChannelDto))
             .build();
 
-    return streamDao.saveStream(streamDto);
+    StreamDto streamDto1 = streamDao.saveStream(streamDto);
+    log.debug(
+        "Stream created between input channel {} and output channel {}",
+        createStreamRequest.getInputChannelId(),
+        createStreamRequest.getOutputChannelId());
+    return streamDto1;
   }
 
   @Override
   public StreamDto updateStream(StreamDto streamDto) {
+    log.info("Updating stream {}", streamDto.getId());
     StreamEntity updatedStreamEntity = streamDao.updateStream(streamDto);
     return mapper.toDto(updatedStreamEntity);
   }
 
   private boolean shouldUseRendezvousMode(
       InputChannelDto inputChannelDto, OutputChannelDto outputChannelDto) {
+    log.info(
+        "Determining whether to use RendezvousMode between input channel {} and output channel {}",
+        inputChannelDto.getId(),
+        outputChannelDto.getId());
+
     DeviceDto decoderDevice = inputChannelDto.getDecoder().getDevice();
     DeviceDto encoderDevice = outputChannelDto.getEncoder().getDevice();
-    return !(networkingUtil.areDevicesOnSameLocalNetworkAsService(decoderDevice, encoderDevice)
-        || networkingUtil.areDevicesOnSamePrivateNetwork(decoderDevice, encoderDevice));
+    Boolean rendezVousAllowed =
+        !(networkingUtil.areDevicesOnSameLocalNetworkAsService(decoderDevice, encoderDevice)
+            || networkingUtil.areDevicesOnSamePrivateNetwork(decoderDevice, encoderDevice));
+    log.debug(
+        "RendezvousMode is {} between decoder device {} and encoder device {}",
+        Boolean.TRUE.equals(rendezVousAllowed) ? "allowed" : "not allowed",
+        decoderDevice.getSerialNumber(),
+        encoderDevice.getSerialNumber());
+    return rendezVousAllowed;
   }
 }

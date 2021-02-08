@@ -34,3 +34,4 @@ build/
 
 ### Node modules###
 node_modules/
+/src/test/java/system_tests/chromedriver*

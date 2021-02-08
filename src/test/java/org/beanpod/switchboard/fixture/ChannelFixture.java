@@ -22,7 +22,7 @@ public class ChannelFixture {
   public static final String NAME = "local";
   public static final int PORT = 8080;
 
-  public static ChannelEntity getChannelEntity() {
+  public static ChannelEntity getChannelEntity1() {
     return ChannelEntity.builder().id(CHANNEL_ID).name(NAME).port(PORT).build();
   }
 
@@ -32,7 +32,7 @@ public class ChannelFixture {
 
   public static List<ChannelEntity> getListOfChannels() {
     List<ChannelEntity> listOfChannels = new ArrayList<>();
-    listOfChannels.add(getChannelEntity());
+    listOfChannels.add(getChannelEntity1());
     listOfChannels.add(getChannelEntity2());
     return listOfChannels;
   }
@@ -45,7 +45,7 @@ public class ChannelFixture {
   public static InputChannelEntity getInputChannelEntity() {
     return InputChannelEntity.builder()
         .id(INPUT_CHANNEL_ID)
-        .channel(getChannelEntity())
+        .channel(getChannelEntity1())
         .decoder(DecoderFixture.getDecoderEntity1())
         .build();
   }
@@ -53,8 +53,8 @@ public class ChannelFixture {
   @SneakyThrows
   public static OutputChannelEntity getOutputChannelEntity() {
     return OutputChannelEntity.builder()
-        .id(INPUT_CHANNEL_ID)
-        .channel(getChannelEntity())
+        .id(OUTPUT_CHANNEL_ID)
+        .channel(getChannelEntity2())
         .encoder(EncoderFixture.getEncoderEntity1())
         .build();
   }
@@ -85,7 +85,7 @@ public class ChannelFixture {
   public static Set<InputChannelEntity> getInputChannelEntities() {
     return new HashSet<>() {
       {
-        getInputChannelEntity();
+        add(getInputChannelEntity());
       }
     };
   }
@@ -93,7 +93,7 @@ public class ChannelFixture {
   public static Set<OutputChannelEntity> getOutputChannelEntities() {
     return new HashSet<>() {
       {
-        getOutputChannelEntity();
+        add(getOutputChannelEntity());
       }
     };
   }
@@ -101,7 +101,7 @@ public class ChannelFixture {
   public static Set<InputChannelDto> getInputChannelDtos() {
     return new HashSet<>() {
       {
-        getInputChannelDto();
+        add(getInputChannelDto());
       }
     };
   }
@@ -109,7 +109,7 @@ public class ChannelFixture {
   public static Set<OutputChannelDto> getOutputChannelDtos() {
     return new HashSet<>() {
       {
-        getOutputChannelDto();
+        add(getOutputChannelDto());
       }
     };
   }
