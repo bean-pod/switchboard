@@ -8,7 +8,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import PropTypes from "prop-types";
 import { MenuItem } from "@material-ui/core";
-import * as DeviceApi from "../api/DeviceApi";
+import * as DeviceApi from "../../api/DeviceApi";
 
 function renderDeleteButton(openDeleteDialog) {
   return (

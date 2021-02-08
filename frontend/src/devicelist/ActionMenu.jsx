@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 
 import { MoreVert } from "@material-ui/icons/";
 import DeviceInfo from "../model/DeviceInfo";
-import DeleteDeviceButton from "../general/DeleteDeviceButton";
+import DeleteDeviceButton from "../general/Buttons/DeleteDeviceButton";
 
 export default class ActionMenu extends React.Component {
   constructor(props) {
