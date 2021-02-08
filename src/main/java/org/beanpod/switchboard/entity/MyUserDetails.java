@@ -32,12 +32,12 @@ public class MyUserDetails implements UserDetails{
 
   @Override
   public String getPassword() {
-    return userEntity.getPassword();
+    return password;
   }
 
   @Override
   public String getUsername() {
-    return userEntity.getUserName();
+    return userName;
   }
 
   @Override
