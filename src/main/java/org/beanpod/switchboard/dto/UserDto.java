@@ -1,5 +1,6 @@
 package org.beanpod.switchboard.dto;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,6 +18,7 @@ public class UserDto {
 
   private String name;
 
+  @Email(message = "Email should be valid")
   @NotEmpty private String email;
 
   private String password;
