@@ -24,12 +24,16 @@ paths:
               schema:
                 $ref: '#/components/schemas/LogsModel'
 
-  /sign-up:
+  /user/sign-up:
     post:
       operationId: sign-up
       description: sign up a user
-      parameters:
-        - $ref: '#/components/schemas/UserModel'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserModel'
       responses:
         '200':
           description: succesful persistance of user
@@ -598,7 +602,7 @@ components:
       items:
         type: integer
         format: int64
-      example: ['1234']
+      example: [ '1234' ]
 
     CreateStreamRequest:
       description: An object to request the creation of a stream between an input and output channel

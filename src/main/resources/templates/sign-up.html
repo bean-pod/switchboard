@@ -4,12 +4,9 @@
   <title>Spring Boot User Authentication</title>
 </head>
 <body>
-<form role="form" th:action="@{/sign-up}" th:method="post" th:object="${userEntity}">
+<form role="form" th:action="@{/user/sign-up}" th:method="post" th:object="${userEntity}">
   <lable>Name</lable>
   <input type="text" id="name" name="name" th:field="*{name}">
-
-  <lable>Surname</lable>
-  <input type="text" id="surname" name="surname" th:field="*{surname}">
 
   <lable>Email</lable>
   <input type="text" id="email" name="email" th:field="*{email}">

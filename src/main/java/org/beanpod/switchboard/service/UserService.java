@@ -33,7 +33,7 @@ public class UserService implements UserDetailsService {
   }
 
 
-  public void signUpUser(UserEntity user) {
+  public UserEntity signUpUser(UserEntity user) {
 
     final String encryptedPassword = bCryptPasswordEncoder.encode(user.getPassword());
 
@@ -41,6 +41,7 @@ public class UserService implements UserDetailsService {
 
     final UserEntity createdUser = userRepository.save(user);
 
+    return createdUser;
   }
 
 }

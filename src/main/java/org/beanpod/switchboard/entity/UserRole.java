@@ -1,6 +1,6 @@
 package org.beanpod.switchboard.entity;
 
-enum UserRole {
+public enum UserRole {
   ADMIN,
   USER
 }
