@@ -17,30 +17,29 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-  //TODO remove this method when sign in functionality is implemented
+  // TODO remove this method when sign in functionality is implemented
   @Override
   public void configure(WebSecurity web) throws Exception {
     web.ignoring().antMatchers("/*/**");
   }
 
-  //TODO uncomment this block when sign in functionality is enabled, this secures the whole website
-//  @Override
-//  protected void configure(HttpSecurity http) throws Exception {
-//
-//    http.authorizeRequests()
-//        .antMatchers("/sign-up/**", "/sign-in/**")
-//        .permitAll()
-//        .anyRequest()
-//        .authenticated()
-//        .and()
-//        .formLogin()
-//        .loginPage("/sign-in")
-//        .permitAll();
-//  }
+  // TODO uncomment this block when sign in functionality is enabled, this secures the whole website
+  //  @Override
+  //  protected void configure(HttpSecurity http) throws Exception {
+  //
+  //    http.authorizeRequests()
+  //        .antMatchers("/sign-up/**", "/sign-in/**")
+  //        .permitAll()
+  //        .anyRequest()
+  //        .authenticated()
+  //        .and()
+  //        .formLogin()
+  //        .loginPage("/sign-in")
+  //        .permitAll();
+  //  }
 
   @Autowired
   public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-    auth.userDetailsService(userService)
-        .passwordEncoder(bCryptPasswordEncoder);
+    auth.userDetailsService(userService).passwordEncoder(bCryptPasswordEncoder);
   }
 }
