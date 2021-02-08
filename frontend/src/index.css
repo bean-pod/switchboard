@@ -198,6 +198,14 @@ select {
   color: #ea5757;
 }
 
+#editDeviceNameField {
+  font-size: 35px;
+  vertical-align: middle;
+  flex-grow: 1;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
 /* Button styling */
 .greenFill {
   fill: #59bc31;

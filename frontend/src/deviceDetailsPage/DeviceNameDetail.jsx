@@ -41,13 +41,32 @@ export default function DeviceNameDetail(props) {
       <>
         <Box className="flexContents">
           <TextField
-            id="edit-device-name"
+            id="editDeviceNameField"
             required
             defaultValue={deviceName}
-            helperText="Device Name"
+            label="Device Name"
           />
-          <Button>{/* cancel */}</Button>
-          <Button>{/* confirm */}</Button>
+          <Box padding={4} paddingLeft={1}>
+            <Button
+              id="cancelEditBtn"
+              onClick={cancelEditing}
+              variant="contained"
+              disableElevation
+            >
+              Cancel
+            </Button>
+          </Box>
+          <Box padding={4} paddingLeft={0}>
+            <Button
+              id="confirmEditBtn"
+              onClick={confirmEditing}
+              color="primary"
+              variant="contained"
+              disableElevation
+            >
+              Confirm
+            </Button>
+          </Box>
         </Box>
       </>
     );
