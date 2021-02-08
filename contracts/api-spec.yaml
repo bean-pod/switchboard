@@ -23,6 +23,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LogsModel'
+
+  /sign-up:
+    post:
+      operationId: sign-up
+      description: sign up a user
+      parameters:
+        - $ref: '#/components/schemas/UserModel'
+      responses:
+        '200':
+          description: succesful persistance of user
+          content:
+            application/json:
+              schema:
+                type: string
+                example: 'User moh has been created successfully'
+
   /logs:
     get:
       operationId: retrieveAllLogs
@@ -389,6 +405,23 @@ paths:
 
 components:
   schemas:
+    UserModel:
+      description: A user object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: '123'
+        name:
+          type: string
+          example: 'Jay'
+        email:
+          type: string
+          example: 'moh@gmail.com'
+        password:
+          type: string
+          example: '123#rt.'
+
     LogsModel:
       description: A list of all logs
       type: array

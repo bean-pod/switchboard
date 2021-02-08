@@ -32,8 +32,6 @@ public class UserEntity implements UserDetails {
 
   private String name;
 
-  private String surname;
-
   @NotEmpty
   private String email;
 
