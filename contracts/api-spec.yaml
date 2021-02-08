@@ -416,10 +416,7 @@ components:
           type: integer
           format: int64
           example: '123'
-        name:
-          type: string
-          example: 'Jay'
-        email:
+        userName:
           type: string
           example: 'moh@gmail.com'
         password:

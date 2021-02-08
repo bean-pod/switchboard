@@ -39,15 +39,15 @@ class UserServiceTest {
   @Test
   final void testLoadUserByUserName() {
     Optional<UserEntity> userEntity = Optional.of(userEntity1);
-    when(userRepository.findByEmail(any())).thenReturn(userEntity);
+    when(userRepository.findByUserName(any())).thenReturn(userEntity);
     userService.loadUserByUsername("moh@gmail.com");
-    verify(userRepository).findByEmail("moh@gmail.com");
+    verify(userRepository).findByUserName("moh@gmail.com");
   }
 
   @Test
   final void testLoadUserByUserNameException() {
     Optional<UserEntity> empty = Optional.empty();
-    when(userRepository.findByEmail(any())).thenReturn(empty);
+    when(userRepository.findByUserName(any())).thenReturn(empty);
     assertThrows(
         UsernameNotFoundException.class,
         () -> {

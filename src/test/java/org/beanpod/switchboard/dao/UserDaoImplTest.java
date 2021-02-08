@@ -44,6 +44,6 @@ class UserDaoImplTest {
     when(userService.signUpUser(any())).thenReturn(userEntity);
 
     UserDto response = userDaoImpl.save(userModel);
-    assertEquals("moh@gmail.com", response.getEmail());
+    assertEquals("moh@gmail.com", response.getUserName());
   }
 }
