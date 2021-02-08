@@ -14,7 +14,7 @@ export default function SnackbarMessage(props) {
     if (status === "success") {
       setIsSuccess(true);
     }
-  }, [status, msg]);
+  }, [status]);
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -44,10 +44,10 @@ export default function SnackbarMessage(props) {
           }}
           // prettier-ignore
           message={(
-            <Box id='message-id' style={{ display: "flex", alignItems: "center" }}>
+            <Box id='message-id' className="snackMessage">
               {status === "success" ? 
-                <CheckCircle style={{ margin: "0.6rem" }} /> : 
-                <Error style={{ margin: "0.6rem" }} />}
+                <CheckCircle className="iconPadding" /> : 
+                <Error className="iconPadding" />}
               {msg || `Form submission status: ${status}`}
             </Box>
           )}
