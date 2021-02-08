@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Box, Button, Container, Grid } from "@material-ui/core";
-import EditIcon from "@material-ui/icons/Edit";
+import { Box, Container, Grid } from "@material-ui/core";
 
 import DynamicBreadcrumb from "../general/DynamicBreadcrumb";
 import DeviceDetailsTabTable from "./DeviceDetailsTabTable";
