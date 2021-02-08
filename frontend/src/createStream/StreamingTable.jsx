@@ -6,6 +6,7 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import SelectDevicesTable from "./SelectDevicesTable";
 import StreamButton from "../general/Buttons/StreamButton";
+import SnackbarMessage from "../general/SnackbarMessage";
 
 export default class StreamingTable extends React.Component {
   constructor(props) {
@@ -14,7 +15,10 @@ export default class StreamingTable extends React.Component {
       senders: [],
       receivers: [],
       selectedSenderID: "",
-      selectedReceiverID: ""
+      selectedReceiverID: "",
+      status: "",
+      message: "",
+      date: ""
     };
 
     this.dataSource = props.dataSource;
@@ -25,6 +29,7 @@ export default class StreamingTable extends React.Component {
     this.onReceiverSelected = this.onReceiverSelected.bind(this);
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSnackbarChange = this.handleSnackbarChange.bind(this);
   }
 
   componentDidMount() {
@@ -44,13 +49,35 @@ export default class StreamingTable extends React.Component {
     });
   }
 
+  handleSnackbarChange(status, message) {
+    this.setState({
+      status,
+      message,
+      date: new Date()
+    });
+  }
+
   handleSubmit(event) {
     const { selectedReceiverID, selectedSenderID } = this.state;
     if (selectedReceiverID !== "" && selectedSenderID !== "") {
-      axios.post(process.env.REACT_APP_STREAM, {
-        inputChannelId: selectedReceiverID,
-        outputChannelId: selectedSenderID
-      });
+      axios
+        .post(process.env.REACT_APP_STREAM, {
+          inputChannelId: selectedReceiverID,
+          outputChannelId: selectedSenderID
+        })
+        .then(() => {
+          // Refresh the page
+          this.handleSnackbarChange(
+            "success",
+            `Stream successful between Sender ${selectedSenderID} and Receiver ${selectedReceiverID}!`
+          );
+        })
+        .catch(() => {
+          this.handleSnackbarChange(
+            "error",
+            `Stream failed between Sender ${selectedSenderID} and Receiver ${selectedReceiverID}`
+          );
+        });
     }
     event.preventDefault();
   }
@@ -68,7 +95,7 @@ export default class StreamingTable extends React.Component {
   }
 
   render() {
-    const { receivers, senders } = this.state;
+    const { receivers, senders, message, status, date } = this.state;
     return (
       <>
         <form onSubmit={this.handleSubmit} id="createStreamForm">
@@ -99,6 +126,9 @@ export default class StreamingTable extends React.Component {
               display="flex"
             >
               <StreamButton id="StreamingStreamBtn" type="submit" />
+              {status ? (
+                <SnackbarMessage key={date} status={status} msg={message} />
+              ) : null}
             </Grid>
             <Grid item xs={3}>
               <div className="streamingTable" id="ReceiverTable">
