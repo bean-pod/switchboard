@@ -14,15 +14,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   private final UserService userService;
+
   private final BCryptPasswordEncoder bCryptPasswordEncoder;
-
-
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
 
-    http
-        .authorizeRequests()
+    http.authorizeRequests()
         .antMatchers("/sign-up/**", "/sign-in/**")
         .permitAll()
         .anyRequest()
