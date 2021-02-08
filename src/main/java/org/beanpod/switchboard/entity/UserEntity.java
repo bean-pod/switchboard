@@ -32,7 +32,8 @@ public class UserEntity implements UserDetails {
   private String name;
 
   @Email(message = "Email should be valid")
-  @NotEmpty private String email;
+  @NotEmpty
+  private String email;
 
   private String password;
 
