@@ -13,7 +13,7 @@ import Adapter from "enzyme-adapter-react-16";
 import { afterEach, describe, expect, jest, it } from "@jest/globals";
 import axios from "axios";
 
-import DeleteDeviceButton from "../DeleteDeviceButton";
+import DeleteDeviceButton from "../Buttons/DeleteDeviceButton";
 
 Enzyme.configure({ adapter: new Adapter() });
 jest.mock("axios");
