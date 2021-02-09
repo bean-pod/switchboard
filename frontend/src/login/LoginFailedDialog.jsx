@@ -11,10 +11,10 @@ import {
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-    title: {
-        color: "#ef5350"
-    }
-  }));
+  title: {
+    color: "#ef5350"
+  }
+}));
 
 export default function LoginFailedDialog(props) {
   const classes = useStyles();
@@ -27,7 +27,9 @@ export default function LoginFailedDialog(props) {
   return (
     <>
       <Dialog open={open} onClose={closeDialog}>
-        <DialogTitle id="login-failed-dialog-title" className={classes.title}>Login Failed</DialogTitle>
+        <DialogTitle id="login-failed-dialog-title" className={classes.title}>
+          Login Failed
+        </DialogTitle>
         <DialogContent>
           <DialogContentText id="login-failed-dialog-description">
             Incorrect username and/or password. Please enter the correct
@@ -45,6 +47,6 @@ export default function LoginFailedDialog(props) {
 }
 
 LoginFailedDialog.propTypes = {
-  open: PropTypes.objectOf(PropTypes.bool).isRequired,
-  setOpen: PropTypes.objectOf(PropTypes.func).isRequired
+  open: PropTypes.bool.isRequired,
+  setOpen: PropTypes.func.isRequired
 };
