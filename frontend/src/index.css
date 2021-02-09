@@ -157,6 +157,10 @@ select {
   margin: 0.4em;
 }
 
+.hideLinkStyle {
+  text-decoration: none;
+}
+
 .snackMessage {
   display: flex;
   align-items: center;
