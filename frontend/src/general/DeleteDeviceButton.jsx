@@ -9,7 +9,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import PropTypes from "prop-types";
 import { MenuItem } from "@material-ui/core";
 import * as DeviceApi from "../api/DeviceApi";
-import SnackbarMessage from "../general/SnackbarMessage";
+import SnackbarMessage from "./SnackbarMessage";
 
 function renderDeleteButton(openDeleteDialog) {
   return (
@@ -56,7 +56,10 @@ export default function DeleteDeviceButton(props) {
   const confirmDelete = () => {
     DeviceApi.deleteDevice(deleteId)
       .then(() => {
-        handleSnackbarChange("success", `Device deleted! (Serial Number: ${deleteId})`);
+        handleSnackbarChange(
+          "success",
+          `Device deleted! (Serial Number: ${deleteId})`
+        );
         setTimeout(() => {
           if (history.location.pathname.endsWith("Devices")) {
             history.go(0);
@@ -117,5 +120,5 @@ export default function DeleteDeviceButton(props) {
 
 DeleteDeviceButton.propTypes = {
   button: PropTypes.bool.isRequired,
-  deleteId: PropTypes.string.isRequired,
+  deleteId: PropTypes.string.isRequired
 };

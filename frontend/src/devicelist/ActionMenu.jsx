@@ -52,15 +52,12 @@ export default function ActionMenu(props) {
         <MenuItem onClick={handleClose}>
           Start stream with this as receiver
         </MenuItem>
-        <DeleteDeviceButton
-          button={false}
-          deleteId={device.serialNumber}
-        />
+        <DeleteDeviceButton button={false} deleteId={device.serialNumber} />
       </Menu>
     </>
   );
 }
 
 ActionMenu.propTypes = {
-  device: PropTypes.instanceOf(DeviceInfo).isRequired,
+  device: PropTypes.instanceOf(DeviceInfo).isRequired
 };
