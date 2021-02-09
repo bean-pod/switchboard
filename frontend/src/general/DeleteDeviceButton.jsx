@@ -32,8 +32,9 @@ function renderDeleteMenuItem(openDeleteDialog) {
 }
 
 export default function DeleteDeviceButton(props) {
-  const { button, deleteId } = props;
+  const { button, deleteId, snackbarHandler } = props;
   const [open, setOpen] = React.useState(false);
+
   const history = useHistory();
 
   const openDeleteDialog = () => {
@@ -43,13 +44,23 @@ export default function DeleteDeviceButton(props) {
     return setOpen(false);
   };
   const confirmDelete = () => {
-    DeviceApi.deleteDevice(deleteId).then(() => {
-      if (history.location.pathname.endsWith("Devices")) {
-        history.go(0);
-      } else {
-        history.push("/Devices");
-      }
-    });
+    DeviceApi.deleteDevice(deleteId)
+      .then(() => {
+        snackbarHandler("success", `Device deleted! (Serial Number: ${deleteId})`);
+        setTimeout(() => {
+          if (history.location.pathname.endsWith("Devices")) {
+            history.go(0);
+          } else {
+            history.push("/Devices");
+          }
+        }, 7000);
+      })
+      .catch(() => {
+        snackbarHandler(
+          "error",
+          `Could not delete device (Serial Number: ${deleteId})`
+        );
+      });
     return setOpen(false);
   };
 
@@ -93,5 +104,6 @@ export default function DeleteDeviceButton(props) {
 
 DeleteDeviceButton.propTypes = {
   button: PropTypes.bool.isRequired,
-  deleteId: PropTypes.string.isRequired
+  deleteId: PropTypes.string.isRequired,
+  snackbarHandler: PropTypes.PropTypes.func.isRequired
 };
