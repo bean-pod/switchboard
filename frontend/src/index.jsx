@@ -7,6 +7,7 @@ import HomePage from "./general/HomePage";
 import DeviceListPage from "./devicelist/DeviceListPage";
 import StreamingTablePage from "./createStream/StreamingPage";
 import DeviceDetailsPage from "./deviceDetailsPage/DeviceDetailsPage";
+import SnackbarMessage from "./general/SnackbarMessage";
 
 import * as DeviceApi from "./api/DeviceApi";
 import * as StreamApi from "./api/StreamApi";
@@ -41,6 +42,7 @@ ReactDOM.render(
           component={DeviceDetailsPage}
         />
       </Switch>
+      <SnackbarMessage />
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")

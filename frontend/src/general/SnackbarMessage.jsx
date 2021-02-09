@@ -8,22 +8,30 @@ import {
   Box
 } from "@material-ui/core";
 import { CheckCircle, Error, Close } from "@material-ui/icons";
-import PropTypes from "prop-types";
 
-export default function SnackbarMessage(props) {
+let openSnackbarFn;
+
+export default function SnackbarMessage() {
   const [open, setOpen] = React.useState(false);
   const [isSuccess, setIsSuccess] = React.useState(false);
-
-  const { status, msg, pathname } = props;
+  const [status, setStatus] = React.useState("");
+  const [message, setMessage] = React.useState("");
+  const [pathname, setPathname] = React.useState("");
 
   const history = useHistory();
 
   React.useEffect(() => {
+    openSnackbarFn = openSnackbar;
+  }, []);
+
+  function openSnackbar(stat, msg, path) {
     setOpen(true);
-    if (status === "success") {
+    if (stat === "success") {
       setIsSuccess(true);
     }
-  }, [status]);
+    setMessage(msg);
+    setPathname(path);
+  }
 
   function refresh() {
     if (history.location.pathname.endsWith(pathname)) {
@@ -38,6 +46,9 @@ export default function SnackbarMessage(props) {
       return;
     }
     setOpen(false);
+    setStatus("");
+    setMessage("");
+    setPathname("");
     refresh();
   };
 
@@ -66,7 +77,7 @@ export default function SnackbarMessage(props) {
               {status === "success" ? 
                 <CheckCircle className="iconPadding" /> : 
                 <Error className="iconPadding" />}
-              {msg || `Form submission status: ${status}`}
+              {message || `Form submission status: ${status}`}
             </Box>
           )}
           action={[
@@ -92,8 +103,7 @@ export default function SnackbarMessage(props) {
     </>
   );
 }
-SnackbarMessage.propTypes = {
-  status: PropTypes.string.isRequired,
-  msg: PropTypes.string.isRequired,
-  pathname: PropTypes.string.isRequired
-};
+
+export function openSnackbarExported(status, message, pathname) {
+  openSnackbarFn(status, message, pathname);
+}
