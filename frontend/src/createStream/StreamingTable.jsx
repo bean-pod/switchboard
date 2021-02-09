@@ -15,7 +15,7 @@ export default class StreamingTable extends React.Component {
       senders: [],
       receivers: [],
       selectedSenderID: "",
-      selectedReceiverID: "",
+      selectedReceiverID: ""
     };
 
     this.dataSource = props.dataSource;
@@ -85,7 +85,7 @@ export default class StreamingTable extends React.Component {
   }
 
   render() {
-    const { receivers, senders, message, status, date } = this.state;
+    const { receivers, senders } = this.state;
     return (
       <>
         <form onSubmit={this.handleSubmit} id="createStreamForm">

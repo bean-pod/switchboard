@@ -24,21 +24,21 @@ export default function DeleteStream(props) {
   };
   const confirmDelete = () => {
     StreamApi.deleteStream(deleteId)
-    .then(() => {
-      openSnackbarExported(
-        "success",
-        `Stream ${deleteId} deleted!`,
-        "Streaming"
-      );
-    })
-    .catch(() => {
-      openSnackbarExported(
-        "error",
-        `Could not delete stream ${deleteId}`,
-        "Streaming"
-      );
-    });
-  return setOpen(false);
+      .then(() => {
+        openSnackbarExported(
+          "success",
+          `Stream ${deleteId} deleted!`,
+          "Streaming"
+        );
+      })
+      .catch(() => {
+        openSnackbarExported(
+          "error",
+          `Could not delete stream ${deleteId}`,
+          "Streaming"
+        );
+      });
+    return setOpen(false);
   };
 
   return (
