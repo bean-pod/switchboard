@@ -127,7 +127,12 @@ export default class StreamingTable extends React.Component {
             >
               <StreamButton id="StreamingStreamBtn" type="submit" />
               {status ? (
-                <SnackbarMessage key={date} status={status} msg={message} />
+                <SnackbarMessage
+                  key={date}
+                  status={status}
+                  msg={message}
+                  pathname="Streaming"
+                />
               ) : null}
             </Grid>
             <Grid item xs={3}>

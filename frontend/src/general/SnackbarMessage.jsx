@@ -1,5 +1,12 @@
 import React from "react";
-import { Snackbar, SnackbarContent, IconButton, Box } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
+import {
+  Snackbar,
+  SnackbarContent,
+  IconButton,
+  Button,
+  Box
+} from "@material-ui/core";
 import { CheckCircle, Error, Close } from "@material-ui/icons";
 import PropTypes from "prop-types";
 
@@ -7,7 +14,9 @@ export default function SnackbarMessage(props) {
   const [open, setOpen] = React.useState(false);
   const [isSuccess, setIsSuccess] = React.useState(false);
 
-  const { status, msg } = props;
+  const { status, msg, pathname } = props;
+
+  const history = useHistory();
 
   React.useEffect(() => {
     setOpen(true);
@@ -22,6 +31,14 @@ export default function SnackbarMessage(props) {
     }
     setOpen(false);
   };
+
+  function refresh() {
+    if (history.location.pathname.endsWith(pathname)) {
+      history.go(0);
+    } else {
+      history.push(`/${pathname}`);
+    }
+  }
 
   return (
     <>
@@ -52,6 +69,14 @@ export default function SnackbarMessage(props) {
             </Box>
           )}
           action={[
+            <Button
+              key="close"
+              aria-label="Close"
+              color="inherit"
+              onClick={refresh}
+            >
+              Refresh
+            </Button>,
             <IconButton
               key="close"
               aria-label="Close"
@@ -68,5 +93,6 @@ export default function SnackbarMessage(props) {
 }
 SnackbarMessage.propTypes = {
   status: PropTypes.string.isRequired,
-  msg: PropTypes.string.isRequired
+  msg: PropTypes.string.isRequired,
+  pathname: PropTypes.string.isRequired
 };

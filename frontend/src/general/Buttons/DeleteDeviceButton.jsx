@@ -1,5 +1,4 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -39,8 +38,6 @@ export default function DeleteDeviceButton(props) {
   const [message, setMessage] = React.useState("");
   const [date, setDate] = React.useState("");
 
-  const history = useHistory();
-
   function handleSnackbarChange(stat, msg) {
     setStatus(stat);
     setMessage(msg);
@@ -60,13 +57,6 @@ export default function DeleteDeviceButton(props) {
           "success",
           `Device deleted! (Serial Number: ${deleteId})`
         );
-        setTimeout(() => {
-          if (history.location.pathname.endsWith("Devices")) {
-            history.go(0);
-          } else {
-            history.push("/Devices");
-          }
-        }, 7000);
       })
       .catch(() => {
         handleSnackbarChange(
@@ -83,7 +73,12 @@ export default function DeleteDeviceButton(props) {
         ? renderDeleteButton(openDeleteDialog)
         : renderDeleteMenuItem(openDeleteDialog)}
       {status ? (
-        <SnackbarMessage key={date} status={status} msg={message} />
+        <SnackbarMessage
+          key={date}
+          status={status}
+          msg={message}
+          pathname="Devices"
+        />
       ) : null}
       <Dialog
         open={open}
