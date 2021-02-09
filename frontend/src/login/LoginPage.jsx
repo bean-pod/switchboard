@@ -1,46 +1,25 @@
 import React, { useState } from "react";
 import {
   Box,
-  Button,
-  Container,
-  makeStyles,
-  TextField
+  Container
 } from "@material-ui/core";
 import * as AuthenticationApi from "../api/AuthenticationApi";
 import LoginFailedDialog from "./LoginFailedDialog";
+import LoginConsole from "./LoginConsole";
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center"
-  },
-  form: {
-    width: "100%",
-    marginTop: theme.spacing(1)
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2)
-  }
-}));
-
-export default function LogIn() {
-  const classes = useStyles();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+export default function LoginPage() {
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [dialogMessage, setDialogMessage] = useState("");
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (username, password) => {
     AuthenticationApi.logIn({ username, password }).catch((error) => {
       if (error.response && error.response.status === "403") {
-        // Incorrect credentials popup
+        setDialogMessage("Incorrect username and/or password. Please enter the correct credentials and try again.");
         setDialogOpen(true);
       } else {
-        // Unknown error occurred
+        setDialogMessage("An unknown error occurred. Please try again later.");
+        setDialogOpen(true);
       }
-      setDialogOpen(true);
     });
   };
 
@@ -49,46 +28,8 @@ export default function LogIn() {
       <Box className="flexContents headerAreaUnderline">
         <div className="title">Welcome to Switchboard</div>
       </Box>
-      <Container component="main" maxWidth="xs">
-        <div className={classes.paper}>
-          <form className={classes.form} noValidate onSubmit={handleSubmit}>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="username"
-              label="Username"
-              name="username"
-              autoComplete="username"
-              autoFocus
-              onChange={(event) => setUsername(event.target.value)}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              onChange={(event) => setPassword(event.target.value)}
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Log In
-            </Button>
-          </form>
-        </div>
-      </Container>
-      <LoginFailedDialog open={dialogOpen} setOpen={setDialogOpen} />
+      <LoginConsole handleSubmit={handleSubmit}/>
+      <LoginFailedDialog open={dialogOpen} setOpen={setDialogOpen} message={dialogMessage}/>
     </Container>
   );
 }

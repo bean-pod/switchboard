@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function LoginFailedDialog(props) {
   const classes = useStyles();
-  const { open, setOpen } = props;
+  const { open, setOpen , message} = props;
 
   const closeDialog = () => {
     setOpen(false);
@@ -32,8 +32,7 @@ export default function LoginFailedDialog(props) {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="login-failed-dialog-description">
-            Incorrect username and/or password. Please enter the correct
-            credentials and try again.
+            {message}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
