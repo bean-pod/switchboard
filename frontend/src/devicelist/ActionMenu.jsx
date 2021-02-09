@@ -6,7 +6,6 @@ import PropTypes from "prop-types";
 import { MoreVert } from "@material-ui/icons/";
 import DeviceInfo from "../model/DeviceInfo";
 import DeleteDeviceButton from "../general/DeleteDeviceButton";
-import SnackbarMessage from "../general/SnackbarMessage";
 
 export default function ActionMenu(props) {
   const { device } = props;
