@@ -7,55 +7,73 @@ import { MoreVert } from "@material-ui/icons/";
 import DeviceInfo from "../model/DeviceInfo";
 import DeleteDeviceButton from "../general/Buttons/DeleteDeviceButton";
 
-export default function ActionMenu(props) {
-  const { device } = props;
-  const [anchorElement, setAnchorElement] = React.useState(null);
+export default class ActionMenu extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      anchorElement: null
+    };
 
-  function handleClick(event) {
-    setAnchorElement(event.currentTarget);
+    this.setAnchorElement = this.setAnchorElement.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
-  function handleClose() {
-    setAnchorElement(null);
+  handleClick(event) {
+    this.setAnchorElement(event.currentTarget);
   }
 
-  return (
-    <>
-      <IconButton
-        aria-controls="simple-menu"
-        aria-haspopup="true"
-        onClick={handleClick}
-        size="small"
-      >
-        <MoreVert />
-      </IconButton>
-      <Menu
-        id="simple-menu"
-        anchorEl={anchorElement}
-        keepMounted
-        open={Boolean(anchorElement)}
-        onClose={handleClose}
-        anchorOrigin={{ horizontal: "right", vertical: "top" }}
-        transformOrigin={{ horizontal: "right", vertical: "top" }}
-      >
-        <MenuItem onClick={handleClose}>
-          <NavLink
-            to={{
-              pathname: `/Devices/Details/${device.name}`,
-              state: { device }
-            }}
-            className="invisibleLink"
-          >
-            View Details
-          </NavLink>
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
-          Start stream with this as receiver
-        </MenuItem>
-        <DeleteDeviceButton button={false} deleteId={device.serialNumber} />
-      </Menu>
-    </>
-  );
+  handleClose() {
+    this.setAnchorElement(null);
+  }
+
+  setAnchorElement(element) {
+    this.setState({
+      anchorElement: element
+    });
+  }
+
+  render() {
+    const { anchorElement } = this.state;
+    const { device } = this.props;
+    return (
+      <>
+        <IconButton
+          aria-controls="simple-menu"
+          aria-haspopup="true"
+          onClick={this.handleClick}
+          size="small"
+        >
+          <MoreVert />
+        </IconButton>
+        <Menu
+          id="simple-menu"
+          anchorEl={anchorElement}
+          keepMounted
+          open={Boolean(anchorElement)}
+          onClose={this.handleClose}
+          anchorOrigin={{ horizontal: "right", vertical: "top" }}
+          transformOrigin={{ horizontal: "right", vertical: "top" }}
+        >
+          <MenuItem onClick={this.handleClose}>
+            <NavLink
+              to={{
+                pathname: `/Devices/Details/${device.name}`,
+                state: { device }
+              }}
+              className="invisibleLink"
+            >
+              View Details
+            </NavLink>
+          </MenuItem>
+          <MenuItem onClick={this.handleClose}>
+            Start stream with this as receiver
+          </MenuItem>
+          <DeleteDeviceButton button={false} deleteId={device.serialNumber} />
+        </Menu>
+      </>
+    );
+  }
 }
 
 ActionMenu.propTypes = {
