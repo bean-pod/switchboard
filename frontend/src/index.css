@@ -157,14 +157,6 @@ select {
   margin: 0.4em;
 }
 
-a,
-a:link,
-a:visited,
-a:hover,
-a:active {
-  text-decoration: none;
-}
-
 .snackMessage {
   display: flex;
   align-items: center;
