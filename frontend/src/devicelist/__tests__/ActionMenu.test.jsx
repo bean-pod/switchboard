@@ -11,6 +11,7 @@ import {
 } from "@jest/globals";
 import ActionMenu from "../ActionMenu";
 import DeviceInfo from "../../model/DeviceInfo";
+import InChannelInfo from "../../model/InputChannelInfo";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -18,8 +19,25 @@ describe("<ActionMenu />", () => {
   let wrapper;
   let testElement;
 
+  const extras = ["Additional Device details go here"];
+  const sampleInputChannels = [
+    new InChannelInfo(1, "Input ch 1", 500, null),
+    new InChannelInfo(2, "Input ch 2", 456, null),
+    new InChannelInfo(3, "Input ch 3", 800, null)
+  ];
+
   beforeEach(() => {
-    const dummyDevice = new DeviceInfo(1, 1, 1, 1, 1, [1, 1], [2, 2]);
+    const dummyDevice = new DeviceInfo(
+      "1:01:111:999",
+      null,
+      "175.214.12.96",
+      "123:456",
+      "Receiver 1",
+      "Online",
+      sampleInputChannels,
+      "decoder",
+      extras
+    );
     wrapper = Enzyme.shallow(<ActionMenu device={dummyDevice} />);
   });
   afterEach(() => {
