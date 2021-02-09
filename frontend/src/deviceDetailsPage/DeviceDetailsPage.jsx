@@ -17,21 +17,9 @@ export default function DeviceDetailsPage(props) {
     }
   } = props;
   const tabs = ["Activity Log", "Notes"];
-  const [status, setStatus] = React.useState("");
-  const [message, setMessage] = React.useState("");
-  const [date, setDate] = React.useState("");
-  
-  function handleSnackbarChange(stat, msg) {
-    setStatus(stat);
-    setMessage(msg);
-    setDate(new Date());
-  }
 
   return (
     <>
-      {status ? (
-        <SnackbarMessage key={date} status={status} msg={message} />
-      ) : null}
       <Container>
         <DynamicBreadcrumb
           breadcrumbs={[
@@ -52,7 +40,7 @@ export default function DeviceDetailsPage(props) {
             </Box>
             <div className="alignRightFloat">
               <Box marginRight={2} marginTop={2}>
-                <DeleteDeviceButton button deleteId={device.serialNumber} snackbarHandler={handleSnackbarChange} />
+                <DeleteDeviceButton button deleteId={device.serialNumber} />
               </Box>
             </div>
           </Box>

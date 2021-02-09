@@ -9,6 +9,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import PropTypes from "prop-types";
 import { MenuItem } from "@material-ui/core";
 import * as DeviceApi from "../api/DeviceApi";
+import SnackbarMessage from "../general/SnackbarMessage";
 
 function renderDeleteButton(openDeleteDialog) {
   return (
@@ -32,10 +33,19 @@ function renderDeleteMenuItem(openDeleteDialog) {
 }
 
 export default function DeleteDeviceButton(props) {
-  const { button, deleteId, snackbarHandler } = props;
+  const { button, deleteId } = props;
   const [open, setOpen] = React.useState(false);
+  const [status, setStatus] = React.useState("");
+  const [message, setMessage] = React.useState("");
+  const [date, setDate] = React.useState("");
 
   const history = useHistory();
+
+  function handleSnackbarChange(stat, msg) {
+    setStatus(stat);
+    setMessage(msg);
+    setDate(new Date());
+  }
 
   const openDeleteDialog = () => {
     return setOpen(true);
@@ -46,7 +56,7 @@ export default function DeleteDeviceButton(props) {
   const confirmDelete = () => {
     DeviceApi.deleteDevice(deleteId)
       .then(() => {
-        snackbarHandler("success", `Device deleted! (Serial Number: ${deleteId})`);
+        handleSnackbarChange("success", `Device deleted! (Serial Number: ${deleteId})`);
         setTimeout(() => {
           if (history.location.pathname.endsWith("Devices")) {
             history.go(0);
@@ -56,7 +66,7 @@ export default function DeleteDeviceButton(props) {
         }, 7000);
       })
       .catch(() => {
-        snackbarHandler(
+        handleSnackbarChange(
           "error",
           `Could not delete device (Serial Number: ${deleteId})`
         );
@@ -69,6 +79,9 @@ export default function DeleteDeviceButton(props) {
       {button
         ? renderDeleteButton(openDeleteDialog)
         : renderDeleteMenuItem(openDeleteDialog)}
+      {status ? (
+        <SnackbarMessage key={date} status={status} msg={message} />
+      ) : null}
       <Dialog
         open={open}
         onClose={cancelDelete}
@@ -105,5 +118,4 @@ export default function DeleteDeviceButton(props) {
 DeleteDeviceButton.propTypes = {
   button: PropTypes.bool.isRequired,
   deleteId: PropTypes.string.isRequired,
-  snackbarHandler: PropTypes.PropTypes.func.isRequired
 };

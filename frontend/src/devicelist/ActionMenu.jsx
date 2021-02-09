@@ -11,15 +11,6 @@ import SnackbarMessage from "../general/SnackbarMessage";
 export default function ActionMenu(props) {
   const { device } = props;
   const [anchorElement, setAnchorElement] = React.useState(null);
-  const [status, setStatus] = React.useState("");
-  const [message, setMessage] = React.useState("");
-  const [date, setDate] = React.useState("");
-
-  function handleSnackbarChange(stat, msg) {
-    setStatus(stat);
-    setMessage(msg);
-    setDate(new Date());
-  }
 
   function handleClick(event) {
     setAnchorElement(event.currentTarget);
@@ -31,9 +22,6 @@ export default function ActionMenu(props) {
 
   return (
     <>
-      {status ? (
-        <SnackbarMessage key={date} status={status} msg={message} />
-      ) : null}
       <IconButton
         aria-controls="simple-menu"
         aria-haspopup="true"
@@ -68,7 +56,6 @@ export default function ActionMenu(props) {
         <DeleteDeviceButton
           button={false}
           deleteId={device.serialNumber}
-          snackbarHandler={handleSnackbarChange}
         />
       </Menu>
     </>
