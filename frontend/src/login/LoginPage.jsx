@@ -10,15 +10,8 @@ export default function LoginPage() {
 
   const handleSubmit = (username, password) => {
     AuthenticationApi.logIn({ username, password }).catch((error) => {
-      if (error.response && error.response.status === "403") {
-        setDialogMessage(
-          "Incorrect username and/or password. Please enter the correct credentials and try again."
-        );
-        setDialogOpen(true);
-      } else {
-        setDialogMessage("An unknown error occurred. Please try again later.");
-        setDialogOpen(true);
-      }
+      setDialogMessage(error.message);
+      setDialogOpen(true);
     });
   };
 
