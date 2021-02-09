@@ -25,13 +25,6 @@ export default function SnackbarMessage(props) {
     }
   }, [status]);
 
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpen(false);
-  };
-
   function refresh() {
     if (history.location.pathname.endsWith(pathname)) {
       history.go(0);
@@ -39,6 +32,14 @@ export default function SnackbarMessage(props) {
       history.push(`/${pathname}`);
     }
   }
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+    refresh();
+  };
 
   return (
     <>

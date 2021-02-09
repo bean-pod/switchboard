@@ -1,5 +1,4 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -11,11 +10,20 @@ import PropTypes from "prop-types";
 import { IconButton } from "@material-ui/core";
 import { Delete } from "@material-ui/icons";
 import * as StreamApi from "../api/StreamApi";
+import SnackbarMessage from "../general/SnackbarMessage";
 
 export default function DeleteStream(props) {
   const { deleteId } = props;
   const [open, setOpen] = React.useState(false);
-  const history = useHistory();
+  const [status, setStatus] = React.useState("");
+  const [message, setMessage] = React.useState("");
+  const [date, setDate] = React.useState("");
+
+  function handleSnackbarChange(stat, msg) {
+    setStatus(stat);
+    setMessage(msg);
+    setDate(new Date());
+  }
 
   const openDeleteDialog = () => {
     return setOpen(true);
@@ -24,15 +32,32 @@ export default function DeleteStream(props) {
     return setOpen(false);
   };
   const confirmDelete = () => {
-    StreamApi.deleteStream(deleteId, () => {
-      history.push("/Streaming");
-      history.go(0);
+    StreamApi.deleteStream(deleteId)
+    .then(() => {
+      handleSnackbarChange(
+        "success",
+        `Stream ${deleteId} deleted!`
+      );
+    })
+    .catch(() => {
+      handleSnackbarChange(
+        "error",
+        `Could not delete stream ${deleteId}`
+      );
     });
-    return setOpen(false);
+  return setOpen(false);
   };
 
   return (
     <>
+      {status ? (
+        <SnackbarMessage
+          key={date}
+          status={status}
+          msg={message}
+          pathname="Streaming"
+        />
+      ) : null}
       <Tooltip title="Delete Stream" aria-label="delete stream">
         <IconButton onClick={openDeleteDialog}>
           <Delete />
