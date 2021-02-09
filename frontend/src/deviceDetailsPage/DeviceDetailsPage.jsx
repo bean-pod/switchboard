@@ -8,6 +8,7 @@ import DeviceDetailsTabTable from "./DeviceDetailsTabTable";
 import DeviceInfo from "../model/DeviceInfo";
 import { getSampleSender } from "../api/SampleData";
 import DeleteDeviceButton from "../general/DeleteDeviceButton";
+import SnackbarMessage from "../general/SnackbarMessage";
 
 export default function DeviceDetailsPage(props) {
   const {
@@ -16,42 +17,56 @@ export default function DeviceDetailsPage(props) {
     }
   } = props;
   const tabs = ["Activity Log", "Notes"];
+  const [status, setStatus] = React.useState("");
+  const [message, setMessage] = React.useState("");
+  const [date, setDate] = React.useState("");
+  
+  function handleSnackbarChange(stat, msg) {
+    setStatus(stat);
+    setMessage(msg);
+    setDate(new Date());
+  }
 
   return (
-    <Container>
-      <DynamicBreadcrumb
-        breadcrumbs={[
-          ["Home", "/"],
-          ["My Devices", "/Devices"],
-          [device.name, device.id]
-        ]}
-      />
-      <Box className="areaUnderBreadcrumbs">
-        <Box className="flexContents headerAreaUnderline">
-          <Box className="flexContents">
-            <div className="title">{device.name}</div>
-            <Box padding={4} paddingLeft={1} paddingBottom={0}>
-              <Button>
-                <EditIcon color="action" />
-              </Button>
+    <>
+      {status ? (
+        <SnackbarMessage key={date} status={status} msg={message} />
+      ) : null}
+      <Container>
+        <DynamicBreadcrumb
+          breadcrumbs={[
+            ["Home", "/"],
+            ["My Devices", "/Devices"],
+            [device.name, device.id]
+          ]}
+        />
+        <Box className="areaUnderBreadcrumbs">
+          <Box className="flexContents headerAreaUnderline">
+            <Box className="flexContents">
+              <div className="title">{device.name}</div>
+              <Box padding={4} paddingLeft={1} paddingBottom={0}>
+                <Button>
+                  <EditIcon color="action" />
+                </Button>
+              </Box>
             </Box>
+            <div className="alignRightFloat">
+              <Box marginRight={2} marginTop={2}>
+                <DeleteDeviceButton button deleteId={device.serialNumber} snackbarHandler={handleSnackbarChange} />
+              </Box>
+            </div>
           </Box>
-          <div className="alignRightFloat">
-            <Box marginRight={2} marginTop={2}>
-              <DeleteDeviceButton button deleteId={device.serialNumber} />
-            </Box>
-          </div>
         </Box>
-      </Box>
-      <Grid container>
-        <Grid item xs={6}>
-          <DeviceDetailsTabTable tabs={["Overview"]} device={device} />
+        <Grid container>
+          <Grid item xs={6}>
+            <DeviceDetailsTabTable tabs={["Overview"]} device={device} />
+          </Grid>
+          <Grid item xs={6}>
+            <DeviceDetailsTabTable tabs={tabs} device={device} />
+          </Grid>
         </Grid>
-        <Grid item xs={6}>
-          <DeviceDetailsTabTable tabs={tabs} device={device} />
-        </Grid>
-      </Grid>
-    </Container>
+      </Container>
+    </>
   );
 }
 DeviceDetailsPage.defaultProps = {
