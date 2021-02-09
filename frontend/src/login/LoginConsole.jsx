@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function LoginConsole(props) {
-  const {handleSubmit} = props;
+  const { handleSubmit } = props;
   const classes = useStyles();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -32,47 +32,47 @@ export default function LoginConsole(props) {
   const onSubmit = (event) => {
     event.preventDefault();
     handleSubmit(username, password);
-  }
+  };
 
   return (
-      <Container component="main" maxWidth="xs">
-        <div className={classes.paper}>
-          <form className={classes.form} noValidate onSubmit={onSubmit}>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="username"
-              label="Username"
-              name="username"
-              autoComplete="username"
-              autoFocus
-              onChange={(event) => setUsername(event.target.value)}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              onChange={(event) => setPassword(event.target.value)}
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Log In
-            </Button>
-          </form>
-        </div>
-      </Container>
+    <Container component="main" maxWidth="xs">
+      <div className={classes.paper}>
+        <form className={classes.form} noValidate onSubmit={onSubmit}>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="username"
+            label="Username"
+            name="username"
+            autoComplete="username"
+            autoFocus
+            onChange={(event) => setUsername(event.target.value)}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+            onChange={(event) => setPassword(event.target.value)}
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
+            Log In
+          </Button>
+        </form>
+      </div>
+    </Container>
   );
 }

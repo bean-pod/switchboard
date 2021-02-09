@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function LoginFailedDialog(props) {
   const classes = useStyles();
-  const { open, setOpen , message} = props;
+  const { open, setOpen, message } = props;
 
   const closeDialog = () => {
     setOpen(false);

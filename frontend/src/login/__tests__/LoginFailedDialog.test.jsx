@@ -6,32 +6,32 @@ import LoginFailedDialog from "../LoginFailedDialog";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-let setOpen = jest.fn();
+const setOpen = jest.fn();
 const message = "This is the dialog box message";
 
 describe("LoginFailedDialog", () => {
-    let wrapper;
-    
-    beforeEach(() => {
-      wrapper = Enzyme.mount(
-        <LoginFailedDialog open={true} setOpen={setOpen} message={message}/>
-      );
-    });
-  
-    afterEach(() => {
-      jest.clearAllMocks();
-    });
+  let wrapper;
 
-    it("should contain the message and close when the OK button is pressed", () => {
-        const title = wrapper.find("div h2");
-        expect(title.text()).toEqual("Login Failed");
+  beforeEach(() => {
+    wrapper = Enzyme.mount(
+      <LoginFailedDialog open setOpen={setOpen} message={message} />
+    );
+  });
 
-        const dialogMessage = wrapper.find("p");
-        expect(dialogMessage.text()).toEqual(message);
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
 
-        const okButton = wrapper.find("button");
-        okButton.simulate("click");
+  it("should contain the message and close when the OK button is pressed", () => {
+    const title = wrapper.find("div h2");
+    expect(title.text()).toEqual("Login Failed");
 
-        expect(setOpen).toHaveBeenCalledWith(false);
-    })
-})
+    const dialogMessage = wrapper.find("p");
+    expect(dialogMessage.text()).toEqual(message);
+
+    const okButton = wrapper.find("button");
+    okButton.simulate("click");
+
+    expect(setOpen).toHaveBeenCalledWith(false);
+  });
+});
