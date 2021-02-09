@@ -31,7 +31,7 @@ export default function DeviceNameDetail(props) {
           <div className="title">{deviceName}</div>
           <Box padding={4} paddingLeft={1} paddingBottom={0}>
             <Button>
-              <EditIcon color="action" onClick={startEdit} />
+              <EditIcon id="editBtn" color="action" onClick={startEdit} />
             </Button>
           </Box>
         </Box>
