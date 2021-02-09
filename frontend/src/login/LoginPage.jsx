@@ -4,10 +4,8 @@ import {
   Button,
   Container,
   makeStyles,
-  Snackbar,
   TextField
 } from "@material-ui/core";
-import DynamicBreadcrumb from "../general/DynamicBreadcrumb";
 import * as AuthenticationApi from "../api/AuthenticationApi";
 import LoginFailedDialog from "./LoginFailedDialog";
 

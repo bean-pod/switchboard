@@ -6,10 +6,18 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle
+  DialogTitle,
+  makeStyles
 } from "@material-ui/core";
 
+const useStyles = makeStyles((theme) => ({
+    title: {
+        color: "#ef5350"
+    }
+  }));
+
 export default function LoginFailedDialog(props) {
+  const classes = useStyles();
   const { open, setOpen } = props;
 
   const closeDialog = () => {
@@ -19,7 +27,7 @@ export default function LoginFailedDialog(props) {
   return (
     <>
       <Dialog open={open} onClose={closeDialog}>
-        <DialogTitle id="login-failed-dialog-title">Login Failed</DialogTitle>
+        <DialogTitle id="login-failed-dialog-title" className={classes.title}>Login Failed</DialogTitle>
         <DialogContent>
           <DialogContentText id="login-failed-dialog-description">
             Incorrect username and/or password. Please enter the correct
