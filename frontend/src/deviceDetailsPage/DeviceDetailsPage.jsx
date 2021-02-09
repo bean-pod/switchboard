@@ -18,42 +18,40 @@ export default function DeviceDetailsPage(props) {
   const tabs = ["Activity Log", "Notes"];
 
   return (
-    <>
-      <Container>
-        <DynamicBreadcrumb
-          breadcrumbs={[
-            ["Home", "/"],
-            ["My Devices", "/Devices"],
-            [device.name, device.id]
-          ]}
-        />
-        <Box className="areaUnderBreadcrumbs">
-          <Box className="flexContents headerAreaUnderline">
-            <Box className="flexContents">
-              <div className="title">{device.name}</div>
-              <Box padding={4} paddingLeft={1} paddingBottom={0}>
-                <Button>
-                  <EditIcon color="action" />
-                </Button>
-              </Box>
+    <Container>
+      <DynamicBreadcrumb
+        breadcrumbs={[
+          ["Home", "/"],
+          ["My Devices", "/Devices"],
+          [device.name, device.id]
+        ]}
+      />
+      <Box className="areaUnderBreadcrumbs">
+        <Box className="flexContents headerAreaUnderline">
+          <Box className="flexContents">
+            <div className="title">{device.name}</div>
+            <Box padding={4} paddingLeft={1} paddingBottom={0}>
+              <Button>
+                <EditIcon color="action" />
+              </Button>
             </Box>
-            <div className="alignRightFloat">
-              <Box marginRight={2} marginTop={2}>
-                <DeleteDeviceButton button deleteId={device.serialNumber} />
-              </Box>
-            </div>
           </Box>
+          <div className="alignRightFloat">
+            <Box marginRight={2} marginTop={2}>
+              <DeleteDeviceButton button deleteId={device.serialNumber} />
+            </Box>
+          </div>
         </Box>
-        <Grid container>
-          <Grid item xs={6}>
-            <DeviceDetailsTabTable tabs={["Overview"]} device={device} />
-          </Grid>
-          <Grid item xs={6}>
-            <DeviceDetailsTabTable tabs={tabs} device={device} />
-          </Grid>
+      </Box>
+      <Grid container>
+        <Grid item xs={6}>
+          <DeviceDetailsTabTable tabs={["Overview"]} device={device} />
         </Grid>
-      </Container>
-    </>
+        <Grid item xs={6}>
+          <DeviceDetailsTabTable tabs={tabs} device={device} />
+        </Grid>
+      </Grid>
+    </Container>
   );
 }
 DeviceDetailsPage.defaultProps = {
