@@ -5,7 +5,7 @@ import { Box, Button, TextField } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 
 export default function DeviceNameDetail(props) {
-  const { deviceName } = props;
+  const { deviceName, deviceId } = props;
   const [editing, setEditing] = React.useState(false);
   const history = useHistory();
 
@@ -83,5 +83,6 @@ export default function DeviceNameDetail(props) {
 }
 
 DeviceNameDetail.propTypes = {
-  deviceName: PropTypes.string.isRequired
+  deviceName: PropTypes.string.isRequired,
+  deviceId: PropTypes.string.isRequired
 };
