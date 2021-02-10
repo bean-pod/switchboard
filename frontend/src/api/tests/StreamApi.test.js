@@ -1,4 +1,3 @@
-import React from "react";
 import axios from "axios";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
