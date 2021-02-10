@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Box, Button, TextField } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
+import * as DeviceApi from "../../api/DeviceApi";
 
 export default function DeviceNameDetail(props) {
   const { deviceName, deviceId } = props;
@@ -17,8 +18,9 @@ export default function DeviceNameDetail(props) {
     return setEditing(false);
   };
 
-  const confirmEditing = () => {
+  const confirmEditing = (updatedName) => {
     // api call
+    DeviceApi.updateDeviceName(deviceId, updatedName);
     // history (refresh)
     history.go(0);
     return setEditing(false);
