@@ -103,3 +103,7 @@ export function deleteDevice(deviceId) {
     .delete(`${process.env.REACT_APP_DEVICE}/${deviceId}`)
     .catch(() => {});
 }
+
+export function updateDeviceName(deviceId, updatedName, callback) {
+  return axios.put().catch(() => {});
+}
