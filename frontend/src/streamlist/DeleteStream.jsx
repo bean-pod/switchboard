@@ -25,18 +25,10 @@ export default function DeleteStream(props) {
   const confirmDelete = () => {
     StreamApi.deleteStream(deleteId)
       .then(() => {
-        snackbar(
-          "success",
-          `Stream ${deleteId} deleted!`,
-          "Streaming"
-        );
+        snackbar("success", `Stream ${deleteId} deleted!`, "Streaming");
       })
       .catch(() => {
-        snackbar(
-          "error",
-          `Could not delete stream ${deleteId}`,
-          "Streaming"
-        );
+        snackbar("error", `Could not delete stream ${deleteId}`, "Streaming");
       });
     return setOpen(false);
   };

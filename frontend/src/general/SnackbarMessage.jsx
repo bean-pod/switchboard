@@ -81,14 +81,6 @@ export default function SnackbarMessage() {
             </Box>
           )}
           action={[
-            <Button
-              key="close"
-              aria-label="Close"
-              color="inherit"
-              onClick={refresh}
-            >
-              Refresh
-            </Button>,
             <IconButton
               key="close"
               aria-label="Close"
