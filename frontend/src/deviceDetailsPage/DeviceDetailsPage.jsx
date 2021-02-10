@@ -28,7 +28,10 @@ export default function DeviceDetailsPage(props) {
       />
       <Box className="areaUnderBreadcrumbs">
         <Box className="flexContents headerAreaUnderline">
-          <DeviceNameDetail deviceName={device.name} deviceId={device.serialNumber} />
+          <DeviceNameDetail
+            deviceName={device.name}
+            deviceId={device.serialNumber}
+          />
           <div className="alignRightFloat">
             <Box marginRight={2} marginTop={2}>
               <DeleteDeviceButton button deleteId={device.serialNumber} />
