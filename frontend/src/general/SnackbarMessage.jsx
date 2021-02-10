@@ -9,7 +9,7 @@ import {
 } from "@material-ui/core";
 import { CheckCircle, Error, Close } from "@material-ui/icons";
 
-let openSnackbarFn;
+let openSnackbarFn = function () {};
 
 export default function SnackbarMessage() {
   const [open, setOpen] = React.useState(false);
