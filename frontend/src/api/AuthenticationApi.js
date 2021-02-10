@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const unknownErrorMessage =
-  "An unknown error occurred. Please try again later";
+  "An unknown error occurred. Please try again later.";
 export const incorrectCredentialsMessage =
   "Incorrect username and/or password. Please enter the correct credentials and try again.";
 

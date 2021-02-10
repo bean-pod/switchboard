@@ -10,7 +10,7 @@ import {
   makeStyles
 } from "@material-ui/core";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   title: {
     color: "#ef5350"
   }
@@ -47,5 +47,6 @@ export default function LoginFailedDialog(props) {
 
 LoginFailedDialog.propTypes = {
   open: PropTypes.bool.isRequired,
-  setOpen: PropTypes.func.isRequired
+  setOpen: PropTypes.func.isRequired,
+  message: PropTypes.string.isRequired
 };

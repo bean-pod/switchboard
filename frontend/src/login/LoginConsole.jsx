@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button, Container, makeStyles, TextField } from "@material-ui/core";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -70,3 +71,7 @@ export default function LoginConsole(props) {
     </Container>
   );
 }
+
+LoginConsole.propTypes = {
+  handleSubmit: PropTypes.func.isRequired
+};
