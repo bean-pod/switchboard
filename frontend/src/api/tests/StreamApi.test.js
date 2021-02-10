@@ -46,7 +46,7 @@ describe("Stream Api", () => {
     it("should call axios.get and return an array of streams", () => {
       axios.get.mockResolvedValue(mockStreams);
 
-      StreamApi.getAllStreams();
+      StreamApi.getAllStreams(() => {});
 
       expect(axios.get).toHaveBeenCalledWith("http://localhost:8080/stream");
     });
