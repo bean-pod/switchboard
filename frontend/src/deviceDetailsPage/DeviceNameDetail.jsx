@@ -8,6 +8,7 @@ import * as DeviceApi from "../api/DeviceApi";
 export default function DeviceNameDetail(props) {
   const { deviceName, deviceId } = props;
   const [editing, setEditing] = React.useState(false);
+  const [name, setName] = React.useState(deviceName);
   const history = useHistory();
 
   const startEdit = () => {
@@ -18,9 +19,9 @@ export default function DeviceNameDetail(props) {
     return setEditing(false);
   };
 
-  const confirmEditing = (updatedName) => {
+  const confirmEditing = () => {
     // api call
-    DeviceApi.updateDeviceName(deviceId, updatedName);
+    DeviceApi.updateDeviceName(deviceId, name);
     // history (refresh)
     history.go(0);
     return setEditing(false);
@@ -30,7 +31,7 @@ export default function DeviceNameDetail(props) {
     return (
       <>
         <Box className="flexContents">
-          <div className="title">{deviceName}</div>
+          <div className="title">{name}</div>
           <Box padding={4} paddingLeft={1} paddingBottom={0}>
             <Button>
               <EditIcon id="editBtn" color="action" onClick={startEdit} />
@@ -50,8 +51,9 @@ export default function DeviceNameDetail(props) {
               id="deviceName"
               name="deviceName"
               required
-              defaultValue={deviceName}
+              defaultValue={name}
               label="Device Name"
+              onChange={(event) => setName(event.target.value)}
             />
             <Box padding={4} paddingLeft={1} paddingRight={1}>
               <Button
