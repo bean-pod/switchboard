@@ -30,13 +30,5 @@ describe("DeviceDetailsPanels", () => {
       expect(wrapper.find(Container)).toHaveLength(1);
       expect(wrapper.text()).toBe("TEST");
     });
-    it("Throws an error if no props are passed", () => {
-      wrapper = Enzyme.shallow(<DeviceDetailsNotesPanel />);
-      expect(console.error).toHaveBeenCalled();
-    });
-    it("Throws an error if invalid props are passed", () => {
-      wrapper = Enzyme.shallow(<DeviceDetailsNotesPanel extras="" />);
-      expect(console.error).toHaveBeenCalled();
-    });
   });
 });

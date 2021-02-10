@@ -13,7 +13,7 @@ export default function DynamicBreadcrumb(props) {
               color="inherit"
               href={crumb[1]}
               id={`breadcrumb${i}`}
-              key={`breadcrumb${i}`}
+              key={`breadcrumb ${crumb[0]}`}
             >
               <Typography color="textPrimary">{crumb[0]}</Typography>
             </Link>

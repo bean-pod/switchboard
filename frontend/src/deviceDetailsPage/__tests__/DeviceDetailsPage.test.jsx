@@ -22,16 +22,6 @@ describe("DeviceDetailsPage", () => {
     jest.clearAllMocks();
   });
 
-  it("Throws an error", () => {
-    const dummyLocation = {
-      state: {
-        device: "Not a DeviceInfo"
-      }
-    };
-
-    wrapper = Enzyme.shallow(<DeviceDetailsPage location={dummyLocation} />);
-    expect(console.error).toHaveBeenCalled();
-  });
   it("Renders the correct number of child elements", () => {
     const dummyLocation = {
       state: {
