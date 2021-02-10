@@ -42,35 +42,39 @@ export default function DeviceNameDetail(props) {
   function renderEditName() {
     return (
       <>
-        <Box className="flexContents">
-          <TextField
-            id="editDeviceNameField"
-            required
-            defaultValue={deviceName}
-            label="Device Name"
-          />
-          <Box padding={4} paddingLeft={1} paddingRight={1}>
-            <Button
-              id="cancelEditBtn"
-              onClick={cancelEditing}
-              variant="contained"
-              disableElevation
-            >
-              Cancel
-            </Button>
+        <form className="deviceNameEditForm" onSubmit={confirmEditing}>
+          <Box className="flexContents">
+            <TextField
+              id="deviceName"
+              name="deviceName"
+              required
+              defaultValue={deviceName}
+              label="Device Name"
+            />
+            <Box padding={4} paddingLeft={1} paddingRight={1}>
+              <Button
+                id="cancelEditBtn"
+                onClick={cancelEditing}
+                variant="contained"
+                disableElevation
+              >
+                Cancel
+              </Button>
+            </Box>
+            <Box padding={4} paddingLeft={0}>
+              <Button
+                id="confirmEditBtn"
+                // onClick={confirmEditing}
+                type="submit"
+                color="primary"
+                variant="contained"
+                disableElevation
+              >
+                Save Changes
+              </Button>
+            </Box>
           </Box>
-          <Box padding={4} paddingLeft={0}>
-            <Button
-              id="confirmEditBtn"
-              onClick={confirmEditing}
-              color="primary"
-              variant="contained"
-              disableElevation
-            >
-              Save Changes
-            </Button>
-          </Box>
-        </Box>
+        </form>
       </>
     );
   }
