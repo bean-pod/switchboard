@@ -20,10 +20,6 @@ export default function SnackbarMessage() {
 
   const history = useHistory();
 
-  React.useEffect(() => {
-    openSnackbarFn = openSnackbar;
-  }, []);
-
   function openSnackbar(stat, msg, path) {
     setOpen(true);
     if (stat === "success") {
@@ -32,6 +28,10 @@ export default function SnackbarMessage() {
     setMessage(msg);
     setPathname(path);
   }
+
+  React.useEffect(() => {
+    openSnackbarFn = openSnackbar;
+  }, []);
 
   function refresh() {
     if (history.location.pathname.endsWith(pathname)) {
