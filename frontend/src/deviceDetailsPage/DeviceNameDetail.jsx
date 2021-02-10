@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Box, Button, TextField } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
-import * as DeviceApi from "../../api/DeviceApi";
+import * as DeviceApi from "../api/DeviceApi";
 
 export default function DeviceNameDetail(props) {
   const { deviceName, deviceId } = props;
