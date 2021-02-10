@@ -66,7 +66,6 @@ export default function DeviceNameDetail(props) {
             <Box padding={4} paddingLeft={0}>
               <Button
                 id="confirmEditBtn"
-                // onClick={confirmEditing}
                 type="submit"
                 color="primary"
                 variant="contained"
