@@ -104,6 +104,6 @@ export default function SnackbarMessage() {
   );
 }
 
-export function openSnackbarExported(status, message, pathname) {
+export function snackbar(status, message, pathname) {
   openSnackbarFn(status, message, pathname);
 }

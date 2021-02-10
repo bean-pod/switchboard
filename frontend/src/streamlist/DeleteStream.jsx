@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
 import { IconButton } from "@material-ui/core";
 import { Delete } from "@material-ui/icons";
 import * as StreamApi from "../api/StreamApi";
-import { openSnackbarExported } from "../general/SnackbarMessage";
+import { snackbar } from "../general/SnackbarMessage";
 
 export default function DeleteStream(props) {
   const { deleteId } = props;
@@ -25,14 +25,14 @@ export default function DeleteStream(props) {
   const confirmDelete = () => {
     StreamApi.deleteStream(deleteId)
       .then(() => {
-        openSnackbarExported(
+        snackbar(
           "success",
           `Stream ${deleteId} deleted!`,
           "Streaming"
         );
       })
       .catch(() => {
-        openSnackbarExported(
+        snackbar(
           "error",
           `Could not delete stream ${deleteId}`,
           "Streaming"

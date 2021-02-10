@@ -6,7 +6,7 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import SelectDevicesTable from "./SelectDevicesTable";
 import StreamButton from "../general/Buttons/StreamButton";
-import { openSnackbarExported } from "../general/SnackbarMessage";
+import { snackbar } from "../general/SnackbarMessage";
 
 export default class StreamingTable extends React.Component {
   constructor(props) {
@@ -55,14 +55,14 @@ export default class StreamingTable extends React.Component {
         })
         .then(() => {
           // Refresh the page
-          openSnackbarExported(
+          snackbar(
             "success",
             `Stream successful between Sender ${selectedSenderID} and Receiver ${selectedReceiverID}!`,
             "Streaming"
           );
         })
         .catch(() => {
-          openSnackbarExported(
+          snackbar(
             "error",
             `Stream failed between Sender ${selectedSenderID} and Receiver ${selectedReceiverID}`,
             "Streaming"
