@@ -11,7 +11,7 @@ import org.beanpod.switchboard.dto.EncoderDto;
 import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.dto.mapper.DeviceMapper;
 import org.beanpod.switchboard.entity.DeviceEntity;
-import org.beanpod.switchboard.entity.DummyInterface;
+import org.beanpod.switchboard.entity.DecoderEncoderInterface;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -28,7 +28,7 @@ public class MaintainDeviceStatus {
    * maintain and create logs when decoders or encoders are retrieved
    * T should be of type DecoderEntity or EncoderEntity
    */
-  public <T extends DummyInterface> List<DeviceEntity> maintainStatusField(List<T> devices) {
+  public <T extends DecoderEncoderInterface> List<DeviceEntity> maintainStatusField(List<T> devices) {
     Date dateToBeCompared = getDateToBeCompared();
     List<DeviceEntity> updatedDevices = new ArrayList<>();
 
