@@ -120,6 +120,7 @@ select {
 
 .invisibleLink {
   text-decoration: none;
+  color: #000000DE;
 }
 
 .headerTitle {
