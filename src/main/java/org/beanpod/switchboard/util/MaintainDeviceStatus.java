@@ -21,7 +21,7 @@ public class MaintainDeviceStatus {
   private static final DateUtil date = new DateUtil();
   private static final String ONLINE_STATUS = "online";
   private static final String OFFLINE_STATUS = "offline";
-  private final DeviceDaoImpl service;
+  private final DeviceDaoImpl deviceDao;
   private final DeviceMapper deviceMapper;
 
   /*
@@ -39,14 +39,14 @@ public class MaintainDeviceStatus {
           && dateToBeCompared.after(encoderOrDecoder.getLastCommunication())) {
         // update last_communication field to offline
         (encoderOrDecoder.getDevice()).setStatus(OFFLINE_STATUS);
-        service.save(deviceMapper.toDeviceDto(encoderOrDecoder.getDevice()));
+        deviceDao.save(deviceMapper.toDeviceDto(encoderOrDecoder.getDevice()));
 
         updatedDevices.add(encoderOrDecoder.getDevice());
       } else if (((encoderOrDecoder).getDevice().getStatus()).equalsIgnoreCase(OFFLINE_STATUS)
           && dateToBeCompared.before(encoderOrDecoder.getLastCommunication())) {
         // update last_communication field to offline
         (encoderOrDecoder.getDevice()).setStatus(ONLINE_STATUS);
-        service.save(deviceMapper.toDeviceDto(encoderOrDecoder.getDevice()));
+        deviceDao.save(deviceMapper.toDeviceDto(encoderOrDecoder.getDevice()));
 
         updatedDevices.add(encoderOrDecoder.getDevice());
       }
@@ -64,7 +64,7 @@ public class MaintainDeviceStatus {
     // update the status field for decoder
     if ((decoder.getDevice().getStatus()).equalsIgnoreCase(OFFLINE_STATUS)) {
       decoder.getDevice().setStatus(ONLINE_STATUS);
-      service.save(decoder.getDevice());
+      deviceDao.save(decoder.getDevice());
 
       updatedDevices.add(deviceMapper.toDeviceEntity(decoder.getDevice()));
     }
@@ -72,7 +72,7 @@ public class MaintainDeviceStatus {
     // update the status field for encoder
     if ((encoder.getDevice().getStatus()).equalsIgnoreCase(OFFLINE_STATUS)) {
       encoder.getDevice().setStatus(ONLINE_STATUS);
-      service.save(encoder.getDevice());
+      deviceDao.save(encoder.getDevice());
 
       updatedDevices.add(deviceMapper.toDeviceEntity(decoder.getDevice()));
     }
