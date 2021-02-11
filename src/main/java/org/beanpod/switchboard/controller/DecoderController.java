@@ -56,8 +56,9 @@ public class DecoderController {
     if (decoder.isPresent()) {
       List<DecoderEntity> decodersListTemp = new LinkedList<>();
       decodersListTemp.add(decoderMapper.toDecoderEntity(decoder.get()));
-      DeviceEntity updatedDevice = maintainDeviceStatus.maintainStatusField(decodersListTemp).get(0);
-      //update the retrieved decoder object
+      DeviceEntity updatedDevice =
+          maintainDeviceStatus.maintainStatusField(decodersListTemp).get(0);
+      // update the retrieved decoder object
       decoder.get().getDevice().setStatus(updatedDevice.getStatus());
     }
 

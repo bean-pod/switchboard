@@ -37,7 +37,7 @@ import org.springframework.http.ResponseEntity;
 class DecoderControllerTest {
 
   // stubbed Objects
-  private  static List<DeviceEntity> listOfDevices;
+  private static List<DeviceEntity> listOfDevices;
   private static DeviceEntity device;
   private static DeviceDto deviceDto;
   private static DecoderEntity decoder;

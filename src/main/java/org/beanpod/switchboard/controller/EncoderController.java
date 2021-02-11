@@ -59,8 +59,9 @@ public class EncoderController {
     if (encoder.isPresent()) {
       List<EncoderEntity> encodersListTemp = new LinkedList<>();
       encodersListTemp.add(encoderMapper.toEncoderEntity(encoder.get()));
-      DeviceEntity updatedDevice = maintainDeviceStatus.maintainStatusField(encodersListTemp).get(0);
-      //update the retrieved decoder object
+      DeviceEntity updatedDevice =
+          maintainDeviceStatus.maintainStatusField(encodersListTemp).get(0);
+      // update the retrieved decoder object
       encoder.get().getDevice().setStatus(updatedDevice.getStatus());
     }
 
