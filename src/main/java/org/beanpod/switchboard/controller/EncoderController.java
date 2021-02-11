@@ -13,6 +13,7 @@ import org.beanpod.switchboard.dto.DeviceDto;
 import org.beanpod.switchboard.dto.EncoderDto;
 import org.beanpod.switchboard.dto.mapper.EncoderMapper;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
+import org.beanpod.switchboard.entity.DeviceEntity;
 import org.beanpod.switchboard.entity.EncoderEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.service.EncoderService;
@@ -58,7 +59,9 @@ public class EncoderController {
     if (encoder.isPresent()) {
       List<EncoderEntity> encodersListTemp = new LinkedList<>();
       encodersListTemp.add(encoderMapper.toEncoderEntity(encoder.get()));
-      maintainDeviceStatus.maintainStatusField(encodersListTemp);
+      DeviceEntity updatedDevice = maintainDeviceStatus.maintainStatusField(encodersListTemp).get(0);
+      //update the retrieved decoder object
+      encoder.get().getDevice().setStatus(updatedDevice.getStatus());
     }
 
     // return encoder
