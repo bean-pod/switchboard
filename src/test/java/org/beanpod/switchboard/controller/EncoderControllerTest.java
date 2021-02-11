@@ -38,6 +38,7 @@ import org.springframework.http.ResponseEntity;
 class EncoderControllerTest {
 
   // stubbed Objects
+  private static List<DeviceEntity> listOfDevices;
   private static DeviceEntity device;
   private static DeviceDto deviceDto;
   private static EncoderEntity encoder;
@@ -53,6 +54,7 @@ class EncoderControllerTest {
 
   @BeforeEach
   void setupEncoderFixture() throws ParseException {
+    listOfDevices = DeviceFixture.getListOfDevices();
     device = DeviceFixture.getDevice1();
     deviceDto = DeviceFixture.getDeviceDto();
     encoder = EncoderFixture.getEncoderEntity1();
@@ -81,6 +83,8 @@ class EncoderControllerTest {
   @Test
   final void testRetrieveEncoder() {
     when(encoderDao.findEncoder(EncoderFixture.SERIAL_NUMBER)).thenReturn(Optional.of(encoderDTO));
+    when(maintainDeviceStatus.maintainStatusField(anyList())).thenReturn(listOfDevices);
+
     ResponseEntity<EncoderDto> actualEncoder =
         encoderController.retrieveEncoder(EncoderFixture.SERIAL_NUMBER);
 

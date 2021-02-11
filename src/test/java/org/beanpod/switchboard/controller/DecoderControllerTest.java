@@ -37,6 +37,7 @@ import org.springframework.http.ResponseEntity;
 class DecoderControllerTest {
 
   // stubbed Objects
+  private  static List<DeviceEntity> listOfDevices;
   private static DeviceEntity device;
   private static DeviceDto deviceDto;
   private static DecoderEntity decoder;
@@ -52,6 +53,7 @@ class DecoderControllerTest {
 
   @BeforeEach
   void setupDecoderFixture() {
+    listOfDevices = DeviceFixture.getListOfDevices();
     device = DeviceFixture.getDevice1();
     deviceDto = DeviceFixture.getDeviceDto();
     decoder = DecoderFixture.getDecoderEntity1();
@@ -80,6 +82,7 @@ class DecoderControllerTest {
   @Test
   final void testRetrieveDecoder() {
     when(decoderDao.findDecoder(DecoderFixture.SERIAL_NUMBER)).thenReturn(Optional.of(decoderDto));
+    when(maintainDeviceStatus.maintainStatusField(anyList())).thenReturn(listOfDevices);
     ResponseEntity<DecoderDto> actualDecoder = decoderController.retrieveDecoder("1");
 
     assertNotNull(actualDecoder);
