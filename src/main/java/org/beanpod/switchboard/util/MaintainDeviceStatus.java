@@ -33,21 +33,22 @@ public class MaintainDeviceStatus {
     List<DeviceEntity> updatedDevices = new ArrayList<>();
 
     for (int i = 0; i < devices.size(); i++) {
+      T encoderOrDecoder = devices.get(i);
       // if status field equals online and lastCommunication is more than 10minutes old
-      if (((devices.get(i)).getDevice().getStatus()).equalsIgnoreCase(ONLINE_STATUS)
-          && dateToBeCompared.after(devices.get(i).getLastCommunication())) {
+      if (((encoderOrDecoder).getDevice().getStatus()).equalsIgnoreCase(ONLINE_STATUS)
+          && dateToBeCompared.after(encoderOrDecoder.getLastCommunication())) {
         // update last_communication field to offline
-        (devices.get(i).getDevice()).setStatus(OFFLINE_STATUS);
-        service.save(deviceMapper.toDeviceDto(devices.get(i).getDevice()));
+        (encoderOrDecoder.getDevice()).setStatus(OFFLINE_STATUS);
+        service.save(deviceMapper.toDeviceDto(encoderOrDecoder.getDevice()));
 
-        updatedDevices.add(devices.get(i).getDevice());
-      } else if (((devices.get(i)).getDevice().getStatus()).equalsIgnoreCase(OFFLINE_STATUS)
-          && dateToBeCompared.before(devices.get(i).getLastCommunication())) {
+        updatedDevices.add(encoderOrDecoder.getDevice());
+      } else if (((encoderOrDecoder).getDevice().getStatus()).equalsIgnoreCase(OFFLINE_STATUS)
+          && dateToBeCompared.before(encoderOrDecoder.getLastCommunication())) {
         // update last_communication field to offline
-        (devices.get(i).getDevice()).setStatus(ONLINE_STATUS);
-        service.save(deviceMapper.toDeviceDto(devices.get(i).getDevice()));
+        (encoderOrDecoder.getDevice()).setStatus(ONLINE_STATUS);
+        service.save(deviceMapper.toDeviceDto(encoderOrDecoder.getDevice()));
 
-        updatedDevices.add(devices.get(i).getDevice());
+        updatedDevices.add(encoderOrDecoder.getDevice());
       }
     }
 
