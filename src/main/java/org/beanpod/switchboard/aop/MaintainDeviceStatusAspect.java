@@ -18,7 +18,8 @@ public class MaintainDeviceStatusAspect {
 
   @AfterReturning(
       value =
-          "execution(* org.beanpod.switchboard.util.MaintainDeviceStatus.maintainStatusField(org.beanpod.switchboard.dto.StreamDto))",
+          "execution(* org.beanpod.switchboard.util.MaintainDeviceStatus"
+              + ".maintainStatusField(org.beanpod.switchboard.dto.StreamDto))",
       returning = "updatedDevices")
   public void createLogStream(List<DeviceEntity> updatedDevices) {
     createLogHelper(updatedDevices);
@@ -26,7 +27,8 @@ public class MaintainDeviceStatusAspect {
 
   @AfterReturning(
       value =
-          "execution(* org.beanpod.switchboard.util.MaintainDeviceStatus.maintainStatusField(java.util.List))",
+          "execution(* org.beanpod.switchboard.util.MaintainDeviceStatus"
+              + ".maintainStatusField(java.util.List))",
       returning = "updatedDevices")
   public void createLogEncoderAndDecoder(List<DeviceEntity> updatedDevices) {
     createLogHelper(updatedDevices);
