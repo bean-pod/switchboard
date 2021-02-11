@@ -1,11 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import {
-  Snackbar,
-  SnackbarContent,
-  IconButton,
-  Box
-} from "@material-ui/core";
+import { Snackbar, SnackbarContent, IconButton, Box } from "@material-ui/core";
 import { CheckCircle, Error, Close } from "@material-ui/icons";
 
 let openSnackbarFn = function openSnackbar() {};
