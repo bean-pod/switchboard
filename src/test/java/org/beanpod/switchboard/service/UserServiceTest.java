@@ -34,9 +34,8 @@ class UserServiceTest {
     switchBoardUserDetails = UserFixture.getUserDetails();
   }
 
-
   @Test
-  final void testLoadUserByName(){
+  final void testLoadUserByName() {
     when(userDao.loadUserByUsername("moh@gmail.com")).thenReturn(switchBoardUserDetails);
     UserDetails response = userService.loadUserByUsername("moh@gmail.com");
     assertEquals("moh@gmail.com", response.getUsername());

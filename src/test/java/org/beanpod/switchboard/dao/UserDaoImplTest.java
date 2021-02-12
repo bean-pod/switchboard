@@ -12,7 +12,6 @@ import org.beanpod.switchboard.dto.mapper.UserMapper;
 import org.beanpod.switchboard.entity.UserEntity;
 import org.beanpod.switchboard.fixture.UserFixture;
 import org.beanpod.switchboard.repository.UserRepository;
-import org.beanpod.switchboard.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -28,7 +27,6 @@ class UserDaoImplTest {
   private static UserDto userDto;
   private static UserEntity userEntity;
   @InjectMocks private UserDaoImpl userDaoImpl;
-  @Mock private UserService userService;
   @Mock private UserRepository userRepository;
   @Mock private UserMapper userMapper;
 
