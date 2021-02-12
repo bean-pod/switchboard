@@ -1,17 +1,12 @@
 package org.beanpod.switchboard.service;
 
-import java.text.MessageFormat;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.dao.UserDaoImpl;
 import org.beanpod.switchboard.dto.UserDto;
-import org.beanpod.switchboard.entity.SwitchBoardUserDetails;
-import org.beanpod.switchboard.entity.UserEntity;
 import org.beanpod.switchboard.repository.UserRepository;
 import org.openapitools.model.UserModel;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,13 +20,7 @@ public class UserService implements UserDetailsService {
 
   @Override
   public UserDetails loadUserByUsername(String email) {
-    final Optional<UserEntity> optionalUser = userRepository.findByUsername(email);
-    if (optionalUser.isPresent()) {
-      return new SwitchBoardUserDetails(optionalUser.get());
-    } else {
-      throw new UsernameNotFoundException(
-          MessageFormat.format("User with username {0} cannot be found.", email));
-    }
+    return userDao.loadUserByUsername(email);
   }
 
   public UserDto signUpUser(UserModel user) {
