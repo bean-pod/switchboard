@@ -19,13 +19,6 @@ describe("<ActionMenu />", () => {
   let wrapper;
   let testElement;
 
-  const extras = ["Additional Device details go here"];
-  const sampleInputChannels = [
-    new InChannelInfo(1, "Input ch 1", 500, null),
-    new InChannelInfo(2, "Input ch 2", 456, null),
-    new InChannelInfo(3, "Input ch 3", 800, null)
-  ];
-
   beforeEach(() => {
     const dummyDevice = new DeviceInfo(
       "1:10:111:999",
