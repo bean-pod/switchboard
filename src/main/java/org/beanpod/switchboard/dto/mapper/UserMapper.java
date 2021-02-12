@@ -1,6 +1,5 @@
 package org.beanpod.switchboard.dto.mapper;
 
-import org.beanpod.switchboard.dto.DeviceDto;
 import org.beanpod.switchboard.dto.UserDto;
 import org.beanpod.switchboard.entity.UserEntity;
 import org.mapstruct.Mapper;
@@ -11,7 +10,7 @@ public interface UserMapper {
 
   UserDto toUserDto(UserEntity userEntity);
 
-  DeviceDto toUserDto(UserModel userModel);
+  UserDto toUserDto(UserModel userModel);
 
   UserModel toUserModel(UserDto userDto);
 

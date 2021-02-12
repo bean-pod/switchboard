@@ -8,6 +8,7 @@ import org.beanpod.switchboard.dto.UserDto;
 import org.beanpod.switchboard.dto.mapper.UserMapper;
 import org.beanpod.switchboard.entity.UserEntity;
 import org.beanpod.switchboard.fixture.UserFixture;
+import org.beanpod.switchboard.repository.UserRepository;
 import org.beanpod.switchboard.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,6 +24,7 @@ class UserDaoImplTest {
   private static UserEntity userEntity;
   @InjectMocks private UserDaoImpl userDaoImpl;
   @Mock private UserService userService;
+  @Mock private UserRepository userRepository;
   @Mock private UserMapper userMapper;
 
   @BeforeEach
@@ -41,7 +43,7 @@ class UserDaoImplTest {
   final void testSave() {
     when(userMapper.toUserEntity(any(UserModel.class))).thenReturn(userEntity);
     when(userMapper.toUserDto(any(UserEntity.class))).thenReturn(userDto);
-    when(userService.signUpUser(any())).thenReturn(userEntity);
+    when(userRepository.save(any())).thenReturn(userEntity);
 
     UserDto response = userDaoImpl.save(userModel);
     assertEquals("moh@gmail.com", response.getUsername());
