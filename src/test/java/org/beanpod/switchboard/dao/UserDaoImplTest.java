@@ -1,9 +1,12 @@
 package org.beanpod.switchboard.dao;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.Optional;
 import org.beanpod.switchboard.dto.UserDto;
 import org.beanpod.switchboard.dto.mapper.UserMapper;
 import org.beanpod.switchboard.entity.UserEntity;
@@ -16,10 +19,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.openapitools.model.UserModel;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 class UserDaoImplTest {
 
   private static UserModel userModel;
+  private static UserEntity userEntity1;
   private static UserDto userDto;
   private static UserEntity userEntity;
   @InjectMocks private UserDaoImpl userDaoImpl;
@@ -30,6 +35,7 @@ class UserDaoImplTest {
   @BeforeEach
   void setupUserFixture() {
     userModel = UserFixture.getUserModel();
+    userEntity1 = UserFixture.getUserEntity();
     userDto = UserFixture.getUserDto();
     userEntity = UserFixture.getUserEntity();
   }
@@ -47,5 +53,24 @@ class UserDaoImplTest {
 
     UserDto response = userDaoImpl.save(userModel);
     assertEquals("moh@gmail.com", response.getUsername());
+  }
+
+  @Test
+  final void testLoadUserByUserName() {
+    Optional<UserEntity> userEntity = Optional.of(userEntity1);
+    when(userRepository.findByUsername(any())).thenReturn(userEntity);
+    userDaoImpl.loadUserByUsername("moh@gmail.com");
+    verify(userRepository).findByUsername("moh@gmail.com");
+  }
+
+  @Test
+  final void testLoadUserByUserNameException() {
+    Optional<UserEntity> empty = Optional.empty();
+    when(userRepository.findByUsername(any())).thenReturn(empty);
+    assertThrows(
+        UsernameNotFoundException.class,
+        () -> {
+          userDaoImpl.loadUserByUsername("moh1@gmail.com");
+        });
   }
 }

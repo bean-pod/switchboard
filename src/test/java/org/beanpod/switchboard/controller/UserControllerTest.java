@@ -3,9 +3,9 @@ package org.beanpod.switchboard.controller;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-import org.beanpod.switchboard.dao.UserDaoImpl;
 import org.beanpod.switchboard.dto.UserDto;
 import org.beanpod.switchboard.fixture.UserFixture;
+import org.beanpod.switchboard.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -19,7 +19,7 @@ class UserControllerTest {
   private static UserModel userModel;
   private static UserDto userDto;
   @InjectMocks private UserController userController;
-  @Mock private UserDaoImpl userDao;
+  @Mock private UserService userService;
 
   @BeforeEach
   void setupUserFixture() {
@@ -34,7 +34,7 @@ class UserControllerTest {
 
   @Test
   final void signUp() {
-    when(userDao.save(userModel)).thenReturn(userDto);
+    when(userService.signUpUser(userModel)).thenReturn(userDto);
     ResponseEntity<String> response = userController.signUp(userModel);
     assertEquals("User moh@gmail.com has been successfully created", response.getBody());
   }
