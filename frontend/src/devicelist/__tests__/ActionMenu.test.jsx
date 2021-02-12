@@ -28,15 +28,15 @@ describe("<ActionMenu />", () => {
 
   beforeEach(() => {
     const dummyDevice = new DeviceInfo(
-      "1:01:111:999",
-      null,
+      "1:10:111:999",
+      "2020-11-25 20:48:03",
       "175.214.12.96",
       "123:456",
-      "Receiver 1",
+      "Sender 1",
       "Online",
-      sampleInputChannels,
-      "decoder",
-      extras
+      null,
+      "encoder",
+      null
     );
     wrapper = Enzyme.shallow(<ActionMenu device={dummyDevice} />);
   });

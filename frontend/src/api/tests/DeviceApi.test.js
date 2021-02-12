@@ -1,5 +1,4 @@
 import axios from "axios";
-import * as SampleData from "../SampleData";
 import * as DeviceApi from "../DeviceApi";
 import * as DeviceFixture from "./DeviceFixture";
 

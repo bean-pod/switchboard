@@ -3,21 +3,6 @@ import { convertToDataObject } from "../model/ConvertDataFormat";
 import StreamInfo from "../model/StreamInfo";
 import * as SampleData from "./SampleData";
 
-export function getAllStreams(callback) {
-  axios
-    .get(process.env.REACT_APP_STREAM)
-    .then((streams) => {
-      Promise.all(
-        streams.data.map((streamId) => {
-          return getStream(streamId);
-        })
-      ).then(callback);
-    })
-    .catch((error) => {
-      SampleData.getAllStreams(callback);
-    });
-}
-
 export function getStream(streamId) {
   return new Promise((resolve, reject) => {
     axios
@@ -37,8 +22,23 @@ export function getStream(streamId) {
   });
 }
 
-export function deleteStream(streamId) {
-  return axios
+export function getAllStreams(callback) {
+  axios
+    .get(process.env.REACT_APP_STREAM)
+    .then((streams) => {
+      Promise.all(
+        streams.data.map((streamId) => {
+          return getStream(streamId);
+        })
+      ).then(callback);
+    })
+    .catch(() => {
+      SampleData.getAllStreams(callback);
+    });
+}
+
+export function deleteStream(streamId, callback) {
+  axios
     .delete(`${process.env.REACT_APP_STREAM}/${streamId}`)
     .catch(() => {});
 }

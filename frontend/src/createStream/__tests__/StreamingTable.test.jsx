@@ -17,23 +17,23 @@ Enzyme.configure({ adapter: new Adapter() });
 jest.mock("axios");
 jest.spyOn(global.console, "log");
 
-class DummyData {
+const DummyData = {
   getSenders() {
     return ["A", "B", "C"];
-  }
+  },
 
   getReceivers() {
     return ["X", "Y", "Z"];
-  }
+  },
 
   preventDefault() {}
-}
+};
 
 describe("<StreamingTable/>", () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = Enzyme.shallow(<StreamingTable dataSource={new DummyData()} />);
+    wrapper = Enzyme.shallow(<StreamingTable dataSource={DummyData} />);
   });
 
   afterEach(() => {
@@ -109,7 +109,7 @@ describe("<StreamingTable/>", () => {
       };
       axios.post.mockImplementationOnce(() => Promise.resolve(data));
       // act
-      wrapper.instance().handleSubmit(new DummyData());
+      wrapper.instance().handleSubmit(DummyData);
       expect(axios.post).not.toHaveBeenCalled();
     });
     it("should do nothing if a receiver but no sender has been selected", () => {
@@ -128,7 +128,7 @@ describe("<StreamingTable/>", () => {
       // act
       wrapper.instance().onReceiverSelected(mockReceiver);
 
-      wrapper.instance().handleSubmit(new DummyData());
+      wrapper.instance().handleSubmit(DummyData);
       expect(axios.post).not.toHaveBeenCalled();
     });
     it("should do nothing if no receiver but a sender has been selected", () => {
@@ -145,7 +145,7 @@ describe("<StreamingTable/>", () => {
 
       // act
       wrapper.instance().onSenderSelected(mockSender);
-      wrapper.instance().handleSubmit(new DummyData());
+      wrapper.instance().handleSubmit(DummyData);
       expect(axios.post).not.toHaveBeenCalled();
     });
     it("should call axios.post if a sender and a receiver have been selected", () => {
@@ -175,7 +175,7 @@ describe("<StreamingTable/>", () => {
       wrapper.instance().onSenderSelected(mockSender);
       wrapper.instance().onReceiverSelected(mockReceiver);
 
-      wrapper.instance().handleSubmit(new DummyData());
+      wrapper.instance().handleSubmit(DummyData);
 
       expect(axios.post).toHaveBeenCalledWith(
         "http://localhost:8080/stream",

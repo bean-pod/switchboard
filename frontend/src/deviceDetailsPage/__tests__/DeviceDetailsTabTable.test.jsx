@@ -143,13 +143,4 @@ describe("DeviceDetailsTabTable class", () => {
       );
     });
   });
-  it("Throws an error when using device that is not a DeviceInfo object", () => {
-    const tabs = [""];
-    const device = 454;
-
-    wrapper = Enzyme.shallow(
-      <DeviceDetailsTabTable tabs={tabs} device={device} />
-    );
-    expect(console.error).toHaveBeenCalled();
-  });
 });

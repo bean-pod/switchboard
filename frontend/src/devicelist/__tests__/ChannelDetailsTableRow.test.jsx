@@ -22,7 +22,7 @@ describe("ChannelDetailsTableRow", () => {
     jest.clearAllMocks();
   });
 
-  describe("contains all the correct Components", () => {
+  describe("With InChannel, contains all the correct Components", () => {
     wrapper = Enzyme.shallow(<ChannelDetailsTableRow channel={inChannel} />);
     it("Is one (1) TableRow Component", () => {
       expect(wrapper.find(TableRow)).toHaveLength(1);
@@ -40,23 +40,23 @@ describe("ChannelDetailsTableRow", () => {
       expect(wrapper.childAt(2).text()).toBe(`${dummyPort}`);
     });
   });
-  describe("Props validation", () => {
-    /*  eslint-disable no-console */
-    it("works with an InputChannelInfo", () => {
-      wrapper = Enzyme.shallow(<ChannelDetailsTableRow channel={inChannel} />);
+
+  describe("With OutChannel, contains all the correct Components ", () => {
+    wrapper = Enzyme.shallow(<ChannelDetailsTableRow channel={outChannel} />);
+    it("Is one (1) TableRow Component", () => {
       expect(wrapper.find(TableRow)).toHaveLength(1);
-      expect(wrapper.find(TableCell)).toHaveLength(3);
-      expect(console.error).not.toHaveBeenCalled();
     });
-    it("works with an OutputChannelInfo", () => {
-      wrapper = Enzyme.shallow(<ChannelDetailsTableRow channel={outChannel} />);
-      expect(wrapper.find(TableRow)).toHaveLength(1);
+    it("Has three (3) TableCell Components", () => {
       expect(wrapper.find(TableCell)).toHaveLength(3);
-      expect(console.error).not.toHaveBeenCalled();
     });
-    it("fails if passed an invalid type", () => {
-      wrapper = Enzyme.shallow(<ChannelDetailsTableRow channel="outChannel" />);
-      expect(console.error).toHaveBeenCalled();
+    it("the first TableCell Component contains the channel Id", () => {
+      expect(wrapper.childAt(0).text()).toBe(`${dummyId}`);
+    });
+    it("the second TableCell Component contains the channel name", () => {
+      expect(wrapper.childAt(1).text()).toBe(dummyName);
+    });
+    it("the third TableCell Component contains the channel port", () => {
+      expect(wrapper.childAt(2).text()).toBe(`${dummyPort}`);
     });
   });
 });
