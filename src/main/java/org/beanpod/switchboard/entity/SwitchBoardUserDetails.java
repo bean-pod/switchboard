@@ -8,7 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class MyUserDetails implements UserDetails {
+public class SwitchBoardUserDetails implements UserDetails {
 
   @NotNull private String username;
 
@@ -16,7 +16,7 @@ public class MyUserDetails implements UserDetails {
 
   @Builder.Default private UserRole userRole = UserRole.USER;
 
-  public MyUserDetails(UserEntity userEntity) {
+  public SwitchBoardUserDetails(UserEntity userEntity) {
     this.username = userEntity.getUsername();
     this.password = userEntity.getPassword();
     this.userRole = userEntity.getUserRole();

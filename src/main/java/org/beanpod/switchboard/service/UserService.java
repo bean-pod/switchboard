@@ -3,7 +3,7 @@ package org.beanpod.switchboard.service;
 import java.text.MessageFormat;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import org.beanpod.switchboard.entity.MyUserDetails;
+import org.beanpod.switchboard.entity.SwitchBoardUserDetails;
 import org.beanpod.switchboard.entity.UserEntity;
 import org.beanpod.switchboard.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,7 +23,7 @@ public class UserService implements UserDetailsService {
   public UserDetails loadUserByUsername(String email) {
     final Optional<UserEntity> optionalUser = userRepository.findByUserName(email);
     if (optionalUser.isPresent()) {
-      return new MyUserDetails(optionalUser.get());
+      return new SwitchBoardUserDetails(optionalUser.get());
     } else {
       throw new UsernameNotFoundException(
           MessageFormat.format("User with username {0} cannot be found.", email));

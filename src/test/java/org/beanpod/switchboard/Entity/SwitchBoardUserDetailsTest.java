@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Collections;
-import org.beanpod.switchboard.entity.MyUserDetails;
+import org.beanpod.switchboard.entity.SwitchBoardUserDetails;
 import org.beanpod.switchboard.entity.UserEntity;
 import org.beanpod.switchboard.fixture.UserFixture;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,11 +13,11 @@ import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-class MyUserDetailsTest {
+class SwitchBoardUserDetailsTest {
 
   private static UserEntity userEntity = UserFixture.getUserEntity();
 
-  @InjectMocks private MyUserDetails myUserDetails = new MyUserDetails(userEntity);
+  @InjectMocks private SwitchBoardUserDetails switchBoardUserDetails = new SwitchBoardUserDetails(userEntity);
 
   @BeforeEach
   void setup() {
@@ -27,36 +27,36 @@ class MyUserDetailsTest {
   @Test
   void getAuthorities() {
     final SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority("USER");
-    assertEquals(myUserDetails.getAuthorities(), Collections.singletonList(simpleGrantedAuthority));
+    assertEquals(switchBoardUserDetails.getAuthorities(), Collections.singletonList(simpleGrantedAuthority));
   }
 
   @Test
   void testGetPassword() {
-    assertEquals("1234.", myUserDetails.getPassword());
+    assertEquals("1234.", switchBoardUserDetails.getPassword());
   }
 
   @Test
   void testGetUserName() {
-    assertEquals("moh@gmail.com", myUserDetails.getUsername());
+    assertEquals("moh@gmail.com", switchBoardUserDetails.getUsername());
   }
 
   @Test
   void testIsAccountNonExpired() {
-    assertTrue(myUserDetails.isAccountNonExpired());
+    assertTrue(switchBoardUserDetails.isAccountNonExpired());
   }
 
   @Test
   void testIsAccountNonLocked() {
-    assertTrue(myUserDetails.isAccountNonLocked());
+    assertTrue(switchBoardUserDetails.isAccountNonLocked());
   }
 
   @Test
   void testIsCredentialsNonExpired() {
-    assertTrue(myUserDetails.isCredentialsNonExpired());
+    assertTrue(switchBoardUserDetails.isCredentialsNonExpired());
   }
 
   @Test
   void testIsEnabled() {
-    assertTrue(myUserDetails.isEnabled());
+    assertTrue(switchBoardUserDetails.isEnabled());
   }
 }
