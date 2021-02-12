@@ -13,18 +13,12 @@ export default class VerticalTabs extends React.Component {
     setValue(newTab);
   }
 
-  getTabProps(index) {
-    return {
-      id: `vertical-tab-${index}`,
-      "aria-controls": `vertical-tabpanel-${index}`
-    };
-  }
-
   render() {
     const {
       value,
       classes: { tabs }
     } = this.props;
+
     return (
       <>
         <Tabs
@@ -36,13 +30,22 @@ export default class VerticalTabs extends React.Component {
           indicatorColor="primary"
           variant="scrollable"
         >
-          <Tab label="Senders" {...this.getTabProps(0)} />
-          <Tab label="Receivers" {...this.getTabProps(1)} />
+          <Tab
+            label="Senders"
+            id="vertical-tab-0"
+            aria-controls="vertical-tabpanel-0"
+          />
+          <Tab
+            label="Receivers"
+            id="vertical-tab-1"
+            aria-controls="vertical-tabpanel-1"
+          />
         </Tabs>
       </>
     );
   }
 }
+
 VerticalTabs.propTypes = {
   setValue: PropTypes.func.isRequired,
   value: PropTypes.number.isRequired,

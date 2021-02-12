@@ -8,26 +8,13 @@ export function convertToDataObject(databaseDevice) {
     databaseDevice.device.privateIpAddress,
     databaseDevice.device.displayName,
     databaseDevice.device.status,
-    databaseDevice.inputs
+    databaseDevice.inputs || databaseDevice.outputs,
+    databaseDevice.inputs ? "receiver" : "sender"
   );
 }
 
 export function convertToServiceObject(deviceInfo) {
-  if (Object.prototype.hasOwnProperty.call(deviceInfo, "outputs")) {
-    return {
-      serialNumber: deviceInfo.serialNumber,
-      lastCommunication: deviceInfo.lastCommunication,
-      device: {
-        serialNumber: deviceInfo.serialNumber,
-        publicIpAddress: deviceInfo.publicIp,
-        privateIpAddress: deviceInfo.privateIp,
-        displayName: deviceInfo.name,
-        status: deviceInfo.status
-      },
-      outputs: deviceInfo.channels
-    };
-  }
-  return {
+  const serviceObject = {
     serialNumber: deviceInfo.serialNumber,
     lastCommunication: deviceInfo.lastCommunication,
     device: {
@@ -36,7 +23,12 @@ export function convertToServiceObject(deviceInfo) {
       privateIpAddress: deviceInfo.privateIp,
       displayName: deviceInfo.name,
       status: deviceInfo.status
-    },
-    inputs: deviceInfo.channels
+    }
   };
+  if (deviceInfo.deviceType === "sender") {
+    serviceObject.outputs = deviceInfo.channels;
+  } else {
+    serviceObject.inputs = deviceInfo.channels;
+  }
+  return serviceObject;
 }

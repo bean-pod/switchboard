@@ -27,11 +27,13 @@ import DeviceInfo from "../model/DeviceInfo";
 function getComponents() {
   return {
     /*  eslint-disable react/jsx-props-no-spreading */
-    Toolbar: (props) => (
-      <div className="lightestGrey">
-        <MTableToolbar {...props} />
-      </div>
-    )
+    Toolbar: function Components(props) {
+      return (
+        <div className="lightestGrey">
+          <MTableToolbar {...props} />
+        </div>
+      );
+    }
   };
 }
 
@@ -62,7 +64,9 @@ function getColumnInfo() {
     {
       title: "Status",
       field: "status",
-      render: (rowData) => <StatusIndicator status={rowData.status} />,
+      render: function Status(rowData) {
+        return <StatusIndicator status={rowData.status} />;
+      },
       lookup: {
         Online: "Online",
         Pending: "Pending",
@@ -83,7 +87,9 @@ function getColumnInfo() {
       field: "action",
       filtering: false,
       sorting: false,
-      render: (rowData) => <ActionMenu device={rowData} />,
+      render: function Actions(rowData) {
+        return <ActionMenu device={rowData} />;
+      },
       align: "center",
       export: false
     }
@@ -96,7 +102,7 @@ function getDetailPanel() {
       icon: ExpandMore,
       openIcon: ExpandLess,
       tooltip: "Show Device Details",
-      render: (rowData) => {
+      render: function DetailPanel(rowData) {
         return (
           <div className="lightestGrey" style={{ padding: "1.5em" }}>
             <Typography variant="h6">Channels</Typography>
@@ -140,27 +146,25 @@ function getIcons() {
   };
 }
 
-export default class DevicesTable extends React.Component {
-  render() {
-    const { title, devices } = this.props;
-    return (
-      <>
-        <Box>
-          <TableContainer style={{ maxHeight: 570 }}>
-            <MaterialTable
-              title={title}
-              components={getComponents()}
-              columns={getColumnInfo()}
-              data={devices}
-              detailPanel={getDetailPanel()}
-              options={getOptions()}
-              icons={getIcons()}
-            />
-          </TableContainer>
-        </Box>
-      </>
-    );
-  }
+export default function DevicesTable(props) {
+  const { title, devices } = props;
+  return (
+    <>
+      <Box>
+        <TableContainer style={{ maxHeight: 570 }}>
+          <MaterialTable
+            title={title}
+            components={getComponents()}
+            columns={getColumnInfo()}
+            data={devices}
+            detailPanel={getDetailPanel()}
+            options={getOptions()}
+            icons={getIcons()}
+          />
+        </TableContainer>
+      </Box>
+    </>
+  );
 }
 
 DevicesTable.propTypes = {
