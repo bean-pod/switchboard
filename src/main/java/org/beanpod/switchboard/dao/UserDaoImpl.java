@@ -24,7 +24,7 @@ public class UserDaoImpl {
     return userMapper.toUserDto(userRepository.save(userMapper.toUserEntity(userModel)));
   }
 
-  public UserDetails loadUserByUsername(String email){
+  public UserDetails loadUserByUsername(String email) {
     final Optional<UserEntity> optionalUser = userRepository.findByUsername(email);
     if (optionalUser.isPresent()) {
       return new SwitchBoardUserDetails(optionalUser.get());

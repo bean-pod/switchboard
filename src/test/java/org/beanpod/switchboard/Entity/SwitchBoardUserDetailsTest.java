@@ -17,7 +17,8 @@ class SwitchBoardUserDetailsTest {
 
   private static UserEntity userEntity = UserFixture.getUserEntity();
 
-  @InjectMocks private SwitchBoardUserDetails switchBoardUserDetails = new SwitchBoardUserDetails(userEntity);
+  @InjectMocks
+  private SwitchBoardUserDetails switchBoardUserDetails = new SwitchBoardUserDetails(userEntity);
 
   @BeforeEach
   void setup() {
@@ -27,7 +28,8 @@ class SwitchBoardUserDetailsTest {
   @Test
   void getAuthorities() {
     final SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority("USER");
-    assertEquals(switchBoardUserDetails.getAuthorities(), Collections.singletonList(simpleGrantedAuthority));
+    assertEquals(
+        switchBoardUserDetails.getAuthorities(), Collections.singletonList(simpleGrantedAuthority));
   }
 
   @Test
