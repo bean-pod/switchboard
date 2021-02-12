@@ -10,14 +10,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class MyUserDetails implements UserDetails {
 
-  @NotNull private String userName;
+  @NotNull private String username;
 
   @NotNull private String password;
 
   @Builder.Default private UserRole userRole = UserRole.USER;
 
   public MyUserDetails(UserEntity userEntity) {
-    this.userName = userEntity.getUserName();
+    this.username = userEntity.getUsername();
     this.password = userEntity.getPassword();
     this.userRole = userEntity.getUserRole();
   }
@@ -36,7 +36,7 @@ public class MyUserDetails implements UserDetails {
 
   @Override
   public String getUsername() {
-    return userName;
+    return username;
   }
 
   @Override

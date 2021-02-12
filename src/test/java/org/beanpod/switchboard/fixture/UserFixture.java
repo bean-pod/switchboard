@@ -7,14 +7,14 @@ import org.openapitools.model.UserModel;
 public class UserFixture {
 
   public static UserModel getUserModel() {
-    return new UserModel().userName("moh@gmail.com").password("1234.");
+    return new UserModel().username("moh@gmail.com").password("1234.");
   }
 
   public static UserDto getUserDto() {
-    return new UserDto().builder().userName("moh@gmail.com").password("1234.").build();
+    return new UserDto().builder().username("moh@gmail.com").password("1234.").build();
   }
 
   public static UserEntity getUserEntity() {
-    return new UserEntity().builder().userName("moh@gmail.com").password("1234.").build();
+    return new UserEntity().builder().username("moh@gmail.com").password("1234.").build();
   }
 }
