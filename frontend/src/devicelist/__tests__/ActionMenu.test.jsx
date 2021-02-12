@@ -11,7 +11,6 @@ import {
 } from "@jest/globals";
 import ActionMenu from "../ActionMenu";
 import DeviceInfo from "../../model/DeviceInfo";
-import InChannelInfo from "../../model/InputChannelInfo";
 
 Enzyme.configure({ adapter: new Adapter() });
 
