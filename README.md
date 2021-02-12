@@ -20,7 +20,7 @@ Developed as a Concordia University Capstone project.
 
 ## Setting up the project
 
-### Frontend
+### Front-end
 
 #### Set up
 * Install Node.js
@@ -70,7 +70,7 @@ Developed as a Concordia University Capstone project.
 
 ## Troubleshooting
 
-### Frontend does not compile
+### Front-end does not compile
 Usually you need to run `npm install` in the frontend folder to fix most compilation issues.
 
 ### Database is not online / Database connection information is incorrect
