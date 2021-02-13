@@ -73,6 +73,27 @@ public class MaintainDeviceStatusTest {
     maintainDeviceStatus.maintainStatusField(encodersList);
 
     assertEquals("online", encodersList.get(0).getDevice().getStatus());
+
+    // The following tests are testing the conditions in the if-else statement
+    // TEST CASE 3
+    // -8 minutes from now
+    date.setTime(System.currentTimeMillis() - 480000);
+
+    (encodersList.get(0)).setLastCommunication(date);
+
+    maintainDeviceStatus.maintainStatusField(encodersList);
+
+    assertEquals("online", encodersList.get(0).getDevice().getStatus());
+
+    // TEST CASE 4
+    // -15 minutes from now
+    date.setTime(System.currentTimeMillis() - 900000);
+
+    (encodersList.get(0)).setLastCommunication(date);
+
+    maintainDeviceStatus.maintainStatusField(encodersList);
+
+    assertEquals("offline", encodersList.get(0).getDevice().getStatus());
   }
 
   @Test
