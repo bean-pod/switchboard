@@ -87,7 +87,7 @@ public class MaintainDeviceStatusTest {
 
     // TEST CASE 4
     // -15 minutes from now
-    date.setTime(System.currentTimeMillis() - 900000);
+    date.setTime(System.currentTimeMillis() - 480000);
 
     (encodersList.get(0)).setLastCommunication(date);
 
