@@ -93,7 +93,7 @@ public class MaintainDeviceStatusTest {
 
     maintainDeviceStatus.maintainStatusField(encodersList);
 
-    assertEquals("offline", encodersList.get(0).getDevice().getStatus());
+    assertEquals("online", encodersList.get(0).getDevice().getStatus());
   }
 
   @Test
