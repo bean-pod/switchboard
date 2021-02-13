@@ -86,14 +86,16 @@ public class MaintainDeviceStatusTest {
     assertEquals("online", encodersList.get(0).getDevice().getStatus());
 
     // TEST CASE 4
-    // -15 minutes from now
-    date.setTime(System.currentTimeMillis() - 480000);
+    // -8 minutes from now
+    date.setTime(System.currentTimeMillis() - 900000);
+    encodersList.get(0).getDevice().setStatus("offline");
 
     (encodersList.get(0)).setLastCommunication(date);
 
     maintainDeviceStatus.maintainStatusField(encodersList);
 
-    assertEquals("online", encodersList.get(0).getDevice().getStatus());
+    assertEquals("offline", encodersList.get(0).getDevice().getStatus());
+
   }
 
   @Test
