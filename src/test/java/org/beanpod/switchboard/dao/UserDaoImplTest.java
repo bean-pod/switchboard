@@ -7,6 +7,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
+import javax.validation.ValidationException;
 import org.beanpod.switchboard.dto.UserDto;
 import org.beanpod.switchboard.dto.mapper.UserMapper;
 import org.beanpod.switchboard.entity.UserEntity;
@@ -51,6 +52,17 @@ class UserDaoImplTest {
 
     UserDto response = userDaoImpl.save(userModel);
     assertEquals("moh@gmail.com", response.getUsername());
+  }
+
+  @Test
+  final void testSaveException() {
+    Optional<UserEntity> user = Optional.of(userEntity);
+    when(userRepository.findByUsername(any())).thenReturn(user);
+    assertThrows(
+        ValidationException.class,
+        () -> {
+          userDaoImpl.save(userModel);
+        });
   }
 
   @Test

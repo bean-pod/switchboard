@@ -2,6 +2,7 @@ package org.beanpod.switchboard.dao;
 
 import java.text.MessageFormat;
 import java.util.Optional;
+import javax.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.dto.UserDto;
 import org.beanpod.switchboard.dto.mapper.UserMapper;
@@ -21,6 +22,9 @@ public class UserDaoImpl {
   private final UserMapper userMapper;
 
   public UserDto save(UserModel userModel) {
+    if (userRepository.findByUsername(userModel.getUsername()).isPresent()) {
+      throw new ValidationException("Username exists!");
+    }
     return userMapper.toUserDto(userRepository.save(userMapper.toUserEntity(userModel)));
   }
 

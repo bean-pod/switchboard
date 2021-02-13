@@ -25,7 +25,8 @@ public class UserEntity {
   private Long id;
 
   @Column(unique = true)
-  @NotNull private String username;
+  @NotNull
+  private String username;
 
   @NotNull private String password;
 
