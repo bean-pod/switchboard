@@ -24,13 +24,13 @@ public class UserDaoImpl {
     return userMapper.toUserDto(userRepository.save(userMapper.toUserEntity(userModel)));
   }
 
-  public UserDetails loadUserByUsername(String email) {
-    final Optional<UserEntity> optionalUser = userRepository.findByUsername(email);
+  public UserDetails loadUserByUsername(String username) {
+    final Optional<UserEntity> optionalUser = userRepository.findByUsername(username);
     if (optionalUser.isPresent()) {
       return new SwitchBoardUserDetails(optionalUser.get());
     } else {
       throw new UsernameNotFoundException(
-          MessageFormat.format("User with username {0} cannot be found.", email));
+          MessageFormat.format("User with username {0} cannot be found.", username));
     }
   }
 }

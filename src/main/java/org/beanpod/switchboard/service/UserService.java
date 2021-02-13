@@ -17,8 +17,8 @@ public class UserService implements UserDetailsService {
   private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
   @Override
-  public UserDetails loadUserByUsername(String email) {
-    return userDao.loadUserByUsername(email);
+  public UserDetails loadUserByUsername(String username) {
+    return userDao.loadUserByUsername(username);
   }
 
   public UserDto signUpUser(UserModel user) {
