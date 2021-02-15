@@ -18,7 +18,7 @@ export default function LoginPage() {
   return (
     <Container>
       <Box className="flexContents headerAreaUnderline">
-        <div className="title">Welcome to Switchboard</div>
+        <div className="title">Login</div>
       </Box>
       <LoginConsole handleSubmit={handleSubmit} />
       <LoginFailedDialog
