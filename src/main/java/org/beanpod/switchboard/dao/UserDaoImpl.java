@@ -1,6 +1,5 @@
 package org.beanpod.switchboard.dao;
 
-import java.text.MessageFormat;
 import java.util.Optional;
 import javax.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
@@ -33,8 +32,7 @@ public class UserDaoImpl {
     if (optionalUser.isPresent()) {
       return new SwitchBoardUserDetails(optionalUser.get());
     } else {
-      throw new UsernameNotFoundException(
-          MessageFormat.format("User with username {0} cannot be found.", username));
+      throw new UsernameNotFoundException("Bad Credentials");
     }
   }
 }
