@@ -3,6 +3,7 @@ import DeviceInfo from "../model/DeviceInfo";
 import * as SampleData from "./SampleData";
 import OutputChannelInfo from "../model/OutputChannelInfo";
 import InputChannelInfo from "../model/InputChannelInfo";
+import getAuthroizationHeader from "./Authorization"
 
 function getStatus(lastCommunicationString) {
   if (!lastCommunicationString) {
@@ -20,7 +21,7 @@ function getStatus(lastCommunicationString) {
 
 export function getSenders(callback) {
   axios
-    .get(process.env.REACT_APP_ENCODER)
+    .get(process.env.REACT_APP_ENCODER, getAuthroizationHeader())
     .then((senders) => {
       callback(
         senders.data.map((sender) => {
@@ -60,7 +61,7 @@ export function getSenders(callback) {
 
 export function getReceivers(callback) {
   axios
-    .get(process.env.REACT_APP_DECODER)
+    .get(process.env.REACT_APP_DECODER, getAuthroizationHeader())
     .then((receivers) => {
       callback(
         receivers.data.map((receiver) => {
