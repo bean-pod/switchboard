@@ -15,7 +15,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   private final UserService userService;
 
-  private final BCryptPasswordEncoder bCryptPasswordEncoder;
+  private final BCryptPasswordEncoder bcryptPasswordEncoder;
 
   // TODO remove this method when sign in functionality is implemented
   @Override
@@ -40,6 +40,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Autowired
   public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-    auth.userDetailsService(userService).passwordEncoder(bCryptPasswordEncoder);
+    auth.userDetailsService(userService).passwordEncoder(bcryptPasswordEncoder);
   }
 }

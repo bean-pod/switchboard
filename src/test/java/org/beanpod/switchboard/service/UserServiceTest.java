@@ -24,7 +24,7 @@ class UserServiceTest {
   @InjectMocks private UserService userService;
   @Mock private UserModel userModel;
   @Mock private UserDaoImpl userDao;
-  @Mock private BCryptPasswordEncoder bCryptPasswordEncoder;
+  @Mock private BCryptPasswordEncoder bcryptPasswordEncoder;
 
   @BeforeEach
   void setupUserFixture() {
@@ -44,7 +44,7 @@ class UserServiceTest {
   @Test
   final void testSignUpUser() {
     when(userModel.getPassword()).thenReturn("1234.");
-    when(bCryptPasswordEncoder.encode("1234.")).thenReturn("eow");
+    when(bcryptPasswordEncoder.encode("1234.")).thenReturn("eow");
     userDto.setPassword("eow");
     when(userDao.save(userModel1)).thenReturn(userDto);
 

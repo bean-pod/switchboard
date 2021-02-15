@@ -16,7 +16,7 @@ public class UserService implements UserDetailsService {
 
   private final UserDaoImpl userDao;
   private final UserRepository userRepository;
-  private final BCryptPasswordEncoder bCryptPasswordEncoder;
+  private final BCryptPasswordEncoder bcryptPasswordEncoder;
 
   @Override
   public UserDetails loadUserByUsername(String username) {
@@ -26,7 +26,7 @@ public class UserService implements UserDetailsService {
 
   public UserDto signUpUser(UserModel user) {
     String password = user.getPassword();
-    final String encryptedPassword = bCryptPasswordEncoder.encode(password);
+    final String encryptedPassword = bcryptPasswordEncoder.encode(password);
     user.setPassword(encryptedPassword);
     return userDao.save(user);
   }
