@@ -10,6 +10,30 @@ servers:
     description: Local Enviorment
 
 paths:
+  /logs/{serialNumber}:
+    get:
+      operationId: retrieveDeviceLogs
+      description: Get a list of logs for a specific device
+      parameters:
+        - $ref: '#/components/parameters/DeviceSerialNumber'
+      responses:
+        '200':
+          description: Succesful retrieval of the device logs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogsModel'
+  /logs:
+    get:
+      operationId: retrieveAllLogs
+      description: Get a list of logs
+      responses:
+        '200':
+          description: Successful retrival of logs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogsModel'
   /device:
     get:
       operationId: retrieveAllDevices
@@ -365,6 +389,29 @@ paths:
 
 components:
   schemas:
+    LogsModel:
+      description: A list of all logs
+      type: array
+      items:
+        $ref: '#/components/schemas/LogModel'
+
+    LogModel:
+      description: a log object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: '123'
+        dateTime:
+          type: string
+          format: date-time
+        message:
+          type: string
+          example: 'A log message'
+        level:
+          type: string
+          example: 'info'
+
     DevicesModel:
       description: A list of device serial numbers
       type: array

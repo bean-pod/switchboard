@@ -1,4 +1,3 @@
-import React from "react";
 import axios from "axios";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
@@ -47,7 +46,7 @@ describe("Stream Api", () => {
     it("should call axios.get and return an array of streams", () => {
       axios.get.mockResolvedValue(mockStreams);
 
-      StreamApi.getAllStreams();
+      StreamApi.getAllStreams(() => {});
 
       expect(axios.get).toHaveBeenCalledWith("http://localhost:8080/stream");
     });

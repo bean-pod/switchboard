@@ -10,7 +10,11 @@ import {
   ExpandMore,
   ArrowDownward,
   Clear,
-  SaveAlt
+  SaveAlt,
+  FirstPage,
+  LastPage,
+  ChevronRight,
+  ChevronLeft
 } from "@material-ui/icons";
 
 import MaterialTable, { MTableToolbar } from "material-table";
@@ -22,11 +26,14 @@ import DeviceInfo from "../model/DeviceInfo";
 
 function getComponents() {
   return {
-    Toolbar: (props) => (
-      <div className="lightestGrey">
-        <MTableToolbar {...props} />
-      </div>
-    )
+    /*  eslint-disable react/jsx-props-no-spreading */
+    Toolbar: function Components(props) {
+      return (
+        <div className="lightestGrey">
+          <MTableToolbar {...props} />
+        </div>
+      );
+    }
   };
 }
 
@@ -57,7 +64,9 @@ function getColumnInfo() {
     {
       title: "Status",
       field: "status",
-      render: (rowData) => <StatusIndicator status={rowData.status} />,
+      render: function Status(rowData) {
+        return <StatusIndicator status={rowData.status} />;
+      },
       lookup: {
         Online: "Online",
         Pending: "Pending",
@@ -78,7 +87,9 @@ function getColumnInfo() {
       field: "action",
       filtering: false,
       sorting: false,
-      render: () => <ActionMenu />,
+      render: function Actions(rowData) {
+        return <ActionMenu device={rowData} />;
+      },
       align: "center",
       export: false
     }
@@ -91,13 +102,11 @@ function getDetailPanel() {
       icon: ExpandMore,
       openIcon: ExpandLess,
       tooltip: "Show Device Details",
-      render: (rowData) => {
+      render: function DetailPanel(rowData) {
         return (
-          <div className="lightestGrey">
-            <Box margin={2}>
-              <Typography variant="h6">Channels</Typography>
-              <ChannelDetailsTable channels={rowData.channels} />
-            </Box>
+          <div className="lightestGrey" style={{ padding: "1.5em" }}>
+            <Typography variant="h6">Channels</Typography>
+            <ChannelDetailsTable channels={rowData.channels} />
           </div>
         );
       }
@@ -119,7 +128,6 @@ function getOptions() {
     // above lines commented out b/c scrollbar bug, see: https://github.com/mbrn/material-table/issues/780
     actionsColumnIndex: -1,
     filtering: true,
-    paging: false,
     draggable: false
   };
 }
@@ -130,31 +138,33 @@ function getIcons() {
     Search,
     ResetSearch: Clear,
     SortArrow: ArrowDownward,
-    Export: SaveAlt
+    Export: SaveAlt,
+    FirstPage,
+    LastPage,
+    NextPage: ChevronRight,
+    PreviousPage: ChevronLeft
   };
 }
 
-export default class DevicesTable extends React.Component {
-  render() {
-    const { title, devices } = this.props;
-    return (
-      <>
-        <Box>
-          <TableContainer style={{ maxHeight: 500 }}>
-            <MaterialTable
-              title={title}
-              components={getComponents()}
-              columns={getColumnInfo()}
-              data={devices}
-              detailPanel={getDetailPanel()}
-              options={getOptions()}
-              icons={getIcons()}
-            />
-          </TableContainer>
-        </Box>
-      </>
-    );
-  }
+export default function DevicesTable(props) {
+  const { title, devices } = props;
+  return (
+    <>
+      <Box>
+        <TableContainer style={{ maxHeight: 570 }}>
+          <MaterialTable
+            title={title}
+            components={getComponents()}
+            columns={getColumnInfo()}
+            data={devices}
+            detailPanel={getDetailPanel()}
+            options={getOptions()}
+            icons={getIcons()}
+          />
+        </TableContainer>
+      </Box>
+    </>
+  );
 }
 
 DevicesTable.propTypes = {

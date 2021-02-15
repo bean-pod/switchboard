@@ -112,7 +112,21 @@ describe("DeviceDetailsTabTable class", () => {
         expect(wrapper.find(HorizontalTabPanel)).toHaveLength(5);
       });
     });
+    it('When Tabs is only "Overview", render a Tab Panel with a nonclickable Tab', () => {
+      const tabs = ["Overview"];
+      const device = null;
 
+      wrapper = Enzyme.shallow(
+        <DeviceDetailsTabTable tabs={tabs} device={device} />
+      );
+
+      expect(wrapper.find(Tab)).toHaveLength(1);
+      expect(wrapper.find(HorizontalTabPanel)).toHaveLength(1);
+      expect(wrapper.find(Tab).prop("style")).toHaveProperty(
+        "pointerEvents",
+        "none"
+      );
+    });
     it("Calls getPanelContents() with the correct tabInfo and device", () => {
       jest.spyOn(DeviceDetailsTabTable, "getPanelContents");
 
@@ -128,14 +142,5 @@ describe("DeviceDetailsTabTable class", () => {
         device
       );
     });
-  });
-  it("Throws an error when using device that is not a DeviceInfo object", () => {
-    const tabs = [""];
-    const device = 454;
-
-    wrapper = Enzyme.shallow(
-      <DeviceDetailsTabTable tabs={tabs} device={device} />
-    );
-    expect(console.error).toHaveBeenCalled();
   });
 });

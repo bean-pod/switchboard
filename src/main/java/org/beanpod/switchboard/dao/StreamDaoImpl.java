@@ -43,12 +43,12 @@ public class StreamDaoImpl {
     streamRepository.deleteById(id);
   }
 
-  public void updateStream(StreamDto streamDto) {
+  public StreamEntity updateStream(StreamDto streamDto) {
     if (!streamRepository.existsById(streamDto.getId())) {
       throw new StreamDoesNotExistException(streamDto.getId());
     }
     StreamEntity streamEntity = mapper.toEntity(streamDto);
-    streamRepository.save(streamEntity);
+    return streamRepository.save(streamEntity);
   }
 
   public List<StreamDto> getEncoderStreams(String encoderSerialNumber) {

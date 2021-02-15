@@ -3,25 +3,10 @@ import { convertToDataObject } from "../model/ConvertDataFormat";
 import StreamInfo from "../model/StreamInfo";
 import * as SampleData from "./SampleData";
 
-export function getAllStreams(callback) {
-  axios
-    .get("http://localhost:8080/stream")
-    .then((streams) => {
-      Promise.all(
-        streams.data.map((streamId) => {
-          return getStream(streamId);
-        })
-      ).then(callback);
-    })
-    .catch((error) => {
-      SampleData.getAllStreams(callback);
-    });
-}
-
 export function getStream(streamId) {
   return new Promise((resolve, reject) => {
     axios
-      .get(`http://localhost:8080/stream/${streamId}`)
+      .get(`${process.env.REACT_APP_STREAM}/${streamId}`)
       .then((response) => {
         const stream = response.data;
         resolve(
@@ -35,4 +20,26 @@ export function getStream(streamId) {
       })
       .catch(reject);
   });
+}
+
+export function getAllStreams(callback) {
+  axios
+    .get(process.env.REACT_APP_STREAM)
+    .then((streams) => {
+      Promise.all(
+        streams.data.map((streamId) => {
+          return getStream(streamId);
+        })
+      ).then(callback);
+    })
+    .catch(() => {
+      SampleData.getAllStreams(callback);
+    });
+}
+
+export function deleteStream(streamId, callback) {
+  axios
+    .delete(`${process.env.REACT_APP_STREAM}/${streamId}`)
+    .then(callback)
+    .catch(() => {});
 }

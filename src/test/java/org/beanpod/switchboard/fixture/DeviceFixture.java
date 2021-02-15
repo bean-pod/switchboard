@@ -39,7 +39,6 @@ public class DeviceFixture {
   public static List<DeviceEntity> getListOfDevices() {
     List<DeviceEntity> listOfDevices = new ArrayList<>();
     listOfDevices.add(getDevice1());
-    listOfDevices.add(getDevice2());
     return listOfDevices;
   }
 
@@ -70,7 +69,17 @@ public class DeviceFixture {
         .build();
   }
 
+  public static DeviceDto getDeviceDto1() {
+    return DeviceDto.builder()
+        .serialNumber(SERIAL_NUMBER)
+        .privateIpAddress(PRIVATE_IP_ADDRESS)
+        .publicIpAddress("127.0.0.1")
+        .displayName(DISPLAY_NAME)
+        .status(STATUS)
+        .build();
+  }
+
   public static List<DeviceDto> getDeviceDtos() {
-    return List.of(getDeviceDto());
+    return List.of(getDeviceDto1());
   }
 }

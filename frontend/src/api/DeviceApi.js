@@ -20,7 +20,7 @@ function getStatus(lastCommunicationString) {
 
 export function getSenders(callback) {
   axios
-    .get("http://localhost:8080/encoder")
+    .get(process.env.REACT_APP_ENCODER)
     .then((senders) => {
       callback(
         senders.data.map((sender) => {
@@ -47,19 +47,20 @@ export function getSenders(callback) {
             sender.device.displayName,
             getStatus(sender.lastCommunication),
             channels,
+            "encoder",
             ["Additional Device details go here"]
           );
         })
       );
     })
-    .catch((error) => {
+    .catch(() => {
       SampleData.getSenders(callback);
     });
 }
 
 export function getReceivers(callback) {
   axios
-    .get("http://localhost:8080/decoder")
+    .get(process.env.REACT_APP_DECODER)
     .then((receivers) => {
       callback(
         receivers.data.map((receiver) => {
@@ -86,12 +87,19 @@ export function getReceivers(callback) {
             receiver.device.displayName,
             getStatus(receiver.lastCommunication),
             channels,
+            "decoder",
             ["Additional Device details go here"]
           );
         })
       );
     })
-    .catch((error) => {
+    .catch(() => {
       SampleData.getReceivers(callback);
     });
+}
+
+export function deleteDevice(deviceId) {
+  return axios
+    .delete(`${process.env.REACT_APP_DEVICE}/${deviceId}`)
+    .catch(() => {});
 }
