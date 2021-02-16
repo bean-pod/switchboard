@@ -109,6 +109,7 @@ export default function StreamsTable(props) {
   return (
     <>
       <Box>
+        <div className="textAlignRight">Time Zone: {Intl.DateTimeFormat().resolvedOptions().timeZone}</div>
         <TableContainer>
           <MaterialTable
             columns={getColumnInfo()}

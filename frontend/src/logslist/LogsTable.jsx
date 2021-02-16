@@ -76,6 +76,7 @@ export default function LogsTable(props) {
   return (
     <>
       <Box>
+        <div className="textAlignRight">Time Zone: {Intl.DateTimeFormat().resolvedOptions().timeZone}</div>
         <TableContainer>
           <MaterialTable
             title="Logs"
