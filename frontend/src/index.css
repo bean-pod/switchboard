@@ -118,10 +118,6 @@ select {
   margin-right: 0;
 }
 
-.invisibleLink {
-  text-decoration: none;
-}
-
 .headerTitle {
   color: white;
   text-decoration: none;
@@ -196,6 +192,10 @@ select {
 
 .warningText {
   color: #ea5757;
+}
+
+.textAlignRight {
+  text-align: right;
 }
 
 /* Button styling */
