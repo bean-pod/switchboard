@@ -2,7 +2,7 @@ export default class StreamInfo {
   // to be used once backend has date, status, type, and time fields
   // constructor(id, date, sender, receiver, status, type, time, extras) {
   //     this.id = id;
-  //     this.date = date;
+  //     this.date = new Date(date).toString();
   //     this.sender = sender;
   //     this.receiver = receiver;
   //     this.status = status;
@@ -14,7 +14,7 @@ export default class StreamInfo {
   // temporary with static fields until backend is up to snuff
   constructor(id, sender, receiver, extras) {
     this.id = id;
-    this.date = "2020-10-31T08:15:30";
+    this.date = new Date("2020-10-31T08:15:30").toString();
     this.sender = sender;
     this.receiver = receiver;
     this.status = "Online";
