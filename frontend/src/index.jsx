@@ -45,9 +45,7 @@ ReactDOM.render(
         <Route
           exact
           path="/Logs"
-          render={(props) => (
-            <LogListPage {...props} dataSource={LogApi} />
-          )}
+          render={(props) => <LogListPage {...props} dataSource={LogApi} />}
         />
       </Switch>
     </BrowserRouter>

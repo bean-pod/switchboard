@@ -409,7 +409,7 @@ export function getAllLogs(callback) {
   const sampleLogs = [
     new LogInfo(1, "2020-10-31T15:53:23", "Info", "Log 1 info"),
     new LogInfo(2, "2020-11-13T12:36:30", "Info", "Log 2 info"),
-    new LogInfo(3, "2020-11-13T08:24:30", "Info", "Log 3 info"),
+    new LogInfo(3, "2020-11-13T08:24:30", "Info", "Log 3 info")
   ];
 
   callback(sampleLogs);
