@@ -15,7 +15,7 @@ export default class LogList extends React.Component {
   }
 
   componentDidMount() {
-    this.dataSource.getAllLogs(this.handleLogsChange);
+    this.dataSource.getAllLogs().then(this.handleLogsChange);
   }
 
   handleLogsChange(logs) {
@@ -32,7 +32,7 @@ export default class LogList extends React.Component {
           <DynamicBreadcrumb
             breadcrumbs={[
               ["Home", "/"],
-              ["Logs", "Logs"]
+              ["Logs", "/Logs"]
             ]}
           />
           <Box className="areaUnderBreadcrumbs">

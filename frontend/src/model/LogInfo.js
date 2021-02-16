@@ -1,4 +1,4 @@
-export default class StreamInfo {
+export default class LogInfo {
   constructor(id, dateTime, level, message) {
     this.id = id;
     this.dateTime = dateTime;
