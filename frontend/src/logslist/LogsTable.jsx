@@ -77,8 +77,9 @@ export default function LogsTable(props) {
     <>
       <Box>
         <div className="textAlignRight">
-          Time Zone:
-          {Intl.DateTimeFormat().resolvedOptions().timeZone}
+          {"Time Zone: ".concat(
+            Intl.DateTimeFormat().resolvedOptions().timeZone
+          )}
         </div>
         <TableContainer>
           <MaterialTable
