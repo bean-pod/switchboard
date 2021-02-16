@@ -122,11 +122,7 @@ function getOptions() {
     headerStyle: {
       backgroundColor: "#f1f1f1",
       fontWeight: "bold"
-      // position: 'sticky', top: 0
     },
-    // maxBodyHeight: '650px',
-    // above lines commented out b/c scrollbar bug, see: https://github.com/mbrn/material-table/issues/780
-    actionsColumnIndex: -1,
     filtering: true,
     draggable: false
   };

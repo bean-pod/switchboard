@@ -89,7 +89,6 @@ function getOptions() {
       backgroundColor: "#f1f1f1",
       fontWeight: "bold"
     },
-    actionsColumnIndex: -1,
     filtering: false,
     draggable: false
   };
