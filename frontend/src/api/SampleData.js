@@ -411,10 +411,11 @@ export function getAllLogs(callback) {
     new Date("2020-11-13T12:36:30"),
     new Date("2020-11-13T08:24:30")
   ];
+
   const sampleLogs = [
-    new LogInfo(1, dates[0].toString(), "Info", "Log 1 info"),
-    new LogInfo(2, dates[1].toString(), "Info", "Log 2 info"),
-    new LogInfo(3, dates[2].toString(), "Info", "Log 3 info")
+    new LogInfo(1, dates[0], "Info", "Log 1 info"),
+    new LogInfo(2, dates[1], "Info", "Log 2 info"),
+    new LogInfo(3, dates[2], "Info", "Log 3 info")
   ];
 
   callback(sampleLogs);
