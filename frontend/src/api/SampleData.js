@@ -2,6 +2,7 @@ import DeviceInfo from "../model/DeviceInfo";
 import OutChannelInfo from "../model/OutputChannelInfo";
 import InChannelInfo from "../model/InputChannelInfo";
 import StreamInfo from "../model/StreamInfo";
+import LogInfo from "../model/LogInfo";
 
 const extras = ["Additional Device details go here"];
 const sampleInputChannels = [
@@ -402,4 +403,14 @@ export function getAllStreams(callback) {
   ];
 
   callback(sampleStreams);
+}
+
+export function getAllLogs(callback) {
+  const sampleLogs = [
+    new LogInfo(1, "2020-10-31T15:53:23", "Info", "Log 1 info"),
+    new LogInfo(2, "2020-11-13T12:36:30", "Info", "Log 2 info"),
+    new LogInfo(3, "2020-11-13T08:24:30", "Info", "Log 3 info"),
+  ];
+
+  callback(sampleLogs);
 }

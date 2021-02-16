@@ -7,9 +7,11 @@ import HomePage from "./general/HomePage";
 import DeviceListPage from "./devicelist/DeviceListPage";
 import StreamingTablePage from "./createStream/StreamingPage";
 import DeviceDetailsPage from "./deviceDetailsPage/DeviceDetailsPage";
+import LogListPage from "./logslist/LogList";
 
 import * as DeviceApi from "./api/DeviceApi";
 import * as StreamApi from "./api/StreamApi";
+import * as LogApi from "./api/LogApi";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -39,6 +41,13 @@ ReactDOM.render(
           exact
           path="/Devices/Details/:deviceId"
           component={DeviceDetailsPage}
+        />
+        <Route
+          exact
+          path="/Logs"
+          render={(props) => (
+            <LogListPage {...props} dataSource={LogApi} />
+          )}
         />
       </Switch>
     </BrowserRouter>
