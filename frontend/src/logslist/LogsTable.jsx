@@ -20,7 +20,8 @@ function getColumnInfo() {
   return [
     {
       title: "ID",
-      field: "id"
+      field: "id",
+      cellStyle: { width: "10%" }
     },
     {
       title: "Date",
@@ -28,12 +29,14 @@ function getColumnInfo() {
     },
     {
       title: "Level",
-      field: "level"
+      field: "level",
+      cellStyle: { width: "10%" }
     },
     {
       title: "Message",
       field: "message",
-      sorting: false
+      sorting: false,
+      cellStyle: { width: "50%" }
     }
   ];
 }
@@ -73,6 +76,7 @@ export default function LogsTable(props) {
       <Box>
         <TableContainer>
           <MaterialTable
+            title="Logs"
             columns={getColumnInfo()}
             data={logs}
             options={getOptions()}

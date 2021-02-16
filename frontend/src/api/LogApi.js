@@ -25,7 +25,8 @@ export async function getDeviceLogs(deviceSerialNumber) {
     .then((response) => {
       return Promise.resolve(
         response.data.map((log) => {
-          return new LogInfo(log.id, log.dateTime, log.level, log.message);
+          const date = new Date(log.dateTime).toString();
+          return new LogInfo(log.id, date, log.level, log.message);
         })
       );
     })

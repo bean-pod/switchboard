@@ -406,10 +406,15 @@ export function getAllStreams(callback) {
 }
 
 export function getAllLogs(callback) {
+  const dates = [
+    new Date("2020-10-31T15:53:23"),
+    new Date("2020-11-13T12:36:30"),
+    new Date("2020-11-13T08:24:30")
+  ];
   const sampleLogs = [
-    new LogInfo(1, "2020-10-31T15:53:23", "Info", "Log 1 info"),
-    new LogInfo(2, "2020-11-13T12:36:30", "Info", "Log 2 info"),
-    new LogInfo(3, "2020-11-13T08:24:30", "Info", "Log 3 info")
+    new LogInfo(1, dates[0].toString(), "Info", "Log 1 info"),
+    new LogInfo(2, dates[1].toString(), "Info", "Log 2 info"),
+    new LogInfo(3, dates[2].toString(), "Info", "Log 3 info")
   ];
 
   callback(sampleLogs);
