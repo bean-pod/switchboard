@@ -8,14 +8,7 @@ export function getLog(logId) {
       .get(`${process.env.REACT_APP_LOG}/${logId}`)
       .then((response) => {
         const log = response.data;
-        resolve(
-          new LogInfo(
-            log.id,
-            log.dateTime,
-            log.level,
-            log.message
-          )
-        );
+        resolve(new LogInfo(log.id, log.dateTime, log.level, log.message));
       })
       .catch(reject);
   });
