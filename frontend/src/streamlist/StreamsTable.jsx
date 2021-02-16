@@ -109,11 +109,6 @@ export default function StreamsTable(props) {
   return (
     <>
       <Box>
-        <div className="textAlignRight">
-          {"Time Zone: ".concat(
-            Intl.DateTimeFormat().resolvedOptions().timeZone
-          )}
-        </div>
         <TableContainer>
           <MaterialTable
             columns={getColumnInfo()}
@@ -123,6 +118,11 @@ export default function StreamsTable(props) {
             icons={getIcons()}
           />
         </TableContainer>
+        <div className="textAlignRight">
+          {"Time Zone: ".concat(
+            Intl.DateTimeFormat().resolvedOptions().timeZone
+          )}
+        </div>
       </Box>
     </>
   );
