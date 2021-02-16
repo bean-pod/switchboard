@@ -41,7 +41,7 @@ function getColumnInfo() {
   ];
 }
 
-function getOptions() {
+function getOptions(bodyHeight) {
   return {
     toolbar: true,
     showTitle: false,
@@ -52,7 +52,9 @@ function getOptions() {
       fontWeight: "bold"
     },
     filtering: false,
-    draggable: false
+    draggable: false,
+    maxBodyHeight: bodyHeight,
+    minBodyHeight: bodyHeight
   };
 }
 
@@ -70,7 +72,7 @@ function getIcons() {
 }
 
 export default function LogsTable(props) {
-  const { logs } = props;
+  const { logs, bodyHeight } = props;
   return (
     <>
       <Box>
@@ -79,7 +81,7 @@ export default function LogsTable(props) {
             title="Logs"
             columns={getColumnInfo()}
             data={logs}
-            options={getOptions()}
+            options={getOptions(bodyHeight)}
             icons={getIcons()}
           />
         </TableContainer>
@@ -89,5 +91,10 @@ export default function LogsTable(props) {
 }
 
 LogsTable.propTypes = {
-  logs: PropTypes.arrayOf(PropTypes.instanceOf(LogInfo)).isRequired
+  logs: PropTypes.arrayOf(PropTypes.instanceOf(LogInfo)).isRequired,
+  bodyHeight: PropTypes.string
+};
+
+LogsTable.defaultProps = {
+  bodyHeight: "auto"
 };
