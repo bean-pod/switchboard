@@ -94,7 +94,6 @@ test("Additional stream information is displayed when dropdown is clicked", () =
     "tr.MuiTableRow-root td.MuiTableCell-root[colspan] h6"
   );
   expect(additionalInfoElement).not.toBe(null);
-  expect(additionalInfoElement.innerHTML).toBe("Additional stream details");
 });
 
 function clickDelete() {
