@@ -118,7 +118,7 @@ export default function StreamsTable(props) {
             icons={getIcons()}
           />
         </TableContainer>
-        <div className="textAlignRight">
+        <div className="textAlignRightPadded">
           {"Time Zone: ".concat(
             Intl.DateTimeFormat().resolvedOptions().timeZone
           )}

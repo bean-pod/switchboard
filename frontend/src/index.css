@@ -194,8 +194,9 @@ select {
   color: #ea5757;
 }
 
-.textAlignRight {
+.textAlignRightPadded {
   text-align: right;
+  padding: 1rem;
 }
 
 /* Button styling */

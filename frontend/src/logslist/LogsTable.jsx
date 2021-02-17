@@ -25,7 +25,8 @@ function getColumnInfo() {
     },
     {
       title: "Date",
-      field: "dateTime"
+      field: "dateTime",
+      cellStyle: { width: "15%" }
     },
     {
       title: "Level",
@@ -35,8 +36,7 @@ function getColumnInfo() {
     {
       title: "Message",
       field: "message",
-      sorting: false,
-      cellStyle: { width: "50%" }
+      sorting: false
     }
   ];
 }
@@ -85,7 +85,7 @@ export default function LogsTable(props) {
             icons={getIcons()}
           />
         </TableContainer>
-        <div className="textAlignRight">
+        <div className="textAlignRightPadded">
           {"Time Zone: ".concat(
             Intl.DateTimeFormat().resolvedOptions().timeZone
           )}
