@@ -20,7 +20,7 @@ jest.mock("axios");
 const mockPutDetails = {
   serialNumber: "1",
   displayName: "New Name"
-}
+};
 const mockHistoryGo = jest.fn();
 const mockHistory = {
   go: mockHistoryGo
@@ -78,9 +78,10 @@ describe("DeviceNameDetail", () => {
     beforeEach(() => {
       // simulate click to put us in editing mode
       wrapper.find("#editBtn").simulate("click");
+      wrapper.update();
     });
 
-    it("Should render the correct number of child elements", () => {
+    it.only("Should render the correct number of child elements", () => {
       expect(setEditing).toHaveBeenCalledWith(true);
       expect(wrapper.find("form")).toHaveLength(1);
       expect(wrapper.find(Box)).toHaveLength(3);
@@ -110,7 +111,7 @@ describe("DeviceNameDetail", () => {
 
         // click confirm
         wrapper.find("#confirmEditBtn").simulate("click");
-        
+
         // check call is correct
         expect(axios.put).toHaveBeenCalledWith(
           mockPutDetails.serialNumber,
