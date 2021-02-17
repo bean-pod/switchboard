@@ -10,7 +10,8 @@ export default function HomePage() {
           ["Home", ""],
           ["My Devices", "Devices"],
           ["Streaming", "Streaming"],
-          ["Logs", "Logs"]
+          ["Logs", "Logs"],
+          ["Login", "Login"]
         ]}
       />
     </Container>
