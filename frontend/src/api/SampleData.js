@@ -136,7 +136,7 @@ export function getSampleSender() {
 }
 
 export function getSampleSenders() {
-  const sampleSenders = [
+  return sampleSenders = [
     new DeviceInfo(
       "1:10:111:999",
       null,
@@ -237,8 +237,6 @@ export function getSampleSenders() {
       extras
     )
   ];
-
-  return sampleSenders;
 }
 
 export function getReceivers(callback) {
@@ -561,8 +559,7 @@ export function getSampleStreams() {
     )
   ];
 
-  const sampleStreams = [
-    new StreamInfo(1, sampleSenders[0], sampleReceivers[0], [
+  return new StreamInfo(1, sampleSenders[0], sampleReceivers[0], [
       "Additional Stream Details go here"
     ]),
     new StreamInfo(2, sampleSenders[1], sampleReceivers[1], [
@@ -572,8 +569,6 @@ export function getSampleStreams() {
       "Additional Stream Details go here"
     ])
   ];
-
-  return sampleStreams;
 }
 
 export function getAllLogs(callback) {
@@ -599,11 +594,9 @@ export function getSampleLogs() {
     new Date("2020-11-13T08:24:30")
   ];
 
-  const sampleLogs = [
+  return sampleLogs = [
     new LogInfo(1, dates[0], "Info", "Log 1 info"),
     new LogInfo(2, dates[1], "Info", "Log 2 info"),
     new LogInfo(3, dates[2], "Info", "Log 3 info")
   ];
-
-  return sampleLogs;
 }
