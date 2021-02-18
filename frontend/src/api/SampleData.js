@@ -345,7 +345,7 @@ export function getAllStreams(callback) {
     new DeviceInfo(
       "1:10:111:999",
       null,
-      "IP address",
+      "175.214.12.96",
       "123:456",
       "Sender 1",
       "Online",
@@ -356,7 +356,7 @@ export function getAllStreams(callback) {
     new DeviceInfo(
       "1:20:111:999",
       null,
-      "IP address",
+      "175.214.12.96",
       "123:456",
       "Sender 2",
       "Error",
@@ -369,7 +369,7 @@ export function getAllStreams(callback) {
     new DeviceInfo(
       "1:01:111:999",
       null,
-      "IP address",
+      "175.214.12.96",
       "123:456",
       "Receiver 1",
       "Online",
@@ -380,7 +380,7 @@ export function getAllStreams(callback) {
     new DeviceInfo(
       "1:02:111:999",
       null,
-      "IP address",
+      "175.214.12.96",
       "123:456",
       "Receiver 2",
       "Error",
