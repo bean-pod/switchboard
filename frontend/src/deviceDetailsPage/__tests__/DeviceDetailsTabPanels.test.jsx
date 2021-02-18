@@ -15,11 +15,13 @@ jest.spyOn(global.console, "error");
 describe("DeviceDetailsPanels", () => {
   let wrapper;
   describe("ActivityPanel", () => {
-    let sampleDevice = SampleData.getSampleSender();
+    const sampleDevice = SampleData.getSampleSender();
     it("Renders one Container component containing Container and LogsTable", () => {
-      wrapper = Enzyme.shallow(<DeviceDetailsActivityPanel device={sampleDevice} />);
+      wrapper = Enzyme.shallow(
+        <DeviceDetailsActivityPanel device={sampleDevice} />
+      );
       expect(wrapper.find(Container)).toHaveLength(1);
-      expect(wrapper.find('LogsTable')).toHaveLength(1);
+      expect(wrapper.find("LogsTable")).toHaveLength(1);
     });
   });
   describe("NotesPanel", () => {

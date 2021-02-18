@@ -39,7 +39,15 @@ describe("<StreamsTable/> component", () => {
       expect(wrapper.find(MaterialTable)).toHaveLength(1);
     });
     it("contains one Time zone indicator text box", () => {
-      expect(wrapper.text().includes("Time Zone: ".concat(Intl.DateTimeFormat().resolvedOptions().timeZone))).toBe(true);
+      expect(
+        wrapper
+          .text()
+          .includes(
+            "Time Zone: ".concat(
+              Intl.DateTimeFormat().resolvedOptions().timeZone
+            )
+          )
+      ).toBe(true);
     });
   });
 });
