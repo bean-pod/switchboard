@@ -1,8 +1,8 @@
 package org.beanpod.switchboard.config;
 
 import lombok.AllArgsConstructor;
-import org.beanpod.switchboard.entity.UserEntity;
 import org.beanpod.switchboard.service.UserService;
+import org.openapitools.model.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,11 +41,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Autowired
   public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-    UserEntity superUser = UserEntity.builder()
-            .email(securityProperties.getSuperuserUsername())
-            .password(securityProperties.getSuperuserPassword())
-            .build();
-    userService.signUpUser(superUser);
+    UserModel superuser = new UserModel()
+            .username(securityProperties.getSuperuserUsername())
+            .password(securityProperties.getSuperuserPassword());
+    userService.signUpUser(superuser);
     auth.userDetailsService(userService).passwordEncoder(bCryptPasswordEncoder);
   }
 

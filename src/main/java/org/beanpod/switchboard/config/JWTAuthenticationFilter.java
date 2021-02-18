@@ -1,7 +1,7 @@
 package org.beanpod.switchboard.config;
 
 import com.auth0.jwt.JWT;
-import org.beanpod.switchboard.entity.UserEntity;
+import org.beanpod.switchboard.entity.SwitchBoardUserDetails;
 import org.beanpod.switchboard.exceptions.ExceptionType.CouldNotAuthenticateUserException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -52,10 +52,9 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) {
-        var h = (UserEntity) authResult.getPrincipal();
-        var email = h.getEmail();
+        String username = ((SwitchBoardUserDetails) authResult.getPrincipal()).getUsername();
         String token = JWT.create()
-                .withSubject(email)
+                .withSubject(username)
                 .withExpiresAt(new Date(System.currentTimeMillis() + securityProperties.getExpirationTime()))
                 .sign(HMAC512(securityProperties.getSecret().getBytes()));
         response.addHeader(AUTHORIZATION_HEADER_STRING, BEARER_TOKEN_PREFIX + token);
