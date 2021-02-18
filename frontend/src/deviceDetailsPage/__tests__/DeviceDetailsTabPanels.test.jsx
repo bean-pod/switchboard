@@ -6,6 +6,7 @@ import { Container } from "@material-ui/core";
 
 import DeviceDetailsActivityPanel from "../TabPanels/DeviceDetailsActivityPanel";
 import DeviceDetailsNotesPanel from "../TabPanels/DeviceDetailsNotesPanel";
+import * as SampleData from "../../api/SampleData";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -14,10 +15,11 @@ jest.spyOn(global.console, "error");
 describe("DeviceDetailsPanels", () => {
   let wrapper;
   describe("ActivityPanel", () => {
-    it("Renders one Container component containing TODO comment", () => {
-      wrapper = Enzyme.shallow(<DeviceDetailsActivityPanel />);
+    let sampleDevice = SampleData.getSampleSender();
+    it("Renders one Container component containing Container and LogsTable", () => {
+      wrapper = Enzyme.shallow(<DeviceDetailsActivityPanel device={sampleDevice} />);
       expect(wrapper.find(Container)).toHaveLength(1);
-      expect(wrapper.text()).toBe("TODO: Design activity log");
+      expect(wrapper.find('LogsTable')).toHaveLength(1);
     });
   });
   describe("NotesPanel", () => {
