@@ -1,5 +1,4 @@
 import axios from "axios";
-import UserModel from "../model/UserModel";
 
 var token = null;
 var username = null;
@@ -19,12 +18,12 @@ function buildHeader(){
 }
 
 export function fetchNewToken(){
-    axios.post(
-        new UserModel(
-            null,
-            username,
-            password
-        )
+    axios.get(process.env.REACT_APP_TOKEN,{
+            auth: {
+                username: username,
+                password: password
+            }
+    }
     ).then( response =>
         token = response.data.headers["Authorization"]
     );
