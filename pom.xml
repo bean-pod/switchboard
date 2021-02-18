@@ -27,6 +27,8 @@
     <lombok-version>1.18.12</lombok-version>
     <mapstruct-version>1.4.1.Final</mapstruct-version>
     <cucumber-version>6.9.0</cucumber-version>
+    <oauth2-resource-server-version>2.4.2</oauth2-resource-server-version>
+    <java-jwt-version>3.13.0</java-jwt-version>
     <sonar.projectKey>bean-pod_switchboard</sonar.projectKey>
     <sonar.organization>bean-pod</sonar.organization>
     <sonar.host.url>https://sonarcloud.io</sonar.host.url>
@@ -145,7 +147,17 @@
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+      <version>${oauth2-resource-server-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-thymeleaf</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.auth0</groupId>
+      <artifactId>java-jwt</artifactId>
+      <version>${java-jwt-version}</version>
     </dependency>
   </dependencies>
 

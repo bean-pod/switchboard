@@ -1,27 +1,30 @@
 package features;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertIterableEquals;
-
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import java.net.URI;
-import java.util.List;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.beanpod.switchboard.dto.DeviceDto;
 import org.beanpod.switchboard.fixture.DeviceFixture;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 
-public class DeviceStepDefinition extends SpringIntegrationTest {
+import java.net.URI;
+import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
+
+@RequiredArgsConstructor
+@Import(AuthorizedTestRestTemplate.class)
+public class DeviceStepDefinition extends SpringIntegrationTest {
   private final String baseUrl = "http://localhost:8080/device";
-  @Autowired private TestRestTemplate testRestTemplate;
+  private final TestRestTemplate testRestTemplate;
   private ResponseEntity responseEntity;
   private ResponseEntity<List<DeviceDto>> responseEntityDtos;
   private URI uri;

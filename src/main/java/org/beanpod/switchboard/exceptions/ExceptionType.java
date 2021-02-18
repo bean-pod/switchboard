@@ -45,4 +45,12 @@ public class ExceptionType {
       super(String.format(MESSAGE_TEMPLATE, controllerName));
     }
   }
+
+  public static class CouldNotAuthenticateUserException extends RuntimeException {
+    public static final String MESSAGE = "Could not authenticate the user";
+
+    public CouldNotAuthenticateUserException(){
+      super(MESSAGE);
+    }
+  }
 }
