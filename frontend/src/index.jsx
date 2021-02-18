@@ -7,7 +7,7 @@ import HomePage from "./general/HomePage";
 import DeviceListPage from "./devicelist/DeviceListPage";
 import StreamingTablePage from "./createStream/StreamingPage";
 import DeviceDetailsPage from "./deviceDetailsPage/DeviceDetailsPage";
-import LogListPage from "./logslist/LogList";
+import LogListPage from "./loglist/LogListPage";
 import LoginPage from "./login/LoginPage";
 
 import * as DeviceApi from "./api/DeviceApi";

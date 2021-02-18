@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import DynamicBreadcrumb from "../general/DynamicBreadcrumb";
 import LogsTable from "./LogsTable";
 
-export default class LogList extends React.Component {
+export default class LogListPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -46,6 +46,6 @@ export default class LogList extends React.Component {
     );
   }
 }
-LogList.propTypes = {
+LogListPage.propTypes = {
   dataSource: PropTypes.objectOf(PropTypes.func).isRequired
 };

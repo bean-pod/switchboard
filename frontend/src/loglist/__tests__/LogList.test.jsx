@@ -4,7 +4,7 @@ import Adapter from "enzyme-adapter-react-16";
 import { describe, expect, jest, it } from "@jest/globals";
 
 import { Container, Box } from "@material-ui/core";
-import LogList from "../LogList";
+import LogListPage from "../LogListPage";
 import DynamicBreadcrumb from "../../general/DynamicBreadcrumb";
 import * as LogApi from "../../api/LogApi";
 
@@ -12,8 +12,8 @@ Enzyme.configure({ adapter: new Adapter() });
 
 jest.spyOn(global.console, "error");
 
-describe("LogsList", () => {
-  const wrapper = Enzyme.shallow(<LogList dataSource={LogApi} />);
+describe("LogListPage", () => {
+  const wrapper = Enzyme.shallow(<LogListPage dataSource={LogApi} />);
   it("contains one Container component", () => {
     expect(wrapper.find(Container)).toHaveLength(1);
   });

@@ -2,7 +2,7 @@ import { Container, Paper } from "@material-ui/core";
 import React from "react";
 import PropTypes from "prop-types";
 import DeviceInfo from "../../model/DeviceInfo";
-import LogsTable from "../../logslist/LogsTable";
+import LogsTable from "../../loglist/LogsTable";
 import * as LogApi from "../../api/LogApi";
 
 export default class DeviceDetailsActivityPanel extends React.Component {
