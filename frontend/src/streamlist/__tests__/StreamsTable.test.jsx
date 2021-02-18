@@ -12,6 +12,7 @@ import {
 import { Box, TableContainer } from "@material-ui/core";
 import MaterialTable from "material-table";
 import StreamsTable from "../StreamsTable";
+import * as SampleData from "../../api/SampleData";
 
 Enzyme.configure({ adapter: new Adapter() });
 jest.spyOn(global.console, "error");
@@ -24,7 +25,7 @@ describe("<StreamsTable/> component", () => {
   });
 
   describe("has the correct components", () => {
-    const dummyStreams = [];
+    const dummyStreams = SampleData.getSampleStreams();
     beforeEach(() => {
       wrapper = Enzyme.shallow(<StreamsTable streamDetails={dummyStreams} />);
     });
@@ -36,6 +37,9 @@ describe("<StreamsTable/> component", () => {
     });
     it("contains one MaterialTable component", () => {
       expect(wrapper.find(MaterialTable)).toHaveLength(1);
+    });
+    it("contains one Time zone indicator text box", () => {
+      expect(wrapper.text().includes("Time Zone: ".concat(Intl.DateTimeFormat().resolvedOptions().timeZone))).toBe(true);
     });
   });
 });
