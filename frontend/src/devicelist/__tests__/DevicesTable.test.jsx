@@ -26,7 +26,10 @@ describe("<DevicesTable/> component", () => {
 
   describe("has the correct components", () => {
     const dummyTitle = "TEST TITLE";
-    const dummyDevices = SampleData.getSampleSenders();
+    let dummyDevices;
+    SampleData.getSenders((senders) => {
+      dummyDevices = senders;
+    })
     beforeEach(() => {
       wrapper = Enzyme.shallow(
         <DevicesTable title={dummyTitle} devices={dummyDevices} />

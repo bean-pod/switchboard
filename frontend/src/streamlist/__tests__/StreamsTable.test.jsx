@@ -25,7 +25,10 @@ describe("<StreamsTable/> component", () => {
   });
 
   describe("has the correct components", () => {
-    const dummyStreams = SampleData.getSampleStreams();
+    let dummyStreams;
+    SampleData.getAllStreams((streams) => {
+      dummyStreams = streams;
+    })
     beforeEach(() => {
       wrapper = Enzyme.shallow(<StreamsTable streamDetails={dummyStreams} />);
     });
