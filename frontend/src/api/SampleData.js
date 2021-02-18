@@ -140,7 +140,7 @@ export function getSampleSenders() {
     new DeviceInfo(
       "1:10:111:999",
       null,
-      "175.214.12.96",
+      "IP address",
       "123:456",
       "Sender 1",
       "Online",
@@ -151,7 +151,7 @@ export function getSampleSenders() {
     new DeviceInfo(
       "1:20:111:999",
       null,
-      "175.214.12.96",
+      "IP address",
       "123:456",
       "Sender 2",
       "Error",
@@ -162,7 +162,7 @@ export function getSampleSenders() {
     new DeviceInfo(
       "1:30:111:999",
       null,
-      "175.214.12.96",
+      "IP address",
       "123:456",
       "Sender 3",
       "Offline",
@@ -173,7 +173,7 @@ export function getSampleSenders() {
     new DeviceInfo(
       "1:40:111:999",
       null,
-      "175.214.12.96",
+      "IP address",
       "123:456",
       "Sender 4",
       "Pending",
@@ -184,7 +184,7 @@ export function getSampleSenders() {
     new DeviceInfo(
       "1:50:111:999",
       null,
-      "175.214.12.96",
+      "IP address",
       "123:456",
       "Sender 5",
       "Online",
@@ -195,7 +195,7 @@ export function getSampleSenders() {
     new DeviceInfo(
       "1:60:111:999",
       null,
-      "175.214.12.96",
+      "IP address",
       "123:456",
       "Sender 6",
       "Error",
@@ -206,7 +206,7 @@ export function getSampleSenders() {
     new DeviceInfo(
       "1:70:111:999",
       null,
-      "175.214.12.96",
+      "IP address",
       "123:456",
       "Sender 7",
       "Offline",
@@ -217,7 +217,7 @@ export function getSampleSenders() {
     new DeviceInfo(
       "1:80:111:999",
       null,
-      "175.214.12.96",
+      "IP address",
       "123:456",
       "Sender 8",
       "Pending",
@@ -228,7 +228,7 @@ export function getSampleSenders() {
     new DeviceInfo(
       "1:90:111:999",
       null,
-      "175.214.12.96",
+      "IP address",
       "123:456",
       "Sender 9",
       "Online",
@@ -451,7 +451,7 @@ export function getAllStreams(callback) {
     new DeviceInfo(
       "1:10:111:999",
       null,
-      "175.214.12.96",
+      "IP address",
       "123:456",
       "Sender 1",
       "Online",
@@ -462,7 +462,7 @@ export function getAllStreams(callback) {
     new DeviceInfo(
       "1:20:111:999",
       null,
-      "175.214.12.96",
+      "IP address",
       "123:456",
       "Sender 2",
       "Error",
@@ -475,7 +475,7 @@ export function getAllStreams(callback) {
     new DeviceInfo(
       "1:01:111:999",
       null,
-      "175.214.12.96",
+      "IP address",
       "123:456",
       "Receiver 1",
       "Online",
@@ -486,7 +486,7 @@ export function getAllStreams(callback) {
     new DeviceInfo(
       "1:02:111:999",
       null,
-      "175.214.12.96",
+      "IP address",
       "123:456",
       "Receiver 2",
       "Error",
