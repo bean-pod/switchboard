@@ -10,6 +10,12 @@ function getLogs(response) {
   );
 }
 
+function getSampleLogs() {
+  return new Promise((resolve) => {
+    SampleData.getAllLogs(resolve);
+  });
+}
+
 export async function getAllLogs() {
   return axios
     .get(process.env.REACT_APP_LOGS)
@@ -17,9 +23,7 @@ export async function getAllLogs() {
       getLogs(response);
     })
     .catch(() => {
-      return new Promise((resolve) => {
-        SampleData.getAllLogs(resolve);
-      });
+      getSampleLogs();
     });
 }
 
@@ -30,8 +34,6 @@ export async function getDeviceLogs(deviceSerialNumber) {
       getLogs(response);
     })
     .catch(() => {
-      return new Promise((resolve) => {
-        SampleData.getAllLogs(resolve);
-      });
+      getSampleLogs();
     });
 }
