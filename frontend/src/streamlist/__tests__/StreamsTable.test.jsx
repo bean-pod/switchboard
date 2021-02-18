@@ -28,7 +28,7 @@ describe("<StreamsTable/> component", () => {
     let dummyStreams;
     SampleData.getAllStreams((streams) => {
       dummyStreams = streams;
-    })
+    });
     beforeEach(() => {
       wrapper = Enzyme.shallow(<StreamsTable streamDetails={dummyStreams} />);
     });

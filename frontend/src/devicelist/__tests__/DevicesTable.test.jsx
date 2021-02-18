@@ -29,7 +29,7 @@ describe("<DevicesTable/> component", () => {
     let dummyDevices;
     SampleData.getSenders((senders) => {
       dummyDevices = senders;
-    })
+    });
     beforeEach(() => {
       wrapper = Enzyme.shallow(
         <DevicesTable title={dummyTitle} devices={dummyDevices} />
