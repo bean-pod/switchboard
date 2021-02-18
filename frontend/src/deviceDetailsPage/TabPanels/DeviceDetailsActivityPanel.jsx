@@ -5,23 +5,36 @@ import DeviceInfo from "../../model/DeviceInfo";
 import LogsTable from "../../logslist/LogsTable";
 import * as LogApi from "../../api/LogApi";
 
-export default function DeviceDetailsActivityPanel(props) {
-  const [logs, setLogs] = React.useState([]);
-  const { device } = props;
+export default class DeviceDetailsActivityPanel extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      logs: []
+    };
+    this.device = props.device;
+    this.handleLogsChange = this.handleLogsChange.bind(this);
+  }
 
-  React.useEffect(() => {
-    LogApi.getDeviceLogs(device.serialNumber).then((retrievedLogs) => {
-      setLogs(retrievedLogs);
+  componentDidMount() {
+    LogApi.getDeviceLogs(this.device.serialNumber).then(this.handleLogsChange);
+  }
+
+  handleLogsChange(logs) {
+    this.setState({
+      logs
     });
-  });
+  }
 
-  return (
-    <>
-      <Container component={Paper}>
-        <LogsTable logs={logs} bodyHeight="35vh" />
-      </Container>
-    </>
-  );
+  render() {
+    const { logs } = this.state;
+    return (
+      <>
+        <Container component={Paper}>
+          <LogsTable logs={logs} bodyHeight="35vh" />
+        </Container>
+      </>
+    );
+  }
 }
 
 DeviceDetailsActivityPanel.propTypes = {
