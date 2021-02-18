@@ -13,9 +13,8 @@ Enzyme.configure({ adapter: new Adapter() });
 jest.spyOn(global.console, "error");
 
 describe("LogsTable", () => {
-  let wrapper;
   const dummyLogs = SampleData.getSampleLogs();
-  wrapper = Enzyme.shallow(<LogsTable logs={dummyLogs} />);
+  const wrapper = Enzyme.shallow(<LogsTable logs={dummyLogs} />);
   it("contains one Box component", () => {
     expect(wrapper.find(Box)).toHaveLength(1);
   });
