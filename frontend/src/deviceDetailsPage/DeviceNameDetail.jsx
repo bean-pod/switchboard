@@ -22,6 +22,10 @@ export default class DeviceNameDetail extends React.Component {
   }
   // const history = useHistory();
 
+  setName(updatedName) {
+    this.setState({ name: updatedName });
+  }
+
   startEdit() {
     this.setState({ editing: true });
   }
@@ -38,10 +42,6 @@ export default class DeviceNameDetail extends React.Component {
     // history.go(0);
     window.location.reload();
     this.setState({ editing: false });
-  }
-
-  setName(updatedName) {
-    this.setState({ name: updatedName });
   }
 
   renderStaticName() {
