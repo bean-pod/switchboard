@@ -10,7 +10,7 @@ import {
   it
 } from "@jest/globals";
 import axios from "axios";
-import { Box, Button } from "@material-ui/core";
+import { Box, Button, TextField } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import DeviceNameDetail from "../DeviceNameDetail";
 
@@ -67,10 +67,9 @@ describe("DeviceNameDetail", () => {
     });
 
     describe("Edit button", () => {
-      it.only("Should set the state to editing when clicked", () => {
+      it("Should set the state to editing when clicked", () => {
         wrapper.find("#editBtn").simulate("click");
-        expect(setEditing).toHaveBeenCalledWith(true);
-        expect(wrapper.find("form")).toHaveLength(1);
+        expect(wrapper.state("editing")).toBe(true);
       });
     });
   });
@@ -79,11 +78,10 @@ describe("DeviceNameDetail", () => {
     beforeEach(() => {
       // simulate click to put us in editing mode
       wrapper.find("#editBtn").simulate("click");
-      wrapper.update();
     });
 
-    it.only("Should render the correct number of child elements", () => {
-      expect(setEditing).toHaveBeenCalledWith(true);
+    it("Should render the correct number of child elements", () => {
+      expect(wrapper.state("editing")).toBe(true);
       expect(wrapper.find("form")).toHaveLength(1);
       expect(wrapper.find(Box)).toHaveLength(3);
       expect(wrapper.find(Button)).toHaveLength(2);
@@ -92,14 +90,23 @@ describe("DeviceNameDetail", () => {
 
     describe("Textfield", () => {
       it("Should show the current device name as default text", () => {
-        expect(wrapper.find(Textfield).text()).toBe("Test Device");
+        expect(wrapper.state("name")).toBe("Test Device");
+      });
+      it("Should update the name state on change", () => {
+        const nameInput = wrapper.find("#deviceName");
+        nameInput.simulate("focus");
+        nameInput.simulate("change", {
+          target: { value: mockPutDetails.displayName }
+        });
+
+        expect(wrapper.state("name")).toBe(mockPutDetails.displayName);
       });
     });
 
     describe("Cancel Button", () => {
       it("Should set the state to not editing and keep same device name when clicked", () => {
         wrapper.find("#cancelEditBtn").simulate("click");
-        expect(setEditing).toHaveBeenCalledWith(false);
+        expect(wrapper.state("editing")).toBe(false);
         expect(wrapper.find("div.title").text()).toBe("Test Device");
       });
     });
@@ -126,7 +133,7 @@ describe("DeviceNameDetail", () => {
         expect(mockHistoryGo).toHaveBeenCalledWith(0);
 
         // finally, check state
-        expect(setEditing).tohave.toHaveBeenCalledWith(false);
+        expect(wrapper.state("editing")).toBe(false);
       });
     });
   });
