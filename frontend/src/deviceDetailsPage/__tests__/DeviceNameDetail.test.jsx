@@ -65,8 +65,9 @@ describe("DeviceNameDetail", () => {
       expect(wrapper.find("div.title")).toHaveLength(1);
       expect(wrapper.find("div.title").text()).toBe("Test Device");
     });
+
     describe("Edit button", () => {
-      it("Should set the state to editing", () => {
+      it.only("Should set the state to editing when clicked", () => {
         wrapper.find("#editBtn").simulate("click");
         expect(setEditing).toHaveBeenCalledWith(true);
         expect(wrapper.find("form")).toHaveLength(1);
@@ -96,7 +97,7 @@ describe("DeviceNameDetail", () => {
     });
 
     describe("Cancel Button", () => {
-      it("Should set the state to not editing and keep same device name", () => {
+      it("Should set the state to not editing and keep same device name when clicked", () => {
         wrapper.find("#cancelEditBtn").simulate("click");
         expect(setEditing).toHaveBeenCalledWith(false);
         expect(wrapper.find("div.title").text()).toBe("Test Device");
@@ -104,7 +105,7 @@ describe("DeviceNameDetail", () => {
     });
 
     describe("Confirm Button", () => {
-      it("Should call the device API, refresh page, and set state to not editing", async () => {
+      it("Should call the device API, refresh page, and set state to not editing when clicked", async () => {
         // mock axios before clicking confirm
         const axiosPromise = Promise.resolve();
         axios.put.mockImplementationOnce(() => axiosPromise);
