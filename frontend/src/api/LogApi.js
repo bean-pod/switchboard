@@ -2,14 +2,6 @@ import axios from "axios";
 import LogInfo from "../model/LogInfo";
 import * as SampleData from "./SampleData";
 
-export async function getAllLogs() {
-  return getLogs(process.env.REACT_APP_LOGS);
-}
-
-export async function getDeviceLogs(deviceSerialNumber) {
-  return getLogs(`${process.env.REACT_APP_LOGS}/${deviceSerialNumber}`);
-}
-
 async function getLogs(endpoint) {
   return axios
     .get(endpoint)
@@ -27,3 +19,10 @@ async function getLogs(endpoint) {
     });
 }
 
+export async function getAllLogs() {
+  return getLogs(process.env.REACT_APP_LOGS);
+}
+
+export async function getDeviceLogs(deviceSerialNumber) {
+  return getLogs(`${process.env.REACT_APP_LOGS}/${deviceSerialNumber}`);
+}

@@ -37,7 +37,7 @@ const expectedLogsResponse = [
     level: "info",
     message: "Log test 2"
   }
-]
+];
 
 let sampleLogs;
 SampleData.getAllLogs((result) => {
