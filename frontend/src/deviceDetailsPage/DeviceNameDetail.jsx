@@ -14,6 +14,11 @@ export default class DeviceNameDetail extends React.Component {
       editing: false,
       name: this.deviceName
     };
+
+    this.startEdit = this.startEdit.bind(this);
+    this.cancelEditing = this.cancelEditing.bind(this);
+    this.confirmEditing = this.confirmEditing.bind(this);
+    this.setName = this.setName.bind(this);
   }
   // const history = useHistory();
 
@@ -94,11 +99,10 @@ export default class DeviceNameDetail extends React.Component {
   }
 
   render() {
+    const { editing } = this.state.editing;
     return (
       <>
-        <div>
-          {this.state.editing ? this.renderEditName() : this.renderStaticName()}
-        </div>
+        <div>{editing ? this.renderEditName() : this.renderStaticName()}</div>
       </>
     );
   }
