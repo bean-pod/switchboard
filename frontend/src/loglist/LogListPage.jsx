@@ -1,8 +1,8 @@
 import React from "react";
 import { Box, Container } from "@material-ui/core";
-import PropTypes from "prop-types";
 import DynamicBreadcrumb from "../general/DynamicBreadcrumb";
 import LogsTable from "./LogsTable";
+import * as LogApi from "../api/LogApi";
 
 export default class LogListPage extends React.Component {
   constructor(props) {
@@ -10,12 +10,11 @@ export default class LogListPage extends React.Component {
     this.state = {
       logs: []
     };
-    this.dataSource = props.dataSource;
     this.handleLogsChange = this.handleLogsChange.bind(this);
   }
 
   componentDidMount() {
-    this.dataSource.getAllLogs().then(this.handleLogsChange);
+    LogApi.getAllLogs().then(this.handleLogsChange);
   }
 
   handleLogsChange(logs) {
@@ -46,6 +45,3 @@ export default class LogListPage extends React.Component {
     );
   }
 }
-LogListPage.propTypes = {
-  dataSource: PropTypes.objectOf(PropTypes.func).isRequired
-};
