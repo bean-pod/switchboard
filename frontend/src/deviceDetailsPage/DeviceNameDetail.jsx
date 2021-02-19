@@ -32,7 +32,8 @@ export default class DeviceNameDetail extends React.Component {
 
   confirmEditing() {
     // api call
-    DeviceApi.updateDeviceName(this.deviceId, this.deviceName);
+    const { updatedName } = this.state.name;
+    DeviceApi.updateDeviceName(this.deviceId, updatedName);
     // history (refresh)
     // history.go(0);
     window.location.reload();
@@ -99,10 +100,11 @@ export default class DeviceNameDetail extends React.Component {
   }
 
   render() {
-    const { editing } = this.state.editing;
     return (
       <>
-        <div>{editing ? this.renderEditName() : this.renderStaticName()}</div>
+        <div>
+          {this.state.editing ? this.renderEditName() : this.renderStaticName()}
+        </div>
       </>
     );
   }
