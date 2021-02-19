@@ -6,17 +6,13 @@ import { describe, expect, jest, it } from "@jest/globals";
 import { Box, TableContainer } from "@material-ui/core";
 import MaterialTable from "material-table";
 import LogsTable from "../LogsTable";
-import * as SampleData from "../../api/SampleData";
 
 Enzyme.configure({ adapter: new Adapter() });
 
 jest.spyOn(global.console, "error");
 
 describe("LogsTable", () => {
-  let dummyLogs;
-  SampleData.getAllLogs((logs) => {
-    dummyLogs = logs;
-  });
+  const dummyLogs = [];
   const wrapper = Enzyme.shallow(<LogsTable logs={dummyLogs} />);
   it("contains one Box component", () => {
     expect(wrapper.find(Box)).toHaveLength(1);
