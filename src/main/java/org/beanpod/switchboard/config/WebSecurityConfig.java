@@ -1,5 +1,6 @@
 package org.beanpod.switchboard.config;
 
+import javax.validation.ValidationException;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import org.beanpod.switchboard.service.UserService;
@@ -17,8 +18,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import javax.validation.ValidationException;
-
 
 @Configuration
 @AllArgsConstructor
@@ -34,16 +33,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
     http
         .cors()
-      .and()
+        .and()
         .csrf().disable()
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-      .and()
+        .and()
         .authorizeRequests()
         .antMatchers("/user/sign-up")
         .permitAll()
         .anyRequest()
         .authenticated()
-      .and()
+        .and()
         .addFilter(new JWTAuthenticationFilter(authenticationManagerBean(), securityProperties))
         .addFilter(new JWTAuthorizationFilter(authenticationManagerBean(), securityProperties));
   }
@@ -51,11 +50,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Autowired
   public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
     UserModel superuser = new UserModel()
-            .username(securityProperties.getSuperuserUsername())
-            .password(securityProperties.getSuperuserPassword());
-    try{
+        .username(securityProperties.getSuperuserUsername())
+        .password(securityProperties.getSuperuserPassword());
+    try {
       userService.signUpUser(superuser);
-    }catch (ValidationException validationException){
+    } catch (ValidationException validationException) {
       log.info(validationException.getMessage());
     }
 
