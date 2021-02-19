@@ -18,7 +18,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-
 @Configuration
 @AllArgsConstructor
 @Log
@@ -31,11 +30,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   private final SecurityProperties securityProperties;
 
   protected void configure(HttpSecurity http) throws Exception {
-    http
-        .cors()
+    http.cors()
         .and()
-        .csrf().disable()
-        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        .csrf()
+        .disable()
+        .sessionManagement()
+        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
         .authorizeRequests()
         .antMatchers("/user/sign-up")
@@ -49,9 +49,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Autowired
   public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-    UserModel superuser = new UserModel()
-        .username(securityProperties.getSuperuserUsername())
-        .password(securityProperties.getSuperuserPassword());
+    UserModel superuser =
+        new UserModel()
+            .username(securityProperties.getSuperuserUsername())
+            .password(securityProperties.getSuperuserPassword());
     try {
       userService.signUpUser(superuser);
     } catch (ValidationException validationException) {

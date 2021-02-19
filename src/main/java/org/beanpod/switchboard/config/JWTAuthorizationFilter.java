@@ -21,38 +21,34 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
   private final SecurityProperties securityProperties;
 
-  public JWTAuthorizationFilter(AuthenticationManager authenticationManager,
-      SecurityProperties securityProperties) {
+  public JWTAuthorizationFilter(
+      AuthenticationManager authenticationManager, SecurityProperties securityProperties) {
     super(authenticationManager);
     this.securityProperties = securityProperties;
   }
 
   @Override
-  protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-      FilterChain chain) throws IOException, ServletException {
+  protected void doFilterInternal(
+      HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+      throws IOException, ServletException {
     Optional.of(request)
-        .map(r ->
-            r.getHeader(AUTHORIZATION_HEADER_STRING)
-        )
-        .filter(header ->
-            header.startsWith(BEARER_TOKEN_PREFIX)
-        ).map(
-        this::getAuthorizationToken
-    ).ifPresent(authenticationToken ->
-        SecurityContextHolder.getContext().setAuthentication(authenticationToken)
-    );
+        .map(r -> r.getHeader(AUTHORIZATION_HEADER_STRING))
+        .filter(header -> header.startsWith(BEARER_TOKEN_PREFIX))
+        .map(this::getAuthorizationToken)
+        .ifPresent(
+            authenticationToken ->
+                SecurityContextHolder.getContext().setAuthentication(authenticationToken));
 
     chain.doFilter(request, response);
   }
 
   private UsernamePasswordAuthenticationToken getAuthorizationToken(String token) {
     return Optional.of(
-        JWT.require(Algorithm.HMAC512(securityProperties.getSecret()))
-            .build()
-            .verify(token.replace(BEARER_TOKEN_PREFIX, ""))
-            .getSubject()
-    ).map(user ->
-        new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>())
-    ).orElse(null);
+            JWT.require(Algorithm.HMAC512(securityProperties.getSecret()))
+                .build()
+                .verify(token.replace(BEARER_TOKEN_PREFIX, ""))
+                .getSubject())
+        .map(user -> new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>()))
+        .orElse(null);
   }
 }

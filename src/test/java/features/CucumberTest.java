@@ -6,6 +6,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @Cucumber
 @SpringBootTest(
-        classes = {SwitchboardApplication.class},
-        webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+    classes = {SwitchboardApplication.class},
+    webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class CucumberTest {}

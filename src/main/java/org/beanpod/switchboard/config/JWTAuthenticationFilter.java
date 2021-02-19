@@ -25,30 +25,26 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
   private final AuthenticationManager authenticationManager;
   private final SecurityProperties securityProperties;
 
-  public JWTAuthenticationFilter(AuthenticationManager authenticationManager,
-      SecurityProperties securityProperties) {
+  public JWTAuthenticationFilter(
+      AuthenticationManager authenticationManager, SecurityProperties securityProperties) {
     this.authenticationManager = authenticationManager;
     this.securityProperties = securityProperties;
     setFilterProcessesUrl(securityProperties.getAuthenticationUrl());
   }
 
   @Override
-  public Authentication attemptAuthentication(HttpServletRequest request,
-      HttpServletResponse response) throws AuthenticationException {
+  public Authentication attemptAuthentication(
+      HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
     try {
       var authorizationHeader = request.getHeader(AUTHORIZATION_HEADER_STRING);
-      var encodedCredentials = authorizationHeader.substring(BASIC_AUTHENTICATION_PREFIX.length())
-          .trim();
-      String decodedCredentials = new String(Base64.getDecoder().decode(encodedCredentials),
-          StandardCharsets.UTF_8);
+      var encodedCredentials =
+          authorizationHeader.substring(BASIC_AUTHENTICATION_PREFIX.length()).trim();
+      String decodedCredentials =
+          new String(Base64.getDecoder().decode(encodedCredentials), StandardCharsets.UTF_8);
       String[] credentials = decodedCredentials.split(":");
 
       return authenticationManager.authenticate(
-          new UsernamePasswordAuthenticationToken(
-              credentials[0],
-              credentials[1]
-          )
-      );
+          new UsernamePasswordAuthenticationToken(credentials[0], credentials[1]));
 
     } catch (Exception e) {
       e.printStackTrace();
@@ -57,14 +53,18 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
   }
 
   @Override
-  protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
-      FilterChain chain, Authentication authResult) {
+  protected void successfulAuthentication(
+      HttpServletRequest request,
+      HttpServletResponse response,
+      FilterChain chain,
+      Authentication authResult) {
     String username = ((SwitchBoardUserDetails) authResult.getPrincipal()).getUsername();
-    String token = JWT.create()
-        .withSubject(username)
-        .withExpiresAt(
-            new Date(System.currentTimeMillis() + securityProperties.getExpirationTime()))
-        .sign(HMAC512(securityProperties.getSecret().getBytes()));
+    String token =
+        JWT.create()
+            .withSubject(username)
+            .withExpiresAt(
+                new Date(System.currentTimeMillis() + securityProperties.getExpirationTime()))
+            .sign(HMAC512(securityProperties.getSecret().getBytes()));
     response.addHeader(AUTHORIZATION_HEADER_STRING, BEARER_TOKEN_PREFIX + token);
     response.addHeader("Access-Control-Expose-Headers", AUTHORIZATION_HEADER_STRING);
   }
