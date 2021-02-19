@@ -6,7 +6,6 @@ import { Container } from "@material-ui/core";
 
 import DeviceDetailsActivityPanel from "../TabPanels/DeviceDetailsActivityPanel";
 import DeviceDetailsNotesPanel from "../TabPanels/DeviceDetailsNotesPanel";
-import OutChannelInfo from "../../model/OutputChannelInfo";
 import DeviceInfo from "../../model/DeviceInfo";
 import * as LogApi from "../../api/LogApi";
 
@@ -16,22 +15,7 @@ jest.spyOn(global.console, "error");
 jest.mock("../../api/LogApi");
 jest.spyOn(LogApi, "getDeviceLogs");
 
-const extras = ["Additional Device details go here"];
-const sampleOutputChannels = [
-  new OutChannelInfo(1, "Output ch 1", 500, null),
-  new OutChannelInfo(2, "Output ch 2", 456, null),
-  new OutChannelInfo(3, "Output ch 3", 800, null)
-];
-const sampleDevice = new DeviceInfo(
-  "1:10:111:999",
-  null,
-  "123:456",
-  "Sender 1",
-  "Online",
-  sampleOutputChannels,
-  "encoder",
-  extras
-);
+const dummyDevice = new DeviceInfo(1, 1, 1, 1, 1, 1, ["Hello"]);
 
 const mockLogs = [
   {
@@ -57,7 +41,7 @@ describe("DeviceDetailsTabPanels", () => {
   describe("ActivityPanel", () => {
     it("Renders one Container component containing Container and LogsTable", async () => {
       wrapper = Enzyme.shallow(
-        <DeviceDetailsActivityPanel device={sampleDevice} />
+        <DeviceDetailsActivityPanel device={dummyDevice} />
       );
       expect(wrapper.find(Container)).toHaveLength(1);
       expect(wrapper.find("LogsTable")).toHaveLength(1);
