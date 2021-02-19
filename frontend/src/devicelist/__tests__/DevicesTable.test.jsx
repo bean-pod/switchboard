@@ -12,7 +12,6 @@ import {
 import { Box, TableContainer } from "@material-ui/core";
 import MaterialTable from "material-table";
 import DevicesTable from "../DevicesTable";
-import * as SampleData from "../../api/SampleData";
 
 Enzyme.configure({ adapter: new Adapter() });
 jest.spyOn(global.console, "error");
