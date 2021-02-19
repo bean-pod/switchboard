@@ -50,7 +50,7 @@ describe("Log Api", () => {
   });
 
   describe("getDeviceLogs", () => {
-    it("should call axios.get and return device logs from a device/serial number if it receives a response from the server", async () => {
+    it("should call axios.get and return device logs from a device/serial number", async () => {
       axios.get.mockResolvedValue({ data: mockLogs });
 
       const result = await LogApi.getDeviceLogs(123);
