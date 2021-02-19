@@ -5,36 +5,47 @@ import { Box, Button, TextField } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import * as DeviceApi from "../api/DeviceApi";
 
-export default function DeviceNameDetail(props) {
-  const { deviceName, deviceId } = props;
-  const [editing, setEditing] = React.useState(false);
-  const [name, setName] = React.useState(deviceName);
-  const history = useHistory();
+export default class DeviceNameDetail extends React.Component {
+  constructor(props) {
+    super(props);
+    this.deviceName = props.deviceName;
+    this.deviceId = props.deviceId;
+    this.state = {
+      editing: false,
+      name: this.deviceName
+    };
+  }
+  // const history = useHistory();
 
-  const startEdit = () => {
-    return setEditing(true);
-  };
+  startEdit() {
+    this.setState({ editing: true });
+  }
 
-  const cancelEditing = () => {
-    return setEditing(false);
-  };
+  cancelEditing() {
+    this.setState({ editing: false });
+  }
 
-  const confirmEditing = () => {
+  confirmEditing() {
     // api call
-    DeviceApi.updateDeviceName(deviceId, name);
+    DeviceApi.updateDeviceName(this.deviceId, this.deviceName);
     // history (refresh)
-    history.go(0);
-    return setEditing(false);
-  };
+    // history.go(0);
+    window.location.reload();
+    this.setState({ editing: false });
+  }
 
-  function renderStaticName() {
+  setName(updatedName) {
+    this.setState({ name: updatedName });
+  }
+
+  renderStaticName() {
     return (
       <>
         <Box className="flexContents">
-          <div className="title">{name}</div>
+          <div className="title">{this.deviceName}</div>
           <Box padding={4} paddingLeft={1} paddingBottom={0}>
             <Button>
-              <EditIcon id="editBtn" color="action" onClick={startEdit} />
+              <EditIcon id="editBtn" color="action" onClick={this.startEdit} />
             </Button>
           </Box>
         </Box>
@@ -42,23 +53,23 @@ export default function DeviceNameDetail(props) {
     );
   }
 
-  function renderEditName() {
+  renderEditName() {
     return (
       <>
-        <form className="deviceNameEditForm" onSubmit={confirmEditing}>
+        <form className="deviceNameEditForm" onSubmit={this.confirmEditing}>
           <Box className="flexContents">
             <TextField
               id="deviceName"
               name="deviceName"
               required
-              defaultValue={name}
+              defaultValue={this.deviceName}
               label="Device Name"
-              onChange={(event) => setName(event.target.value)}
+              onChange={(event) => this.setName(event.target.value)}
             />
             <Box padding={4} paddingLeft={1} paddingRight={1}>
               <Button
                 id="cancelEditBtn"
-                onClick={cancelEditing}
+                onClick={this.cancelEditing}
                 variant="contained"
                 disableElevation
               >
@@ -82,11 +93,15 @@ export default function DeviceNameDetail(props) {
     );
   }
 
-  return (
-    <>
-      <div>{editing ? renderEditName() : renderStaticName()}</div>
-    </>
-  );
+  render() {
+    return (
+      <>
+        <div>
+          {this.state.editing ? this.renderEditName() : this.renderStaticName()}
+        </div>
+      </>
+    );
+  }
 }
 
 DeviceNameDetail.propTypes = {
