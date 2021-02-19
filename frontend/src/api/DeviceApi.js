@@ -3,7 +3,7 @@ import DeviceInfo from "../model/DeviceInfo";
 import * as SampleData from "./SampleData";
 import OutputChannelInfo from "../model/OutputChannelInfo";
 import InputChannelInfo from "../model/InputChannelInfo";
-import getAuthroizationHeader from "./Authorization"
+import {getAuthorizationHeader} from "./AuthenticationUtil";
 
 function getStatus(lastCommunicationString) {
   if (!lastCommunicationString) {
@@ -21,7 +21,7 @@ function getStatus(lastCommunicationString) {
 
 export function getSenders(callback) {
   axios
-    .get(process.env.REACT_APP_ENCODER, getAuthroizationHeader())
+    .get(process.env.REACT_APP_ENCODER, getAuthorizationHeader())
     .then((senders) => {
       callback(
         senders.data.map((sender) => {
@@ -61,7 +61,7 @@ export function getSenders(callback) {
 
 export function getReceivers(callback) {
   axios
-    .get(process.env.REACT_APP_DECODER, getAuthroizationHeader())
+    .get(process.env.REACT_APP_DECODER, getAuthorizationHeader())
     .then((receivers) => {
       callback(
         receivers.data.map((receiver) => {
@@ -101,6 +101,6 @@ export function getReceivers(callback) {
 
 export function deleteDevice(deviceId) {
   return axios
-    .delete(`${process.env.REACT_APP_DEVICE}/${deviceId}`)
+    .delete(`${process.env.REACT_APP_DEVICE}/${deviceId}`, getAuthorizationHeader())
     .catch(() => {});
 }

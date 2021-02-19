@@ -1,13 +1,13 @@
 import axios from "axios";
-import { convertToDataObject } from "../model/ConvertDataFormat";
+import {convertToDataObject} from "../model/ConvertDataFormat";
 import StreamInfo from "../model/StreamInfo";
 import * as SampleData from "./SampleData";
-import getAuthroizationHeader from "./Authorization";
+import {getAuthorizationHeader} from "./AuthenticationUtil";
 
 export function getStream(streamId) {
   return new Promise((resolve, reject) => {
     axios
-      .get(`${process.env.REACT_APP_STREAM}/${streamId}`, getAuthroizationHeader())
+      .get(`${process.env.REACT_APP_STREAM}/${streamId}`, getAuthorizationHeader())
       .then((response) => {
         const stream = response.data;
         resolve(
@@ -25,7 +25,7 @@ export function getStream(streamId) {
 
 export function getAllStreams(callback) {
   axios
-    .get(process.env.REACT_APP_STREAM)
+    .get(process.env.REACT_APP_STREAM, getAuthorizationHeader())
     .then((streams) => {
       Promise.all(
         streams.data.map((streamId) => {
@@ -40,7 +40,7 @@ export function getAllStreams(callback) {
 
 export function deleteStream(streamId, callback) {
   axios
-    .delete(`${process.env.REACT_APP_STREAM}/${streamId}`, getAuthroizationHeader())
+    .delete(`${process.env.REACT_APP_STREAM}/${streamId}`, getAuthorizationHeader())
     .then(callback)
     .catch(() => {});
 }

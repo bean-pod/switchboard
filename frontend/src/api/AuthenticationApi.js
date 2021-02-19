@@ -1,16 +1,23 @@
 import axios from "axios";
+import {saveToken} from "./AuthenticationUtil";
 
 export const unknownErrorMessage =
   "An unknown error occurred. Please try again later.";
 export const incorrectCredentialsMessage =
   "Incorrect username and/or password. Please enter the correct credentials and try again.";
 
-export async function logIn() {
-  // TODO: Correct backend URL from environment variables
+export async function logIn(credentials) {
+  const authorizationHeader = {
+    auth: {
+      username: credentials.username,
+      password: credentials.password
+    },
+  };
+  console.log(authorizationHeader);
   return axios
-    .post("backendUrl/login")
-    .then(() => {
-      // TODO: Happy path login
+    .get(process.env.REACT_APP_TOKEN, authorizationHeader)
+    .then((response) => {
+      saveToken(response.headers.authorization);
     })
     .catch((error) => {
       let message = unknownErrorMessage;

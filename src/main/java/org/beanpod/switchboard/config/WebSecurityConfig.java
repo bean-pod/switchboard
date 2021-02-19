@@ -1,6 +1,7 @@
 package org.beanpod.switchboard.config;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.java.Log;
 import org.beanpod.switchboard.service.UserService;
 import org.openapitools.model.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +13,16 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import javax.validation.ValidationException;
 
 
 @Configuration
 @AllArgsConstructor
+@Log
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   private final UserService userService;
@@ -26,6 +33,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   protected void configure(HttpSecurity http) throws Exception {
     http
+        .cors()
+      .and()
         .csrf().disable()
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
       .and()
@@ -44,7 +53,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     UserModel superuser = new UserModel()
             .username(securityProperties.getSuperuserUsername())
             .password(securityProperties.getSuperuserPassword());
-    userService.signUpUser(superuser);
+    try{
+      userService.signUpUser(superuser);
+    }catch (ValidationException validationException){
+      log.info(validationException.getMessage());
+    }
+
     auth.userDetailsService(userService).passwordEncoder(bCryptPasswordEncoder);
   }
 
@@ -52,5 +66,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   public AuthenticationManager authenticationManagerBean() throws Exception {
     return super.authenticationManagerBean();
+  }
+
+  @Bean
+  CorsConfigurationSource corsConfigurationSource() {
+    final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+    return source;
   }
 }
