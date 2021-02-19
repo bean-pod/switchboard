@@ -34,11 +34,12 @@ beforeEach(() => {
 });
 
 describe("LogListPage", () => {
-  const wrapper = Enzyme.shallow(<LogListPage />);
   it("contains one Container component", () => {
+    const wrapper = Enzyme.shallow(<LogListPage />);
     expect(wrapper.find(Container)).toHaveLength(1);
   });
   it("contains one DynamicBreadcrumb component", () => {
+    const wrapper = Enzyme.shallow(<LogListPage />);
     expect(wrapper.find(DynamicBreadcrumb)).toHaveLength(1);
     expect(wrapper.find(DynamicBreadcrumb).prop("breadcrumbs")).toEqual([
       ["Home", "/"],
@@ -46,12 +47,15 @@ describe("LogListPage", () => {
     ]);
   });
   it("contains two Box components", () => {
+    const wrapper = Enzyme.shallow(<LogListPage />);
     expect(wrapper.find(Box)).toHaveLength(2);
   });
   it("contains one Time zone indicator text box", () => {
+    const wrapper = Enzyme.shallow(<LogListPage />);
     expect(wrapper.text().includes("Logs")).toBe(true);
   });
   it("contains one LogsTable", async () => {
+    const wrapper = Enzyme.shallow(<LogListPage />);
     expect(wrapper.find("LogsTable")).toHaveLength(1);
     const flushPromises = () => new Promise(setImmediate);
     await flushPromises();
