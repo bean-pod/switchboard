@@ -8,7 +8,6 @@ import lombok.SneakyThrows;
 import org.beanpod.switchboard.dto.DeviceDto;
 import org.beanpod.switchboard.fixture.DeviceFixture;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.context.annotation.Import;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -21,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 
 @RequiredArgsConstructor
-@Import(AuthorizedTestRestTemplate.class)
 public class DeviceStepDefinition extends SpringIntegrationTest {
   private final String baseUrl = "http://localhost:8080/device";
   private final TestRestTemplate testRestTemplate;

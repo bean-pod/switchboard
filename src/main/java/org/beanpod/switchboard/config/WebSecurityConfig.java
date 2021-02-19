@@ -27,7 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   private final UserService userService;
 
-  private final BCryptPasswordEncoder bCryptPasswordEncoder;
+  private final BCryptPasswordEncoder bcryptPasswordEncoder;
 
   private final SecurityProperties securityProperties;
 
@@ -59,7 +59,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       log.info(validationException.getMessage());
     }
 
-    auth.userDetailsService(userService).passwordEncoder(bCryptPasswordEncoder);
+    auth.userDetailsService(userService).passwordEncoder(bcryptPasswordEncoder);
   }
 
   @Bean
