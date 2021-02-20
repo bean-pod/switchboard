@@ -47,7 +47,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
           new UsernamePasswordAuthenticationToken(credentials[0], credentials[1]));
 
     } catch (Exception e) {
-      e.printStackTrace();
       throw new CouldNotAuthenticateUserException();
     }
   }

@@ -9,7 +9,7 @@ import * as StreamApi from "../StreamApi";
 Enzyme.configure({ adapter: new Adapter() });
 
 jest.mock("axios");
-jest.mock("../AuthenticationUtil")
+jest.mock("../AuthenticationUtil");
 
 const mockSingleStream = {
   streamId: 1,
@@ -41,14 +41,16 @@ describe("Stream Api", () => {
 
   describe("getStream", () => {
     it("should call axios.get and return a single stream's information", () => {
-      authenticationUtil.getAuthorizationHeader = jest.fn().mockReturnValue(authorizationHeader)
+      authenticationUtil.getAuthorizationHeader = jest
+        .fn()
+        .mockReturnValue(authorizationHeader);
 
       StreamApi.getStream(123);
 
       // check that callback was invoked with correct value
       expect(axios.get).toHaveBeenCalledWith(
         `http://localhost:8080/stream/123`,
-          authorizationHeader
+        authorizationHeader
       );
     });
   });
@@ -56,11 +58,16 @@ describe("Stream Api", () => {
   describe("getAllStreams", () => {
     it("should call axios.get and return an array of streams", () => {
       axios.get.mockResolvedValue(mockStreams);
-      authenticationUtil.getAuthorizationHeader = jest.fn().mockReturnValue(authorizationHeader)
+      authenticationUtil.getAuthorizationHeader = jest
+        .fn()
+        .mockReturnValue(authorizationHeader);
 
       StreamApi.getAllStreams(() => {});
 
-      expect(axios.get).toHaveBeenCalledWith("http://localhost:8080/stream", authorizationHeader);
+      expect(axios.get).toHaveBeenCalledWith(
+        "http://localhost:8080/stream",
+        authorizationHeader
+      );
     });
     it("should use sample data in the case of an error", () => {
       // TODO: fill in

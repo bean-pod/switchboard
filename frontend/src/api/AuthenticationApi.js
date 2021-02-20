@@ -11,7 +11,7 @@ export async function logIn(credentials) {
     auth: {
       username: credentials.username,
       password: credentials.password
-    },
+    }
   };
 
   return axios

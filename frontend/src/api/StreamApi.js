@@ -7,7 +7,10 @@ import {getAuthorizationHeader} from "./AuthenticationUtil";
 export function getStream(streamId) {
   return new Promise((resolve, reject) => {
     axios
-      .get(`${process.env.REACT_APP_STREAM}/${streamId}`, getAuthorizationHeader())
+      .get(
+        `${process.env.REACT_APP_STREAM}/${streamId}`,
+        getAuthorizationHeader()
+      )
       .then((response) => {
         const stream = response.data;
         resolve(
@@ -40,7 +43,10 @@ export function getAllStreams(callback) {
 
 export function deleteStream(streamId, callback) {
   axios
-    .delete(`${process.env.REACT_APP_STREAM}/${streamId}`, getAuthorizationHeader())
+    .delete(
+      `${process.env.REACT_APP_STREAM}/${streamId}`,
+      getAuthorizationHeader()
+    )
     .then(callback)
     .catch(() => {});
 }
