@@ -1,5 +1,4 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Box, Button, TextField } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
@@ -20,7 +19,6 @@ export default class DeviceNameDetail extends React.Component {
     this.confirmEditing = this.confirmEditing.bind(this);
     this.setName = this.setName.bind(this);
   }
-  // const history = useHistory();
 
   setName(updatedName) {
     this.setState({ name: updatedName });
@@ -34,12 +32,12 @@ export default class DeviceNameDetail extends React.Component {
     this.setState({ editing: false });
   }
 
-  confirmEditing() {
+  confirmEditing(event) {
     // api call
+    event.preventDefault();
     const { updatedName } = this.state.name;
     DeviceApi.updateDeviceName(this.deviceId, updatedName);
-    // history (refresh)
-    // history.go(0);
+    // refresh
     window.location.reload();
     this.setState({ editing: false });
   }
