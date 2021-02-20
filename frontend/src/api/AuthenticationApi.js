@@ -13,7 +13,7 @@ export async function logIn(credentials) {
       password: credentials.password
     },
   };
-  console.log(authorizationHeader);
+
   return axios
     .get(process.env.REACT_APP_TOKEN, authorizationHeader)
     .then((response) => {
