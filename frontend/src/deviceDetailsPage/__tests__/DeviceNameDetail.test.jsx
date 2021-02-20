@@ -17,38 +17,22 @@ import DeviceNameDetail from "../DeviceNameDetail";
 Enzyme.configure({ adapter: new Adapter() });
 jest.mock("axios");
 
-const mockPutDetails = {
-  serialNumber: "1",
+const mockEvent = {
   displayName: "New Name"
+}
+const mockPutDetails = {
+  serialNumber: "1:22:333:4444",
+  displayName: mockEvent.displayName
 };
-const mockHistoryGo = jest.fn();
-const mockHistory = {
-  go: mockHistoryGo
-};
-
-jest.mock("react-router-dom", () => ({
-  useHistory: () => {
-    return mockHistory;
-  }
-}));
 
 const flushPromises = () => new Promise(setImmediate);
 
 describe("DeviceNameDetail", () => {
   let wrapper;
 
-  // let editing;
-  const setEditing = jest.fn();
-  // const setName = jest.fn();
-  const handleClick = jest.spyOn(React, "useState");
-  // const handleTextChange = jest.spyOn(React, "useState");
-
   beforeEach(() => {
-    handleClick.mockImplementation((editing) => [editing, setEditing]);
-    // handleTextChange.mockImplementation((name) => [name, setName]);
-
     wrapper = Enzyme.shallow(
-      <DeviceNameDetail deviceName="Test Device" deviceId="1:22:333:4444" />
+      <DeviceNameDetail deviceName="Test Device" deviceId={mockPutDetails.serialNumber} />
     );
   });
   afterEach(() => {
@@ -112,13 +96,26 @@ describe("DeviceNameDetail", () => {
     });
 
     describe("Confirm Button", () => {
-      it("Should call the device API, refresh page, and set state to not editing when clicked", async () => {
+      // mock window location for refresh tests
+      const { location } = window;
+      const event = {
+        preventDefault: jest.fn()
+      }
+      beforeEach(() => {
+        delete window.location;
+        window.location = { reload: jest.fn() };
+      });
+      afterEach(() => {
+        window.location = location;
+      });
+
+      it.only("Should call the device API, refresh page, and set state to not editing when clicked", async () => {
         // mock axios before clicking confirm
         const axiosPromise = Promise.resolve();
         axios.put.mockImplementationOnce(() => axiosPromise);
 
         // click confirm
-        wrapper.find("#confirmEditBtn").simulate("click");
+        wrapper.find(".deviceNameEditForm").simulate("submit", {mockEvent, preventDefault() {}});
 
         // check call is correct
         expect(axios.put).toHaveBeenCalledWith(
@@ -130,7 +127,7 @@ describe("DeviceNameDetail", () => {
         await flushPromises();
 
         // check redirect
-        expect(mockHistoryGo).toHaveBeenCalledWith(0);
+        expect(window.location.reload).toHaveBeenCalled();
 
         // finally, check state
         expect(wrapper.state("editing")).toBe(false);
