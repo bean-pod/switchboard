@@ -18,10 +18,10 @@ public class SecurityProperties {
   private final String authenticationUrl = "/login";
 
   @Value("${security.authentication.superuser.username}")
-  private final String superuserUsername = "admin";
+  private String superuserUsername;
 
   @Value("${security.authentication.superuser.password}")
-  private final String superuserPassword = "admin";
+  private String superuserPassword;
 
   public static final String AUTHORIZATION_HEADER_STRING = "Authorization";
 
