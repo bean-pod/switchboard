@@ -8,3 +8,8 @@ export function getAuthorizationHeader(){
         headers: {"Authorization" : `${token}`}
     };
 }
+
+export default {
+    saveToken,
+    getAuthorizationHeader
+}
