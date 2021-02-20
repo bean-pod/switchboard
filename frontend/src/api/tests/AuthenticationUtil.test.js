@@ -8,23 +8,23 @@ describe("AuthenticationUtil", () => {
 
   describe("saveToken", () => {
     it("should save the token to local storage", () => {
-      let expectedToken = "token";
-      saveToken(expectedToken)
-      expect(localStorage.getItem("authToken")).toEqual(expectedToken)
+      const expectedToken = "token";
+      saveToken(expectedToken);
+      expect(localStorage.getItem("authToken")).toEqual(expectedToken);
     });
   });
 
   describe("getAuthorizationHeader", () => {
-    it("should get the correct authorization header", () =>{
-      let token = "token";
-      let expectedHeader = {
+    it("should get the correct authorization header", () => {
+      const token = "token";
+      const expectedHeader = {
         headers: { Authorization: `${token}` }
       };
       localStorage.setItem("authToken", token);
 
-      let result = getAuthorizationHeader();
+      const result = getAuthorizationHeader();
 
       expect(result).toEqual(expectedHeader);
     });
   });
-})
+});
