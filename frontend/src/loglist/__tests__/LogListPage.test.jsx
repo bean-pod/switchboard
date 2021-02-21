@@ -52,7 +52,15 @@ describe("LogListPage", () => {
   });
   it("contains one Time zone indicator text box", () => {
     const wrapper = Enzyme.shallow(<LogListPage />);
-    expect(wrapper.text().includes("Logs")).toBe(true);
+    expect(
+      wrapper
+        .text()
+        .includes(
+          "Time Zone: ".concat(
+            Intl.DateTimeFormat().resolvedOptions().timeZone
+          )
+        )
+    ).toBe(true);
   });
   it("contains one LogsTable", async () => {
     const wrapper = Enzyme.shallow(<LogListPage />);
