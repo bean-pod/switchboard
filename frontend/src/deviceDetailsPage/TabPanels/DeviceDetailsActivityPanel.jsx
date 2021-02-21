@@ -30,7 +30,7 @@ export default class DeviceDetailsActivityPanel extends React.Component {
     return (
       <>
         <Container component={Paper}>
-          <LogsTable logs={logs} bodyHeight="35vh" />
+          <LogsTable title={`${this.device.serialNumber} Logs`} logs={logs} bodyHeight="35vh" />
         </Container>
       </>
     );

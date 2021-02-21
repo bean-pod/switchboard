@@ -72,13 +72,13 @@ function getIcons() {
 }
 
 export default function LogsTable(props) {
-  const { logs, bodyHeight } = props;
+  const { logs, bodyHeight, title } = props;
   return (
     <>
       <Box>
         <TableContainer>
           <MaterialTable
-            title="Logs"
+            title={title}
             columns={getColumnInfo()}
             data={logs}
             options={getOptions(bodyHeight)}
@@ -97,9 +97,11 @@ export default function LogsTable(props) {
 
 LogsTable.propTypes = {
   logs: PropTypes.arrayOf(PropTypes.instanceOf(LogInfo)).isRequired,
-  bodyHeight: PropTypes.string
+  bodyHeight: PropTypes.string,
+  title: PropTypes.string
 };
 
 LogsTable.defaultProps = {
-  bodyHeight: "auto"
+  bodyHeight: "auto",
+  title: "Logs"
 };
