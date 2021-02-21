@@ -1,10 +1,12 @@
 package org.beanpod.switchboard.dao;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
+import org.beanpod.switchboard.dto.LogDto;
 import org.beanpod.switchboard.dto.mapper.LogMapper;
 import org.beanpod.switchboard.entity.LogEntity;
 import org.beanpod.switchboard.fixture.DeviceFixture;
@@ -20,6 +22,8 @@ import org.openapitools.model.LogModel;
 class LogDaoImplTest {
   public static List<LogModel> logModels;
   public static List<LogEntity> logEntities;
+  public static LogDto logDto;
+  public static LogEntity logEntity;
 
   @InjectMocks LogDaoImpl logDao;
   @Mock LogRepository logRepository;
@@ -29,6 +33,8 @@ class LogDaoImplTest {
   void setupLogFixture() {
     logModels = LogFixture.getListOfLogs();
     logEntities = LogFixture.getListOfLogEntity();
+    logDto = LogFixture.getLogDto();
+    logEntity = LogFixture.getLogEntity();
   }
 
   @BeforeEach
@@ -50,5 +56,16 @@ class LogDaoImplTest {
     when(logMapper.toLogModels(any())).thenReturn(logModels);
     List<LogModel> logs = logDao.getDeviceLogs(DeviceFixture.SERIAL_NUMBER);
     assertIterableEquals(logModels, logs);
+  }
+
+  @Test
+  final void testCreateLog(){
+    when(logMapper.toLogDto1(logEntity)).thenReturn(logDto);
+    when(logMapper.toLogEntity(logDto)).thenReturn(logEntity);
+    when(logRepository.save(logEntity)).thenReturn(logEntity);
+
+    LogDto responseLogDto = logDao.createLog(logDto);
+
+    assertEquals(logDto, responseLogDto);
   }
 }
