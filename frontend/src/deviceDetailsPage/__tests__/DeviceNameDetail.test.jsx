@@ -19,7 +19,7 @@ jest.mock("axios");
 
 const mockEvent = {
   displayName: "New Name"
-}
+};
 const mockPutDetails = {
   serialNumber: "1:22:333:4444",
   displayName: mockEvent.displayName
@@ -32,7 +32,10 @@ describe("DeviceNameDetail", () => {
 
   beforeEach(() => {
     wrapper = Enzyme.shallow(
-      <DeviceNameDetail deviceName="Test Device" deviceId={mockPutDetails.serialNumber} />
+      <DeviceNameDetail
+        deviceName="Test Device"
+        deviceId={mockPutDetails.serialNumber}
+      />
     );
   });
   afterEach(() => {
@@ -100,7 +103,7 @@ describe("DeviceNameDetail", () => {
       const { location } = window;
       const event = {
         preventDefault: jest.fn()
-      }
+      };
       beforeEach(() => {
         delete window.location;
         window.location = { reload: jest.fn() };
@@ -114,14 +117,21 @@ describe("DeviceNameDetail", () => {
         const axiosPromise = Promise.resolve();
         axios.put.mockImplementationOnce(() => axiosPromise);
 
+        // simulate  changing the name
+        const nameInput = wrapper.find("#deviceName");
+        nameInput.simulate("focus");
+        nameInput.simulate("change", {
+          target: { value: mockPutDetails.displayName }
+        });
+
         // click confirm
-        wrapper.find(".deviceNameEditForm").simulate("submit", {mockEvent, preventDefault() {}});
+        wrapper.find(".deviceNameEditForm").simulate("submit", event);
 
         // check call is correct
-        expect(axios.put).toHaveBeenCalledWith(
-          mockPutDetails.serialNumber,
-          mockPutDetails.displayName
-        );
+        expect(axios.put).toHaveBeenCalledWith(process.env.REACT_APP_DEVICE, {
+          serialNumber: mockPutDetails.serialNumber,
+          displayName: mockPutDetails.displayName
+        });
 
         // wait for flush
         await flushPromises();
