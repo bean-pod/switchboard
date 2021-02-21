@@ -112,7 +112,7 @@ describe("DeviceNameDetail", () => {
         window.location = location;
       });
 
-      it("Should call the device API, refresh page, and set state to not editing when clicked", async () => {
+      it("Should call the device API, set state to not editing when clicked, and show new name in title area", async () => {
         // mock axios before clicking confirm
         const axiosPromise = Promise.resolve();
         axios.put.mockImplementationOnce(() => axiosPromise);
@@ -138,6 +138,10 @@ describe("DeviceNameDetail", () => {
 
         // finally, check state
         expect(wrapper.state("editing")).toBe(false);
+
+        // check that new name is there
+        const title = wrapper.find("div.title").first()
+        expect(title.text()).toBe("New Name");
       });
     });
   });
