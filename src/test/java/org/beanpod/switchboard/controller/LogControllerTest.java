@@ -72,7 +72,6 @@ class LogControllerTest {
 
     ResponseEntity<LogModel> responseEntity = logController
         .createLog(LogFixture.getCreateLogRequest());
-    System.out.println(responseEntity.getBody());
 
     assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     assertEquals(logModel, responseEntity.getBody());
