@@ -136,9 +136,6 @@ describe("DeviceNameDetail", () => {
         // wait for flush
         await flushPromises();
 
-        // check redirect
-        expect(window.location.reload).toHaveBeenCalled();
-
         // finally, check state
         expect(wrapper.state("editing")).toBe(false);
       });

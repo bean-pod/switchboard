@@ -104,7 +104,7 @@ export function deleteDevice(deviceId) {
     .catch(() => {});
 }
 
-export function updateDeviceName(deviceId, updatedName, callback) {
+export async function updateDeviceName(deviceId, updatedName) {
   return axios
     .put(process.env.REACT_APP_DEVICE, {
       serialNumber: deviceId,
