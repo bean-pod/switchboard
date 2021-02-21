@@ -36,20 +36,21 @@ export default class DeviceNameDetail extends React.Component {
   confirmEditing(event) {
     // api call
     event.preventDefault();
-    const updatedName = this.state.name;
-    DeviceApi.updateDeviceName(this.deviceId, updatedName).then(() => {
+    const { name } = this.state;
+    DeviceApi.updateDeviceName(this.deviceId, name).then(() => {
       // check response OK to update deviceName
-      this.deviceName = updatedName;
+      this.deviceName = name;
     });
 
     this.setState({ editing: false });
   }
 
   renderStaticName() {
+    const { name } = this.state;
     return (
       <>
         <Box className="flexContents">
-          <div className="title">{this.state.name}</div>
+          <div className="title">{name}</div>
           <Box padding={4} paddingLeft={1} paddingBottom={0}>
             <Button>
               <EditIcon id="editBtn" color="action" onClick={this.startEdit} />
@@ -101,10 +102,11 @@ export default class DeviceNameDetail extends React.Component {
   }
 
   render() {
+    const { editing } = this.state;
     return (
       <>
         <div>
-          {this.state.editing ? this.renderEditName() : this.renderStaticName()}
+          {editing ? this.renderEditName() : this.renderStaticName()}
         </div>
       </>
     );
