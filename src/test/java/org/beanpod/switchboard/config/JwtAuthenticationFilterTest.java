@@ -17,9 +17,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 
-public class JWTAuthenticationFilterTest {
+public class JwtAuthenticationFilterTest {
 
-  public JWTAuthenticationFilter jwtAuthenticationFilter;
+  public JwtAuthenticationFilter jwtAuthenticationFilter;
   @Mock public AuthenticationManager authenticationManager;
   @Mock public SecurityProperties securityProperties;
   @Mock public HttpServletRequest httpServletRequest;
@@ -32,7 +32,7 @@ public class JWTAuthenticationFilterTest {
     initMocks(this);
     when(securityProperties.getAuthenticationUrl()).thenReturn("/login");
     jwtAuthenticationFilter =
-        new JWTAuthenticationFilter(authenticationManager, securityProperties);
+        new JwtAuthenticationFilter(authenticationManager, securityProperties);
   }
 
   @Test
@@ -65,8 +65,7 @@ public class JWTAuthenticationFilterTest {
 
     assertThrows(
         CouldNotAuthenticateUserException.class,
-        () -> {
-          jwtAuthenticationFilter.attemptAuthentication(httpServletRequest, httpServletResponse);
-        });
+        () -> jwtAuthenticationFilter.attemptAuthentication(httpServletRequest, httpServletResponse)
+    );
   }
 }

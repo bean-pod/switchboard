@@ -9,13 +9,13 @@ import org.springframework.stereotype.Component;
 public class SecurityProperties {
 
   @Value("${security.authentication.jwt.expirationtime}")
-  private final long expirationTime = 86_400_000; // 1 day
+  private long expirationTime = 86_400_000; // 1 day
 
   @Value("${security.authentication.jwt.secret}")
   private String secret;
 
   @Value("${security.authentication.url}")
-  private final String authenticationUrl = "/login";
+  private String authenticationUrl = "/login";
 
   @Value("${security.authentication.superuser.username}")
   private String superuserUsername;

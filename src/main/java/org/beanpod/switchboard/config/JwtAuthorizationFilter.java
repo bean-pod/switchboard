@@ -17,11 +17,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
-public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
+public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
   private final SecurityProperties securityProperties;
 
-  public JWTAuthorizationFilter(
+  public JwtAuthorizationFilter(
       AuthenticationManager authenticationManager, SecurityProperties securityProperties) {
     super(authenticationManager);
     this.securityProperties = securityProperties;

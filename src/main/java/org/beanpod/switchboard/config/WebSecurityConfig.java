@@ -29,6 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   private final SecurityProperties securityProperties;
 
+  @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.cors()
         .and()
@@ -43,8 +44,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .anyRequest()
         .authenticated()
         .and()
-        .addFilter(new JWTAuthenticationFilter(authenticationManagerBean(), securityProperties))
-        .addFilter(new JWTAuthorizationFilter(authenticationManagerBean(), securityProperties));
+        .addFilter(new JwtAuthenticationFilter(authenticationManagerBean(), securityProperties))
+        .addFilter(new JwtAuthorizationFilter(authenticationManagerBean(), securityProperties));
   }
 
   @Autowired

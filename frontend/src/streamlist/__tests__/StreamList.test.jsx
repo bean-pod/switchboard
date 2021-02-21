@@ -170,7 +170,9 @@ test("Clicking 'Confirm' should call axios.delete with the correct stream ID", a
   });
 
   axios.delete.mockImplementationOnce(() => Promise.resolve());
-  authenticationUtil.getAuthorizationHeader = jest.fn().mockReturnValue(authorizationHeader)
+  authenticationUtil.getAuthorizationHeader = jest
+    .fn()
+    .mockReturnValue(authorizationHeader)
 
   // get dialog
   clickDelete();
@@ -191,8 +193,7 @@ test("Clicking 'Confirm' should call axios.delete with the correct stream ID", a
 
   // expect axios.delete to have been called
   expect(axios.delete).toHaveBeenCalledWith(
-    `${process.env.REACT_APP_STREAM}/1`,
-      authorizationHeader
+    `${process.env.REACT_APP_STREAM}/1`, authorizationHeader
   );
 
   expect(mockHistoryPush).toHaveBeenCalledWith("/Streaming");

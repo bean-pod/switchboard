@@ -20,12 +20,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
   private final AuthenticationManager authenticationManager;
   private final SecurityProperties securityProperties;
 
-  public JWTAuthenticationFilter(
+  public JwtAuthenticationFilter(
       AuthenticationManager authenticationManager, SecurityProperties securityProperties) {
     this.authenticationManager = authenticationManager;
     this.securityProperties = securityProperties;
