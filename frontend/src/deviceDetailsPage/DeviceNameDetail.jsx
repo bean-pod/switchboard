@@ -105,9 +105,7 @@ export default class DeviceNameDetail extends React.Component {
     const { editing } = this.state;
     return (
       <>
-        <div>
-          {editing ? this.renderEditName() : this.renderStaticName()}
-        </div>
+        <div>{editing ? this.renderEditName() : this.renderStaticName()}</div>
       </>
     );
   }
