@@ -1,9 +1,9 @@
 import React from "react";
-import {render, unmountComponentAtNode} from "react-dom";
-import ReactTestUtils, {act} from "react-dom/test-utils";
-import {afterEach, beforeEach, expect, jest, test} from "@jest/globals";
+import { render, unmountComponentAtNode } from "react-dom";
+import ReactTestUtils, { act } from "react-dom/test-utils";
+import { afterEach, beforeEach, expect, jest, test } from "@jest/globals";
 import axios from "axios";
-import {waitForElementToBeRemoved} from "@testing-library/react";
+import { waitForElementToBeRemoved } from "@testing-library/react";
 import StreamList from "../StreamList";
 import * as SampleData from "../../api/SampleData";
 import * as authenticationUtil from "../../api/AuthenticationUtil";
@@ -172,7 +172,7 @@ test("Clicking 'Confirm' should call axios.delete with the correct stream ID", a
   axios.delete.mockImplementationOnce(() => Promise.resolve());
   authenticationUtil.getAuthorizationHeader = jest
     .fn()
-    .mockReturnValue(authorizationHeader)
+    .mockReturnValue(authorizationHeader);
 
   // get dialog
   clickDelete();
@@ -193,7 +193,8 @@ test("Clicking 'Confirm' should call axios.delete with the correct stream ID", a
 
   // expect axios.delete to have been called
   expect(axios.delete).toHaveBeenCalledWith(
-    `${process.env.REACT_APP_STREAM}/1`, authorizationHeader
+    `${process.env.REACT_APP_STREAM}/1`,
+    authorizationHeader
   );
 
   expect(mockHistoryPush).toHaveBeenCalledWith("/Streaming");
