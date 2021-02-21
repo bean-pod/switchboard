@@ -1,5 +1,5 @@
 import axios from "axios";
-import {saveToken} from "./AuthenticationUtil";
+import { saveToken } from "./AuthenticationUtil";
 
 export const unknownErrorMessage =
   "An unknown error occurred. Please try again later.";

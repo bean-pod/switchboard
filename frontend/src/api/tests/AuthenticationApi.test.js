@@ -1,6 +1,6 @@
-import {afterEach, describe, expect, jest} from "@jest/globals";
+import { afterEach, describe, expect, jest } from "@jest/globals";
 import axios from "axios";
-import {saveToken} from "../AuthenticationUtil";
+import { saveToken } from "../AuthenticationUtil";
 import * as AuthenticationApi from "../AuthenticationApi";
 
 jest.mock("axios");

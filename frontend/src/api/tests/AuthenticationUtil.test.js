@@ -1,5 +1,5 @@
-import {afterEach, describe} from "@jest/globals";
-import {getAuthorizationHeader, saveToken} from "../AuthenticationUtil";
+import { afterEach, describe } from "@jest/globals";
+import { getAuthorizationHeader, saveToken } from "../AuthenticationUtil";
 
 describe("AuthenticationUtil", () => {
   afterEach(() => {

@@ -3,7 +3,7 @@ import DeviceInfo from "../model/DeviceInfo";
 import * as SampleData from "./SampleData";
 import OutputChannelInfo from "../model/OutputChannelInfo";
 import InputChannelInfo from "../model/InputChannelInfo";
-import {getAuthorizationHeader} from "./AuthenticationUtil";
+import { getAuthorizationHeader } from "./AuthenticationUtil";
 
 function getStatus(lastCommunicationString) {
   if (!lastCommunicationString) {

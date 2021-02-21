@@ -1,5 +1,5 @@
 import axios from "axios";
-import {jest} from "@jest/globals";
+import { jest } from "@jest/globals";
 import * as DeviceApi from "../DeviceApi";
 import * as DeviceFixture from "./DeviceFixture";
 import * as authenticationUtil from "../AuthenticationUtil";

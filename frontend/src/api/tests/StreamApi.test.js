@@ -1,7 +1,7 @@
 import axios from "axios";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import {afterEach, describe, expect, it, jest} from "@jest/globals";
+import { afterEach, describe, expect, it, jest } from "@jest/globals";
 import * as authenticationUtil from "../AuthenticationUtil";
 // import StreamApi itself
 import * as StreamApi from "../StreamApi";
