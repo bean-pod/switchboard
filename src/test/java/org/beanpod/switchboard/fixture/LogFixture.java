@@ -19,7 +19,11 @@ public class LogFixture {
   public static final String level = "info";
 
   public static LogModel getLogModel() {
-    return new LogModel().id(id).dateTime(dateTime).message(message).level(level)
+    return new LogModel()
+        .id(id)
+        .dateTime(dateTime)
+        .message(message)
+        .level(level)
         .serialNumber(DeviceFixture.SERIAL_NUMBER);
   }
 

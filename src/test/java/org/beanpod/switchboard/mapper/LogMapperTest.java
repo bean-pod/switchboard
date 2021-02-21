@@ -39,7 +39,8 @@ public class LogMapperTest {
       OffsetDateTime offsetDateTime = logMapper.map(validDateTime);
       Assertions.fail("Expected exception to be thrown");
     } catch (DateTimeParseException e) {
-      assertThat(e).isInstanceOf(DateTimeParseException.class)
+      assertThat(e)
+          .isInstanceOf(DateTimeParseException.class)
           .hasMessage("Text '2017-05-12 05:45+00:00' could not be parsed at index 10");
     }
   }

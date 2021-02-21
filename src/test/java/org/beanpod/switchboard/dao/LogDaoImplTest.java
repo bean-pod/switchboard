@@ -26,12 +26,9 @@ class LogDaoImplTest {
   public static LogDto logDto;
   public static LogEntity logEntity;
 
-  @InjectMocks
-  LogDaoImpl logDao;
-  @Mock
-  LogRepository logRepository;
-  @Mock
-  LogMapper logMapper;
+  @InjectMocks LogDaoImpl logDao;
+  @Mock LogRepository logRepository;
+  @Mock LogMapper logMapper;
 
   @BeforeEach
   void setupLogFixture() {

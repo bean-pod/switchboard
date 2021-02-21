@@ -26,12 +26,9 @@ class LogControllerTest {
   private static LogModel logModel;
   private static LogDto logDto;
   private static LogEntity logEntity;
-  @InjectMocks
-  private LogController logController;
-  @Mock
-  private LogDaoImpl logDao;
-  @Mock
-  private LogMapper logMapper;
+  @InjectMocks private LogController logController;
+  @Mock private LogDaoImpl logDao;
+  @Mock private LogMapper logMapper;
 
   @BeforeEach
   void setupLogFixture() {
@@ -39,7 +36,6 @@ class LogControllerTest {
     logModel = LogFixture.getLogModel();
     logDto = LogFixture.getLogDto();
     logEntity = LogFixture.getLogEntity();
-
   }
 
   @BeforeEach
@@ -70,8 +66,8 @@ class LogControllerTest {
     when(logMapper.toLogModel(any())).thenReturn(logModel);
     when(logMapper.toLogEntity(any())).thenReturn(logEntity);
 
-    ResponseEntity<LogModel> responseEntity = logController
-        .createLog(LogFixture.getCreateLogRequest());
+    ResponseEntity<LogModel> responseEntity =
+        logController.createLog(LogFixture.getCreateLogRequest());
 
     assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     assertEquals(logModel, responseEntity.getBody());
