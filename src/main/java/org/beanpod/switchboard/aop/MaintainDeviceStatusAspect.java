@@ -22,7 +22,7 @@ public class MaintainDeviceStatusAspect {
               + ".maintainStatusField(org.beanpod.switchboard.dto.StreamDto))",
       returning = "updatedDevices")
   public void createLogStream(List<DeviceEntity> updatedDevices) {
-    createLogHelper(updatedDevices);
+    createLog(updatedDevices);
   }
 
   @AfterReturning(
@@ -31,11 +31,11 @@ public class MaintainDeviceStatusAspect {
               + ".maintainStatusField(java.util.List))",
       returning = "updatedDevices")
   public void createLogEncoderAndDecoder(List<DeviceEntity> updatedDevices) {
-    createLogHelper(updatedDevices);
+    createLog(updatedDevices);
   }
 
   // helper method to create logs
-  private void createLogHelper(List<DeviceEntity> updatedDevices) {
+  private void createLog(List<DeviceEntity> updatedDevices) {
     if (!updatedDevices.isEmpty()) {
       for (DeviceEntity device : updatedDevices) {
         String message = "Device " + device.getSerialNumber() + " has changed status to " + device.getStatus();
