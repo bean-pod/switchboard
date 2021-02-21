@@ -92,7 +92,7 @@ export default class DeviceNameDetail extends React.Component {
                 variant="contained"
                 disableElevation
               >
-                Save Changes
+                Save
               </Button>
             </Box>
           </Box>
