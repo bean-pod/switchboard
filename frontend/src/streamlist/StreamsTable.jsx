@@ -39,7 +39,9 @@ function getColumnInfo() {
     {
       title: "Status",
       field: "status",
-      render: (rowData) => <StatusIndicator status={rowData.status} />
+      render: function Status(rowData) {
+        return <StatusIndicator status={rowData.status} />;
+      }
     },
     {
       title: "Type",
@@ -54,7 +56,9 @@ function getColumnInfo() {
       field: "action",
       filtering: false,
       sorting: false,
-      render: (rowData) => <DeleteStream deleteId={rowData.id} />,
+      render: function Actions(rowData) {
+        return <DeleteStream deleteId={rowData.id} />;
+      },
       align: "center",
       export: false
     }
@@ -67,10 +71,10 @@ function getDetailPanel() {
       icon: ExpandMore,
       openIcon: ExpandLess,
       tooltip: "Show Stream Details",
-      render: () => {
+      render: function DetailPanel(rowData) {
         return (
           <div className="lightestGrey">
-            <Typography variant="h6">Additional stream details</Typography>
+            <Typography variant="h6">{rowData.extras}</Typography>
           </div>
         );
       }
@@ -85,7 +89,6 @@ function getOptions() {
       backgroundColor: "#f1f1f1",
       fontWeight: "bold"
     },
-    actionsColumnIndex: -1,
     filtering: false,
     draggable: false
   };
@@ -101,25 +104,28 @@ function getIcons() {
   };
 }
 
-export default class StreamsTable extends React.Component {
-  render() {
-    const { streams } = this.props;
-    return (
-      <>
-        <Box>
-          <TableContainer>
-            <MaterialTable
-              columns={getColumnInfo()}
-              data={streams}
-              detailPanel={getDetailPanel()}
-              options={getOptions()}
-              icons={getIcons()}
-            />
-          </TableContainer>
-        </Box>
-      </>
-    );
-  }
+export default function StreamsTable(props) {
+  const { streams } = props;
+  return (
+    <>
+      <Box>
+        <TableContainer>
+          <MaterialTable
+            columns={getColumnInfo()}
+            data={streams}
+            detailPanel={getDetailPanel()}
+            options={getOptions()}
+            icons={getIcons()}
+          />
+        </TableContainer>
+        <div className="textAlignRightPadded">
+          {"Time Zone: ".concat(
+            Intl.DateTimeFormat().resolvedOptions().timeZone
+          )}
+        </div>
+      </Box>
+    </>
+  );
 }
 
 StreamsTable.propTypes = {

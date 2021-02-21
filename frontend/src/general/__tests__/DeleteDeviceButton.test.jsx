@@ -13,7 +13,7 @@ import Adapter from "enzyme-adapter-react-16";
 import { afterEach, describe, expect, jest, it } from "@jest/globals";
 import axios from "axios";
 
-import DeleteDeviceButton from "../DeleteDeviceButton";
+import DeleteDeviceButton from "../Buttons/DeleteDeviceButton";
 
 Enzyme.configure({ adapter: new Adapter() });
 jest.mock("axios");
@@ -64,12 +64,9 @@ describe("DeleteButton", () => {
     expect(wrapper.find(Dialog)).toHaveLength(1);
   });
   it("Should open a confirmation dialog when clicked", () => {
-    // check that open is false to begin with
-    expect(setOpen).toBeFalsy;
-
     // click delete button and check that dialog state is open
     wrapper.find("#deleteBtn").simulate("click");
-    expect(setOpen).toBeTruthy;
+    expect(setOpen).toHaveBeenCalledWith(true);
   });
 
   describe("Delete device dialog", () => {
@@ -83,13 +80,13 @@ describe("DeleteButton", () => {
       it("Should close the dialog when clicked", () => {
         // click delete button to set open to true
         wrapper.find("#deleteBtn").simulate("click");
-        expect(setOpen).toBeTruthy;
+        expect(setOpen).toHaveBeenCalledWith(true);
 
         // click cancel
         wrapper.find("#cancelDeleteBtn").simulate("click");
 
         // open should be false now
-        expect(setOpen).toBeFalsy;
+        expect(setOpen).toHaveBeenCalledWith(false);
       });
     });
 
@@ -101,7 +98,7 @@ describe("DeleteButton", () => {
 
           // click the delete button to set open to true
           wrapper.find("#deleteBtn").simulate("click");
-          expect(setOpen).toBeTruthy;
+          expect(setOpen).toHaveBeenCalledWith(true);
 
           // mock axios before clicking confirm
           const axiosPromise = Promise.resolve();
@@ -120,7 +117,7 @@ describe("DeleteButton", () => {
           expect(mockHistoryGo).toHaveBeenCalledWith(0);
 
           // open should be false
-          expect(setOpen).toBeFalsy;
+          expect(setOpen).toHaveBeenCalledWith(false);
         });
       });
 
@@ -131,7 +128,7 @@ describe("DeleteButton", () => {
 
           // click the delete button to set open to true
           wrapper.find("#deleteBtn").simulate("click");
-          expect(setOpen).toBeTruthy;
+          expect(setOpen).toHaveBeenCalledWith(true);
 
           // mock axios before clicking confirm
           const axiosPromise = Promise.resolve();
@@ -150,7 +147,7 @@ describe("DeleteButton", () => {
           expect(mockHistoryPush).toHaveBeenCalledWith("/Devices");
 
           // open should be false
-          expect(setOpen).toBeFalsy;
+          expect(setOpen).toHaveBeenCalledWith(false);
         });
       });
     });

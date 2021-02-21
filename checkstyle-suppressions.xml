@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!DOCTYPE suppressions PUBLIC
+  "-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
+  "https://checkstyle.org/dtds/suppressions_1_2.dtd">
+<suppressions>
+  <!--
+    directs a SuppressionFilter to reject
+    'Missing a Javadoc comment' violations for all lines and files
+   -->
+  <suppress message="Missing a Javadoc comment"/>
+</suppressions>

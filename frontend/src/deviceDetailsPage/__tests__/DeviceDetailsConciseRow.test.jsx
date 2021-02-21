@@ -120,21 +120,6 @@ describe("DeviceDetailsConciseRow class", () => {
       );
       expect(wrapper.find(TableContainer)).toHaveLength(1);
     });
-    it("Throws an error when using value that is not an array of ChannelInfo objects", () => {
-      const dummyValue = "badValue";
-      wrapper = Enzyme.shallow(
-        <DeviceDetailsConciseRow name="Test_Name" value={dummyValue} />
-      );
-      expect(console.error).toHaveBeenCalled();
-    });
-    it("Throws an error when using name that is not a string", () => {
-      const dummyValue = [];
-      const badName = 2;
-      wrapper = Enzyme.shallow(
-        <DeviceDetailsConciseRow name={badName} value={dummyValue} />
-      );
-      expect(console.error).toHaveBeenCalled();
-    });
   });
   describe("createTableCellContents()", () => {
     it('should create a StatusIndicator component when passed "status"', () => {
