@@ -140,7 +140,7 @@ describe("DeviceNameDetail", () => {
         expect(wrapper.state("editing")).toBe(false);
 
         // check that new name is there
-        const title = wrapper.find("div.title").first()
+        const title = wrapper.find("div.title").first();
         expect(title.text()).toBe("New Name");
       });
     });
