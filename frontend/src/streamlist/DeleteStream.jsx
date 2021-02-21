@@ -67,5 +67,5 @@ export default function DeleteStream(props) {
 }
 
 DeleteStream.propTypes = {
-  deleteId: PropTypes.objectOf(PropTypes.number).isRequired
+  deleteId: PropTypes.number.isRequired
 };

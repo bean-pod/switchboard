@@ -13,7 +13,6 @@ import SelectDeviceTableRow from "../SelectDeviceTableRow";
 
 let container = null;
 let sampleSenders = null;
-let sampleReceivers = null;
 
 beforeEach(() => {
   container = document.createElement("div");
@@ -22,9 +21,6 @@ beforeEach(() => {
   // Get sample data for the purpose of asserting
   SampleData.getSenders((senders) => {
     sampleSenders = senders;
-  });
-  SampleData.getReceivers((receivers) => {
-    sampleReceivers = receivers;
   });
 });
 

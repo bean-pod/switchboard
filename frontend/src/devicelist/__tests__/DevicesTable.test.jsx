@@ -34,36 +34,15 @@ describe("<DevicesTable/> component", () => {
     it("contains one Box component", () => {
       expect(wrapper.find(Box)).toHaveLength(1);
     });
-    it("contains one TableContainer component", () => {
+    it("contains one TableContainer component and has maxHeight of 570", () => {
       expect(wrapper.find(TableContainer)).toHaveLength(1);
+      expect(wrapper.find(TableContainer).prop("style")).toHaveProperty(
+        "maxHeight",
+        570
+      );
     });
     it("contains one MaterialTable component", () => {
       expect(wrapper.find(MaterialTable)).toHaveLength(1);
-    });
-  });
-  describe("Props validation", () => {
-    /*  eslint-disable no-console */
-    const validTitle = "TEST TITLE";
-    const validDevices = [];
-    it("Does not log error if inputs are valid", () => {
-      wrapper = Enzyme.shallow(
-        <DevicesTable title={validTitle} devices={validDevices} />
-      );
-      expect(console.error).not.toHaveBeenCalled();
-    });
-    it("logs an error if title is a string", () => {
-      const notAString = 47384;
-      wrapper = Enzyme.shallow(
-        <DevicesTable title={notAString} devices={validDevices} />
-      );
-      expect(console.error).toHaveBeenCalled();
-    });
-    it("logs an error if devices is not an array of DeviceInfo objects", () => {
-      const notAnArrayOfDeviceInfo = 47384;
-      wrapper = Enzyme.shallow(
-        <DevicesTable title={validTitle} devices={notAnArrayOfDeviceInfo} />
-      );
-      expect(console.error).toHaveBeenCalled();
     });
   });
 });

@@ -1,5 +1,10 @@
 package org.beanpod.switchboard.dao;
 
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
+import java.util.List;
 import org.beanpod.switchboard.dto.mapper.LogMapper;
 import org.beanpod.switchboard.entity.LogEntity;
 import org.beanpod.switchboard.fixture.DeviceFixture;
@@ -11,12 +16,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.openapitools.model.LogModel;
-
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertIterableEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 
 class LogDaoImplTest {
   public static List<LogModel> logModels;

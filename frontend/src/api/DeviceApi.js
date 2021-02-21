@@ -53,7 +53,7 @@ export function getSenders(callback) {
         })
       );
     })
-    .catch((error) => {
+    .catch(() => {
       SampleData.getSenders(callback);
     });
 }
@@ -93,7 +93,7 @@ export function getReceivers(callback) {
         })
       );
     })
-    .catch((error) => {
+    .catch(() => {
       SampleData.getReceivers(callback);
     });
 }

@@ -5,25 +5,23 @@ import { NavLink } from "react-router-dom";
 import StreamButton from "../general/Buttons/StreamButton";
 import AddDeviceButton from "../general/Buttons/AddDeviceButton";
 
-export default class TitleBox extends React.Component {
-  render() {
-    return (
-      <>
-        <Box className="flexContents headerAreaNoUnderline">
-          <div className="title">My Devices</div>
-          <div className="alignRightFloat">
-            <NavLink
-              to="/Streaming"
-              activeClassName="hideLinkStyle"
-              className="hideLinkStyle"
-              exact
-            >
-              <StreamButton id="DeviceListStreamBtn" type="submit" />
-            </NavLink>
-            <AddDeviceButton id="DeviceListAddDevBtn" />
-          </div>
-        </Box>
-      </>
-    );
-  }
+export default function TitleBox() {
+  return (
+    <>
+      <Box className="flexContents headerAreaNoUnderline">
+        <div className="title">My Devices</div>
+        <div className="alignRightFloat">
+          <NavLink
+            to="/Streaming"
+            activeClassName="hideLinkStyle"
+            className="hideLinkStyle"
+            exact
+          >
+            <StreamButton id="DeviceListStreamBtn" type="submit" />
+          </NavLink>
+          <AddDeviceButton id="DeviceListAddDevBtn" />
+        </div>
+      </Box>
+    </>
+  );
 }
