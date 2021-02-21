@@ -29,6 +29,7 @@ export default class DeviceNameDetail extends React.Component {
   }
 
   cancelEditing() {
+    this.setState({ name: this.deviceName });
     this.setState({ editing: false });
   }
 
@@ -41,8 +42,6 @@ export default class DeviceNameDetail extends React.Component {
       this.deviceName = updatedName;
     });
 
-    // refresh
-    // window.location.reload();
     this.setState({ editing: false });
   }
 
