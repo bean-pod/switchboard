@@ -35,7 +35,7 @@ public class MaintainDeviceStatus {
 
     for (int i = 0; i < devices.size(); i++) {
       T encoderOrDecoder = devices.get(i);
-      if(encoderOrDecoder.getLastCommunication() == null) {
+      if (encoderOrDecoder.getLastCommunication() == null) {
         continue;
       }
       // if device is online but has not communicated in 10 minutes
