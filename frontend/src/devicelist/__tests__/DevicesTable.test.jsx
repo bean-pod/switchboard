@@ -34,8 +34,12 @@ describe("<DevicesTable/> component", () => {
     it("contains one Box component", () => {
       expect(wrapper.find(Box)).toHaveLength(1);
     });
-    it("contains one TableContainer component", () => {
+    it("contains one TableContainer component and has maxHeight of 570", () => {
       expect(wrapper.find(TableContainer)).toHaveLength(1);
+      expect(wrapper.find(TableContainer).prop("style")).toHaveProperty(
+        "maxHeight",
+        570
+      );
     });
     it("contains one MaterialTable component", () => {
       expect(wrapper.find(MaterialTable)).toHaveLength(1);

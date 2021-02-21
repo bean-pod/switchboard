@@ -9,7 +9,9 @@ export default function HomePage() {
         breadcrumbs={[
           ["Home", ""],
           ["My Devices", "Devices"],
-          ["Streaming", "Streaming"]
+          ["Streaming", "Streaming"],
+          ["Logs", "Logs"],
+          ["Login", "Login"]
         ]}
       />
     </Container>

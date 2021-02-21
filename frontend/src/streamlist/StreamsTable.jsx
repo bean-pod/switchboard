@@ -71,10 +71,10 @@ function getDetailPanel() {
       icon: ExpandMore,
       openIcon: ExpandLess,
       tooltip: "Show Stream Details",
-      render: function DetailPanel() {
+      render: function DetailPanel(rowData) {
         return (
           <div className="lightestGrey">
-            <Typography variant="h6">Additional stream details</Typography>
+            <Typography variant="h6">{rowData.extras}</Typography>
           </div>
         );
       }
@@ -89,7 +89,6 @@ function getOptions() {
       backgroundColor: "#f1f1f1",
       fontWeight: "bold"
     },
-    actionsColumnIndex: -1,
     filtering: false,
     draggable: false
   };
@@ -119,6 +118,11 @@ export default function StreamsTable(props) {
             icons={getIcons()}
           />
         </TableContainer>
+        <div className="textAlignRightPadded">
+          {"Time Zone: ".concat(
+            Intl.DateTimeFormat().resolvedOptions().timeZone
+          )}
+        </div>
       </Box>
     </>
   );

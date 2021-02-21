@@ -7,6 +7,7 @@ import HomePage from "./general/HomePage";
 import DeviceListPage from "./devicelist/DeviceListPage";
 import StreamingTablePage from "./createStream/StreamingPage";
 import DeviceDetailsPage from "./deviceDetailsPage/DeviceDetailsPage";
+import LogListPage from "./loglist/LogListPage";
 import LoginPage from "./login/LoginPage";
 
 import * as DeviceApi from "./api/DeviceApi";
@@ -41,6 +42,7 @@ ReactDOM.render(
           path="/Devices/Details/:deviceId"
           component={DeviceDetailsPage}
         />
+        <Route exact path="/Logs" component={LogListPage} />
         <Route exact path="/Login" component={LoginPage} />
       </Switch>
     </BrowserRouter>
