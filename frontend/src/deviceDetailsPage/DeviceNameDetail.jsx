@@ -36,7 +36,11 @@ export default class DeviceNameDetail extends React.Component {
     // api call
     event.preventDefault();
     const updatedName = this.state.name;
-    DeviceApi.updateDeviceName(this.deviceId, updatedName);
+    DeviceApi.updateDeviceName(this.deviceId, updatedName).then(() => {
+      // check response OK to update deviceName
+      this.deviceName = updatedName;
+    });
+
     // refresh
     // window.location.reload();
     this.setState({ editing: false });
@@ -46,7 +50,7 @@ export default class DeviceNameDetail extends React.Component {
     return (
       <>
         <Box className="flexContents">
-          <div className="title">{this.deviceName}</div>
+          <div className="title">{this.state.name}</div>
           <Box padding={4} paddingLeft={1} paddingBottom={0}>
             <Button>
               <EditIcon id="editBtn" color="action" onClick={this.startEdit} />
