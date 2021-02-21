@@ -1,9 +1,14 @@
 package org.beanpod.switchboard.dao;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.beanpod.switchboard.dto.EncoderDto;
+import org.beanpod.switchboard.dto.LogDto;
 import org.beanpod.switchboard.dto.mapper.LogMapper;
 import org.beanpod.switchboard.repository.LogRepository;
+import org.openapitools.model.CreateLogRequest;
 import org.openapitools.model.LogModel;
 import org.springframework.stereotype.Component;
 
@@ -20,5 +25,9 @@ public class LogDaoImpl {
 
   public List<LogModel> getDeviceLogs(String serialNumber) {
     return logMapper.toLogModels(logRepository.findBySerialNumber(serialNumber));
+  }
+
+  public LogDto createLog(LogDto logDto){
+    return logMapper.toLogDto1(logRepository.save(logMapper.toLogEntity(logDto)));
   }
 }
