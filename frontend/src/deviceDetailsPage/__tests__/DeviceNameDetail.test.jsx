@@ -112,7 +112,7 @@ describe("DeviceNameDetail", () => {
         window.location = location;
       });
 
-      it.only("Should call the device API, refresh page, and set state to not editing when clicked", async () => {
+      it("Should call the device API, refresh page, and set state to not editing when clicked", async () => {
         // mock axios before clicking confirm
         const axiosPromise = Promise.resolve();
         axios.put.mockImplementationOnce(() => axiosPromise);

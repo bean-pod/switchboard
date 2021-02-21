@@ -35,7 +35,7 @@ export default class DeviceNameDetail extends React.Component {
   confirmEditing(event) {
     // api call
     event.preventDefault();
-    const { updatedName } = this.state.name;
+    const updatedName = this.state.name;
     DeviceApi.updateDeviceName(this.deviceId, updatedName);
     // refresh
     window.location.reload();
