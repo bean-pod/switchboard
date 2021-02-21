@@ -2,17 +2,11 @@ import React from "react";
 import { render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
 import { BrowserRouter } from "react-router-dom";
-import { makeStyles } from "@material-ui/core";
 
 import { afterEach, beforeEach, expect, test } from "@jest/globals";
 import HeaderBar from "../general/HeaderBar";
 
 let container = null;
-const expectedTheme = makeStyles((theme) => ({
-  menuButton: {
-    marginRight: theme.spacing(2)
-  }
-}));
 
 beforeEach(() => {
   container = document.createElement("div");

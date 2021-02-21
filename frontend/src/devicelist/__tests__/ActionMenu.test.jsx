@@ -19,7 +19,17 @@ describe("<ActionMenu />", () => {
   let testElement;
 
   beforeEach(() => {
-    const dummyDevice = new DeviceInfo(1, 1, 1, 1, 1, [1, 1], [2, 2]);
+    const dummyDevice = new DeviceInfo(
+      "1:10:111:999",
+      "2020-11-25 20:48:03",
+      "175.214.12.96",
+      "123:456",
+      "Sender 1",
+      "Online",
+      null,
+      "encoder",
+      null
+    );
     wrapper = Enzyme.shallow(<ActionMenu device={dummyDevice} />);
   });
   afterEach(() => {

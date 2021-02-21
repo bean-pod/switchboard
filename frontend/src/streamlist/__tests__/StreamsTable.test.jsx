@@ -37,20 +37,16 @@ describe("<StreamsTable/> component", () => {
     it("contains one MaterialTable component", () => {
       expect(wrapper.find(MaterialTable)).toHaveLength(1);
     });
-  });
-  describe("Props validation", () => {
-    /*  eslint-disable no-console */
-    const validStreams = [];
-    it("Does not log error if inputs are valid", () => {
-      wrapper = Enzyme.shallow(<StreamsTable streamDetails={validStreams} />);
-      expect(console.error).not.toHaveBeenCalled();
-    });
-    it("logs an error if streams is not an array of StreamInfo objects", () => {
-      const notAnArrayOfStreamInfo = 47384;
-      wrapper = Enzyme.shallow(
-        <StreamsTable streams={notAnArrayOfStreamInfo} />
-      );
-      expect(console.error).toHaveBeenCalled();
+    it("contains one Time zone indicator text box", () => {
+      expect(
+        wrapper
+          .text()
+          .includes(
+            "Time Zone: ".concat(
+              Intl.DateTimeFormat().resolvedOptions().timeZone
+            )
+          )
+      ).toBe(true);
     });
   });
 });

@@ -3,6 +3,7 @@ import { render, unmountComponentAtNode } from "react-dom";
 import ReactTestUtils, { act } from "react-dom/test-utils";
 import { afterEach, beforeEach, expect, test, jest } from "@jest/globals";
 import axios from "axios";
+import { waitForElementToBeRemoved } from "@testing-library/react";
 import StreamList from "../StreamList";
 import * as SampleData from "../../api/SampleData";
 
@@ -93,7 +94,6 @@ test("Additional stream information is displayed when dropdown is clicked", () =
     "tr.MuiTableRow-root td.MuiTableCell-root[colspan] h6"
   );
   expect(additionalInfoElement).not.toBe(null);
-  expect(additionalInfoElement.innerHTML).toBe("Additional stream details");
 });
 
 function clickDelete() {
@@ -133,7 +133,7 @@ test("Clicking the delete button shows appropriate popup dialog", () => {
   expect(dialogButtons[1].textContent).toBe("Delete");
 });
 
-test("Clicking outside the dialog or 'Cancel' should close the dialog", () => {
+test("Clicking outside the dialog or 'Cancel' should close the dialog", async () => {
   act(() => {
     render(<StreamList dataSource={SampleData} />, container);
   });
@@ -148,9 +148,13 @@ test("Clicking outside the dialog or 'Cancel' should close the dialog", () => {
     ReactTestUtils.Simulate.click(cancelButton);
   });
 
+  await waitForElementToBeRemoved(() =>
+    document.getElementById("delete-stream-dialog")
+  );
+
   // try to get dialog and find it is null
   const dialog = document.getElementById("delete-stream-dialog");
-  expect(dialog).toBeNull;
+  expect(dialog).toBeNull();
 });
 
 test("Clicking 'Confirm' should call axios.delete with the correct stream ID", async () => {
@@ -171,16 +175,17 @@ test("Clicking 'Confirm' should call axios.delete with the correct stream ID", a
   });
 
   // try to get dialog and find it is null
+  await waitForElementToBeRemoved(() =>
+    document.getElementById("delete-stream-dialog")
+  );
   const dialog = document.getElementById("delete-stream-dialog");
-  expect(dialog).toBeNull;
+  expect(dialog).toBeNull();
 
   // expect axios.delete to have been called
   expect(axios.delete).toHaveBeenCalledWith(
     `${process.env.REACT_APP_STREAM}/1`
   );
 
-  const flushPromises = () => new Promise(setImmediate);
-  await flushPromises();
   expect(mockHistoryPush).toHaveBeenCalledWith("/Streaming");
   expect(mockHistoryGo).toHaveBeenCalledWith(0);
 

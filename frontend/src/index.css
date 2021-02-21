@@ -118,10 +118,6 @@ select {
   margin-right: 0;
 }
 
-.invisibleLink {
-  text-decoration: none;
-}
-
 .headerTitle {
   color: white;
   text-decoration: none;
@@ -204,6 +200,11 @@ select {
   flex-grow: 1;
   padding-top: 0.5em;
   padding-bottom: 0.5em;
+}
+
+.textAlignRightPadded {
+  text-align: right;
+  padding: 1rem;
 }
 
 /* Button styling */
