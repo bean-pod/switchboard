@@ -38,7 +38,7 @@ public class MaintainDeviceStatusAspect {
   private void createLogHelper(List<DeviceEntity> updatedDevices) {
     if (!updatedDevices.isEmpty()) {
       for (DeviceEntity device : updatedDevices) {
-        String message = "A device has been updated with a status of " + device.getStatus();
+        String message = "Device " + device.getSerialNumber() + " has changed status to " + device.getStatus();
         logService.createLog(message, "info", device.getSerialNumber());
       }
     }
