@@ -65,7 +65,7 @@ public class JwtAuthenticationFilterTest {
 
     assertThrows(
         CouldNotAuthenticateUserException.class,
-        () -> jwtAuthenticationFilter.attemptAuthentication(httpServletRequest, httpServletResponse)
-    );
+        () ->
+            jwtAuthenticationFilter.attemptAuthentication(httpServletRequest, httpServletResponse));
   }
 }
