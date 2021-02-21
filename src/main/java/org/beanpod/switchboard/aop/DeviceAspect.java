@@ -44,11 +44,7 @@ public class DeviceAspect {
     DeviceModel deviceModel = (DeviceModel) args[0];
 
     String message;
-    String status = deviceModel.getStatus();
-
-    if (status.equals("online") || status.equals("offline")) {
-      message = "A device has been updated with a status of " + status;
-      logService.createLog(message, "info", deviceModel.getSerialNumber());
-    }
+    message = "Device " + deviceModel.getSerialNumber() + " has been updated";
+    logService.createLog(message, "info", deviceModel.getSerialNumber());
   }
 }
