@@ -50,17 +50,9 @@ describe("LogListPage", () => {
     const wrapper = Enzyme.shallow(<LogListPage />);
     expect(wrapper.find(Box)).toHaveLength(2);
   });
-  it("contains one Time zone indicator text box", () => {
+  it("contains Logs page title", () => {
     const wrapper = Enzyme.shallow(<LogListPage />);
-    expect(
-      wrapper
-        .text()
-        .includes(
-          "Time Zone: ".concat(
-            Intl.DateTimeFormat().resolvedOptions().timeZone
-          )
-        )
-    ).toBe(true);
+    expect(wrapper.text().includes("Logs")).toBe(true);
   });
   it("contains one LogsTable", async () => {
     const wrapper = Enzyme.shallow(<LogListPage />);
