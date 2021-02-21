@@ -145,8 +145,4 @@ describe("DeviceNameDetail", () => {
       });
     });
   });
-  // not sure about this test since requires i understand promises a bit better LOL
-  // describe("After editing", () => {
-  //     it("Should display the updated device name", () => {});
-  // });
 });
