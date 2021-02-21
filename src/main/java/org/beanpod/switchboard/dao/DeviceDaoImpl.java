@@ -19,7 +19,7 @@ public class DeviceDaoImpl {
 
   public DeviceDto save(DeviceDto device) {
     DeviceDto deviceDto = findDevice(device.getSerialNumber()).get();
-    deviceMapper.updateDeviceFromDto(device,deviceDto);
+    deviceMapper.updateDeviceFromDto(device, deviceDto);
     return deviceMapper.toDeviceDto(deviceRepository.save(deviceMapper.toDeviceEntity(deviceDto)));
   }
 

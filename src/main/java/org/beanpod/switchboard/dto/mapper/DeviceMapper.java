@@ -10,7 +10,9 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.openapitools.model.CreateDeviceRequest;
 import org.openapitools.model.DeviceModel;
 
-@Mapper(componentModel = "spring", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+@Mapper(
+    componentModel = "spring",
+    nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface DeviceMapper {
 
   DeviceDto toDeviceDto(DeviceEntity deviceEntity);
@@ -29,5 +31,4 @@ public interface DeviceMapper {
   List<DeviceModel> toDeviceModelList(List<DeviceDto> deviceDtos);
 
   void updateDeviceFromDto(DeviceDto dto, @MappingTarget DeviceDto target);
-
 }
