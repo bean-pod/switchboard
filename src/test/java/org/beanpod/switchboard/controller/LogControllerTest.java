@@ -16,7 +16,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.openapitools.model.CreateLogRequest;
 import org.openapitools.model.LogModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,9 +26,12 @@ class LogControllerTest {
   private static LogModel logModel;
   private static LogDto logDto;
   private static LogEntity logEntity;
-  @InjectMocks private LogController logController;
-  @Mock private LogDaoImpl logDao;
-  @Mock private LogMapper logMapper;
+  @InjectMocks
+  private LogController logController;
+  @Mock
+  private LogDaoImpl logDao;
+  @Mock
+  private LogMapper logMapper;
 
   @BeforeEach
   void setupLogFixture() {
@@ -62,16 +64,17 @@ class LogControllerTest {
   }
 
   @Test
-  final void testCreateLog(){
+  final void testCreateLog() {
     when(logDao.createLog(logDto)).thenReturn(logDto);
     when(logMapper.toLogDto(any())).thenReturn(logDto);
     when(logMapper.toLogModel(any())).thenReturn(logModel);
     when(logMapper.toLogEntity(any())).thenReturn(logEntity);
 
-    ResponseEntity<LogModel> responseEntity = logController.createLog(LogFixture.getCreateLogRequest());
+    ResponseEntity<LogModel> responseEntity = logController
+        .createLog(LogFixture.getCreateLogRequest());
     System.out.println(responseEntity.getBody());
 
     assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-    assertEquals(logModel,responseEntity.getBody());
+    assertEquals(logModel, responseEntity.getBody());
   }
 }

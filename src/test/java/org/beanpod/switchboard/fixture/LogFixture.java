@@ -19,7 +19,8 @@ public class LogFixture {
   public static final String level = "info";
 
   public static LogModel getLogModel() {
-    return new LogModel().id(id).dateTime(dateTime).message(message).level(level).serialNumber(DeviceFixture.SERIAL_NUMBER);
+    return new LogModel().id(id).dateTime(dateTime).message(message).level(level)
+        .serialNumber(DeviceFixture.SERIAL_NUMBER);
   }
 
   public static LogEntity getLogEntity() {
@@ -32,7 +33,7 @@ public class LogFixture {
         .build();
   }
 
-  public static LogDto getLogDto(){
+  public static LogDto getLogDto() {
     return LogDto.builder()
         .id(id)
         .dateTime(dateTime)
@@ -42,7 +43,7 @@ public class LogFixture {
         .build();
   }
 
-  public static CreateLogRequest getCreateLogRequest(){
+  public static CreateLogRequest getCreateLogRequest() {
     return new CreateLogRequest()
         .serialNumber(DeviceFixture.SERIAL_NUMBER)
         .level(level)

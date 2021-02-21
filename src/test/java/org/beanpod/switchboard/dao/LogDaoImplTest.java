@@ -20,14 +20,18 @@ import org.mockito.MockitoAnnotations;
 import org.openapitools.model.LogModel;
 
 class LogDaoImplTest {
+
   public static List<LogModel> logModels;
   public static List<LogEntity> logEntities;
   public static LogDto logDto;
   public static LogEntity logEntity;
 
-  @InjectMocks LogDaoImpl logDao;
-  @Mock LogRepository logRepository;
-  @Mock LogMapper logMapper;
+  @InjectMocks
+  LogDaoImpl logDao;
+  @Mock
+  LogRepository logRepository;
+  @Mock
+  LogMapper logMapper;
 
   @BeforeEach
   void setupLogFixture() {
@@ -59,7 +63,7 @@ class LogDaoImplTest {
   }
 
   @Test
-  final void testCreateLog(){
+  final void testCreateLog() {
     when(logMapper.toLogDto1(logEntity)).thenReturn(logDto);
     when(logMapper.toLogEntity(logDto)).thenReturn(logEntity);
     when(logRepository.save(logEntity)).thenReturn(logEntity);
