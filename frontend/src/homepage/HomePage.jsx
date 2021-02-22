@@ -1,6 +1,6 @@
 import React from "react";
 import "./homepage.css";
-import { Box, Button, Container, Grid } from "@material-ui/core";
+import { Box, Container, Grid } from "@material-ui/core";
 import DashboardCard from "./DashboardCard";
 import DynamicBreadcrumb from "../general/DynamicBreadcrumb";
 import ActiveStreamsCard from "./ActiveStreamsCard";
@@ -13,7 +13,13 @@ export default function HomePage() {
       <Box className="flexContents headerAreaUnderline">
         <div className="title">Dashboard</div>
       </Box>
-      <Grid container justify="center" alignItems="stretch" spacing={3}>
+      <Grid
+        container
+        justify="center"
+        alignItems="stretch"
+        spacing={3}
+        direction="row"
+      >
         <Grid item xs={6}>
           <Grid style={{ height: "100%" }}>
             <ActiveStreamsCard />
