@@ -17,9 +17,13 @@ public interface LogMapper {
 
   LogEntity toLogEntity(LogDto logDto);
 
-  LogDto toLogDto(CreateLogRequest createLogRequest);
+  LogModel logDtoToLogModel(LogDto logDto);
 
-  LogDto logEntitytoLogDto(LogEntity logEntity);
+  LogDto logModelToLogDto(LogModel logModel);
+
+  LogModel createLogRequestToLogModel(CreateLogRequest createLogRequest);
+
+  LogDto logEntityToLogDto(LogEntity logEntity);
 
   /* to convert string to OffsetDateTime
    * value must be of YYYY-MM-DDTHH:mm:ss+00:00
