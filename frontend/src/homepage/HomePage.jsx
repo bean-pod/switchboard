@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import "./homepage.css";
 import {
   Box,
   Button,
@@ -8,6 +9,7 @@ import {
   Paper,
   Typography
 } from "@material-ui/core";
+import DashboardCard from "./DashboardCard";
 import DynamicBreadcrumb from "../general/DynamicBreadcrumb";
 
 export default function HomePage() {
@@ -21,6 +23,7 @@ export default function HomePage() {
       <Grid container justify="center" spacing={3}>
         <Grid item xs={6}>
           <Grid style={{ height: "100%" }}>
+            <DashboardCard style={{ height: "100%"}}>
               <Typography variant="h4" gutterBottom>
                 Active Streams
               </Typography>
@@ -37,13 +40,17 @@ export default function HomePage() {
                 </Grid>                  
                 </Grid>
               </Grid>
+            </DashboardCard>
           </Grid>
         </Grid>
         <Grid item xs={6}>
+          <DashboardCard>My Devices</DashboardCard>
         </Grid>
         <Grid item xs={6}>
+        <DashboardCard>Activity Log</DashboardCard>
         </Grid>
         <Grid item xs={6}>
+        <DashboardCard>Admin Panel</DashboardCard>
         </Grid>
       </Grid>
     </Container>
