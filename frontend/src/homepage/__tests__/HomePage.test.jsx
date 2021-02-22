@@ -31,20 +31,8 @@ test("HomePage has Breadcrumbs with correct href", () => {
   const breadcrumbParent = document.getElementById("breadcrumbParent");
   const { children } = breadcrumbParent.children.item(0);
 
-  expect(children.length).toBe(9);
+  expect(children.length).toBe(1);
 
   expect(children[0].firstChild.firstChild.textContent).toBe("Home");
   expect(children[0].firstChild.href).toBe("http://localhost/");
-  expect(children[1].firstChild.data).toBe("/");
-  expect(children[2].firstChild.firstChild.textContent).toBe("My Devices");
-  expect(children[2].firstChild.href).toBe("http://localhost/Devices");
-  expect(children[3].firstChild.data).toBe("/");
-  expect(children[4].firstChild.firstChild.textContent).toBe("Streaming");
-  expect(children[4].firstChild.href).toBe("http://localhost/Streaming");
-  expect(children[5].firstChild.data).toBe("/");
-  expect(children[6].firstChild.textContent).toBe("Logs");
-  expect(children[6].firstChild.href).toBe("http://localhost/Logs");
-  expect(children[7].firstChild.data).toBe("/");
-  expect(children[8].firstChild.textContent).toBe("Login");
-  expect(children[8].firstChild.href).toBe("http://localhost/Login");
 });
