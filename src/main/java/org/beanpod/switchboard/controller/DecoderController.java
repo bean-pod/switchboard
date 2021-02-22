@@ -1,5 +1,7 @@
 package org.beanpod.switchboard.controller;
 
+import java.time.Instant;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -75,6 +77,7 @@ public class DecoderController {
       throw new ExceptionType.DeviceNotFoundException(decoderDto.getSerialNumber());
     }
     decoderDto.setDevice(deviceOptional.get());
+    decoderDto.setLastCommunication(Date.from(Instant.now()));
     return ResponseEntity.ok(decoderDao.save(decoderDto));
   }
 

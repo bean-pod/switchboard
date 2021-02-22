@@ -20,7 +20,7 @@ public class MaintainDeviceStatus {
 
   private static final DateUtil date = new DateUtil();
   private static final String ONLINE_STATUS = "online";
-  private static final String OFFLINE_STATUS = "offline";
+  public static final String OFFLINE_STATUS = "offline";
   private final DeviceDaoImpl deviceDao;
   private final DeviceMapper deviceMapper;
 
@@ -35,17 +35,20 @@ public class MaintainDeviceStatus {
 
     for (int i = 0; i < devices.size(); i++) {
       T encoderOrDecoder = devices.get(i);
-      // if status field equals online and lastCommunication is more than 10minutes old
-      if (((encoderOrDecoder).getDevice().getStatus()).equalsIgnoreCase(ONLINE_STATUS)
+      if (encoderOrDecoder.getLastCommunication() == null) {
+        continue;
+      }
+      // if device is online but has not communicated in 10 minutes
+      if (encoderOrDecoder.getDevice().getStatus().equalsIgnoreCase(ONLINE_STATUS)
           && dateToBeCompared.after(encoderOrDecoder.getLastCommunication())) {
-        // update last_communication field to offline
+        // update status to offline
         (encoderOrDecoder.getDevice()).setStatus(OFFLINE_STATUS);
         deviceDao.save(deviceMapper.toDeviceDto(encoderOrDecoder.getDevice()));
 
         updatedDevices.add(encoderOrDecoder.getDevice());
       } else if (((encoderOrDecoder).getDevice().getStatus()).equalsIgnoreCase(OFFLINE_STATUS)
           && dateToBeCompared.before(encoderOrDecoder.getLastCommunication())) {
-        // update last_communication field to offline
+        // update status to online
         (encoderOrDecoder.getDevice()).setStatus(ONLINE_STATUS);
         deviceDao.save(deviceMapper.toDeviceDto(encoderOrDecoder.getDevice()));
 
