@@ -11,6 +11,7 @@ import org.beanpod.switchboard.dto.LogDto;
 import org.beanpod.switchboard.dto.mapper.LogMapper;
 import org.beanpod.switchboard.entity.LogEntity;
 import org.beanpod.switchboard.fixture.LogFixture;
+import org.beanpod.switchboard.service.LogService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -29,6 +30,7 @@ class LogControllerTest {
   @InjectMocks private LogController logController;
   @Mock private LogDaoImpl logDao;
   @Mock private LogMapper logMapper;
+  @Mock private LogService logService;
 
   @BeforeEach
   void setupLogFixture() {
@@ -61,10 +63,9 @@ class LogControllerTest {
 
   @Test
   final void testCreateLog() {
-    when(logDao.createLog(logDto)).thenReturn(logDto);
-    when(logMapper.toLogDto(any())).thenReturn(logDto);
-    when(logMapper.toLogModel(any())).thenReturn(logModel);
-    when(logMapper.toLogEntity(any())).thenReturn(logEntity);
+    when(logService.createLog(any())).thenReturn(logDto);
+    when(logMapper.createLogRequestToLogModel(any())).thenReturn(logModel);
+    when(logMapper.logDtoToLogModel(any())).thenReturn(logModel);
 
     ResponseEntity<LogModel> responseEntity =
         logController.createLog(LogFixture.getCreateLogRequest());
