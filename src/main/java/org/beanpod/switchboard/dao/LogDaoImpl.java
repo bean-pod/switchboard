@@ -24,6 +24,6 @@ public class LogDaoImpl {
   }
 
   public LogDto createLog(LogDto logDto) {
-    return logMapper.toLogDto1(logRepository.save(logMapper.toLogEntity(logDto)));
+    return logMapper.logEntitytoLogDto(logRepository.save(logMapper.toLogEntity(logDto)));
   }
 }

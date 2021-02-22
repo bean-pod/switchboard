@@ -61,7 +61,7 @@ class LogDaoImplTest {
 
   @Test
   final void testCreateLog() {
-    when(logMapper.toLogDto1(logEntity)).thenReturn(logDto);
+    when(logMapper.logEntitytoLogDto(logEntity)).thenReturn(logDto);
     when(logMapper.toLogEntity(logDto)).thenReturn(logEntity);
     when(logRepository.save(logEntity)).thenReturn(logEntity);
 
