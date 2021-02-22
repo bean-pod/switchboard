@@ -8,13 +8,14 @@ import org.openapitools.model.CreateDeviceRequest;
 import org.openapitools.model.DeviceModel;
 
 public class DeviceFixture {
+
   public static final String SERIAL_NUMBER = "1";
   public static final String SERIAL_NUMBER2 = "2";
   public static final String PRIVATE_IP_ADDRESS = "192.168.0.158";
   public static final String PUBLIC_IP_ADDRESS = "172.156.78.6";
   public static final String DISPLAY_NAME = "Device #1";
   public static final String DISPLAY_NAME2 = "Device #2";
-  public static final String STATUS = "Running";
+  public static final String STATUS = "offline";
 
   public static DeviceEntity getDevice1() {
     return DeviceEntity.builder()

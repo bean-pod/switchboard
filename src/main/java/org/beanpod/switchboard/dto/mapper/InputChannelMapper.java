@@ -11,6 +11,7 @@ import org.openapitools.model.InputChannelModel;
     componentModel = "spring",
     uses = {DecoderMapper.class, ChannelMapper.class})
 public interface InputChannelMapper {
+
   @Mapping(target = "decoder", qualifiedByName = "toDecoderDtoShallow")
   InputChannelDto toInputChannelDto(InputChannelEntity inputChannelEntity);
 

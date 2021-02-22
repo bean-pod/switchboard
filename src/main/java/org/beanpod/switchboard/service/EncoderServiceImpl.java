@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 @Slf4j
 public class EncoderServiceImpl implements EncoderService {
+
   private final EncoderDaoImpl encoderDao;
   private final StreamDaoImpl streamDao;
   private final DateUtil dateUtil;

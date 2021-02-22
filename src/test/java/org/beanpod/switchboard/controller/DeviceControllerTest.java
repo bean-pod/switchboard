@@ -28,6 +28,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 class DeviceControllerTest {
+
   // stubbed DeviceEntity object
   private static DeviceEntity device;
   private static DeviceDto deviceDTO;

@@ -25,6 +25,7 @@ import lombok.Setter;
 @Entity(name = "InputChannel")
 @JsonIgnoreProperties({"hibernateLazyIntializer", "handler"})
 public class InputChannelEntity {
+
   @Id
   @NotNull
   @GeneratedValue(strategy = GenerationType.IDENTITY)

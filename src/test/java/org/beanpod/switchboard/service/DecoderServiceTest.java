@@ -25,6 +25,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 public class DecoderServiceTest {
+
   @InjectMocks private DecoderServiceImpl decoderService;
   @Mock private StreamDaoImpl streamDao;
   @Mock private DecoderDaoImpl decoderDao;

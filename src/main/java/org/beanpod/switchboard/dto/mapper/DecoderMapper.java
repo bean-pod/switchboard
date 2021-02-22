@@ -11,6 +11,7 @@ import org.mapstruct.Named;
     componentModel = "spring",
     uses = {DeviceMapper.class, InputChannelMapper.class})
 public interface DecoderMapper {
+
   DecoderDto toDecoderDto(DecoderEntity decoderEntity);
 
   @Named("toDecoderDtoShallow")
