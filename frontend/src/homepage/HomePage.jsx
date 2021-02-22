@@ -16,6 +16,7 @@ export default function HomePage() {
       <Grid container justify="center" alignItems="stretch" spacing={3}>
         <Grid item xs={6}>
           <Grid style={{ height: "100%" }}>
+            <ActiveStreamsCard />
           </Grid>
         </Grid>
         <Grid item xs={6}>
