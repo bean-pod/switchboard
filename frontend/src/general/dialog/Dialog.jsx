@@ -6,15 +6,43 @@ import DialogTitle from "./DialogTitle";
 import DialogBody from "./DialogBody";
 import DialogButtons from "./DialogButtons";
 
-export default function Dialog(props) {
-  const { title, button1, button2, children } = props;
-  return (
-    <MuiDialog>
-      <DialogTitle>{title}</DialogTitle>
-      <DialogBody>{children}</DialogBody>
-      <DialogButtons button1={button1} button2={button2} />
-    </MuiDialog>
-  );
+export default class Dialog {
+  constructor(props) {
+    super(props)
+    this.state = {
+      open: false
+    }
+  }
+
+  openDialog() {
+    return this.setState({ open: true });
+  };
+  closeDialog() {
+    return this.setState({ open: false });
+  };
+
+  render() {
+    cancelButton = {
+      name: "Cancel",
+      onClick() { return this.closeDialog }
+    }
+    
+    const { title, actionButton, children } = props;
+    const {open} = this.state;
+    return (
+      <MuiDialog
+        open={open}
+        onClose={this.closeDialog}
+        aria-labelledby="dialog-title"
+        aria-describedby="dialog-description"
+        id="dialog"
+      >
+        <DialogTitle>{title}</DialogTitle>
+        <DialogBody>{children}</DialogBody>
+        <DialogButtons button1={cancelButton} button2={actionButton} />
+      </MuiDialog>
+    );
+  }
 }
 
 Dialog.propTypes = {
@@ -23,7 +51,7 @@ Dialog.propTypes = {
     name: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired
   }).isRequired,
-  button2: PropTypes.shape({
+  actionButton: PropTypes.shape({
     name: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired
   }).isRequired,
