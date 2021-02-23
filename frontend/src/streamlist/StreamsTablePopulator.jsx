@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import ActiveStreamsTable from "./StreamsTable";
+import StreamsTable from "./StreamsTable";
 
 export default class StreamsTablePopulator extends React.Component {
   constructor(props) {
@@ -24,7 +24,7 @@ export default class StreamsTablePopulator extends React.Component {
 
   render() {
     const { streams } = this.state;
-    return <ActiveStreamsTable streams={streams} />;
+    return <StreamsTable streams={streams} />;
   }
 }
 
