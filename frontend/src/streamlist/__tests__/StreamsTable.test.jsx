@@ -275,16 +275,16 @@ describe("<StreamsTable/> component", () => {
     describe("containing a single object", () => {
       expect(result.length).toBe(1);
       expect(typeof (result[0])).toBe("object");
-      it("has a property icon which returns ExpandMore", () => {
+      it("has a property icon which has value ExpandMore", () => {
         expect(result[0].icon).toBe(ExpandMore)
       })
-      it("has a property openIcon which returns ExpandLess", () => {
+      it("has a property openIcon which has value ExpandLess", () => {
         expect(result[0].openIcon).toBe(ExpandLess)
       })
-      it("has a property tooltip which returns the expected message", () => {
+      it("has a property tooltip which has value: the expected message", () => {
         expect(result[0].tooltip).toBe(getDetailPanelExpectedResult[0].tooltip)
       })
-      it(`should have a render() function that returns a predefined component`, () => {
+      it(`should have a render() function returns a predefined component`, () => {
         const dummyData = {
           extras: 444
         };
@@ -293,5 +293,43 @@ describe("<StreamsTable/> component", () => {
       });
     })
 
+  })
+
+  describe("getOptions() function", ()=>{
+    const dummyStreams = [null];
+    wrapper = Enzyme.shallow(<StreamsTable streams={dummyStreams} />);
+    const result = wrapper.instance().getOptions();
+    const expected = {
+      toolbar: false,
+      headerStyle: {
+        backgroundColor: "#f1f1f1",
+        fontWeight: "bold"
+      },
+      filtering: false,
+      draggable: false
+    };
+    
+    describe("returns an object", ()=>{
+      expect(typeof(result)).toBe("object");
+
+      it(`that has a property toolbar which has value: ${expected.toolbar}`, ()=>{
+        expect(result.toolbar).toBe(expected.toolbar);
+      })
+      describe(`that has a property headerStyle which is an object`, ()=>{
+        expect(typeof(result.headerStyle)).toBe("object");
+        it(`that has a property backgroundColor which has value: ${expected.headerStyle.backgroundColor}`, ()=>{
+          expect(result.headerStyle.backgroundColor).toBe(expected.headerStyle.backgroundColor);
+        })
+        it(`that has a property fontWeight which has value: ${expected.headerStyle.fontWeight}`, ()=>{
+          expect(result.headerStyle.fontWeight).toBe(expected.headerStyle.fontWeight);
+        })
+      })
+      it(`that has a property filtering which has value: ${expected.filtering}`, ()=>{
+        expect(result.filtering).toBe(expected.filtering);
+      })
+      it(`that has a property draggable which has value: ${expected.draggable}`, ()=>{
+        expect(result.draggable).toBe(expected.draggable);
+      })
+    })
   })
 });
