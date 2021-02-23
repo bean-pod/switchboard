@@ -2,13 +2,13 @@ import React from "react";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import { beforeEach, describe, expect, it } from "@jest/globals";
-import StreamTablePopulator from "../StreamTablePopulator";
-import StreamsTable from "../StreamsTable";
+import StreamsTablePopulator from "../StreamsTablePopulator";
+import ActiveStreamsTable from "../StreamsTable";
 import StreamInfo from "../../model/StreamInfo";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe("<StreamTablePopulator/> Component", () => {
+describe("<StreamsTablePopulator/> Component", () => {
   let wrapper;
   const dummySource = {
     getAllStreams() {}
@@ -17,18 +17,18 @@ describe("<StreamTablePopulator/> Component", () => {
   describe("Should contain the following components", () => {
     beforeEach(() => {
       wrapper = Enzyme.shallow(
-        <StreamTablePopulator dataSource={dummySource} />
+        <StreamsTablePopulator dataSource={dummySource} />
       );
     });
     it("Contains 1 <StreamsTable/> component", () => {
-      expect(wrapper.find(StreamsTable)).toHaveLength(1);
+      expect(wrapper.find(ActiveStreamsTable)).toHaveLength(1);
     });
   });
 
   describe("handleStreamsChange()", () => {
     beforeEach(() => {
       wrapper = Enzyme.shallow(
-        <StreamTablePopulator dataSource={dummySource} />
+        <StreamsTablePopulator dataSource={dummySource} />
       );
     });
 

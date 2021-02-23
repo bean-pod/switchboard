@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Container } from "@material-ui/core";
 import PropTypes from "prop-types";
-import StreamTablePopulator from "./StreamTablePopulator";
+import StreamsTablePopulator from "./StreamsTablePopulator";
 
 export default function StreamListPage(props) {
   const { dataSource } = props;
@@ -11,7 +11,7 @@ export default function StreamListPage(props) {
         <Box className="headerAreaUnderline">
           <div className="title">Current Streams</div>
         </Box>
-        <StreamTablePopulator dataSource={dataSource} />
+        <StreamsTablePopulator dataSource={dataSource} />
       </Container>
     </>
   );
