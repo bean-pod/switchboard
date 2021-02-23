@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { MuiDialogActions, Button } from "@material-ui/core";
+import { Button } from "@material-ui/core";
+import MuiDialogActions from "@material-ui/core/DialogActions";
 
 export default function DialogButtons(props) {
   const { button1, button2 } = props;
