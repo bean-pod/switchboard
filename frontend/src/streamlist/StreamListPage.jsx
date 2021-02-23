@@ -16,6 +16,7 @@ export default function StreamListPage(props) {
     </>
   );
 }
+
 StreamListPage.propTypes = {
   dataSource: PropTypes.objectOf(PropTypes.func).isRequired
 };

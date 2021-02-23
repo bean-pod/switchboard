@@ -138,6 +138,7 @@ export default class StreamsTable extends React.Component {
     );
   }
 }
+
 StreamsTable.propTypes = {
   streams: PropTypes.arrayOf(PropTypes.instanceOf(StreamInfo)).isRequired
 };
