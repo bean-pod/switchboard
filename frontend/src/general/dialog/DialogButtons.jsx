@@ -1,17 +1,29 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { MuiDialogActions, Button } from "@material-ui/core";
 
 export default function DialogButtons(props) {
-    const { name1, onClick1, name2, onClick2 } = props;
+  const { button1, button2 } = props;
 
   return (
     <MuiDialogActions>
-      <Button onClick={onClick1} color="primary">
-        {name1}
+      <Button onClick={button1.onClick} color="primary">
+        {button1.name}
       </Button>
-      <Button onClick={onClick2} color="secondary" autoFocus>
-        {name2}
+      <Button onClick={button2.onClick} color="secondary" autoFocus>
+        {button2.name}
       </Button>
     </MuiDialogActions>
   );
 }
+
+DialogButtons.propTypes = {
+  button1: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    onClick: PropTypes.func.isRequired
+  }).isRequired,
+  button2: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    onClick: PropTypes.func.isRequired
+  }).isRequired
+};
