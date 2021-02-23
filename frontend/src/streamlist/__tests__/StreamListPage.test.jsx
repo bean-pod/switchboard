@@ -10,7 +10,8 @@ Enzyme.configure({ adapter: new Adapter() });
 
 describe("<StreamListPage/> Component", () => {
   let wrapper;
-  const dummySource = () => {};
+  const dummyFunction = () => {};
+  const dummySource = { dummyFunction };
   beforeEach(() => {
     wrapper = Enzyme.shallow(<StreamListPage dataSource={dummySource} />);
   });
