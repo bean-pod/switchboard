@@ -332,4 +332,36 @@ describe("<StreamsTable/> component", () => {
       })
     })
   })
+
+  describe("getIcons() function", ()=>{
+    const dummyStreams = [null];
+    wrapper = Enzyme.shallow(<StreamsTable streams={dummyStreams} />);
+    const result = wrapper.instance().getIcons();
+    const expected = {
+      SortArrow: ArrowDownward,
+      FirstPage,
+      LastPage,
+      NextPage: ChevronRight,
+      PreviousPage: ChevronLeft
+    };
+    describe("returns an object", ()=>{
+      expect(typeof(result)).toBe("object");
+      it(`that has a property SortArrow which has value: ${expected.SortArrow}`, ()=>{
+        expect(result.SortArrow).toBe(expected.SortArrow);
+      })
+      it(`that has a property FirstPage which has value: ${expected.FirstPage}`, ()=>{
+        expect(result.FirstPage).toBe(expected.FirstPage);
+      })
+      it(`that has a property LastPage which has value: ${expected.LastPage}`, ()=>{
+        expect(result.LastPage).toBe(expected.LastPage);
+      })
+      it(`that has a property NextPage which has value: ${expected.NextPage}`, ()=>{
+        expect(result.NextPage).toBe(expected.NextPage);
+      })
+      it(`that has a property PreviousPage which has value: ${expected.PreviousPage}`, ()=>{
+        expect(result.PreviousPage).toBe(expected.PreviousPage);
+      })
+    })
+
+  })
 });
