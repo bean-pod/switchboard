@@ -3,7 +3,7 @@ import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { Box, Container } from "@material-ui/core";
-import StreamListPage from "../StreamList";
+import StreamListPage from "../StreamListPage";
 import StreamTablePopulator from "../StreamTablePopulator";
 
 Enzyme.configure({ adapter: new Adapter() });

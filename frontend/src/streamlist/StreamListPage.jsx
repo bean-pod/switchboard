@@ -3,7 +3,7 @@ import { Box, Container } from "@material-ui/core";
 import PropTypes from "prop-types";
 import StreamTablePopulator from "./StreamTablePopulator";
 
-export default function StreamList(props) {
+export default function StreamListPage(props) {
   const { dataSource } = props;
   return (
     <>
@@ -16,6 +16,6 @@ export default function StreamList(props) {
     </>
   );
 }
-StreamList.propTypes = {
+StreamListPage.propTypes = {
   dataSource: PropTypes.objectOf(PropTypes.func).isRequired
 };
