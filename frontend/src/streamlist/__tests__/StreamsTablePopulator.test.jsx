@@ -2,7 +2,7 @@ import React from "react";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import { beforeEach, describe, expect, it } from "@jest/globals";
-import StreamsTablePopulator from "../StreamsTablePopulator";
+import StreamsTableWrapper from "../StreamsTableWrapper";
 import ActiveStreamsTable from "../StreamsTable";
 import StreamInfo from "../../model/StreamInfo";
 
@@ -17,7 +17,7 @@ describe("<StreamsTablePopulator/> Component", () => {
   describe("Should contain the following components", () => {
     beforeEach(() => {
       wrapper = Enzyme.shallow(
-        <StreamsTablePopulator dataSource={dummySource} />
+        <StreamsTableWrapper dataSource={dummySource} />
       );
     });
     it("Contains 1 <StreamsTable/> component", () => {
@@ -28,7 +28,7 @@ describe("<StreamsTablePopulator/> Component", () => {
   describe("handleStreamsChange()", () => {
     beforeEach(() => {
       wrapper = Enzyme.shallow(
-        <StreamsTablePopulator dataSource={dummySource} />
+        <StreamsTableWrapper dataSource={dummySource} />
       );
     });
 
