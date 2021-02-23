@@ -21,11 +21,8 @@ import StreamInfo from "../model/StreamInfo";
 export default class StreamsTable extends React.Component {
   constructor(props) {
     super(props);
-    this.streams = props.streams;
-  }
 
-  getColumnInfo() {
-    return [
+    this.columnInfo = [
       {
         title: "ID",
         field: "id"
@@ -69,10 +66,7 @@ export default class StreamsTable extends React.Component {
         export: false
       }
     ];
-  }
-
-  getDetailPanel() {
-    return [
+    this.detailPanel = [
       {
         icon: ExpandMore,
         openIcon: ExpandLess,
@@ -86,10 +80,7 @@ export default class StreamsTable extends React.Component {
         }
       }
     ];
-  }
-
-  getOptions() {
-    return {
+    this.options = {
       toolbar: false,
       headerStyle: {
         backgroundColor: "#f1f1f1",
@@ -98,10 +89,7 @@ export default class StreamsTable extends React.Component {
       filtering: false,
       draggable: false
     };
-  }
-
-  getIcons() {
-    return {
+    this.icons = {
       SortArrow: ArrowDownward,
       FirstPage,
       LastPage,
@@ -110,14 +98,31 @@ export default class StreamsTable extends React.Component {
     };
   }
 
+  getColumnInfo() {
+    return this.columnInfo;
+  }
+
+  getDetailPanel() {
+    return this.detailPanel;
+  }
+
+  getOptions() {
+    return this.options;
+  }
+
+  getIcons() {
+    return this.icons;
+  }
+
   render() {
+    const { streams } = this.props;
     return (
       <>
         <Box>
           <TableContainer>
             <MaterialTable
               columns={this.getColumnInfo()}
-              data={this.streams}
+              data={streams}
               detailPanel={this.getDetailPanel()}
               options={this.getOptions()}
               icons={this.getIcons()}
