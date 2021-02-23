@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import StreamsTable from "./StreamsTable";
 
-export default class StreamsTablePopulator extends React.Component {
+export default class StreamsTableWrapper extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -28,6 +28,6 @@ export default class StreamsTablePopulator extends React.Component {
   }
 }
 
-StreamsTablePopulator.propTypes = {
+StreamsTableWrapper.propTypes = {
   dataSource: PropTypes.objectOf(PropTypes.func).isRequired
 };
