@@ -12,6 +12,8 @@ import {
 import { Box, TableContainer } from "@material-ui/core";
 import MaterialTable from "material-table";
 import StreamsTable from "../StreamsTable";
+import DeleteStream from "../DeleteStream";
+import StatusIndicator from "../../general/StatusIndicator";
 
 Enzyme.configure({ adapter: new Adapter() });
 jest.spyOn(global.console, "error");
@@ -49,4 +51,199 @@ describe("<StreamsTable/> component", () => {
       ).toBe(true);
     });
   });
+
+  describe("getColumnInfo() function", () => {
+    const dummyStreams = [null];
+    wrapper = Enzyme.shallow(<StreamsTable streams={dummyStreams} />);
+    const result = wrapper.instance().getColumnInfo();
+    const getColumnInfoReturnValue = [
+      {
+        title: "ID",
+        field: "id"
+      },
+      {
+        title: "Date",
+        field: "date"
+      },
+      {
+        title: "Sender",
+        field: "sender.name"
+      },
+      {
+        title: "Receiver",
+        field: "receiver.name"
+      },
+      {
+        title: "Status",
+        field: "status",
+        render: function Status(rowData) {
+          return <StatusIndicator status={rowData.status} />;
+        }
+      },
+      {
+        title: "Type",
+        field: "type"
+      },
+      {
+        title: "Time Elapsed",
+        field: "time"
+      },
+      {
+        title: "Actions",
+        field: "action",
+        filtering: false,
+        sorting: false,
+        render: function Actions(rowData) {
+          return <DeleteStream deleteId={rowData.id} />;
+        },
+        align: "center",
+        export: false
+      }
+    ];
+
+    describe("Returns an array of objects", () => {
+      describe("index [0] info for field'ID'", () => {
+        const target = {
+          title: "ID",
+          field: "id"
+        };
+
+        it(`should have title "${target.title}"`, () => {
+          expect(result[0].title).toBe(target.title);
+        });
+        it(`should have field "${target.field}"`, () => {
+          expect(result[0].field).toBe(target.field);
+        });
+      });
+      describe("index [1] info", () => {
+        const target = {
+          title: "Date",
+          field: "date"
+        };
+
+        it(`should have title "${target.title}"`, () => {
+          expect(result[1].title).toBe(target.title);
+        });
+        it(`should have field "${target.field}"`, () => {
+          expect(result[1].field).toBe(target.field);
+        });
+      });
+      describe("index [2] info", () => {
+        const target = {
+          title: "Sender",
+          field: "sender.name"
+        };
+
+        it(`should have title "${target.title}"`, () => {
+          expect(result[2].title).toBe(target.title);
+        });
+        it(`should have field "${target.field}"`, () => {
+          expect(result[2].field).toBe(target.field);
+        });
+      });
+      describe("index [3] info", () => {
+        const target = {
+          title: "Receiver",
+          field: "receiver.name"
+        };
+
+        it(`should have title "${target.title}"`, () => {
+          expect(result[3].title).toBe(target.title);
+        });
+        it(`should have field "${target.field}"`, () => {
+          expect(result[3].field).toBe(target.field);
+        });
+      });
+      describe("index [4] info'", () => {
+        const target = {
+          title: "Status",
+          field: "status",
+          render: function Status(rowData) {
+            return <StatusIndicator status={rowData.status} />;
+          }
+        };
+
+        it(`should have title "${target.title}"`, () => {
+          expect(result[4].title).toBe(target.title);
+        });
+        it(`should have field "${target.field}"`, () => {
+          expect(result[4].field).toBe(target.field);
+        });
+        it(`should have a render() function that returns a <StatusIndicator/> component`, () => {
+          const dummyData = {
+            status: "Online"
+          };
+          const renderResult = result[4].render(dummyData);
+          expect(renderResult).toMatchObject(target.render(dummyData));
+        });
+      });
+      describe("index [5] info", () => {
+        const target = {
+          title: "Type",
+          field: "type"
+        };
+
+        it(`should have title "${target.title}"`, () => {
+          expect(result[5].title).toBe(target.title);
+        });
+        it(`should have field "${target.field}"`, () => {
+          expect(result[5].field).toBe(target.field);
+        });
+      });
+      describe("index [6] info", () => {
+        const target = {
+          title: "Time Elapsed",
+          field: "time"
+        };
+
+        it(`should have title "${target.title}"`, () => {
+          expect(result[6].title).toBe(target.title);
+        });
+        it(`should have field "${target.field}"`, () => {
+          expect(result[6].field).toBe(target.field);
+        });
+      });
+      describe("index [7] info", () => {
+        const target = {
+          title: "Actions",
+          field: "action",
+          filtering: false,
+          sorting: false,
+          render: function Actions(rowData) {
+            return <DeleteStream deleteId={rowData.id} />;
+          },
+          align: "center",
+          export: false
+        };
+
+        it(`should have title "${target.title}"`, () => {
+          expect(result[7].title).toBe(target.title);
+        });
+        it(`should have field "${target.field}"`, () => {
+          expect(result[7].field).toBe(target.field);
+        });
+        it(`should have filtering "${target.filtering}"`, () => {
+          expect(result[7].filtering).toBe(target.filtering);
+        });
+        it(`should have sorting "${target.sorting}"`, () => {
+          expect(result[7].sorting).toBe(target.sorting);
+        });
+        it(`should have align "${target.align}"`, () => {
+          expect(result[7].align).toBe(target.align);
+        });
+        it(`should have export "${target.export}"`, () => {
+          expect(result[7].export).toBe(target.export);
+        });
+        it(`should have a render() function that returns a <DeleteStream/> component`, () => {
+          const dummyData = {
+            id: 444
+          };
+          const renderResult = result[7].render(dummyData);
+          expect(renderResult).toMatchObject(target.render(dummyData));
+        });
+      });
+    });
+  });
+
+  
 });
