@@ -27,15 +27,6 @@ describe("<LogsTableWrapper/> Class Component", () => {
 
   describe("handleLogsChange()", () => {
     wrapper = Enzyme.shallow(<LogsTableWrapper logsDataSource={dummySource} />);
-
-    //     const dummySource = {
-    //       getAllLogs() {
-    //         return new Promise((resolve) => resolve([]));
-    //       }
-    //     };
-
-    //     wrapper = Enzyme.shallow(<LogsTableWrapper logsDataSource={dummySource} />);
-
     it("should set the state", () => {
       const startingState = {
         logs: dummyValue
