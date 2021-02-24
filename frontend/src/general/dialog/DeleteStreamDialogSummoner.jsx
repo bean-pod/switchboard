@@ -8,8 +8,8 @@ import DeleteStreamDialog from "./DeleteStreamDialog";
 export default class DeleteStreamDialogSummoner extends React.Component {
   constructor(props) {
     super(props);
-    this.dialogElement = React.useRef();
 
+    this.dialogElement = React.createRef();
     this.openDeleteDialog = this.openDeleteDialog.bind(this);
   }
 
@@ -26,7 +26,7 @@ export default class DeleteStreamDialogSummoner extends React.Component {
             <Delete />
           </IconButton>
         </Tooltip>
-        <DeleteStreamDialog deleteId={deleteId} />
+        <DeleteStreamDialog ref={this.dialogElement} deleteId={deleteId} />
       </>
     );
   }
