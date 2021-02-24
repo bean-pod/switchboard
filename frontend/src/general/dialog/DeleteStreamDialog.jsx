@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import Dialog from "./Dialog";
 import { deleteStream } from "../../api/StreamApi";
 
-class DeleteStreamDialog extends React.Component {
+export default class DeleteStreamDialog extends React.Component {
   constructor(props) {
     super(props);
 
@@ -13,13 +13,16 @@ class DeleteStreamDialog extends React.Component {
     this.openDialog = this.openDialog.bind(this);
   }
 
+  afterDelete(){
+    const { history } = this.props;
+    this.dialogElement.current.closeDialog();
+    history.push("/Streaming");
+    history.go(0);
+  }
+
   confirmDelete() {
-    const { deleteId, history } = this.props;
-    deleteStream(deleteId, () => {
-      this.dialogElement.current.closeDialog();
-      history.push("/Streaming");
-      history.go(0);
-    });
+    const { deleteId } = this.props;
+    deleteStream(deleteId, this.afterDelete);
   }
 
   // used by Summoner to summon
@@ -48,8 +51,6 @@ class DeleteStreamDialog extends React.Component {
     );
   }
 }
-
-export default DeleteStreamDialog;
 
 DeleteStreamDialog.propTypes = {
   deleteId: PropTypes.string.isRequired,
