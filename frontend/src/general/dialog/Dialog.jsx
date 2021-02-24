@@ -50,10 +50,6 @@ export default class Dialog extends React.Component {
 
 Dialog.propTypes = {
   title: PropTypes.string.isRequired,
-  button1: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    onClick: PropTypes.func.isRequired
-  }).isRequired,
   actionButton: PropTypes.shape({
     name: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired
