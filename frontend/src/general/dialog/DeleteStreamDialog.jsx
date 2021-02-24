@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { withRouter } from "react-router-dom";
 
 import Dialog from "./Dialog";
 import { deleteStream } from "../../api/StreamApi";
@@ -49,7 +48,8 @@ class DeleteStreamDialog extends React.Component {
     );
   }
 }
-export default withRouter(DeleteStreamDialog);
+
+export default DeleteStreamDialog;
 
 DeleteStreamDialog.propTypes = {
   deleteId: PropTypes.string.isRequired,

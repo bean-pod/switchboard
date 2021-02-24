@@ -2,10 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import { IconButton, Tooltip } from "@material-ui/core";
 import { Delete } from "@material-ui/icons";
+import { withRouter } from "react-router-dom";
 
 import DeleteStreamDialog from "./DeleteStreamDialog";
 
-export default class DeleteStreamDialogSummoner extends React.Component {
+class DeleteStreamDialogSummoner extends React.Component {
   constructor(props) {
     super(props);
 
@@ -18,7 +19,7 @@ export default class DeleteStreamDialogSummoner extends React.Component {
   }
 
   render() {
-    const { deleteId } = this.props;
+    const { deleteId, history } = this.props;
     return (
       <>
         <Tooltip title="Delete Stream" aria-label="delete stream">
@@ -26,12 +27,22 @@ export default class DeleteStreamDialogSummoner extends React.Component {
             <Delete />
           </IconButton>
         </Tooltip>
-        <DeleteStreamDialog ref={this.dialogElement} deleteId={deleteId} />
+        <DeleteStreamDialog
+          ref={this.dialogElement}
+          deleteId={deleteId}
+          history={history}
+        />
       </>
     );
   }
 }
 
+export default withRouter(DeleteStreamDialogSummoner);
+
 DeleteStreamDialogSummoner.propTypes = {
-  deleteId: PropTypes.string.isRequired
+  deleteId: PropTypes.string.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+    go: PropTypes.func.isRequired
+  }).isRequired
 };
