@@ -1,9 +1,10 @@
 import React from "react";
-import "./homepage.css";
 import { Box, Container, Grid } from "@material-ui/core";
-import DashboardCard from "./DashboardCard";
+import DashboardCard from "../general/dashboard/DashboardCard";
 import DynamicBreadcrumb from "../general/DynamicBreadcrumb";
 import ActiveStreamsCard from "./ActiveStreamsCard";
+import ActivityLogsCard from "./ActivityLogsCard";
+import DevicesCard from "./DevicesCard";
 
 export default function HomePage() {
   return (
@@ -26,10 +27,10 @@ export default function HomePage() {
           </Grid>
         </Grid>
         <Grid item xs={6}>
-          <DashboardCard title="My Devices" />
+          <DevicesCard />
         </Grid>
         <Grid item xs={6}>
-          <DashboardCard title="Activiy Logs" />
+          <ActivityLogsCard />
         </Grid>
         <Grid item xs={6}>
           <DashboardCard title="Admin Panel" />
