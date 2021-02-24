@@ -1,7 +1,11 @@
 import axios from "axios";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
+<<<<<<< HEAD
 import { afterEach, describe, expect, jest, it } from "@jest/globals";
+=======
+import { afterEach, describe, expect, it, jest } from "@jest/globals";
+>>>>>>> 20b755bb... [#272] Add endpoint for authentication (#314)
 import * as authenticationUtil from "../AuthenticationUtil";
 // import StreamApi itself
 import * as StreamApi from "../StreamApi";
@@ -39,6 +43,12 @@ const expectedAllStreamsResponse = [
   expectedFirstStreamRespone,
   expectedSecondStreamResponse
 ];
+
+const authorizationHeader = {
+  headers: {
+    Authorization: "Bearer the_token"
+  }
+};
 
 const authorizationHeader = {
   headers: {
