@@ -3,7 +3,7 @@ import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import StreamsTableWrapper from "../StreamsTableWrapper";
-import ActiveStreamsTable from "../StreamsTable";
+import StreamsTable from "../StreamsTable";
 import StreamInfo from "../../model/StreamInfo";
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -21,7 +21,7 @@ describe("<StreamsTableWrapper/> Component", () => {
       );
     });
     it("Contains 1 <StreamsTable/> component", () => {
-      expect(wrapper.find(ActiveStreamsTable)).toHaveLength(1);
+      expect(wrapper.find(StreamsTable)).toHaveLength(1);
     });
   });
 
@@ -36,7 +36,7 @@ describe("<StreamsTableWrapper/> Component", () => {
       jest.clearAllMocks();
     });
 
-    it("should call setState to set the state", () => {
+    it("should set the state", () => {
       const testValue = [new StreamInfo()];
 
       const defaultState = {
