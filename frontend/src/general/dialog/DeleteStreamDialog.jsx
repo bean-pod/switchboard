@@ -1,40 +1,60 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useHistory } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 import Dialog from "./Dialog";
-import * as StreamApi from "../../api/StreamApi";
+import { deleteStream } from "../../api/StreamApi";
 
-export default class DeleteStreamDialog extends React.Component {
+class DeleteStreamDialog extends React.Component {
   constructor(props) {
     super(props);
 
-    this.dialogElement = React.useRef();
+    this.dialogElement = React.createRef();
     this.confirmDelete = this.confirmDelete.bind(this);
     this.openDialog = this.openDialog.bind(this);
   }
 
   confirmDelete() {
-    const history = useHistory();
-    StreamApi.deleteStream(this.deleteId, () => {
+    const { deleteId, history } = this.props;
+    deleteStream(deleteId, () => {
+      this.dialogElement.current.closeDialog();
       history.push("/Streaming");
       history.go(0);
     });
-    return this.dialogElement.current.closeDialog();
   }
 
+  // used by Summoner to summon
   openDialog() {
     return this.dialogElement.current.openDialog();
   }
 
   render() {
     const { deleteId } = this.props;
+    const title = "Confirm Delete";
     const message = `Are you sure you want to end stream ${deleteId}?`;
 
-    return <Dialog ref={this.dialogElement}>{message}</Dialog>;
+    const actionButton = {
+      name: "Confirm",
+      onClick: this.confirmDelete
+    };
+
+    return (
+      <Dialog
+        ref={this.dialogElement}
+        title={title}
+        actionButton={actionButton}
+      >
+        {message}
+      </Dialog>
+    );
   }
 }
+export default withRouter(DeleteStreamDialog);
 
 DeleteStreamDialog.propTypes = {
-  deleteId: PropTypes.number.isRequired
+  deleteId: PropTypes.string.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+    go: PropTypes.func.isRequired
+  }).isRequired
 };
