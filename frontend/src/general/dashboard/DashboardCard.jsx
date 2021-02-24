@@ -7,7 +7,7 @@ export default function DashCard(props) {
   const { title, children } = props;
   return (
     <>
-      <Paper className="dashboardCard">
+      <Paper className="dashboardCard" elevation={2}>
         <Typography variant="h5" gutterBottom>
           {title}
         </Typography>
