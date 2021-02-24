@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./homepage.css";
+import "./dashboard.css";
 import { Typography, Paper } from "@material-ui/core";
 
 export default function DashCard(props) {

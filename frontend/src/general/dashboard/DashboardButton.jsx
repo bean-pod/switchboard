@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./homepage.css";
-import { Button, withStyles } from "@material-ui/core";
+import "./dashboard.css";
+import { Link, Button, withStyles } from "@material-ui/core";
 
 export default function DashboardButton(props) {
-  const { children } = props;
+  const { href, children } = props;
 
   const StyledButton = withStyles({
     root: {
@@ -19,10 +19,15 @@ export default function DashboardButton(props) {
       textTransform: "none"
     }
   })(Button);
-  return <StyledButton>{children}</StyledButton>;
+  return (
+    <Link color="inherit" href={href} id="sendersButton">
+      <StyledButton>{children}</StyledButton>
+    </Link>
+  );
 }
 
 DashboardButton.propTypes = {
+  href: PropTypes.string.isRequired,
   children: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.arrayOf(PropTypes.node),
