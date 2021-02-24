@@ -1,7 +1,9 @@
 import React from "react";
 import { Box, Container, Grid } from "@material-ui/core";
-import DashboardCard from "../general/dashboard/DashboardCard";
 import DynamicBreadcrumb from "../general/DynamicBreadcrumb";
+
+import GridColumn from "../general/dashboard/GridColumn";
+import DashboardCard from "../general/dashboard/DashboardCard";
 import ActiveStreamsCard from "./ActiveStreamsCard";
 import ActivityLogsCard from "./ActivityLogsCard";
 import DevicesCard from "./DevicesCard";
@@ -26,15 +28,17 @@ export default function HomePage() {
             <ActiveStreamsCard />
           </Grid>
         </Grid>
-        <Grid item xs={6}>
-          <DevicesCard />
-        </Grid>
-        <Grid item xs={6}>
-          <ActivityLogsCard />
-        </Grid>
-        <Grid item xs={6}>
-          <DashboardCard title="Admin Panel" />
-        </Grid>
+        <GridColumn width={6}>
+          <Grid item xs={12}>
+            <DevicesCard />
+          </Grid>
+          <Grid item xs={12}>
+            <ActivityLogsCard />
+          </Grid>
+          <Grid item xs={6}>
+            <DashboardCard title="Admin Panel" />
+          </Grid>
+        </GridColumn>
       </Grid>
     </Container>
   );
