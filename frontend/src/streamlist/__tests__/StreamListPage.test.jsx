@@ -22,7 +22,7 @@ describe("<StreamListPage/> Component", () => {
     it("Contains 1 <Box/> component", () => {
       expect(wrapper.find(Box)).toHaveLength(1);
     });
-    it("Contains 1 <StreamTablePopulator/> component", () => {
+    it("Contains 1 <StreamsTableWrapper/> component", () => {
       expect(wrapper.find(StreamsTableWrapper)).toHaveLength(1);
     });
   });

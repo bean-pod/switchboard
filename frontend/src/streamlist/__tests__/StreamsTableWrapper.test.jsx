@@ -8,7 +8,7 @@ import StreamInfo from "../../model/StreamInfo";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe("<StreamsTablePopulator/> Component", () => {
+describe("<StreamsTableWrapper/> Component", () => {
   let wrapper;
   const dummySource = {
     getAllStreams() {}
