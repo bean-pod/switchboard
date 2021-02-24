@@ -23,16 +23,13 @@ ReactDOM.render(
         <Route
           exact
           path="/Devices"
-          render={(props) => (
-            <DeviceListPage {...props} dataSource={DeviceApi} />
-          )}
+          render={() => <DeviceListPage dataSource={DeviceApi} />}
         />
         <Route
           exact
           path="/Streaming"
-          render={(props) => (
+          render={() => (
             <StreamingTablePage
-              {...props}
               deviceDataSource={DeviceApi}
               streamDataSource={StreamApi}
             />
