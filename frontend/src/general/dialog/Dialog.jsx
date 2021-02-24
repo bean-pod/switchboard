@@ -6,29 +6,34 @@ import DialogTitle from "./DialogTitle";
 import DialogBody from "./DialogBody";
 import DialogButtons from "./DialogButtons";
 
-export default class Dialog {
+export default class Dialog extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       open: false
-    }
+    };
+    this.openDialog = this.openDialog.bind(this);
+    this.closeDialog = this.closeDialog.bind(this);
   }
 
   openDialog() {
     return this.setState({ open: true });
-  };
+  }
+
   closeDialog() {
     return this.setState({ open: false });
-  };
+  }
 
   render() {
-    cancelButton = {
+    const cancelButton = {
       name: "Cancel",
-      onClick() { return this.closeDialog }
-    }
-    
-    const { title, actionButton, children } = props;
-    const {open} = this.state;
+      onClick() {
+        return this.closeDialog;
+      }
+    };
+
+    const { title, actionButton, children } = this.props;
+    const { open } = this.state;
     return (
       <MuiDialog
         open={open}
