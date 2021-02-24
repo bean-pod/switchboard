@@ -27,9 +27,7 @@ export default class Dialog extends React.Component {
   render() {
     const cancelButton = {
       name: "Cancel",
-      onClick() {
-        return this.closeDialog;
-      }
+      onClick: this.closeDialog
     };
 
     const { title, actionButton, children } = this.props;
@@ -37,7 +35,7 @@ export default class Dialog extends React.Component {
     return (
       <MuiDialog
         open={open}
-        onClose={this.closeDialog}
+        onClose={() => this.closeDialog}
         aria-labelledby="dialog-title"
         aria-describedby="dialog-description"
         id="dialog"
