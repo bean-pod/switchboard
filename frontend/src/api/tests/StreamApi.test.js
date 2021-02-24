@@ -46,6 +46,12 @@ const authorizationHeader = {
   }
 };
 
+const authorizationHeader = {
+  headers: {
+    Authorization: "Bearer the_token"
+  }
+};
+
 describe("Stream Api", () => {
   afterEach(() => {
     jest.clearAllMocks();
