@@ -1,5 +1,7 @@
 import React from "react";
 import { Box, Container } from "@material-ui/core";
+import PropTypes from "prop-types";
+
 import DynamicBreadcrumb from "../general/DynamicBreadcrumb";
 import LogsTableWrapper from "./LogsTableWrapper";
 
@@ -24,3 +26,7 @@ export default function LogListPage(props) {
     </>
   );
 }
+
+LogListPage.propTypes = {
+  logsDataSource: PropTypes.objectOf(PropTypes.func).isRequired
+};
