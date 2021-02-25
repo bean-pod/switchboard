@@ -28,8 +28,7 @@ describe("<DeleteStreamDialog/> class", () => {
     });
   });
   describe("openDialog() function", () => {
-
-   wrapper = Enzyme.shallow(
+    wrapper = Enzyme.shallow(
       <DeleteStreamDialog deleteId={dummyId} history={dummyHistory} />
     );
     it("calls the child's openDialog() function", () => {
@@ -42,17 +41,16 @@ describe("<DeleteStreamDialog/> class", () => {
       jest.spyOn(React, "createRef").mockImplementation(() => {
         return mockRefElement;
       });
-  
+
       wrapper = Enzyme.shallow(
         <DeleteStreamDialog deleteId={dummyId} history={dummyHistory} />
       );
-  
+
       it("calls dialogElement.current.openDialog()", () => {
         wrapper.instance().openDialog();
-  
+
         expect(mockOpenDialog).toBeCalledTimes(1);
       });
-
     });
   });
   describe("confirmDelete() function", () => {
@@ -69,8 +67,6 @@ describe("<DeleteStreamDialog/> class", () => {
     });
   });
   describe.only("afterDelete() function", () => {
-    const dummyId = "dummyId";
-
     const mockCloseDialog = jest.fn();
     const mockRefElement = {
       current: {
