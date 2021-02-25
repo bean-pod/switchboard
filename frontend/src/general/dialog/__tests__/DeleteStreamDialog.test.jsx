@@ -27,13 +27,34 @@ describe("<DeleteStreamDialog/> class", () => {
       expect(wrapper.find(Dialog)).toHaveLength(1);
     });
   });
-  // describe("openDialog() function", () => {
+  describe("openDialog() function", () => {
 
-  //  wrapper = Enzyme.shallow(
-  //     <DeleteStreamDialog deleteId={dummyId} history={dummyHistory} />
-  //   );
-  //   it("calls the child's openDialog() function", () => {});
-  // });
+   wrapper = Enzyme.shallow(
+      <DeleteStreamDialog deleteId={dummyId} history={dummyHistory} />
+    );
+    it("calls the child's openDialog() function", () => {
+      const mockOpenDialog = jest.fn();
+      const mockRefElement = {
+        current: {
+          openDialog: mockOpenDialog
+        }
+      };
+      jest.spyOn(React, "createRef").mockImplementation(() => {
+        return mockRefElement;
+      });
+  
+      wrapper = Enzyme.shallow(
+        <DeleteStreamDialog deleteId={dummyId} history={dummyHistory} />
+      );
+  
+      it("calls dialogElement.current.openDialog()", () => {
+        wrapper.instance().openDialog();
+  
+        expect(mockOpenDialog).toBeCalledTimes(1);
+      });
+
+    });
+  });
   describe("confirmDelete() function", () => {
     wrapper = Enzyme.shallow(
       <DeleteStreamDialog deleteId={dummyId} history={dummyHistory} />
