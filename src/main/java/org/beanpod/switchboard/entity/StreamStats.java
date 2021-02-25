@@ -51,7 +51,7 @@ public class StreamStats {
   private long sendPacketsRetransmitted;
   private long sendBytes;
   private long sendBytesDropped;
-  private long sendmMbitRate;
+  private long sendMbitRate;
 
   private long recvPackets;
   private long recvPacketsLost;
@@ -60,6 +60,6 @@ public class StreamStats {
   private long recvPacketsBelated;
   private long recvBytes;
   private long recvBytesLost;
-  private long recvbytesDropped;
+  private long recvBytesDropped;
   private long recvMbitRate;
 }

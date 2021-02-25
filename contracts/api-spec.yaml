@@ -343,7 +343,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StreamsModel'
+                $ref: '#/components/schemas/StreamStatModel'
     post:
       operationId: createStream
       description: Create a new stream between an input and output channel
@@ -381,6 +381,25 @@ paths:
               schema:
                 $ref: '#/components/schemas/StreamModel'
 
+  /stream/{id}/statistics:
+    put:
+      operationId: updateStreamStat
+      description: update a stream's stat
+      tags:
+        - Streams
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StreamStat'
+      responses:
+        '200':
+          description: successful update of a stream stat
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StreamStat'
   /stream/{id}:
     get:
       operationId: getStreamById
@@ -592,6 +611,82 @@ components:
           description: Flag that indicates that the clients should use SRT's Rendezvous mode
           type: boolean
           example: true
+
+    StreamStatModel:
+      description: A stat that is related to a specific stream
+      properties:
+        id:
+          type: integer
+          format: int64
+        time:
+          type: integer
+          format: int64
+        windowFlow:
+          type: integer
+          format: int64
+        congestion:
+          type: integer
+          format: int64
+        flight:
+          type: integer
+          format: int64
+        rtt:
+          type: integer
+          format: int64
+        bandwidth:
+          type: integer
+          format: int64
+        maxBandwidth:
+          type: integer
+          format: int64
+        sendPackets:
+          type: integer
+          format: int64
+        sendPacketsLost:
+          type: integer
+          format: int64
+        sendPacketsDropped:
+          type: integer
+          format: int64
+        sendPacketsRetransmitted:
+          type: integer
+          format: int64
+        sendBytes:
+          type: integer
+          format: int64
+        sendBytesDropped:
+          type: integer
+          format: int64
+        sendMbitRate:
+          type: integer
+          format: int64
+        recvPackets:
+          type: integer
+          format: int64
+        recvPacketsLost:
+          type: integer
+          format: int64
+        recvPacketsDropped:
+          type: integer
+          format: int64
+        recvPacketsRetransmitted:
+          type: integer
+          format: int64
+        recvPacketsBelated:
+          type: integer
+          format: int64
+        recvBytes:
+          type: integer
+          format: int64
+        recvBytesLost:
+          type: integer
+          format: int64
+        recvBytesDropped:
+          type: integer
+          format: int64
+        recvMbitRate:
+          type: integer
+          format: int64
 
     StreamsModel:
       description: A list of stream IDs
