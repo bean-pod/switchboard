@@ -91,4 +91,12 @@ public class StreamController implements StreamApi {
         .map(ResponseEntity::ok)
         .orElseThrow(() -> new UnknownException(CONTROLLER_NAME));
   }
+
+  @Override
+  public ResponseEntity<List<StreamStatModel>> retrieveStreamStats() {
+    return Optional.of(streamService.getStreamStats())
+        .map(statMapper::toModelList)
+        .map(ResponseEntity::ok)
+        .orElseThrow(() -> new ExceptionType.UnknownException(CONTROLLER_NAME));
+  }
 }

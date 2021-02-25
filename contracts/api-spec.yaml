@@ -408,6 +408,18 @@ paths:
           description: Successful deletion of the stream
 
   /stream/statistics:
+    get:
+      operationId: retrieveStreamStats
+      description: Retrieve all the existing stream statistics
+      tags:
+        - Streams
+      responses:
+        '200':
+          description: Successful retrieval of stream statistics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StreamStatsModel'
     put:
       operationId: updateStreamStat
       description: update a stream's stat
@@ -619,6 +631,12 @@ components:
         type: integer
         format: int64
       example: [ '1234' ]
+
+    StreamStatsModel:
+      description: A list of stream stats
+      type: array
+      items:
+        $ref: '#/components/schemas/StreamStatModel'
 
     CreateStreamRequest:
       description: An object to request the creation of a stream between an input and output channel

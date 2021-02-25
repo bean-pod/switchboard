@@ -1,5 +1,6 @@
 package org.beanpod.switchboard.service;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.beanpod.switchboard.dao.ChannelDaoImpl;
@@ -65,6 +66,11 @@ public class StreamServiceImpl implements StreamService {
   public StreamStatDto updateStreamStat(StreamStatDto streamStatDto){
     log.info("Updating stream statistics {}", streamStatDto.getId());
     return streamDao.updateStreamStat(streamStatDto);
+  }
+
+  @Override
+  public List<StreamStatDto> getStreamStats() {
+    return streamDao.getStreamStats();
   }
 
   private boolean shouldUseRendezvousMode(

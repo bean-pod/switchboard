@@ -92,4 +92,9 @@ public class StreamDaoImpl {
   public Optional<StreamStatDto> findDevice(Long id) {
     return streamStatRepository.findStreamStatEntityById(id).map(statMapper::toDto);
   }
+
+  public List<StreamStatDto> getStreamStats() {
+    List<StreamStatEntity> streamStats = streamStatRepository.findAll();
+    return statMapper.toDtoList(streamStats);
+  }
 }
