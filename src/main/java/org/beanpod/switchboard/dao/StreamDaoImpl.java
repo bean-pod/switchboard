@@ -4,11 +4,15 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.beanpod.switchboard.dto.StreamDto;
+import org.beanpod.switchboard.dto.StreamStatDto;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
+import org.beanpod.switchboard.dto.mapper.StreamStatMapper;
 import org.beanpod.switchboard.entity.StreamEntity;
+import org.beanpod.switchboard.entity.StreamStatEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType.StreamAlreadyExistsException;
 import org.beanpod.switchboard.exceptions.ExceptionType.StreamDoesNotExistException;
 import org.beanpod.switchboard.repository.StreamRepository;
+import org.beanpod.switchboard.repository.StreamStatRepository;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,7 +21,9 @@ import org.springframework.stereotype.Service;
 public class StreamDaoImpl {
 
   private final StreamRepository streamRepository;
+  private final StreamStatRepository streamStatRepository;
   private final StreamMapper mapper;
+  private final StreamStatMapper statMapper;
   private final ChannelDaoImpl channelService;
 
   public List<Long> getStreams() {
@@ -60,5 +66,13 @@ public class StreamDaoImpl {
   public List<StreamDto> getDecoderStreams(String decoderSerialNumber) {
     List<StreamEntity> streamEntities = streamRepository.getDecoderStreams(decoderSerialNumber);
     return mapper.toDtoList(streamEntities);
+  }
+
+  public StreamStatEntity updateStreamStat(StreamStatDto streamStatDto) {
+    if (!streamRepository.existsById(streamStatDto.getId())) {
+      throw new StreamDoesNotExistException(streamStatDto.getId());
+    }
+    StreamStatEntity streamStatEntity = statMapper.toEntity(streamStatDto);
+    return streamStatRepository.save(streamStatEntity);
   }
 }

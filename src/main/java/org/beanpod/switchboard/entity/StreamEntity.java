@@ -33,7 +33,7 @@ public class StreamEntity {
       mappedBy = "stream",
       cascade = {CascadeType.ALL})
   @NotNull
-  private StreamStats streamStats;
+  private StreamStatEntity streamStatEntity;
 
   @OneToOne(optional = false, fetch = FetchType.LAZY)
   @JoinColumn(name = "input_channel_id")

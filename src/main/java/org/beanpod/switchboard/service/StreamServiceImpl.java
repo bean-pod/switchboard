@@ -8,8 +8,11 @@ import org.beanpod.switchboard.dto.DeviceDto;
 import org.beanpod.switchboard.dto.InputChannelDto;
 import org.beanpod.switchboard.dto.OutputChannelDto;
 import org.beanpod.switchboard.dto.StreamDto;
+import org.beanpod.switchboard.dto.StreamStatDto;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
+import org.beanpod.switchboard.dto.mapper.StreamStatMapper;
 import org.beanpod.switchboard.entity.StreamEntity;
+import org.beanpod.switchboard.entity.StreamStatEntity;
 import org.beanpod.switchboard.util.NetworkingUtil;
 import org.openapitools.model.CreateStreamRequest;
 import org.springframework.stereotype.Component;
@@ -21,6 +24,7 @@ public class StreamServiceImpl implements StreamService {
 
   private final StreamDaoImpl streamDao;
   private final StreamMapper mapper;
+  private final StreamStatMapper statMapper;
   private final ChannelDaoImpl channelDao;
   private final NetworkingUtil networkingUtil;
 
@@ -57,6 +61,12 @@ public class StreamServiceImpl implements StreamService {
     log.info("Updating stream {}", streamDto.getId());
     StreamEntity updatedStreamEntity = streamDao.updateStream(streamDto);
     return mapper.toDto(updatedStreamEntity);
+  }
+
+  public StreamStatDto updateStreamStat(StreamStatDto streamStatDto){
+    log.info("Updating stream statistics {}", streamStatDto.getId());
+    StreamStatEntity updateSteamStatEntity = streamDao.updateStreamStat(streamStatDto);
+    return statMapper.toDto(updateSteamStatEntity);
   }
 
   private boolean shouldUseRendezvousMode(

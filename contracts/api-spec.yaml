@@ -343,7 +343,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StreamStatModel'
+                $ref: '#/components/schemas/StreamsModel'
     post:
       operationId: createStream
       description: Create a new stream between an input and output channel
@@ -381,25 +381,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/StreamModel'
 
-  /stream/{id}/statistics:
-    put:
-      operationId: updateStreamStat
-      description: update a stream's stat
-      tags:
-        - Streams
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StreamStat'
-      responses:
-        '200':
-          description: successful update of a stream stat
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StreamStat'
   /stream/{id}:
     get:
       operationId: getStreamById
@@ -426,6 +407,25 @@ paths:
         '200':
           description: Successful deletion of the stream
 
+  /stream/statistics:
+    put:
+      operationId: updateStreamStat
+      description: update a stream's stat
+      tags:
+        - Streams
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StreamStatModel'
+      responses:
+        '200':
+          description: successful update of a stream stat
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StreamStatModel'
 components:
   schemas:
     UserModel:
@@ -612,6 +612,26 @@ components:
           type: boolean
           example: true
 
+    StreamsModel:
+      description: A list of stream IDs
+      type: array
+      items:
+        type: integer
+        format: int64
+      example: [ '1234' ]
+
+    CreateStreamRequest:
+      description: An object to request the creation of a stream between an input and output channel
+      properties:
+        inputChannelId:
+          type: integer
+          format: int64
+          example: '1'
+        outputChannelId:
+          type: integer
+          format: int64
+          example: '2'
+
     StreamStatModel:
       description: A stat that is related to a specific stream
       properties:
@@ -687,26 +707,6 @@ components:
         recvMbitRate:
           type: integer
           format: int64
-
-    StreamsModel:
-      description: A list of stream IDs
-      type: array
-      items:
-        type: integer
-        format: int64
-      example: [ '1234' ]
-
-    CreateStreamRequest:
-      description: An object to request the creation of a stream between an input and output channel
-      properties:
-        inputChannelId:
-          type: integer
-          format: int64
-          example: '1'
-        outputChannelId:
-          type: integer
-          format: int64
-          example: '2'
 
   parameters:
     DeviceSerialNumber:

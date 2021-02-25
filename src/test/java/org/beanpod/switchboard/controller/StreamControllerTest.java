@@ -9,6 +9,7 @@ import java.util.List;
 import org.beanpod.switchboard.dao.StreamDaoImpl;
 import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
+import org.beanpod.switchboard.dto.mapper.StreamStatMapper;
 import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.fixture.ChannelFixture;
 import org.beanpod.switchboard.fixture.StreamFixture;
@@ -28,6 +29,7 @@ class StreamControllerTest {
 
   @Mock private StreamDaoImpl streamDao;
   @Mock private StreamMapper streamMapper;
+  @Mock private StreamStatMapper streamStatMapper;
   @Mock private StreamService streamService;
   @Mock private MaintainDeviceStatus maintainDeviceStatus;
 
@@ -35,7 +37,7 @@ class StreamControllerTest {
   public void setup() {
     MockitoAnnotations.initMocks(this);
     streamController =
-        new StreamController(streamDao, streamService, streamMapper, maintainDeviceStatus);
+        new StreamController(streamDao, streamService, streamMapper, streamStatMapper, maintainDeviceStatus);
   }
 
   @Test
