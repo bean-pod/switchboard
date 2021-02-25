@@ -1,54 +1,90 @@
 import React from "react";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import { describe, expect } from "@jest/globals";
+import { describe, expect, jest } from "@jest/globals";
 import DeleteStreamDialog from "../DeleteStreamDialog";
 import Dialog from "../Dialog";
+
+import * as StreamApi from "../../../api/StreamApi";
 
 Enzyme.configure({ adapter: new Adapter() });
 
 describe("<DeleteStreamDialog/> class", () => {
+  let wrapper;
+
+  const mockPush = jest.fn();
+  const mockGo = jest.fn();
   const dummyHistory = {
-    push: () => {},
-    go: () => {}
+    push: mockPush,
+    go: mockGo
   };
   const dummyId = "dummyId";
-  const wrapper = Enzyme.shallow(
-    <DeleteStreamDialog deleteId={dummyId} history={dummyHistory} />
-  );
-
   describe("render() function", () => {
+    wrapper = Enzyme.shallow(
+      <DeleteStreamDialog deleteId={dummyId} history={dummyHistory} />
+    );
     it("renders one <Dialog/> Component", () => {
       expect(wrapper.find(Dialog)).toHaveLength(1);
     });
   });
-  describe("openDialog() function", () => {
-    it("calls the child's openDialog() function", () => {
-      expect(wrapper.find(Dialog)).toHaveLength(1);
-    });
-  });
+  // describe("openDialog() function", () => {
+
+  //  wrapper = Enzyme.shallow(
+  //     <DeleteStreamDialog deleteId={dummyId} history={dummyHistory} />
+  //   );
+  //   it("calls the child's openDialog() function", () => {});
+  // });
   describe("confirmDelete() function", () => {
+    wrapper = Enzyme.shallow(
+      <DeleteStreamDialog deleteId={dummyId} history={dummyHistory} />
+    );
     it("calls StreamAPI with the passed ID", () => {
-      // mock the stream API
-      // Call the function
-      // check if stream API has been called with the correct arguments
+      jest.spyOn(StreamApi, "deleteStream");
+      wrapper.instance().confirmDelete();
+      expect(StreamApi.deleteStream).toBeCalledWith(
+        dummyId,
+        wrapper.instance().afterDelete
+      );
     });
   });
-  describe("afterDelete() function", () => {
+  describe.only("afterDelete() function", () => {
+    const dummyId = "dummyId";
+
+    const mockCloseDialog = jest.fn();
+    const mockRefElement = {
+      current: {
+        closeDialog: mockCloseDialog
+      }
+    };
+    jest.spyOn(React, "createRef").mockImplementation(() => {
+      return mockRefElement;
+    });
+
+    wrapper = Enzyme.shallow(
+      <DeleteStreamDialog deleteId={dummyId} history={dummyHistory} />
+    );
+
     it("calls dialogElement.current.closeDialog()", () => {
-      // mock the dialogElement.current.closeDialog
-      // Call the function
-      // check if function has been called
+      wrapper.instance().afterDelete();
+      wrapper.instance().forceUpdate();
+
+      expect(mockCloseDialog).toBeCalledTimes(1);
     });
-    it(`history.push() with "/Streaming"`, () => {
-      // mock the history.push()
-      // Call the function
-      // check if function has been called with Streaming
+
+    const expectedPushArg = "/Streaming";
+    describe(`history.push() to be called once with ${expectedPushArg}`, () => {
+      wrapper.instance().afterDelete();
+      wrapper.instance().forceUpdate();
+      expect(mockPush).toBeCalledTimes(1);
+      expect(mockPush).toBeCalledWith(expectedPushArg);
     });
-    it(`history.go() with "0"`, () => {
-      // mock the history.go()
-      // Call the function
-      // check if function has been called with 0
+
+    const expectedGoArg = 0;
+    describe(`history.go() to be called with ${expectedGoArg}`, () => {
+      // wrapper.instance().afterDelete();
+      // wrapper.instance().forceUpdate();
+      expect(mockGo).toBeCalledTimes(1);
+      expect(mockGo).toBeCalledWith(expectedGoArg);
     });
   });
 });
