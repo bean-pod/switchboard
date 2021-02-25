@@ -1,5 +1,8 @@
 package org.beanpod.switchboard.controller;
 
+import java.time.Instant;
+import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
@@ -12,8 +15,10 @@ import org.beanpod.switchboard.dto.DeviceDto;
 import org.beanpod.switchboard.dto.mapper.DecoderMapper;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
 import org.beanpod.switchboard.entity.DecoderEntity;
+import org.beanpod.switchboard.entity.DeviceEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.service.DecoderService;
+import org.beanpod.switchboard.util.MaintainDeviceStatus;
 import org.openapitools.model.StreamModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,6 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/decoder")
 @RequiredArgsConstructor
 public class DecoderController {
+
   public static final String UNKNOWN_ERROR_MESSAGE = "Unknown error in DecoderController";
 
   private final DecoderDaoImpl decoderDao;
@@ -36,17 +42,30 @@ public class DecoderController {
   private final DecoderMapper decoderMapper;
   private final StreamMapper streamMapper;
   private final DecoderService decoderService;
+  private final MaintainDeviceStatus maintainDeviceStatus;
 
   @GetMapping
   public List<DecoderDto> retrieveAllDecoders() {
     List<DecoderEntity> decoderEntity = decoderDao.getDecoders();
+    maintainDeviceStatus.maintainStatusField(decoderEntity);
     return decoderMapper.toDecoderDtos(decoderEntity);
   }
 
   @GetMapping("/{serialNumber}")
   public ResponseEntity<DecoderDto> retrieveDecoder(@PathVariable @Valid String serialNumber) {
-    return decoderDao
-        .findDecoder(serialNumber)
+    // maintain status field and create a log if status changed
+    Optional<DecoderDto> decoder = decoderDao.findDecoder(serialNumber);
+    if (decoder.isPresent()) {
+      List<DecoderEntity> decodersListTemp = new LinkedList<>();
+      decodersListTemp.add(decoderMapper.toDecoderEntity(decoder.get()));
+      DeviceEntity updatedDevice =
+          maintainDeviceStatus.maintainStatusField(decodersListTemp).get(0);
+      // update the retrieved decoder object
+      decoder.get().getDevice().setStatus(updatedDevice.getStatus());
+    }
+
+    // return decoder
+    return decoder
         .map(ResponseEntity::ok)
         .orElseThrow(() -> new ExceptionType.DeviceNotFoundException(serialNumber));
   }
@@ -58,6 +77,7 @@ public class DecoderController {
       throw new ExceptionType.DeviceNotFoundException(decoderDto.getSerialNumber());
     }
     decoderDto.setDevice(deviceOptional.get());
+    decoderDto.setLastCommunication(Date.from(Instant.now()));
     return ResponseEntity.ok(decoderDao.save(decoderDto));
   }
 

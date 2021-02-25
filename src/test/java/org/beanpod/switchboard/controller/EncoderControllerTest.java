@@ -26,6 +26,7 @@ import org.beanpod.switchboard.fixture.DeviceFixture;
 import org.beanpod.switchboard.fixture.EncoderFixture;
 import org.beanpod.switchboard.fixture.StreamFixture;
 import org.beanpod.switchboard.service.EncoderService;
+import org.beanpod.switchboard.util.MaintainDeviceStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -35,7 +36,9 @@ import org.openapitools.model.StreamModel;
 import org.springframework.http.ResponseEntity;
 
 class EncoderControllerTest {
+
   // stubbed Objects
+  private static List<DeviceEntity> listOfDevices;
   private static DeviceEntity device;
   private static DeviceDto deviceDto;
   private static EncoderEntity encoder;
@@ -47,9 +50,11 @@ class EncoderControllerTest {
   @Mock private EncoderService encoderService;
   @Mock private EncoderMapper encoderMapper;
   @Mock private StreamMapper streamMapper;
+  @Mock private MaintainDeviceStatus maintainDeviceStatus;
 
   @BeforeEach
   void setupEncoderFixture() throws ParseException {
+    listOfDevices = DeviceFixture.getListOfDevices();
     device = DeviceFixture.getDevice1();
     deviceDto = DeviceFixture.getDeviceDto();
     encoder = EncoderFixture.getEncoderEntity1();
@@ -78,6 +83,8 @@ class EncoderControllerTest {
   @Test
   final void testRetrieveEncoder() {
     when(encoderDao.findEncoder(EncoderFixture.SERIAL_NUMBER)).thenReturn(Optional.of(encoderDTO));
+    when(maintainDeviceStatus.maintainStatusField(anyList())).thenReturn(listOfDevices);
+
     ResponseEntity<EncoderDto> actualEncoder =
         encoderController.retrieveEncoder(EncoderFixture.SERIAL_NUMBER);
 

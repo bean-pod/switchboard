@@ -194,6 +194,14 @@ select {
   color: #ea5757;
 }
 
+#editDeviceNameField {
+  font-size: 35px;
+  vertical-align: middle;
+  flex-grow: 1;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
 .textAlignRightPadded {
   text-align: right;
   padding: 1rem;

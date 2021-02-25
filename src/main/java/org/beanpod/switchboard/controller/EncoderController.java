@@ -1,5 +1,8 @@
 package org.beanpod.switchboard.controller;
 
+import java.time.Instant;
+import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
@@ -12,9 +15,11 @@ import org.beanpod.switchboard.dto.DeviceDto;
 import org.beanpod.switchboard.dto.EncoderDto;
 import org.beanpod.switchboard.dto.mapper.EncoderMapper;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
+import org.beanpod.switchboard.entity.DeviceEntity;
 import org.beanpod.switchboard.entity.EncoderEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.service.EncoderService;
+import org.beanpod.switchboard.util.MaintainDeviceStatus;
 import org.openapitools.model.StreamModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,6 +36,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/encoder")
 @RequiredArgsConstructor
 public class EncoderController {
+
   public static final String UNKNOWN_ERROR_MESSAGE = "Unknown error in EncoderController";
 
   private final EncoderDaoImpl encoderDao;
@@ -38,17 +44,31 @@ public class EncoderController {
   private final EncoderMapper encoderMapper;
   private final StreamMapper streamMapper;
   private final EncoderService encoderService;
+  private final MaintainDeviceStatus maintainDeviceStatus;
 
   @GetMapping
   public List<EncoderDto> retrieveAllEncoders() {
     List<EncoderEntity> encoderEntities = encoderDao.getEncoders();
+    maintainDeviceStatus.maintainStatusField(encoderEntities);
     return encoderMapper.toEncoderDtos(encoderEntities);
   }
 
   @GetMapping("/{serialNumber}")
   public ResponseEntity<EncoderDto> retrieveEncoder(@PathVariable @Valid String serialNumber) {
-    return encoderDao
-        .findEncoder(serialNumber)
+
+    // maintain status field and create a log if status changed
+    Optional<EncoderDto> encoder = encoderDao.findEncoder(serialNumber);
+    if (encoder.isPresent()) {
+      List<EncoderEntity> encodersListTemp = new LinkedList<>();
+      encodersListTemp.add(encoderMapper.toEncoderEntity(encoder.get()));
+      DeviceEntity updatedDevice =
+          maintainDeviceStatus.maintainStatusField(encodersListTemp).get(0);
+      // update the retrieved decoder object
+      encoder.get().getDevice().setStatus(updatedDevice.getStatus());
+    }
+
+    // return encoder
+    return encoder
         .map(ResponseEntity::ok)
         .orElseThrow(() -> new ExceptionType.DeviceNotFoundException(serialNumber));
   }
@@ -60,6 +80,7 @@ public class EncoderController {
       throw new ExceptionType.DeviceNotFoundException(encoderDto.getSerialNumber());
     }
     encoderDto.setDevice(deviceOptional.get());
+    encoderDto.setLastCommunication(Date.from(Instant.now()));
     return ResponseEntity.ok(encoderDao.save(encoderDto));
   }
 

@@ -18,6 +18,7 @@ import org.mockito.MockitoAnnotations;
 import org.openapitools.model.LogModel;
 
 class LogDaoImplTest {
+
   public static List<LogModel> logModels;
   public static List<LogEntity> logEntities;
 
