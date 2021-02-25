@@ -11,10 +11,10 @@ class DeleteStreamDialogSummoner extends React.Component {
     super(props);
 
     this.dialogElement = React.createRef();
-    this.openDeleteDialog = this.openDeleteDialog.bind(this);
+    this.openDeleteDialog = this.openDialog.bind(this);
   }
 
-  openDeleteDialog() {
+  openDialog() {
     this.dialogElement.current.openDialog();
   }
 
@@ -23,7 +23,7 @@ class DeleteStreamDialogSummoner extends React.Component {
     return (
       <>
         <Tooltip title="Delete Stream" aria-label="delete stream">
-          <IconButton onClick={this.openDeleteDialog}>
+          <IconButton onClick={this.openDialog}>
             <Delete />
           </IconButton>
         </Tooltip>

@@ -16,14 +16,15 @@ describe("<DeleteStreamDialogSummoner/> class", () => {
     push: () => {},
     go: () => {}
   };
-  const wrapper = Enzyme.shallow(
-    <DeleteStreamDialogSummoner.WrappedComponent
-      deleteId={dummyId}
-      history={dummyHistory}
-    />
-  );
+  let wrapper;
 
   describe("render() function", () => {
+    wrapper = Enzyme.shallow(
+      <DeleteStreamDialogSummoner.WrappedComponent
+        deleteId={dummyId}
+        history={dummyHistory}
+      />
+    );
     it("renders one <Tooltip/> Component", () => {
       expect(wrapper.find(Tooltip)).toHaveLength(1);
     });
@@ -38,10 +39,25 @@ describe("<DeleteStreamDialogSummoner/> class", () => {
     });
   });
   describe("openDialog() function", () => {
-    it("calls the child's openDialog() function", () => {
-      // mock the dialogElement.current.closeDialog
-      // Call the function
-      // check if function has been called
+    const mockOpenDialog = jest.fn();
+    const mockRefElement = {
+      current: {
+        openDialog: mockOpenDialog
+      }
+    };
+    jest.spyOn(React, "createRef").mockImplementation(() => {
+      return mockRefElement;
+    });
+
+    wrapper = Enzyme.shallow(
+      <DeleteStreamDialogSummoner.WrappedComponent
+        deleteId={dummyId}
+        history={dummyHistory}
+      />
+    );
+    it("calls dialogElement.current.openDialog()", () => {
+      wrapper.instance().openDialog();
+      expect(mockOpenDialog).toBeCalledTimes(1);
     });
   });
 });
