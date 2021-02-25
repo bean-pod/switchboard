@@ -15,26 +15,55 @@ describe("<Dialog/> Component", () => {
   const testBody = "testString";
   const dummyTitle = "testString";
   const onClick = () => {};
-  const dummyButton1 = { name: "name1", onClick };
-  const dummyButton2 = { name: "name2", onClick };
+  const actionButton = { name: "name1", onClick };
   const wrapper = Enzyme.shallow(
-    <Dialog title={dummyTitle} button1={dummyButton1} button2={dummyButton2}>
+    <Dialog title={dummyTitle} actionButton={actionButton}>
       {testBody}
     </Dialog>
   );
 
-  describe("should contain", () => {
-    it("one <MuiDialog/> component", () => {
+  describe("render() function should return a component that", () => {
+    it("Contains one <MuiDialog/> component", () => {
       expect(wrapper.find(MuiDialog)).toHaveLength(1);
     });
-    it("one <DialogTitle/> component", () => {
+    it("Contains one <DialogTitle/> component", () => {
       expect(wrapper.find(DialogTitle)).toHaveLength(1);
     });
-    it("one <DialogBody/> component", () => {
+    it("Contains one <DialogBody/> component", () => {
       expect(wrapper.find(DialogBody)).toHaveLength(1);
     });
-    it("one <DialogButtons/> component", () => {
+    it("Contains one <DialogButtons/> component", () => {
       expect(wrapper.find(DialogButtons)).toHaveLength(1);
     });
   });
+
+  describe("openDialog() function", ()=>{
+    it("should set the state open to true", ()=>{
+      const defaultState = {
+        open: false
+      }
+      const openState = {
+        open: true
+      }
+      expect(wrapper.state()).toEqual(defaultState);
+      wrapper.instance().openDialog();
+
+      expect(wrapper.state()).toEqual(openState);
+    })
+  })
+  describe("closeDialog() function", ()=>{
+    it("should set the state open to false", ()=>{
+      const startingState = {
+        open: true
+      }
+      const endState = {
+        open: false
+      }
+      wrapper.setState(startingState)
+      expect(wrapper.state()).toEqual(startingState);
+
+      wrapper.instance().closeDialog();
+      expect(wrapper.state()).toEqual(endState);
+    })
+  })
 });
