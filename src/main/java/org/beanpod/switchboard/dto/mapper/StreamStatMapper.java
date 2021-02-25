@@ -25,5 +25,6 @@ public interface StreamStatMapper {
   StreamStatModel toModel(StreamStatDto streamStatDto);
 
   List<StreamStatModel> toModelList(List<StreamStatDto> streamDtoList);
+
   void updateStreamStatFromDto(StreamStatDto dto, @MappingTarget StreamStatDto target);
 }

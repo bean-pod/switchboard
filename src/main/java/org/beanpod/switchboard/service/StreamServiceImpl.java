@@ -63,7 +63,7 @@ public class StreamServiceImpl implements StreamService {
     return mapper.toDto(updatedStreamEntity);
   }
 
-  public StreamStatDto updateStreamStat(StreamStatDto streamStatDto){
+  public StreamStatDto updateStreamStat(StreamStatDto streamStatDto) {
     log.info("Updating stream statistics {}", streamStatDto.getId());
     return streamDao.updateStreamStat(streamStatDto);
   }

@@ -25,5 +25,4 @@ public interface StreamRepository extends JpaRepository<StreamEntity, Long> {
 
   @Query("SELECT s FROM Stream s WHERE s.inputChannel.decoder.serialNumber = :decoderSerial")
   List<StreamEntity> getDecoderStreams(@Param(value = "decoderSerial") String decoderSerial);
-
 }

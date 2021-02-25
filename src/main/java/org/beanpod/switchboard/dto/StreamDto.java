@@ -16,7 +16,5 @@ public class StreamDto {
   private OutputChannelDto outputChannel;
   private InputChannelDto inputChannel;
   private Boolean isRendezvous;
-  @NotNull
-  private StreamStatDto streamStat;
-
+  @NotNull private StreamStatDto streamStat;
 }

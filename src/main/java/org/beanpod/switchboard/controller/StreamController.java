@@ -83,7 +83,7 @@ public class StreamController implements StreamApi {
   }
 
   @Override
-  public ResponseEntity<StreamStatModel> updateStreamStat(@Valid StreamStatModel streamStatModel){
+  public ResponseEntity<StreamStatModel> updateStreamStat(@Valid StreamStatModel streamStatModel) {
     return Optional.of(streamStatModel)
         .map(statMapper::toDto)
         .map(streamService::updateStreamStat)

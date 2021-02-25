@@ -45,10 +45,12 @@ public class StreamDaoImpl {
     StreamEntity streamEntity = mapper.toEntity(streamDto);
     StreamDto streamDto1 = mapper.toDto(streamRepository.save(streamEntity));
 
-    //Save an empty stream stat when saving a stream
-    if(streamDto.getStreamStat() == null){
-      StreamStatEntity streamStatBuild = StreamStatEntity.builder().stream(mapper.toEntity(streamDto1))
-          .id(streamDto1.getId()).build();
+    // Save an empty stream stat when saving a stream
+    if (streamDto.getStreamStat() == null) {
+      StreamStatEntity streamStatBuild =
+          StreamStatEntity.builder().stream(mapper.toEntity(streamDto1))
+              .id(streamDto1.getId())
+              .build();
       streamStatRepository.save(streamStatBuild);
       streamDto1.setStreamStat(statMapper.toDto(streamStatBuild));
     }
@@ -85,7 +87,7 @@ public class StreamDaoImpl {
     Optional<StreamStatDto> streamStat = findDevice(streamStatDto.getId());
     statMapper.updateStreamStatFromDto(streamStatDto, streamStat.orElse(null));
 
-  return statMapper.toDto(
+    return statMapper.toDto(
         streamStatRepository.save(statMapper.toEntity(streamStat.orElse(null))));
   }
 

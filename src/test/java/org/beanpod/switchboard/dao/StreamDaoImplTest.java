@@ -34,7 +34,8 @@ class StreamDaoImplTest {
   @BeforeEach
   public void setup() {
     initMocks(this);
-    streamService = new StreamDaoImpl(streamRepository, streamStatRepository, streamMapper, streamStatMapper);
+    streamService =
+        new StreamDaoImpl(streamRepository, streamStatRepository, streamMapper, streamStatMapper);
   }
 
   @Test

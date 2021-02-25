@@ -37,7 +37,8 @@ class StreamControllerTest {
   public void setup() {
     MockitoAnnotations.initMocks(this);
     streamController =
-        new StreamController(streamDao, streamService, streamMapper, streamStatMapper, maintainDeviceStatus);
+        new StreamController(
+            streamDao, streamService, streamMapper, streamStatMapper, maintainDeviceStatus);
   }
 
   @Test

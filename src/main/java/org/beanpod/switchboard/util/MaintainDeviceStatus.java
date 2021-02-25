@@ -18,9 +18,9 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class MaintainDeviceStatus {
 
+  public static final String OFFLINE_STATUS = "offline";
   private static final DateUtil date = new DateUtil();
   private static final String ONLINE_STATUS = "online";
-  public static final String OFFLINE_STATUS = "offline";
   private final DeviceDaoImpl deviceDao;
   private final DeviceMapper deviceMapper;
 

@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface StreamStatRepository extends JpaRepository<StreamStatEntity, Long> {
   StreamStatEntity save(StreamStatEntity streamStatEntity);
+
   Optional<StreamStatEntity> findStreamStatEntityById(Long id);
+
   List<StreamStatEntity> findAll();
 }
