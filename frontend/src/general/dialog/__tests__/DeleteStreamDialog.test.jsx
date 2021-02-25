@@ -93,7 +93,7 @@ describe("<DeleteStreamDialog/> class", () => {
     });
 
     const expectedPushArg = "/Streaming";
-    describe(`history.push() to be called once with ${expectedPushArg}`, () => {
+    it(`history.push() to be called once with ${expectedPushArg}`, () => {
       wrapper.instance().afterDelete();
       wrapper.instance().forceUpdate();
       expect(mockPush).toBeCalledTimes(1);
@@ -101,9 +101,9 @@ describe("<DeleteStreamDialog/> class", () => {
     });
 
     const expectedGoArg = 0;
-    describe(`history.go() to be called with ${expectedGoArg}`, () => {
-      // wrapper.instance().afterDelete();
-      // wrapper.instance().forceUpdate();
+    it(`history.go() to be called with ${expectedGoArg}`, () => {
+      wrapper.instance().afterDelete();
+      wrapper.instance().forceUpdate();
       expect(mockGo).toBeCalledTimes(1);
       expect(mockGo).toBeCalledWith(expectedGoArg);
     });
