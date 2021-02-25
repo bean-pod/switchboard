@@ -12,7 +12,6 @@ import org.beanpod.switchboard.dto.StreamStatDto;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
 import org.beanpod.switchboard.dto.mapper.StreamStatMapper;
 import org.beanpod.switchboard.entity.StreamEntity;
-import org.beanpod.switchboard.entity.StreamStatEntity;
 import org.beanpod.switchboard.util.NetworkingUtil;
 import org.openapitools.model.CreateStreamRequest;
 import org.springframework.stereotype.Component;
@@ -65,8 +64,7 @@ public class StreamServiceImpl implements StreamService {
 
   public StreamStatDto updateStreamStat(StreamStatDto streamStatDto){
     log.info("Updating stream statistics {}", streamStatDto.getId());
-    StreamStatEntity updateSteamStatEntity = streamDao.updateStreamStat(streamStatDto);
-    return statMapper.toDto(updateSteamStatEntity);
+    return streamDao.updateStreamStat(streamStatDto);
   }
 
   private boolean shouldUseRendezvousMode(

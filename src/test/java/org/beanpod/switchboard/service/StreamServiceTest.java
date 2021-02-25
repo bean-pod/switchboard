@@ -12,6 +12,7 @@ import org.beanpod.switchboard.dto.InputChannelDto;
 import org.beanpod.switchboard.dto.OutputChannelDto;
 import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
+import org.beanpod.switchboard.dto.mapper.StreamStatMapper;
 import org.beanpod.switchboard.entity.StreamEntity;
 import org.beanpod.switchboard.fixture.ChannelFixture;
 import org.beanpod.switchboard.fixture.StreamFixture;
@@ -22,22 +23,24 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.openapitools.model.CreateStreamRequest;
 
-public class StreamServiceTest {
+class StreamServiceTest {
 
   @InjectMocks private StreamServiceImpl streamService;
   @Mock private StreamDaoImpl streamDao;
   @Mock private StreamMapper mapper;
+  @Mock private StreamStatMapper streamStatMapper;
   @Mock private ChannelDaoImpl channelDao;
   @Mock private NetworkingUtil networkingUtil;
 
   @BeforeEach
   public void setup() {
     initMocks(this);
-    streamService = new StreamServiceImpl(streamDao, mapper, channelDao, networkingUtil);
+    streamService =
+        new StreamServiceImpl(streamDao, mapper, streamStatMapper, channelDao, networkingUtil);
   }
 
   @Test
-  public void testCreateStream_DevicesOnSameLocalNetworkAsService() {
+  void testCreateStream_DevicesOnSameLocalNetworkAsService() {
     CreateStreamRequest createStreamRequest = StreamFixture.getCreateStreamRequest();
     InputChannelDto inputChannelDto = ChannelFixture.getInputChannelDto();
     OutputChannelDto outputChannelDto = ChannelFixture.getOutputChannelDto();
@@ -61,7 +64,7 @@ public class StreamServiceTest {
   }
 
   @Test
-  public void testCreateStream_DevicesOnSamePrivateNetwork() {
+  void testCreateStream_DevicesOnSamePrivateNetwork() {
     CreateStreamRequest createStreamRequest = StreamFixture.getCreateStreamRequest();
     InputChannelDto inputChannelDto = ChannelFixture.getInputChannelDto();
     OutputChannelDto outputChannelDto = ChannelFixture.getOutputChannelDto();
@@ -85,7 +88,7 @@ public class StreamServiceTest {
   }
 
   @Test
-  public void testCreateStream_DevicesOnDifferentPrivateNetworks() {
+  void testCreateStream_DevicesOnDifferentPrivateNetworks() {
     CreateStreamRequest createStreamRequest = StreamFixture.getCreateStreamRequest();
     InputChannelDto inputChannelDto = ChannelFixture.getInputChannelDto();
     OutputChannelDto outputChannelDto = ChannelFixture.getOutputChannelDto();
@@ -109,7 +112,7 @@ public class StreamServiceTest {
   }
 
   @Test
-  public void testUpdateStream() {
+  void testUpdateStream() {
     // given
     StreamDto streamDto = StreamFixture.getStreamDto();
     StreamEntity streamEntity = StreamFixture.getStreamEntity();
