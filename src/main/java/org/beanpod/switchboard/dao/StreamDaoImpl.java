@@ -70,6 +70,17 @@ public class StreamDaoImpl {
     return streamRepository.save(streamEntity);
   }
 
+  public StreamStatDto updateStreamStat(StreamStatDto streamStatDto) {
+    if (!streamRepository.existsById(streamStatDto.getId())) {
+      throw new StreamDoesNotExistException(streamStatDto.getId());
+    }
+    Optional<StreamStatDto> streamStat = getStreamStat(streamStatDto.getId());
+    statMapper.updateStreamStatFromDto(streamStatDto, streamStat.orElse(null));
+
+    return statMapper.toDto(
+        streamStatRepository.save(statMapper.toEntity(streamStat.orElse(null))));
+  }
+
   public List<StreamDto> getEncoderStreams(String encoderSerialNumber) {
     List<StreamEntity> streamEntities = streamRepository.getEncoderStreams(encoderSerialNumber);
     return mapper.toDtoList(streamEntities);
@@ -80,18 +91,7 @@ public class StreamDaoImpl {
     return mapper.toDtoList(streamEntities);
   }
 
-  public StreamStatDto updateStreamStat(StreamStatDto streamStatDto) {
-    if (!streamRepository.existsById(streamStatDto.getId())) {
-      throw new StreamDoesNotExistException(streamStatDto.getId());
-    }
-    Optional<StreamStatDto> streamStat = findDevice(streamStatDto.getId());
-    statMapper.updateStreamStatFromDto(streamStatDto, streamStat.orElse(null));
-
-    return statMapper.toDto(
-        streamStatRepository.save(statMapper.toEntity(streamStat.orElse(null))));
-  }
-
-  public Optional<StreamStatDto> findDevice(Long id) {
+  public Optional<StreamStatDto> getStreamStat(Long id) {
     return streamStatRepository.findStreamStatEntityById(id).map(statMapper::toDto);
   }
 

@@ -5,17 +5,20 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
+import java.util.List;
 import org.beanpod.switchboard.dao.ChannelDaoImpl;
 import org.beanpod.switchboard.dao.StreamDaoImpl;
 import org.beanpod.switchboard.dto.DeviceDto;
 import org.beanpod.switchboard.dto.InputChannelDto;
 import org.beanpod.switchboard.dto.OutputChannelDto;
 import org.beanpod.switchboard.dto.StreamDto;
+import org.beanpod.switchboard.dto.StreamStatDto;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
 import org.beanpod.switchboard.dto.mapper.StreamStatMapper;
 import org.beanpod.switchboard.entity.StreamEntity;
 import org.beanpod.switchboard.fixture.ChannelFixture;
 import org.beanpod.switchboard.fixture.StreamFixture;
+import org.beanpod.switchboard.fixture.StreamStatFixture;
 import org.beanpod.switchboard.util.NetworkingUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -109,6 +112,14 @@ class StreamServiceTest {
     StreamDto result = streamService.createStream(createStreamRequest);
 
     assertEquals(streamDto, result);
+  }
+  
+  @Test
+  void testGetStreamStats(){
+    List<StreamStatDto> streamStatsDto = StreamStatFixture.getStreamStatDtoList();
+    when(streamDao.getStreamStats()).thenReturn(streamStatsDto);
+    List<StreamStatDto> streamStats = streamService.getStreamStats();
+    assertEquals(streamStats.get(0).getId(), streamStatsDto.get(0).getId());
   }
 
   @Test

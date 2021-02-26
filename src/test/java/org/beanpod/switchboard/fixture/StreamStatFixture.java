@@ -28,4 +28,8 @@ public class StreamStatFixture {
   public static List<StreamStatDto> getStreamStatDtoList(){
     return List.of(getStreamStatDto());
   }
+
+  public static List<StreamStatEntity> getStreamStatEntityList(){
+    return List.of(getStreamStatEntity());
+  }
 }
