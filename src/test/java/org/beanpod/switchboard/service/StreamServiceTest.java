@@ -139,10 +139,10 @@ class StreamServiceTest {
   }
 
   @Test
-  void testUpdateStreamStat(){
+  void testUpdateStreamStat() {
     StreamStatDto streamStat = StreamStatFixture.getStreamStatDto();
     when(streamDao.updateStreamStat(any())).thenReturn(streamStat);
     StreamStatDto streamStatDto = streamService.updateStreamStat(streamStat);
-    assertEquals(streamStat.getId(),streamStatDto.getId());
+    assertEquals(streamStat.getId(), streamStatDto.getId());
   }
 }
