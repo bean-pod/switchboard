@@ -159,7 +159,7 @@ class StreamControllerTest {
   }
 
   @Test
-  void testRetrieveStreamStats(){
+  void testRetrieveStreamStats() {
     List<StreamStatModel> streamStatModelList = StreamStatFixture.getStreamStatModelList();
     List<StreamStatDto> streamStatDto = StreamStatFixture.getStreamStatDtoList();
 

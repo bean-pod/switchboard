@@ -163,8 +163,9 @@ class StreamDaoImplTest {
     when(streamStatMapper.toEntity(any())).thenReturn(streamStatEntity);
 
     StreamStatDto streamStatDto1 = streamDaoImpl.updateStreamStat(streamStatDto);
-    assertEquals(StreamFixture.ID,streamStatDto1.getId());
+    assertEquals(StreamFixture.ID, streamStatDto1.getId());
   }
+
   @Test
   void testFindStreamStat() {
     List<StreamStatEntity> streamStatEntityList = StreamStatFixture.getStreamStatEntityList();

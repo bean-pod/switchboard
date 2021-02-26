@@ -113,9 +113,9 @@ class StreamServiceTest {
 
     assertEquals(streamDto, result);
   }
-  
+
   @Test
-  void testGetStreamStats(){
+  void testGetStreamStats() {
     List<StreamStatDto> streamStatsDto = StreamStatFixture.getStreamStatDtoList();
     when(streamDao.getStreamStats()).thenReturn(streamStatsDto);
     List<StreamStatDto> streamStats = streamService.getStreamStats();

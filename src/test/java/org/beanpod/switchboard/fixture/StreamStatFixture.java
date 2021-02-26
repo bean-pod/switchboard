@@ -25,11 +25,11 @@ public class StreamStatFixture {
     return List.of(getStreamStatModel());
   }
 
-  public static List<StreamStatDto> getStreamStatDtoList(){
+  public static List<StreamStatDto> getStreamStatDtoList() {
     return List.of(getStreamStatDto());
   }
 
-  public static List<StreamStatEntity> getStreamStatEntityList(){
+  public static List<StreamStatEntity> getStreamStatEntityList() {
     return List.of(getStreamStatEntity());
   }
 }
