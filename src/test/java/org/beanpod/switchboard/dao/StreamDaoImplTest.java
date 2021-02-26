@@ -9,12 +9,15 @@ import static org.mockito.MockitoAnnotations.initMocks;
 
 import java.util.List;
 import org.beanpod.switchboard.dto.StreamDto;
+import org.beanpod.switchboard.dto.StreamStatDto;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
 import org.beanpod.switchboard.dto.mapper.StreamStatMapper;
 import org.beanpod.switchboard.entity.StreamEntity;
+import org.beanpod.switchboard.entity.StreamStatEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.fixture.ChannelFixture;
 import org.beanpod.switchboard.fixture.StreamFixture;
+import org.beanpod.switchboard.fixture.StreamStatFixture;
 import org.beanpod.switchboard.repository.StreamRepository;
 import org.beanpod.switchboard.repository.StreamStatRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,18 +26,17 @@ import org.mockito.Mock;
 
 class StreamDaoImplTest {
 
-  private StreamDaoImpl streamService;
+  private StreamDaoImpl streamDaoImpl;
 
   @Mock private StreamRepository streamRepository;
   @Mock private StreamStatRepository streamStatRepository;
   @Mock private StreamMapper streamMapper;
   @Mock private StreamStatMapper streamStatMapper;
-  @Mock private ChannelDaoImpl channelService;
 
   @BeforeEach
   public void setup() {
     initMocks(this);
-    streamService =
+    streamDaoImpl =
         new StreamDaoImpl(streamRepository, streamStatRepository, streamMapper, streamStatMapper);
   }
 
@@ -45,7 +47,7 @@ class StreamDaoImplTest {
     when(streamRepository.getAllId()).thenReturn(channelIdList);
 
     // when
-    List<Long> result = streamService.getStreams();
+    List<Long> result = streamDaoImpl.getStreams();
 
     // then
     assertEquals(result, StreamFixture.getIdList());
@@ -61,7 +63,7 @@ class StreamDaoImplTest {
     when(streamMapper.toDto(streamEntity)).thenReturn(streamDto);
 
     // when
-    StreamDto result = streamService.getStreamById(streamId);
+    StreamDto result = streamDaoImpl.getStreamById(streamId);
 
     // then
     assertEquals(result.getId(), streamId);
@@ -76,12 +78,17 @@ class StreamDaoImplTest {
     long inputChannelId = streamDto.getInputChannel().getId();
     long outputChannelId = streamDto.getOutputChannel().getId();
     StreamEntity streamEntity = StreamFixture.getStreamEntity();
+    StreamStatEntity streamStatEntity = StreamStatFixture.getStreamStatEntity();
+    StreamStatDto streamStatDto = StreamStatFixture.getStreamStatDto();
 
     when(streamMapper.toEntity(any())).thenReturn(streamEntity);
     when(streamRepository.existsDuplicate(inputChannelId, outputChannelId)).thenReturn(false);
-
+    when(streamStatRepository.save(any())).thenReturn(streamStatEntity);
+    when(streamStatMapper.toDto(any(StreamStatEntity.class))).thenReturn(streamStatDto);
+    when(streamRepository.save(any())).thenReturn(streamEntity);
+    when(streamMapper.toDto(any(StreamEntity.class))).thenReturn(streamDto);
     // when
-    streamService.saveStream(streamDto);
+    streamDaoImpl.saveStream(streamDto);
 
     // then
     verify(streamRepository).save(streamEntity);
@@ -99,7 +106,7 @@ class StreamDaoImplTest {
     // when & then
     assertThrows(
         ExceptionType.StreamAlreadyExistsException.class,
-        () -> streamService.saveStream(streamDto));
+        () -> streamDaoImpl.saveStream(streamDto));
   }
 
   @Test
@@ -108,7 +115,7 @@ class StreamDaoImplTest {
     long channelId = StreamFixture.ID;
 
     // when
-    streamService.deleteStream(channelId);
+    streamDaoImpl.deleteStream(channelId);
 
     // then
     verify(streamRepository).deleteById(channelId);
@@ -124,7 +131,7 @@ class StreamDaoImplTest {
     when(streamMapper.toEntity(streamDto)).thenReturn(streamEntity);
 
     // when
-    streamService.updateStream(streamDto);
+    streamDaoImpl.updateStream(streamDto);
 
     // verify
     verify(streamRepository).save(streamEntity);
