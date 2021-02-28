@@ -7,7 +7,7 @@ import GridColumn from "../GridColumn";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe.only("<GridColumn/> Component", () => {
+describe("<GridColumn/> Component", () => {
   let wrapper;
   const dummyWidth = 4;
   const dummySpacing = 5;
@@ -41,12 +41,5 @@ describe.only("<GridColumn/> Component", () => {
         });
       });
     });
-    // describe("Contains 1 <Typography/> component", () => {
-    //     expect(wrapper.find(Typography)).toHaveLength(1);
-    //     it(`That has title "${dummyTitle}"`, () => {
-    //         const bodyBox = wrapper.find(Paper)
-    //         expect(bodyBox.text())
-    //     })
-    // });
   });
 });

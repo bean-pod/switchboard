@@ -4,7 +4,7 @@ import { Grid } from "@material-ui/core";
 import DashboardCard from "../general/dashboard/DashboardCard";
 import DashBoardButton from "../general/dashboard/DashboardButton";
 
-export default function Devices() {
+export default function DevicesCard() {
   return (
     <DashboardCard title="Devices">
       <Grid container justify="center" direction="row" spacing={3}>

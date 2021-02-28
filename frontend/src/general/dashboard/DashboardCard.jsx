@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import "./dashboard.css";
 import { Typography, Paper } from "@material-ui/core";
 
-export default function DashCard(props) {
+export default function DashboardCard(props) {
   const { title, children } = props;
   return (
     <>
@@ -17,7 +17,7 @@ export default function DashCard(props) {
   );
 }
 
-DashCard.propTypes = {
+DashboardCard.propTypes = {
   title: PropTypes.string.isRequired,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
