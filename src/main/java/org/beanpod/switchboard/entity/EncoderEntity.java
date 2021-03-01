@@ -29,7 +29,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(value = {"hibernateLazyIntializer", "handler"})
-public class EncoderEntity {
+public class EncoderEntity implements DecoderEncoderInterface {
 
   @Id
   @NotNull

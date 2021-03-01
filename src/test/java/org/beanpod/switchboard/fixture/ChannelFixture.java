@@ -15,6 +15,7 @@ import org.openapitools.model.InputChannelModel;
 import org.openapitools.model.OutputChannelModel;
 
 public class ChannelFixture {
+
   public static final long CHANNEL_ID = 4569L;
   public static final long CHANNEL_ID2 = 4568L;
   public static final long INPUT_CHANNEL_ID = 113L;
@@ -55,7 +56,7 @@ public class ChannelFixture {
     return OutputChannelEntity.builder()
         .id(OUTPUT_CHANNEL_ID)
         .channel(getChannelEntity2())
-        .encoder(EncoderFixture.getEncoderEntity1())
+        .encoder(EncoderFixture.getEncoderEntity2())
         .build();
   }
 

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EncoderRepository extends JpaRepository<EncoderEntity, String> {
+
   List<EncoderEntity> findAll();
 
   EncoderEntity save(EncoderEntity decoder);

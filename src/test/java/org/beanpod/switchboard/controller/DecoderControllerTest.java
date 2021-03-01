@@ -25,6 +25,7 @@ import org.beanpod.switchboard.fixture.DecoderFixture;
 import org.beanpod.switchboard.fixture.DeviceFixture;
 import org.beanpod.switchboard.fixture.StreamFixture;
 import org.beanpod.switchboard.service.DecoderService;
+import org.beanpod.switchboard.util.MaintainDeviceStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -36,6 +37,7 @@ import org.springframework.http.ResponseEntity;
 class DecoderControllerTest {
 
   // stubbed Objects
+  private static List<DeviceEntity> listOfDevices;
   private static DeviceEntity device;
   private static DeviceDto deviceDto;
   private static DecoderEntity decoder;
@@ -47,9 +49,11 @@ class DecoderControllerTest {
   @Mock private DeviceDaoImpl deviceService;
   @Mock private DecoderMapper decoderMapper;
   @Mock private StreamMapper streamMapper;
+  @Mock private MaintainDeviceStatus maintainDeviceStatus;
 
   @BeforeEach
   void setupDecoderFixture() {
+    listOfDevices = DeviceFixture.getListOfDevices();
     device = DeviceFixture.getDevice1();
     deviceDto = DeviceFixture.getDeviceDto();
     decoder = DecoderFixture.getDecoderEntity1();
@@ -78,6 +82,7 @@ class DecoderControllerTest {
   @Test
   final void testRetrieveDecoder() {
     when(decoderDao.findDecoder(DecoderFixture.SERIAL_NUMBER)).thenReturn(Optional.of(decoderDto));
+    when(maintainDeviceStatus.maintainStatusField(anyList())).thenReturn(listOfDevices);
     ResponseEntity<DecoderDto> actualDecoder = decoderController.retrieveDecoder("1");
 
     assertNotNull(actualDecoder);

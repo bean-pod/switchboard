@@ -103,3 +103,12 @@ export function deleteDevice(deviceId) {
     .delete(`${process.env.REACT_APP_DEVICE}/${deviceId}`)
     .catch(() => {});
 }
+
+export async function updateDeviceName(deviceId, updatedName) {
+  return axios
+    .put(process.env.REACT_APP_DEVICE, {
+      serialNumber: deviceId,
+      displayName: updatedName
+    })
+    .catch(() => {});
+}

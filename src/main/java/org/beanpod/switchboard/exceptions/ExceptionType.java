@@ -10,18 +10,21 @@ public class ExceptionType {
   }
 
   public static class DeviceAlreadyExistsException extends RuntimeException {
+
     public DeviceAlreadyExistsException(String s) {
       super(SERIAL_NUMBER + s);
     }
   }
 
   public static class DeviceNotFoundException extends RuntimeException {
+
     public DeviceNotFoundException(String s) {
       super(SERIAL_NUMBER + s);
     }
   }
 
   public static class StreamAlreadyExistsException extends RuntimeException {
+
     public static final String MESSAGE_TEMPLATE =
         "Stream already exists between input %s%s and output %s%s";
 
@@ -31,6 +34,7 @@ public class ExceptionType {
   }
 
   public static class StreamDoesNotExistException extends RuntimeException {
+
     public static final String MESSAGE_TEMPLATE = "Channel %s%s does not exist";
 
     public StreamDoesNotExistException(Long streamId) {
@@ -39,6 +43,7 @@ public class ExceptionType {
   }
 
   public static class UnknownException extends RuntimeException {
+
     public static final String MESSAGE_TEMPLATE = "Unknown error the %s controller";
 
     public UnknownException(String controllerName) {

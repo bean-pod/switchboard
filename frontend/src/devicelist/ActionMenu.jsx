@@ -61,7 +61,7 @@ export default class ActionMenu extends React.Component {
                 pathname: `/Devices/Details/${device.name}`,
                 state: { device }
               }}
-              className="invisibleLink"
+              className="hideLinkStyle"
             >
               View Details
             </NavLink>

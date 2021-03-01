@@ -22,6 +22,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Builder
 public class StreamEntity {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
