@@ -11,7 +11,7 @@ import DashboardButton from "../../general/dashboard/DashboardButton";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe("<DevicesCard/> functional component", () => {
+describe("<ActivityLogCard/> functional component", () => {
   const wrapper = Enzyme.shallow(<ActivityLogCard />);
 
   describe("returns a component that", () => {
