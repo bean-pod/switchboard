@@ -25,16 +25,10 @@ describe("<DeleteStreamDialogSummoner/> class", () => {
         history={dummyHistory}
       />
     );
-    it("renders one <Tooltip/> Component", () => {
+    it("renders the correct components", () => {
       expect(wrapper.find(Tooltip)).toHaveLength(1);
-    });
-    it("renders one <IconButton/> Component", () => {
       expect(wrapper.find(IconButton)).toHaveLength(1);
-    });
-    it("renders one <Delete/> icon Component", () => {
       expect(wrapper.find(Delete)).toHaveLength(1);
-    });
-    it("renders one <DeleteStreamDialog/> Component", () => {
       expect(wrapper.find(DeleteStreamDialog)).toHaveLength(1);
     });
   });
