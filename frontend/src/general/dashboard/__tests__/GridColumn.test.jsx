@@ -20,26 +20,20 @@ describe("<GridColumn/> Component", () => {
       </GridColumn>
     );
 
-    describe("Contains 2 <Grid/> components", () => {
+    it("Contains 2 <Grid/> components", () => {
       expect(wrapper.find(Grid)).toHaveLength(2);
-      describe("First <Grid/> has props", () => {
-        const outerGrid = wrapper.find(Grid).first();
-        it(`"item" with value true`, () => {
-          expect(outerGrid.props().item).toBe(true);
-        });
-        it(`"xs" with value ${dummyWidth}`, () => {
-          expect(outerGrid.props().xs).toBe(dummyWidth);
-        });
-      });
-      describe("Second <Grid/> has props", () => {
-        const innerGrid = wrapper.find(Grid).last();
-        it(`"container" with value true`, () => {
-          expect(innerGrid.props().container).toBe(true);
-        });
-        it(`"spacing" with value ${dummySpacing}`, () => {
-          expect(innerGrid.props().spacing).toBe(dummySpacing);
-        });
-      });
+    });
+    it("First <Grid/> has expected props", () => {
+      const outerGrid = wrapper.find(Grid).first();
+
+      expect(outerGrid.props().item).toBe(true);
+      expect(outerGrid.props().xs).toBe(dummyWidth);
+    });
+    it("Second <Grid/> has props", () => {
+      const innerGrid = wrapper.find(Grid).last();
+
+      expect(innerGrid.props().container).toBe(true);
+      expect(innerGrid.props().spacing).toBe(dummySpacing);
     });
   });
 });

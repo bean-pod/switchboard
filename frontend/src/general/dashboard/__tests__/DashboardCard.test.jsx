@@ -19,12 +19,12 @@ describe("<DashboardCard/> functional Component", () => {
     it("Contains 1 <Paper/> component", () => {
       expect(wrapper.find(Paper)).toHaveLength(1);
       const paper = wrapper.find(Paper).first();
-      expect(paper.childAt(1).text()).toBe(dummyBody)
+      expect(paper.childAt(1).text()).toBe(dummyBody);
     });
     it("Contains 1 <Typography/> component", () => {
       expect(wrapper.find(Typography)).toHaveLength(1);
-        const bodyBox = wrapper.find(Typography);
-        expect(bodyBox.text()).toBe(dummyTitle);
+      const bodyBox = wrapper.find(Typography);
+      expect(bodyBox.text()).toBe(dummyTitle);
     });
   });
 });
