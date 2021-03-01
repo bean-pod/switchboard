@@ -17,7 +17,7 @@ export default function ActivityLogsCard() {
           <LogsTableWrapper logsDataSource={dataSource} />
         </Grid>
         <Grid item xs={4}>
-          <DashBoardButton href="/Logs">View all</DashBoardButton>
+          <DashBoardButton href="/Logs">View All</DashBoardButton>
         </Grid>
       </Grid>
     </DashboardCard>
