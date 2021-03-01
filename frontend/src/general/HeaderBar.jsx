@@ -1,6 +1,6 @@
 import React from "react";
 import { AppBar, IconButton, makeStyles, Toolbar } from "@material-ui/core";
-import { AccountCircle, Menu, Notifications } from "@material-ui/icons/";
+import { AccountCircle, Home, Notifications } from "@material-ui/icons/";
 import { NavLink } from "react-router-dom";
 
 export default class HeaderBar extends React.Component {
@@ -15,38 +15,29 @@ export default class HeaderBar extends React.Component {
 
   render() {
     return (
-      <>
-        <div className="headerBar">
-          <AppBar position="static">
-            <Toolbar className="darkGrey">
-              <IconButton
-                edge="start"
-                className={this.classes.menuButton}
-                color="inherit"
-                aria-label="menu"
-              >
-                <Menu />
-              </IconButton>
-              <div className="headerTitle">
-                <NavLink
-                  to="/"
-                  activeClassName="headerTitle"
-                  className="headerTitle"
-                  exact
+      <div className="headerBar">
+        <AppBar position="static">
+          <Toolbar className="darkGrey">
+            <div className="headerTitle">
+              <NavLink to="/" className="headerTitle">
+                <IconButton
+                  edge="start"
+                  className={this.classes.menuButton}
+                  color="inherit"
+                  aria-label="menu"
                 >
-                  Switchboard
-                </NavLink>
-              </div>
-              <IconButton id="notifBtn" color="inherit">
-                <Notifications />
-              </IconButton>
-              <IconButton id="acctBtn" color="inherit">
-                <AccountCircle />
-              </IconButton>
-            </Toolbar>
-          </AppBar>
-        </div>
-      </>
+                  <Home />
+                </IconButton>
+              </NavLink>
+              Switchboard
+            </div>
+
+            <IconButton id="acctBtn" color="inherit">
+              <AccountCircle />
+            </IconButton>
+          </Toolbar>
+        </AppBar>
+      </div>
     );
   }
 }
