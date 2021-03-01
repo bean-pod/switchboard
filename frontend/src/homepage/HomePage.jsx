@@ -7,6 +7,7 @@ import DashboardCard from "../general/dashboard/DashboardCard";
 import ActiveStreamCard from "./ActiveStreamCard";
 import ActivityLogCard from "./ActivityLogCard";
 import DevicesCard from "./DevicesCard";
+import AdminPanelCard from "./AdminPanelCard";
 
 export default function HomePage() {
   return (
@@ -35,7 +36,7 @@ export default function HomePage() {
             <ActivityLogCard />
           </Grid>
           <Grid item xs={12}>
-            <DashboardCard title="Admin Panel" />
+            <AdminPanelCard/>
           </Grid>
         </GridColumn>
       </Grid>
