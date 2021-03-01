@@ -17,7 +17,7 @@ describe("<DevicesCard/> functional component", () => {
   describe("returns a component that", () => {
     it("Contains 1 <DashboardCard/> component that has expected props", () => {
       const expectedTitle = "Activity Logs";
-      
+
       expect(wrapper.find(DashboardCard)).toHaveLength(1);
       const dashboardCard = wrapper.find(DashboardCard).first();
       expect(dashboardCard.props().title).toBe(expectedTitle);
