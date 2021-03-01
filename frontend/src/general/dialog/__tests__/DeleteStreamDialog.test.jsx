@@ -20,15 +20,14 @@ describe("<DeleteStreamDialog/> class", () => {
   };
   const mockOpenDialog = jest.fn();
   const mockCloseDialog = jest.fn();
-  const mockRefElement= {
-      current: {
-        openDialog: mockOpenDialog,
-        closeDialog: mockCloseDialog
-      }
-    };
+  const mockRefElement = {
+    current: {
+      openDialog: mockOpenDialog,
+      closeDialog: mockCloseDialog
+    }
+  };
   const dummyId = "dummyId";
   beforeEach(() => {
-
     jest.spyOn(React, "createRef").mockImplementation(() => {
       return mockRefElement;
     });

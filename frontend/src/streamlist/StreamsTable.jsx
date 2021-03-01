@@ -15,7 +15,7 @@ import {
 import MaterialTable from "material-table";
 
 import StatusIndicator from "../general/StatusIndicator";
-import DeleteStream from "./DeleteStream";
+import DeleteStreamDialogSummoner from "../general/dialog/DeleteStreamDialogSummoner";
 import StreamInfo from "../model/StreamInfo";
 
 export default class StreamsTable extends React.Component {
@@ -60,7 +60,7 @@ export default class StreamsTable extends React.Component {
         filtering: false,
         sorting: false,
         render: function Actions(rowData) {
-          return <DeleteStream deleteId={rowData.id} />;
+          return <DeleteStreamDialogSummoner deleteId={rowData.id} />;
         },
         align: "center",
         export: false
