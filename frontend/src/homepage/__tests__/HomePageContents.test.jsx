@@ -9,7 +9,7 @@ import DynamicBreadcrumb from "../../general/DynamicBreadcrumb";
 import GridColumn from "../../general/dashboard/GridColumn";
 import DashboardCard from "../../general/dashboard/DashboardCard";
 import ActiveStreamCard from "../ActiveStreamCard";
-import ActivityLogCard from "../ActivityLogsCard";
+import ActivityLogCard from "../ActivityLogCard";
 import DevicesCard from "../DevicesCard";
 
 Enzyme.configure({ adapter: new Adapter() });

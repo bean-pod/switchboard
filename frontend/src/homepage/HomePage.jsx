@@ -4,8 +4,8 @@ import DynamicBreadcrumb from "../general/DynamicBreadcrumb";
 
 import GridColumn from "../general/dashboard/GridColumn";
 import DashboardCard from "../general/dashboard/DashboardCard";
-import ActivityLogsCard from "./ActivityLogsCard";
 import ActiveStreamCard from "./ActiveStreamCard";
+import ActivityLogCard from "./ActivityLogCard";
 import DevicesCard from "./DevicesCard";
 
 export default function HomePage() {
@@ -25,7 +25,7 @@ export default function HomePage() {
       >
         <Grid item xs={6}>
           <Grid style={{ height: "100%" }}>
-            <ActiveStreamsCard />
+            <ActiveStreamCard />
           </Grid>
         </Grid>
         <GridColumn width={6}>
@@ -33,7 +33,7 @@ export default function HomePage() {
             <DevicesCard />
           </Grid>
           <Grid item xs={12}>
-            <ActivityLogsCard />
+            <ActivityLogCard />
           </Grid>
           <Grid item xs={6}>
             <DashboardCard title="Admin Panel" />

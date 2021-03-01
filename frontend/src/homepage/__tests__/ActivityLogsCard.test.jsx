@@ -3,7 +3,7 @@ import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import { describe, expect, it } from "@jest/globals";
 import { Grid } from "@material-ui/core";
-import ActivityLogsCard from "../ActivityLogsCard";
+import ActivityLogCard from "../ActivityLogCard";
 
 import DashboardCard from "../../general/dashboard/DashboardCard";
 import LogsTableWrapper from "../../loglist/LogsTableWrapper";
@@ -12,7 +12,7 @@ import DashboardButton from "../../general/dashboard/DashboardButton";
 Enzyme.configure({ adapter: new Adapter() });
 
 describe("<DevicesCard/> functional component", () => {
-  const wrapper = Enzyme.shallow(<ActivityLogsCard />);
+  const wrapper = Enzyme.shallow(<ActivityLogCard />);
 
   describe("returns a component that", () => {
     describe("Contains 1 <DashboardCard/> component", () => {
