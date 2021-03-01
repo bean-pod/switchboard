@@ -20,7 +20,7 @@ export default function DashboardButton(props) {
     }
   })(Button);
   return (
-    <Link color="inherit" href={href} id="sendersButton">
+    <Link color="inherit" href={href}>
       <StyledButton>{children}</StyledButton>
     </Link>
   );
