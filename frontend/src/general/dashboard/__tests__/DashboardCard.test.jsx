@@ -7,7 +7,7 @@ import DashboardCard from "../DashboardCard";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe.only("<DashboardCard/> Component", () => {
+describe("<DashboardCard/> functional Component", () => {
   let wrapper;
   const dummyTitle = "Title";
   const dummyBody = "Body";
@@ -16,20 +16,15 @@ describe.only("<DashboardCard/> Component", () => {
     wrapper = Enzyme.shallow(
       <DashboardCard title={dummyTitle}>{dummyBody}</DashboardCard>
     );
-
-    describe("Contains 1 <Paper/> component", () => {
+    it("Contains 1 <Paper/> component", () => {
       expect(wrapper.find(Paper)).toHaveLength(1);
-      it(`That has text "${dummyBody}"`, () => {
-        const bodyBox = wrapper.find(Paper);
-        expect(bodyBox.text());
-      });
+      const paper = wrapper.find(Paper).first();
+      expect(paper.childAt(1).text()).toBe(dummyBody)
     });
-    describe("Contains 1 <Typography/> component", () => {
+    it("Contains 1 <Typography/> component", () => {
       expect(wrapper.find(Typography)).toHaveLength(1);
-      it(`That has title "${dummyTitle}"`, () => {
-        const bodyBox = wrapper.find(Paper);
-        expect(bodyBox.text());
-      });
+        const bodyBox = wrapper.find(Typography);
+        expect(bodyBox.text()).toBe(dummyTitle);
     });
   });
 });
