@@ -20,7 +20,7 @@ describe("<DevicesCard/> functional component", () => {
 
       const dashboardCard = wrapper.find(DashboardCard).first();
       describe("that has props", () => {
-          const expectedTitle = "Activity Logs"
+        const expectedTitle = "Activity Logs";
         it(`"title" with value "${expectedTitle}"`, () => {
           expect(dashboardCard.props().title).toBe(expectedTitle);
         });
@@ -59,7 +59,9 @@ describe("<DevicesCard/> functional component", () => {
           });
         });
         it(`has "children" with type LogsTableWrapper`, () => {
-          expect(secondGrid.props().children.type.name).toBe("LogsTableWrapper");
+          expect(secondGrid.props().children.type.name).toBe(
+            "LogsTableWrapper"
+          );
         });
       });
       describe("Third <Grid/>", () => {
@@ -78,9 +80,9 @@ describe("<DevicesCard/> functional component", () => {
         });
       });
     });
-    it("Contains 1 <LogsTableWrapper/> component", ()=>{
-        expect(wrapper.find(LogsTableWrapper)).toHaveLength(1)
-    })
+    it("Contains 1 <LogsTableWrapper/> component", () => {
+      expect(wrapper.find(LogsTableWrapper)).toHaveLength(1);
+    });
     describe("Contains 1 <DashboardButton/> component", () => {
       expect(wrapper.find(DashboardButton)).toHaveLength(1);
       describe("First <DashboardButton/>", () => {
