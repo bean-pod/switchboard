@@ -14,11 +14,12 @@ export default class StreamsTableWrapper extends React.Component {
   }
 
   componentDidMount() {
-    this.dataSource.getAllStreams()
-        .then(this.handleStreamsChange)
-        .catch(() => {
-            this.handleStreamsChange(getAllStreams());
-        });
+    this.dataSource
+      .getAllStreams()
+      .then(this.handleStreamsChange)
+      .catch(() => {
+        this.handleStreamsChange(getAllStreams());
+      });
   }
 
   handleStreamsChange(streams) {

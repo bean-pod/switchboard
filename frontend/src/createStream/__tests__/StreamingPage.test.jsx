@@ -15,10 +15,10 @@ let container = null;
 let sampleSenders = null;
 
 const streamDataSource = {
-    getAllStreams() {
-        return Promise.resolve(SampleData.getAllStreams());
-    }
-}
+  getAllStreams() {
+    return Promise.resolve(SampleData.getAllStreams());
+  }
+};
 beforeEach(() => {
   container = document.createElement("div");
   document.body.appendChild(container);

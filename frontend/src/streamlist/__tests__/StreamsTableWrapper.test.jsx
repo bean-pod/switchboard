@@ -11,7 +11,9 @@ Enzyme.configure({ adapter: new Adapter() });
 describe("<StreamsTableWrapper/> Component", () => {
   let wrapper;
   const dummySource = {
-    getAllStreams() { return Promise.resolve([]);}
+    getAllStreams() {
+      return Promise.resolve([]);
+    }
   };
 
   describe("Should contain the following components", () => {
