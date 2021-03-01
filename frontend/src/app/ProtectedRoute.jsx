@@ -23,6 +23,7 @@ export default class ProtectedRoute extends React.Component {
 }
 
 ProtectedRoute.propTypes = {
-    authenticated: PropTypes.bool.isRequired,
-    render:PropTypes.func.isRequired
-}
+  authenticated: PropTypes.bool.isRequired,
+  path: PropTypes.string.isRequired,
+  render: PropTypes.func.isRequired
+};
