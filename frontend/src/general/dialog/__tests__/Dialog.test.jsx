@@ -11,7 +11,7 @@ import DialogButtons from "../DialogButtons";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe("<Dialog/> Component", () => {
+describe("<Dialog/> Class Component", () => {
   const testBody = "testString";
   const dummyTitle = "testString";
   const onClick = () => {};
@@ -22,17 +22,11 @@ describe("<Dialog/> Component", () => {
     </Dialog>
   );
 
-  describe("render() function should return a component that", () => {
-    it("Contains one <MuiDialog/> component", () => {
+  describe("render() function", () => {
+    it("returns a component that contains the right elements", () => {
       expect(wrapper.find(MuiDialog)).toHaveLength(1);
-    });
-    it("Contains one <DialogTitle/> component", () => {
       expect(wrapper.find(DialogTitle)).toHaveLength(1);
-    });
-    it("Contains one <DialogBody/> component", () => {
       expect(wrapper.find(DialogBody)).toHaveLength(1);
-    });
-    it("Contains one <DialogButtons/> component", () => {
       expect(wrapper.find(DialogButtons)).toHaveLength(1);
     });
   });

@@ -12,15 +12,9 @@ Enzyme.configure({ adapter: new Adapter() });
 describe("<DialogBody/> Component", () => {
   const testChild = "testString";
   const wrapper = Enzyme.shallow(<DialogBody>{testChild}</DialogBody>);
-  describe("should contain", () => {
-    it("one <MuiDialogContent/> component", () => {
-      expect(wrapper.find(MuiDialogContent)).toHaveLength(1);
-    });
-    it("one <MuiDialogContentText/> component", () => {
-      expect(wrapper.find(MuiDialogContentText)).toHaveLength(1);
-    });
-    it("contain the text passed to it", () => {
-      expect(wrapper.text()).toBe(testChild);
-    });
+  it("returns a component that contains the right elements", () => {
+    expect(wrapper.find(MuiDialogContent)).toHaveLength(1);
+    expect(wrapper.find(MuiDialogContentText)).toHaveLength(1);
+    expect(wrapper.text()).toBe(testChild);
   });
 });
