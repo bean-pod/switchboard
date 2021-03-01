@@ -12,7 +12,6 @@ export default function HomePage() {
   return (
     <Container>
       <DynamicBreadcrumb breadcrumbs={[["Home", ""]]} />
-
       <Box className="flexContents headerAreaUnderline">
         <div className="title">Dashboard</div>
       </Box>
@@ -20,8 +19,8 @@ export default function HomePage() {
         container
         justify="center"
         alignItems="stretch"
-        spacing={3}
         direction="row"
+        spacing={3}
       >
         <Grid item xs={6}>
           <Grid style={{ height: "100%" }}>
@@ -35,7 +34,7 @@ export default function HomePage() {
           <Grid item xs={12}>
             <ActivityLogCard />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12}>
             <DashboardCard title="Admin Panel" />
           </Grid>
         </GridColumn>
