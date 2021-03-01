@@ -26,8 +26,10 @@ describe.only("<DashboardButton/> Component", () => {
     it("Contains 1 WithStyles() wrapped Button component", () => {
       const linkChild = wrapper.find(Link).first().children().first();
 
-      expect(linkChild.type().Naked.displayName).toBe('WithStyles(ForwardRef(Button))');
-      expect(linkChild.type().Naked.options.name).toBe('MuiButton');
+      expect(linkChild.type().Naked.displayName).toBe(
+        "WithStyles(ForwardRef(Button))"
+      );
+      expect(linkChild.type().Naked.options.name).toBe("MuiButton");
       expect(linkChild.text()).toBe(dummyBody);
     });
   });
