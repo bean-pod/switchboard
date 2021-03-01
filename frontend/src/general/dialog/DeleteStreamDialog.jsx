@@ -22,7 +22,7 @@ export default class DeleteStreamDialog extends React.Component {
 
   confirmDelete() {
     const { deleteId } = this.props;
-    deleteStream(deleteId, this.afterDelete);
+    deleteStream(deleteId).finally(this.afterDelete());
   }
 
   // used by Summoner to summon
