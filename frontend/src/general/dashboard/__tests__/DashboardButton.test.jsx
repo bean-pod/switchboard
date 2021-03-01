@@ -8,7 +8,7 @@ import DashboardButton from "../DashboardButton";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe.only("<DashboardButton/> Component", () => {
+describe("<DashboardButton/> Component", () => {
   let wrapper;
   const dummyHref = "Title";
   const dummyBody = "Body";
