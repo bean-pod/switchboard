@@ -1,42 +1,34 @@
 import axios from "axios";
 import { convertToDataObject } from "../model/ConvertDataFormat";
 import StreamInfo from "../model/StreamInfo";
-import * as SampleData from "./SampleData";
 
-export function getStream(streamId) {
-  return new Promise((resolve, reject) => {
-    axios
+export async function getStream(streamId) {
+  return axios
       .get(`${process.env.REACT_APP_STREAM}/${streamId}`)
       .then((response) => {
         const stream = response.data;
-        resolve(
-          new StreamInfo(
+        return new StreamInfo(
             stream.id,
             convertToDataObject(stream.outputChannel.encoder),
             convertToDataObject(stream.inputChannel.decoder),
             ["Additional stream info goes here."]
-          )
-        );
-      })
-      .catch(reject);
-  });
+          );
+      });
 }
 
-export function getAllStreams(callback) {
-  axios
+export async function getAllStreams() {
+  return axios
     .get(process.env.REACT_APP_STREAM)
     .then((streams) => {
-      Promise.all(
+      return Promise.all(
         streams.data.map((streamId) => {
           return getStream(streamId);
         })
-      ).then(callback);
+      );
     })
-    .catch(() => {
-      SampleData.getAllStreams(callback);
-    });
 }
 
-export function deleteStream(streamId) {
-  return axios.delete(`${process.env.REACT_APP_STREAM}/${streamId}`);
+export async function deleteStream(streamId) {
+  return axios
+    .delete(`${process.env.REACT_APP_STREAM}/${streamId}`);
 }
