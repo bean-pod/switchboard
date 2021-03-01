@@ -6,7 +6,6 @@ import { Grid } from "@material-ui/core";
 import ActivityLogCard from "../ActivityLogCard";
 
 import DashboardCard from "../../general/dashboard/DashboardCard";
-import LogsTableWrapper from "../../loglist/LogsTableWrapper";
 import DashboardButton from "../../general/dashboard/DashboardButton";
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -22,8 +21,8 @@ describe("<ActivityLogCard/> functional component", () => {
       const dashboardCard = wrapper.find(DashboardCard).first();
       expect(dashboardCard.props().title).toBe(expectedTitle);
     });
-    it("Contains 3 <Grid/> components", () => {
-      expect(wrapper.find(Grid)).toHaveLength(3);
+    it("Contains 2 <Grid/> components", () => {
+      expect(wrapper.find(Grid)).toHaveLength(2);
     });
     it("First <Grid/> has expected props", () => {
       const outerGrid = wrapper.find(Grid).first();
@@ -38,24 +37,13 @@ describe("<ActivityLogCard/> functional component", () => {
     });
     it("Second <Grid/> has expected props", () => {
       const secondGrid = wrapper.find(Grid).at(1);
-      const expectedXs = 12;
+      const expectedXs = 4;
 
       expect(secondGrid.props().item).toBe(true);
       expect(secondGrid.props().xs).toBe(expectedXs);
-      expect(secondGrid.props().children.type.name).toBe("LogsTableWrapper");
+      expect(secondGrid.props().children.type.name).toBe("DashboardButton");
     });
-    it("Third <Grid/> has expected props", () => {
-      const thirdGrid = wrapper.find(Grid).at(2);
-      const expectedXs = 4;
-
-      expect(thirdGrid.props().item).toBe(true);
-      expect(thirdGrid.props().xs).toBe(expectedXs);
-      expect(thirdGrid.props().children.type.name).toBe("DashboardButton");
-    });
-    it("Contains 1 <LogsTableWrapper/> component", () => {
-      expect(wrapper.find(LogsTableWrapper)).toHaveLength(1);
-    });
-    describe("Contains 1 <DashboardButton/> component that  has expected props", () => {
+    it("Contains 1 <DashboardButton/> component that  has expected props", () => {
       expect(wrapper.find(DashboardButton)).toHaveLength(1);
 
       const firstButton = wrapper.find(DashboardButton).first();

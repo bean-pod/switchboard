@@ -7,7 +7,7 @@ import HomePage from "../HomePage";
 
 import DynamicBreadcrumb from "../../general/DynamicBreadcrumb";
 import GridColumn from "../../general/dashboard/GridColumn";
-import DashboardCard from "../../general/dashboard/DashboardCard";
+import AdminPanelCard from "../AdminPanelCard";
 import ActiveStreamCard from "../ActiveStreamCard";
 import ActivityLogCard from "../ActivityLogCard";
 import DevicesCard from "../DevicesCard";
@@ -68,7 +68,7 @@ describe("<HomePage/> functional component", () => {
 
     expect(sixthGrid.props().item).toBe(true);
     expect(sixthGrid.props().xs).toBe(expectedXs);
-    expect(sixthGrid.props().children.type.name).toBe("DashboardCard");
+    expect(sixthGrid.props().children.type.name).toBe("AdminPanelCard");
   });
   it("Contains 1 <GridColumn/> Component that has expected props", () => {
     expect(wrapper.find(GridColumn)).toHaveLength(1);
@@ -102,7 +102,7 @@ describe("<HomePage/> functional component", () => {
   it("Contains 1 <DevicesCard/>", () => {
     expect(wrapper.find(DevicesCard)).toHaveLength(1);
   });
-  it("Contains 1 <DashboardCard/>", () => {
-    expect(wrapper.find(DashboardCard)).toHaveLength(1);
+  it("Contains 1 <AdminPanelCard/>", () => {
+    expect(wrapper.find(AdminPanelCard)).toHaveLength(1);
   });
 });
