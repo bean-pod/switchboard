@@ -31,7 +31,7 @@ describe("<GridColumn/> Component", () => {
           expect(outerGrid.props().xs).toBe(dummyWidth);
         });
       });
-      describe("First <Grid/> has props", () => {
+      describe("Second <Grid/> has props", () => {
         const innerGrid = wrapper.find(Grid).last();
         it(`"container" with value true`, () => {
           expect(innerGrid.props().container).toBe(true);
