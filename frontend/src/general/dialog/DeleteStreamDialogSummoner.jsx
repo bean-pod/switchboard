@@ -11,7 +11,7 @@ class DeleteStreamDialogSummoner extends React.Component {
     super(props);
 
     this.dialogElement = React.createRef();
-    this.openDeleteDialog = this.openDialog.bind(this);
+    this.openDialog = this.openDialog.bind(this);
   }
 
   openDialog() {
