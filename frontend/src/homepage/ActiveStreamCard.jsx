@@ -7,7 +7,7 @@ import StreamsTableWrapper from "../streamlist/StreamsTableWrapper";
 
 import * as StreamApi from "../api/StreamApi";
 
-export default function ActiveStreamsCard() {
+export default function ActiveStreamCard() {
   const dataSource = StreamApi;
 
   return (

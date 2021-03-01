@@ -8,7 +8,7 @@ import HomePage from "../HomePage";
 import DynamicBreadcrumb from "../../general/DynamicBreadcrumb";
 import GridColumn from "../../general/dashboard/GridColumn";
 import DashboardCard from "../../general/dashboard/DashboardCard";
-import ActiveStreamCard from "../ActiveStreamsCard";
+import ActiveStreamCard from "../ActiveStreamCard";
 import ActivityLogCard from "../ActivityLogsCard";
 import DevicesCard from "../DevicesCard";
 

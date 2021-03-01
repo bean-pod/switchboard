@@ -4,8 +4,8 @@ import DynamicBreadcrumb from "../general/DynamicBreadcrumb";
 
 import GridColumn from "../general/dashboard/GridColumn";
 import DashboardCard from "../general/dashboard/DashboardCard";
-import ActiveStreamsCard from "./ActiveStreamsCard";
 import ActivityLogsCard from "./ActivityLogsCard";
+import ActiveStreamCard from "./ActiveStreamCard";
 import DevicesCard from "./DevicesCard";
 
 export default function HomePage() {
