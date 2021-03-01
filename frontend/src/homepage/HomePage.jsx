@@ -3,7 +3,6 @@ import { Box, Container, Grid } from "@material-ui/core";
 import DynamicBreadcrumb from "../general/DynamicBreadcrumb";
 
 import GridColumn from "../general/dashboard/GridColumn";
-import DashboardCard from "../general/dashboard/DashboardCard";
 import ActiveStreamCard from "./ActiveStreamCard";
 import ActivityLogCard from "./ActivityLogCard";
 import DevicesCard from "./DevicesCard";
@@ -36,7 +35,7 @@ export default function HomePage() {
             <ActivityLogCard />
           </Grid>
           <Grid item xs={12}>
-            <AdminPanelCard/>
+            <AdminPanelCard />
           </Grid>
         </GridColumn>
       </Grid>
