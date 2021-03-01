@@ -7,7 +7,7 @@ import LogsTableWrapper from "../loglist/LogsTableWrapper";
 
 import * as LogApi from "../api/LogApi";
 
-export default function ActivityLogsCard() {
+export default function ActivityLogCard() {
   const dataSource = LogApi;
 
   return (
