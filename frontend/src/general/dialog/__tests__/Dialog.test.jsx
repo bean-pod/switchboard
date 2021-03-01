@@ -62,7 +62,9 @@ describe("<Dialog/> Class Component", () => {
   });
   describe("inner <MuiDialog/> component onClose", () => {
     it("should return Dialog.closeDialog()", () => {
-      expect(wrapper.find(MuiDialog).props().onClose()).toEqual(wrapper.instance().closeDialog);
+      expect(wrapper.find(MuiDialog).props().onClose()).toEqual(
+        wrapper.instance().closeDialog
+      );
     });
   });
 });
