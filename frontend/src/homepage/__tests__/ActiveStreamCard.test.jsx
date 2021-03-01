@@ -3,7 +3,7 @@ import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import { describe, expect, it } from "@jest/globals";
 import { Grid } from "@material-ui/core";
-import ActiveStreamsCard from "../ActiveStreamsCard";
+import ActiveStreamCard from "../ActiveStreamCard";
 
 import DashboardCard from "../../general/dashboard/DashboardCard";
 import StreamsTableWrapper from "../../streamlist/StreamsTableWrapper";
@@ -12,7 +12,7 @@ import DashboardButton from "../../general/dashboard/DashboardButton";
 Enzyme.configure({ adapter: new Adapter() });
 
 describe("<ActiveStreamCard/> functional Component", () => {
-  const wrapper = Enzyme.shallow(<ActiveStreamsCard />);
+  const wrapper = Enzyme.shallow(<ActiveStreamCard />);
   describe("returns a component that", () => {
     describe("Contains 1 <DashboardCard/> component", () => {
       expect(wrapper.find(DashboardCard)).toHaveLength(1);
