@@ -3,15 +3,19 @@ import PropTypes from "prop-types";
 import { Container } from "@material-ui/core";
 import DynamicBreadcrumb from "./DynamicBreadcrumb";
 import Title from "./Title";
+import HeaderBar from "./HeaderBar";
 
 export default function Page(props) {
   const { breadcrumbs, title, children } = props;
   return (
-    <Container>
-      <DynamicBreadcrumb breadcrumbs={breadcrumbs} />
-      <Title title={title} />
-      {children}
-    </Container>
+    <>
+      <HeaderBar />
+      <Container>
+        <DynamicBreadcrumb breadcrumbs={breadcrumbs} />
+        <Title title={title} />
+        {children}
+      </Container>
+    </>
   );
 }
 
