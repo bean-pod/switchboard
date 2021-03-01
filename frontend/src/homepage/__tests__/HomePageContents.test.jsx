@@ -46,7 +46,7 @@ describe("<HomePage/> functional component", () => {
         const styleProperty = thirdGrid.props().style;
         expect(styleProperty.height).not.toBe(undefined);
         expect(styleProperty.height).toBe("100%");
-        expect(thirdGrid.props().children.type.name).toBe("ActiveStreamsCard");
+        expect(thirdGrid.props().children.type.name).toBe("ActiveStreamCard");
       });
     });
     describe("Fourth <Grid/>", () => {
@@ -64,7 +64,7 @@ describe("<HomePage/> functional component", () => {
       it("with expected props", () => {
         expect(fifthGrid.props().item).toBe(true);
         expect(fifthGrid.props().xs).toBe(expectedXs);
-        expect(fifthGrid.props().children.type.name).toBe("ActivityLogsCard");
+        expect(fifthGrid.props().children.type.name).toBe("ActivityLogCard");
       });
     });
     describe("Sixth <Grid/>", () => {
