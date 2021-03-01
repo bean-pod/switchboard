@@ -1,6 +1,6 @@
 import React from "react";
 import { AppBar, IconButton, makeStyles, Toolbar } from "@material-ui/core";
-import { AccountCircle, Home, Notifications } from "@material-ui/icons/";
+import { AccountCircle, Home } from "@material-ui/icons/";
 import { NavLink } from "react-router-dom";
 
 export default class HeaderBar extends React.Component {
@@ -31,7 +31,6 @@ export default class HeaderBar extends React.Component {
               </NavLink>
               Switchboard
             </div>
-
             <IconButton id="acctBtn" color="inherit">
               <AccountCircle />
             </IconButton>
