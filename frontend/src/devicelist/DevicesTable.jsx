@@ -44,7 +44,6 @@ function buildNavlink(deviceInfo) {
         pathname: `/Devices/Details/${deviceInfo.name}`,
         state: { device: deviceInfo }
       }}
-      className="invisibleLink"
     >
       {deviceInfo.name}
     </NavLink>
