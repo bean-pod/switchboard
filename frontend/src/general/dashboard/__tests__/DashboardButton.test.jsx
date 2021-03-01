@@ -8,7 +8,7 @@ import DashboardButton from "../DashboardButton";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe.only("<DashboardCard/> Component", () => {
+describe.only("<DashboardButton/> Component", () => {
   let wrapper;
   const dummyHref = "Title";
   const dummyBody = "Body";
@@ -18,19 +18,17 @@ describe.only("<DashboardCard/> Component", () => {
       <DashboardButton href={dummyHref}>{dummyBody}</DashboardButton>
     );
 
-    describe("Contains 1 <Link/> component", () => {
+    it("Contains 1 <Link/> component", () => {
       expect(wrapper.find(Link)).toHaveLength(1);
       const link = wrapper.find(Link).first();
-      it(`That has text "${dummyBody}"`, () => {
-        expect(link.props().href).toBe(dummyHref);
-      });
+      expect(link.props().href).toBe(dummyHref);
     });
-    // describe("Contains 1 <StyledButton/> component", () => {
-    //   expect(wrapper.find()).toHaveLength(1);
-    //   it(`That has title "${dummyHref}"`, () => {
-    //     const bodyBox = wrapper.find(Button);
-    //     expect(bodyBox.text()).toBe(dummyBody);
-    //   });
-    // });
+    it("Contains 1 WithStyles() wrapped Button component", () => {
+      const linkChild = wrapper.find(Link).first().children().first();
+
+      expect(linkChild.type().Naked.displayName).toBe('WithStyles(ForwardRef(Button))');
+      expect(linkChild.type().Naked.options.name).toBe('MuiButton');
+      expect(linkChild.text()).toBe(dummyBody);
+    });
   });
 });
