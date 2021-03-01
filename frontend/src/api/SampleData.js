@@ -390,7 +390,7 @@ export function getAllStreams() {
     )
   ];
 
-  const sampleStreams = [
+  return [
     new StreamInfo(1, sampleSenders[0], sampleReceivers[0], [
       "Additional Stream Details go here"
     ]),
@@ -401,8 +401,6 @@ export function getAllStreams() {
       "Additional Stream Details go here"
     ])
   ];
-
-  return sampleStreams;
 }
 
 export function getAllLogs(callback) {
