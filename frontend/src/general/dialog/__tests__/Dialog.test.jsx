@@ -37,33 +37,33 @@ describe("<Dialog/> Component", () => {
     });
   });
 
-  describe("openDialog() function", ()=>{
-    it("should set the state open to true", ()=>{
+  describe("openDialog() function", () => {
+    it("should set the state open to true", () => {
       const defaultState = {
         open: false
-      }
+      };
       const openState = {
         open: true
-      }
+      };
       expect(wrapper.state()).toEqual(defaultState);
       wrapper.instance().openDialog();
 
       expect(wrapper.state()).toEqual(openState);
-    })
-  })
-  describe("closeDialog() function", ()=>{
-    it("should set the state open to false", ()=>{
+    });
+  });
+  describe("closeDialog() function", () => {
+    it("should set the state open to false", () => {
       const startingState = {
         open: true
-      }
+      };
       const endState = {
         open: false
-      }
-      wrapper.setState(startingState)
+      };
+      wrapper.setState(startingState);
       expect(wrapper.state()).toEqual(startingState);
 
       wrapper.instance().closeDialog();
       expect(wrapper.state()).toEqual(endState);
-    })
-  })
+    });
+  });
 });
