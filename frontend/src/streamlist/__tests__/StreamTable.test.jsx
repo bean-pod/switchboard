@@ -20,14 +20,14 @@ import {
   ChevronLeft
 } from "@material-ui/icons";
 import MaterialTable from "material-table";
-import StreamsTable from "../StreamsTable";
+import StreamTable from "../StreamTable";
 import DeleteStream from "../DeleteStream";
 import StatusIndicator from "../../general/StatusIndicator";
 
 Enzyme.configure({ adapter: new Adapter() });
 jest.spyOn(global.console, "error");
 
-describe("<StreamsTable/> component", () => {
+describe("<StreamTable/> component", () => {
   let wrapper;
 
   afterEach(() => {
@@ -37,7 +37,7 @@ describe("<StreamsTable/> component", () => {
   describe("has the correct components", () => {
     const dummyStreams = [];
     beforeEach(() => {
-      wrapper = Enzyme.shallow(<StreamsTable streamDetails={dummyStreams} />);
+      wrapper = Enzyme.shallow(<StreamTable streamDetails={dummyStreams} />);
     });
     it("contains one Box component", () => {
       expect(wrapper.find(Box)).toHaveLength(1);
@@ -63,7 +63,7 @@ describe("<StreamsTable/> component", () => {
 
   describe("getColumnInfo() function", () => {
     const dummyStreams = [null];
-    wrapper = Enzyme.shallow(<StreamsTable streams={dummyStreams} />);
+    wrapper = Enzyme.shallow(<StreamTable streams={dummyStreams} />);
     const result = wrapper.instance().getColumnInfo();
     const expected = [
       {
@@ -206,7 +206,7 @@ describe("<StreamsTable/> component", () => {
 
   describe("getDetailPanel() function to return an array", () => {
     const dummyStreams = [null];
-    wrapper = Enzyme.shallow(<StreamsTable streams={dummyStreams} />);
+    wrapper = Enzyme.shallow(<StreamTable streams={dummyStreams} />);
     const result = wrapper.instance().getDetailPanel();
     const getDetailPanelExpectedResult = [
       {
@@ -248,7 +248,7 @@ describe("<StreamsTable/> component", () => {
 
   describe("getOptions() function", () => {
     const dummyStreams = [null];
-    wrapper = Enzyme.shallow(<StreamsTable streams={dummyStreams} />);
+    wrapper = Enzyme.shallow(<StreamTable streams={dummyStreams} />);
     const result = wrapper.instance().getOptions();
     const expected = {
       toolbar: false,
@@ -290,7 +290,7 @@ describe("<StreamsTable/> component", () => {
 
   describe("getIcons() function", () => {
     const dummyStreams = [null];
-    wrapper = Enzyme.shallow(<StreamsTable streams={dummyStreams} />);
+    wrapper = Enzyme.shallow(<StreamTable streams={dummyStreams} />);
     const result = wrapper.instance().getIcons();
     const expected = {
       SortArrow: ArrowDownward,

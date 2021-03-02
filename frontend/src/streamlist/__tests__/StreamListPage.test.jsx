@@ -4,7 +4,7 @@ import Adapter from "enzyme-adapter-react-16";
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { Box, Container } from "@material-ui/core";
 import StreamListPage from "../StreamListPage";
-import StreamsTableWrapper from "../StreamsTableWrapper";
+import StreamTableWrapper from "../StreamTableWrapper";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -22,8 +22,8 @@ describe("<StreamListPage/> Component", () => {
     it("Contains 1 <Box/> component", () => {
       expect(wrapper.find(Box)).toHaveLength(1);
     });
-    it("Contains 1 <StreamsTableWrapper/> component", () => {
-      expect(wrapper.find(StreamsTableWrapper)).toHaveLength(1);
+    it("Contains 1 <StreamTableWrapper/> component", () => {
+      expect(wrapper.find(StreamTableWrapper)).toHaveLength(1);
     });
   });
 });

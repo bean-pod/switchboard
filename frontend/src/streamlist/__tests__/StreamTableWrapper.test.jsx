@@ -2,13 +2,13 @@ import React from "react";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import { beforeEach, describe, expect, it } from "@jest/globals";
-import StreamsTableWrapper from "../StreamsTableWrapper";
-import StreamsTable from "../StreamsTable";
+import StreamTableWrapper from "../StreamTableWrapper";
+import StreamTable from "../StreamTable";
 import StreamInfo from "../../model/StreamInfo";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe("<StreamsTableWrapper/> Component", () => {
+describe("<StreamTableWrapper/> Component", () => {
   let wrapper;
   const dummySource = {
     getAllStreams() {}
@@ -16,20 +16,16 @@ describe("<StreamsTableWrapper/> Component", () => {
 
   describe("Should contain the following components", () => {
     beforeEach(() => {
-      wrapper = Enzyme.shallow(
-        <StreamsTableWrapper dataSource={dummySource} />
-      );
+      wrapper = Enzyme.shallow(<StreamTableWrapper dataSource={dummySource} />);
     });
-    it("Contains 1 <StreamsTable/> component", () => {
-      expect(wrapper.find(StreamsTable)).toHaveLength(1);
+    it("Contains 1 <StreamTable/> component", () => {
+      expect(wrapper.find(StreamTable)).toHaveLength(1);
     });
   });
 
   describe("handleStreamsChange()", () => {
     beforeEach(() => {
-      wrapper = Enzyme.shallow(
-        <StreamsTableWrapper dataSource={dummySource} />
-      );
+      wrapper = Enzyme.shallow(<StreamTableWrapper dataSource={dummySource} />);
     });
 
     afterEach(() => {

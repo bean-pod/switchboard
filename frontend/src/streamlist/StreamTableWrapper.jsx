@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import StreamsTable from "./StreamsTable";
+import StreamTable from "./StreamTable";
 
-export default class StreamsTableWrapper extends React.Component {
+export default class StreamTableWrapper extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,10 +24,10 @@ export default class StreamsTableWrapper extends React.Component {
 
   render() {
     const { streams } = this.state;
-    return <StreamsTable streams={streams} />;
+    return <StreamTable streams={streams} />;
   }
 }
 
-StreamsTableWrapper.propTypes = {
+StreamTableWrapper.propTypes = {
   dataSource: PropTypes.objectOf(PropTypes.func).isRequired
 };
