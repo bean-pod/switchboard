@@ -40,7 +40,7 @@ class DeleteStreamDialogOpener extends React.Component {
 export default withRouter(DeleteStreamDialogOpener);
 
 DeleteStreamDialogOpener.propTypes = {
-  deleteId: PropTypes.string.isRequired,
+  deleteId: PropTypes.number.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
     go: PropTypes.func.isRequired

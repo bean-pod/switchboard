@@ -11,7 +11,7 @@ import DeleteStreamDialog from "../DeleteStreamDialog";
 Enzyme.configure({ adapter: new Adapter() });
 
 describe("<DeleteStreamDialogOpener/> class", () => {
-  const dummyId = "dummyId";
+  const dummyId = 666;
   const dummyHistory = {
     push: () => {},
     go: () => {}
