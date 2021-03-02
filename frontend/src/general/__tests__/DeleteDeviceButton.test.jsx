@@ -113,9 +113,6 @@ describe("DeleteButton", () => {
           // Wait for axios promise to finish
           await flushPromises();
 
-          // check that refresh has been called
-          expect(mockHistoryGo).toHaveBeenCalledWith(0);
-
           // open should be false
           expect(setOpen).toHaveBeenCalledWith(false);
         });
@@ -142,9 +139,6 @@ describe("DeleteButton", () => {
 
           // Wait for axios promise to finish
           await flushPromises();
-
-          // check that redirect has been called
-          expect(mockHistoryPush).toHaveBeenCalledWith("/Devices");
 
           // open should be false
           expect(setOpen).toHaveBeenCalledWith(false);
