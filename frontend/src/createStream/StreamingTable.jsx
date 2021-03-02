@@ -1,13 +1,9 @@
 import React from "react";
 import { Grid } from "@material-ui/core";
-
-import axios from "axios";
-
 import PropTypes from "prop-types";
 import SelectDevicesTable from "./SelectDevicesTable";
 import StreamButton from "../general/Buttons/StreamButton";
 import * as StreamApi from "../api/StreamApi";
-
 
 export default class StreamingTable extends React.Component {
   constructor(props) {

@@ -51,10 +51,13 @@ export function deleteStream(streamId, callback) {
     .catch(() => {});
 }
 
-export function createStream(selectedReceiverID, selectedSenderID){
-  return axios.post(process.env.REACT_APP_STREAM, {
-    inputChannelId: selectedReceiverID,
-    outputChannelId: selectedSenderID
-  },
-  getAuthorizationHeader());
+export function createStream(selectedReceiverID, selectedSenderID) {
+  return axios.post(
+    process.env.REACT_APP_STREAM,
+    {
+      inputChannelId: selectedReceiverID,
+      outputChannelId: selectedSenderID
+    },
+    getAuthorizationHeader()
+  );
 }
