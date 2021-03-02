@@ -60,7 +60,7 @@ describe("<DeleteStreamDialog/> class", () => {
     });
   });
   describe("afterDelete() function", () => {
-    it("calls the correct functions", () => {
+    it("closes the dialog and redirects to the Streaming page", () => {
       const expectedPushArg = "/Streaming";
       const expectedGoArg = 0;
 
