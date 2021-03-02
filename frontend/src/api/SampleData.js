@@ -405,6 +405,34 @@ export function getAllStreams(callback) {
   callback(sampleStreams);
 }
 
+export function getSampleStream() {
+  const sampleSender = DeviceInfo(
+    "1:10:111:999",
+    null,
+    "123:456",
+    "Sender 1",
+    "Online",
+    sampleOutputChannels,
+    "encoder",
+    extras
+  );
+
+  const sampleReceiver = DeviceInfo(
+    "1:22:333:989",
+    null,
+    "145:396",
+    "Receiver 1",
+    "Online",
+    sampleOutputChannels,
+    "decoder",
+    extras
+  );
+
+  return new StreamInfo(1, sampleSender, sampleReceiver, [
+    "Additional Stream Details go here"
+  ]);
+}
+
 export function getAllLogs(callback) {
   const dates = [
     new Date("2020-10-31T15:53:23"),

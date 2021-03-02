@@ -9,6 +9,7 @@ import StreamingTablePage from "./createStream/StreamingPage";
 import DeviceDetailsPage from "./deviceDetailsPage/DeviceDetailsPage";
 import LogListPage from "./loglist/LogListPage";
 import LoginPage from "./login/LoginPage";
+import StreamDetailsPage from "./streamDetailsPage/StreamDetailsPage";
 
 import * as DeviceApi from "./api/DeviceApi";
 import * as StreamApi from "./api/StreamApi";
@@ -44,6 +45,7 @@ ReactDOM.render(
         />
         <Route exact path="/Logs" component={LogListPage} />
         <Route exact path="/Login" component={LoginPage} />
+        <Route exact path="/StreamDetails" component={StreamDetailsPage} />
       </Switch>
     </BrowserRouter>
   </React.StrictMode>,
