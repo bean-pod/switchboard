@@ -13,6 +13,7 @@ import StreamDetailsPage from "./streamDetailsPage/StreamDetailsPage";
 
 import * as DeviceApi from "./api/DeviceApi";
 import * as StreamApi from "./api/StreamApi";
+import * as LogApi from "./api/LogApi";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -23,16 +24,13 @@ ReactDOM.render(
         <Route
           exact
           path="/Devices"
-          render={(props) => (
-            <DeviceListPage {...props} dataSource={DeviceApi} />
-          )}
+          render={() => <DeviceListPage dataSource={DeviceApi} />}
         />
         <Route
           exact
           path="/Streaming"
-          render={(props) => (
+          render={() => (
             <StreamingTablePage
-              {...props}
               deviceDataSource={DeviceApi}
               streamDataSource={StreamApi}
             />
@@ -43,7 +41,11 @@ ReactDOM.render(
           path="/Devices/Details/:deviceId"
           component={DeviceDetailsPage}
         />
-        <Route exact path="/Logs" component={LogListPage} />
+        <Route
+          exact
+          path="/Logs"
+          render={() => <LogListPage logsDataSource={LogApi} />}
+        />
         <Route exact path="/Login" component={LoginPage} />
         <Route exact path="/StreamDetails" component={StreamDetailsPage} />
       </Switch>
