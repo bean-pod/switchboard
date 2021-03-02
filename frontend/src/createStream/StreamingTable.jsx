@@ -6,6 +6,8 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import SelectDevicesTable from "./SelectDevicesTable";
 import StreamButton from "../general/Buttons/StreamButton";
+import * as StreamApi from "../api/StreamApi";
+
 
 export default class StreamingTable extends React.Component {
   constructor(props) {
@@ -47,10 +49,7 @@ export default class StreamingTable extends React.Component {
   handleSubmit(event) {
     const { selectedReceiverID, selectedSenderID } = this.state;
     if (selectedReceiverID !== "" && selectedSenderID !== "") {
-      axios.post(process.env.REACT_APP_STREAM, {
-        inputChannelId: selectedReceiverID,
-        outputChannelId: selectedSenderID
-      });
+      StreamApi.createStream(selectedReceiverID, selectedSenderID);
     }
     event.preventDefault();
   }

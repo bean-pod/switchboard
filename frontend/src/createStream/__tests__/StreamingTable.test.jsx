@@ -148,39 +148,5 @@ describe("<StreamingTable/>", () => {
       wrapper.instance().handleSubmit(DummyData);
       expect(axios.post).not.toHaveBeenCalled();
     });
-    it("should call axios.post if a sender and a receiver have been selected", () => {
-      const mockReceiver = {
-        target: {
-          name: "selectedReceiverID",
-          value: "Test6"
-        }
-      };
-      const mockSender = {
-        target: {
-          name: "selectedSenderID",
-          value: "Test3"
-        }
-      };
-
-      const expected = {
-        outputChannelId: "Test3",
-        inputChannelId: "Test6"
-      };
-
-      const data = {
-        data: "test"
-      };
-      axios.post.mockImplementationOnce(() => Promise.resolve(data));
-
-      wrapper.instance().onSenderSelected(mockSender);
-      wrapper.instance().onReceiverSelected(mockReceiver);
-
-      wrapper.instance().handleSubmit(DummyData);
-
-      expect(axios.post).toHaveBeenCalledWith(
-        "http://localhost:8080/stream",
-        expected
-      );
-    });
   });
 });
