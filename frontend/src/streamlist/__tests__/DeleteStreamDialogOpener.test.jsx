@@ -5,12 +5,12 @@ import { describe, expect } from "@jest/globals";
 
 import { IconButton, Tooltip } from "@material-ui/core";
 import { Delete } from "@material-ui/icons";
-import DeleteStreamDialogSummoner from "../DeleteStreamDialogSummoner";
+import DeleteStreamDialogOpener from "../DeleteStreamDialogOpener";
 import DeleteStreamDialog from "../DeleteStreamDialog";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe("<DeleteStreamDialogSummoner/> class", () => {
+describe("<DeleteStreamDialogOpener/> class", () => {
   const dummyId = "dummyId";
   const dummyHistory = {
     push: () => {},
@@ -20,7 +20,7 @@ describe("<DeleteStreamDialogSummoner/> class", () => {
 
   describe("render() function", () => {
     wrapper = Enzyme.shallow(
-      <DeleteStreamDialogSummoner.WrappedComponent
+      <DeleteStreamDialogOpener.WrappedComponent
         deleteId={dummyId}
         history={dummyHistory}
       />
@@ -44,7 +44,7 @@ describe("<DeleteStreamDialogSummoner/> class", () => {
     });
 
     wrapper = Enzyme.shallow(
-      <DeleteStreamDialogSummoner.WrappedComponent
+      <DeleteStreamDialogOpener.WrappedComponent
         deleteId={dummyId}
         history={dummyHistory}
       />

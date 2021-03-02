@@ -6,7 +6,7 @@ import { withRouter } from "react-router-dom";
 
 import DeleteStreamDialog from "./DeleteStreamDialog";
 
-class DeleteStreamDialogSummoner extends React.Component {
+class DeleteStreamDialogOpener extends React.Component {
   constructor(props) {
     super(props);
 
@@ -37,9 +37,9 @@ class DeleteStreamDialogSummoner extends React.Component {
   }
 }
 
-export default withRouter(DeleteStreamDialogSummoner);
+export default withRouter(DeleteStreamDialogOpener);
 
-DeleteStreamDialogSummoner.propTypes = {
+DeleteStreamDialogOpener.propTypes = {
   deleteId: PropTypes.string.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,

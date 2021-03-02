@@ -21,7 +21,7 @@ import {
 } from "@material-ui/icons";
 import MaterialTable from "material-table";
 import StreamsTable from "../StreamsTable";
-import DeleteStreamDialogSummoner from "../DeleteStreamDialogSummoner";
+import DeleteStreamDialogOpener from "../DeleteStreamDialogOpener";
 import StatusIndicator from "../../general/StatusIndicator";
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -103,7 +103,7 @@ describe("<StreamsTable/> component", () => {
         filtering: false,
         sorting: false,
         render: function Actions(rowData) {
-          return <DeleteStreamDialogSummoner deleteId={rowData.id} />;
+          return <DeleteStreamDialogOpener deleteId={rowData.id} />;
         },
         align: "center",
         export: false
