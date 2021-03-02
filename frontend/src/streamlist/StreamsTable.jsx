@@ -15,7 +15,7 @@ import {
 import MaterialTable from "material-table";
 
 import StatusIndicator from "../general/StatusIndicator";
-import DeleteStreamDialogSummoner from "../general/dialog/DeleteStreamDialogSummoner";
+import DeleteStreamDialogSummoner from "./DeleteStreamDialogSummoner";
 import StreamInfo from "../model/StreamInfo";
 
 export default class StreamsTable extends React.Component {

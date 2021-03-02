@@ -3,9 +3,9 @@ import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import { beforeEach, describe, expect, jest } from "@jest/globals";
 import DeleteStreamDialog from "../DeleteStreamDialog";
-import Dialog from "../Dialog";
+import Dialog from "../../general/dialog/Dialog";
 
-import * as StreamApi from "../../../api/StreamApi";
+import * as StreamApi from "../../api/StreamApi";
 
 Enzyme.configure({ adapter: new Adapter() });
 

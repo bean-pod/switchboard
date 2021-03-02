@@ -21,7 +21,7 @@ import {
 } from "@material-ui/icons";
 import MaterialTable from "material-table";
 import StreamsTable from "../StreamsTable";
-import DeleteStreamDialogSummoner from "../../general/dialog/DeleteStreamDialogSummoner";
+import DeleteStreamDialogSummoner from "../DeleteStreamDialogSummoner";
 import StatusIndicator from "../../general/StatusIndicator";
 
 Enzyme.configure({ adapter: new Adapter() });

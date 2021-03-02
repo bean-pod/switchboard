@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Dialog from "./Dialog";
-import { deleteStream } from "../../api/StreamApi";
+import Dialog from "../general/dialog/Dialog";
+import { deleteStream } from "../api/StreamApi";
 
 export default class DeleteStreamDialog extends React.Component {
   constructor(props) {
