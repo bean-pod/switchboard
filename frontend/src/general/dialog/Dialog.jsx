@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import MuiDialog from "@material-ui/core/Dialog/Dialog";
-import DialogTitle from "./DialogTitle";
+import { DialogTitle } from "@material-ui/core";
 import DialogBody from "./DialogBody";
 import DialogButtons from "./DialogButtons";
 

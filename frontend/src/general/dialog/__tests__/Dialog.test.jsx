@@ -4,8 +4,8 @@ import Adapter from "enzyme-adapter-react-16";
 import { describe, expect } from "@jest/globals";
 
 import MuiDialog from "@material-ui/core/Dialog/Dialog";
+import { DialogTitle } from "@material-ui/core";
 import Dialog from "../Dialog";
-import DialogTitle from "../DialogTitle";
 import DialogBody from "../DialogBody";
 import DialogButtons from "../DialogButtons";
 
