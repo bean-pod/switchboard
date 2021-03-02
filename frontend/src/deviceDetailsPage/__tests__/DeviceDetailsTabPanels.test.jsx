@@ -39,12 +39,12 @@ beforeEach(() => {
 describe("DeviceDetailsTabPanels", () => {
   let wrapper;
   describe("ActivityPanel", () => {
-    it("Renders one Container component containing Container and LogsTable", async () => {
+    it("Renders one Container component containing Container and LogTable", async () => {
       wrapper = Enzyme.shallow(
         <DeviceDetailsActivityPanel device={dummyDevice} />
       );
       expect(wrapper.find(Container)).toHaveLength(1);
-      expect(wrapper.find("LogsTable")).toHaveLength(1);
+      expect(wrapper.find("LogTable")).toHaveLength(1);
       const flushPromises = () => new Promise(setImmediate);
       await flushPromises();
       expect(wrapper.state("logs")).toBe(mockLogs);

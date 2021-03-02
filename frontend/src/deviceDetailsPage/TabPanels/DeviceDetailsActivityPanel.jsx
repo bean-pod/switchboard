@@ -2,7 +2,7 @@ import { Container, Paper } from "@material-ui/core";
 import React from "react";
 import PropTypes from "prop-types";
 import DeviceInfo from "../../model/DeviceInfo";
-import LogsTable from "../../loglist/LogsTable";
+import LogTable from "../../loglist/LogTable";
 import * as LogApi from "../../api/LogApi";
 
 export default class DeviceDetailsActivityPanel extends React.Component {
@@ -30,7 +30,7 @@ export default class DeviceDetailsActivityPanel extends React.Component {
     return (
       <>
         <Container component={Paper}>
-          <LogsTable
+          <LogTable
             title={`${this.device.serialNumber} Logs`}
             logs={logs}
             bodyHeight="35vh"

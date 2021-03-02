@@ -71,7 +71,7 @@ function getIcons() {
   };
 }
 
-export default function LogsTable(props) {
+export default function LogTable(props) {
   const { logs, bodyHeight, title } = props;
   return (
     <>
@@ -95,13 +95,13 @@ export default function LogsTable(props) {
   );
 }
 
-LogsTable.propTypes = {
+LogTable.propTypes = {
   logs: PropTypes.arrayOf(PropTypes.instanceOf(LogInfo)).isRequired,
   bodyHeight: PropTypes.string,
   title: PropTypes.string
 };
 
-LogsTable.defaultProps = {
+LogTable.defaultProps = {
   bodyHeight: "auto",
   title: "Logs"
 };

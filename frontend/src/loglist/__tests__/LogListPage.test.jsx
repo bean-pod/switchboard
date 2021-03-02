@@ -6,7 +6,7 @@ import { Container, Box } from "@material-ui/core";
 
 import LogListPage from "../LogListPage";
 import DynamicBreadcrumb from "../../general/DynamicBreadcrumb";
-import LogsTableWrapper from "../LogsTableWrapper";
+import LogTableWrapper from "../LogTableWrapper";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -34,8 +34,8 @@ describe("<LogListPage/> functional component", () => {
     it("one text title component", () => {
       expect(wrapper.find(".title")).toHaveLength(1);
     });
-    it("one LogsTableWrapper", () => {
-      expect(wrapper.find(LogsTableWrapper)).toHaveLength(1);
+    it("one LogTableWrapper", () => {
+      expect(wrapper.find(LogTableWrapper)).toHaveLength(1);
     });
   });
 });

@@ -5,13 +5,13 @@ import { describe, expect, it } from "@jest/globals";
 
 import { Box, TableContainer } from "@material-ui/core";
 import MaterialTable from "material-table";
-import LogsTable from "../LogsTable";
+import LogTable from "../LogTable";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe("LogsTable", () => {
+describe("LogTable", () => {
   const dummyLogs = [];
-  const wrapper = Enzyme.shallow(<LogsTable logs={dummyLogs} />);
+  const wrapper = Enzyme.shallow(<LogTable logs={dummyLogs} />);
   it("contains one Box component", () => {
     expect(wrapper.find(Box)).toHaveLength(1);
   });
