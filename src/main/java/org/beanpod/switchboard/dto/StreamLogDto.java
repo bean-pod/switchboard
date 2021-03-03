@@ -16,12 +16,10 @@ import lombok.Setter;
 public class StreamLogDto {
   private Long id;
 
-  //second device
-  @NotNull
-  private String serialNumber;
+  // second device
+  @NotNull private String serialNumber;
 
-  @NotNull
-  private String streamId;
+  @NotNull private String streamId;
 
   @JsonIgnoreProperties("log_id")
   private LogDto logDto;

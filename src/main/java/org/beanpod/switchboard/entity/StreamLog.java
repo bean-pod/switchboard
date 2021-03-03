@@ -1,10 +1,7 @@
 package org.beanpod.switchboard.entity;
 
-import java.time.OffsetDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
@@ -28,15 +25,13 @@ public class StreamLog {
   @Column(name = "log_id")
   private Long id;
 
-  //second device
-  @NotNull
-  private String serialNumber;
+  // second device
+  @NotNull private String serialNumber;
 
-  @NotNull
-  private String streamId;
+  @NotNull private String streamId;
 
   @OneToOne
   @MapsId
-  @JoinColumn(name="log_id")
+  @JoinColumn(name = "log_id")
   private LogEntity logEntity;
 }

@@ -12,8 +12,8 @@ public class StreamLogDaoImpl {
   private final LogStreamRepository logStreamRepository;
   private final LogStreamMapper logStreamMapper;
 
-  public StreamLogDto createStreamLog(StreamLogDto streamLogDto){
-    return logStreamMapper.toLogStreamDto(logStreamRepository.save(logStreamMapper.toStreamLog(
-        streamLogDto)));
+  public StreamLogDto createStreamLog(StreamLogDto streamLogDto) {
+    return logStreamMapper.toLogStreamDto(
+        logStreamRepository.save(logStreamMapper.toStreamLog(streamLogDto)));
   }
 }

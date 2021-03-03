@@ -16,12 +16,9 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 public class StreamLogDaoImplTest {
-  @InjectMocks
-  StreamLogDaoImpl streamLogDao;
-  @Mock
-  LogStreamRepository logStreamRepository;
-  @Mock
-  LogStreamMapper logStreamMapper;
+  @InjectMocks StreamLogDaoImpl streamLogDao;
+  @Mock LogStreamRepository logStreamRepository;
+  @Mock LogStreamMapper logStreamMapper;
 
   private StreamLog streamLog;
   private StreamLogDto streamLogDto;
@@ -35,7 +32,7 @@ public class StreamLogDaoImplTest {
   }
 
   @Test
-  final void createStreamLogTest(){
+  final void createStreamLogTest() {
     when(logStreamMapper.toLogStreamDto(any())).thenReturn(streamLogDto);
     when(logStreamMapper.toStreamLog(any())).thenReturn(streamLog);
     when(logStreamRepository.save(any())).thenReturn(streamLog);

@@ -11,8 +11,6 @@ import org.beanpod.switchboard.dao.StreamLogDaoImpl;
 import org.beanpod.switchboard.dto.LogDto;
 import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.dto.mapper.LogMapper;
-import org.beanpod.switchboard.dto.mapper.LogStreamMapper;
-import org.beanpod.switchboard.entity.LogEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType.UnknownException;
 import org.beanpod.switchboard.service.LogService;
 import org.beanpod.switchboard.service.StreamLogService;
@@ -76,8 +74,11 @@ public class StreamAspect {
                 + " to input channel %d of encoder %s",
             outputId, decoderSerial, inputId, encoderSerial);
     LogDto logDto = logService.createLog(message, "info", decoderSerial);
-    streamLogService.createStreamLog(logDto.getId(), encoderSerial, response.getBody().getId().toString(), logMapper.toLogEntity(logDto));
-
+    streamLogService.createStreamLog(
+        logDto.getId(),
+        encoderSerial,
+        response.getBody().getId().toString(),
+        logMapper.toLogEntity(logDto));
   }
 
   @Before("execution(* org.beanpod.switchboard.controller.StreamController.deleteStream(..))")
@@ -92,6 +93,7 @@ public class StreamAspect {
             "Deleted stream of ID %d between decoder %s and encoder %s",
             streamId, decoderSerial, encoderSerial);
     LogDto logDto = logService.createLog(message, "info", decoderSerial);
-    streamLogService.createStreamLog(logDto.getId(), encoderSerial, streamId.toString(), logMapper.toLogEntity(logDto));
+    streamLogService.createStreamLog(
+        logDto.getId(), encoderSerial, streamId.toString(), logMapper.toLogEntity(logDto));
   }
 }

@@ -32,9 +32,8 @@ public class LogEntity {
 
   private String level;
 
-  //first device
-  private String
-      serialNumber;
+  // first device
+  private String serialNumber;
 
   @OneToOne(mappedBy = "logEntity", cascade = CascadeType.ALL)
   @PrimaryKeyJoinColumn
