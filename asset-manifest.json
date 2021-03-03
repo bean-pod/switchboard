@@ -1,29 +1,29 @@
 {
   "files": {
     "main.css": "/switchboard/static/css/main.f597a2e8.chunk.css",
-    "main.js": "/switchboard/static/js/main.87bc9619.chunk.js",
-    "main.js.map": "/switchboard/static/js/main.87bc9619.chunk.js.map",
-    "runtime-main.js": "/switchboard/static/js/runtime-main.1781be4c.js",
-    "runtime-main.js.map": "/switchboard/static/js/runtime-main.1781be4c.js.map",
-    "static/js/2.4d79fb20.chunk.js": "/switchboard/static/js/2.4d79fb20.chunk.js",
-    "static/js/2.4d79fb20.chunk.js.map": "/switchboard/static/js/2.4d79fb20.chunk.js.map",
-    "static/js/3.7d858aee.chunk.js": "/switchboard/static/js/3.7d858aee.chunk.js",
-    "static/js/3.7d858aee.chunk.js.map": "/switchboard/static/js/3.7d858aee.chunk.js.map",
+    "main.js": "/switchboard/static/js/main.08afe80d.chunk.js",
+    "main.js.map": "/switchboard/static/js/main.08afe80d.chunk.js.map",
+    "runtime-main.js": "/switchboard/static/js/runtime-main.97360ecf.js",
+    "runtime-main.js.map": "/switchboard/static/js/runtime-main.97360ecf.js.map",
+    "static/js/2.9c954fff.chunk.js": "/switchboard/static/js/2.9c954fff.chunk.js",
+    "static/js/2.9c954fff.chunk.js.map": "/switchboard/static/js/2.9c954fff.chunk.js.map",
+    "static/js/3.c4f36ecd.chunk.js": "/switchboard/static/js/3.c4f36ecd.chunk.js",
+    "static/js/3.c4f36ecd.chunk.js.map": "/switchboard/static/js/3.c4f36ecd.chunk.js.map",
     "static/js/4.2bb62602.chunk.js": "/switchboard/static/js/4.2bb62602.chunk.js",
     "static/js/4.2bb62602.chunk.js.map": "/switchboard/static/js/4.2bb62602.chunk.js.map",
     "static/js/5.f5336bc4.chunk.js": "/switchboard/static/js/5.f5336bc4.chunk.js",
     "static/js/5.f5336bc4.chunk.js.map": "/switchboard/static/js/5.f5336bc4.chunk.js.map",
     "index.html": "/switchboard/index.html",
     "static/css/main.f597a2e8.chunk.css.map": "/switchboard/static/css/main.f597a2e8.chunk.css.map",
-    "static/js/2.4d79fb20.chunk.js.LICENSE.txt": "/switchboard/static/js/2.4d79fb20.chunk.js.LICENSE.txt",
-    "static/js/3.7d858aee.chunk.js.LICENSE.txt": "/switchboard/static/js/3.7d858aee.chunk.js.LICENSE.txt",
+    "static/js/2.9c954fff.chunk.js.LICENSE.txt": "/switchboard/static/js/2.9c954fff.chunk.js.LICENSE.txt",
+    "static/js/3.c4f36ecd.chunk.js.LICENSE.txt": "/switchboard/static/js/3.c4f36ecd.chunk.js.LICENSE.txt",
     "static/js/4.2bb62602.chunk.js.LICENSE.txt": "/switchboard/static/js/4.2bb62602.chunk.js.LICENSE.txt",
     "static/js/5.f5336bc4.chunk.js.LICENSE.txt": "/switchboard/static/js/5.f5336bc4.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.1781be4c.js",
-    "static/js/2.4d79fb20.chunk.js",
+    "static/js/runtime-main.97360ecf.js",
+    "static/js/2.9c954fff.chunk.js",
     "static/css/main.f597a2e8.chunk.css",
-    "static/js/main.87bc9619.chunk.js"
+    "static/js/main.08afe80d.chunk.js"
   ]
 }
