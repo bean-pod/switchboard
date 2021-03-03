@@ -155,12 +155,14 @@
       <artifactId>java-jwt</artifactId>
       <version>${java-jwt-version}</version>
     </dependency>
+    <!--
     <dependency>
       <groupId>org.testng</groupId>
       <artifactId>testng</artifactId>
       <version>7.4.0</version>
       <scope>test</scope>
     </dependency>
+    -->
     <dependency>
       <groupId>net.lightbody.bmp</groupId>
       <artifactId>browsermob-core</artifactId>
