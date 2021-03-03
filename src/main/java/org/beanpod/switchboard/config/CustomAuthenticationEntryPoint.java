@@ -18,7 +18,6 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
   public void commence(HttpServletRequest req, HttpServletResponse res, AuthenticationException e)
       throws IOException, ServletException {
 
-    PrintWriter printWriter = res.getWriter();
     ObjectMapper mapper = new ObjectMapper();
 
     ObjectNode objectNode = mapper.createObjectNode();
@@ -31,6 +30,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
     res.setContentType("application/json;charset=UTF-8");
     res.setStatus(401);
 
+    PrintWriter printWriter = res.getWriter();
     printWriter.print(json);
     printWriter.flush();
   }
