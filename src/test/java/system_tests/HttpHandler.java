@@ -18,6 +18,9 @@ public class HttpHandler {
             .url(endPoint)
             .method("POST", body)
             .addHeader("Content-Type", "application/json")
+            .addHeader(
+                "Authorization",
+                "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJVU0VSIiwiZXhwIjoxNjE0ODU0MTQ1fQ.BIUPn9As6lfvN4JGEFBrJLw6DzS3e4bpUXmQ979e4XGO5sYpC3P-CyF_APHl6sSPWSnz4cLcsgD0g6SB_LhLhA")
             .build();
 
     return client.newCall(request).execute();
