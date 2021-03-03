@@ -54,7 +54,7 @@ describe("Log Api", () => {
       axios.get.mockResolvedValue({ data: mockLogs });
 
       const result = await LogApi.getDeviceLogs(123);
-      expect(axios.get).toHaveBeenCalledWith("http://localhost:8080/logs/123");
+      expect(axios.get).toHaveBeenCalledWith("http://localhost:8080/log/123");
       expect(result).toEqual(expectedLogsResponse);
     });
     it("If there is no response from the backend, it should return sample data", async () => {
@@ -70,7 +70,7 @@ describe("Log Api", () => {
       axios.get.mockResolvedValue({ data: mockLogs });
 
       const result = await LogApi.getAllLogs();
-      expect(axios.get).toHaveBeenCalledWith("http://localhost:8080/logs");
+      expect(axios.get).toHaveBeenCalledWith("http://localhost:8080/log");
       expect(result).toEqual(expectedLogsResponse);
     });
     it("If there is no response from the backend, it should return sample data", async () => {
