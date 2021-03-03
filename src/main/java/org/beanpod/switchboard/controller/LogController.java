@@ -5,19 +5,21 @@ import java.util.Optional;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.dao.LogDaoImpl;
+import org.openapitools.api.LogApi;
 import org.beanpod.switchboard.dto.mapper.LogMapper;
 import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.service.LogService;
-import org.openapitools.api.LogsApi;
 import org.openapitools.model.CreateLogRequest;
 import org.openapitools.model.LogModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/log")
 @RequiredArgsConstructor
-public class LogController implements LogsApi {
+public class LogController implements LogApi {
 
   public static final String CONTROLLER_NAME = "Log";
   private final LogDaoImpl logDao;

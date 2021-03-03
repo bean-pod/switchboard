@@ -20,9 +20,9 @@ async function getLogs(endpoint) {
 }
 
 export async function getAllLogs() {
-  return getLogs(process.env.REACT_APP_LOGS);
+  return getLogs(process.env.REACT_APP_LOG);
 }
 
 export async function getDeviceLogs(deviceSerialNumber) {
-  return getLogs(`${process.env.REACT_APP_LOGS}/${deviceSerialNumber}`);
+  return getLogs(`${process.env.REACT_APP_LOG}/${deviceSerialNumber}`);
 }
