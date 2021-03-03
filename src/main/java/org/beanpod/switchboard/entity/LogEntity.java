@@ -1,10 +1,13 @@
 package org.beanpod.switchboard.entity;
 
 import java.time.OffsetDateTime;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,6 +32,11 @@ public class LogEntity {
 
   private String level;
 
+  //first device
   private String
-      serialNumber; // This can be a single serialNumber or two serialNumbers seperated by a comma
+      serialNumber;
+
+  @OneToOne(mappedBy = "logEntity", cascade = CascadeType.ALL)
+  @PrimaryKeyJoinColumn
+  private StreamLog streamLog;
 }

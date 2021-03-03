@@ -7,9 +7,15 @@ import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.beanpod.switchboard.dao.StreamDaoImpl;
+import org.beanpod.switchboard.dao.StreamLogDaoImpl;
+import org.beanpod.switchboard.dto.LogDto;
 import org.beanpod.switchboard.dto.StreamDto;
+import org.beanpod.switchboard.dto.mapper.LogMapper;
+import org.beanpod.switchboard.dto.mapper.LogStreamMapper;
+import org.beanpod.switchboard.entity.LogEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType.UnknownException;
 import org.beanpod.switchboard.service.LogService;
+import org.beanpod.switchboard.service.StreamLogService;
 import org.openapitools.model.DecoderModel;
 import org.openapitools.model.EncoderModel;
 import org.openapitools.model.InputChannelModel;
@@ -27,6 +33,10 @@ public class StreamAspect {
 
   private final LogService logService;
   private final StreamDaoImpl streamDao;
+  private final StreamLogDaoImpl streamLogDao;
+  private final StreamLogService streamLogService;
+  private final LogMapper logMapper;
+
   String stream = "stream";
 
   @AfterReturning(
@@ -65,7 +75,9 @@ public class StreamAspect {
             "A stream started from output channel %d of decoder %s"
                 + " to input channel %d of encoder %s",
             outputId, decoderSerial, inputId, encoderSerial);
-    logService.createLog(message, "info", decoderSerial + "," + encoderSerial);
+    LogDto logDto = logService.createLog(message, "info", decoderSerial);
+    streamLogService.createStreamLog(logDto.getId(), encoderSerial, response.getBody().getId().toString(), logMapper.toLogEntity(logDto));
+
   }
 
   @Before("execution(* org.beanpod.switchboard.controller.StreamController.deleteStream(..))")
@@ -79,6 +91,7 @@ public class StreamAspect {
         String.format(
             "Deleted stream of ID %d between decoder %s and encoder %s",
             streamId, decoderSerial, encoderSerial);
-    logService.createLog(message, "info", decoderSerial + "," + encoderSerial);
+    LogDto logDto = logService.createLog(message, "info", decoderSerial);
+    streamLogService.createStreamLog(logDto.getId(), encoderSerial, streamId.toString(), logMapper.toLogEntity(logDto));
   }
 }

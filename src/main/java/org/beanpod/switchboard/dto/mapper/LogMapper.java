@@ -10,7 +10,6 @@ import org.openapitools.model.LogModel;
 
 @Mapper(componentModel = "spring")
 public interface LogMapper {
-
   List<LogModel> toLogModels(List<LogEntity> logEntityList);
 
   LogModel toLogModel(LogEntity logEntity);
