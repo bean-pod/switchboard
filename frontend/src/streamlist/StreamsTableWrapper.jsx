@@ -1,9 +1,8 @@
 import React from "react";
-import { Box, Container } from "@material-ui/core";
 import PropTypes from "prop-types";
 import StreamsTable from "./StreamsTable";
 
-export default class StreamList extends React.Component {
+export default class StreamsTableWrapper extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,18 +24,10 @@ export default class StreamList extends React.Component {
 
   render() {
     const { streams } = this.state;
-    return (
-      <>
-        <Container>
-          <Box className="headerAreaUnderline">
-            <div className="title">Current Streams</div>
-          </Box>
-          <StreamsTable streams={streams} />
-        </Container>
-      </>
-    );
+    return <StreamsTable streams={streams} />;
   }
 }
-StreamList.propTypes = {
+
+StreamsTableWrapper.propTypes = {
   dataSource: PropTypes.objectOf(PropTypes.func).isRequired
 };
