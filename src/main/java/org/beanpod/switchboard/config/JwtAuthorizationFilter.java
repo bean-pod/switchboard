@@ -7,7 +7,6 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Optional;
 import javax.servlet.FilterChain;
@@ -57,8 +56,8 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
                     user.get("sub").asString(),
                     null,
                     new ArrayList<>(
-                        Collections
-                            .singletonList(new SimpleGrantedAuthority(user.get("role").asString())))))
+                        Collections.singletonList(
+                            new SimpleGrantedAuthority(user.get("role").asString())))))
         .orElse(null);
   }
 }

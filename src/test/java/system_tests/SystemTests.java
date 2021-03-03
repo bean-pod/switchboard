@@ -67,7 +67,8 @@ public class SystemTests {
               .headers()
               .add(
                   "Authorization",
-                  "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJVU0VSIiwiZXhwIjoxNjE0ODU0MTQ1fQ.BIUPn9As6lfvN4JGEFBrJLw6DzS3e4bpUXmQ979e4XGO5sYpC3P-CyF_APHl6sSPWSnz4cLcsgD0g6SB_LhLhA");
+                  "Bearer"
+                      + " eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJVU0VSIiwiZXhwIjoxNjE0ODU0MTQ1fQ.BIUPn9As6lfvN4JGEFBrJLw6DzS3e4bpUXmQ979e4XGO5sYpC3P-CyF_APHl6sSPWSnz4cLcsgD0g6SB_LhLhA");
           return null;
         });
 
