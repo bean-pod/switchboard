@@ -14,23 +14,13 @@ import { afterEach, describe, expect, jest, it } from "@jest/globals";
 import axios from "axios";
 
 import DeleteDeviceButton from "../Buttons/DeleteDeviceButton";
+import * as SnackbarMessage from "../../general/SnackbarMessage"
 
 Enzyme.configure({ adapter: new Adapter() });
 jest.mock("axios");
 
-const mockHistoryPush = jest.fn();
-const mockHistoryGo = jest.fn();
-const mockHistory = {
-  location: { pathname: null },
-  push: mockHistoryPush,
-  go: mockHistoryGo
-};
-
-jest.mock("react-router-dom", () => ({
-  useHistory: () => {
-    return mockHistory;
-  }
-}));
+const snackbar = jest.fn();
+jest.spyOn(SnackbarMessage, 'snackbar').mockImplementation(() => snackbar);
 
 const flushPromises = () => new Promise(setImmediate);
 
@@ -92,9 +82,7 @@ describe("DeleteButton", () => {
 
     describe("ConfirmButton", () => {
       describe("on DeviceListPage", () => {
-        it("Should call axios.delete, close the dialog and refresh the page when clicked", async () => {
-          // Pretend we are on the device list page
-          mockHistory.location.pathname = "/Devices";
+        it("Should call axios.delete, close the dialog and display a snackbar", async () => {
 
           // click the delete button to set open to true
           wrapper.find("#deleteBtn").simulate("click");
@@ -102,7 +90,7 @@ describe("DeleteButton", () => {
 
           // mock axios before clicking confirm
           const axiosPromise = Promise.resolve();
-          axios.delete.mockImplementationOnce(() => axiosPromise);
+          axios.delete.mockImplementationOnce(() => axiosPromise, snackbar());
 
           // click confirm
           wrapper.find("#confirmDeleteBtn").simulate("click");
@@ -115,21 +103,21 @@ describe("DeleteButton", () => {
 
           // open should be false
           expect(setOpen).toHaveBeenCalledWith(false);
+
+          // snackbar should be displayed
+          expect(snackbar).toHaveBeenCalledTimes(1);
         });
       });
 
       describe("on DeviceDetailsPage", () => {
-        it("Should call axios.delete, close the dialog and redirect to device list page when clicked", async () => {
-          // Pretend we are on the device details page
-          mockHistory.location.pathname = "Devices/Details/sample_sender";
-
+        it("Should call axios.delete, close the dialog and display a snackbar", async () => {
           // click the delete button to set open to true
           wrapper.find("#deleteBtn").simulate("click");
           expect(setOpen).toHaveBeenCalledWith(true);
 
           // mock axios before clicking confirm
           const axiosPromise = Promise.resolve();
-          axios.delete.mockImplementationOnce(() => axiosPromise);
+          axios.delete.mockImplementationOnce(() => axiosPromise, snackbar());
 
           // click confirm
           wrapper.find("#confirmDeleteBtn").simulate("click");
@@ -142,6 +130,9 @@ describe("DeleteButton", () => {
 
           // open should be false
           expect(setOpen).toHaveBeenCalledWith(false);
+
+          // snackbar should be displayed
+          expect(snackbar).toHaveBeenCalledTimes(1);
         });
       });
     });
