@@ -54,7 +54,6 @@ export default class StreamingTable extends React.Component {
           outputChannelId: selectedSenderID
         })
         .then(() => {
-          // Refresh the page
           snackbar(
             "success",
             `Stream successful between Sender ${selectedSenderID} and Receiver ${selectedReceiverID}!`,

@@ -11,11 +11,17 @@ import {
   it
 } from "@jest/globals";
 import StreamingTable from "../StreamingTable";
+import * as SnackbarMessage from "../../general/SnackbarMessage"
 
 Enzyme.configure({ adapter: new Adapter() });
 
 jest.mock("axios");
 jest.spyOn(global.console, "log");
+
+const snackbar = jest.fn();
+jest.spyOn(SnackbarMessage, 'snackbar').mockImplementation(() => snackbar);
+
+const flushPromises = () => new Promise(setImmediate);
 
 const DummyData = {
   getSenders() {
@@ -148,7 +154,7 @@ describe("<StreamingTable/>", () => {
       wrapper.instance().handleSubmit(DummyData);
       expect(axios.post).not.toHaveBeenCalled();
     });
-    it("should call axios.post if a sender and a receiver have been selected", () => {
+    it("should call axios.post if a sender and a receiver have been selected", async () => {
       const mockReceiver = {
         target: {
           name: "selectedReceiverID",
@@ -170,8 +176,7 @@ describe("<StreamingTable/>", () => {
       const data = {
         data: "test"
       };
-      axios.post.mockImplementationOnce(() => Promise.resolve(data));
-
+      axios.post.mockImplementationOnce(() => Promise.resolve(data), snackbar());
       wrapper.instance().onSenderSelected(mockSender);
       wrapper.instance().onReceiverSelected(mockReceiver);
 
@@ -181,6 +186,49 @@ describe("<StreamingTable/>", () => {
         "http://localhost:8080/stream",
         expected
       );
+
+      await flushPromises();
+
+      // display snackbar
+      expect(snackbar).toHaveBeenCalledTimes(1);
+    });
+    it("should call axios.post if a sender and a receiver have been selected", async () => {
+      const mockReceiver = {
+        target: {
+          name: "selectedReceiverID",
+          value: "Test6"
+        }
+      };
+      const mockSender = {
+        target: {
+          name: "selectedSenderID",
+          value: "Test3"
+        }
+      };
+
+      const expected = {
+        outputChannelId: "Test3",
+        inputChannelId: "Test6"
+      };
+
+      const data = {
+        data: "test"
+      };
+      axios.post.mockImplementationOnce(() => Promise.resolve(data), snackbar());
+      wrapper.instance().onSenderSelected(mockSender);
+      wrapper.instance().onReceiverSelected(mockReceiver);
+
+      wrapper.instance().handleSubmit(DummyData);
+
+      expect(axios.post).toHaveBeenCalledWith(
+        "http://localhost:8080/stream",
+        expected
+      );
+
+      await flushPromises();
+
+      // display snackbar
+      expect(snackbar).toHaveBeenCalledTimes(1);
     });
   });
 });
