@@ -37,9 +37,6 @@ export function getAllStreams(callback) {
     });
 }
 
-export function deleteStream(streamId, callback) {
-  axios
-    .delete(`${process.env.REACT_APP_STREAM}/${streamId}`)
-    .then(callback)
-    .catch(() => {});
+export function deleteStream(streamId) {
+  return axios.delete(`${process.env.REACT_APP_STREAM}/${streamId}`);
 }
