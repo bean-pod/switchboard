@@ -19,27 +19,27 @@ const sampleOutputChannels = [
 ];
 const sampleLocalSender = new DeviceInfo(
   "test sender serial",
-  null,
+  "2020-11-25 20:48:03",
   "test sender public ip",
   "test sender private ip",
   "test sender display",
   "offline",
-  undefined,
-  undefined
+  sampleOutputChannels,
+  "sender"
 );
 const sampleLocalReceiver = new DeviceInfo(
   "test receiver serial",
-  null,
+  "2020-11-25 20:48:03",
   "test receiver public ip",
   "test receiver private ip",
   "test receiver display",
   "offline",
-  undefined,
-  undefined
+  sampleInputChannels,
+  "receiver"
 );
 const sampleAxiosSender = {
   serialNumber: "test sender serial",
-  lastCommunication: null,
+  lastCommunication: "2020-11-25 20:48:03",
   device: {
     serialNumber: "test sender serial",
     publicIpAddress: "test sender public ip",
@@ -47,12 +47,16 @@ const sampleAxiosSender = {
     displayName: "test sender display",
     status: "offline"
   },
-  outputs: undefined,
+  outputs: [
+    { id: 1, name: "test output ch 1", port: 500, encoder: null },
+    { id: 2, name: "test output ch 2", port: 456, encoder: null },
+    { id: 3, name: "test output ch 3", port: 800, encoder: null }
+  ],
   extras: undefined
 };
 const sampleAxiosReceiver = {
   serialNumber: "test receiver serial",
-  lastCommunication: null,
+  lastCommunication: "2020-11-25 20:48:03",
   device: {
     serialNumber: "test receiver serial",
     publicIpAddress: "test receiver public ip",
@@ -60,7 +64,11 @@ const sampleAxiosReceiver = {
     displayName: "test receiver display",
     status: "offline"
   },
-  inputs: undefined,
+  inputs: [
+    { id: 1, name: "test input ch 1", port: 500, decoder: null },
+    { id: 2, name: "test input ch 2", port: 456, decoder: null },
+    { id: 3, name: "test input ch 3", port: 800, decoder: null }
+  ],
   extras: undefined
 };
 

@@ -11,6 +11,7 @@ import org.openapitools.model.OutputChannelModel;
     componentModel = "spring",
     uses = {EncoderMapper.class, ChannelMapper.class})
 public interface OutputChannelMapper {
+
   @Mapping(target = "encoder", qualifiedByName = "toEncoderDtoShallow")
   OutputChannelDto toOutputChannelDto(OutputChannelEntity outputChannelEntity);
 
@@ -19,7 +20,5 @@ public interface OutputChannelMapper {
 
   OutputChannelEntity toOutputChannelEntity(OutputChannelDto outputChannelDto);
 
-  @Mapping(target = "name", source = "channel.name")
-  @Mapping(target = "port", source = "channel.port")
   OutputChannelModel outputChannelDtoToOutputChannelModel(OutputChannelDto outputChannelDto);
 }

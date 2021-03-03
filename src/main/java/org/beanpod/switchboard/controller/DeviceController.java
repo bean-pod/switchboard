@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 public class DeviceController implements DeviceApi {
+
   public static final String CONTROLLER_NAME = "Device";
   private final DeviceDaoImpl service;
   private final DeviceMapper deviceMapper;

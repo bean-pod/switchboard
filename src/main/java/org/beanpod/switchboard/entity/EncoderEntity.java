@@ -2,7 +2,6 @@ package org.beanpod.switchboard.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.Date;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -22,17 +21,15 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Entity(name = "Encoder")
 @Getter
 @Setter
 @Builder
-@ToString(exclude = {"outputs"})
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(value = {"hibernateLazyIntializer", "handler"})
-public class EncoderEntity {
+public class EncoderEntity implements DecoderEncoderInterface {
 
   @Id
   @NotNull
@@ -50,9 +47,9 @@ public class EncoderEntity {
   private DeviceEntity device;
 
   @OneToMany(
-      mappedBy = "encoder",
       fetch = FetchType.LAZY,
-      cascade = {CascadeType.REMOVE})
-  @JsonManagedReference
+      cascade = {CascadeType.ALL})
+  @JoinColumn(name = "encoder_serial")
+  @JsonIgnoreProperties("encoder")
   private Set<OutputChannelEntity> output;
 }

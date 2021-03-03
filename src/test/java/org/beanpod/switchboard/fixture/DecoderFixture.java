@@ -11,6 +11,7 @@ import org.beanpod.switchboard.entity.InputChannelEntity;
 import org.openapitools.model.DecoderModel;
 
 public class DecoderFixture {
+
   public static final String SERIAL_NUMBER = "1";
   public static final String SERIAL_NUMBER2 = "2";
   private static final String pattern = "yyyy-MM-dd HH:mm:ss";
@@ -24,7 +25,7 @@ public class DecoderFixture {
         .serialNumber(SERIAL_NUMBER)
         .lastCommunication(simpleDateFormat.parse("2020-10-31 05:05:05"))
         .device(DeviceFixture.getDevice1())
-        .input(null)
+        .input(setOfChannels)
         .build();
   }
 
@@ -33,8 +34,8 @@ public class DecoderFixture {
     return DecoderEntity.builder()
         .serialNumber(SERIAL_NUMBER2)
         .lastCommunication(simpleDateFormat.parse("2020-10-31 05:05:05"))
-        .device(DeviceFixture.getDevice1())
-        .input(null)
+        .device(DeviceFixture.getDevice2())
+        .input(setOfChannels)
         .build();
   }
 

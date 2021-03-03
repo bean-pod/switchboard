@@ -12,14 +12,25 @@ code {
     monospace;
 }
 
-.headerArea {
+.areaUnderBreadcrumbs {
+  padding: 1em;
+  padding-top: 2em;
+}
+
+.headerAreaUnderline {
   /* margin-top: 1em; */
   margin-bottom: 1em;
   border-bottom: 1px solid #d3d3d3;
 }
 
-.headerAreaDeviceList {
+.headerAreaNoUnderline {
   margin-bottom: 1em;
+}
+
+.lightGreyBorder {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #f1f1f1;
 }
 
 input {
@@ -107,10 +118,6 @@ select {
   margin-right: 0;
 }
 
-.invisibleLink {
-  text-decoration: none;
-}
-
 .headerTitle {
   color: white;
   text-decoration: none;
@@ -185,6 +192,19 @@ select {
 
 .warningText {
   color: #ea5757;
+}
+
+#editDeviceNameField {
+  font-size: 35px;
+  vertical-align: middle;
+  flex-grow: 1;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+.textAlignRightPadded {
+  text-align: right;
+  padding: 1rem;
 }
 
 /* Button styling */

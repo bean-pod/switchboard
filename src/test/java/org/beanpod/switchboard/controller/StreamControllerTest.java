@@ -13,6 +13,7 @@ import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.fixture.ChannelFixture;
 import org.beanpod.switchboard.fixture.StreamFixture;
 import org.beanpod.switchboard.service.StreamService;
+import org.beanpod.switchboard.util.MaintainDeviceStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -22,16 +23,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 class StreamControllerTest {
+
   private StreamController streamController;
 
   @Mock private StreamDaoImpl streamDao;
   @Mock private StreamMapper streamMapper;
   @Mock private StreamService streamService;
+  @Mock private MaintainDeviceStatus maintainDeviceStatus;
 
   @BeforeEach
   public void setup() {
     MockitoAnnotations.initMocks(this);
-    streamController = new StreamController(streamDao, streamService, streamMapper);
+    streamController =
+        new StreamController(streamDao, streamService, streamMapper, maintainDeviceStatus);
   }
 
   @Test
@@ -123,10 +127,13 @@ class StreamControllerTest {
   void testUpdateStream() {
     // given
     StreamModel streamModel = StreamFixture.getStreamModel();
-    when(streamMapper.toDto(streamModel)).thenReturn(StreamFixture.getStreamDto());
+    StreamDto streamDto = StreamFixture.getStreamDto();
+    when(streamMapper.toDto(streamModel)).thenReturn(streamDto);
+    when(streamService.updateStream(streamDto)).thenReturn(streamDto);
+    when(streamMapper.toModel(streamDto)).thenReturn(streamModel);
 
     // when
-    ResponseEntity<Void> result = streamController.updateStream(streamModel);
+    ResponseEntity<StreamModel> result = streamController.updateStream(streamModel);
 
     // then
     assertEquals(HttpStatus.OK, result.getStatusCode());

@@ -5,10 +5,12 @@ import java.util.Optional;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.dao.StreamDaoImpl;
+import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
 import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.exceptions.ExceptionType.UnknownException;
 import org.beanpod.switchboard.service.StreamService;
+import org.beanpod.switchboard.util.MaintainDeviceStatus;
 import org.openapitools.api.StreamApi;
 import org.openapitools.model.CreateStreamRequest;
 import org.openapitools.model.StreamModel;
@@ -18,10 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 public class StreamController implements StreamApi {
+
   public static final String CONTROLLER_NAME = "Stream";
   private final StreamDaoImpl streamDao;
   private final StreamService streamService;
   private final StreamMapper mapper;
+  private final MaintainDeviceStatus maintainDeviceStatus;
 
   @Override
   public ResponseEntity<List<Long>> getStreams() {
@@ -32,8 +36,14 @@ public class StreamController implements StreamApi {
 
   @Override
   public ResponseEntity<StreamModel> getStreamById(Long id) {
-    return Optional.of(id)
-        .map(streamDao::getStreamById)
+    Optional<StreamDto> streamDto = Optional.of(id).map(streamDao::getStreamById);
+
+    // maintain status field and create a log
+    if (streamDto.isPresent()) {
+      maintainDeviceStatus.maintainStatusField(streamDto.get());
+    }
+
+    return streamDto
         .map(mapper::toModel)
         .map(ResponseEntity::ok)
         .orElseThrow(() -> new UnknownException(CONTROLLER_NAME));
@@ -60,14 +70,12 @@ public class StreamController implements StreamApi {
   }
 
   @Override
-  public ResponseEntity<Void> updateStream(@Valid StreamModel streamModel) {
-    Optional.of(streamModel)
+  public ResponseEntity<StreamModel> updateStream(@Valid StreamModel streamModel) {
+    return Optional.of(streamModel)
         .map(mapper::toDto)
-        .ifPresentOrElse(
-            streamDao::updateStream,
-            () -> {
-              throw new UnknownException(CONTROLLER_NAME);
-            });
-    return ResponseEntity.ok().build();
+        .map(streamService::updateStream)
+        .map(mapper::toModel)
+        .map(ResponseEntity::ok)
+        .orElseThrow(() -> new UnknownException(CONTROLLER_NAME));
   }
 }

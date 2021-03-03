@@ -23,7 +23,8 @@ export function getSampleSendersResponse() {
             port: 2000
           }
         }
-      ]
+      ],
+      deviceType: "encoder"
     },
     {
       serialNumber: "asdf1234",
@@ -44,7 +45,8 @@ export function getSampleSendersResponse() {
             port: 2999
           }
         }
-      ]
+      ],
+      deviceType: "encoder"
     }
   ];
 }
@@ -67,6 +69,7 @@ export function getExpectedSendersResponse() {
           null
         )
       ],
+      "encoder",
       ["Additional Device details go here"]
     ),
     new DeviceInfo(
@@ -84,6 +87,7 @@ export function getExpectedSendersResponse() {
           null
         )
       ],
+      "encoder",
       ["Additional Device details go here"]
     )
   ];
@@ -110,7 +114,8 @@ export function getSampleReceiversResponse() {
             port: 2000
           }
         }
-      ]
+      ],
+      deviceType: "decoder"
     }
   ];
 }
@@ -133,6 +138,7 @@ export function getExpectedReceiversResponse() {
           null
         )
       ],
+      "decoder",
       ["Additional Device details go here"]
     )
   ];

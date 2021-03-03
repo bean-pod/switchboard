@@ -2,26 +2,15 @@ import axios from "axios";
 import { convertToDataObject } from "../model/ConvertDataFormat";
 import StreamInfo from "../model/StreamInfo";
 import * as SampleData from "./SampleData";
-
-export function getAllStreams(callback) {
-  axios
-    .get("http://localhost:8080/stream")
-    .then((streams) => {
-      Promise.all(
-        streams.data.map((streamId) => {
-          return getStream(streamId);
-        })
-      ).then(callback);
-    })
-    .catch((error) => {
-      SampleData.getAllStreams(callback);
-    });
-}
+import { getAuthorizationHeader } from "./AuthenticationUtil";
 
 export function getStream(streamId) {
   return new Promise((resolve, reject) => {
     axios
-      .get(`http://localhost:8080/stream/${streamId}`)
+      .get(
+        `${process.env.REACT_APP_STREAM}/${streamId}`,
+        getAuthorizationHeader()
+      )
       .then((response) => {
         const stream = response.data;
         resolve(
@@ -35,4 +24,40 @@ export function getStream(streamId) {
       })
       .catch(reject);
   });
+}
+
+export function getAllStreams(callback) {
+  axios
+    .get(process.env.REACT_APP_STREAM, getAuthorizationHeader())
+    .then((streams) => {
+      Promise.all(
+        streams.data.map((streamId) => {
+          return getStream(streamId);
+        })
+      ).then(callback);
+    })
+    .catch(() => {
+      SampleData.getAllStreams(callback);
+    });
+}
+
+export function deleteStream(streamId, callback) {
+  axios
+    .delete(
+      `${process.env.REACT_APP_STREAM}/${streamId}`,
+      getAuthorizationHeader()
+    )
+    .then(callback)
+    .catch(() => {});
+}
+
+export function createStream(selectedReceiverID, selectedSenderID) {
+  return axios.post(
+    process.env.REACT_APP_STREAM,
+    {
+      inputChannelId: selectedReceiverID,
+      outputChannelId: selectedSenderID
+    },
+    getAuthorizationHeader()
+  );
 }

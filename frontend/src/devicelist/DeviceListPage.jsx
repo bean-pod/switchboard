@@ -7,25 +7,24 @@ import ContentsTable from "./ContentsTable";
 import DynamicBreadcrumb from "../general/DynamicBreadcrumb";
 import * as useStyles from "../DefaultMakeStylesTheme";
 
-export default class DeviceListPage extends React.Component {
-  render() {
-    const { dataSource } = this.props;
-    return (
-      <Container>
-        <DynamicBreadcrumb
-          breadcrumbs={[
-            ["Home", "/"],
-            ["My Devices", "Devices"]
-          ]}
-        />
-        <Box padding="1em" paddingTop="2em">
-          <TitleBox />
-          <ContentsTable classes={useStyles} dataSource={dataSource} />
-        </Box>
-      </Container>
-    );
-  }
+export default function DeviceListPage(props) {
+  const { dataSource } = props;
+  return (
+    <Container>
+      <DynamicBreadcrumb
+        breadcrumbs={[
+          ["Home", "/"],
+          ["My Devices", "Devices"]
+        ]}
+      />
+      <Box className="areaUnderBreadcrumbs">
+        <TitleBox />
+        <ContentsTable classes={useStyles} dataSource={dataSource} />
+      </Box>
+    </Container>
+  );
 }
+
 DeviceListPage.propTypes = {
   dataSource: PropTypes.objectOf(PropTypes.func).isRequired
 };

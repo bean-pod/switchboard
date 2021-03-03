@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @RequiredArgsConstructor
 public class StreamDaoImpl {
+
   private final StreamRepository streamRepository;
   private final StreamMapper mapper;
   private final ChannelDaoImpl channelService;
@@ -43,12 +44,12 @@ public class StreamDaoImpl {
     streamRepository.deleteById(id);
   }
 
-  public void updateStream(StreamDto streamDto) {
+  public StreamEntity updateStream(StreamDto streamDto) {
     if (!streamRepository.existsById(streamDto.getId())) {
       throw new StreamDoesNotExistException(streamDto.getId());
     }
     StreamEntity streamEntity = mapper.toEntity(streamDto);
-    streamRepository.save(streamEntity);
+    return streamRepository.save(streamEntity);
   }
 
   public List<StreamDto> getEncoderStreams(String encoderSerialNumber) {

@@ -22,8 +22,8 @@ export default class StreamingPage extends React.Component {
             ["Streaming", "Streaming"]
           ]}
         />
-        <Box padding="1em">
-          <Box className="flexContents headerArea">
+        <Box className="areaUnderBreadcrumbs">
+          <Box className="flexContents headerAreaUnderline">
             <div className="title">Streaming</div>
           </Box>
           <div id="StreamingTable">

@@ -11,29 +11,36 @@ import {
   it
 } from "@jest/globals";
 import StreamingTable from "../StreamingTable";
+import * as authenticationUtil from "../../api/AuthenticationUtil";
 
 Enzyme.configure({ adapter: new Adapter() });
 
 jest.mock("axios");
 jest.spyOn(global.console, "log");
 
-class DummyData {
+const DummyData = {
   getSenders() {
     return ["A", "B", "C"];
-  }
+  },
 
   getReceivers() {
     return ["X", "Y", "Z"];
-  }
+  },
 
   preventDefault() {}
-}
+};
+
+const authorizationHeader = {
+  headers: {
+    Authorization: "Bearer the_token"
+  }
+};
 
 describe("<StreamingTable/>", () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = Enzyme.shallow(<StreamingTable dataSource={new DummyData()} />);
+    wrapper = Enzyme.shallow(<StreamingTable dataSource={DummyData} />);
   });
 
   afterEach(() => {
@@ -109,7 +116,7 @@ describe("<StreamingTable/>", () => {
       };
       axios.post.mockImplementationOnce(() => Promise.resolve(data));
       // act
-      wrapper.instance().handleSubmit(new DummyData());
+      wrapper.instance().handleSubmit(DummyData);
       expect(axios.post).not.toHaveBeenCalled();
     });
     it("should do nothing if a receiver but no sender has been selected", () => {
@@ -128,7 +135,7 @@ describe("<StreamingTable/>", () => {
       // act
       wrapper.instance().onReceiverSelected(mockReceiver);
 
-      wrapper.instance().handleSubmit(new DummyData());
+      wrapper.instance().handleSubmit(DummyData);
       expect(axios.post).not.toHaveBeenCalled();
     });
     it("should do nothing if no receiver but a sender has been selected", () => {
@@ -141,14 +148,14 @@ describe("<StreamingTable/>", () => {
       const data = {
         data: "test"
       };
-      axios.post.mockImplementationOnce(() => Promise.resolve(data));
+      axios.post.mockImplementationOnce(async () => Promise.resolve(data));
 
       // act
       wrapper.instance().onSenderSelected(mockSender);
-      wrapper.instance().handleSubmit(new DummyData());
+      wrapper.instance().handleSubmit(DummyData);
       expect(axios.post).not.toHaveBeenCalled();
     });
-    it("should call axios.post if a sender and a receiver have been selected", () => {
+    it("should call StreamApi.createStream if a sender and a receiver have been selected", () => {
       const mockReceiver = {
         target: {
           name: "selectedReceiverID",
@@ -171,15 +178,19 @@ describe("<StreamingTable/>", () => {
         data: "test"
       };
       axios.post.mockImplementationOnce(() => Promise.resolve(data));
+      authenticationUtil.getAuthorizationHeader = jest
+          .fn()
+          .mockReturnValue(authorizationHeader);
 
       wrapper.instance().onSenderSelected(mockSender);
       wrapper.instance().onReceiverSelected(mockReceiver);
 
-      wrapper.instance().handleSubmit(new DummyData());
+      wrapper.instance().handleSubmit(DummyData);
 
       expect(axios.post).toHaveBeenCalledWith(
-        "http://localhost:8080/stream",
-        expected
+          "http://localhost:8080/stream",
+          expected,
+          authorizationHeader
       );
     });
   });

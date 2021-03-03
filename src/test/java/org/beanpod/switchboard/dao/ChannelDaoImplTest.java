@@ -50,7 +50,7 @@ class ChannelDaoImplTest {
 
   @BeforeEach
   void setupChannelFixture() {
-    channel = ChannelFixture.getChannelEntity();
+    channel = ChannelFixture.getChannelEntity1();
     input = ChannelFixture.getInputChannelEntity();
     inputDto = ChannelFixture.getInputChannelDto();
     output = ChannelFixture.getOutputChannelEntity();

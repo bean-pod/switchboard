@@ -7,6 +7,7 @@ import org.openapitools.model.CreateStreamRequest;
 import org.openapitools.model.StreamModel;
 
 public class StreamFixture {
+
   public static final long ID = 2429L;
 
   public static List<Long> getIdList() {

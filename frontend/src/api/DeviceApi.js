@@ -3,6 +3,7 @@ import DeviceInfo from "../model/DeviceInfo";
 import * as SampleData from "./SampleData";
 import OutputChannelInfo from "../model/OutputChannelInfo";
 import InputChannelInfo from "../model/InputChannelInfo";
+import { getAuthorizationHeader } from "./AuthenticationUtil";
 
 function getStatus(lastCommunicationString) {
   if (!lastCommunicationString) {
@@ -20,7 +21,7 @@ function getStatus(lastCommunicationString) {
 
 export function getSenders(callback) {
   axios
-    .get("http://localhost:8080/encoder")
+    .get(process.env.REACT_APP_ENCODER, getAuthorizationHeader())
     .then((senders) => {
       callback(
         senders.data.map((sender) => {
@@ -47,19 +48,20 @@ export function getSenders(callback) {
             sender.device.displayName,
             getStatus(sender.lastCommunication),
             channels,
+            "encoder",
             ["Additional Device details go here"]
           );
         })
       );
     })
-    .catch((error) => {
+    .catch(() => {
       SampleData.getSenders(callback);
     });
 }
 
 export function getReceivers(callback) {
   axios
-    .get("http://localhost:8080/decoder")
+    .get(process.env.REACT_APP_DECODER, getAuthorizationHeader())
     .then((receivers) => {
       callback(
         receivers.data.map((receiver) => {
@@ -86,12 +88,31 @@ export function getReceivers(callback) {
             receiver.device.displayName,
             getStatus(receiver.lastCommunication),
             channels,
+            "decoder",
             ["Additional Device details go here"]
           );
         })
       );
     })
-    .catch((error) => {
+    .catch(() => {
       SampleData.getReceivers(callback);
     });
+}
+
+export function deleteDevice(deviceId) {
+  return axios
+    .delete(
+      `${process.env.REACT_APP_DEVICE}/${deviceId}`,
+      getAuthorizationHeader()
+    )
+    .catch(() => {});
+}
+
+export async function updateDeviceName(deviceId, updatedName) {
+  return axios
+    .put(process.env.REACT_APP_DEVICE, {
+      serialNumber: deviceId,
+      displayName: updatedName
+    })
+    .catch(() => {});
 }

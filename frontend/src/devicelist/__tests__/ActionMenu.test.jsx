@@ -10,6 +10,7 @@ import {
   it
 } from "@jest/globals";
 import ActionMenu from "../ActionMenu";
+import DeviceInfo from "../../model/DeviceInfo";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -18,7 +19,18 @@ describe("<ActionMenu />", () => {
   let testElement;
 
   beforeEach(() => {
-    wrapper = Enzyme.shallow(<ActionMenu />);
+    const dummyDevice = new DeviceInfo(
+      "1:10:111:999",
+      "2020-11-25 20:48:03",
+      "175.214.12.96",
+      "123:456",
+      "Sender 1",
+      "Online",
+      null,
+      "encoder",
+      null
+    );
+    wrapper = Enzyme.shallow(<ActionMenu device={dummyDevice} />);
   });
   afterEach(() => {
     jest.clearAllMocks();
