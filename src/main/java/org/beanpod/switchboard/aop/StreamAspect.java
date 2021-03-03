@@ -77,7 +77,10 @@ public class StreamAspect {
     streamLogService.createStreamLog(
         logDto.getId(),
         encoderSerial,
-        response.getBody().getId().toString(),
+        Optional.of(response.getBody())
+            .map(StreamModel::getId)
+            .map(String::valueOf)
+            .orElseThrow(() -> new UnknownException(stream)),
         logMapper.toLogEntity(logDto));
   }
 

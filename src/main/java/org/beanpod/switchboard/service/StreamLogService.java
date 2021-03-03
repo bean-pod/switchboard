@@ -14,7 +14,8 @@ public class StreamLogService {
   LogStreamMapper logStreamMapper;
   StreamLogDaoImpl streamLogDao;
 
-  public StreamLogDto createStreamLog(Long id, String serialNumber, String streamID, LogEntity logEntity){
+  public StreamLogDto createStreamLog(
+      Long id, String serialNumber, String streamID, LogEntity logEntity) {
     StreamLog streamLog =
         StreamLog.builder()
             .id(id)

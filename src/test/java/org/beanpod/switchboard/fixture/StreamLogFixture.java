@@ -4,7 +4,7 @@ import org.beanpod.switchboard.dto.StreamLogDto;
 import org.beanpod.switchboard.entity.StreamLog;
 
 public class StreamLogFixture {
-  public static StreamLogDto getStreamLogDto(){
+  public static StreamLogDto getStreamLogDto() {
     return StreamLogDto.builder()
         .id(LogFixture.id)
         .serialNumber(DeviceFixture.SERIAL_NUMBER2)
@@ -13,7 +13,7 @@ public class StreamLogFixture {
         .build();
   }
 
-  public static StreamLog getStreamLog(){
+  public static StreamLog getStreamLog() {
     return StreamLog.builder()
         .id(LogFixture.id)
         .serialNumber(DeviceFixture.SERIAL_NUMBER2)
