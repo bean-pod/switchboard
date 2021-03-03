@@ -2,14 +2,7 @@ import React from "react";
 import axios from "axios";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import {
-  afterEach,
-  beforeEach,
-  describe,
-  expect,
-  jest,
-  it
-} from "@jest/globals";
+import {afterEach, beforeEach, describe, expect, it, jest} from "@jest/globals";
 import StreamingTable from "../StreamingTable";
 import * as authenticationUtil from "../../api/AuthenticationUtil";
 
@@ -177,10 +170,10 @@ describe("<StreamingTable/>", () => {
       const data = {
         data: "test"
       };
-      axios.post.mockImplementationOnce(() => Promise.resolve(data));
-      authenticationUtil.getAuthorizationHeader = jest
-          .fn()
-          .mockReturnValue(authorizationHeader);
+        axios.post.mockImplementationOnce(() => Promise.resolve(data));
+        authenticationUtil.getAuthorizationHeader = jest
+            .fn()
+            .mockReturnValue(authorizationHeader);
 
       wrapper.instance().onSenderSelected(mockSender);
       wrapper.instance().onReceiverSelected(mockReceiver);

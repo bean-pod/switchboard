@@ -1,7 +1,7 @@
 import axios from "axios";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import { afterEach, describe, expect, it, jest } from "@jest/globals";
+import {afterEach, describe, expect, it, jest} from "@jest/globals";
 import * as authenticationUtil from "../AuthenticationUtil";
 // import StreamApi itself
 import * as StreamApi from "../StreamApi";
@@ -62,11 +62,12 @@ describe("Stream Api", () => {
         .fn()
         .mockReturnValue(authorizationHeader);
 
-      StreamApi.getAllStreams(() => {});
+      StreamApi.getAllStreams(() => {
+      });
 
       expect(axios.get).toHaveBeenCalledWith(
-        "http://localhost:8080/stream",
-        authorizationHeader
+          "http://localhost:8080/stream",
+          authorizationHeader
       );
     });
     it("should use sample data in the case of an error", () => {
@@ -76,9 +77,9 @@ describe("Stream Api", () => {
 
   describe("createStream", () => {
     it("should call axios.post and return a 200", () => {
-      let selectedReceiverID = "a1";
-      let selectedSenderID = "b2";
-      let expectedBody = {
+      const selectedReceiverID = "a1";
+      const selectedSenderID = "b2";
+      const expectedBody = {
         inputChannelId: selectedReceiverID,
         outputChannelId: selectedSenderID
       };
@@ -94,7 +95,7 @@ describe("Stream Api", () => {
           "http://localhost:8080/stream",
           expectedBody,
           authorizationHeader
-      )
+      );
     });
   });
 });
