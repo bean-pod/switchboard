@@ -13,7 +13,7 @@ import lombok.Setter;
 @EqualsAndHashCode
 @Builder
 @AllArgsConstructor
-public class LogStreamDto {
+public class StreamLogDto {
   private Long id;
 
   //second device
