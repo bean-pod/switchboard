@@ -1,7 +1,7 @@
 import axios from "axios";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import {afterEach, describe, expect, it, jest} from "@jest/globals";
+import { afterEach, describe, expect, it, jest } from "@jest/globals";
 import * as authenticationUtil from "../AuthenticationUtil";
 // import StreamApi itself
 import * as StreamApi from "../StreamApi";
@@ -62,12 +62,11 @@ describe("Stream Api", () => {
         .fn()
         .mockReturnValue(authorizationHeader);
 
-      StreamApi.getAllStreams(() => {
-      });
+      StreamApi.getAllStreams(() => {});
 
       expect(axios.get).toHaveBeenCalledWith(
-          "http://localhost:8080/stream",
-          authorizationHeader
+        "http://localhost:8080/stream",
+        authorizationHeader
       );
     });
     it("should use sample data in the case of an error", () => {
@@ -86,15 +85,15 @@ describe("Stream Api", () => {
 
       axios.post.mockResolvedValue();
       authenticationUtil.getAuthorizationHeader = jest
-          .fn()
-          .mockReturnValue(authorizationHeader);
+        .fn()
+        .mockReturnValue(authorizationHeader);
 
       StreamApi.createStream(selectedReceiverID, selectedSenderID);
 
       expect(axios.post).toHaveBeenCalledWith(
-          "http://localhost:8080/stream",
-          expectedBody,
-          authorizationHeader
+        "http://localhost:8080/stream",
+        expectedBody,
+        authorizationHeader
       );
     });
   });
