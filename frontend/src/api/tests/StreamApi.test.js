@@ -21,7 +21,7 @@ const expectedFirstStreamRespone = new StreamInfo(
   convertToDataObject(firstStreamResponse.inputChannel.decoder),
   ["Additional stream info goes here."]
 );
-const expectedSecondStreamRespone = new StreamInfo(
+const expectedSecondStreamResponse = new StreamInfo(
   2,
   convertToDataObject(secondStreamResponse.outputChannel.encoder),
   convertToDataObject(secondStreamResponse.inputChannel.decoder),
@@ -30,7 +30,7 @@ const expectedSecondStreamRespone = new StreamInfo(
 
 const expectedAllStreamsResponse = [
   expectedFirstStreamRespone,
-  expectedSecondStreamRespone
+  expectedSecondStreamResponse
 ];
 
 describe("Stream Api", () => {
