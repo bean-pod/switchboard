@@ -1,4 +1,5 @@
 import React from "react";
+import AppRouter from "./AppRouter";
 
 export default class Authenticator extends React.Component {
   constructor(props) {
@@ -31,6 +32,7 @@ export default class Authenticator extends React.Component {
 
   render() {
     const { authenticated, admin } = this.state;
+    alert(authenticated)
     return (
       <AppRouter
         handleLogin={this.handleLogin}

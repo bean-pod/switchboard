@@ -9,45 +9,47 @@ import StreamingTablePage from "./createStream/StreamingPage";
 import DeviceDetailsPage from "./deviceDetailsPage/DeviceDetailsPage";
 import LogListPage from "./loglist/LogListPage";
 import LoginPage from "./login/LoginPage";
+import AppAuthenticator from "./app/AppAuthenticator";
 
 import * as DeviceApi from "./api/DeviceApi";
 import * as StreamApi from "./api/StreamApi";
 import * as LogApi from "./api/LogApi";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <HeaderBar />
-      <Switch>
-        <Route exact path={["/", "/Home"]} component={HomePage} />
-        <Route
-          exact
-          path="/Devices"
-          render={() => <DeviceListPage dataSource={DeviceApi} />}
-        />
-        <Route
-          exact
-          path="/Streaming"
-          render={() => (
-            <StreamingTablePage
-              deviceDataSource={DeviceApi}
-              streamDataSource={StreamApi}
-            />
-          )}
-        />
-        <Route
-          exact
-          path="/Devices/Details/:deviceId"
-          component={DeviceDetailsPage}
-        />
-        <Route
-          exact
-          path="/Logs"
-          render={() => <LogListPage logsDataSource={LogApi} />}
-        />
-        <Route exact path="/Login" component={LoginPage} />
-      </Switch>
-    </BrowserRouter>
-  </React.StrictMode>,
-  document.getElementById("root")
-);
+ReactDOM.render(<AppAuthenticator />, document.getElementById("root"));
+// ReactDOM.render(
+//   <React.StrictMode>
+//     <BrowserRouter>
+//       <HeaderBar />
+//       <Switch>
+//         <Route exact path={["/", "/Home"]} component={HomePage} />
+//         <Route
+//           exact
+//           path="/Devices"
+//           render={() => <DeviceListPage dataSource={DeviceApi} />}
+//         />
+//         <Route
+//           exact
+//           path="/Streaming"
+//           render={() => (
+//             <StreamingTablePage
+//               deviceDataSource={DeviceApi}
+//               streamDataSource={StreamApi}
+//             />
+//           )}
+//         />
+//         <Route
+//           exact
+//           path="/Devices/Details/:deviceId"
+//           component={DeviceDetailsPage}
+//         />
+//         <Route
+//           exact
+//           path="/Logs"
+//           render={() => <LogListPage logsDataSource={LogApi} />}
+//         />
+//         <Route exact path="/Login" component={LoginPage} />
+//       </Switch>
+//     </BrowserRouter>
+//   </React.StrictMode>,
+//   document.getElementById("root")
+// );

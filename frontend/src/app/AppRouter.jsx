@@ -1,6 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { BrowserRouter, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+
+import ProtectedRoute from "./ProtectedRoute";
+import LoginPage from "../login/LoginPage";
+import HomePage from "../general/HomePage";
 
 export default class AppRouter extends React.Component {
   constructor(props) {
@@ -10,11 +14,24 @@ export default class AppRouter extends React.Component {
   render() {
     const { handleLogin, handleLogout, authenticated, admin } = this.props;
     return (
-    <BrowserRouter>
-    <Switch>
-        
-    </Switch>
-    </BrowserRouter>) ;
+      <BrowserRouter>
+        <Switch>
+          <Route
+            exact
+            path="/Login"
+            render={() => <LoginPage handleLogin={handleLogin} />}
+          />
+          <ProtectedRoute
+            path="/Home"
+            authenticated={authenticated}
+            render={() => {
+              console.log(authenticated);
+              return <HomePage authenticated={authenticated} />;
+            }}
+          />
+        </Switch>
+      </BrowserRouter>
+    );
   }
 }
 
