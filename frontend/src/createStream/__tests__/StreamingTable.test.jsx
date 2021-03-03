@@ -11,7 +11,7 @@ import {
   it
 } from "@jest/globals";
 import StreamingTable from "../StreamingTable";
-import * as SnackbarMessage from "../../general/SnackbarMessage"
+import * as SnackbarMessage from "../../general/SnackbarMessage";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -19,7 +19,7 @@ jest.mock("axios");
 jest.spyOn(global.console, "log");
 
 const snackbar = jest.fn();
-jest.spyOn(SnackbarMessage, 'snackbar').mockImplementation(() => snackbar);
+jest.spyOn(SnackbarMessage, "snackbar").mockImplementation(() => snackbar);
 
 const flushPromises = () => new Promise(setImmediate);
 
@@ -176,7 +176,10 @@ describe("<StreamingTable/>", () => {
       const data = {
         data: "test"
       };
-      axios.post.mockImplementationOnce(() => Promise.resolve(data), snackbar());
+      axios.post.mockImplementationOnce(
+        () => Promise.resolve(data),
+        snackbar()
+      );
       wrapper.instance().onSenderSelected(mockSender);
       wrapper.instance().onReceiverSelected(mockReceiver);
 
@@ -214,7 +217,10 @@ describe("<StreamingTable/>", () => {
       const data = {
         data: "test"
       };
-      axios.post.mockImplementationOnce(() => Promise.resolve(data), snackbar());
+      axios.post.mockImplementationOnce(
+        () => Promise.resolve(data),
+        snackbar()
+      );
       wrapper.instance().onSenderSelected(mockSender);
       wrapper.instance().onReceiverSelected(mockReceiver);
 

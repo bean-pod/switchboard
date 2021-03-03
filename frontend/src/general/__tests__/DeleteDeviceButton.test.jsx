@@ -14,13 +14,13 @@ import { afterEach, describe, expect, jest, it } from "@jest/globals";
 import axios from "axios";
 
 import DeleteDeviceButton from "../Buttons/DeleteDeviceButton";
-import * as SnackbarMessage from "../../general/SnackbarMessage"
+import * as SnackbarMessage from "../SnackbarMessage";
 
 Enzyme.configure({ adapter: new Adapter() });
 jest.mock("axios");
 
 const snackbar = jest.fn();
-jest.spyOn(SnackbarMessage, 'snackbar').mockImplementation(() => snackbar);
+jest.spyOn(SnackbarMessage, "snackbar").mockImplementation(() => snackbar);
 
 const flushPromises = () => new Promise(setImmediate);
 
@@ -83,7 +83,6 @@ describe("DeleteButton", () => {
     describe("ConfirmButton", () => {
       describe("on DeviceListPage", () => {
         it("Should call axios.delete, close the dialog and display a snackbar", async () => {
-
           // click the delete button to set open to true
           wrapper.find("#deleteBtn").simulate("click");
           expect(setOpen).toHaveBeenCalledWith(true);
