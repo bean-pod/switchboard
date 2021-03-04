@@ -2,10 +2,9 @@ import React from "react";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import { describe, expect, it } from "@jest/globals";
-import { Box, Container, Grid } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import HomePageContents from "../HomePageContents";
 
-import DynamicBreadcrumb from "../../general/DynamicBreadcrumb";
 import GridColumn from "../../general/dashboard/GridColumn";
 import AdminPanelCard from "../AdminPanelCard";
 import ActiveStreamCard from "../ActiveStreamCard";
@@ -76,16 +75,6 @@ describe("<HomePage/> functional component", () => {
     const expectedWidth = 6;
 
     expect(gridColumn.props().width).toBe(expectedWidth);
-  });
-  it("Contains 1 <DynamicBreadcrumb/> Component that has expected props", () => {
-    expect(wrapper.find(DynamicBreadcrumb)).toHaveLength(1);
-    const breadcrumbs = wrapper.find(DynamicBreadcrumb).first();
-    const expectedCrumb = [["Home", ""]];
-    expect(breadcrumbs.props().breadcrumbs).toHaveLength(1);
-    const innerCrumb = breadcrumbs.props().breadcrumbs[0];
-    expect(innerCrumb).toHaveLength(2);
-    expect(innerCrumb[0]).toBe(expectedCrumb[0][0]);
-    expect(innerCrumb[1]).toBe(expectedCrumb[0][1]);
   });
   it("Contains 1 <ActiveStreamCard/>", () => {
     expect(wrapper.find(ActiveStreamCard)).toHaveLength(1);
