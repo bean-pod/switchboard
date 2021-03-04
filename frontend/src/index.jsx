@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import HeaderBar from "./general/HeaderBar";
-import HomePage from "./homepage/HomePage";
+import HomePageContents from "./homepage/HomePageContents";
 import DeviceListPage from "./devicelist/DeviceListPage";
 import StreamingTablePage from "./createStream/StreamingPage";
 import DeviceDetailsPage from "./deviceDetailsPage/DeviceDetailsPage";
@@ -19,7 +19,7 @@ ReactDOM.render(
     <BrowserRouter>
       <HeaderBar />
       <Switch>
-        <Route exact path={["/", "/Home"]} component={HomePage} />
+        <Route exact path={["/", "/Home"]} component={HomePageContents} />
         <Route
           exact
           path="/Devices"

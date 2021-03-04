@@ -8,13 +8,8 @@ import ActivityLogCard from "./ActivityLogCard";
 import DevicesCard from "./DevicesCard";
 import AdminPanelCard from "./AdminPanelCard";
 
-export default function HomePage() {
+export default function HomePageContents() {
   return (
-    <Container>
-      <DynamicBreadcrumb breadcrumbs={[["Home", ""]]} />
-      <Box className="flexContents headerAreaUnderline">
-        <div className="title">Dashboard</div>
-      </Box>
       <Grid
         container
         justify="center"
@@ -39,6 +34,5 @@ export default function HomePage() {
           </Grid>
         </GridColumn>
       </Grid>
-    </Container>
   );
 }

@@ -3,7 +3,7 @@ import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import { describe, expect, it } from "@jest/globals";
 import { Box, Container, Grid } from "@material-ui/core";
-import HomePage from "../HomePage";
+import HomePageContents from "../HomePageContents";
 
 import DynamicBreadcrumb from "../../general/DynamicBreadcrumb";
 import GridColumn from "../../general/dashboard/GridColumn";
@@ -14,7 +14,7 @@ import DevicesCard from "../DevicesCard";
 
 Enzyme.configure({ adapter: new Adapter() });
 describe("<HomePage/> functional component", () => {
-  const wrapper = Enzyme.shallow(<HomePage />);
+  const wrapper = Enzyme.shallow(<HomePageContents />);
   it("Contains 6 <Grid/> components", () => {
     expect(wrapper.find(Grid)).toHaveLength(6);
   });
@@ -86,12 +86,6 @@ describe("<HomePage/> functional component", () => {
     expect(innerCrumb).toHaveLength(2);
     expect(innerCrumb[0]).toBe(expectedCrumb[0][0]);
     expect(innerCrumb[1]).toBe(expectedCrumb[0][1]);
-  });
-  it("Contains 1 <Container/>", () => {
-    expect(wrapper.find(Container)).toHaveLength(1);
-  });
-  it("Contains 1 <Box/>", () => {
-    expect(wrapper.find(Box)).toHaveLength(1);
   });
   it("Contains 1 <ActiveStreamCard/>", () => {
     expect(wrapper.find(ActiveStreamCard)).toHaveLength(1);
