@@ -20,7 +20,7 @@ Enzyme.configure({ adapter: new Adapter() });
 jest.mock("axios");
 
 const snackbar = jest.fn();
-jest.spyOn(SnackbarMessage, "snackbar").mockImplementation(() => snackbar);
+jest.spyOn(SnackbarMessage, "snackbar").mockImplementation(() => snackbar(status, message, pathname));
 
 const flushPromises = () => new Promise(setImmediate);
 
@@ -89,8 +89,12 @@ describe("DeleteButton", () => {
 
           // mock axios before clicking confirm
           const axiosPromise = Promise.resolve();
-          axios.delete.mockImplementationOnce(() => axiosPromise, snackbar());
-
+          axios.delete.mockImplementationOnce(() => axiosPromise, snackbar(
+              "success",
+              `Device deleted! (Serial Number: ${wrapper.props().deleteId})`,
+              "Devices"
+            )
+          );
           // click confirm
           wrapper.find("#confirmDeleteBtn").simulate("click");
 
@@ -105,6 +109,44 @@ describe("DeleteButton", () => {
 
           // snackbar should be displayed
           expect(snackbar).toHaveBeenCalledTimes(1);
+          expect(snackbar).toHaveBeenCalledWith(
+            "success",
+            `Device deleted! (Serial Number: ${wrapper.props().deleteId})`,
+            "Devices"
+          );
+        });
+        it("If the axios.delete is rejected, it should close the dialog and display an error snackbar", async () => {
+          // click the delete button to set open to true
+          wrapper.find("#deleteBtn").simulate("click");
+          expect(setOpen).toHaveBeenCalledWith(true);
+
+          // mock axios before clicking confirm
+          const axiosPromiseReject = Promise.reject();
+          axios.delete.mockImplementationOnce(() => axiosPromiseReject, snackbar(
+            "error",
+            `Could not delete device (Serial Number: ${wrapper.props().deleteId})`,
+            "Devices"
+          ));
+
+          // click confirm
+          wrapper.find("#confirmDeleteBtn").simulate("click");
+
+          // check that axios.delete was called
+          expect(axios.delete).toHaveBeenCalled();
+
+          // Wait for axios promise to finish
+          await flushPromises();
+
+          // open should be false
+          expect(setOpen).toHaveBeenCalledWith(false);
+
+          // error snackbar should be displayed
+          expect(snackbar).toHaveBeenCalledTimes(1);
+          expect(snackbar).toHaveBeenCalledWith(
+            "error",
+            `Could not delete device (Serial Number: ${wrapper.props().deleteId})`,
+            "Devices"
+          );
         });
       });
 
@@ -116,7 +158,11 @@ describe("DeleteButton", () => {
 
           // mock axios before clicking confirm
           const axiosPromise = Promise.resolve();
-          axios.delete.mockImplementationOnce(() => axiosPromise, snackbar());
+          axios.delete.mockImplementationOnce(() => axiosPromise, snackbar(
+            "success",
+            `Device deleted! (Serial Number: ${wrapper.props().deleteId})`,
+            "Devices"
+          ));
 
           // click confirm
           wrapper.find("#confirmDeleteBtn").simulate("click");
@@ -132,6 +178,44 @@ describe("DeleteButton", () => {
 
           // snackbar should be displayed
           expect(snackbar).toHaveBeenCalledTimes(1);
+          expect(snackbar).toHaveBeenCalledWith(
+            "success",
+            `Device deleted! (Serial Number: ${wrapper.props().deleteId})`,
+            "Devices"
+          );
+        });
+        it("If the axios.delete is rejected, it should close the dialog and display an error snackbar", async () => {
+          // click the delete button to set open to true
+          wrapper.find("#deleteBtn").simulate("click");
+          expect(setOpen).toHaveBeenCalledWith(true);
+
+          // mock axios before clicking confirm
+          const axiosPromiseReject = Promise.reject();
+          axios.delete.mockImplementationOnce(() => axiosPromiseReject, snackbar(
+            "error",
+            `Could not delete device (Serial Number: ${wrapper.props().deleteId})`,
+            "Devices"
+          ));
+
+          // click confirm
+          wrapper.find("#confirmDeleteBtn").simulate("click");
+
+          // check that axios.delete was called
+          expect(axios.delete).toHaveBeenCalled();
+
+          // Wait for axios promise to finish
+          await flushPromises();
+
+          // open should be false
+          expect(setOpen).toHaveBeenCalledWith(false);
+
+          // error snackbar should be displayed
+          expect(snackbar).toHaveBeenCalledTimes(1);
+          expect(snackbar).toHaveBeenCalledWith(
+            "error",
+            `Could not delete device (Serial Number: ${wrapper.props().deleteId})`,
+            "Devices"
+          );
         });
       });
     });

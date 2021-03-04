@@ -19,7 +19,7 @@ jest.mock("axios");
 jest.spyOn(global.console, "log");
 
 const snackbar = jest.fn();
-jest.spyOn(SnackbarMessage, "snackbar").mockImplementation(() => snackbar);
+jest.spyOn(SnackbarMessage, "snackbar").mockImplementation(() => snackbar(status, message, pathname));
 
 const flushPromises = () => new Promise(setImmediate);
 
@@ -154,7 +154,7 @@ describe("<StreamingTable/>", () => {
       wrapper.instance().handleSubmit(DummyData);
       expect(axios.post).not.toHaveBeenCalled();
     });
-    it("should call axios.post if a sender and a receiver have been selected", async () => {
+    it("should call axios.post if a sender and a receiver have been selected and display a snackbar", async () => {
       const mockReceiver = {
         target: {
           name: "selectedReceiverID",
@@ -178,7 +178,11 @@ describe("<StreamingTable/>", () => {
       };
       axios.post.mockImplementationOnce(
         () => Promise.resolve(data),
-        snackbar()
+        snackbar(
+          "success",
+          `Stream successful between Sender ${expected.outputChannelId} and Receiver ${expected.inputChannelId}!`,
+          "Streaming"
+        )
       );
       wrapper.instance().onSenderSelected(mockSender);
       wrapper.instance().onReceiverSelected(mockReceiver);
@@ -194,8 +198,13 @@ describe("<StreamingTable/>", () => {
 
       // display snackbar
       expect(snackbar).toHaveBeenCalledTimes(1);
+      expect(snackbar).toHaveBeenCalledWith(
+        "success",
+        `Stream successful between Sender ${expected.outputChannelId} and Receiver ${expected.inputChannelId}!`,
+        "Streaming"
+      );
     });
-    it("should call axios.post if a sender and a receiver have been selected", async () => {
+    it("if the axios.post is rejected, an error snackbar will be displayed", async () => {
       const mockReceiver = {
         target: {
           name: "selectedReceiverID",
@@ -208,33 +217,43 @@ describe("<StreamingTable/>", () => {
           value: "Test3"
         }
       };
-
+  
       const expected = {
         outputChannelId: "Test3",
         inputChannelId: "Test6"
       };
-
+  
       const data = {
         data: "test"
       };
+
       axios.post.mockImplementationOnce(
-        () => Promise.resolve(data),
-        snackbar()
+        () => Promise.reject(data),
+        snackbar(
+          "error",
+          `Stream failed between Sender ${expected.outputChannelId} and Receiver ${expected.inputChannelId}`,
+          "Streaming"
+        )
       );
       wrapper.instance().onSenderSelected(mockSender);
       wrapper.instance().onReceiverSelected(mockReceiver);
-
+  
       wrapper.instance().handleSubmit(DummyData);
-
+  
       expect(axios.post).toHaveBeenCalledWith(
         "http://localhost:8080/stream",
         expected
       );
-
+  
       await flushPromises();
-
+  
       // display snackbar
       expect(snackbar).toHaveBeenCalledTimes(1);
+      expect(snackbar).toHaveBeenCalledWith(
+        "error",
+        `Stream failed between Sender ${expected.outputChannelId} and Receiver ${expected.inputChannelId}`,
+        "Streaming"
+      );
     });
   });
 });
