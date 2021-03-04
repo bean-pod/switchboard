@@ -18,8 +18,13 @@ Enzyme.configure({ adapter: new Adapter() });
 jest.mock("axios");
 jest.spyOn(global.console, "log");
 
+let stat;
+let message;
+let pathname;
 const snackbar = jest.fn();
-jest.spyOn(SnackbarMessage, "snackbar").mockImplementation(() => snackbar(status, message, pathname));
+jest
+  .spyOn(SnackbarMessage, "snackbar")
+  .mockImplementation(() => snackbar(stat, message, pathname));
 
 const flushPromises = () => new Promise(setImmediate);
 
@@ -217,12 +222,12 @@ describe("<StreamingTable/>", () => {
           value: "Test3"
         }
       };
-  
+
       const expected = {
         outputChannelId: "Test3",
         inputChannelId: "Test6"
       };
-  
+
       const data = {
         data: "test"
       };
@@ -237,16 +242,16 @@ describe("<StreamingTable/>", () => {
       );
       wrapper.instance().onSenderSelected(mockSender);
       wrapper.instance().onReceiverSelected(mockReceiver);
-  
+
       wrapper.instance().handleSubmit(DummyData);
-  
+
       expect(axios.post).toHaveBeenCalledWith(
         "http://localhost:8080/stream",
         expected
       );
-  
+
       await flushPromises();
-  
+
       // display snackbar
       expect(snackbar).toHaveBeenCalledTimes(1);
       expect(snackbar).toHaveBeenCalledWith(

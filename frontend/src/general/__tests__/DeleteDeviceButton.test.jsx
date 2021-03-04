@@ -19,8 +19,13 @@ import * as SnackbarMessage from "../SnackbarMessage";
 Enzyme.configure({ adapter: new Adapter() });
 jest.mock("axios");
 
+let stat;
+let message;
+let pathname;
 const snackbar = jest.fn();
-jest.spyOn(SnackbarMessage, "snackbar").mockImplementation(() => snackbar(status, message, pathname));
+jest
+  .spyOn(SnackbarMessage, "snackbar")
+  .mockImplementation(() => snackbar(stat, message, pathname));
 
 const flushPromises = () => new Promise(setImmediate);
 
@@ -89,7 +94,9 @@ describe("DeleteButton", () => {
 
           // mock axios before clicking confirm
           const axiosPromise = Promise.resolve();
-          axios.delete.mockImplementationOnce(() => axiosPromise, snackbar(
+          axios.delete.mockImplementationOnce(
+            () => axiosPromise,
+            snackbar(
               "success",
               `Device deleted! (Serial Number: ${wrapper.props().deleteId})`,
               "Devices"
@@ -122,11 +129,16 @@ describe("DeleteButton", () => {
 
           // mock axios before clicking confirm
           const axiosPromiseReject = Promise.reject();
-          axios.delete.mockImplementationOnce(() => axiosPromiseReject, snackbar(
-            "error",
-            `Could not delete device (Serial Number: ${wrapper.props().deleteId})`,
-            "Devices"
-          ));
+          axios.delete.mockImplementationOnce(
+            () => axiosPromiseReject,
+            snackbar(
+              "error",
+              `Could not delete device (Serial Number: ${
+                wrapper.props().deleteId
+              })`,
+              "Devices"
+            )
+          );
 
           // click confirm
           wrapper.find("#confirmDeleteBtn").simulate("click");
@@ -144,7 +156,9 @@ describe("DeleteButton", () => {
           expect(snackbar).toHaveBeenCalledTimes(1);
           expect(snackbar).toHaveBeenCalledWith(
             "error",
-            `Could not delete device (Serial Number: ${wrapper.props().deleteId})`,
+            `Could not delete device (Serial Number: ${
+              wrapper.props().deleteId
+            })`,
             "Devices"
           );
         });
@@ -158,11 +172,14 @@ describe("DeleteButton", () => {
 
           // mock axios before clicking confirm
           const axiosPromise = Promise.resolve();
-          axios.delete.mockImplementationOnce(() => axiosPromise, snackbar(
-            "success",
-            `Device deleted! (Serial Number: ${wrapper.props().deleteId})`,
-            "Devices"
-          ));
+          axios.delete.mockImplementationOnce(
+            () => axiosPromise,
+            snackbar(
+              "success",
+              `Device deleted! (Serial Number: ${wrapper.props().deleteId})`,
+              "Devices"
+            )
+          );
 
           // click confirm
           wrapper.find("#confirmDeleteBtn").simulate("click");
@@ -191,11 +208,16 @@ describe("DeleteButton", () => {
 
           // mock axios before clicking confirm
           const axiosPromiseReject = Promise.reject();
-          axios.delete.mockImplementationOnce(() => axiosPromiseReject, snackbar(
-            "error",
-            `Could not delete device (Serial Number: ${wrapper.props().deleteId})`,
-            "Devices"
-          ));
+          axios.delete.mockImplementationOnce(
+            () => axiosPromiseReject,
+            snackbar(
+              "error",
+              `Could not delete device (Serial Number: ${
+                wrapper.props().deleteId
+              })`,
+              "Devices"
+            )
+          );
 
           // click confirm
           wrapper.find("#confirmDeleteBtn").simulate("click");
@@ -213,7 +235,9 @@ describe("DeleteButton", () => {
           expect(snackbar).toHaveBeenCalledTimes(1);
           expect(snackbar).toHaveBeenCalledWith(
             "error",
-            `Could not delete device (Serial Number: ${wrapper.props().deleteId})`,
+            `Could not delete device (Serial Number: ${
+              wrapper.props().deleteId
+            })`,
             "Devices"
           );
         });
