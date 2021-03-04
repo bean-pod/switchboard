@@ -183,12 +183,15 @@ describe("<StreamingTable/>", () => {
       };
       axios.post.mockImplementationOnce(
         () => Promise.resolve(data),
+      );
+      axios.post.mockResolvedValueOnce(
         snackbar(
           "success",
           `Stream successful between Sender ${expected.outputChannelId} and Receiver ${expected.inputChannelId}!`,
           "Streaming"
         )
       );
+      
       wrapper.instance().onSenderSelected(mockSender);
       wrapper.instance().onReceiverSelected(mockReceiver);
 
@@ -233,13 +236,16 @@ describe("<StreamingTable/>", () => {
       };
 
       axios.post.mockImplementationOnce(
-        () => Promise.reject(data),
+        () => Promise.reject(data)
+      );
+      axios.post.mockRejectedValueOnce(
         snackbar(
           "error",
           `Stream failed between Sender ${expected.outputChannelId} and Receiver ${expected.inputChannelId}`,
           "Streaming"
-        )
+        ) 
       );
+
       wrapper.instance().onSenderSelected(mockSender);
       wrapper.instance().onReceiverSelected(mockReceiver);
 

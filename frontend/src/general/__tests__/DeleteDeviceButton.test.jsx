@@ -94,13 +94,16 @@ describe("DeleteButton", () => {
         // mock axios before clicking confirm
         const axiosPromise = Promise.resolve(wrapper.props().deleteId);
         axios.delete.mockImplementationOnce(
-          () => axiosPromise,
+          () => axiosPromise
+        );
+        axios.delete.mockResolvedValueOnce(
           snackbar(
             "success",
             `Device deleted! (Serial Number: ${wrapper.props().deleteId})`,
             "Devices"
           )
         );
+
         // click confirm
         wrapper.find("#confirmDeleteBtn").simulate("click");
 
@@ -128,7 +131,9 @@ describe("DeleteButton", () => {
 
         // mock axios before clicking confirm
         axios.delete.mockImplementationOnce(
-          () => Promise.reject(wrapper.props().deleteId),
+          () => Promise.reject(wrapper.props().deleteId)
+        );
+        axios.delete.mockRejectedValueOnce(
           snackbar(
             "error",
             `Could not delete device (Serial Number: ${
