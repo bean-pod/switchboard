@@ -11,9 +11,7 @@ Enzyme.configure({ adapter: new Adapter() });
 
 jest.mock("axios");
 
-const { firstStreamResponse } = StreamFixture;
-const { secondStreamResponse } = StreamFixture;
-const { allStreamsResponse } = StreamFixture;
+const { firstStreamResponse, secondStreamResponse, allStreamsResponse } = StreamFixture;
 
 const expectedFirstStreamRespone = new StreamInfo(
   1,
