@@ -11,6 +11,7 @@ import {
 } from "@jest/globals";
 import { Grid } from "@material-ui/core";
 import StreamingTable from "../StreamingTable";
+import * as authenticationUtil from "../../api/AuthenticationUtil";
 
 import SelectDevicesTable from "../SelectDevicesTable";
 import StreamButton from "../../general/Buttons/StreamButton";
@@ -19,7 +20,13 @@ import * as StreamApi from "../../api/StreamApi";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe("<StreamingTable/> class component", () => {
+const authorizationHeader = {
+  headers: {
+    Authorization: "Bearer the_token"
+  }
+};
+
+describe("<StreamingTable/>", () => {
   let wrapper;
 
   beforeEach(() => {
@@ -134,60 +141,50 @@ describe("<StreamingTable/> class component", () => {
         selectedSenderID: "",
         selectedReceiverID: ""
       };
+      axios.post.mockImplementationOnce(async () => Promise.resolve(data));
 
       wrapper.setState(defaultState);
       // act
       wrapper.instance().handleReceiversChange(mockReceivers);
       expect(wrapper.state()).toStrictEqual(expected);
     });
-  });
-  describe("handleSubmit() function", () => {
-    const mockEvent = { preventDefault: jest.fn() };
-    beforeEach(() => {
-      jest.spyOn(StreamApi, "createStream").mockImplementation(() => {});
-    });
-    describe("should not call StreamAPI.createStream", () => {
-      it("if selectedReceiverID & selectedSenderID are not set", () => {
-        const state = {
-          selectedSenderID: "",
-          selectedReceiverID: ""
-        };
-        wrapper.setState(state);
-        wrapper.instance().handleSubmit(mockEvent);
-        expect(StreamApi.createStream).not.toBeCalled();
-      });
-      it("if selectedSenderID is not set", () => {
-        const state = {
-          selectedSenderID: "",
-          selectedReceiverID: "SomeID"
-        };
-        wrapper.setState(state);
-        wrapper.instance().handleSubmit(mockEvent);
-        expect(StreamApi.createStream).not.toBeCalled();
-      });
-      it("if selectedReceiverID is not set", () => {
-        const state = {
-          selectedSenderID: "SomeId",
-          selectedReceiverID: ""
-        };
-        wrapper.setState(state);
-        wrapper.instance().handleSubmit(mockEvent);
-        expect(StreamApi.createStream).not.toBeCalled();
-      });
-    });
-    describe("should call StreamApi.createStream", () => {
-      it("if selectedReceiverID & selectedSenderID are both set", () => {
-        const state = {
-          selectedSenderID: "someID",
-          selectedReceiverID: "someOtherId"
-        };
-        wrapper.setState(state);
-        wrapper.instance().handleSubmit(mockEvent);
-        expect(StreamApi.createStream).toBeCalledWith(
-          state.selectedReceiverID,
-          state.selectedSenderID
-        );
-      });
+    it("should call StreamApi.createStream if a sender and a receiver have been selected", () => {
+      const mockReceiver = {
+        target: {
+          name: "selectedReceiverID",
+          value: "Test6"
+        }
+      };
+      const mockSender = {
+        target: {
+          name: "selectedSenderID",
+          value: "Test3"
+        }
+      };
+
+      const expected = {
+        outputChannelId: "Test3",
+        inputChannelId: "Test6"
+      };
+
+      const data = {
+        data: "test"
+      };
+      axios.post.mockImplementationOnce(() => Promise.resolve(data));
+      authenticationUtil.getAuthorizationHeader = jest
+        .fn()
+        .mockReturnValue(authorizationHeader);
+
+      wrapper.instance().onSenderSelected(mockSender);
+      wrapper.instance().onReceiverSelected(mockReceiver);
+
+      wrapper.instance().handleSubmit(DummyData);
+
+      expect(axios.post).toHaveBeenCalledWith(
+        "http://localhost:8080/stream",
+        expected,
+        authorizationHeader
+      );
     });
   });
 });
