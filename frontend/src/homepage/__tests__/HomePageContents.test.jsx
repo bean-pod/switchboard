@@ -90,8 +90,8 @@ describe("<HomePage/> functional component", () => {
   it("Contains 1 <Container/>", () => {
     expect(wrapper.find(Container)).toHaveLength(1);
   });
-  it("Contains 1 <Box/>", () => {
-    expect(wrapper.find(Box)).toHaveLength(1);
+  it("Contains 2 <Box/>", () => {
+    expect(wrapper.find(Box)).toHaveLength(2);
   });
   it("Contains 1 <ActiveStreamCard/>", () => {
     expect(wrapper.find(ActiveStreamCard)).toHaveLength(1);
