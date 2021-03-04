@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 
 import ProtectedRoute from "./ProtectedRoute";
 import LoginPage from "../login/LoginPage";
@@ -35,6 +35,9 @@ export default class AppRouter extends React.Component {
               return <HomePage authenticated={authenticated} />;
             }}
           />
+          <Route path="/">
+            <Redirect to={{ pathname: "/login" }} />
+          </Route>
         </Switch>
       </BrowserRouter>
     );
