@@ -4,7 +4,7 @@ import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 
 import ProtectedRoute from "./ProtectedRoute";
 import LoginPage from "../login/LoginPage";
-import HomePage from "../general/HomePage";
+import HomePage from "../homepage/HomePage";
 
 export default class AppRouter extends React.Component {
   constructor(props) {
