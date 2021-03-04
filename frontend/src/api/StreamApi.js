@@ -31,3 +31,14 @@ export async function getAllStreams() {
 export async function deleteStream(streamId) {
   return axios.delete(`${process.env.REACT_APP_STREAM}/${streamId}`, getAuthorizationHeader());
 }
+
+export function createStream(selectedReceiverID, selectedSenderID) {
+  return axios.post(
+    process.env.REACT_APP_STREAM,
+    {
+      inputChannelId: selectedReceiverID,
+      outputChannelId: selectedSenderID
+    },
+    getAuthorizationHeader()
+  );
+}
