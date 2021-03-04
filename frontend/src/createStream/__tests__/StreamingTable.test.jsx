@@ -7,10 +7,11 @@ import {
   beforeEach,
   describe,
   expect,
-  jest,
-  it
+  it,
+  jest
 } from "@jest/globals";
 import StreamingTable from "../StreamingTable";
+import * as authenticationUtil from "../../api/AuthenticationUtil";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -27,6 +28,12 @@ const DummyData = {
   },
 
   preventDefault() {}
+};
+
+const authorizationHeader = {
+  headers: {
+    Authorization: "Bearer the_token"
+  }
 };
 
 describe("<StreamingTable/>", () => {
@@ -141,14 +148,14 @@ describe("<StreamingTable/>", () => {
       const data = {
         data: "test"
       };
-      axios.post.mockImplementationOnce(() => Promise.resolve(data));
+      axios.post.mockImplementationOnce(async () => Promise.resolve(data));
 
       // act
       wrapper.instance().onSenderSelected(mockSender);
       wrapper.instance().handleSubmit(DummyData);
       expect(axios.post).not.toHaveBeenCalled();
     });
-    it("should call axios.post if a sender and a receiver have been selected", () => {
+    it("should call StreamApi.createStream if a sender and a receiver have been selected", () => {
       const mockReceiver = {
         target: {
           name: "selectedReceiverID",
@@ -171,6 +178,9 @@ describe("<StreamingTable/>", () => {
         data: "test"
       };
       axios.post.mockImplementationOnce(() => Promise.resolve(data));
+      authenticationUtil.getAuthorizationHeader = jest
+        .fn()
+        .mockReturnValue(authorizationHeader);
 
       wrapper.instance().onSenderSelected(mockSender);
       wrapper.instance().onReceiverSelected(mockReceiver);
@@ -179,7 +189,8 @@ describe("<StreamingTable/>", () => {
 
       expect(axios.post).toHaveBeenCalledWith(
         "http://localhost:8080/stream",
-        expected
+        expected,
+        authorizationHeader
       );
     });
   });
