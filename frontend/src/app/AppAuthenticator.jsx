@@ -25,7 +25,7 @@ export default class Authenticator extends React.Component {
   }
 
   getAdminToken() {
-    return  Cookies.get("admin_token");
+    return Cookies.get("admin_token");
   }
 
   getRefreshToken() {
@@ -37,36 +37,36 @@ export default class Authenticator extends React.Component {
   }
 
   isAuthenticated() {
-    return!(!this.getAccessToken());
+    return !!this.getAccessToken();
   }
 
   isAdmin() {
-    return!(!this.getAdminToken());
+    return !!this.getAdminToken();
   }
 
   async authenticate() {
-  //   if (getRefreshToken()) {
-      try {
-        // const tokens = await refreshTokens() // call an API, returns tokens
+    //   if (getRefreshToken()) {
+    try {
+      // const tokens = await refreshTokens() // call an API, returns tokens
 
-        const tokens = {
-          access_token: true,
-          admin_token: true,
-          refresh_token: true
-        };
-        const expires = (tokens.expires_in || 60 * 60) * 1000;
-        const inOneHour = new Date(new Date().getTime() + expires);
+      const tokens = {
+        access_token: true,
+        admin_token: true,
+        refresh_token: true
+      };
+      const expires = (tokens.expires_in || 60 * 60) * 1000;
+      const inOneHour = new Date(new Date().getTime() + expires);
 
-        // you will have the exact same setters in your Login page/app too
-        Cookies.set("access_token", tokens.access_token);
-        Cookies.set("admin_token", tokens.admin_token, { expires: inOneHour });
-        Cookies.set("refresh_token", tokens.refresh_token);
+      // you will have the exact same setters in your Login page/app too
+      Cookies.set("access_token", tokens.access_token);
+      Cookies.set("admin_token", tokens.admin_token, { expires: inOneHour });
+      Cookies.set("refresh_token", tokens.refresh_token);
 
-        return true;
-      } catch (error) {
-        // redirectToLogin()
-        return false;
-      }
+      return true;
+    } catch (error) {
+      // redirectToLogin()
+      return false;
+    }
     // }
     // // redirectToLogin()
     // return false;
