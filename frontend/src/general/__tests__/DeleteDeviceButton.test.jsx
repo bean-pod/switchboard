@@ -93,9 +93,7 @@ describe("DeleteButton", () => {
 
         // mock axios before clicking confirm
         const axiosPromise = Promise.resolve(wrapper.props().deleteId);
-        axios.delete.mockImplementationOnce(
-          () => axiosPromise
-        );
+        axios.delete.mockImplementationOnce(() => axiosPromise);
         axios.delete.mockResolvedValueOnce(
           snackbar(
             "success",
@@ -130,8 +128,8 @@ describe("DeleteButton", () => {
         expect(setOpen).toHaveBeenCalledWith(true);
 
         // mock axios before clicking confirm
-        axios.delete.mockImplementationOnce(
-          () => Promise.reject(wrapper.props().deleteId)
+        axios.delete.mockImplementationOnce(() =>
+          Promise.reject(wrapper.props().deleteId)
         );
         axios.delete.mockRejectedValueOnce(
           snackbar(
