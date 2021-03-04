@@ -12,7 +12,13 @@ export default class AppRouter extends React.Component {
   }
 
   render() {
-    const { handleLogin, handleLogout, authenticated, admin } = this.props;
+    const {
+      handleLogin,
+      handleLogout,
+      authenticated,
+      getBeans,
+      admin
+    } = this.props;
     return (
       <BrowserRouter>
         <Switch>
@@ -23,9 +29,9 @@ export default class AppRouter extends React.Component {
           />
           <ProtectedRoute
             path="/Home"
+            getBeans={getBeans}
             authenticated={authenticated}
             render={() => {
-              console.log(authenticated);
               return <HomePage authenticated={authenticated} />;
             }}
           />
@@ -38,6 +44,6 @@ export default class AppRouter extends React.Component {
 AppRouter.propTypes = {
   handleLogin: PropTypes.func.isRequired,
   handleLogout: PropTypes.func.isRequired,
-  authenticated: PropTypes.bool.isRequired,
+  // authenticated: PropTypes.bool.isRequired,
   admin: PropTypes.bool.isRequired
 };
