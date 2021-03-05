@@ -1,6 +1,5 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import AddDeviceButton from "./Buttons/AddDeviceButton";
 import StreamButton from "./Buttons/StreamButton";
 
 export default function TitleButtons() {
@@ -14,7 +13,6 @@ export default function TitleButtons() {
       >
         <StreamButton id="DeviceListStreamBtn" type="submit" />
       </NavLink>
-      <AddDeviceButton id="DeviceListAddDevBtn" />
     </div>
   );
 }
