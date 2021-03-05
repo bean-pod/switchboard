@@ -13,6 +13,7 @@ import LoginPage from "./login/LoginPage";
 import * as DeviceApi from "./api/DeviceApi";
 import * as StreamApi from "./api/StreamApi";
 import * as LogApi from "./api/LogApi";
+import CreateStreamPage from "./createStream/CreateStreamPage";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -24,6 +25,11 @@ ReactDOM.render(
           exact
           path="/Devices"
           render={() => <DeviceListPage dataSource={DeviceApi} />}
+        />
+        <Route
+          exact
+          path="/Streaming/New"
+          render={() => <CreateStreamPage dataSource={DeviceApi} />}
         />
         <Route
           exact
