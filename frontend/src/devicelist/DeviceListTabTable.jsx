@@ -14,15 +14,15 @@ export default class DeviceListTabTable extends React.Component {
       receivers: [],
       value: 0
     };
-    this.dataSource = props.dataSource;
     this.handleValueChange = this.handleValueChange.bind(this);
     this.handleSendersChange = this.handleSendersChange.bind(this);
     this.handleReceiversChange = this.handleReceiversChange.bind(this);
   }
 
   componentDidMount() {
-    this.dataSource.getSenders(this.handleSendersChange);
-    this.dataSource.getReceivers(this.handleReceiversChange);
+    const {dataSource} = this.props;
+    dataSource.getSenders(this.handleSendersChange);
+    dataSource.getReceivers(this.handleReceiversChange);
   }
 
   handleValueChange(tabIndex) {
