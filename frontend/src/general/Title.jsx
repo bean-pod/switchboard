@@ -16,8 +16,5 @@ export default function Title(props) {
 
 Title.propTypes = {
   title: PropTypes.string.isRequired,
-  deviceList: PropTypes.bool
-};
-Title.defaultProps = {
-  deviceList: false
+  deviceList: PropTypes.bool.isRequired
 };

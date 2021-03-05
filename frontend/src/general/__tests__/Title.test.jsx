@@ -13,7 +13,7 @@ describe("<Title/> functional Component", () => {
 
   describe("returns a component with the correct composition", () => {
     it("if props contain deviceList={false}", ()=>{
-      wrapper = Enzyme.shallow(<Title title={dummyTitle} />);
+      wrapper = Enzyme.shallow(<Title title={dummyTitle} deviceList={false}/>);
       expect(wrapper.find(Box)).toHaveLength(1);
   
       const box = wrapper.find(Box).first();
@@ -27,7 +27,7 @@ describe("<Title/> functional Component", () => {
       expect(wrapper.find(TitleButtons)).toHaveLength(0);
     })
     it("if props contain deviceList={true}", ()=>{
-      wrapper = Enzyme.shallow(<Title title={dummyTitle} deviceList/>);
+      wrapper = Enzyme.shallow(<Title title={dummyTitle} deviceList={true}/>);
       expect(wrapper.find(Box)).toHaveLength(1);
   
       const box = wrapper.find(Box).first();
