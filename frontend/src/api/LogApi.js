@@ -1,10 +1,11 @@
 import axios from "axios";
 import LogInfo from "../model/LogInfo";
 import * as SampleData from "./SampleData";
+import { getAuthorizationHeader } from "./AuthenticationUtil";
 
 async function getLogs(endpoint) {
   return axios
-    .get(endpoint)
+    .get(endpoint, getAuthorizationHeader())
     .then((response) => {
       return Promise.resolve(
         response.data.map((log) => {
