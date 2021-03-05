@@ -2,9 +2,9 @@ import React from "react";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import { describe, expect, it } from "@jest/globals";
+import { NavLink } from "react-router-dom";
 import TitleButtons from "../TitleButtons";
 import StreamButton from "../Buttons/StreamButton";
-import { NavLink } from "react-router-dom";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -16,7 +16,7 @@ describe("<TitleButtons/> functional component", () => {
     });
     it("contains 1 <NavLink/> component with expected props", () => {
       expect(wrapper.find(NavLink)).toHaveLength(1);
-      
+
       const navLinkProps = wrapper.find(NavLink).first().props();
       expect(navLinkProps.to).toBe("/Streaming");
       expect(navLinkProps.activeClassName).toBe("hideLinkStyle");
