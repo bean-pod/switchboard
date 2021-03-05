@@ -6,22 +6,18 @@ import TitleBox from "./TitleBox";
 import ContentsTable from "./ContentsTable";
 import DynamicBreadcrumb from "../general/DynamicBreadcrumb";
 import * as useStyles from "../DefaultMakeStylesTheme";
+import Page from "../general/Page";
 
 export default function DeviceListPage(props) {
   const { dataSource } = props;
+  const breadcrumb = [
+    ["Home", "/"],
+    ["My Devices", "Devices"]
+  ];
   return (
-    <Container>
-      <DynamicBreadcrumb
-        breadcrumbs={[
-          ["Home", "/"],
-          ["My Devices", "Devices"]
-        ]}
-      />
-      <Box className="areaUnderBreadcrumbs">
-        <TitleBox />
-        <ContentsTable classes={useStyles} dataSource={dataSource} />
-      </Box>
-    </Container>
+    <Page title="My Devices" breadcrumbs={breadcrumb} deviceList>
+      <ContentsTable classes={useStyles} dataSource={dataSource} />
+    </Page>
   );
 }
 
