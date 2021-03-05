@@ -16,7 +16,6 @@ export default class AppRouter extends React.Component {
       handleLogin,
       handleLogout,
       authenticated,
-      getBeans,
       admin
     } = this.props;
     return (
@@ -29,7 +28,6 @@ export default class AppRouter extends React.Component {
           />
           <ProtectedRoute
             path="/Home"
-            getBeans={getBeans}
             authenticated={authenticated}
             render={() => {
               return <HomePage authenticated={authenticated} />;

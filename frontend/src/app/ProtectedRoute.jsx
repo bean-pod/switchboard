@@ -9,7 +9,7 @@ export default class ProtectedRoute extends React.Component {
   }
 
   component() {
-    const { authenticated, getBeans, render } = this.props;
+    const { authenticated, render } = this.props;
     if (authenticated()) {
       return render();
     }
