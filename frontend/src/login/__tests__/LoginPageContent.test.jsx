@@ -3,7 +3,7 @@ import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import { beforeEach, describe, expect, it } from "@jest/globals";
 
-import LoginPageContentsContents from "../LoginPageContents";
+import LoginPageContents from "../LoginPageContents";
 import Page from "../../general/Page";
 import LoginConsole from "../LoginConsole";
 import LoginFailedDialog from "../LoginFailedDialog";
@@ -14,7 +14,7 @@ describe("<LoginPageContents/> class component", () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = Enzyme.mount(<LoginPageContentsContents />);
+    wrapper = Enzyme.mount(<LoginPageContents />);
   });
 
   describe("render() returns a component that", () => {
