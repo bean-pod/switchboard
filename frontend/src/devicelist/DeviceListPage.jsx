@@ -8,8 +8,8 @@ import * as useStyles from "../DefaultMakeStylesTheme";
 export default function DeviceListPage(props) {
   const { dataSource } = props;
   const breadcrumb = [
-    ["Home", "/"],
-    ["My Devices", "Devices"]
+    ["Home", "/Home"],
+    ["My Devices", "/Devices"]
   ];
   return (
     <Page title="My Devices" breadcrumbs={breadcrumb} deviceList>
