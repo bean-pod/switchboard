@@ -12,7 +12,7 @@ export default function Page(props) {
       <HeaderBar />
       <Container>
         <DynamicBreadcrumb breadcrumbs={breadcrumbs} />
-        <Title title={title} deviceList={deviceList}/>
+        <Title title={title} deviceList={deviceList} />
         {children}
       </Container>
     </>
