@@ -5,7 +5,7 @@ import { beforeEach, describe, expect } from "@jest/globals";
 
 import DeviceListPage from "../DeviceListPage";
 import Page from "../../general/Page";
-import DeviceListTabTable from "../ContentsTable";
+import DeviceListTabTable from "../DeviceListTabTable";
 
 Enzyme.configure({ adapter: new Adapter() });
 

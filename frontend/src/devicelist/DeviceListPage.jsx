@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import Page from "../general/Page";
-import DeviceListTabTable from "./ContentsTable";
+import DeviceListTabTable from "./DeviceListTabTable";
 import * as useStyles from "../DefaultMakeStylesTheme";
 
 export default function DeviceListPage(props) {
