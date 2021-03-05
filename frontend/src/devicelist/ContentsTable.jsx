@@ -6,7 +6,7 @@ import TabPanel from "./TabPanel";
 import DevicesTable from "./DevicesTable";
 import VerticalTabs from "../general/VerticalTabs";
 
-export default class ContentsTable extends React.Component {
+export default class DeviceListTabTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -70,7 +70,7 @@ export default class ContentsTable extends React.Component {
     );
   }
 }
-ContentsTable.propTypes = {
+DeviceListTabTable.propTypes = {
   dataSource: PropTypes.objectOf(PropTypes.func).isRequired,
   classes: PropTypes.shape({
     tabs: PropTypes.string
