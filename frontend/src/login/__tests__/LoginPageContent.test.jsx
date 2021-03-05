@@ -24,12 +24,12 @@ describe("<LoginPageContents/> class component", () => {
       expect(wrapper.find(LoginFailedDialog)).toHaveLength(1);
     });
   });
-  describe("setDialogOpen() function that sets the state of dialogOpen", () => {
+  it("setDialogOpen() function that sets the state of dialogOpen", () => {
     const expectedValue = "testValue";
     wrapper.instance().setDialogOpen(expectedValue);
     expect(wrapper.state().dialogOpen).toBe(expectedValue);
   });
-  describe("setDialogMessage() function that sets the state of dialogMessage", () => {
+  it("setDialogMessage() function that sets the state of dialogMessage", () => {
     const expectedValue = "testValue";
     wrapper.instance().setDialogMessage(expectedValue);
     expect(wrapper.state().dialogMessage).toBe(expectedValue);

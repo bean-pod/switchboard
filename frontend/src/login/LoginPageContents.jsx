@@ -41,7 +41,7 @@ export default class LoginPageContents extends React.Component {
     const { dialogOpen, dialogMessage } = this.state;
     return (
       <>
-        <LoginConsole handleSubmit={handleSubmit} />
+        <LoginConsole handleSubmit={this.handleSubmit} />
         <LoginFailedDialog
           open={dialogOpen}
           setOpen={this.setDialogOpen}

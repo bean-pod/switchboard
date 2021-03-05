@@ -13,7 +13,7 @@ describe("<LoginPage/> class component", () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = Enzyme.mount(<LoginPage />);
+    wrapper = Enzyme.shallow(<LoginPage />);
   });
   it("Contains one <Page/> component with correct props", () => {
     const expectedTitle = "Login";
@@ -21,7 +21,7 @@ describe("<LoginPage/> class component", () => {
 
     expect(wrapper.find(Page)).toHaveLength(1);
 
-    const page = wrapper.find(Page).first;
+    const page = wrapper.find(Page).first();
     expect(page.props().title).toBe(expectedTitle);
     expect(page.props().breadcrumbs).toStrictEqual(expectedBreadcrumb);
   });
