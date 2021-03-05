@@ -20,7 +20,7 @@ export default class DeviceListTabTable extends React.Component {
   }
 
   componentDidMount() {
-    const {dataSource} = this.props;
+    const { dataSource } = this.props;
     dataSource.getSenders(this.handleSendersChange);
     dataSource.getReceivers(this.handleReceiversChange);
   }
