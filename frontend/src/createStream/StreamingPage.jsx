@@ -11,7 +11,7 @@ export default class StreamingPage extends React.Component {
   }
 
   render() {
-    const { deviceDataSource, streamDataSource } = this.props;
+    const { deviceDataSource } = this.props;
     return (
       <Container>
         <DynamicBreadcrumb

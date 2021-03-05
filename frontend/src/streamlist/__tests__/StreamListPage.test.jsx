@@ -13,9 +13,9 @@ describe("<StreamListPage/> Component", () => {
   const dummyFunction = () => {};
   const dummySource = { dummyFunction };
   beforeEach(() => {
-    wrapper = Enzyme.shallow(<StreamListPage dataSource={dummySource} />);
+    wrapper = Enzyme.shallow(<StreamListPage streamDataSource={dummySource} />);
   });
-  
+
   describe("Should contain the following components", () => {
     it("Contains 1 <Page/> component with correct props", () => {
       expect(wrapper.find(Page)).toHaveLength(1);
