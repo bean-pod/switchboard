@@ -11,7 +11,7 @@ export default function TitleButtons() {
         className="hideLinkStyle"
         exact
       >
-        <StreamButton id="DeviceListStreamBtn" type="submit" />
+        <StreamButton type="submit" />
       </NavLink>
     </div>
   );
