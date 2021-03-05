@@ -9,9 +9,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import net.lightbody.bmp.BrowserMobProxy;
-import net.lightbody.bmp.BrowserMobProxyServer;
-import net.lightbody.bmp.client.ClientUtil;
 import org.beanpod.switchboard.entity.DecoderEntity;
 import org.beanpod.switchboard.entity.EncoderEntity;
 import org.beanpod.switchboard.fixture.DecoderFixture;
@@ -24,11 +21,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
-import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -55,40 +50,16 @@ public class SystemTests {
     testReceiverDeviceParams = objectMapper.writeValueAsString(testReceiver.getDevice());
     testReceiverDecoderParams = objectMapper.writeValueAsString(testReceiver);
 
-    // Set up proxy
-    BrowserMobProxy proxy = new BrowserMobProxyServer();
-    proxy.start(0);
-    Proxy seleniumProxy = ClientUtil.createSeleniumProxy(proxy);
-
-    // Add Authorization header to each request
-    proxy.addRequestFilter(
-        (request, contents, messageInfo) -> {
-          request
-              .headers()
-              .add(
-                  "Authorization",
-                  "Bearer"
-                      + " eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJVU0VSIiwiZXhwIjoxNjE0ODU0MTQ1fQ.BIUPn9As6lfvN4JGEFBrJLw6DzS3e4bpUXmQ979e4XGO5sYpC3P-CyF_APHl6sSPWSnz4cLcsgD0g6SB_LhLhA");
-          return null;
-        });
-
     // Set up Selenium Chrome Driver
-    ChromeOptions chromeOptions = new ChromeOptions();
-    String proxyOption = "--proxy-server=" + seleniumProxy.getHttpProxy();
-    chromeOptions.addArguments(proxyOption);
     if (System.getProperty("os.name").toLowerCase().contains("windows")) {
       System.setProperty(
           "webdriver.chrome.driver", "src\\test\\java\\system_tests\\chromedriver.exe");
     } else {
       System.setProperty("webdriver.chrome.driver", "src/test/java/system_tests/chromedriver");
     }
-    driver = new ChromeDriver(chromeOptions);
-    driver.get("http://localhost:3000/Login");
+    driver = new ChromeDriver();
     driver.manage().window().setSize(new Dimension(1280, 1024));
     driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-    driver.findElement(By.id("username")).sendKeys("admin");
-    driver.findElement(By.id("password")).sendKeys("admin");
-    driver.findElement(By.cssSelector(".MuiButton-root")).click();
   }
 
   @AfterAll
