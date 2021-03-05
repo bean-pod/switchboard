@@ -9,7 +9,7 @@ import { getSampleSender } from "../api/SampleData";
 import DeleteDeviceButton from "../general/Buttons/DeleteDeviceButton";
 import DeviceNameDetail from "./DeviceNameDetail";
 
-export default function DeviceDetailsPage(props) {
+export default function DeviceDetailsPageContents(props) {
   const {
     location: {
       state: { device }
@@ -50,11 +50,11 @@ export default function DeviceDetailsPage(props) {
     </Container>
   );
 }
-DeviceDetailsPage.defaultProps = {
+DeviceDetailsPageContents.defaultProps = {
   location: { state: { device: getSampleSender() } }
 };
 
-DeviceDetailsPage.propTypes = {
+DeviceDetailsPageContents.propTypes = {
   location: PropTypes.shape({
     state: PropTypes.shape({
       device: PropTypes.instanceOf(DeviceInfo)

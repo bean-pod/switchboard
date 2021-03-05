@@ -7,13 +7,13 @@ import { afterEach, describe, expect, jest, it } from "@jest/globals";
 import DeviceInfo from "../../model/DeviceInfo";
 import DynamicBreadcrumb from "../../general/DynamicBreadcrumb";
 import DeviceDetailsTabTable from "../DeviceDetailsTabTable";
-import DeviceDetailsPage from "../DeviceDetailsPage";
+import DeviceDetailsPageContents from "../DeviceDetailsPageContents";
 
 Enzyme.configure({ adapter: new Adapter() });
 
 jest.spyOn(global.console, "error");
 
-describe("DeviceDetailsPage", () => {
+describe("DeviceDetailsPageContents", () => {
   let wrapper;
 
   afterEach(() => {
@@ -27,7 +27,9 @@ describe("DeviceDetailsPage", () => {
       }
     };
 
-    wrapper = Enzyme.shallow(<DeviceDetailsPage location={dummyLocation} />);
+    wrapper = Enzyme.shallow(
+      <DeviceDetailsPageContents location={dummyLocation} />
+    );
     expect(wrapper.find(Container)).toHaveLength(1);
     expect(wrapper.find(DynamicBreadcrumb)).toHaveLength(1);
     expect(wrapper.find(Box)).toHaveLength(3);
