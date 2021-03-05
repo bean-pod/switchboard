@@ -3,7 +3,6 @@ import { Box, Container } from "@material-ui/core";
 import PropTypes from "prop-types";
 import StreamingTable from "./StreamingTable";
 import DynamicBreadcrumb from "../general/DynamicBreadcrumb";
-import StreamList from "../streamlist/StreamListPage";
 
 export default class StreamingPage extends React.Component {
   constructor(props) {
@@ -30,14 +29,10 @@ export default class StreamingPage extends React.Component {
             <StreamingTable dataSource={deviceDataSource} />
           </div>
         </Box>
-        <Box>
-          <StreamList dataSource={streamDataSource} />
-        </Box>
       </Container>
     );
   }
 }
 StreamingPage.propTypes = {
-  deviceDataSource: PropTypes.objectOf(PropTypes.func).isRequired,
-  streamDataSource: PropTypes.objectOf(PropTypes.func).isRequired
+  deviceDataSource: PropTypes.objectOf(PropTypes.func).isRequired
 };
