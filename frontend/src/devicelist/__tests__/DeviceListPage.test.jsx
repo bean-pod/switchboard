@@ -31,6 +31,7 @@ describe("<DeviceListPage/> functional component", () => {
       const page = wrapper.find(Page).first();
       expect(page.props().title).toBe(expectedTitle);
       expect(page.props().breadcrumbs).toStrictEqual(expectedBreadcumbs);
+      expect(page.props().deviceList).toBe(true);
     });
     it("Contains 1 <DeviceListTabTable/> component", () => {
       expect(wrapper.find(DeviceListTabTable)).toHaveLength(1);
