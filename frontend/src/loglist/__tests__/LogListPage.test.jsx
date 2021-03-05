@@ -24,7 +24,7 @@ describe("<LogListPage/> functional component", () => {
         ["Logs", "/Logs"]
       ];
       expect(wrapper.find(Page)).toHaveLength(1);
-      const pageProps = wrapper.find(Page).first().props;
+      const pageProps = wrapper.find(Page).first().props();
       expect(pageProps.title).toBe(expectedTitle);
       expect(pageProps.breadcrumbs).toStrictEqual(expectedBreadcrumbs);
     });
