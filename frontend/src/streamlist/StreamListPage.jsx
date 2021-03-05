@@ -1,19 +1,18 @@
 import React from "react";
-import { Box, Container } from "@material-ui/core";
 import PropTypes from "prop-types";
 import StreamsTableWrapper from "./StreamsTableWrapper";
+import Page from "../general/Page";
 
 export default function StreamListPage(props) {
   const { dataSource } = props;
+  const breadcrumbs = [
+    ["Home", "/Home"],
+    ["Active Streams", "/Streaming"]
+  ];
   return (
-    <>
-      <Container>
-        <Box className="headerAreaUnderline">
-          <div className="title">Current Streams</div>
-        </Box>
-        <StreamsTableWrapper dataSource={dataSource} />
-      </Container>
-    </>
+    <Page title="Active Streams" breadcrumbs={breadcrumbs}>
+      <StreamsTableWrapper dataSource={dataSource} />
+    </Page>
   );
 }
 
