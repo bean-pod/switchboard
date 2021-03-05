@@ -40,6 +40,7 @@ export default function SnackbarMessage() {
       return;
     }
     setOpen(false);
+    setIsSuccess(false);
     setStatus("");
     setMessage("");
     setPathname("");
