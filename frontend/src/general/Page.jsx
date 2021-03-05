@@ -6,10 +6,10 @@ import Title from "./Title";
 import HeaderBar from "./HeaderBar";
 
 export default function Page(props) {
-  const { breadcrumbs, title, children } = props;
+  const { authenticated, breadcrumbs, title, children } = props;
   return (
     <>
-      <HeaderBar />
+      <HeaderBar authenticated={authenticated} />
       <Container>
         <DynamicBreadcrumb breadcrumbs={breadcrumbs} />
         <Title title={title} />
@@ -20,6 +20,7 @@ export default function Page(props) {
 }
 
 Page.propTypes = {
+  authenticated: PropTypes.func.isRequired,
   breadcrumbs: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string))
     .isRequired,
   title: PropTypes.string.isRequired,
