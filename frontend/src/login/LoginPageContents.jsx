@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Box, Container } from "@material-ui/core";
 import * as AuthenticationApi from "../api/AuthenticationApi";
+import Page from "../general/Page";
 import LoginFailedDialog from "./LoginFailedDialog";
 import LoginConsole from "./LoginConsole";
 
-export default class LoginPage extends React.Component {
+export default class LoginPageContentsContents extends React.Component {
   constructor(props){
     super(props)
     this.state = {
