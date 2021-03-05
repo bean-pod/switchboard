@@ -17,7 +17,7 @@ describe("<StreamListPage/> Component", () => {
   });
   
   describe("Should contain the following components", () => {
-    it("Contains 1 <Page/> component", () => {
+    it("Contains 1 <Page/> component with correct props", () => {
       expect(wrapper.find(Page)).toHaveLength(1);
       const expectedTitle = "Active Streams";
       const expectedBreadcrumb = [
