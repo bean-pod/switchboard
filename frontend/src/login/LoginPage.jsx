@@ -4,28 +4,50 @@ import * as AuthenticationApi from "../api/AuthenticationApi";
 import LoginFailedDialog from "./LoginFailedDialog";
 import LoginConsole from "./LoginConsole";
 
-export default function LoginPage() {
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const [dialogMessage, setDialogMessage] = useState("");
+export default class LoginPage extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      dialogOpen: false,
+      dialogMessage: ""
+    }
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.setDialogOpen = this.setDialogOpen.bind(this);
+    this.setDialogMessage = this.setDialogMessage.bind(this);
+  }
 
-  const handleSubmit = (username, password) => {
+  handleSubmit(username, password)  {
     AuthenticationApi.logIn({ username, password }).catch((error) => {
-      setDialogMessage(error.message);
-      setDialogOpen(true);
+      this.setState(
+        {
+          dialogOpen:true,
+          dialogMessage:error.message
+        }
+      )
     });
   };
 
-  return (
-    <Container>
-      <Box className="flexContents headerAreaUnderline">
-        <div className="title">Login</div>
-      </Box>
-      <LoginConsole handleSubmit={handleSubmit} />
-      <LoginFailedDialog
-        open={dialogOpen}
-        setOpen={setDialogOpen}
-        message={dialogMessage}
-      />
-    </Container>
-  );
+  setDialogOpen(open){
+    this.setState({
+      dialogOpen: open
+    })
+  }
+  setDialogMessage(message){
+    this.setState({
+      dialogMessage:message
+    })
+  }
+
+  render(){
+    return (
+      <React.Fragment>
+        <LoginConsole handleSubmit={handleSubmit} />
+        <LoginFailedDialog
+          open={dialogOpen}
+          setOpen={this.setDialogOpen}
+          message={dialogMessage}
+        />
+      </React.Fragment>
+    );
+  }
 }
