@@ -14,6 +14,7 @@ export default class HeaderBar extends React.Component {
   }
 
   render() {
+    const { authenticated } = this.props;
     return (
       <div className="headerBar">
         <AppBar position="static">
@@ -31,9 +32,13 @@ export default class HeaderBar extends React.Component {
               </NavLink>
               Switchboard
             </div>
-            <IconButton id="acctBtn" color="inherit">
-              <AccountCircle />
-            </IconButton>
+            {authenticated() ? (
+              <IconButton id="acctBtn" color="inherit">
+                <AccountCircle />
+              </IconButton>
+            ) : (
+              <></>
+            )}
           </Toolbar>
         </AppBar>
       </div>
