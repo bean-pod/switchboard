@@ -2,10 +2,9 @@ import React from "react";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import { describe, expect, it } from "@jest/globals";
-import { Container, Box } from "@material-ui/core";
 
 import LogListPage from "../LogListPage";
-import DynamicBreadcrumb from "../../general/DynamicBreadcrumb";
+import Page from "../../general/Page";
 import LogsTableWrapper from "../LogsTableWrapper";
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -18,23 +17,18 @@ describe("<LogListPage/> functional component", () => {
     <LogListPage logsDataSource={mockDataSource} />
   );
   describe("returns a component that contains", () => {
-    it("one Container component", () => {
-      expect(wrapper.find(Container)).toHaveLength(1);
-    });
-    it("one DynamicBreadcrumb component", () => {
-      expect(wrapper.find(DynamicBreadcrumb)).toHaveLength(1);
-      expect(wrapper.find(DynamicBreadcrumb).prop("breadcrumbs")).toEqual([
-        ["Home", "/"],
+    it("one <Page/> Component", () => {
+      const expectedTitle = "Logs";
+      const expectedBreadcrumbs = [
+        ["Home", "/Home"],
         ["Logs", "/Logs"]
-      ]);
+      ];
+      expect(wrapper.find(Page)).toHaveLength(1);
+      const pageProps = wrapper.find(Page).first().props;
+      expect(pageProps.title).toBe(expectedTitle);
+      expect(pageProps.breadcrumbs).toStrictEqual(expectedBreadcrumbs);
     });
-    it("two Box components", () => {
-      expect(wrapper.find(Box)).toHaveLength(2);
-    });
-    it("one text title component", () => {
-      expect(wrapper.find(".title")).toHaveLength(1);
-    });
-    it("one LogsTableWrapper", () => {
+    it("one <LogsTableWrapper/> component", () => {
       expect(wrapper.find(LogsTableWrapper)).toHaveLength(1);
     });
   });
