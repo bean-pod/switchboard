@@ -421,7 +421,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StreamStatsModel'
+                $ref: '#/components/schemas/StreamStatModel'
 
   /stream/statistics:
     get:

@@ -14,4 +14,6 @@ public interface StreamService {
   StreamStatDto updateStreamStat(StreamStatDto streamStatDto);
 
   List<StreamStatDto> getStreamStats();
+
+  StreamStatDto getStreamStat(Long id);
 }

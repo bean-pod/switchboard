@@ -6,6 +6,7 @@ import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.dao.StreamDaoImpl;
 import org.beanpod.switchboard.dto.StreamDto;
+import org.beanpod.switchboard.dto.StreamStatDto;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
 import org.beanpod.switchboard.dto.mapper.StreamStatMapper;
 import org.beanpod.switchboard.exceptions.ExceptionType;
@@ -48,6 +49,16 @@ public class StreamController implements StreamApi {
 
     return streamDto
         .map(mapper::toModel)
+        .map(ResponseEntity::ok)
+        .orElseThrow(() -> new UnknownException(CONTROLLER_NAME));
+  }
+
+  @Override
+  public ResponseEntity<StreamStatModel> getStreamStatById(Long id) {
+    Optional<StreamStatDto> streamStatDto = Optional.of(id).map(streamDao::getStreamStatById);
+
+    return streamStatDto
+        .map(statMapper::toModel)
         .map(ResponseEntity::ok)
         .orElseThrow(() -> new UnknownException(CONTROLLER_NAME));
   }

@@ -73,6 +73,11 @@ public class StreamServiceImpl implements StreamService {
     return streamDao.getStreamStats();
   }
 
+  @Override
+  public StreamStatDto getStreamStat(Long id) {
+    return streamDao.getStreamStat(id).get();
+  }
+
   private boolean shouldUseRendezvousMode(
       InputChannelDto inputChannelDto, OutputChannelDto outputChannelDto) {
     log.info(
