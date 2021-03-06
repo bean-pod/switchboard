@@ -1,12 +1,12 @@
 {
   "files": {
     "main.css": "/Home/static/css/main.e879511f.chunk.css",
-    "main.js": "/Home/static/js/main.d6c5ded8.chunk.js",
-    "main.js.map": "/Home/static/js/main.d6c5ded8.chunk.js.map",
+    "main.js": "/Home/static/js/main.7abcd151.chunk.js",
+    "main.js.map": "/Home/static/js/main.7abcd151.chunk.js.map",
     "runtime-main.js": "/Home/static/js/runtime-main.acdd6d4c.js",
     "runtime-main.js.map": "/Home/static/js/runtime-main.acdd6d4c.js.map",
-    "static/js/2.3232bf94.chunk.js": "/Home/static/js/2.3232bf94.chunk.js",
-    "static/js/2.3232bf94.chunk.js.map": "/Home/static/js/2.3232bf94.chunk.js.map",
+    "static/js/2.59687894.chunk.js": "/Home/static/js/2.59687894.chunk.js",
+    "static/js/2.59687894.chunk.js.map": "/Home/static/js/2.59687894.chunk.js.map",
     "static/js/3.f11f7bd8.chunk.js": "/Home/static/js/3.f11f7bd8.chunk.js",
     "static/js/3.f11f7bd8.chunk.js.map": "/Home/static/js/3.f11f7bd8.chunk.js.map",
     "static/js/4.2d9c7f17.chunk.js": "/Home/static/js/4.2d9c7f17.chunk.js",
@@ -15,15 +15,15 @@
     "static/js/5.fb8b2f1b.chunk.js.map": "/Home/static/js/5.fb8b2f1b.chunk.js.map",
     "index.html": "/Home/index.html",
     "static/css/main.e879511f.chunk.css.map": "/Home/static/css/main.e879511f.chunk.css.map",
-    "static/js/2.3232bf94.chunk.js.LICENSE.txt": "/Home/static/js/2.3232bf94.chunk.js.LICENSE.txt",
+    "static/js/2.59687894.chunk.js.LICENSE.txt": "/Home/static/js/2.59687894.chunk.js.LICENSE.txt",
     "static/js/3.f11f7bd8.chunk.js.LICENSE.txt": "/Home/static/js/3.f11f7bd8.chunk.js.LICENSE.txt",
     "static/js/4.2d9c7f17.chunk.js.LICENSE.txt": "/Home/static/js/4.2d9c7f17.chunk.js.LICENSE.txt",
     "static/js/5.fb8b2f1b.chunk.js.LICENSE.txt": "/Home/static/js/5.fb8b2f1b.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.acdd6d4c.js",
-    "static/js/2.3232bf94.chunk.js",
+    "static/js/2.59687894.chunk.js",
     "static/css/main.e879511f.chunk.css",
-    "static/js/main.d6c5ded8.chunk.js"
+    "static/js/main.7abcd151.chunk.js"
   ]
 }
