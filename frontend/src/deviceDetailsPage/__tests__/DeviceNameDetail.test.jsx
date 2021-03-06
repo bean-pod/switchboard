@@ -28,104 +28,119 @@ describe("<DeviceNameDetail/> component", () => {
     name: mockDevice.name,
     editing: false
   };
+  const editingState = {
+    name: mockDevice.name,
+    editing: true
+  };
 
   beforeEach(() => {
     wrapper = Enzyme.shallow(
       <DeviceNameDetail deviceName={mockDevice.name} deviceId={mockDevice.id} />
     );
   });
+
   afterEach(() => {
     jest.clearAllMocks();
   });
 
-  describe("Not editing", () => {
-    it("Contains one <StaticName/> component with expected props", () => {
-      expect(wrapper.state()).toEqual(defaultState);
-
-      const staticName = wrapper.find(StaticName);
-      expect(staticName).toHaveLength(1);
-
-      const props = staticName.first().props();
-      expect(props.deviceName).toEqual(mockDevice.name);
-      expect(props.startEditing).toEqual(wrapper.instance().startEdit);
-    });
-  });
-
-  describe("Editing", () => {
-    const editingState = {
-      name: mockDevice.name,
-      editing: true
-    };
-
-    beforeEach(() => {
-      wrapper.find(StaticName).first().props().startEditing();
-    });
-
-    it("Contains one <EditableName/> component with expected props", () => {
-      expect(wrapper.state()).toEqual(editingState);
-
-      const editableName = wrapper.find(EditableName);
-      expect(editableName).toHaveLength(1);
-
-      const props = editableName.first().props();
-      expect(props.deviceName).toEqual(mockDevice.name);
-      expect(props.confirmEditing).toEqual(wrapper.instance().confirmEditing);
-      expect(props.setName).toEqual(wrapper.instance().setName);
-      expect(props.cancelEditing).toEqual(wrapper.instance().cancelEditing);
-    });
-
-    describe("Cancel editing", () => {
-      it("Changes state and contains a <StaticName/> element", () => {
-        wrapper.find(EditableName).first().props().cancelEditing();
-
+  describe("render", () => {
+    describe("When state.editing is false", () => {
+      it("Contains one <StaticName/> component with expected props", () => {
         expect(wrapper.state()).toEqual(defaultState);
 
         const staticName = wrapper.find(StaticName);
         expect(staticName).toHaveLength(1);
+
         const props = staticName.first().props();
         expect(props.deviceName).toEqual(mockDevice.name);
         expect(props.startEditing).toEqual(wrapper.instance().startEdit);
       });
     });
 
-    describe("Confirm editing", () => {
-      it("On success, changes the device name and contains StaticName with new name", () => {
-        const newName = "New Name";
-        wrapper.find(EditableName).first().props().setName(newName);
+    describe("When state.editing is true", () => {
+      it("Contains one <EditableName/> component with expected props", () => {
+        wrapper.setState(editingState);
 
-        DeviceApi.updateDeviceName.mockResolvedValue();
+        const editableName = wrapper.find(EditableName);
+        expect(editableName).toHaveLength(1);
 
-        const editEvent = {
-          preventDefault: jest.fn()
-        };
-        wrapper.find(EditableName).first().props().confirmEditing(editEvent);
-
-        const staticName = wrapper.find(StaticName);
-        expect(staticName).toHaveLength(1);
-        const props = staticName.first().props();
-        expect(props.deviceName).toEqual(newName);
-        expect(props.startEditing).toEqual(wrapper.instance().startEdit);
-      });
-
-      it("On failure, returns to the old name and contains <StaticName/>", async () => {
-        const newName = "New Name";
-        wrapper.find(EditableName).first().props().setName(newName);
-
-        DeviceApi.updateDeviceName.mockRejectedValue();
-
-        const editEvent = {
-          preventDefault: jest.fn()
-        };
-        wrapper.find(EditableName).first().props().confirmEditing(editEvent);
-        const flushPromises = () => new Promise(setImmediate);
-        await flushPromises();
-
-        const staticName = wrapper.find(StaticName);
-        expect(staticName).toHaveLength(1);
-        const props = staticName.first().props();
+        const props = editableName.first().props();
         expect(props.deviceName).toEqual(mockDevice.name);
-        expect(props.startEditing).toEqual(wrapper.instance().startEdit);
+        expect(props.confirmEditing).toEqual(wrapper.instance().confirmEditing);
+        expect(props.setName).toEqual(wrapper.instance().setName);
+        expect(props.cancelEditing).toEqual(wrapper.instance().cancelEditing);
       });
+    });
+  });
+
+  describe("startEdit function", () => {
+    it("Enters the editing state", () => {
+      wrapper.instance().startEdit();
+      expect(wrapper.state()).toEqual(editingState);
+    });
+  });
+
+  describe("cancelEditing function", () => {
+    beforeEach(() => {
+      wrapper.setState(editingState);
+    });
+
+    it("Returns to non-editing state", () => {
+      wrapper.instance().cancelEditing();
+      expect(wrapper.state()).toEqual(defaultState);
+    });
+  });
+
+  describe("setName function", () => {
+    it("Changes the name in the state", () => {
+      const newName = "New Name";
+      wrapper.instance().setName(newName);
+      expect(wrapper.state()).toEqual({
+        name: newName,
+        editing: false
+      });
+    });
+  });
+
+  describe("confirmEditing function", () => {
+    beforeEach(() => {
+      wrapper.setState(editingState);
+    });
+
+    it("On success, changes the device name and contains StaticName with new name", () => {
+      const newName = "New Name";
+      wrapper.instance().setName(newName);
+
+      DeviceApi.updateDeviceName.mockResolvedValue();
+
+      const editEvent = {
+        preventDefault: jest.fn()
+      };
+      wrapper.instance().confirmEditing(editEvent);
+
+      const staticName = wrapper.find(StaticName);
+      expect(staticName).toHaveLength(1);
+      const props = staticName.first().props();
+      expect(props.deviceName).toEqual(newName);
+    });
+
+    it("On failure, returns to the old name and contains <StaticName/>", async () => {
+      const newName = "New Name";
+      wrapper.instance().setName(newName);
+
+      DeviceApi.updateDeviceName.mockRejectedValue();
+
+      const editEvent = {
+        preventDefault: jest.fn()
+      };
+      wrapper.instance().confirmEditing(editEvent);
+      const flushPromises = () => new Promise(setImmediate);
+      await flushPromises();
+
+      const staticName = wrapper.find(StaticName);
+      expect(staticName).toHaveLength(1);
+      const props = staticName.first().props();
+      expect(props.deviceName).toEqual(mockDevice.name);
     });
   });
 });
