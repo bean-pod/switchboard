@@ -14,18 +14,21 @@ describe("<DeviceDetailsPageContents/> functional component", () => {
   let wrapper;
 
   describe("returns a component that", () => {
-    const dummyDevice= new DeviceInfo(1, 1, 1, 1, 1, [1, 1], "encoder", [2, 2]);
+    const dummyDevice = new DeviceInfo(1, 1, 1, 1, 1, [1, 1], "encoder", [
+      2,
+      2
+    ]);
 
-    beforeEach(()=>{
+    beforeEach(() => {
       wrapper = Enzyme.shallow(
         <DeviceDetailsPageContents device={dummyDevice} />
       );
-    })
-    it("Contains 3 Grid Components", ()=>{
+    });
+    it("Contains 3 Grid Components", () => {
       expect(wrapper.find(Grid)).toHaveLength(3);
-    })
-    it("Contains 2 <DeviceDetailsTabTable/> Components", ()=>{
+    });
+    it("Contains 2 <DeviceDetailsTabTable/> Components", () => {
       expect(wrapper.find(DeviceDetailsTabTable)).toHaveLength(2);
-    })
+    });
   });
 });
