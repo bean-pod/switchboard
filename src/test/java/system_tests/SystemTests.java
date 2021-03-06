@@ -235,12 +235,7 @@ public class SystemTests{
   @Order(4)
   void testDeleteStream() {
     driver.get("http://localhost:3000/Streaming");
-    driver
-        .findElement(
-            By.cssSelector(
-                ".MuiTableCell-root > .MuiButtonBase-root > .MuiIconButton-label >"
-                    + " .MuiSvgIcon-root"))
-        .click();
+    driver.findElement(By.cssSelector(".MuiTableRow-root:nth-child(1) > .MuiTableCell-root > .MuiButtonBase-root > .MuiIconButton-label path")).click();
     driver.findElement(By.cssSelector(".MuiButton-textSecondary > .MuiButton-label")).click();
 
     // Check for stream deletion
