@@ -6,10 +6,10 @@ import Title from "./Title";
 import HeaderBar from "./HeaderBar";
 
 export default function Page(props) {
-  const { authenticated, breadcrumbs, title, children } = props;
+  const { authenticated, handleLogout, breadcrumbs, title, children } = props;
   return (
     <>
-      <HeaderBar authenticated={authenticated} />
+      <HeaderBar authenticated={authenticated} handleLogout={handleLogout} />
       <Container>
         <DynamicBreadcrumb breadcrumbs={breadcrumbs} />
         <Title title={title} />

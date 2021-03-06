@@ -14,7 +14,7 @@ export default class HeaderBar extends React.Component {
   }
 
   render() {
-    const { authenticated } = this.props;
+    const { authenticated, handleLogout } = this.props;
     return (
       <div className="headerBar">
         <AppBar position="static">
@@ -33,7 +33,7 @@ export default class HeaderBar extends React.Component {
               Switchboard
             </div>
             {authenticated() ? (
-              <IconButton id="acctBtn" color="inherit">
+              <IconButton id="acctBtn" color="inherit" onClick={handleLogout}>
                 <AccountCircle />
               </IconButton>
             ) : (
