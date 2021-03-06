@@ -17,12 +17,16 @@ export default class LoginPageContents extends React.Component {
   }
 
   handleSubmit(username, password) {
+    const { handleLogin, history } = this.props;
+    handleLogin();
     AuthenticationApi.logIn({ username, password }).catch((error) => {
       this.setState({
         dialogOpen: true,
         dialogMessage: error.message
       });
     });
+    history.push("/Home");
+    history.go(0);
   }
 
   setDialogOpen(open) {
