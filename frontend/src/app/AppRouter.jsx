@@ -12,12 +12,7 @@ export default class AppRouter extends React.Component {
   }
 
   render() {
-    const {
-      handleLogin,
-      handleLogout,
-      authenticated,
-      admin
-    } = this.props;
+    const { handleLogin, handleLogout, authenticated, admin } = this.props;
     return (
       <BrowserRouter>
         <Switch>
