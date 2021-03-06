@@ -46,7 +46,9 @@ export default class DeviceDetailsConciseRow extends React.Component {
       case "status":
         return <StatusIndicator status={value} />;
       case "name":
-        return <DeviceNameDetail deviceName={value} deviceId={device.serialNumber}/>
+        return (
+          <DeviceNameDetail deviceName={value} deviceId={device.serialNumber} />
+        );
       default:
         return value;
     }
@@ -55,14 +57,14 @@ export default class DeviceDetailsConciseRow extends React.Component {
   render() {
     const { name, value, device } = this.props;
     return (
-        <TableRow>
-          <TableCell>
-            {DeviceDetailsConciseRow.getPropertyDisplayName(name)}
-          </TableCell>
-          <TableCell align="center">
-            {DeviceDetailsConciseRow.createTableCellContents(name, value, device)}
-          </TableCell>
-        </TableRow>
+      <TableRow>
+        <TableCell>
+          {DeviceDetailsConciseRow.getPropertyDisplayName(name)}
+        </TableCell>
+        <TableCell align="center">
+          {DeviceDetailsConciseRow.createTableCellContents(name, value, device)}
+        </TableCell>
+      </TableRow>
     );
   }
 }
