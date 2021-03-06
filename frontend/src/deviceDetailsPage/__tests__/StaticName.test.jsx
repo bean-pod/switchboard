@@ -28,9 +28,9 @@ describe("<StaticName/> functional Component", () => {
     });
     it("Contains 1 <IconButton/> component with expected props", () => {
       expect(wrapper.find(IconButton)).toHaveLength(1);
-    
+
       const iconButtonProps = wrapper.find(IconButton).first().props();
-      expect(iconButtonProps.it).toBe("editBtn");
+      expect(iconButtonProps.id).toBe("editBtn");
       expect(iconButtonProps.color).toBe("action");
       expect(iconButtonProps.onClick).toBe(mockEdit);
     });
