@@ -5,10 +5,6 @@ import AppRouter from "./AppRouter";
 export default class Authenticator extends React.Component {
   constructor(props) {
     super(props);
-    // this.state = {
-    //   authenticated: false,
-    //   admin: false
-    // };
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
     this.authenticate = this.authenticate.bind(this);
@@ -75,12 +71,6 @@ export default class Authenticator extends React.Component {
   handleLogin() {
     // API call.then(response =>
     this.authenticate();
-    // const {isAdmin} = response;
-    // const isAdmin = true;
-    // this.setState({
-    //   authenticated: true,
-    //   admin: isAdmin
-    // });
   }
 
   handleLogout() {
@@ -88,11 +78,6 @@ export default class Authenticator extends React.Component {
     Cookies.remove("access_token");
     Cookies.remove("admin_token");
     Cookies.remove("refresh_token");
-
-    // this.setState({
-    //   authenticated: false,
-    //   admin: false
-    // });
   }
 
   render() {
