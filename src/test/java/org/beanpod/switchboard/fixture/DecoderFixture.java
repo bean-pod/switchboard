@@ -63,4 +63,14 @@ public class DecoderFixture {
   public static DecoderModel getDecoderModel() {
     return new DecoderModel().serialNumber(SERIAL_NUMBER).device(DeviceFixture.getDeviceModel());
   }
+
+  //TODO replace with general decoder if OK
+  public static DecoderModel getDecoderModelWithInputChannel(){
+    return new DecoderModel()
+        .serialNumber(SERIAL_NUMBER)
+        .device(DeviceFixture.getDeviceModel())
+        .input(List.of(
+            ChannelFixture.getInputChannelModel()
+        ));
+  }
 }

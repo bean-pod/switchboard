@@ -11,6 +11,7 @@ import org.beanpod.switchboard.dto.OutputChannelDto;
 import org.beanpod.switchboard.entity.ChannelEntity;
 import org.beanpod.switchboard.entity.InputChannelEntity;
 import org.beanpod.switchboard.entity.OutputChannelEntity;
+import org.openapitools.model.ChannelModel;
 import org.openapitools.model.InputChannelModel;
 import org.openapitools.model.OutputChannelModel;
 
@@ -76,11 +77,19 @@ public class ChannelFixture {
   }
 
   public static InputChannelModel getInputChannelModel() {
-    return new InputChannelModel().id(INPUT_CHANNEL_ID).decoder(DecoderFixture.getDecoderModel());
+    ChannelModel channelModel = new ChannelModel()
+        .id(INPUT_CHANNEL_ID)
+        .name("Test input channel")
+        .port(PORT);
+    return new InputChannelModel().id(INPUT_CHANNEL_ID).channel(channelModel).decoder(DecoderFixture.getDecoderModel());
   }
 
   public static OutputChannelModel getOutputChannelModel() {
-    return new OutputChannelModel().id(OUTPUT_CHANNEL_ID).encoder(EncoderFixture.getEncoderModel());
+    ChannelModel channelModel = new ChannelModel()
+        .id(OUTPUT_CHANNEL_ID)
+        .name("Test output channel")
+        .port(PORT);
+    return new OutputChannelModel().id(OUTPUT_CHANNEL_ID).channel(channelModel).encoder(EncoderFixture.getEncoderModel());
   }
 
   public static Set<InputChannelEntity> getInputChannelEntities() {

@@ -2,23 +2,35 @@ package system_tests;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static system_tests.HttpHandler.postRequest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import features.AuthorizedTestRestTemplate;
+import features.SpringIntegrationTest;
+import java.beans.Encoder;
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
+import org.beanpod.switchboard.SwitchboardApplication;
+import org.beanpod.switchboard.dto.DeviceDto;
 import org.beanpod.switchboard.entity.DecoderEntity;
 import org.beanpod.switchboard.entity.EncoderEntity;
 import org.beanpod.switchboard.fixture.DecoderFixture;
+import org.beanpod.switchboard.fixture.DeviceFixture;
 import org.beanpod.switchboard.fixture.EncoderFixture;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.openapitools.model.DecoderModel;
+import org.openapitools.model.DeviceModel;
+import org.openapitools.model.EncoderModel;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
@@ -27,19 +39,40 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ComponentScans;
+import org.springframework.context.annotation.Import;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class SystemTests {
+@SpringBootTest(
+    classes = SwitchboardApplication.class,
+    webEnvironment= WebEnvironment.DEFINED_PORT
+)
+@Import(AuthorizedTestRestTemplate.class)
+@TestInstance(Lifecycle.PER_CLASS)
+//TODO make sure those annotationsa are necessary
+@ComponentScan("system_tests")
+@ComponentScan("org.beanpod.switchboard")
+public class SystemTests{
 
-  private static WebDriver driver;
-  private static String testSenderDeviceParams;
-  private static String testSenderEncoderParams;
-  private static String testReceiverDeviceParams;
-  private static String testReceiverDecoderParams;
+  @Autowired
+  private TestRestTemplate testRestTemplate;
+
+  private WebDriver driver;
+  private String testSenderDeviceParams;
+  private String testSenderEncoderParams;
+  private String testReceiverDeviceParams;
+  private String testReceiverDecoderParams;
+
 
   @BeforeAll
-  static void setUp() throws JsonProcessingException {
+  void setUp() throws JsonProcessingException {
     ObjectMapper objectMapper = new ObjectMapper();
+    //TODO remote these if not needed anymore
     // create a test sender
     EncoderEntity testSender = EncoderFixture.getEncoderEntity1();
     testSenderDeviceParams = objectMapper.writeValueAsString(testSender.getDevice());
@@ -60,10 +93,11 @@ public class SystemTests {
     driver = new ChromeDriver();
     driver.manage().window().setSize(new Dimension(1280, 1024));
     driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+    login();
   }
 
   @AfterAll
-  static void tearDown() {
+  void tearDown() {
     driver.quit();
   }
 
@@ -71,14 +105,21 @@ public class SystemTests {
   @Order(1)
   void testAddEncoder() throws IOException {
     // Mock sender self-registration
-    postRequest("http://localhost:8080/device", testSenderDeviceParams);
-    postRequest("http://localhost:8080/encoder", testSenderEncoderParams);
+
+    testRestTemplate.postForObject("http://localhost:8080/device", DeviceFixture.getDeviceModel(),
+        DeviceModel.class);
+    testRestTemplate.postForObject("http://localhost:8080/encoder", EncoderFixture.getEncoderModelWithOutputChannel(),
+        EncoderModel.class);
 
     // Go to List of Senders
     driver.get("http://localhost:3000/Devices");
 
     // Check for encoder
     WebElement encodersTable = driver.findElement(By.tagName("table")); // find encoders table
+
+    WebDriverWait wait = new WebDriverWait(driver, 5);
+    wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName("tr")));
+
     List<WebElement> devicesRows =
         encodersTable.findElements(By.tagName("tr")); // find all tr elements inside found table
     boolean assertValue =
@@ -86,7 +127,7 @@ public class SystemTests {
             .anyMatch(
                 row ->
                     row.getText()
-                        .contains(EncoderFixture.getEncoderEntity1().getDevice().getDisplayName()));
+                        .contains(EncoderFixture.getEncoderModel().getDevice().getDisplayName()));
 
     assertTrue(assertValue);
   }
@@ -95,8 +136,10 @@ public class SystemTests {
   @Order(2)
   void testAddDecoder() throws IOException {
     // mock receiver self-registration
-    postRequest("http://localhost:8080/device", testReceiverDeviceParams);
-    postRequest("http://localhost:8080/decoder", testReceiverDecoderParams);
+    testRestTemplate.postForObject("http://localhost:8080/device", DeviceFixture.getDeviceModel(),
+        DeviceModel.class);
+    testRestTemplate.postForObject("http://localhost:8080/decoder", DecoderFixture.getDecoderModelWithInputChannel(),
+        DecoderModel.class);
 
     // Go to List of Receivers
     driver.get("http://localhost:3000/Devices");
@@ -104,6 +147,10 @@ public class SystemTests {
 
     // Check for decoder
     WebElement decodersTable = driver.findElement(By.tagName("table")); // find encoders table
+
+    WebDriverWait wait = new WebDriverWait(driver, 5);
+    wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName("tr")));
+
     List<WebElement> devicesRows =
         decodersTable.findElements(By.tagName("tr")); // find all tr elements inside found table
     boolean assertValue =
@@ -111,7 +158,7 @@ public class SystemTests {
             .anyMatch(
                 row ->
                     row.getText()
-                        .contains(DecoderFixture.getDecoderEntity2().getDevice().getDisplayName()));
+                        .contains(DecoderFixture.getDecoderModel().getDevice().getDisplayName()));
 
     assertTrue(assertValue);
   }
@@ -173,6 +220,10 @@ public class SystemTests {
 
     // Check for stream creation
     WebElement streamsTable = driver.findElement(By.tagName("table")); // find streams table
+
+    WebDriverWait wait = new WebDriverWait(driver, 5);
+    wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName("td")));
+
     List<WebElement> devicesRows =
         streamsTable.findElements(By.tagName("td")); // find all td elements inside found table
     boolean assertValue = devicesRows.stream().anyMatch(data -> data.getText().contains("Online"));
@@ -195,10 +246,26 @@ public class SystemTests {
     // Check for stream deletion
     driver.navigate().refresh();
     WebElement streamsTable = driver.findElement(By.tagName("table")); // find streams table
+
+    WebDriverWait wait = new WebDriverWait(driver, 5);
+    wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName("td")));
+
     List<WebElement> devicesRows =
         streamsTable.findElements(By.tagName("td")); // find all td elements inside found table
     boolean assertValue = devicesRows.stream().anyMatch(data -> data.getText().contains("Online"));
 
     assertFalse(assertValue);
+  }
+
+
+  @SneakyThrows
+  private void login() {
+    driver.get("http://localhost:3000/login");
+    driver.findElement(By.id("username")).click();
+    driver.findElement(By.id("username")).clear();
+    driver.findElement(By.id("username")).sendKeys("test_username");
+    driver.findElement(By.id("password")).clear();
+    driver.findElement(By.id("password")).sendKeys("test_password");
+    driver.findElement(By.xpath("//div[@id='root']/div[2]/main/div/form/button/span")).click();
   }
 }

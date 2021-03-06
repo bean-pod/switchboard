@@ -1,5 +1,6 @@
 package org.beanpod.switchboard.fixture;
 
+import java.beans.Encoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,5 +63,15 @@ public class EncoderFixture {
 
   public static EncoderModel getEncoderModel() {
     return new EncoderModel().serialNumber(SERIAL_NUMBER).device(DeviceFixture.getDeviceModel());
+  }
+
+  //TODO replace this in the general encoder model if it doesn't break anything
+  public static EncoderModel getEncoderModelWithOutputChannel() {
+    return new EncoderModel()
+        .serialNumber(SERIAL_NUMBER)
+        .device(DeviceFixture.getDeviceModel())
+        .output(List.of(
+            ChannelFixture.getOutputChannelModel()
+        ));
   }
 }
