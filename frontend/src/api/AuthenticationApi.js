@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from "js-cookie"
 
 export const unknownErrorMessage =
   "An unknown error occurred. Please try again later.";
