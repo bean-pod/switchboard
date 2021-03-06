@@ -407,6 +407,22 @@ paths:
         '200':
           description: Successful deletion of the stream
 
+  /stream/statistics/{id}:
+    get:
+      operationId: getStreamStatById
+      description: Retrieve a stream stat by id
+      tags:
+        - Streams
+      parameters:
+        - $ref: '#/components/parameters/StreamId'
+      responses:
+        '200':
+          description: Succesful retrievel of a stream stat
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StreamStatsModel'
+
   /stream/statistics:
     get:
       operationId: retrieveStreamStats
