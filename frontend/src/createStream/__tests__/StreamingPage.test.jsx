@@ -14,6 +14,11 @@ import SelectDeviceTableRow from "../SelectDeviceTableRow";
 let container = null;
 let sampleSenders = null;
 
+const streamDataSource = {
+  getAllStreams() {
+    return Promise.resolve(SampleData.getAllStreams());
+  }
+};
 beforeEach(() => {
   container = document.createElement("div");
   document.body.appendChild(container);
@@ -134,7 +139,7 @@ test("Streaming page has Breadcrumbs, Title and Streaming Table", () => {
       <BrowserRouter>
         <StreamingPage
           deviceDataSource={SampleData}
-          streamDataSource={SampleData}
+          streamDataSource={streamDataSource}
         />
       </BrowserRouter>,
       container
