@@ -10,12 +10,13 @@ import DeviceDetailsPage from "./deviceDetailsPage/DeviceDetailsPage";
 import LogListPage from "./loglist/LogListPage";
 import LoginPage from "./login/LoginPage";
 import AppAuthenticator from "./app/AppAuthenticator";
+import AppRouter from "./app/AppRouter";
 
 import * as DeviceApi from "./api/DeviceApi";
 import * as StreamApi from "./api/StreamApi";
 import * as LogApi from "./api/LogApi";
 
-ReactDOM.render(<AppAuthenticator />, document.getElementById("root"));
+ReactDOM.render(<AppRouter />, document.getElementById("root"));
 // ReactDOM.render(
 //   <React.StrictMode>
 //     <BrowserRouter>
