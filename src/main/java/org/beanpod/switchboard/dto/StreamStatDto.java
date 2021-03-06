@@ -18,8 +18,8 @@ public class StreamStatDto {
   private long congestion;
   private long flight;
 
-  private long rtt;
-  private long bandwidth;
+  private double rtt;
+  private double bandwidth;
   private long maxBandwidth;
 
   private long sendPackets;
@@ -28,7 +28,7 @@ public class StreamStatDto {
   private long sendPacketsRetransmitted;
   private long sendBytes;
   private long sendBytesDropped;
-  private long sendMbitRate;
+  private double sendMbitRate;
 
   private long recvPackets;
   private long recvPacketsLost;
@@ -38,5 +38,5 @@ public class StreamStatDto {
   private long recvBytes;
   private long recvBytesLost;
   private long recvBytesDropped;
-  private long recvMbitRate;
+  private double recvMbitRate;
 }
