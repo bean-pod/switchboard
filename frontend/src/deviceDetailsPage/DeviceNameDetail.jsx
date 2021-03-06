@@ -49,14 +49,13 @@ export default class DeviceNameDetail extends React.Component {
     const { name } = this.state;
     return (
       <>
-        <Box className="flexContents">
-          <div className="title">{name}</div>
-          <Box padding={4} paddingLeft={1} paddingBottom={0}>
-            <Button>
-              <EditIcon id="editBtn" color="action" onClick={this.startEdit} />
-            </Button>
-          </Box>
-        </Box>
+        {name}
+        <div className="alignRightFloat">
+
+          <Button>
+            <EditIcon id="editBtn" color="action" onClick={this.startEdit} />
+          </Button>
+        </div>
       </>
     );
   }
