@@ -71,10 +71,8 @@ export default class DeviceNameDetail extends React.Component {
               name="deviceName"
               required
               defaultValue={this.deviceName}
-              label="Device Name"
               onChange={(event) => this.setName(event.target.value)}
             />
-            <Box padding={4} paddingLeft={1} paddingRight={1}>
               <IconButton
                 id="cancelEditBtn"
                 onClick={this.cancelEditing}
@@ -83,8 +81,7 @@ export default class DeviceNameDetail extends React.Component {
               >
                 <Cancel />
               </IconButton>
-            </Box>
-            <Box padding={4} paddingLeft={0}>
+
               <IconButton
                 id="confirmEditBtn"
                 type="submit"
@@ -94,7 +91,6 @@ export default class DeviceNameDetail extends React.Component {
               >
                 <Save />
               </IconButton>
-            </Box>
           </Box>
         </form>
       </>
