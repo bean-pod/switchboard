@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import StreamsTable from "./StreamsTable";
+import { getAllStreams } from "../api/SampleData";
 
 export default class StreamsTableWrapper extends React.Component {
   constructor(props) {
@@ -13,7 +14,12 @@ export default class StreamsTableWrapper extends React.Component {
   }
 
   componentDidMount() {
-    this.dataSource.getAllStreams(this.handleStreamsChange);
+    this.dataSource
+      .getAllStreams()
+      .then(this.handleStreamsChange)
+      .catch(() => {
+        this.handleStreamsChange(getAllStreams());
+      });
   }
 
   handleStreamsChange(streams) {

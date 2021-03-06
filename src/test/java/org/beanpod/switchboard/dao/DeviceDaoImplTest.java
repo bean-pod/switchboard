@@ -31,6 +31,7 @@ class DeviceDaoImplTest {
   @InjectMocks private DeviceDaoImpl deviceDaoImpl;
   @Mock private DeviceRepository deviceRepository;
   @Mock private DeviceMapper deviceMapper;
+  @Mock private DeviceDaoImpl deviceDaoImplMock;
 
   @BeforeEach
   void setupDecoderFixture() {
@@ -48,6 +49,10 @@ class DeviceDaoImplTest {
 
   @Test
   final void testSave() {
+    when(deviceMapper.toDeviceDto(any(DeviceEntity.class))).thenReturn(deviceDto);
+    when(deviceMapper.toDeviceEntity(any())).thenReturn(device);
+    when(deviceRepository.findDeviceBySerialNumber(DecoderFixture.SERIAL_NUMBER))
+        .thenReturn(java.util.Optional.of(device));
     when(deviceMapper.toDeviceDto(any(DeviceEntity.class))).thenReturn(deviceDto);
     when(deviceMapper.toDeviceEntity(any())).thenReturn(device);
     when(deviceRepository.save(device)).thenReturn(device);
