@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 import lombok.SneakyThrows;
 import org.beanpod.switchboard.dto.DecoderDto;
+import org.beanpod.switchboard.dto.InputChannelDto;
 import org.beanpod.switchboard.entity.DecoderEntity;
 import org.beanpod.switchboard.entity.InputChannelEntity;
 import org.openapitools.model.DecoderModel;
@@ -18,6 +19,8 @@ public class DecoderFixture {
   private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
   private static final Set<InputChannelEntity> setOfChannels =
       ChannelFixture.getInputChannelEntities();
+  private static final Set<InputChannelDto> setOfDtoChannels =
+      ChannelFixture.getInputChannelDtos();
 
   @SneakyThrows
   public static DecoderEntity getDecoderEntity1() {
@@ -56,7 +59,7 @@ public class DecoderFixture {
         .serialNumber(SERIAL_NUMBER)
         .lastCommunication(simpleDateFormat.parse("2020-10-31 05:05:05"))
         .device(DeviceFixture.getDeviceDto())
-        .input(null)
+        .input(setOfDtoChannels)
         .build();
   }
 

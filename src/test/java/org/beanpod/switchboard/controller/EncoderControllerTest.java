@@ -11,6 +11,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.text.ParseException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import org.beanpod.switchboard.dao.DeviceDaoImpl;
@@ -110,6 +111,16 @@ class EncoderControllerTest {
     when(encoderDao.save(encoderDTO)).thenReturn(encoderDTO);
     ResponseEntity response = encoderController.createEncoder(encoderDTO);
     assertEquals(200, response.getStatusCodeValue());
+  }
+
+  @Test
+  final void testCreateEncoderWithoutChannels() {
+    encoderDTO.setOutput(Collections.emptySet());
+    assertThrows(
+        ExceptionType.MissingChannelsException.class,
+        () -> {
+          encoderController.createEncoder(encoderDTO);
+        });
   }
 
   // When a device is unavailable in the DB
