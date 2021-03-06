@@ -10,13 +10,20 @@ import HeaderBar from "../HeaderBar";
 import DynamicBreadcrumb from "../DynamicBreadcrumb";
 
 Enzyme.configure({ adapter: new Adapter() });
-describe("<Title/> functional Component", () => {
+describe("<Page/> functional Component", () => {
   const dummyTitle = "testString";
   const dummyCrumb = [["bread", "crumb"]];
   const dummyChild = <div className="someDummyChild" />;
+  const mockAuthenticated = jest.fn();
+  const mockHandleLogout = jest.fn();
 
   const wrapper = Enzyme.shallow(
-    <Page title={dummyTitle} breadcrumbs={dummyCrumb}>
+    <Page
+      authenticated={mockAuthenticated}
+      handleLogout={mockHandleLogout}
+      title={dummyTitle}
+      breadcrumbs={dummyCrumb}
+    >
       {dummyChild}
     </Page>
   );

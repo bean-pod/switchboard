@@ -11,9 +11,18 @@ Enzyme.configure({ adapter: new Adapter() });
 
 describe("<LoginPage/> class component", () => {
   let wrapper;
+  const mockAuthenticated = jest.fn();
+  const mockHandleLogout = jest.fn();
+  const mockHandleLogin = jest.fn();
 
   beforeEach(() => {
-    wrapper = Enzyme.shallow(<LoginPage />);
+    wrapper = Enzyme.shallow(
+      <LoginPage
+        authenticated={mockAuthenticated}
+        handleLogout={mockHandleLogout}
+        handleLogin={mockHandleLogin}
+      />
+    );
   });
   it("Contains one <Page/> component with correct props", () => {
     const expectedTitle = "Login";

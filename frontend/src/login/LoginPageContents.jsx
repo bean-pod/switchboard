@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import LoginFailedDialog from "./LoginFailedDialog";
 import LoginConsole from "./LoginConsole";
@@ -55,3 +56,11 @@ export default class LoginPageContents extends React.Component {
     );
   }
 }
+
+LoginPageContents.propTypes = {
+  handleLogin: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+    go: PropTypes.func.isRequired
+  }).isRequired
+};

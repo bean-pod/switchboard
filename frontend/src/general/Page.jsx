@@ -21,6 +21,7 @@ export default function Page(props) {
 
 Page.propTypes = {
   authenticated: PropTypes.func.isRequired,
+  handleLogout: PropTypes.func.isRequired,
   breadcrumbs: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string))
     .isRequired,
   title: PropTypes.string.isRequired,
