@@ -1,12 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import ProtectedRoute from "./ProtectedRoute";
 import LoginPage from "../login/LoginPage";
 import HomePage from "../homepage/HomePage";
 import PathNotFoundPage from "../general/PathNotFoundPage";
 import UnprotectedRoute from "./UnprotectedRoute";
+import * as AuthenticationApi from "../api/AuthenticationApi";
 
 export default class AppRouter extends React.Component {
   constructor(props) {
@@ -14,49 +15,27 @@ export default class AppRouter extends React.Component {
   }
 
   render() {
-    const { handleLogin, handleLogout, authenticated, admin } = this.props;
+    const { isAuthenticated } = AuthenticationApi;
     return (
       <BrowserRouter>
         <Switch>
           <UnprotectedRoute
             path="/Login"
-            authenticated={authenticated}
-            render={() => (
-              <LoginPage
-                authenticated={authenticated}
-                handleLogin={handleLogin}
-              />
-            )}
+            isAuthenticated={isAuthenticated}
+            render={() => <LoginPage />}
           />
           <ProtectedRoute
             path="/Home"
-            authenticated={authenticated}
+            isAuthenticated={isAuthenticated}
             render={() => {
-              return (
-                <HomePage
-                  authenticated={authenticated}
-                  handleLogout={handleLogout}
-                  admin={admin}
-                />
-              );
+              return <HomePage />;
             }}
           />
           <Route path="/">
-            <PathNotFoundPage
-              authenticated={authenticated}
-              handleLogout={handleLogout}
-            />
-            ;
+            <PathNotFoundPage />;
           </Route>
         </Switch>
       </BrowserRouter>
     );
   }
 }
-
-AppRouter.propTypes = {
-  handleLogin: PropTypes.func.isRequired,
-  handleLogout: PropTypes.func.isRequired,
-  authenticated: PropTypes.func.isRequired,
-  admin: PropTypes.func.isRequired
-};
