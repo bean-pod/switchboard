@@ -15,13 +15,16 @@ export default function EditableName(props) {
           defaultValue={deviceName}
           onChange={(event) => setName(event.target.value)}
         />
-        <IconButton id="cancelEditBtn" onClick={cancelEditing}>
-          <Cancel />
-        </IconButton>
+        <div className="alignRightFloat">
 
-        <IconButton id="confirmEditBtn" type="submit" color="primary">
-          <Save />
-        </IconButton>
+          <IconButton id="cancelEditBtn" size="small" onClick={cancelEditing}>
+            <Cancel />
+          </IconButton>
+
+          <IconButton id="confirmEditBtn" type="submit" color="primary">
+            <Save />
+          </IconButton>
+        </div>
       </Box>
     </form>
   );
