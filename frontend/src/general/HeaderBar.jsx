@@ -2,6 +2,7 @@ import React from "react";
 import { AppBar, IconButton, makeStyles, Toolbar } from "@material-ui/core";
 import { AccountCircle, Home } from "@material-ui/icons/";
 import { NavLink } from "react-router-dom";
+import * as AuthenticationApi from "../api/AuthenticationApi";
 
 export default class HeaderBar extends React.Component {
   constructor(props) {
@@ -14,7 +15,7 @@ export default class HeaderBar extends React.Component {
   }
 
   render() {
-    const { isAuthenticated, handleLogout } = this.props;
+    const { isAuthenticated, handleLogout } = AuthenticationApi;
     return (
       <div className="headerBar">
         <AppBar position="static">
