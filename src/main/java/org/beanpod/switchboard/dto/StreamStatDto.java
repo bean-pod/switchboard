@@ -12,31 +12,31 @@ import lombok.NoArgsConstructor;
 @Builder
 public class StreamStatDto {
   @NotNull private long id;
-  private double time;
-  private double windowFlow;
+  private long time;
+  private long windowFlow;
 
-  private double congestion;
-  private double flight;
+  private long congestion;
+  private long flight;
 
-  private double rtt;
-  private double bandwidth;
-  private double maxBandwidth;
+  private long rtt;
+  private long bandwidth;
+  private long maxBandwidth;
 
-  private double sendPackets;
-  private double sendPacketsLost;
-  private double sendPacketsDropped;
-  private double sendPacketsRetransmitted;
-  private double sendBytes;
-  private double sendBytesDropped;
-  private double sendMbitRate;
+  private long sendPackets;
+  private long sendPacketsLost;
+  private long sendPacketsDropped;
+  private long sendPacketsRetransmitted;
+  private long sendBytes;
+  private long sendBytesDropped;
+  private long sendMbitRate;
 
-  private double recvPackets;
-  private double recvPacketsLost;
-  private double recvPacketsDropped;
-  private double recvPacketsRetransmitted;
-  private double recvPacketsBelated;
-  private double recvBytes;
-  private double recvBytesLost;
-  private double recvBytesDropped;
-  private double recvMbitRate;
+  private long recvPackets;
+  private long recvPacketsLost;
+  private long recvPacketsDropped;
+  private long recvPacketsRetransmitted;
+  private long recvPacketsBelated;
+  private long recvBytes;
+  private long recvBytesLost;
+  private long recvBytesDropped;
+  private long recvMbitRate;
 }

@@ -654,51 +654,71 @@ components:
       description: A stat that is related to a specific stream
       properties:
         id:
-          type: number
+          type: integer
+          format: int64
         time:
-          type: number
+          type: integer
+          format: int64
         windowFlow:
-          type: number
+          type: integer
+          format: int64
         congestion:
-          type: number
+          type: integer
+          format: int64
         flight:
-          type: number
+          type: integer
+          format: int64
         rtt:
           type: number
         bandwidth:
           type: number
         maxBandwidth:
-          type: number
+          type: integer
+          format: int64
         sendPackets:
-          type: number
+          type: integer
+          format: int64
         sendPacketsLost:
-          type: number
+          type: integer
+          format: int64
         sendPacketsDropped:
-          type: number
+          type: integer
+          format: int64
         sendPacketsRetransmitted:
-          type: number
+          type: integer
+          format: int64
         sendBytes:
-          type: number
+          type: integer
+          format: int64
         sendBytesDropped:
-          type: number
+          type: integer
+          format: int64
         sendMbitRate:
           type: number
         recvPackets:
-          type: number
+          type: integer
+          format: int64
         recvPacketsLost:
-          type: number
+          type: integer
+          format: int64
         recvPacketsDropped:
-          type: number
+          type: integer
+          format: int64
         recvPacketsRetransmitted:
-          type: number
+          type: integer
+          format: int64
         recvPacketsBelated:
-          type: number
+          type: integer
+          format: int64
         recvBytes:
-          type: number
+          type: integer
+          format: int64
         recvBytesLost:
-          type: number
+          type: integer
+          format: int64
         recvBytesDropped:
-          type: number
+          type: integer
+          format: int64
         recvMbitRate:
           type: number
 
