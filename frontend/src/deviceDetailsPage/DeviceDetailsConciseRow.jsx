@@ -6,7 +6,7 @@ import ChannelDetailsTable from "../devicelist/ChannelDetailsTable";
 import InputChannelInfo from "../model/InputChannelInfo";
 import OutputChannelInfo from "../model/OutputChannelInfo";
 import StatusIndicator from "../general/StatusIndicator";
-import DeviceNameDetail from "./DeviceNameDetail";
+import DeviceName from "./DeviceName";
 import DeviceInfo from "../model/DeviceInfo";
 
 export default class DeviceDetailsConciseRow extends React.Component {
@@ -47,7 +47,7 @@ export default class DeviceDetailsConciseRow extends React.Component {
         return <StatusIndicator status={value} />;
       case "name":
         return (
-          <DeviceNameDetail deviceName={value} deviceId={device.serialNumber} />
+          <DeviceName deviceName={value} deviceId={device.serialNumber} />
         );
       default:
         return value;

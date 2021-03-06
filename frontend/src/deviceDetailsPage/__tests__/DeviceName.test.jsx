@@ -9,7 +9,7 @@ import {
   jest,
   it
 } from "@jest/globals";
-import DeviceNameDetail from "../DeviceNameDetail";
+import DeviceName from "../DeviceName";
 import EditableName from "../EditableName";
 import StaticName from "../StaticName";
 import * as DeviceApi from "../../api/DeviceApi";
@@ -18,7 +18,7 @@ Enzyme.configure({ adapter: new Adapter() });
 jest.mock("../../api/DeviceApi");
 jest.spyOn(DeviceApi, "updateDeviceName");
 
-describe("<DeviceNameDetail/> component", () => {
+describe("<DeviceName/> component", () => {
   let wrapper;
   const mockDevice = {
     name: "Mock Device",
@@ -35,7 +35,7 @@ describe("<DeviceNameDetail/> component", () => {
 
   beforeEach(() => {
     wrapper = Enzyme.shallow(
-      <DeviceNameDetail deviceName={mockDevice.name} deviceId={mockDevice.id} />
+      <DeviceName deviceName={mockDevice.name} deviceId={mockDevice.id} />
     );
   });
 

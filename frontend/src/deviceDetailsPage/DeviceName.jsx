@@ -4,7 +4,7 @@ import * as DeviceApi from "../api/DeviceApi";
 import EditableName from "./EditableName";
 import StaticName from "./StaticName";
 
-export default class DeviceNameDetail extends React.Component {
+export default class DeviceName extends React.Component {
   constructor(props) {
     super(props);
     this.deviceName = props.deviceName;
@@ -70,7 +70,7 @@ export default class DeviceNameDetail extends React.Component {
   }
 }
 
-DeviceNameDetail.propTypes = {
+DeviceName.propTypes = {
   deviceName: PropTypes.string.isRequired,
   deviceId: PropTypes.string.isRequired
 };
