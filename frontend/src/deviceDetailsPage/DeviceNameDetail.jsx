@@ -1,8 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Box, IconButton, TextField } from "@material-ui/core";
-import EditIcon from "@material-ui/icons/Edit";
-import { Cancel, Save } from "@material-ui/icons";
 import * as DeviceApi from "../api/DeviceApi";
 import EditableName from "./EditableName";
 import StaticName from "./StaticName";
@@ -39,62 +36,17 @@ export default class DeviceNameDetail extends React.Component {
   confirmEditing(event) {
     // api call
     event.preventDefault();
-    const { name } = this.state;
-    DeviceApi.updateDeviceName(this.deviceId, name).then(() => {
-      // check response OK to update deviceName
-      this.deviceName = name;
-    });
-
+    const { name: newName } = this.state;
+    const oldName = this.deviceName;
+    this.deviceName = newName;
     this.setState({ editing: false });
+
+    DeviceApi.updateDeviceName(this.deviceId, newName).catch(() => {
+      // If update was unsuccessful, return to the old name
+      this.deviceName = oldName;
+      this.forceUpdate();
+    });
   }
-
-  // renderStaticName() {
-  //   const { name } = this.state;
-  //   return (
-  //     <>
-  //       {name}
-  //       <div className="alignRightFloat">
-  //         <IconButton id="editBtn" color="action" onClick={this.startEdit}>
-  //           <EditIcon />
-  //         </IconButton>
-  //       </div>
-  //     </>
-  //   );
-  // }
-
-  // renderEditName() {
-  //   return (
-  //     <>
-  //       <form className="deviceNameEditForm" onSubmit={this.confirmEditing}>
-  //         <Box className="flexContents">
-  //           <TextField
-  //             id="deviceName"
-  //             name="deviceName"
-  //             required
-  //             defaultValue={this.deviceName}
-  //             onChange={(event) => this.setName(event.target.value)}
-  //           />
-  //           <IconButton
-  //             id="cancelEditBtn"
-  //             onClick={this.cancelEditing}
-  //             disableElevation
-  //           >
-  //             <Cancel />
-  //           </IconButton>
-
-  //           <IconButton
-  //             id="confirmEditBtn"
-  //             type="submit"
-  //             color="primary"
-  //             disableElevation
-  //           >
-  //             <Save />
-  //           </IconButton>
-  //         </Box>
-  //       </form>
-  //     </>
-  //   );
-  // }
 
   render() {
     const { editing } = this.state;

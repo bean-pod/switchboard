@@ -9,7 +9,12 @@ export default function StaticName(props) {
     <>
       {deviceName}
       <div className="alignRightFloat">
-        <IconButton id="editBtn" size="small" color="action" onClick={startEditing}>
+        <IconButton
+          id="editBtn"
+          size="small"
+          color="action"
+          onClick={startEditing}
+        >
           <Edit />
         </IconButton>
       </div>

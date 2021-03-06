@@ -9,140 +9,138 @@ import {
   jest,
   it
 } from "@jest/globals";
-import axios from "axios";
-import { Box, Button, TextField } from "@material-ui/core";
-import EditIcon from "@material-ui/icons/Edit";
 import DeviceNameDetail from "../DeviceNameDetail";
+import EditableName from "../EditableName";
+import StaticName from "../StaticName";
+import * as DeviceApi from "../../api/DeviceApi";
 
 Enzyme.configure({ adapter: new Adapter() });
-jest.mock("axios");
+jest.mock("../../api/DeviceApi");
+jest.spyOn(DeviceApi, "updateDeviceName");
 
-const mockEvent = {
-  displayName: "New Name"
-};
-const mockPutDetails = {
-  serialNumber: "1:22:333:4444",
-  displayName: mockEvent.displayName
-};
-
-const flushPromises = () => new Promise(setImmediate);
-
-describe("DeviceNameDetail", () => {
+describe("<DeviceNameDetail/> component", () => {
   let wrapper;
+  const mockDevice = {
+    name: "Mock Device",
+    id: "Serial Number"
+  };
+  const defaultState = {
+    name: mockDevice.name,
+    editing: false
+  };
+  const editingState = {
+    name: mockDevice.name,
+    editing: true
+  };
 
   beforeEach(() => {
     wrapper = Enzyme.shallow(
-      <DeviceNameDetail
-        deviceName="Test Device"
-        deviceId={mockPutDetails.serialNumber}
-      />
+      <DeviceNameDetail deviceName={mockDevice.name} deviceId={mockDevice.id} />
     );
   });
+
   afterEach(() => {
     jest.clearAllMocks();
   });
 
-  describe("When not editing", () => {
-    it("Should render the correct number of child elements", () => {
-      expect(wrapper.find(Box)).toHaveLength(2);
-      expect(wrapper.find("div")).toHaveLength(2);
-      expect(wrapper.find(Button)).toHaveLength(1);
-      expect(wrapper.find(EditIcon)).toHaveLength(1);
+  describe("render", () => {
+    describe("When state.editing is false", () => {
+      it("Contains one <StaticName/> component with expected props", () => {
+        expect(wrapper.state()).toEqual(defaultState);
 
-      expect(wrapper.find("div.title")).toHaveLength(1);
-      expect(wrapper.find("div.title").text()).toBe("Test Device");
+        const staticName = wrapper.find(StaticName);
+        expect(staticName).toHaveLength(1);
+
+        const props = staticName.first().props();
+        expect(props.deviceName).toEqual(mockDevice.name);
+        expect(props.startEditing).toEqual(wrapper.instance().startEdit);
+      });
     });
 
-    describe("Edit button", () => {
-      it("Should set the state to editing when clicked", () => {
-        wrapper.find("#editBtn").simulate("click");
-        expect(wrapper.state("editing")).toBe(true);
+    describe("When state.editing is true", () => {
+      it("Contains one <EditableName/> component with expected props", () => {
+        wrapper.setState(editingState);
+
+        const editableName = wrapper.find(EditableName);
+        expect(editableName).toHaveLength(1);
+
+        const props = editableName.first().props();
+        expect(props.deviceName).toEqual(mockDevice.name);
+        expect(props.confirmEditing).toEqual(wrapper.instance().confirmEditing);
+        expect(props.setName).toEqual(wrapper.instance().setName);
+        expect(props.cancelEditing).toEqual(wrapper.instance().cancelEditing);
       });
     });
   });
 
-  describe("When editing", () => {
+  describe("startEdit function", () => {
+    it("Enters the editing state", () => {
+      wrapper.instance().startEdit();
+      expect(wrapper.state()).toEqual(editingState);
+    });
+  });
+
+  describe("cancelEditing function", () => {
     beforeEach(() => {
-      // simulate click to put us in editing mode
-      wrapper.find("#editBtn").simulate("click");
+      wrapper.setState(editingState);
     });
 
-    it("Should render the correct number of child elements", () => {
-      expect(wrapper.state("editing")).toBe(true);
-      expect(wrapper.find("form")).toHaveLength(1);
-      expect(wrapper.find(Box)).toHaveLength(3);
-      expect(wrapper.find(Button)).toHaveLength(2);
-      expect(wrapper.find(TextField)).toHaveLength(1);
+    it("Returns to non-editing state", () => {
+      wrapper.instance().cancelEditing();
+      expect(wrapper.state()).toEqual(defaultState);
     });
+  });
 
-    describe("Textfield", () => {
-      it("Should show the current device name as default text", () => {
-        expect(wrapper.state("name")).toBe("Test Device");
-      });
-      it("Should update the name state on change", () => {
-        const nameInput = wrapper.find("#deviceName");
-        nameInput.simulate("focus");
-        nameInput.simulate("change", {
-          target: { value: mockPutDetails.displayName }
-        });
-
-        expect(wrapper.state("name")).toBe(mockPutDetails.displayName);
+  describe("setName function", () => {
+    it("Changes the name in the state", () => {
+      const newName = "New Name";
+      wrapper.instance().setName(newName);
+      expect(wrapper.state()).toEqual({
+        name: newName,
+        editing: false
       });
     });
+  });
 
-    describe("Cancel Button", () => {
-      it("Should set the state to not editing and keep same device name when clicked", () => {
-        wrapper.find("#cancelEditBtn").simulate("click");
-        expect(wrapper.state("editing")).toBe(false);
-        expect(wrapper.find("div.title").text()).toBe("Test Device");
-      });
+  describe("confirmEditing function", () => {
+    beforeEach(() => {
+      wrapper.setState(editingState);
     });
 
-    describe("Confirm Button", () => {
-      // mock window location for refresh tests
-      const { location } = window;
-      const event = {
+    it("On success, changes the device name and contains StaticName with new name", () => {
+      const newName = "New Name";
+      wrapper.instance().setName(newName);
+
+      DeviceApi.updateDeviceName.mockResolvedValue();
+
+      const editEvent = {
         preventDefault: jest.fn()
       };
-      beforeEach(() => {
-        delete window.location;
-        window.location = { reload: jest.fn() };
-      });
-      afterEach(() => {
-        window.location = location;
-      });
+      wrapper.instance().confirmEditing(editEvent);
 
-      it("Should call the device API, set state to not editing when clicked, and show new name in title area", async () => {
-        // mock axios before clicking confirm
-        const axiosPromise = Promise.resolve();
-        axios.put.mockImplementationOnce(() => axiosPromise);
+      const staticName = wrapper.find(StaticName);
+      expect(staticName).toHaveLength(1);
+      const props = staticName.first().props();
+      expect(props.deviceName).toEqual(newName);
+    });
 
-        // simulate  changing the name
-        const nameInput = wrapper.find("#deviceName");
-        nameInput.simulate("focus");
-        nameInput.simulate("change", {
-          target: { value: mockPutDetails.displayName }
-        });
+    it("On failure, returns to the old name and contains <StaticName/>", async () => {
+      const newName = "New Name";
+      wrapper.instance().setName(newName);
 
-        // click confirm
-        wrapper.find(".deviceNameEditForm").simulate("submit", event);
+      DeviceApi.updateDeviceName.mockRejectedValue();
 
-        // check call is correct
-        expect(axios.put).toHaveBeenCalledWith(process.env.REACT_APP_DEVICE, {
-          serialNumber: mockPutDetails.serialNumber,
-          displayName: mockPutDetails.displayName
-        });
+      const editEvent = {
+        preventDefault: jest.fn()
+      };
+      wrapper.instance().confirmEditing(editEvent);
+      const flushPromises = () => new Promise(setImmediate);
+      await flushPromises();
 
-        // wait for flush
-        await flushPromises();
-
-        // finally, check state
-        expect(wrapper.state("editing")).toBe(false);
-
-        // check that new name is there
-        const title = wrapper.find("div.title").first();
-        expect(title.text()).toBe("New Name");
-      });
+      const staticName = wrapper.find(StaticName);
+      expect(staticName).toHaveLength(1);
+      const props = staticName.first().props();
+      expect(props.deviceName).toEqual(mockDevice.name);
     });
   });
 });

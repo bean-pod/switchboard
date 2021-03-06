@@ -16,7 +16,6 @@ export default function EditableName(props) {
           onChange={(event) => setName(event.target.value)}
         />
         <div className="alignRightFloat">
-
           <IconButton id="cancelEditBtn" size="small" onClick={cancelEditing}>
             <Cancel />
           </IconButton>
