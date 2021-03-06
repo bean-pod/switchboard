@@ -18,7 +18,7 @@ describe("<LoginPage/> class component", () => {
   beforeEach(() => {
     wrapper = Enzyme.shallow(
       <LoginPage
-        authenticated={mockAuthenticated}
+        isAuthenticated={mockAuthenticated}
         handleLogout={mockHandleLogout}
         handleLogin={mockHandleLogin}
       />

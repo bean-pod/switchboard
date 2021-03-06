@@ -48,11 +48,11 @@ export function handleLogout() {
   Cookies.remove("refresh_token");
 }
 
-export function handleLogin(){
+export function handleLogin() {
   authenticate();
 }
 
-export async function  authenticate() {
+export async function authenticate() {
   //   if (getRefreshToken()) {
   try {
     // const tokens = await refreshTokens() // call an API, returns tokens

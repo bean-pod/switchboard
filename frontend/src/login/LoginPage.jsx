@@ -7,11 +7,11 @@ import LoginPageContents from "./LoginPageContents";
 
 export default function LoginPage(props) {
   const history = useHistory();
-  const { authenticated, handleLogout, handleLogin } = props;
+  const { isAuthenticated, handleLogout, handleLogin } = props;
 
   return (
     <Page
-      authenticated={authenticated}
+      isAuthenticated={isAuthenticated}
       handleLogout={handleLogout}
       title="Login"
       breadcrumbs={[]}
@@ -22,7 +22,7 @@ export default function LoginPage(props) {
 }
 
 LoginPage.propTypes = {
-  authenticated: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.func.isRequired,
   handleLogout: PropTypes.func.isRequired,
   handleLogin: PropTypes.func.isRequired
 };

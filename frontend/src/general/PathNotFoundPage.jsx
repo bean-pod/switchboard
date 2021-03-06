@@ -3,12 +3,13 @@ import React from "react";
 import DashboardButton from "./dashboard/DashboardButton";
 import DashboardCard from "./dashboard/DashboardCard";
 import Page from "./Page";
+import * as AuthenticationApi from "../api/AuthenticationApi";
 
 export default function PathNotFoundPage(props) {
-  const { authenticated, handleLogout } = props;
+  const { isAuthenticated, handleLogout } = AuthenticationApi;
   return (
     <Page
-      authenticated={authenticated}
+      isAuthenticated={isAuthenticated}
       handleLogout={handleLogout}
       title="Error 404: Path not found"
       breadcrumbs={[]}

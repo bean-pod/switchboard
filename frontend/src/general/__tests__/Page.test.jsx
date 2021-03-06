@@ -19,7 +19,7 @@ describe("<Page/> functional Component", () => {
 
   const wrapper = Enzyme.shallow(
     <Page
-      authenticated={mockAuthenticated}
+      isAuthenticated={mockAuthenticated}
       handleLogout={mockHandleLogout}
       title={dummyTitle}
       breadcrumbs={dummyCrumb}

@@ -9,8 +9,8 @@ export default class UnprotectedRoute extends React.Component {
   }
 
   component() {
-    const { authenticated, render } = this.props;
-    if (authenticated()) {
+    const { isAuthenticated, render } = this.props;
+    if (isAuthenticated()) {
       return <Redirect to={{ pathname: "/Home" }} />;
     }
     return render();
@@ -23,7 +23,7 @@ export default class UnprotectedRoute extends React.Component {
 }
 
 UnprotectedRoute.propTypes = {
-  authenticated: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.func.isRequired,
   path: PropTypes.string.isRequired,
   render: PropTypes.func.isRequired
 };

@@ -10,12 +10,12 @@ export default class AdminProtectedRoute extends React.Component {
   }
 
   component() {
-    const { admin, authenticated, render, path } = this.props;
+    const { admin, isAuthenticated, render, path } = this.props;
     if (admin) {
       return (
         <ProtectedRoute
           path={path}
-          authenticated={authenticated}
+          isAuthenticated={isAuthenticated}
           render={render}
         />
       );
@@ -31,7 +31,7 @@ export default class AdminProtectedRoute extends React.Component {
 
 AdminProtectedRoute.propTypes = {
   admin: PropTypes.bool.isRequired,
-  authenticated: PropTypes.bool.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
   path: PropTypes.string.isRequired,
   render: PropTypes.func.isRequired
 };

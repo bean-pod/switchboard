@@ -9,8 +9,8 @@ export default class ProtectedRoute extends React.Component {
   }
 
   component() {
-    const { authenticated, render } = this.props;
-    if (authenticated()) {
+    const { isAuthenticated, render } = this.props;
+    if (isAuthenticated()) {
       return render();
     }
     return <Redirect to={{ pathname: "/login" }} />;
@@ -23,7 +23,7 @@ export default class ProtectedRoute extends React.Component {
 }
 
 ProtectedRoute.propTypes = {
-  authenticated: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.func.isRequired,
   path: PropTypes.string.isRequired,
   render: PropTypes.func.isRequired
 };
