@@ -43,7 +43,7 @@ describe("<DeviceName/> component", () => {
     jest.clearAllMocks();
   });
 
-  describe("render", () => {
+  describe("render() function returns a component that ", () => {
     describe("When state.editing is false", () => {
       it("Contains one <StaticName/> component with expected props", () => {
         expect(wrapper.state()).toEqual(defaultState);
@@ -73,26 +73,23 @@ describe("<DeviceName/> component", () => {
     });
   });
 
-  describe("startEdit function", () => {
-    it("Enters the editing state", () => {
+  it("startEdit() function sets the state to editing: true", () => {
       wrapper.instance().startEdit();
       expect(wrapper.state()).toEqual(editingState);
-    });
   });
 
-  describe("cancelEditing function", () => {
+  describe("cancelEditing() function", () => {
     beforeEach(() => {
       wrapper.setState(editingState);
     });
 
-    it("Returns to non-editing state", () => {
+    it("sets the state to editing: false", () => {
       wrapper.instance().cancelEditing();
       expect(wrapper.state()).toEqual(defaultState);
     });
   });
 
-  describe("setName function", () => {
-    it("Changes the name in the state", () => {
+  it("setName() function sets the state.name to passed value", () => {
       const newName = "New Name";
       wrapper.instance().setName(newName);
       expect(wrapper.state()).toEqual({
@@ -100,12 +97,15 @@ describe("<DeviceName/> component", () => {
         editing: false
       });
     });
-  });
 
-  describe("confirmEditing function", () => {
+  describe("confirmEditing() function", () => {
     beforeEach(() => {
       wrapper.setState(editingState);
     });
+
+    it("call the DeviceApi.updateDeviceName function", ()=>{
+      //expect(DeviceApi.updateDeviceName).toBeCalledTimes(1);
+    })
 
     it("On success, changes the device name and contains StaticName with new name", () => {
       const newName = "New Name";
