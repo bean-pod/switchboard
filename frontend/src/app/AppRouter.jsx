@@ -21,10 +21,15 @@ export default class AppRouter extends React.Component {
     return (
       <BrowserRouter>
         <Switch>
-          <Route
-            exact
+          <UnprotectedRoute
             path="/Login"
-            render={() => <LoginPage handleLogin={handleLogin} />}
+            authenticated={authenticated}
+            render={() => (
+              <LoginPage
+                authenticated={authenticated}
+                handleLogin={handleLogin}
+              />
+            )}
           />
           <ProtectedRoute
             path="/Home"
