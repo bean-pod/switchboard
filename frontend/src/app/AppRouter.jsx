@@ -5,6 +5,8 @@ import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
 import LoginPage from "../login/LoginPage";
 import HomePage from "../homepage/HomePage";
+import PathNotFoundPage from "../general/PathNotFoundPage";
+import UnprotectedRoute from "./UnprotectedRoute";
 
 export default class AppRouter extends React.Component {
   constructor(props) {
@@ -49,6 +51,6 @@ export default class AppRouter extends React.Component {
 AppRouter.propTypes = {
   handleLogin: PropTypes.func.isRequired,
   handleLogout: PropTypes.func.isRequired,
-  // authenticated: PropTypes.bool.isRequired,
-  admin: PropTypes.bool.isRequired
+  authenticated: PropTypes.func.isRequired,
+  admin: PropTypes.func.isRequired
 };
