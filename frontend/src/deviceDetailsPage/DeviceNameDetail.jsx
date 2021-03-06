@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Box, Button, IconButton, TextField } from "@material-ui/core";
+import { Box, IconButton, TextField } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import { Cancel, Save } from "@material-ui/icons";
 import * as DeviceApi from "../api/DeviceApi";
@@ -52,10 +52,9 @@ export default class DeviceNameDetail extends React.Component {
       <>
         {name}
         <div className="alignRightFloat">
-
-          <Button>
-            <EditIcon id="editBtn" color="action" onClick={this.startEdit} />
-          </Button>
+          <IconButton id="editBtn" color="action" onClick={this.startEdit}>
+            <EditIcon />
+          </IconButton>
         </div>
       </>
     );
@@ -73,24 +72,22 @@ export default class DeviceNameDetail extends React.Component {
               defaultValue={this.deviceName}
               onChange={(event) => this.setName(event.target.value)}
             />
-              <IconButton
-                id="cancelEditBtn"
-                onClick={this.cancelEditing}
-                variant="contained"
-                disableElevation
-              >
-                <Cancel />
-              </IconButton>
+            <IconButton
+              id="cancelEditBtn"
+              onClick={this.cancelEditing}
+              disableElevation
+            >
+              <Cancel />
+            </IconButton>
 
-              <IconButton
-                id="confirmEditBtn"
-                type="submit"
-                color="primary"
-                variant="contained"
-                disableElevation
-              >
-                <Save />
-              </IconButton>
+            <IconButton
+              id="confirmEditBtn"
+              type="submit"
+              color="primary"
+              disableElevation
+            >
+              <Save />
+            </IconButton>
           </Box>
         </form>
       </>

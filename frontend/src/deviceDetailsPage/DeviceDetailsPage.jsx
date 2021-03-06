@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import Page from "../general/Page";
-import DeviceDetailsPageContents from "./DeviceDetailsPageContents"
+import DeviceDetailsPageContents from "./DeviceDetailsPageContents";
 import DeviceInfo from "../model/DeviceInfo";
 import { getSampleSender } from "../api/SampleData";
 
