@@ -34,7 +34,11 @@ export default class AppRouter extends React.Component {
             }}
           />
           <Route path="/">
-            <Redirect to={{ pathname: "/login" }} />
+            <PathNotFoundPage
+              authenticated={authenticated}
+              handleLogout={handleLogout}
+            />
+            ;
           </Route>
         </Switch>
       </BrowserRouter>
