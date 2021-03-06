@@ -1,20 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import HeaderBar from "./general/HeaderBar";
-import HomePage from "./homepage/HomePage";
-import DeviceListPage from "./devicelist/DeviceListPage";
-import StreamingTablePage from "./createStream/StreamingPage";
-import DeviceDetailsPage from "./deviceDetailsPage/DeviceDetailsPage";
-import LogListPage from "./loglist/LogListPage";
-import LoginPage from "./login/LoginPage";
-import AppAuthenticator from "./app/AppAuthenticator";
 import AppRouter from "./app/AppRouter";
-
-import * as DeviceApi from "./api/DeviceApi";
-import * as StreamApi from "./api/StreamApi";
-import * as LogApi from "./api/LogApi";
 
 ReactDOM.render(<AppRouter />, document.getElementById("root"));
 // ReactDOM.render(
