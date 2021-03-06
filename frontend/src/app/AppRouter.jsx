@@ -32,7 +32,13 @@ export default class AppRouter extends React.Component {
             path="/Home"
             authenticated={authenticated}
             render={() => {
-              return <HomePage authenticated={authenticated} />;
+              return (
+                <HomePage
+                  authenticated={authenticated}
+                  handleLogout={handleLogout}
+                  admin={admin}
+                />
+              );
             }}
           />
           <Route path="/">
