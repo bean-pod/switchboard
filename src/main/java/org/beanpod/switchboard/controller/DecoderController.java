@@ -72,6 +72,9 @@ public class DecoderController {
 
   @PostMapping
   public ResponseEntity<DecoderDto> createDecoder(@RequestBody @Valid DecoderDto decoderDto) {
+    if(decoderDto.getInput().isEmpty()){
+      throw new ExceptionType.MissingChannelsException(decoderDto.getSerialNumber());
+    }
     Optional<DeviceDto> deviceOptional = deviceService.findDevice(decoderDto.getSerialNumber());
     if (deviceOptional.isEmpty()) {
       throw new ExceptionType.DeviceNotFoundException(decoderDto.getSerialNumber());

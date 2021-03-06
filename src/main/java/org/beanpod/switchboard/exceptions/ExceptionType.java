@@ -9,6 +9,12 @@ public class ExceptionType {
     throw new IllegalStateException("Utility class");
   }
 
+  public static class MissingChannelsException extends RuntimeException {
+    public MissingChannelsException(String s) {
+      super(SERIAL_NUMBER + s);
+    }
+  }
+
   public static class DeviceAlreadyExistsException extends RuntimeException {
 
     public DeviceAlreadyExistsException(String s) {

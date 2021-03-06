@@ -75,6 +75,9 @@ public class EncoderController {
 
   @PostMapping
   public ResponseEntity<EncoderDto> createEncoder(@RequestBody @Valid EncoderDto encoderDto) {
+    if(encoderDto.getOutput().isEmpty()){
+      throw new ExceptionType.MissingChannelsException(encoderDto.getSerialNumber());
+    }
     Optional<DeviceDto> deviceOptional = deviceService.findDevice(encoderDto.getSerialNumber());
     if (deviceOptional.isEmpty()) {
       throw new ExceptionType.DeviceNotFoundException(encoderDto.getSerialNumber());

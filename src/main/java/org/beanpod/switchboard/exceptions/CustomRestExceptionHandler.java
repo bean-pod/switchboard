@@ -1,5 +1,6 @@
 package org.beanpod.switchboard.exceptions;
 
+import org.beanpod.switchboard.exceptions.ExceptionType.MissingChannelsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -17,6 +18,13 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
     ExceptionResponse exceptionResponse =
         new ExceptionResponse(
             HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), "An unknown error occured");
+    return new ResponseEntity<>(exceptionResponse, exceptionResponse.getStatus());
+  }
+
+  @ExceptionHandler(MissingChannelsException.class)
+  public final ResponseEntity<Object> handleMissingChannelException(Exception ex){
+    ExceptionResponse exceptionResponse =
+        new ExceptionResponse(HttpStatus.NOT_FOUND, ex.getMessage(), "Add at least one channel to the device");
     return new ResponseEntity<>(exceptionResponse, exceptionResponse.getStatus());
   }
 
