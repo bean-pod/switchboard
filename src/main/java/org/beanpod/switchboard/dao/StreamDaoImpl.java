@@ -35,11 +35,6 @@ public class StreamDaoImpl {
     return mapper.toDto(streamEntity);
   }
 
-  public StreamStatDto getStreamStatById(Long id){
-    StreamStatEntity streamStatEntity = streamStatRepository.getOne(id);
-    return statMapper.toDto(streamStatEntity);
-  }
-
   public StreamDto saveStream(StreamDto streamDto) {
     long inputChannelId = streamDto.getInputChannel().getId();
     long outputChannelId = streamDto.getOutputChannel().getId();

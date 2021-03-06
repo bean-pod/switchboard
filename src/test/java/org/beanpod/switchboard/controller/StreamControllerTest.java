@@ -7,6 +7,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
+import java.util.Optional;
 import org.beanpod.switchboard.dao.StreamDaoImpl;
 import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.dto.StreamStatDto;
@@ -100,6 +101,19 @@ class StreamControllerTest {
     assertEquals(StreamFixture.ID, responseBody.getId());
     assertEquals(responseBody.getInputChannel(), ChannelFixture.getInputChannelModel());
     assertEquals(responseBody.getOutputChannel(), ChannelFixture.getOutputChannelModel());
+  }
+
+  @Test
+  void testGetStreamStatById() {
+    StreamStatDto streamStatDto = StreamStatFixture.getStreamStatDto();
+    when(streamDao.getStreamStat(StreamStatFixture.ID)).thenReturn(Optional.of(streamStatDto));
+    when(streamStatMapper.toModel(streamStatDto))
+        .thenReturn(StreamStatFixture.getStreamStatModel());
+
+    ResponseEntity<StreamStatModel> result =
+        streamController.getStreamStatById(StreamStatFixture.ID);
+
+    assertEquals(result.getBody(), StreamStatFixture.getStreamStatModel());
   }
 
   @Test

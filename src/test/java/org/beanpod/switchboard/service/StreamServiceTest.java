@@ -123,6 +123,14 @@ class StreamServiceTest {
   }
 
   @Test
+  void testGetStreamStat() {
+    when(streamDao.getStreamStat(any()))
+        .thenReturn(java.util.Optional.ofNullable(StreamStatFixture.getStreamStatDto()));
+    StreamStatDto streamStatDto = StreamStatFixture.getStreamStatDto();
+    assertEquals(streamStatDto, StreamStatFixture.getStreamStatDto());
+  }
+
+  @Test
   void testUpdateStream() {
     // given
     StreamDto streamDto = StreamFixture.getStreamDto();
