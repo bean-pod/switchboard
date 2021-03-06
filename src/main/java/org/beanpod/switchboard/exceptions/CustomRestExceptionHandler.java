@@ -22,9 +22,10 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
   }
 
   @ExceptionHandler(MissingChannelsException.class)
-  public final ResponseEntity<Object> handleMissingChannelException(Exception ex){
+  public final ResponseEntity<Object> handleMissingChannelException(Exception ex) {
     ExceptionResponse exceptionResponse =
-        new ExceptionResponse(HttpStatus.NOT_FOUND, ex.getMessage(), "Add at least one channel to the device");
+        new ExceptionResponse(
+            HttpStatus.NOT_FOUND, ex.getMessage(), "Add at least one channel to the device");
     return new ResponseEntity<>(exceptionResponse, exceptionResponse.getStatus());
   }
 

@@ -19,8 +19,7 @@ public class DecoderFixture {
   private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
   private static final Set<InputChannelEntity> setOfChannels =
       ChannelFixture.getInputChannelEntities();
-  private static final Set<InputChannelDto> setOfDtoChannels =
-      ChannelFixture.getInputChannelDtos();
+  private static final Set<InputChannelDto> setOfDtoChannels = ChannelFixture.getInputChannelDtos();
 
   @SneakyThrows
   public static DecoderEntity getDecoderEntity1() {
