@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Box, Button, TextField } from "@material-ui/core";
+import { Box, Button, IconButton, TextField } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
+import { Cancel, Save } from "@material-ui/icons";
 import * as DeviceApi from "../api/DeviceApi";
 
 export default class DeviceNameDetail extends React.Component {
@@ -74,25 +75,25 @@ export default class DeviceNameDetail extends React.Component {
               onChange={(event) => this.setName(event.target.value)}
             />
             <Box padding={4} paddingLeft={1} paddingRight={1}>
-              <Button
+              <IconButton
                 id="cancelEditBtn"
                 onClick={this.cancelEditing}
                 variant="contained"
                 disableElevation
               >
-                Cancel
-              </Button>
+                <Cancel />
+              </IconButton>
             </Box>
             <Box padding={4} paddingLeft={0}>
-              <Button
+              <IconButton
                 id="confirmEditBtn"
                 type="submit"
                 color="primary"
                 variant="contained"
                 disableElevation
               >
-                Save
-              </Button>
+                <Save />
+              </IconButton>
             </Box>
           </Box>
         </form>
