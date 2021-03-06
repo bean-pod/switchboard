@@ -654,77 +654,53 @@ components:
       description: A stat that is related to a specific stream
       properties:
         id:
-          type: integer
-          format: int64
+          type: number
         time:
-          type: integer
-          format: int64
+          type: number
         windowFlow:
-          type: integer
-          format: int64
+          type: number
         congestion:
-          type: integer
-          format: int64
+          type: number
         flight:
-          type: integer
-          format: int64
+          type: number
         rtt:
-          type: integer
-          format: int64
+          type: number
         bandwidth:
-          type: integer
-          format: int64
+          type: number
         maxBandwidth:
-          type: integer
-          format: int64
+          type: number
         sendPackets:
-          type: integer
-          format: int64
+          type: number
         sendPacketsLost:
-          type: integer
-          format: int64
+          type: number
         sendPacketsDropped:
-          type: integer
-          format: int64
+          type: number
         sendPacketsRetransmitted:
-          type: integer
-          format: int64
+          type: number
         sendBytes:
-          type: integer
-          format: int64
+          type: number
         sendBytesDropped:
-          type: integer
-          format: int64
+          type: number
         sendMbitRate:
-          type: integer
-          format: int64
+          type: number
         recvPackets:
-          type: integer
-          format: int64
+          type: number
         recvPacketsLost:
-          type: integer
-          format: int64
+          type: number
         recvPacketsDropped:
-          type: integer
-          format: int64
+          type: number
         recvPacketsRetransmitted:
-          type: integer
-          format: int64
+          type: number
         recvPacketsBelated:
-          type: integer
-          format: int64
+          type: number
         recvBytes:
-          type: integer
-          format: int64
+          type: number
         recvBytesLost:
-          type: integer
-          format: int64
+          type: number
         recvBytesDropped:
-          type: integer
-          format: int64
+          type: number
         recvMbitRate:
-          type: integer
-          format: int64
+          type: number
 
   parameters:
     DeviceSerialNumber:
