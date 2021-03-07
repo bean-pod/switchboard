@@ -20,7 +20,7 @@ describe("<StreamListPage/> Component", () => {
       const expectedTitle = "Active Streams";
       const expectedBreadcrumb = [
         ["Home", "/Home"],
-        ["Active Streams", "/Streaming"]
+        ["Active Streams", "/Streams"]
       ];
 
       const page = wrapper.find(Page).first();

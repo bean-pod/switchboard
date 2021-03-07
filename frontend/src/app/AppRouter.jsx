@@ -6,6 +6,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import LoginPage from "../login/LoginPage";
 import HomePage from "../homepage/HomePage";
 import DeviceListPage from "../devicelist/DeviceListPage";
+import StreamListPage from "../streamlist/StreamListPage";
 import LogListPage from "../loglist/LogListPage";
 import PathNotFoundPage from "../general/PathNotFoundPage";
 
@@ -29,7 +30,7 @@ export default function AppRouter() {
           }}
         />
         <ProtectedRoute
-          path="/Streaming"
+          path="/Streams"
           isUserPage
           render={() => {
             return <StreamListPage />;

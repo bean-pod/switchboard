@@ -61,7 +61,7 @@ describe("<DeleteStreamDialog/> class", () => {
   });
   describe("afterDelete() function", () => {
     it("closes the dialog and redirects to the Streaming page", () => {
-      const expectedPushArg = "/Streaming";
+      const expectedPushArg = "/Streams";
       const expectedGoArg = 0;
 
       wrapper.instance().afterDelete();
