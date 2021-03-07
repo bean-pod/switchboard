@@ -11,8 +11,7 @@ export default function StreamDetailsPage(props) {
   const breadcrumbs = [
     ["Home", "/"],
     ["Streaming", "/Streaming"],
-    ["Details", "/Details"],
-    [streamDetails.id, streamDetails.id]
+    [`Stream ${streamDetails.id}`, streamDetails.id]
   ];
 
   return (
