@@ -35,9 +35,14 @@ export default class HeaderBar extends React.Component {
               </NavLink>
               Switchboard
             </div>
-              <IconButton id="acctBtn" color="inherit" disabled={!isAuthenticated()} onClick={handleLogout}>
-                <AccountCircle />
-              </IconButton>
+            <IconButton
+              id="acctBtn"
+              color="inherit"
+              disabled={!isAuthenticated()}
+              onClick={handleLogout}
+            >
+              <AccountCircle />
+            </IconButton>
           </Toolbar>
         </AppBar>
       </div>
