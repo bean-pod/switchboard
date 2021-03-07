@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import Page from "../general/Page";
 import StreamingTable from "./StreamingTable";
 
@@ -16,7 +15,3 @@ export default function CreateStreamPage(props) {
     </Page>
   );
 }
-
-CreateStreamPage.propTypes = {
-  dataSource: PropTypes.objectOf(PropTypes.func).isRequired
-};

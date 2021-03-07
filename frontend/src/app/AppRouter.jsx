@@ -37,6 +37,13 @@ export default function AppRouter() {
           }}
         />
         <ProtectedRoute
+          path="/Streams/New"
+          isUserPage
+          render={() => {
+            return <CreateStreamPage />;
+          }}
+        />
+        <ProtectedRoute
           path="/Logs"
           isUserPage
           render={() => {
