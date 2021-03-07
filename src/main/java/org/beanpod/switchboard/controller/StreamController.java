@@ -55,7 +55,7 @@ public class StreamController implements StreamApi {
 
   @Override
   public ResponseEntity<StreamStatModel> getStreamStatById(Long id) {
-    Optional<StreamStatDto> streamStatDto = Optional.of(id).map(streamDao::getStreamStat).get();
+    Optional<StreamStatDto> streamStatDto = streamDao.getStreamStat(id);
 
     return streamStatDto
         .map(statMapper::toModel)
