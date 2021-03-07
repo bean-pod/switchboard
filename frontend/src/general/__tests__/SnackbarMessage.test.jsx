@@ -67,7 +67,7 @@ describe("<Snackbar /> Class Component", () => {
   /* describe("openSnackbar()", () => {
     wrapper = Enzyme.shallow(<SnackbarMessage />);
     it("if success, should set the states open and isSuccess to true - and status, message, and pathname to the passed values", () => {
-      wrapper.instance().openSnackbar("success", "test", "test");
+      wrapper.instance().openSnackbar("success", "test", "test"); // doesn't work because can't use instance() with functional components
       expect(setOpen).toBeTruthy();
       expect(setIsSuccess).toBeTruthy();
       expect(setStatus).toBeTruthy();
@@ -75,7 +75,7 @@ describe("<Snackbar /> Class Component", () => {
       expect(setPathname).toBeTruthy();
     });
     it("else, should set the states open and isSuccess to false - and status, message, and pathname to the passed values", () => {
-      wrapper.instance().openSnackbar("error", "test", "test");
+      wrapper.instance().openSnackbar("error", "test", "test"); // doesn't work because can't use instance() with functional components
       expect(setOpen).toBeTruthy();
       expect(setIsSuccess).toBeFalsy();
       expect(setStatus).toBeTruthy();
@@ -89,13 +89,13 @@ describe("<Snackbar /> Class Component", () => {
     it("if pathname is current page, then history.go(0)", () => {
       const pathname = "test";
       expect(wrapper.state().pathname).toStrictEqual(pathname);
-      wrapper.instance().refresh();
+      wrapper.instance().refresh(); // doesn't work because can't use instance() with functional components
       expect(useHistory.go).toHaveBeenCalledTimes(1);
     });
     it("if pathname is another page, then history.push(/pathname)", () => {
       const pathname = "null";
       expect(wrapper.state().pathname).toStrictEqual(pathname);
-      wrapper.instance().refresh();
+      wrapper.instance().refresh(); // doesn't work because can't use instance() with functional components
       expect(useHistory.push).toHaveBeenCalledTimes(1);
     });
   });
@@ -103,7 +103,7 @@ describe("<Snackbar /> Class Component", () => {
   describe("handleClose()", () => {
     wrapper = Enzyme.shallow(<SnackbarMessage />);
     it("should set open and isSuccess to false and status, message and pathname to empty strings", () => {
-      wrapper.instance().handleClose(null, null);
+      wrapper.instance().handleClose(null, null); // doesn't work because can't use instance() with functional components
       expect(wrapper.instance().refresh).toHaveBeenCalledTimes(1);
       expect(setOpen).toBeTruthy();
       expect(setIsSuccess).toBeTruthy();
