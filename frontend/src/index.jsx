@@ -9,6 +9,7 @@ import StreamListPage from "./streamlist/StreamListPage";
 import DeviceDetailsPage from "./deviceDetailsPage/DeviceDetailsPage";
 import LogListPage from "./loglist/LogListPage";
 import LoginPage from "./login/LoginPage";
+import CreateStreamPage from "./createStream/CreateStreamPage";
 
 import * as DeviceApi from "./api/DeviceApi";
 import * as StreamApi from "./api/StreamApi";
@@ -29,6 +30,8 @@ ReactDOM.render(
           exact
           path="/Streaming"
           render={() => <StreamListPage streamDataSource={StreamApi} />}
+          path="/Streaming/New"
+          render={() => <CreateStreamPage dataSource={DeviceApi} />}
         />
         <Route
           exact
