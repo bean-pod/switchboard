@@ -15,12 +15,6 @@ import StreamingTable from "../StreamingTable";
 Enzyme.configure({ adapter: new Adapter() });
 
 jest.mock("axios");
-jest.spyOn(global.console, "log");
-
-const DummyData = {
-  getSenders() {
-    return ["A", "B", "C"];
-  },
 
   getReceivers() {
     return ["X", "Y", "Z"];
@@ -33,7 +27,7 @@ describe("<StreamingTable/>", () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = Enzyme.shallow(<StreamingTable dataSource={DummyData} />);
+    wrapper = Enzyme.shallow(<StreamingTable />);
   });
 
   afterEach(() => {
