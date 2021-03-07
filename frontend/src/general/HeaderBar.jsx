@@ -13,8 +13,9 @@ export default class HeaderBar extends React.Component {
       }
     }));
   }
-  handleLogout(){
-    handleLogout()
+
+  handleLogout() {
+    handleLogout();
   }
 
   render() {

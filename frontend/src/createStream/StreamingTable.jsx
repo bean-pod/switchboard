@@ -1,8 +1,6 @@
 import React from "react";
 import { Grid } from "@material-ui/core";
 
-import axios from "axios";
-
 import SelectDevicesTable from "./SelectDevicesTable";
 import StreamButton from "../general/Buttons/StreamButton";
 
