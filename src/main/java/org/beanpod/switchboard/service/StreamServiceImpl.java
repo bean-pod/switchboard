@@ -75,7 +75,7 @@ public class StreamServiceImpl implements StreamService {
 
   @Override
   public StreamStatDto getStreamStat(Long id) {
-    return streamDao.getStreamStat(id).get();
+    return streamDao.getStreamStat(id).orElse(null);
   }
 
   private boolean shouldUseRendezvousMode(
