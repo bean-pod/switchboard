@@ -52,7 +52,7 @@ export default function AppRouter() {
           }}
         />
         <Route path="/">
-          <PathNotFoundPage />;
+          <PathNotFoundPage />
         </Route>
       </Switch>
     </BrowserRouter>
