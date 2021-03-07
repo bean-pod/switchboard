@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import {
@@ -18,7 +17,6 @@ import StreamButton from "../../general/Buttons/StreamButton";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-jest.mock("axios");
 const DummyData = {
   getSenders() {
     return ["A", "B", "C"];
@@ -52,7 +50,7 @@ describe("<StreamingTable/> class component", () => {
       expect(wrapper.find(StreamButton)).toHaveLength(1);
     });
   });
-  
+
   describe("onSenderSelected() function", () => {
     it("should set state.selectedSender and selectedSenderID", () => {
       const mockEvent = {
@@ -81,15 +79,15 @@ describe("<StreamingTable/> class component", () => {
       expect(wrapper.state()).toEqual(expected);
     });
   });
-  describe("onReceiverSelected() function", ()=>{
-    it("Sets state.selectedReceiverID", ()=>{
+  describe("onReceiverSelected() function", () => {
+    it("Sets state.selectedReceiverID", () => {
       const mockEvent = {
         target: {
           name: "selectedReceiverID",
           value: "Test6"
         }
       };
-  
+
       const defaultState = {
         senders: [],
         receivers: [],
@@ -102,17 +100,17 @@ describe("<StreamingTable/> class component", () => {
         selectedSenderID: "",
         selectedReceiverID: "Test6"
       };
-  
+
       wrapper.setState(defaultState);
       // act
       wrapper.instance().onReceiverSelected(mockEvent);
       expect(wrapper.state()).toEqual(expected);
       expect(wrapper.state()).not.toEqual(defaultState);
-    })
-  })
-  describe("handleSendersChange() function", ()=>{
-    it("Sets state.senders", ()=>{
-      const mockSenders = [null,null]
+    });
+  });
+  describe("handleSendersChange() function", () => {
+    it("Sets state.senders", () => {
+      const mockSenders = [null, null];
       const defaultState = {
         senders: [],
         receivers: [],
@@ -125,17 +123,17 @@ describe("<StreamingTable/> class component", () => {
         selectedSenderID: "",
         selectedReceiverID: ""
       };
-  
+
       wrapper.setState(defaultState);
       // act
       wrapper.instance().handleSendersChange(mockSenders);
       expect(wrapper.state()).toStrictEqual(expected);
       expect(wrapper.state()).not.toStrictEqual(defaultState);
-    })
-  })
-  describe("handleReceiversChange() function", ()=>{
-    it("Sets state.receivers", ()=>{
-      const mockReceivers = [null,null]
+    });
+  });
+  describe("handleReceiversChange() function", () => {
+    it("Sets state.receivers", () => {
+      const mockReceivers = [null, null];
       const defaultState = {
         senders: [],
         receivers: [],
@@ -148,56 +146,55 @@ describe("<StreamingTable/> class component", () => {
         selectedSenderID: "",
         selectedReceiverID: ""
       };
-  
+
       wrapper.setState(defaultState);
       // act
       wrapper.instance().handleReceiversChange(mockReceivers);
       expect(wrapper.state()).toStrictEqual(expected);
       expect(wrapper.state()).not.toStrictEqual(defaultState);
-    })
-  })
-  describe("handleSubmit() function", ()=>{
-    const mockEvent = {preventDefault: jest.fn()};
-    describe("should not call StreamAPI.createStream", ()=>{
-      it("if selectedReceiverID & selectedSenderID are not set", ()=>{
+    });
+  });
+  describe("handleSubmit() function", () => {
+    const mockEvent = { preventDefault: jest.fn() };
+    describe("should not call StreamAPI.createStream", () => {
+      it("if selectedReceiverID & selectedSenderID are not set", () => {
         const state = {
           selectedSenderID: "",
           selectedReceiverID: ""
         };
         wrapper.setState(state);
-        wrapper.instance().handleSubmit(mockEvent)
+        wrapper.instance().handleSubmit(mockEvent);
         // TODO: expect(createStream).not.toBeCalled()
-      })
-      it("if selectedSenderID is not set", ()=>{
+      });
+      it("if selectedSenderID is not set", () => {
         const state = {
           selectedSenderID: "",
           selectedReceiverID: "SomeID"
         };
         wrapper.setState(state);
-        wrapper.instance().handleSubmit(mockEvent)
+        wrapper.instance().handleSubmit(mockEvent);
         // TODO: expect(createStream).not.toBeCalled()
-      })
-      it("if selectedReceiverID is not set", ()=>{
+      });
+      it("if selectedReceiverID is not set", () => {
         const state = {
           selectedSenderID: "SomeId",
           selectedReceiverID: ""
         };
         wrapper.setState(state);
-        wrapper.instance().handleSubmit(mockEvent)
+        wrapper.instance().handleSubmit(mockEvent);
         // TODO: expect(createStream).not.toBeCalled()
-      })
+      });
     });
-    describe("should call StreamApi.createStream", ()=>{
-      it("if selectedReceiverID & selectedSenderID are both set", ()=>{
+    describe("should call StreamApi.createStream", () => {
+      it("if selectedReceiverID & selectedSenderID are both set", () => {
         const state = {
           selectedSenderID: "someID",
           selectedReceiverID: "someOtherId"
         };
         wrapper.setState(state);
-        wrapper.instance().handleSubmit(mockEvent)
+        wrapper.instance().handleSubmit(mockEvent);
         // TODO: expect(createStream).toBeCalledWith()
-      })
-    })
-  })
-
+      });
+    });
+  });
 });
