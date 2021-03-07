@@ -156,5 +156,48 @@ describe("<StreamingTable/> class component", () => {
       expect(wrapper.state()).not.toStrictEqual(defaultState);
     })
   })
+  describe("handleSubmit() function", ()=>{
+    const mockEvent = {preventDefault: jest.fn()};
+    describe("should not call StreamAPI.createStream", ()=>{
+      it("if selectedReceiverID & selectedSenderID are not set", ()=>{
+        const state = {
+          selectedSenderID: "",
+          selectedReceiverID: ""
+        };
+        wrapper.setState(state);
+        wrapper.instance().handleSubmit(mockEvent)
+        // TODO: expect(createStream).not.toBeCalled()
+      })
+      it("if selectedSenderID is not set", ()=>{
+        const state = {
+          selectedSenderID: "",
+          selectedReceiverID: "SomeID"
+        };
+        wrapper.setState(state);
+        wrapper.instance().handleSubmit(mockEvent)
+        // TODO: expect(createStream).not.toBeCalled()
+      })
+      it("if selectedReceiverID is not set", ()=>{
+        const state = {
+          selectedSenderID: "SomeId",
+          selectedReceiverID: ""
+        };
+        wrapper.setState(state);
+        wrapper.instance().handleSubmit(mockEvent)
+        // TODO: expect(createStream).not.toBeCalled()
+      })
+    });
+    describe("should call StreamApi.createStream", ()=>{
+      it("if selectedReceiverID & selectedSenderID are both set", ()=>{
+        const state = {
+          selectedSenderID: "someID",
+          selectedReceiverID: "someOtherId"
+        };
+        wrapper.setState(state);
+        wrapper.instance().handleSubmit(mockEvent)
+        // TODO: expect(createStream).toBeCalledWith()
+      })
+    })
+  })
 
 });
