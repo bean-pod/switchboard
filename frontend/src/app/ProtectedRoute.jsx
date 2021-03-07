@@ -11,11 +11,20 @@ export default class ProtectedRoute extends React.Component {
   }
 
   component() {
-    const { isAuthenticated, render } = this.props;
-    if (isAuthenticated()) {
+    const { isUserPage, render } = this.props;
+    const authenticated = isAuthenticated();
+    let redirectPath = "";
+
+    if (authenticated && isUserPage) {
       return render();
     }
-    return <Redirect to={{ pathname: "/login" }} />;
+
+    if (isUserPage) redirectPath = "/Login";
+    else {
+      redirectPath = "/Home";
+    }
+
+    return <Redirect to={{ pathname: redirectPath }} />;
   }
 
   render() {
@@ -25,7 +34,11 @@ export default class ProtectedRoute extends React.Component {
 }
 
 ProtectedRoute.propTypes = {
-  isAuthenticated: PropTypes.func.isRequired,
+  isUserPage: PropTypes.bool,
   path: PropTypes.string.isRequired,
   render: PropTypes.func.isRequired
 };
+
+ProtectedRoute.defaultProps={
+  isUserPage: false
+}
