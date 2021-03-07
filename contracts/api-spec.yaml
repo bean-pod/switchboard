@@ -421,7 +421,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StreamStatModel'
+                $ref: '#/components/schemas/StreamStatModel2'
 
   /stream/statistics:
     get:
@@ -446,14 +446,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StreamStatModel'
+              $ref: '#/components/schemas/StreamStatModel2'
       responses:
         '200':
           description: successful update of a stream stat
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StreamStatModel'
+                $ref: '#/components/schemas/StreamStatModel2'
 components:
   schemas:
     UserModel:
@@ -666,6 +666,7 @@ components:
           format: int64
           example: '2'
 
+
     StreamStatModel:
       description: A stat that is related to a specific stream
       properties:
@@ -675,7 +676,7 @@ components:
         time:
           type: integer
           format: int64
-        windowFlow:
+        flow:
           type: integer
           format: int64
         congestion:
@@ -736,6 +737,102 @@ components:
           type: integer
           format: int64
         recvMbitRate:
+          type: number
+
+    StreamStatModel2:
+      description: A stat that is related to a specific stream
+      properties:
+        id:
+          type: integer
+          format: int64
+        time:
+          type: integer
+          format: int64
+        window:
+          $ref: '#/components/schemas/WindowStatModel'
+        link:
+          $ref: '#/components/schemas/LinkStatModel'
+        send:
+          $ref: '#/components/schemas/SendStatModel'
+        recv:
+          $ref: '#/components/schemas/RecvStatModel'
+
+    WindowStatModel:
+      description: A statistic related to a stream
+      properties:
+        flow:
+          type: integer
+          format: int64
+        congestion:
+          type: integer
+          format: int64
+        flight:
+          type: integer
+          format: int64
+
+    LinkStatModel:
+      description: A statistic related to a stream
+      properties:
+        rtt:
+          type: number
+        bandwidth:
+          type: number
+        maxBandwidth:
+          type: integer
+          format: int64
+
+    SendStatModel:
+      description: A statistic related to a stream
+      properties:
+        packets:
+          type: integer
+          format: int64
+        packetsLost:
+          type: integer
+          format: int64
+        packetsDropped:
+          type: integer
+          format: int64
+        packetsRetransmitted:
+          type: integer
+          format: int64
+        bytes:
+          type: integer
+          format: int64
+        bytesDropped:
+          type: integer
+          format: int64
+        mbitRate:
+          type: number
+
+    RecvStatModel:
+      description: A statistic related to a stream
+      properties:
+        packets:
+          type: integer
+          format: int64
+        packetsLost:
+          type: integer
+          format: int64
+        packetsDropped:
+          type: integer
+          format: int64
+        packetsRetransmitted:
+          type: integer
+          format: int64
+        packetsBelated:
+          type: integer
+          format: int64
+        bytes:
+          type: integer
+          format: int64
+        bytesLost:
+          type: integer
+          format: int64
+        bytesDropped:
+          type: integer
+          format: int64
+        mbitRate:
           type: number
 
   parameters:

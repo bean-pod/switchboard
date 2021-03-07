@@ -36,7 +36,7 @@ public class StreamStatEntity {
 
   private long time;
 
-  private long windowFlow;
+  private long flow;
 
   private long congestion;
   private long flight;

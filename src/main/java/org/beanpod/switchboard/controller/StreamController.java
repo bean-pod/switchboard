@@ -17,6 +17,7 @@ import org.openapitools.api.StreamApi;
 import org.openapitools.model.CreateStreamRequest;
 import org.openapitools.model.StreamModel;
 import org.openapitools.model.StreamStatModel;
+import org.openapitools.model.StreamStatModel2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -54,7 +55,7 @@ public class StreamController implements StreamApi {
   }
 
   @Override
-  public ResponseEntity<StreamStatModel> getStreamStatById(Long id) {
+  public ResponseEntity<StreamStatModel2> getStreamStatById(Long id) {
     Optional<StreamStatDto> streamStatDto =
         Optional.of(id).map(streamDao::getStreamStat).orElse(null);
 
@@ -95,7 +96,7 @@ public class StreamController implements StreamApi {
   }
 
   @Override
-  public ResponseEntity<StreamStatModel> updateStreamStat(@Valid StreamStatModel streamStatModel) {
+  public ResponseEntity<StreamStatModel2> updateStreamStat(@Valid StreamStatModel2 streamStatModel) {
     return Optional.of(streamStatModel)
         .map(statMapper::toDto)
         .map(streamService::updateStreamStat)

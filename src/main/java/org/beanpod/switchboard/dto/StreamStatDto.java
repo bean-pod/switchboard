@@ -13,8 +13,7 @@ import lombok.NoArgsConstructor;
 public class StreamStatDto {
   @NotNull private long id;
   private long time;
-  private long windowFlow;
-
+  private long flow;
   private long congestion;
   private long flight;
 
