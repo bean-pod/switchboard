@@ -7,17 +7,14 @@ import LoginPage from "../login/LoginPage";
 import HomePage from "../homepage/HomePage";
 import PathNotFoundPage from "../general/PathNotFoundPage";
 
-
 export default function AppRouter() {
   return (
     <BrowserRouter>
       <Switch>
+        <ProtectedRoute path="/Login" render={() => <LoginPage />} />
         <ProtectedRoute
-          path="/Login"
-          render={() => <LoginPage />}
-        />
-        <Route
           path="/Home"
+          isUserPage
           render={() => {
             return <HomePage />;
           }}
