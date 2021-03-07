@@ -17,18 +17,6 @@ import StreamButton from "../../general/Buttons/StreamButton";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-const DummyData = {
-  getSenders() {
-    return ["A", "B", "C"];
-  },
-
-  getReceivers() {
-    return ["X", "Y", "Z"];
-  },
-
-  preventDefault() {}
-};
-
 describe("<StreamingTable/> class component", () => {
   let wrapper;
 
