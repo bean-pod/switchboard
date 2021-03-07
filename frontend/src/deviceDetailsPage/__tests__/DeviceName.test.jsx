@@ -74,8 +74,8 @@ describe("<DeviceName/> component", () => {
   });
 
   it("startEdit() function sets the state to editing: true", () => {
-      wrapper.instance().startEdit();
-      expect(wrapper.state()).toEqual(editingState);
+    wrapper.instance().startEdit();
+    expect(wrapper.state()).toEqual(editingState);
   });
 
   describe("cancelEditing() function", () => {
@@ -90,22 +90,22 @@ describe("<DeviceName/> component", () => {
   });
 
   it("setName() function sets the state.name to passed value", () => {
-      const newName = "New Name";
-      wrapper.instance().setName(newName);
-      expect(wrapper.state()).toEqual({
-        name: newName,
-        editing: false
-      });
+    const newName = "New Name";
+    wrapper.instance().setName(newName);
+    expect(wrapper.state()).toEqual({
+      name: newName,
+      editing: false
     });
+  });
 
   describe("confirmEditing() function", () => {
     beforeEach(() => {
       wrapper.setState(editingState);
     });
 
-    it("call the DeviceApi.updateDeviceName function", ()=>{
-      //expect(DeviceApi.updateDeviceName).toBeCalledTimes(1);
-    })
+    it("call the DeviceApi.updateDeviceName function", () => {
+      // expect(DeviceApi.updateDeviceName).toBeCalledTimes(1);
+    });
 
     it("On success, changes the device name and contains StaticName with new name", () => {
       const newName = "New Name";

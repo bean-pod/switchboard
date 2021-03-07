@@ -46,9 +46,7 @@ export default class DeviceDetailsConciseRow extends React.Component {
       case "status":
         return <StatusIndicator status={value} />;
       case "name":
-        return (
-          <DeviceName deviceName={value} deviceId={device.serialNumber} />
-        );
+        return <DeviceName deviceName={value} deviceId={device.serialNumber} />;
       default:
         return value;
     }
