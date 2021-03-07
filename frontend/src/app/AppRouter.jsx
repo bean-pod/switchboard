@@ -5,6 +5,7 @@ import ProtectedRoute from "./ProtectedRoute";
 
 import LoginPage from "../login/LoginPage";
 import HomePage from "../homepage/HomePage";
+import LogListPage from "../loglist/LogListPage";
 import PathNotFoundPage from "../general/PathNotFoundPage";
 
 export default function AppRouter() {
@@ -17,6 +18,13 @@ export default function AppRouter() {
           isUserPage
           render={() => {
             return <HomePage />;
+          }}
+        />
+        <ProtectedRoute
+          path="/Logs"
+          isUserPage
+          render={() => {
+            return <LogListPage />;
           }}
         />
         <Route path="/">
