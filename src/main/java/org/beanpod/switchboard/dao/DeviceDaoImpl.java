@@ -19,7 +19,10 @@ public class DeviceDaoImpl {
   private final DeviceMapper deviceMapper;
 
   public DeviceDto save(DeviceDto device) {
-    return deviceMapper.toDeviceDto(deviceRepository.save(deviceMapper.toDeviceEntity(device)));
+    Optional<DeviceDto> deviceDto = findDevice(device.getSerialNumber());
+    deviceMapper.updateDeviceFromDto(device, deviceDto.orElse(null));
+    return deviceMapper.toDeviceDto(
+        deviceRepository.save(deviceMapper.toDeviceEntity(deviceDto.orElse(null))));
   }
 
   public DeviceDto createDevice(CreateDeviceRequest createDeviceRequest, String publicIpAddress) {

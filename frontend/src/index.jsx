@@ -5,11 +5,11 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import HeaderBar from "./general/HeaderBar";
 import HomePage from "./homepage/HomePage";
 import DeviceListPage from "./devicelist/DeviceListPage";
-import StreamingTablePage from "./createStream/StreamingPage";
 import DeviceDetailsPage from "./deviceDetailsPage/DeviceDetailsPage";
 import SnackbarMessage from "./general/SnackbarMessage";
 import LogListPage from "./loglist/LogListPage";
 import LoginPage from "./login/LoginPage";
+import CreateStreamPage from "./createStream/CreateStreamPage";
 
 import * as DeviceApi from "./api/DeviceApi";
 import * as StreamApi from "./api/StreamApi";
@@ -28,13 +28,8 @@ ReactDOM.render(
         />
         <Route
           exact
-          path="/Streaming"
-          render={() => (
-            <StreamingTablePage
-              deviceDataSource={DeviceApi}
-              streamDataSource={StreamApi}
-            />
-          )}
+          path="/Streaming/New"
+          render={() => <CreateStreamPage dataSource={DeviceApi} />}
         />
         <Route
           exact
