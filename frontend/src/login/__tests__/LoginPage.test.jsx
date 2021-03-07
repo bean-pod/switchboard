@@ -2,6 +2,7 @@ import React from "react";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import { beforeEach, describe, expect, it } from "@jest/globals";
+import { useHistory } from "react-router-dom";
 
 import LoginPage from "../LoginPage";
 import Page from "../../general/Page";
@@ -11,18 +12,11 @@ Enzyme.configure({ adapter: new Adapter() });
 
 describe("<LoginPage/> class component", () => {
   let wrapper;
-  const mockAuthenticated = jest.fn();
-  const mockHandleLogout = jest.fn();
-  const mockHandleLogin = jest.fn();
+
+  jest.mock("react-router-dom");
 
   beforeEach(() => {
-    wrapper = Enzyme.shallow(
-      <LoginPage
-        isAuthenticated={mockAuthenticated}
-        handleLogout={mockHandleLogout}
-        handleLogin={mockHandleLogin}
-      />
-    );
+    wrapper = Enzyme.shallow(<LoginPage />);
   });
   it("Contains one <Page/> component with correct props", () => {
     const expectedTitle = "Login";
