@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import LoginFailedDialog from "./LoginFailedDialog";
 import LoginConsole from "./LoginConsole";
-import * as AuthenticationApi from "../api/AuthenticationApi";
+import { handleLogin, logIn } from "../api/AuthenticationApi";
 
 export default class LoginPageContents extends React.Component {
   constructor(props) {
@@ -18,9 +18,9 @@ export default class LoginPageContents extends React.Component {
   }
 
   handleSubmit(username, password) {
-    const { handleLogin, history } = this.props;
+    const { history } = this.props;
     handleLogin();
-    AuthenticationApi.logIn({ username, password }).catch((error) => {
+    logIn({ username, password }).catch((error) => {
       this.setState({
         dialogOpen: true,
         dialogMessage: error.message
@@ -58,7 +58,6 @@ export default class LoginPageContents extends React.Component {
 }
 
 LoginPageContents.propTypes = {
-  handleLogin: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
     go: PropTypes.func.isRequired
