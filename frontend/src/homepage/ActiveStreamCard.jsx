@@ -20,10 +20,7 @@ export default function ActiveStreamCard() {
           <DashBoardButton href="/Streaming">See more</DashBoardButton>
         </Grid>
         <Grid item xs={4}>
-          {
-            // TODO make it create stream
-          }
-          <DashBoardButton href="/Streaming">Start Stream</DashBoardButton>
+          <DashBoardButton href="/Streaming/New">Start Stream</DashBoardButton>
         </Grid>
       </Grid>
     </DashboardCard>

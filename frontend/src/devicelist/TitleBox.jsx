@@ -12,7 +12,7 @@ export default function TitleBox() {
         <div className="title">My Devices</div>
         <div className="alignRightFloat">
           <NavLink
-            to="/Streaming"
+            to="/Streaming/New"
             activeClassName="hideLinkStyle"
             className="hideLinkStyle"
             exact
