@@ -1,10 +1,10 @@
 import React from "react";
-import PropTypes from "prop-types";
-import StreamsTableWrapper from "./StreamsTableWrapper";
 import Page from "../general/Page";
+import StreamsTableWrapper from "./StreamsTableWrapper";
+import * as streamDataSource from "../api/StreamApi"
 
-export default function StreamListPage(props) {
-  const { streamDataSource } = props;
+export default function StreamListPage() {
+
   const breadcrumbs = [
     ["Home", "/Home"],
     ["Active Streams", "/Streaming"]
@@ -15,7 +15,3 @@ export default function StreamListPage(props) {
     </Page>
   );
 }
-
-StreamListPage.propTypes = {
-  streamDataSource: PropTypes.objectOf(PropTypes.func).isRequired
-};
