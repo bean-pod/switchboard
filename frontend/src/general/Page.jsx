@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Container, Box } from "@material-ui/core";
+import { Container } from "@material-ui/core";
 import DynamicBreadcrumb from "./DynamicBreadcrumb";
 import Title from "./Title";
 import HeaderBar from "./HeaderBar";
