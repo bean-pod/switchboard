@@ -1,5 +1,5 @@
 import axios from "axios";
-import Cookies from "js-cookie"
+import Cookies from "js-cookie";
 
 export const unknownErrorMessage =
   "An unknown error occurred. Please try again later.";
@@ -49,10 +49,6 @@ export function handleLogout() {
   Cookies.remove("refresh_token");
 }
 
-export function handleLogin() {
-  authenticate();
-}
-
 export async function authenticate() {
   //   if (getRefreshToken()) {
   try {
@@ -79,4 +75,8 @@ export async function authenticate() {
   // }
   // // redirectToLogin()
   // return false;
+}
+
+export function handleLogin() {
+  authenticate();
 }
