@@ -12,10 +12,8 @@ export default function Page(props) {
       <HeaderBar />
       <Container>
         <DynamicBreadcrumb breadcrumbs={breadcrumbs} />
-        <Box className="areaUnderBreadcrumbs">
-          <Title title={title} deviceList={deviceList} />
-          {children}
-        </Box>
+        <Title title={title} deviceList={deviceList} />
+        {children}
       </Container>
     </>
   );
