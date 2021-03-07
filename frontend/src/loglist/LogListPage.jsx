@@ -1,47 +1,23 @@
 import React from "react";
-import { Box, Container } from "@material-ui/core";
-import DynamicBreadcrumb from "../general/DynamicBreadcrumb";
-import LogsTable from "./LogsTable";
-import * as LogApi from "../api/LogApi";
+import PropTypes from "prop-types";
 
-export default class LogListPage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      logs: []
-    };
-    this.handleLogsChange = this.handleLogsChange.bind(this);
-  }
+import LogsTableWrapper from "./LogsTableWrapper";
+import Page from "../general/Page";
 
-  componentDidMount() {
-    LogApi.getAllLogs().then(this.handleLogsChange);
-  }
+export default function LogListPage(props) {
+  const { logsDataSource } = props;
+  const breadcrumbs = [
+    ["Home", "/Home"],
+    ["Logs", "/Logs"]
+  ];
 
-  handleLogsChange(logs) {
-    this.setState({
-      logs
-    });
-  }
-
-  render() {
-    const { logs } = this.state;
-    return (
-      <>
-        <Container>
-          <DynamicBreadcrumb
-            breadcrumbs={[
-              ["Home", "/"],
-              ["Logs", "/Logs"]
-            ]}
-          />
-          <Box className="areaUnderBreadcrumbs">
-            <Box className="headerAreaUnderline">
-              <div className="title">Logs</div>
-            </Box>
-            <LogsTable logs={logs} />
-          </Box>
-        </Container>
-      </>
-    );
-  }
+  return (
+    <Page title="Logs" breadcrumbs={breadcrumbs}>
+      <LogsTableWrapper logsDataSource={logsDataSource} />
+    </Page>
+  );
 }
+
+LogListPage.propTypes = {
+  logsDataSource: PropTypes.objectOf(PropTypes.func).isRequired
+};

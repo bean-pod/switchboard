@@ -2,6 +2,7 @@ package org.beanpod.switchboard.dao;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.beanpod.switchboard.dto.LogDto;
 import org.beanpod.switchboard.dto.mapper.LogMapper;
 import org.beanpod.switchboard.repository.LogRepository;
 import org.openapitools.model.LogModel;
@@ -20,5 +21,9 @@ public class LogDaoImpl {
 
   public List<LogModel> getDeviceLogs(String serialNumber) {
     return logMapper.toLogModels(logRepository.findBySerialNumber(serialNumber));
+  }
+
+  public LogDto createLog(LogDto logDto) {
+    return logMapper.logEntityToLogDto(logRepository.save(logMapper.toLogEntity(logDto)));
   }
 }

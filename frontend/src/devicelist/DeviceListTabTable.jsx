@@ -6,7 +6,7 @@ import TabPanel from "./TabPanel";
 import DevicesTable from "./DevicesTable";
 import VerticalTabs from "../general/VerticalTabs";
 
-export default class ContentsTable extends React.Component {
+export default class DeviceListTabTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,15 +14,15 @@ export default class ContentsTable extends React.Component {
       receivers: [],
       value: 0
     };
-    this.dataSource = props.dataSource;
     this.handleValueChange = this.handleValueChange.bind(this);
     this.handleSendersChange = this.handleSendersChange.bind(this);
     this.handleReceiversChange = this.handleReceiversChange.bind(this);
   }
 
   componentDidMount() {
-    this.dataSource.getSenders(this.handleSendersChange);
-    this.dataSource.getReceivers(this.handleReceiversChange);
+    const { dataSource } = this.props;
+    dataSource.getSenders(this.handleSendersChange);
+    dataSource.getReceivers(this.handleReceiversChange);
   }
 
   handleValueChange(tabIndex) {
@@ -70,7 +70,7 @@ export default class ContentsTable extends React.Component {
     );
   }
 }
-ContentsTable.propTypes = {
+DeviceListTabTable.propTypes = {
   dataSource: PropTypes.objectOf(PropTypes.func).isRequired,
   classes: PropTypes.shape({
     tabs: PropTypes.string
