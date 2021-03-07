@@ -23,11 +23,11 @@ export default class ProtectedRoute extends React.Component {
         return render();
       }
 
-      return redirect("/Login");
+      return this.redirect("/Login");
     }
 
     if (authenticated) {
-      return redirect("/Home");
+      return this.redirect("/Home");
     }
 
     return render();
