@@ -20,6 +20,7 @@ public class StreamStatFixture {
   public static StreamStatModel getStreamStatModel() {
     return new StreamStatModel().id(ID);
   }
+
   public static List<StreamStatModel> getStreamStatModelList() {
     return List.of(getStreamStatModel());
   }
