@@ -126,7 +126,7 @@ class StreamServiceTest {
   void testGetStreamStat() {
     when(streamDao.getStreamStat(any()))
         .thenReturn(java.util.Optional.ofNullable(StreamStatFixture.getStreamStatDto()));
-    StreamStatDto streamStatDto = StreamStatFixture.getStreamStatDto();
+    StreamStatDto streamStatDto = streamService.getStreamStat(StreamFixture.ID);
     assertEquals(streamStatDto, StreamStatFixture.getStreamStatDto());
   }
 
