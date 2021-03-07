@@ -8,10 +8,8 @@ import LoginPage from "../login/LoginPage";
 import HomePage from "../homepage/HomePage";
 import PathNotFoundPage from "../general/PathNotFoundPage";
 
-import * as AuthenticationApi from "../api/AuthenticationApi";
 
 export default function AppRouter() {
-  const { isAuthenticated } = AuthenticationApi;
   return (
     <BrowserRouter>
       <Switch>

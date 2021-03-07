@@ -7,10 +7,9 @@ import ActivityLogCard from "./ActivityLogCard";
 import DevicesCard from "./DevicesCard";
 import AdminPanelCard from "./AdminPanelCard";
 
-import * as AuthenticationApi from "../api/AuthenticationApi";
+import { isAdmin } from "../api/AuthenticationApi";
 
 export default function HomePageContents() {
-  const { isAdmin } = AuthenticationApi;
   return (
     <Grid
       container

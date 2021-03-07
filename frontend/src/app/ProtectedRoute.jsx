@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Redirect, Route } from "react-router-dom";
 
+import { isAuthenticated } from "../api/AuthenticationApi";
+
 export default class ProtectedRoute extends React.Component {
   constructor(props) {
     super(props);
