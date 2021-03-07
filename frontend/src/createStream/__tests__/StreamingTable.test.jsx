@@ -10,13 +10,15 @@ import {
   jest,
   it
 } from "@jest/globals";
+import { Grid } from "@material-ui/core";
 import StreamingTable from "../StreamingTable";
+
+import SelectDevicesTable from "../SelectDevicesTable";
+import StreamButton from "../../general/Buttons/StreamButton";
 
 Enzyme.configure({ adapter: new Adapter() });
 
 jest.mock("axios");
-jest.spyOn(global.console, "log");
-
 const DummyData = {
   getSenders() {
     return ["A", "B", "C"];
@@ -29,7 +31,7 @@ const DummyData = {
   preventDefault() {}
 };
 
-describe("<StreamingTable/>", () => {
+describe("<StreamingTable/> class component", () => {
   let wrapper;
 
   beforeEach(() => {
@@ -39,9 +41,20 @@ describe("<StreamingTable/>", () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
-
-  describe("onSenderSelected", () => {
-    it("should call setState and set selectedSender and selectedSenderID", () => {
+  describe("render() function returns a component that", () => {
+    it("contains 4 <Grid/> components", () => {
+      expect(wrapper.find(Grid)).toHaveLength(4);
+    });
+    it("contains 2 <SelectDevicesTable/> components", () => {
+      expect(wrapper.find(SelectDevicesTable)).toHaveLength(2);
+    });
+    it("contains 1 <StreamButton/> components", () => {
+      expect(wrapper.find(StreamButton)).toHaveLength(1);
+    });
+  });
+  
+  describe("onSenderSelected() function", () => {
+    it("should set state.selectedSender and selectedSenderID", () => {
       const mockEvent = {
         target: {
           name: "selectedSenderID",
@@ -58,28 +71,25 @@ describe("<StreamingTable/>", () => {
       const expected = {
         senders: [],
         receivers: [],
-
         selectedSenderID: "Test3",
-
         selectedReceiverID: ""
       };
 
-      expect(wrapper.state()).toEqual(defaultState);
+      wrapper.setState(defaultState);
       // act
       wrapper.instance().onSenderSelected(mockEvent);
       expect(wrapper.state()).toEqual(expected);
     });
   });
-
-  describe("onReceiverSelected", () => {
-    it("should call setState and set selectedReceiver and selectedReceiverID", () => {
+  describe("onReceiverSelected() function", ()=>{
+    it("Sets state.selectedReceiverID", ()=>{
       const mockEvent = {
         target: {
           name: "selectedReceiverID",
           value: "Test6"
         }
       };
-
+  
       const defaultState = {
         senders: [],
         receivers: [],
@@ -89,98 +99,62 @@ describe("<StreamingTable/>", () => {
       const expected = {
         senders: [],
         receivers: [],
-
         selectedSenderID: "",
-
         selectedReceiverID: "Test6"
       };
-
-      expect(wrapper.state()).toEqual(defaultState);
+  
+      wrapper.setState(defaultState);
       // act
       wrapper.instance().onReceiverSelected(mockEvent);
       expect(wrapper.state()).toEqual(expected);
-    });
-  });
-
-  describe("handleSubmit", () => {
-    it("should do nothing if no receiver or sender has been selected", () => {
-      const data = {
-        data: "test"
+      expect(wrapper.state()).not.toEqual(defaultState);
+    })
+  })
+  describe("handleSendersChange() function", ()=>{
+    it("Sets state.senders", ()=>{
+      const mockSenders = [null,null]
+      const defaultState = {
+        senders: [],
+        receivers: [],
+        selectedSenderID: "",
+        selectedReceiverID: ""
       };
-      axios.post.mockImplementationOnce(() => Promise.resolve(data));
-      // act
-      wrapper.instance().handleSubmit(DummyData);
-      expect(axios.post).not.toHaveBeenCalled();
-    });
-    it("should do nothing if a receiver but no sender has been selected", () => {
-      const mockReceiver = {
-        target: {
-          name: "selectedReceiverID",
-          value: "Test6"
-        }
-      };
-
-      const data = {
-        data: "test"
-      };
-      axios.post.mockImplementationOnce(() => Promise.resolve(data));
-
-      // act
-      wrapper.instance().onReceiverSelected(mockReceiver);
-
-      wrapper.instance().handleSubmit(DummyData);
-      expect(axios.post).not.toHaveBeenCalled();
-    });
-    it("should do nothing if no receiver but a sender has been selected", () => {
-      const mockSender = {
-        target: {
-          name: "selectedSenderID",
-          value: "Test3"
-        }
-      };
-      const data = {
-        data: "test"
-      };
-      axios.post.mockImplementationOnce(() => Promise.resolve(data));
-
-      // act
-      wrapper.instance().onSenderSelected(mockSender);
-      wrapper.instance().handleSubmit(DummyData);
-      expect(axios.post).not.toHaveBeenCalled();
-    });
-    it("should call axios.post if a sender and a receiver have been selected", () => {
-      const mockReceiver = {
-        target: {
-          name: "selectedReceiverID",
-          value: "Test6"
-        }
-      };
-      const mockSender = {
-        target: {
-          name: "selectedSenderID",
-          value: "Test3"
-        }
-      };
-
       const expected = {
-        outputChannelId: "Test3",
-        inputChannelId: "Test6"
+        senders: mockSenders,
+        receivers: [],
+        selectedSenderID: "",
+        selectedReceiverID: ""
       };
-
-      const data = {
-        data: "test"
+  
+      wrapper.setState(defaultState);
+      // act
+      wrapper.instance().handleSendersChange(mockSenders);
+      expect(wrapper.state()).toStrictEqual(expected);
+      expect(wrapper.state()).not.toStrictEqual(defaultState);
+    })
+  })
+  describe("handleReceiversChange() function", ()=>{
+    it("Sets state.receivers", ()=>{
+      const mockReceivers = [null,null]
+      const defaultState = {
+        senders: [],
+        receivers: [],
+        selectedSenderID: "",
+        selectedReceiverID: ""
       };
-      axios.post.mockImplementationOnce(() => Promise.resolve(data));
+      const expected = {
+        senders: [],
+        receivers: mockReceivers,
+        selectedSenderID: "",
+        selectedReceiverID: ""
+      };
+  
+      wrapper.setState(defaultState);
+      // act
+      wrapper.instance().handleReceiversChange(mockReceivers);
+      expect(wrapper.state()).toStrictEqual(expected);
+      expect(wrapper.state()).not.toStrictEqual(defaultState);
+    })
+  })
 
-      wrapper.instance().onSenderSelected(mockSender);
-      wrapper.instance().onReceiverSelected(mockReceiver);
-
-      wrapper.instance().handleSubmit(DummyData);
-
-      expect(axios.post).toHaveBeenCalledWith(
-        "http://localhost:8080/stream",
-        expected
-      );
-    });
-  });
 });
