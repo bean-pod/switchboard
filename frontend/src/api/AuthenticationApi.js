@@ -63,9 +63,9 @@ export async function authenticate() {
     const inOneHour = new Date(new Date().getTime() + expires);
 
     // you will have the exact same setters in your Login page/app too
-    Cookies.set("access_token", tokens.access_token);
+    Cookies.set("access_token", tokens.access_token, { expires: inOneHour });
     Cookies.set("admin_token", tokens.admin_token, { expires: inOneHour });
-    Cookies.set("refresh_token", tokens.refresh_token);
+    Cookies.set("refresh_token", tokens.refresh_token, { expires: inOneHour });
 
     return true;
   } catch (error) {
