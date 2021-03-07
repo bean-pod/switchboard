@@ -13,6 +13,9 @@ export default class HeaderBar extends React.Component {
       }
     }));
   }
+  handleLogout(){
+    handleLogout()
+  }
 
   render() {
     return (
@@ -32,13 +35,9 @@ export default class HeaderBar extends React.Component {
               </NavLink>
               Switchboard
             </div>
-            {isAuthenticated() ? (
-              <IconButton id="acctBtn" color="inherit" onClick={handleLogout}>
+              <IconButton id="acctBtn" color="inherit" disabled={!isAuthenticated()} onClick={handleLogout}>
                 <AccountCircle />
               </IconButton>
-            ) : (
-              <></>
-            )}
           </Toolbar>
         </AppBar>
       </div>
