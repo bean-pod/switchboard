@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import ProtectedRoute from "./ProtectedRoute";
-import UnprotectedRoute from "./UnprotectedRoute";
 
 import LoginPage from "../login/LoginPage";
 import HomePage from "../homepage/HomePage";
@@ -13,14 +12,12 @@ export default function AppRouter() {
   return (
     <BrowserRouter>
       <Switch>
-        <UnprotectedRoute
+        <ProtectedRoute
           path="/Login"
-          isAuthenticated={isAuthenticated}
           render={() => <LoginPage />}
         />
-        <ProtectedRoute
+        <Route
           path="/Home"
-          isAuthenticated={isAuthenticated}
           render={() => {
             return <HomePage />;
           }}
