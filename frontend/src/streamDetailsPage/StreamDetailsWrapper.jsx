@@ -3,24 +3,25 @@ import PropTypes from "prop-types";
 import { Box, Container, Grid } from "@material-ui/core";
 
 import StreamInfo from "../model/StreamInfo";
+import DashboardCard from "../general/dashboard/DashboardCard";
 // import { getSampleStream } from "../api/SampleStream";
 
 export default function StreamDetailsWrapper(props) {
   const { streamDetailSource } = props;
   return (
     <Container>
-      <Grid container>
+      <Grid container spacing={3} >
         <Grid item xs={6}>
-          Sender Details
+          <DashboardCard title="Sender Details" />
         </Grid>
         <Grid item xs={6}>
-          Receiver Details
+          <DashboardCard title="Receiver Details" />
         </Grid>
         <Grid item xs={7}>
-          Logs
+          <DashboardCard title="Logs" />
         </Grid>
         <Grid item xs={5}>
-          Statistics
+          <DashboardCard title="Statistics" />
         </Grid>
       </Grid>
     </Container>
