@@ -340,7 +340,7 @@ export function getReceivers(callback) {
   callback(sampleReceivers);
 }
 
-export function getAllStreams(callback) {
+export function getAllStreams() {
   const sampleSenders = [
     new DeviceInfo(
       "1:10:111:999",
@@ -390,7 +390,7 @@ export function getAllStreams(callback) {
     )
   ];
 
-  const sampleStreams = [
+  return [
     new StreamInfo(1, sampleSenders[0], sampleReceivers[0], [
       "Additional Stream Details go here"
     ]),
@@ -401,8 +401,6 @@ export function getAllStreams(callback) {
       "Additional Stream Details go here"
     ])
   ];
-
-  callback(sampleStreams);
 }
 
 export function getSampleStream() {

@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import HeaderBar from "./general/HeaderBar";
-import HomePage from "./general/HomePage";
+import HomePage from "./homepage/HomePage";
 import DeviceListPage from "./devicelist/DeviceListPage";
 import StreamingTablePage from "./createStream/StreamingPage";
 import DeviceDetailsPage from "./deviceDetailsPage/DeviceDetailsPage";
