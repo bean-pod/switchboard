@@ -13,13 +13,7 @@ export default class AdminProtectedRoute extends React.Component {
   component() {
     const { render, path } = this.props;
     if (isAdmin()) {
-      return (
-        <ProtectedRoute
-          path={path}
-          isUserPage
-          render={render}
-        />
-      );
+      return <ProtectedRoute path={path} isUserPage render={render} />;
     }
     return <Redirect to={{ pathname: "/InvalidPath" }} />;
   }
@@ -31,8 +25,6 @@ export default class AdminProtectedRoute extends React.Component {
 }
 
 AdminProtectedRoute.propTypes = {
-  admin: PropTypes.bool.isRequired,
-  isAuthenticated: PropTypes.bool.isRequired,
   path: PropTypes.string.isRequired,
   render: PropTypes.func.isRequired
 };
