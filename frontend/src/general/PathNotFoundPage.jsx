@@ -3,6 +3,7 @@ import React from "react";
 import DashboardButton from "./dashboard/DashboardButton";
 import DashboardCard from "./dashboard/DashboardCard";
 import Page from "./Page";
+import { isAuthenticated } from "../api/AuthenticationApi";
 
 export default function PathNotFoundPage() {
   return (
@@ -10,7 +11,11 @@ export default function PathNotFoundPage() {
       <Grid container justify="center" direction="row" spacing={3}>
         <Grid item xs={4}>
           <DashboardCard title="Sorry, that page doesn't exist!">
-            <DashboardButton href="/Home">Go Home</DashboardButton>
+            {isAuthenticated() ? (
+              <DashboardButton href="/Home">Go Home</DashboardButton>
+            ) : (
+              <DashboardButton href="/Login">Go Home</DashboardButton>
+            )}
           </DashboardCard>
         </Grid>
       </Grid>
