@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Redirect, Route } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
+import { isAdmin } from "../api/AuthenticationApi";
 
 export default class AdminProtectedRoute extends React.Component {
   constructor(props) {
@@ -10,17 +11,17 @@ export default class AdminProtectedRoute extends React.Component {
   }
 
   component() {
-    const { admin, isAuthenticated, render, path } = this.props;
-    if (admin) {
+    const { render, path } = this.props;
+    if (isAdmin()) {
       return (
         <ProtectedRoute
           path={path}
-          isAuthenticated={isAuthenticated}
+          isUserPage
           render={render}
         />
       );
     }
-    return <Redirect to={{ pathname: "/login" }} />;
+    return <Redirect to={{ pathname: "/InvalidPath" }} />;
   }
 
   render() {
