@@ -12,8 +12,8 @@ import org.openapitools.model.StreamStatModel2;
 
 @Mapper(
     componentModel = "spring",
-    nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
-    uses = {StreamMapper.class})
+    nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
+)
 public interface StreamStatMapper {
 
   @Mapping(source = "window.flow", target = "flow")
