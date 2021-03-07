@@ -16,8 +16,11 @@ export default function SnackbarMessage() {
 
   function openSnackbar(stat, msg, path) {
     setOpen(true);
+    setStatus(stat);
     if (stat === "success") {
       setIsSuccess(true);
+    } else {
+      setIsSuccess(false);
     }
     setMessage(msg);
     setPathname(path);
@@ -35,22 +38,17 @@ export default function SnackbarMessage() {
     }
   }
 
-  const handleClose = (event, reason) => {
+  function handleClose(event, reason) {
     if (reason === "clickaway") {
       return;
     }
     setOpen(false);
-    setIsSuccess(false);
-    setStatus("");
-    setMessage("");
-    setPathname("");
     refresh();
-  };
+  }
 
   return (
     <>
       <Snackbar
-        status={status}
         contentprops={{
           "aria-describedby": "message-id"
         }}
@@ -58,6 +56,7 @@ export default function SnackbarMessage() {
           vertical: "top",
           horizontal: "right"
         }}
+        data-testid="snackbar-root"
         open={open}
         autoHideDuration={6000}
         onClose={handleClose}
@@ -69,7 +68,7 @@ export default function SnackbarMessage() {
           // prettier-ignore
           message={(
             <Box id='message-id' className="snackMessage">
-              {status === "success" ? 
+              {isSuccess ? 
                 <CheckCircle className="iconPadding" /> : 
                 <Error className="iconPadding" />}
               {message || `Form submission status: ${status}`}
