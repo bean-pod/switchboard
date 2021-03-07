@@ -14,20 +14,8 @@ describe("<Page/> functional Component", () => {
   const dummyTitle = "testString";
   const dummyCrumb = [["bread", "crumb"]];
   const dummyChild = <div className="someDummyChild" />;
-  const mockAuthenticated = jest.fn();
-  const mockHandleLogout = jest.fn();
 
   let wrapper;
-  const wrapper = Enzyme.shallow(
-    <Page
-      isAuthenticated={mockAuthenticated}
-      handleLogout={mockHandleLogout}
-      title={dummyTitle}
-      breadcrumbs={dummyCrumb}
-    >
-      {dummyChild}
-    </Page>
-  );
 
   describe("returns a component that", () => {
     describe("if props do not contain deviceList", () => {
