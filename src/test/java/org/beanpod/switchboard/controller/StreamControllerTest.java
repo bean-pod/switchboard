@@ -25,7 +25,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.openapitools.model.StreamModel;
 import org.openapitools.model.StreamStatModel;
-import org.openapitools.model.StreamStatModel2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -109,12 +108,12 @@ class StreamControllerTest {
     StreamStatDto streamStatDto = StreamStatFixture.getStreamStatDto();
     when(streamDao.getStreamStat(StreamStatFixture.ID)).thenReturn(Optional.of(streamStatDto));
     when(streamStatMapper.toModel(streamStatDto))
-        .thenReturn(StreamStatFixture.getStreamStatModel2());
+        .thenReturn(StreamStatFixture.getStreamStatModel());
 
-    ResponseEntity<StreamStatModel2> result =
+    ResponseEntity<StreamStatModel> result =
         streamController.getStreamStatById(StreamStatFixture.ID);
 
-    assertEquals(result.getBody(), StreamStatFixture.getStreamStatModel2());
+    assertEquals(result.getBody(), StreamStatFixture.getStreamStatModel());
   }
 
   @Test
@@ -163,13 +162,13 @@ class StreamControllerTest {
 
   @Test
   void testUpdateStreamStat() {
-    StreamStatModel2 streamStatModel2 = StreamStatFixture.getStreamStatModel2();
+    StreamStatModel streamStatModel = StreamStatFixture.getStreamStatModel();
     StreamStatDto streamStatDto = StreamStatFixture.getStreamStatDto();
-    when(streamStatMapper.toDto(any(StreamStatModel2.class))).thenReturn(streamStatDto);
-    when(streamStatMapper.toModel(any())).thenReturn(streamStatModel2);
+    when(streamStatMapper.toDto(any(StreamStatModel.class))).thenReturn(streamStatDto);
+    when(streamStatMapper.toModel(any())).thenReturn(streamStatModel);
     when(streamService.updateStreamStat(any())).thenReturn(streamStatDto);
 
-    ResponseEntity<StreamStatModel2> result = streamController.updateStreamStat(streamStatModel2);
+    ResponseEntity<StreamStatModel> result = streamController.updateStreamStat(streamStatModel);
     assertEquals(StreamFixture.ID, result.getBody().getId());
   }
 

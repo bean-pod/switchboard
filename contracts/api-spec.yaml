@@ -437,7 +437,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StreamStatModel2'
+                $ref: '#/components/schemas/StreamStatModel'
 
   /stream/statistics:
     get:
@@ -462,14 +462,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StreamStatModel2'
+              $ref: '#/components/schemas/StreamStatModel'
       responses:
         '200':
           description: successful update of a stream stat
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StreamStatModel2'
+                $ref: '#/components/schemas/StreamStatModel'
 components:
   schemas:
     UserModel:
@@ -702,80 +702,7 @@ components:
           format: int64
           example: '2'
 
-
     StreamStatModel:
-      description: A stat that is related to a specific stream
-      properties:
-        id:
-          type: integer
-          format: int64
-        time:
-          type: integer
-          format: int64
-        flow:
-          type: integer
-          format: int64
-        congestion:
-          type: integer
-          format: int64
-        flight:
-          type: integer
-          format: int64
-        rtt:
-          type: number
-        bandwidth:
-          type: number
-        maxBandwidth:
-          type: integer
-          format: int64
-        sendPackets:
-          type: integer
-          format: int64
-        sendPacketsLost:
-          type: integer
-          format: int64
-        sendPacketsDropped:
-          type: integer
-          format: int64
-        sendPacketsRetransmitted:
-          type: integer
-          format: int64
-        sendBytes:
-          type: integer
-          format: int64
-        sendBytesDropped:
-          type: integer
-          format: int64
-        sendMbitRate:
-          type: number
-        recvPackets:
-          type: integer
-          format: int64
-        recvPacketsLost:
-          type: integer
-          format: int64
-        recvPacketsDropped:
-          type: integer
-          format: int64
-        recvPacketsRetransmitted:
-          type: integer
-          format: int64
-        recvPacketsBelated:
-          type: integer
-          format: int64
-        recvBytes:
-          type: integer
-          format: int64
-        recvBytesLost:
-          type: integer
-          format: int64
-        recvBytesDropped:
-          type: integer
-          format: int64
-        recvMbitRate:
-          type: number
-
-    StreamStatModel2:
       description: A stat that is related to a specific stream
       properties:
         id:

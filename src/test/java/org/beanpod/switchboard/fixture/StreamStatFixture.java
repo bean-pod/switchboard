@@ -4,7 +4,6 @@ import java.util.List;
 import org.beanpod.switchboard.dto.StreamStatDto;
 import org.beanpod.switchboard.entity.StreamStatEntity;
 import org.openapitools.model.StreamStatModel;
-import org.openapitools.model.StreamStatModel2;
 
 public class StreamStatFixture {
 
@@ -20,9 +19,6 @@ public class StreamStatFixture {
 
   public static StreamStatModel getStreamStatModel() {
     return new StreamStatModel().id(ID);
-  }
-  public static StreamStatModel2 getStreamStatModel2() {
-    return new StreamStatModel2().id(ID);
   }
   public static List<StreamStatModel> getStreamStatModelList() {
     return List.of(getStreamStatModel());

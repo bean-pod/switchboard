@@ -8,7 +8,6 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.openapitools.model.StreamStatModel;
-import org.openapitools.model.StreamStatModel2;
 
 @Mapper(
     componentModel = "spring",
@@ -38,7 +37,7 @@ public interface StreamStatMapper {
   @Mapping(source = "recv.bytesLost", target = "recvBytesLost")
   @Mapping(source = "recv.bytesDropped", target = "recvBytesDropped")
   @Mapping(source = "recv.mbitRate", target = "recvMbitRate")
-  StreamStatDto toDto(StreamStatModel2 streamModel);
+  StreamStatDto toDto(StreamStatModel streamModel);
 
   StreamStatDto toDto(StreamStatEntity streamStatEntity);
 
@@ -68,7 +67,7 @@ public interface StreamStatMapper {
   @Mapping(target = "recv.bytesLost", source = "recvBytesLost")
   @Mapping(target = "recv.bytesDropped", source = "recvBytesDropped")
   @Mapping(target = "recv.mbitRate", source = "recvMbitRate")
-  StreamStatModel2 toModel(StreamStatDto streamStatDto);
+  StreamStatModel toModel(StreamStatDto streamStatDto);
 
   List<StreamStatModel> toModelList(List<StreamStatDto> streamDtoList);
 
