@@ -41,7 +41,7 @@ function buildNavlink(deviceInfo) {
   return (
     <NavLink
       to={{
-        pathname: `/Devices/Details/${deviceInfo.name}`,
+        pathname: `/Devices/Details/${deviceInfo.serialNumber}`,
         state: { device: deviceInfo }
       }}
     >
