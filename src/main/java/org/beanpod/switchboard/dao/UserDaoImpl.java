@@ -35,4 +35,13 @@ public class UserDaoImpl {
       throw new UsernameNotFoundException("Bad Credentials");
     }
   }
+
+  public UserEntity findUser(String username) {
+    final Optional<UserEntity> optionalUser =  userRepository.findByUsername(username);
+    if (optionalUser.isPresent()) {
+      return optionalUser.get();
+    } else {
+      throw new UsernameNotFoundException("User does not exist");
+    }
+  }
 }
