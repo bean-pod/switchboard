@@ -19,11 +19,11 @@ export default class ProtectedRoute extends React.Component {
         return render();
       }
 
-      return <Redirect to={{ pathname: "/Login" }} />
+      return <Redirect to={{ pathname: "/Login" }} />;
     }
 
     if (authenticated) {
-      return <Redirect to={{ pathname: "/Home" }} />
+      return <Redirect to={{ pathname: "/Home" }} />;
     }
 
     return render();
