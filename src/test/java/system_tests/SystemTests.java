@@ -166,7 +166,7 @@ public class SystemTests{
   @Test
   @Order(3)
   void testCreateStream() {
-    driver.get("http://localhost:3000/Streaming");
+    driver.get("http://localhost:3000/Streaming/New");
     {
       WebDriverWait wait = new WebDriverWait(driver, 100);
       wait.until(
@@ -216,7 +216,7 @@ public class SystemTests{
     driver.findElement(By.cssSelector(".MuiMenuItem-root")).click();
     driver.findElement(By.cssSelector(".buttonText")).click();
 
-    driver.navigate().refresh();
+    driver.get("http://localhost:3000/Streaming");
 
     // Check for stream creation
     WebElement streamsTable = driver.findElement(By.tagName("table")); // find streams table
@@ -256,11 +256,8 @@ public class SystemTests{
   @SneakyThrows
   private void login() {
     driver.get("http://localhost:3000/login");
-    driver.findElement(By.id("username")).click();
-    driver.findElement(By.id("username")).clear();
     driver.findElement(By.id("username")).sendKeys("test_username");
-    driver.findElement(By.id("password")).clear();
     driver.findElement(By.id("password")).sendKeys("test_password");
-    driver.findElement(By.xpath("//div[@id='root']/div[2]/main/div/form/button/span")).click();
+    driver.findElement(By.cssSelector(".MuiButton-label")).click();
   }
 }
