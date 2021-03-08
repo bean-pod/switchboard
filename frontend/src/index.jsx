@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import HeaderBar from "./general/HeaderBar";
 import HomePage from "./homepage/HomePage";
 import DeviceListPage from "./devicelist/DeviceListPage";
+import StreamListPage from "./streamlist/StreamListPage";
 import DeviceDetailsPage from "./deviceDetailsPage/DeviceDetailsPage";
 import SnackbarMessage from "./general/SnackbarMessage";
 import LogListPage from "./loglist/LogListPage";
@@ -25,6 +26,11 @@ ReactDOM.render(
           exact
           path="/Devices"
           render={() => <DeviceListPage dataSource={DeviceApi} />}
+        />
+        <Route
+          exact
+          path="/Streaming"
+          render={() => <StreamListPage streamDataSource={StreamApi} />}
         />
         <Route
           exact
