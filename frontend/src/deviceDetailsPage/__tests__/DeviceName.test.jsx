@@ -103,44 +103,54 @@ describe("<DeviceName/> component", () => {
       wrapper.setState(editingState);
     });
 
-    it("call the DeviceApi.updateDeviceName function", () => {
-      // expect(DeviceApi.updateDeviceName).toBeCalledTimes(1);
+    describe("When updating name succeeds", () => {
+      it("Calls updateDeviceName and contains <StaticName/> with the new name", () => {
+        const newName = "New Name";
+        wrapper.instance().setName(newName);
+
+        DeviceApi.updateDeviceName.mockResolvedValue();
+
+        const editEvent = {
+          preventDefault: jest.fn()
+        };
+        wrapper.instance().confirmEditing(editEvent);
+
+        expect(DeviceApi.updateDeviceName).toHaveBeenCalledWith(
+          mockDevice.id,
+          newName
+        );
+
+        const staticName = wrapper.find(StaticName);
+        expect(staticName).toHaveLength(1);
+        const props = staticName.first().props();
+        expect(props.deviceName).toEqual(newName);
+      });
     });
 
-    it("On success, changes the device name and contains StaticName with new name", () => {
-      const newName = "New Name";
-      wrapper.instance().setName(newName);
+    describe("When updating name fails", () => {
+      it("Calls updateDeviceName and contains <StaticName/> with the old name", async () => {
+        const newName = "New Name";
+        wrapper.instance().setName(newName);
 
-      DeviceApi.updateDeviceName.mockResolvedValue();
+        DeviceApi.updateDeviceName.mockRejectedValue();
 
-      const editEvent = {
-        preventDefault: jest.fn()
-      };
-      wrapper.instance().confirmEditing(editEvent);
+        const editEvent = {
+          preventDefault: jest.fn()
+        };
+        wrapper.instance().confirmEditing(editEvent);
+        const flushPromises = () => new Promise(setImmediate);
+        await flushPromises();
 
-      const staticName = wrapper.find(StaticName);
-      expect(staticName).toHaveLength(1);
-      const props = staticName.first().props();
-      expect(props.deviceName).toEqual(newName);
-    });
+        expect(DeviceApi.updateDeviceName).toHaveBeenCalledWith(
+          mockDevice.id,
+          newName
+        );
 
-    it("On failure, returns to the old name and contains <StaticName/>", async () => {
-      const newName = "New Name";
-      wrapper.instance().setName(newName);
-
-      DeviceApi.updateDeviceName.mockRejectedValue();
-
-      const editEvent = {
-        preventDefault: jest.fn()
-      };
-      wrapper.instance().confirmEditing(editEvent);
-      const flushPromises = () => new Promise(setImmediate);
-      await flushPromises();
-
-      const staticName = wrapper.find(StaticName);
-      expect(staticName).toHaveLength(1);
-      const props = staticName.first().props();
-      expect(props.deviceName).toEqual(mockDevice.name);
+        const staticName = wrapper.find(StaticName);
+        expect(staticName).toHaveLength(1);
+        const props = staticName.first().props();
+        expect(props.deviceName).toEqual(mockDevice.name);
+      });
     });
   });
 });
