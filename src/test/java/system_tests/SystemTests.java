@@ -117,8 +117,10 @@ public class SystemTests{
     // Check for encoder
     WebElement encodersTable = driver.findElement(By.tagName("table")); // find encoders table
 
-    WebDriverWait wait = new WebDriverWait(driver, 5);
-    wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName("tr")));
+    {
+      WebDriverWait wait = new WebDriverWait(driver, 5);
+      wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName("tr")));
+    }
 
     List<WebElement> devicesRows =
         encodersTable.findElements(By.tagName("tr")); // find all tr elements inside found table
@@ -148,8 +150,10 @@ public class SystemTests{
     // Check for decoder
     WebElement decodersTable = driver.findElement(By.tagName("table")); // find encoders table
 
-    WebDriverWait wait = new WebDriverWait(driver, 5);
-    wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName("tr")));
+    {
+      WebDriverWait wait = new WebDriverWait(driver, 5);
+      wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName("tr")));
+    }
 
     List<WebElement> devicesRows =
         decodersTable.findElements(By.tagName("tr")); // find all tr elements inside found table
@@ -221,8 +225,10 @@ public class SystemTests{
     // Check for stream creation
     WebElement streamsTable = driver.findElement(By.tagName("table")); // find streams table
 
-    WebDriverWait wait = new WebDriverWait(driver, 5);
-    wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName("td")));
+    {
+      WebDriverWait wait = new WebDriverWait(driver, 5);
+      wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName("td")));
+    }
 
     List<WebElement> devicesRows =
         streamsTable.findElements(By.tagName("td")); // find all td elements inside found table
@@ -239,11 +245,12 @@ public class SystemTests{
     driver.findElement(By.cssSelector(".MuiButton-textSecondary > .MuiButton-label")).click();
 
     // Check for stream deletion
-    driver.navigate().refresh();
     WebElement streamsTable = driver.findElement(By.tagName("table")); // find streams table
 
-    WebDriverWait wait = new WebDriverWait(driver, 5);
-    wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName("td")));
+    {
+      WebDriverWait wait = new WebDriverWait(driver, 5);
+      wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName("td")));
+    }
 
     List<WebElement> devicesRows =
         streamsTable.findElements(By.tagName("td")); // find all td elements inside found table
