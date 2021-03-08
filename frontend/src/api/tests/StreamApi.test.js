@@ -2,7 +2,6 @@ import axios from "axios";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import { afterEach, describe, expect, jest, it } from "@jest/globals";
-import { afterEach, describe, expect, it, jest } from "@jest/globals";
 import * as authenticationUtil from "../AuthenticationUtil";
 // import StreamApi itself
 import * as StreamApi from "../StreamApi";
@@ -53,11 +52,14 @@ describe("Stream Api", () => {
   });
 
   describe("getStream", () => {
-    it("should call axios.get and return a single stream's information", () => {
+    it("should call axios.get and return a single stream's information", async () => {
+      axios.get.mockResolvedValue({ data: firstStreamResponse });
+
       authenticationUtil.getAuthorizationHeader = jest
         .fn()
         .mockReturnValue(authorizationHeader);
-      StreamApi.getStream(123);
+
+      const response = await StreamApi.getStream(123);
 
       // check that callback was invoked with correct value
       expect(axios.get).toHaveBeenCalledWith(
@@ -93,10 +95,15 @@ describe("Stream Api", () => {
     it("should call axios.get and resolve the promise once the delete is complete", async () => {
       axios.delete.mockResolvedValue();
 
+      authenticationUtil.getAuthorizationHeader = jest
+      .fn()
+      .mockReturnValue(authorizationHeader);
+
       await StreamApi.deleteStream(1);
 
       expect(axios.delete).toHaveBeenCalledWith(
-        "http://localhost:8080/stream/1"
+        "http://localhost:8080/stream/1",
+          authorizationHeader
       );
     });
   });
