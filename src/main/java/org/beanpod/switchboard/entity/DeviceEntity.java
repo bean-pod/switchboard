@@ -4,7 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -52,4 +55,10 @@ public class DeviceEntity {
       mappedBy = "device",
       cascade = {CascadeType.REMOVE})
   private EncoderEntity encoderEntity;
+
+  @ManyToOne(
+      fetch = FetchType.LAZY
+  )
+  @JoinColumn(name = "user_id")
+  private UserEntity user;
 }

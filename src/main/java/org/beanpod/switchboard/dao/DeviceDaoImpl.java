@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.dto.DeviceDto;
 import org.beanpod.switchboard.dto.mapper.DeviceMapper;
 import org.beanpod.switchboard.entity.DeviceEntity;
+import org.beanpod.switchboard.entity.UserEntity;
 import org.beanpod.switchboard.repository.DeviceRepository;
 import org.beanpod.switchboard.util.MaintainDeviceStatus;
 import org.openapitools.model.CreateDeviceRequest;
@@ -27,6 +28,14 @@ public class DeviceDaoImpl {
 
   public DeviceDto createDevice(CreateDeviceRequest createDeviceRequest, String publicIpAddress) {
     DeviceDto deviceDto = deviceMapper.toDeviceDto(createDeviceRequest, publicIpAddress);
+    deviceDto.setStatus(MaintainDeviceStatus.OFFLINE_STATUS);
+    DeviceEntity deviceEntity = deviceMapper.toDeviceEntity(deviceDto);
+    DeviceEntity savedDeviceEntity = deviceRepository.save(deviceEntity);
+    return deviceMapper.toDeviceDto(savedDeviceEntity);
+  }
+
+  public DeviceDto createDevice(CreateDeviceRequest createDeviceRequest, String publicIpAddress, UserEntity user) {
+    DeviceDto deviceDto = deviceMapper.toDeviceDto(createDeviceRequest, publicIpAddress, user);
     deviceDto.setStatus(MaintainDeviceStatus.OFFLINE_STATUS);
     DeviceEntity deviceEntity = deviceMapper.toDeviceEntity(deviceDto);
     DeviceEntity savedDeviceEntity = deviceRepository.save(deviceEntity);
