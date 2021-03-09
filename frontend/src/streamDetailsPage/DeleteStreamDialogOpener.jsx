@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { IconButton, Tooltip } from "@material-ui/core";
-import { Delete } from "@material-ui/icons";
+import { Button, Tooltip } from "@material-ui/core";
+import DeleteIcon from "@material-ui/icons/Delete";
 import { withRouter } from "react-router-dom";
 
 import DeleteStreamDialog from "./DeleteStreamDialog";
@@ -23,9 +23,14 @@ class DeleteStreamDialogOpener extends React.Component {
     return (
       <>
         <Tooltip title="Delete Stream" aria-label="delete stream">
-          <IconButton onClick={this.openDialog}>
-            <Delete />
-          </IconButton>
+          <Button
+            variant="contained"
+            color="secondary"
+            startIcon={<DeleteIcon />}
+            onClick={this.openDialog}
+          >
+            Delete
+          </Button>
         </Tooltip>
         <DeleteStreamDialog
           ref={this.dialogElement}
