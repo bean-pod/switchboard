@@ -39,6 +39,11 @@ ReactDOM.render(
         />
         <Route
           exact
+          path="/Streaming/Details/:streamId"
+          component={StreamDetailsPage}
+        />
+        <Route
+          exact
           path="/Devices/Details/:deviceId"
           component={DeviceDetailsPage}
         />
@@ -48,7 +53,6 @@ ReactDOM.render(
           render={() => <LogListPage logsDataSource={LogApi} />}
         />
         <Route exact path="/Login" component={LoginPage} />
-        <Route exact path="/StreamDetails" component={StreamDetailsPage} />
       </Switch>
     </BrowserRouter>
   </React.StrictMode>,

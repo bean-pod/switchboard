@@ -7,24 +7,33 @@ import StreamDetailsWrapper from "./StreamDetailsWrapper";
 import Page from "../general/Page";
 
 export default function StreamDetailsPage(props) {
-  const { streamDetails } = props;
+  const {
+    location: {
+      state: { stream }
+    }
+  } = props;
+
   const breadcrumbs = [
     ["Home", "/"],
     ["Streaming", "/Streaming"],
-    [`Stream ${streamDetails.id}`, streamDetails.id]
+    [`Stream ${stream.id}`, stream.id]
   ];
 
   return (
     <Page title="Stream Details" breadcrumbs={breadcrumbs}>
-      <StreamDetailsWrapper streamDetailSource={streamDetails} />
+      <StreamDetailsWrapper streamDetailSource={stream} />
     </Page>
   );
 }
 
 StreamDetailsPage.defaultProps = {
-  streamDetails: SampleData.getAllStreams()[0]
+  location: { state: { stream: SampleData.getAllStreams()[0] } }
 };
 
 StreamDetailsPage.propTypes = {
-  streamDetails: PropTypes.instanceOf(StreamInfo)
+  location: PropTypes.shape({
+    state: PropTypes.shape({
+      stream: PropTypes.instanceOf(StreamInfo)
+    })
+  })
 };
