@@ -10,7 +10,9 @@ export async function getStream(streamId) {
       return new StreamInfo(
         stream.id,
         convertToDataObject(stream.outputChannel.encoder),
-        convertToDataObject(stream.inputChannel.decoder)
+        convertToDataObject(stream.inputChannel.decoder),
+        stream.outputChannel.channel.port,
+        stream.inputChannel.channel.port
       );
     });
 }
