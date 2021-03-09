@@ -1,10 +1,12 @@
 import React from "react";
+import PropTypes from "prop-types";
+import { withRouter, NavLink } from "react-router-dom";
 import { AppBar, IconButton, makeStyles, Toolbar } from "@material-ui/core";
 import { AccountCircle, Home } from "@material-ui/icons/";
-import { NavLink } from "react-router-dom";
+
 import { isAuthenticated, handleLogout } from "../api/AuthenticationApi";
 
-export default class HeaderBar extends React.Component {
+class HeaderBar extends React.Component {
   constructor(props) {
     super(props);
     this.classes = makeStyles((theme) => ({
@@ -15,7 +17,10 @@ export default class HeaderBar extends React.Component {
   }
 
   handleLogout() {
+    const { history } = this.props;
     handleLogout();
+    history.push("/Login");
+    history.go(0);
   }
 
   render() {
@@ -50,3 +55,11 @@ export default class HeaderBar extends React.Component {
     );
   }
 }
+export default withRouter(HeaderBar);
+
+HeaderBar.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+    go: PropTypes.func.isRequired
+  }).isRequired
+};
