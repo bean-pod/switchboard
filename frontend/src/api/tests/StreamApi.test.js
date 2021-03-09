@@ -20,14 +20,12 @@ const {
 const expectedFirstStreamRespone = new StreamInfo(
   1,
   convertToDataObject(firstStreamResponse.outputChannel.encoder),
-  convertToDataObject(firstStreamResponse.inputChannel.decoder),
-  ["Additional stream info goes here."]
+  convertToDataObject(firstStreamResponse.inputChannel.decoder)
 );
 const expectedSecondStreamResponse = new StreamInfo(
   2,
   convertToDataObject(secondStreamResponse.outputChannel.encoder),
-  convertToDataObject(secondStreamResponse.inputChannel.decoder),
-  ["Additional stream info goes here."]
+  convertToDataObject(secondStreamResponse.inputChannel.decoder)
 );
 
 const expectedAllStreamsResponse = [

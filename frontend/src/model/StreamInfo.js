@@ -24,6 +24,5 @@ export default class StreamInfo {
     this.status = "Online";
     this.type = "Type 1";
     this.time = "00:34:44";
-    this.extras = extras;
   }
 }
