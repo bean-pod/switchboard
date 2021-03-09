@@ -8,7 +8,7 @@ import { AccountCircle, Home } from "@material-ui/icons/";
 import { NavLink } from "react-router-dom";
 import HeaderBar from "../HeaderBar";
 
-import * as AuthApi from "../../api/AuthenticationApi"
+import * as AuthApi from "../../api/AuthenticationApi";
 
 Enzyme.configure({ adapter: new Adapter() });
 describe("<HeaderBar/> functional Component", () => {
@@ -22,7 +22,9 @@ describe("<HeaderBar/> functional Component", () => {
   };
 
   beforeEach(() => {
-    wrapper = Enzyme.shallow(<HeaderBar.WrappedComponent history={mockHistory}/>);
+    wrapper = Enzyme.shallow(
+      <HeaderBar.WrappedComponent history={mockHistory} />
+    );
   });
 
   describe("render() function returns a component that", () => {
@@ -66,17 +68,17 @@ describe("<HeaderBar/> functional Component", () => {
     });
   });
   describe("handleLogout() function", () => {
-    beforeEach(()=>{
-      jest.spyOn(AuthApi, "handleLogout")
+    beforeEach(() => {
+      jest.spyOn(AuthApi, "handleLogout");
       wrapper.instance().handleLogout();
-    })
-    it("calls AuthApi.handleLogout() function", ()=>{
+    });
+    it("calls AuthApi.handleLogout() function", () => {
       expect(AuthApi.handleLogout).toBeCalled();
     });
-    it("calls history.push() with expected value", ()=>{
+    it("calls history.push() with expected value", () => {
       expect(mockPush).toBeCalledWith("/Login");
     });
-    it("calls history.go() with expected value", ()=>{
+    it("calls history.go() with expected value", () => {
       expect(mockGo).toBeCalledWith(0);
     });
   });
