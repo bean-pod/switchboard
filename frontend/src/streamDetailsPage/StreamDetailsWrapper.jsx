@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Container, Grid } from "@material-ui/core";
+import { Box, Container, Grid } from "@material-ui/core";
 
 import StreamInfo from "../model/StreamInfo";
 import DashboardCard from "../general/dashboard/DashboardCard";
@@ -34,7 +34,9 @@ export default function StreamDetailsWrapper(props) {
           </DashboardCard>
         </Grid>
       </Grid>
-      <DeleteStreamDialogOpener deleteId={streamDetailSource.id} />
+      <Box className="alignRightFloatPadded">
+        <DeleteStreamDialogOpener deleteId={streamDetailSource.id} />
+      </Box>
     </Container>
   );
 }
