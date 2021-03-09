@@ -31,7 +31,13 @@ export default class ProtectedRoute extends React.Component {
 
   render() {
     const { path } = this.props;
-    return <Route exact path={path} render={({location}) => this.component(location)} />;
+    return (
+      <Route
+        exact
+        path={path}
+        render={({ location }) => this.component(location)}
+      />
+    );
   }
 }
 
