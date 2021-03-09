@@ -7,7 +7,7 @@ export default function CreateStreamPage(props) {
   const { dataSource } = props;
   const breadcrumbs = [
     ["Home", "/Home"],
-    ["My Streams", "/Streaming"],
+    ["Active Streams", "/Streaming"],
     ["New Stream", "/Streaming/New"]
   ];
   return (
