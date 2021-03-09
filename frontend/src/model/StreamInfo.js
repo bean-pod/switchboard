@@ -12,7 +12,7 @@ export default class StreamInfo {
   // }
 
   // temporary with static fields until backend is up to snuff
-  constructor(id, sender, receiver, extras) {
+  constructor(id, sender, receiver, outputChannel, inputChannel) {
     this.id = id;
     this.date = new Date("2020-10-31T08:15:30")
       .toString()
@@ -21,6 +21,8 @@ export default class StreamInfo {
       .join(" ");
     this.sender = sender;
     this.receiver = receiver;
+    this.outputChannel = outputChannel;
+    this.inputChannel = inputChannel;
     this.status = "Online";
     this.type = "Type 1";
     this.time = "00:34:44";
