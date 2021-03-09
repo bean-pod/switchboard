@@ -1,17 +1,19 @@
 import React from "react";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import { beforeEach, describe, expect, it } from "@jest/globals";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { AppBar, Toolbar, IconButton } from "@material-ui/core";
 import { AccountCircle, Home } from "@material-ui/icons/";
 import { NavLink } from "react-router-dom";
 import HeaderBar from "../general/HeaderBar";
 
+import * as AuthApi from "../api/AuthenticationApi"
+
 Enzyme.configure({ adapter: new Adapter() });
 describe("<HeaderBar/> functional Component", () => {
   let wrapper;
-  
+
   const mockPush = jest.fn();
   const mockGo = jest.fn();
   const mockHistory = {
@@ -55,7 +57,6 @@ describe("<HeaderBar/> functional Component", () => {
       const buttonProps = wrapper.find(IconButton).at(1).props();
       expect(buttonProps.id).toBe("acctBtn");
       expect(buttonProps.color).toBe("inherit");
-      expect(buttonProps.onClick).toBe(wrapper.instance().handleLogout);
     });
     it("Contains <Home/> icon component", () => {
       expect(wrapper.find(Home)).toHaveLength(1);
@@ -65,8 +66,12 @@ describe("<HeaderBar/> functional Component", () => {
     });
   });
   describe("handleLogout() function", () => {
+    beforeEach(()=>{
+      jest.spyOn(AuthApi, "handleLogout")
+      wrapper.instance().handleLogout();
+    })
     it("calls AuthApi.handleLogout() function", ()=>{
-      
+      expect(AuthApi.handleLogout).toBeCalled();
     });
     it("calls history.push() with expected value", ()=>{
       expect(mockPush).toBeCalledWith("/Login");
