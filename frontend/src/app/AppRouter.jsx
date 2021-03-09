@@ -6,6 +6,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import LoginPage from "../login/LoginPage";
 import HomePage from "../homepage/HomePage";
 import DeviceListPage from "../devicelist/DeviceListPage";
+import DeviceDetailsPage from "../deviceDetailsPage/DeviceDetailsPage";
 import StreamListPage from "../streamlist/StreamListPage";
 import CreateStreamPage from "../createStream/CreateStreamPage";
 import LogListPage from "../loglist/LogListPage";
@@ -21,6 +22,13 @@ export default function AppRouter() {
           isUserPage
           render={() => {
             return <HomePage />;
+          }}
+        />
+        <ProtectedRoute
+          path="/Devices/Details/:serialNumber"
+          isUserPage
+          render={(location) => {
+            return <DeviceDetailsPage location={location} />;
           }}
         />
         <ProtectedRoute

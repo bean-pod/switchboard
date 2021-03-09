@@ -10,13 +10,13 @@ export default class ProtectedRoute extends React.Component {
     this.component = this.component.bind(this);
   }
 
-  component() {
+  component(location) {
     const { isUserPage, render } = this.props;
     const authenticated = isAuthenticated();
 
     if (isUserPage) {
       if (authenticated) {
-        return render();
+        return render(location);
       }
 
       return <Redirect to={{ pathname: "/Login" }} />;
@@ -26,12 +26,12 @@ export default class ProtectedRoute extends React.Component {
       return <Redirect to={{ pathname: "/Home" }} />;
     }
 
-    return render();
+    return render(location);
   }
 
   render() {
     const { path } = this.props;
-    return <Route exact path={path} render={() => this.component()} />;
+    return <Route exact path={path} render={({location}) => this.component(location)} />;
   }
 }
 
