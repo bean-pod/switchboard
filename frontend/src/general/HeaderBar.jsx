@@ -24,7 +24,7 @@ export default class HeaderBar extends React.Component {
         <AppBar position="static">
           <Toolbar className="darkGrey">
             <div className="headerTitle">
-              <NavLink to="/" className="headerTitle">
+              <NavLink to="/Home" className="headerTitle">
                 <IconButton
                   edge="start"
                   className={this.classes.menuButton}
