@@ -5,6 +5,7 @@ import { Container, Grid } from "@material-ui/core";
 import StreamInfo from "../model/StreamInfo";
 import DashboardCard from "../general/dashboard/DashboardCard";
 import StreamDeviceDetails from "./StreamDeviceDetails";
+import DeleteStreamDialogOpener from "./DeleteStreamDialogOpener";
 // import { getSampleStream } from "../api/SampleStream";
 
 export default function StreamDetailsWrapper(props) {
@@ -33,6 +34,7 @@ export default function StreamDetailsWrapper(props) {
           </DashboardCard>
         </Grid>
       </Grid>
+      <DeleteStreamDialogOpener deleteId={streamDetailSource.id} />
     </Container>
   );
 }
