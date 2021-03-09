@@ -9,10 +9,8 @@ import {
   jest,
   it
 } from "@jest/globals";
-import { Box, TableContainer, Typography } from "@material-ui/core";
+import { Box, TableContainer } from "@material-ui/core";
 import {
-  ExpandLess,
-  ExpandMore,
   ArrowDownward,
   FirstPage,
   LastPage,

@@ -1,10 +1,8 @@
 import React from "react";
-import { Box, TableContainer, Typography } from "@material-ui/core";
+import { Box, TableContainer } from "@material-ui/core";
 import PropTypes from "prop-types";
 
 import {
-  ExpandLess,
-  ExpandMore,
   ArrowDownward,
   FirstPage,
   LastPage,
@@ -87,7 +85,6 @@ export default class StreamsTable extends React.Component {
   getColumnInfo() {
     return this.columnInfo;
   }
-
 
   getOptions() {
     return this.options;
