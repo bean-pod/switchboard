@@ -6,9 +6,9 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { AppBar, Toolbar, IconButton } from "@material-ui/core";
 import { AccountCircle, Home } from "@material-ui/icons/";
 import { NavLink } from "react-router-dom";
-import HeaderBar from "../general/HeaderBar";
+import HeaderBar from "../HeaderBar";
 
-import * as AuthApi from "../api/AuthenticationApi"
+import * as AuthApi from "../../api/AuthenticationApi"
 
 Enzyme.configure({ adapter: new Adapter() });
 describe("<HeaderBar/> functional Component", () => {
