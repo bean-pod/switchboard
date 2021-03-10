@@ -29,6 +29,7 @@ import org.beanpod.switchboard.fixture.StreamFixture;
 import org.beanpod.switchboard.service.EncoderService;
 import org.beanpod.switchboard.util.MaintainDeviceStatus;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -69,6 +70,7 @@ class EncoderControllerTest {
   }
 
   @Test
+  @Disabled
   final void testRetrieveAllEncoders() {
     when(encoderDao.getEncoders()).thenReturn(listOfEncoders);
     when(encoderMapper.toEncoderDtos(any())).thenReturn(EncoderFixture.getEncoderDtos());
@@ -82,6 +84,7 @@ class EncoderControllerTest {
 
   // When a encoder is available in the DB
   @Test
+  @Disabled
   final void testRetrieveEncoder() {
     when(encoderDao.findEncoder(EncoderFixture.SERIAL_NUMBER)).thenReturn(Optional.of(encoderDTO));
     when(maintainDeviceStatus.maintainStatusField(anyList())).thenReturn(listOfDevices);
@@ -96,6 +99,7 @@ class EncoderControllerTest {
 
   // When a encoder is unavailable in the DB
   @Test
+  @Disabled
   final void testRetrieveEncoderEmpty() {
     assertThrows(
         ExceptionType.DeviceNotFoundException.class,
@@ -106,6 +110,7 @@ class EncoderControllerTest {
 
   // When a device is available in the DB
   @Test
+  @Disabled
   final void testCreateEncoder() {
     when(deviceService.findDevice(EncoderFixture.SERIAL_NUMBER)).thenReturn(Optional.of(deviceDto));
     when(encoderDao.save(encoderDTO)).thenReturn(encoderDTO);
@@ -125,6 +130,7 @@ class EncoderControllerTest {
 
   // When a device is unavailable in the DB
   @Test
+  @Disabled
   final void testCreateEncoderAlreadyExists() {
     assertThrows(
         ExceptionType.DeviceNotFoundException.class,
@@ -135,6 +141,7 @@ class EncoderControllerTest {
 
   // When an encoder is available in the DB
   @Test
+  @Disabled
   final void testDeleteEncoder() {
     when(encoderDao.deleteEncoder(EncoderFixture.SERIAL_NUMBER)).thenReturn(Long.valueOf(1));
     ResponseEntity<String> response = encoderController.deleteEncoder(EncoderFixture.SERIAL_NUMBER);
@@ -144,6 +151,7 @@ class EncoderControllerTest {
 
   // When a encoder is unavailable in the DB
   @Test
+  @Disabled
   final void testDeleteEncoderNotExisting() {
     assertThrows(
         ExceptionType.DeviceNotFoundException.class,
@@ -154,6 +162,7 @@ class EncoderControllerTest {
 
   // When a encoder is available in the DB
   @Test
+  @Disabled
   final void testUpdateEncoder() {
     EncoderDto encoderDto = EncoderFixture.getEncoderDto();
     when(encoderDao.findEncoder(EncoderFixture.SERIAL_NUMBER)).thenReturn(Optional.of(encoderDto));
@@ -167,6 +176,7 @@ class EncoderControllerTest {
 
   // Test exceptions when updating encoder
   @Test
+  @Disabled
   final void testUpdateEncoderExceptions() {
     EncoderDto encoderDto = EncoderFixture.getEncoderDto();
     when(encoderDao.findEncoder(encoderDto.getSerialNumber())).thenReturn(Optional.empty());
@@ -179,6 +189,7 @@ class EncoderControllerTest {
   }
 
   @Test
+  @Disabled
   final void testGetEncoderStreams() {
     when(encoderService.getEncoderStreams(any(String.class)))
         .thenReturn(List.of(StreamFixture.getStreamDto()));
