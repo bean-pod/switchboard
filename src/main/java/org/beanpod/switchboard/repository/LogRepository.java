@@ -6,6 +6,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+// Ownership data access methods are pending updates to LogEntity. The LogEntity
+// serial_number should be a foreign key relationship to the device's serial number
+// that created the log.
+
 @Repository
 public interface LogRepository extends JpaRepository<LogEntity, Long> {
 
@@ -13,6 +17,7 @@ public interface LogRepository extends JpaRepository<LogEntity, Long> {
 
   List<LogEntity> findAll();
 
+  // The following query shows database bad practice (comma-separated values) (Update pending)
   // The Query covers three cases: 1- serialNumber = X,Y 2- serialNumber = Y,X 3- serialNumber = X
   @Query(
       "SELECT l FROM LogEntity l WHERE l.serialNumber LIKE CONCAT(?1,',%') "
