@@ -3,11 +3,11 @@ import PropTypes from "prop-types";
 import LogsTableWrapper from "../loglist/LogsTableWrapper";
 
 export default function StreamLogs(props) {
-  const { streamLogs } = props;
+  const { logsSource } = props;
 
-  return <LogsTableWrapper logsDataSource={streamLogs} />;
+  return <LogsTableWrapper logsDataSource={logsSource} />;
 }
 
 StreamLogs.propTypes = {
-  streamLogs: PropTypes.objectOf(PropTypes.func).isRequired
+  logsSource: PropTypes.objectOf(PropTypes.func).isRequired
 };
