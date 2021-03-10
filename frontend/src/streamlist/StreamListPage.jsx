@@ -7,7 +7,7 @@ export default function StreamListPage(props) {
   const { streamDataSource } = props;
   const breadcrumbs = [
     ["Home", "/Home"],
-    ["Active Streams", "/Streaming"]
+    ["Active Streams", "/Streams"]
   ];
   return (
     <Page title="Active Streams" breadcrumbs={breadcrumbs}>
