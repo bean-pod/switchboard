@@ -104,13 +104,39 @@ describe("AuthenticationApi", () => {
     });
   });
 
-  describe("handleLogout() function", ()=>{
-    it("should call Cookies.remove() 3 times", ()=>{
-      AuthenticationApi.handleLogout()
-      expect(Cookies.remove).toBeCalledTimes(3)
-      expect(Cookies.remove.mock.calls[0][0]).toBe("access_token")
-      expect(Cookies.remove.mock.calls[1][0]).toBe("admin_token")
-      expect(Cookies.remove.mock.calls[2][0]).toBe("refresh_token")
-    })
-  })
+  describe("handleLogout() function", () => {
+    it("should call Cookies.remove() 3 times", () => {
+      AuthenticationApi.handleLogout();
+
+      expect(Cookies.remove).toBeCalledTimes(3);
+      expect(Cookies.remove.mock.calls[0][0]).toBe("access_token");
+      expect(Cookies.remove.mock.calls[1][0]).toBe("admin_token");
+      expect(Cookies.remove.mock.calls[2][0]).toBe("refresh_token");
+    });
+  });
+
+  describe("handleLogin() function", () => {
+    it("should call Cookies.set 3 times with expected args & return true", () => {
+
+      const expectedTokens = {
+        access_token: true,
+        admin_token: true,
+        refresh_token: true
+      };
+
+      const value = AuthenticationApi.handleLogin();
+
+      expect(Cookies.set).toBeCalledTimes(3);
+      expect(Cookies.set.mock.calls[0][0]).toBe("access_token");
+      expect(Cookies.set.mock.calls[0][1]).toBe(expectedTokens.access_token);
+
+      expect(Cookies.set.mock.calls[1][0]).toBe("admin_token");
+      expect(Cookies.set.mock.calls[1][1]).toBe(expectedTokens.admin_token);
+      
+      expect(Cookies.set.mock.calls[2][0]).toBe("refresh_token");
+      expect(Cookies.set.mock.calls[2][1]).toBe(expectedTokens.refresh_token);
+      
+      // expect(value).toBe(true);
+    });
+  });
 });
