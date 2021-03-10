@@ -116,14 +116,14 @@ describe("AuthenticationApi", () => {
   });
 
   describe("handleLogin() function", () => {
-    it("should call Cookies.set 3 times with expected args & return true", () => {
+    it("should call Cookies.set 3 times with expected args & return true", async () => {
       const expectedTokens = {
         access_token: true,
         admin_token: true,
         refresh_token: true
       };
 
-      AuthenticationApi.handleLogin();
+      const value = await AuthenticationApi.handleLogin();
 
       expect(Cookies.set).toBeCalledTimes(3);
       expect(Cookies.set.mock.calls[0][0]).toBe("access_token");
@@ -135,7 +135,7 @@ describe("AuthenticationApi", () => {
       expect(Cookies.set.mock.calls[2][0]).toBe("refresh_token");
       expect(Cookies.set.mock.calls[2][1]).toBe(expectedTokens.refresh_token);
 
-      // expect(value).toBe(true);
+      expect(value).toBe(true);
     });
   });
 });
