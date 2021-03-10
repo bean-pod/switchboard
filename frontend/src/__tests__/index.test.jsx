@@ -13,7 +13,7 @@ describe("index.jsx file", () => {
     const root = document.createElement("div");
     root.id = "root";
     document.body.appendChild(root);
-    
+
     // eslint-disable-next-line global-require
     require("../index");
     expect(ReactDOM.render).toBeCalledWith(<AppRouter />, root);
