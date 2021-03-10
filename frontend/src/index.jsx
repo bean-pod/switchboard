@@ -28,12 +28,12 @@ ReactDOM.render(
         />
         <Route
           exact
-          path="/Streaming"
+          path="/Streams"
           render={() => <StreamListPage streamDataSource={StreamApi} />}
         />
         <Route
           exact
-          path="/Streaming/New"
+          path="/Streams/New"
           render={() => <CreateStreamPage dataSource={DeviceApi} />}
         />
         <Route
