@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.beanpod.switchboard.dto.DecoderDto;
 import org.beanpod.switchboard.dto.mapper.DecoderMapper;
 import org.beanpod.switchboard.entity.DecoderEntity;
+import org.beanpod.switchboard.entity.UserEntity;
 import org.beanpod.switchboard.repository.DecoderRepository;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +20,13 @@ public class DecoderDaoImpl {
     this.decoderMapper = decoderMapper;
   }
 
+  public DecoderDto save(DecoderDto decoderDto) {
+    return decoderMapper.toDecoderDto(
+        decoderRepository.save(decoderMapper.toDecoderEntity(decoderDto)));
+  }
+
+  // General data access methods
+
   public List<DecoderEntity> getDecoders() {
     return decoderRepository.findAll();
   }
@@ -29,12 +37,23 @@ public class DecoderDaoImpl {
         .map(decoderMapper::toDecoderDto);
   }
 
-  public DecoderDto save(DecoderDto decoderDto) {
-    return decoderMapper.toDecoderDto(
-        decoderRepository.save(decoderMapper.toDecoderEntity(decoderDto)));
-  }
-
   public Long deleteDecoder(String serialNumber) {
     return decoderRepository.deleteDecoderEntityBySerialNumber(serialNumber);
+  }
+
+  // Ownership data access methods
+
+  public List<DecoderEntity> getDecoders(UserEntity user) {
+    return decoderRepository.findDecoderEntitiesByDeviceUser(user);
+  }
+
+  public Optional<DecoderDto> findDecoder(UserEntity user, String serialNumber) {
+    return decoderRepository
+        .findDecoderByDeviceUserAndSerialNumber(user, serialNumber)
+        .map(decoderMapper::toDecoderDto);
+  }
+
+  public Long deleteDecoder(UserEntity user, String serialNumber) {
+    return decoderRepository.deleteDecoderEntityByDeviceUserAndSerialNumber(user, serialNumber);
   }
 }
