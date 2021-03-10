@@ -34,7 +34,9 @@ public class DeviceController implements DeviceApi {
 
   @Override
   public ResponseEntity<List<DeviceModel>> retrieveAllDevices() {
-    return Optional.of(deviceDao.getDevices())
+    UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
+
+    return Optional.of(deviceDao.getDevices(user))
         .map(deviceMapper::toDeviceDtos)
         .map(deviceMapper::toDeviceModelList)
         .map(ResponseEntity::ok)
@@ -43,9 +45,11 @@ public class DeviceController implements DeviceApi {
 
   @Override
   public ResponseEntity<DeviceModel> retrieveDevice(@PathVariable String serialNumber) {
+    UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
+
     DeviceDto deviceDto =
         deviceDao
-            .findDevice(serialNumber)
+            .findDevice(user, serialNumber)
             .orElseThrow(() -> new ExceptionType.DeviceNotFoundException(serialNumber));
 
     return Optional.of(deviceDto)
@@ -65,7 +69,7 @@ public class DeviceController implements DeviceApi {
     }
 
     return Optional.of(createDeviceRequest)
-        .map(createRequest -> deviceDao.createDevice(createRequest, publicIpAddress, user))
+        .map(createRequest -> deviceDao.createDevice(user, createRequest, publicIpAddress))
         .map(deviceMapper::toDeviceModel)
         .map(ResponseEntity::ok)
         .orElseThrow(() -> new ExceptionType.UnknownException(CONTROLLER_NAME));
@@ -74,7 +78,9 @@ public class DeviceController implements DeviceApi {
   @Override
   @Transactional
   public ResponseEntity<String> deleteDevice(@PathVariable String serialNumber) {
-    Long response = deviceDao.deleteDevice(serialNumber);
+    UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
+
+    Long response = deviceDao.deleteDevice(user, serialNumber);
     if (response != 1) {
       throw new ExceptionType.DeviceNotFoundException(serialNumber);
     }
@@ -84,7 +90,9 @@ public class DeviceController implements DeviceApi {
   @Override
   @Transactional
   public ResponseEntity<DeviceModel> updateDevice(@Valid DeviceModel deviceModel) {
-    if (deviceDao.findDevice(deviceModel.getSerialNumber()).isEmpty()) {
+    UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
+
+    if (deviceDao.findDevice(user, deviceModel.getSerialNumber()).isEmpty()) {
       throw new DeviceNotFoundException(deviceModel.getSerialNumber());
     }
 
