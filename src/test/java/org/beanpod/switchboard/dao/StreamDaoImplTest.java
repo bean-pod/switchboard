@@ -30,7 +30,7 @@ public class StreamDaoImplTest {
   @BeforeEach
   public void setup() {
     initMocks(this);
-    streamService = new StreamDaoImpl(streamRepository, streamMapper, channelService);
+    streamService = new StreamDaoImpl(streamRepository, streamMapper);
   }
 
   @Test
