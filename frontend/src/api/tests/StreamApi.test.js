@@ -64,7 +64,7 @@ describe("Stream Api", () => {
       // check that callback was invoked with correct value
       expect(axios.get).toHaveBeenCalledWith(
         `http://localhost:8080/stream/123`,
-          authorizationHeader
+        authorizationHeader
       );
 
       expect(response).toEqual(expectedFirstStreamRespone);
@@ -85,9 +85,18 @@ describe("Stream Api", () => {
       const response = await StreamApi.getAllStreams();
       expect(response).toEqual(expectedAllStreamsResponse);
 
-      expect(axios.get).toHaveBeenCalledWith("http://localhost:8080/stream", authorizationHeader);
-      expect(axios.get).toHaveBeenCalledWith("http://localhost:8080/stream/1", authorizationHeader);
-      expect(axios.get).toHaveBeenCalledWith("http://localhost:8080/stream/2", authorizationHeader);
+      expect(axios.get).toHaveBeenCalledWith(
+        "http://localhost:8080/stream",
+        authorizationHeader
+      );
+      expect(axios.get).toHaveBeenCalledWith(
+        "http://localhost:8080/stream/1",
+        authorizationHeader
+      );
+      expect(axios.get).toHaveBeenCalledWith(
+        "http://localhost:8080/stream/2",
+        authorizationHeader
+      );
     });
   });
 
@@ -96,14 +105,14 @@ describe("Stream Api", () => {
       axios.delete.mockResolvedValue();
 
       authenticationUtil.getAuthorizationHeader = jest
-      .fn()
-      .mockReturnValue(authorizationHeader);
+        .fn()
+        .mockReturnValue(authorizationHeader);
 
       await StreamApi.deleteStream(1);
 
       expect(axios.delete).toHaveBeenCalledWith(
         "http://localhost:8080/stream/1",
-          authorizationHeader
+        authorizationHeader
       );
     });
   });
