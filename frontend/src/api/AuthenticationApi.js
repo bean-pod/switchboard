@@ -69,11 +69,9 @@ export async function authenticate() {
 
     return true;
   } catch (error) {
-    // redirectToLogin()
     return false;
   }
   // }
-  // // redirectToLogin()
   // return false;
 }
 
