@@ -70,11 +70,7 @@ public class StreamDaoImpl {
 
   // I'm confused as to what purpose the following two methods serve?
 
-  public List<Long> getStreams() {
-    return streamRepository.getAllId();
-  }
-  // Also, the above query can be replaced by
-  //public List<Long> getStreams() { return streamRepository.findAllIds(); }
+  public List<Long> getStreams() { return streamRepository.getAllId(); }
 
   public StreamDto saveStream(StreamDto streamDto) {
     long inputChannelId = streamDto.getInputChannel().getId();

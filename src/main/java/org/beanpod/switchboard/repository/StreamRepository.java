@@ -29,8 +29,6 @@ public interface StreamRepository extends JpaRepository<StreamEntity, Long> {
 
   @Query("SELECT id FROM Stream")
   List<Long> getAllId();
-  // Also, the above query can be replaced by
-  List<Long> findAllIds();
 
   @Query(
       "SELECT count(id) > 0 FROM Stream where input_channel_id = :inputChannelId AND "
