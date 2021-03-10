@@ -16,7 +16,7 @@ export default class DeleteStreamDialog extends React.Component {
   afterDelete() {
     const { history } = this.props;
     this.dialogElement.current.closeDialog();
-    history.push("/Streaming");
+    history.push("/Streams");
     history.go(0);
   }
 
