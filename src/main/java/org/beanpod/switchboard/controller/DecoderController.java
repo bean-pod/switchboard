@@ -5,17 +5,20 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.dao.DecoderDaoImpl;
 import org.beanpod.switchboard.dao.DeviceDaoImpl;
+import org.beanpod.switchboard.dao.UserDaoImpl;
 import org.beanpod.switchboard.dto.DecoderDto;
 import org.beanpod.switchboard.dto.DeviceDto;
 import org.beanpod.switchboard.dto.mapper.DecoderMapper;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
 import org.beanpod.switchboard.entity.DecoderEntity;
 import org.beanpod.switchboard.entity.DeviceEntity;
+import org.beanpod.switchboard.entity.UserEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.service.DecoderService;
 import org.beanpod.switchboard.util.MaintainDeviceStatus;
@@ -37,24 +40,30 @@ public class DecoderController {
 
   public static final String UNKNOWN_ERROR_MESSAGE = "Unknown error in DecoderController";
 
+  private final UserDaoImpl userDao;
   private final DecoderDaoImpl decoderDao;
   private final DeviceDaoImpl deviceService;
   private final DecoderMapper decoderMapper;
   private final StreamMapper streamMapper;
   private final DecoderService decoderService;
   private final MaintainDeviceStatus maintainDeviceStatus;
+  private final HttpServletRequest request;
 
   @GetMapping
   public List<DecoderDto> retrieveAllDecoders() {
-    List<DecoderEntity> decoderEntity = decoderDao.getDecoders();
+    UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
+
+    List<DecoderEntity> decoderEntity = decoderDao.getDecoders(user);
     maintainDeviceStatus.maintainStatusField(decoderEntity);
     return decoderMapper.toDecoderDtos(decoderEntity);
   }
 
   @GetMapping("/{serialNumber}")
   public ResponseEntity<DecoderDto> retrieveDecoder(@PathVariable @Valid String serialNumber) {
+    UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
+
     // maintain status field and create a log if status changed
-    Optional<DecoderDto> decoder = decoderDao.findDecoder(serialNumber);
+    Optional<DecoderDto> decoder = decoderDao.findDecoder(user, serialNumber);
     if (decoder.isPresent()) {
       List<DecoderEntity> decodersListTemp = new LinkedList<>();
       decodersListTemp.add(decoderMapper.toDecoderEntity(decoder.get()));
@@ -72,7 +81,9 @@ public class DecoderController {
 
   @PostMapping
   public ResponseEntity<DecoderDto> createDecoder(@RequestBody @Valid DecoderDto decoderDto) {
-    Optional<DeviceDto> deviceOptional = deviceService.findDevice(decoderDto.getSerialNumber());
+    UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
+
+    Optional<DeviceDto> deviceOptional = deviceService.findDevice(user, decoderDto.getSerialNumber());
     if (deviceOptional.isEmpty()) {
       throw new ExceptionType.DeviceNotFoundException(decoderDto.getSerialNumber());
     }
@@ -84,7 +95,9 @@ public class DecoderController {
   @DeleteMapping("/{serialNumber}")
   @Transactional
   public ResponseEntity<String> deleteDecoder(@PathVariable String serialNumber) {
-    Long response = decoderDao.deleteDecoder(serialNumber);
+    UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
+
+    Long response = decoderDao.deleteDecoder(user, serialNumber);
     if (response != 1) {
       throw new ExceptionType.DeviceNotFoundException(serialNumber);
     }
@@ -93,7 +106,9 @@ public class DecoderController {
 
   @PutMapping
   public ResponseEntity<DecoderDto> updateDecoder(@RequestBody DecoderDto decoderDto) {
-    Optional<DecoderDto> decoder = decoderDao.findDecoder(decoderDto.getSerialNumber());
+    UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
+
+    Optional<DecoderDto> decoder = decoderDao.findDecoder(user, decoderDto.getSerialNumber());
     if (decoder.isEmpty()) {
       throw new ExceptionType.DeviceNotFoundException(decoderDto.getSerialNumber());
     }
@@ -102,6 +117,9 @@ public class DecoderController {
 
   @GetMapping("/{serialNumber}/streams")
   public ResponseEntity<List<StreamModel>> getDecoderStreams(@PathVariable String serialNumber) {
+    UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
+
+    // Is there a way to add a second parameter, user, in Optional.of for getDecoderStreams?
     return Optional.of(serialNumber)
         .map(decoderService::getDecoderStreams)
         .map(streamMapper::toModelList)
