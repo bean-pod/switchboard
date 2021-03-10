@@ -420,9 +420,7 @@ export function getSampleStream() {
     extras
   );
 
-  return new StreamInfo(1, sampleSender, sampleReceiver, [
-    "Additional Stream Details go here"
-  ]);
+  return new StreamInfo(1, sampleSender, sampleReceiver, 20000, 30001);
 }
 
 export function getAllLogs(callback) {
