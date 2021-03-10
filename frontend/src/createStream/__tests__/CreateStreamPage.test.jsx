@@ -17,7 +17,7 @@ describe("<CreateStreamPage/> functional Component", () => {
       const expectedTitle = "Create a Stream";
       const expectedCrumb = [
         ["Home", "/Home"],
-        ["My Streams", "/Streaming"],
+        ["Active Streams", "/Streaming"],
         ["New Stream", "/Streaming/New"]
       ];
 
