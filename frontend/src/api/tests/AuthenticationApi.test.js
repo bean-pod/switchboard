@@ -103,4 +103,14 @@ describe("AuthenticationApi", () => {
       expect(admin).toEqual(false);
     });
   });
+
+  describe("handleLogout() function", ()=>{
+    it("should call Cookies.remove() 3 times", ()=>{
+      AuthenticationApi.handleLogout()
+      expect(Cookies.remove).toBeCalledTimes(3)
+      expect(Cookies.remove.mock.calls[0][0]).toBe("access_token")
+      expect(Cookies.remove.mock.calls[1][0]).toBe("admin_token")
+      expect(Cookies.remove.mock.calls[2][0]).toBe("refresh_token")
+    })
+  })
 });
