@@ -7,6 +7,7 @@ import org.beanpod.switchboard.dao.EncoderDaoImpl;
 import org.beanpod.switchboard.dao.StreamDaoImpl;
 import org.beanpod.switchboard.dto.EncoderDto;
 import org.beanpod.switchboard.dto.StreamDto;
+import org.beanpod.switchboard.entity.UserEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.util.DateUtil;
 import org.springframework.stereotype.Component;
@@ -19,6 +20,8 @@ public class EncoderServiceImpl implements EncoderService {
   private final EncoderDaoImpl encoderDao;
   private final StreamDaoImpl streamDao;
   private final DateUtil dateUtil;
+
+  // General data access methods
 
   @Override
   public List<StreamDto> getEncoderStreams(String encoderSerialNumber) {
@@ -34,4 +37,23 @@ public class EncoderServiceImpl implements EncoderService {
 
     return streamDao.getEncoderStreams(encoderSerialNumber);
   }
+
+  // Ownership data access methods
+
+  public List<StreamDto> getEncoderStreams(UserEntity user, String encoderSerialNumber) {
+    log.info("Getting encoder {} streams", encoderSerialNumber);
+    EncoderDto encoderDto =
+        encoderDao
+            .findEncoder(user, encoderSerialNumber)
+            .orElseThrow(() -> new ExceptionType.DeviceNotFoundException(encoderSerialNumber));
+
+    encoderDto.setLastCommunication(dateUtil.getCurrentDate());
+    encoderDao.save(encoderDto);
+    log.debug("Updated encoder {} last communication date", encoderSerialNumber);
+
+    // Pending resolution of StreamDao, we may need to change streamDao method
+    // to better enforce ownership.
+    return streamDao.getEncoderStreams(encoderSerialNumber);
+  }
+
 }
