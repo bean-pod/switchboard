@@ -50,7 +50,8 @@ public class DeviceDaoImpl {
 
   // Ownership data access methods
 
-  public DeviceDto createDevice(UserEntity user, CreateDeviceRequest createDeviceRequest, String publicIpAddress) {
+  public DeviceDto createDevice(
+      UserEntity user, CreateDeviceRequest createDeviceRequest, String publicIpAddress) {
     DeviceDto deviceDto = deviceMapper.toDeviceDto(user, createDeviceRequest, publicIpAddress);
     deviceDto.setStatus(MaintainDeviceStatus.OFFLINE_STATUS);
     DeviceEntity deviceEntity = deviceMapper.toDeviceEntity(deviceDto);
@@ -63,7 +64,9 @@ public class DeviceDaoImpl {
   }
 
   public Optional<DeviceDto> findDevice(UserEntity user, String serialNumber) {
-    return deviceRepository.findDeviceByUserAndSerialNumber(user, serialNumber).map(deviceMapper::toDeviceDto);
+    return deviceRepository
+        .findDeviceByUserAndSerialNumber(user, serialNumber)
+        .map(deviceMapper::toDeviceDto);
   }
 
   public Long deleteDevice(UserEntity user, String serialNumber) {

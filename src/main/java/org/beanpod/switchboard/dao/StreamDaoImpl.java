@@ -82,22 +82,24 @@ public class StreamDaoImpl {
   // Ownership data access methods
 
   public List<StreamDto> getEncoderStreams(UserEntity user, String encoderSerialNumber) {
-    List<StreamEntity> streamEntities = streamRepository
-        .findAllByOutputChannelEncoderDeviceUserAndOutputChannelEncoderSerialNumber(
+    List<StreamEntity> streamEntities =
+        streamRepository.findAllByOutputChannelEncoderDeviceUserAndOutputChannelEncoderSerialNumber(
             user, encoderSerialNumber);
     return mapper.toDtoList(streamEntities);
   }
 
   public List<StreamDto> getDecoderStreams(UserEntity user, String decoderSerialNumber) {
-    List<StreamEntity> streamEntities = streamRepository
-        .findAllByInputChannelDecoderDeviceUserAndInputChannelDecoderSerialNumber(
+    List<StreamEntity> streamEntities =
+        streamRepository.findAllByInputChannelDecoderDeviceUserAndInputChannelDecoderSerialNumber(
             user, decoderSerialNumber);
     return mapper.toDtoList(streamEntities);
   }
 
   // I'm confused as to what purpose the following two methods serve?
 
-  public List<Long> getStreams() { return streamRepository.getAllId(); }
+  public List<Long> getStreams() {
+    return streamRepository.getAllId();
+  }
 
   public StreamDto saveStream(StreamDto streamDto) {
     long inputChannelId = streamDto.getInputChannel().getId();

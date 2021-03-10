@@ -86,7 +86,9 @@ public class DecoderController {
     }
 
     UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
-    Optional<DeviceDto> deviceOptional = deviceService.findDevice(user, decoderDto.getSerialNumber());
+
+    Optional<DeviceDto> deviceOptional =
+        deviceService.findDevice(user, decoderDto.getSerialNumber());
     if (deviceOptional.isEmpty()) {
       throw new ExceptionType.DeviceNotFoundException(decoderDto.getSerialNumber());
     }
