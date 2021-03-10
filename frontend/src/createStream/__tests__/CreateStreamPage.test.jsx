@@ -18,7 +18,6 @@ describe("<CreateStreamPage/> functional Component", () => {
         ["Home", "/Home"],
         ["Active Streams", "/Streams"],
         ["New Stream", "/Streams/New"]
-
       ];
 
       expect(wrapper.find(Page)).toHaveLength(1);
