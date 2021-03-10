@@ -16,8 +16,9 @@ describe("<CreateStreamPage/> functional Component", () => {
       const expectedTitle = "Create a Stream";
       const expectedCrumb = [
         ["Home", "/Home"],
-        ["My Streams", "/Streams"],
+        ["Active Streams", "/Streams"],
         ["New Stream", "/Streams/New"]
+
       ];
 
       expect(wrapper.find(Page)).toHaveLength(1);

@@ -11,7 +11,8 @@ export async function getStream(streamId) {
         stream.id,
         convertToDataObject(stream.outputChannel.encoder),
         convertToDataObject(stream.inputChannel.decoder),
-        ["Additional stream info goes here."]
+        stream.outputChannel.channel.port,
+        stream.inputChannel.channel.port
       );
     });
 }

@@ -5,7 +5,7 @@ import StreamingTable from "./StreamingTable";
 export default function CreateStreamPage() {
   const breadcrumbs = [
     ["Home", "/Home"],
-    ["My Streams", "/Streams"],
+    ["Active Streams", "/Streams"],
     ["New Stream", "/Streams/New"]
   ];
   return (

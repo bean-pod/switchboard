@@ -391,15 +391,9 @@ export function getAllStreams() {
   ];
 
   return [
-    new StreamInfo(1, sampleSenders[0], sampleReceivers[0], [
-      "Additional Stream Details go here"
-    ]),
-    new StreamInfo(2, sampleSenders[1], sampleReceivers[1], [
-      "Additional Stream Details go here"
-    ]),
-    new StreamInfo(3, sampleSenders[1], sampleReceivers[0], [
-      "Additional Stream Details go here"
-    ])
+    new StreamInfo(1, sampleSenders[0], sampleReceivers[0]),
+    new StreamInfo(2, sampleSenders[1], sampleReceivers[1]),
+    new StreamInfo(3, sampleSenders[1], sampleReceivers[0])
   ];
 }
 
