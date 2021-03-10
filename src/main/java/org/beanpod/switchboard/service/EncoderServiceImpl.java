@@ -55,5 +55,4 @@ public class EncoderServiceImpl implements EncoderService {
     // to better enforce ownership.
     return streamDao.getEncoderStreams(encoderSerialNumber);
   }
-
 }

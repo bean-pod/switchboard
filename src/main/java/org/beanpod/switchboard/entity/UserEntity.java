@@ -35,10 +35,6 @@ public class UserEntity {
 
   @Builder.Default private UserRole userRole = UserRole.USER;
 
-  @OneToMany(
-      mappedBy = "user",
-      cascade = CascadeType.ALL,
-      orphanRemoval = true
-  )
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
   private Set<DeviceEntity> devices;
 }

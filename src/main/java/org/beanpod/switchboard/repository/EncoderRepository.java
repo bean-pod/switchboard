@@ -15,13 +15,17 @@ public interface EncoderRepository extends JpaRepository<EncoderEntity, String> 
   // General data access methods
 
   List<EncoderEntity> findAll();
+
   Optional<EncoderEntity> findEncoderBySerialNumber(String serialNumber);
+
   Long deleteEncoderEntityBySerialNumber(String serialNumber);
 
   // Ownership data access methods
 
   List<EncoderEntity> findEncoderEntitiesByDeviceUser(UserEntity user);
+
   Optional<EncoderEntity> findEncoderByDeviceUserAndSerialNumber(
       UserEntity user, String serialNumber);
+
   Long deleteEncoderEntityByDeviceUserAndSerialNumber(UserEntity user, String serialNumber);
 }

@@ -37,7 +37,7 @@ public class UserDaoImpl {
   }
 
   public UserEntity findUser(String username) {
-    final Optional<UserEntity> optionalUser =  userRepository.findByUsername(username);
+    final Optional<UserEntity> optionalUser = userRepository.findByUsername(username);
     if (optionalUser.isPresent()) {
       return optionalUser.get();
     } else {

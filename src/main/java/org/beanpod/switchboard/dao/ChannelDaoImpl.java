@@ -57,9 +57,9 @@ public class ChannelDaoImpl {
   // ChannelEntity ownership data access methods
 
   /*
-  * Difficulty establishing or enforcing ChannelEntity ownership as currently
-  * accessed.
-  */
+   * Difficulty establishing or enforcing ChannelEntity ownership as currently
+   * accessed.
+   */
 
   // InputChannelEntity ------------------------------------------------------------------------
 

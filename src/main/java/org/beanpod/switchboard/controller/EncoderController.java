@@ -85,7 +85,8 @@ public class EncoderController {
   public ResponseEntity<EncoderDto> createEncoder(@RequestBody @Valid EncoderDto encoderDto) {
     UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
 
-    Optional<DeviceDto> deviceOptional = deviceService.findDevice(user, encoderDto.getSerialNumber());
+    Optional<DeviceDto> deviceOptional =
+        deviceService.findDevice(user, encoderDto.getSerialNumber());
     if (deviceOptional.isEmpty()) {
       throw new ExceptionType.DeviceNotFoundException(encoderDto.getSerialNumber());
     }

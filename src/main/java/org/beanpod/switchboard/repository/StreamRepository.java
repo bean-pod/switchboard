@@ -15,6 +15,7 @@ public interface StreamRepository extends JpaRepository<StreamEntity, Long> {
 
   @Query("SELECT s FROM Stream s WHERE s.outputChannel.encoder.serialNumber = :encoderSerial")
   List<StreamEntity> getEncoderStreams(@Param(value = "encoderSerial") String encoderSerial);
+
   @Query("SELECT s FROM Stream s WHERE s.inputChannel.decoder.serialNumber = :decoderSerial")
   List<StreamEntity> getDecoderStreams(@Param(value = "decoderSerial") String decoderSerial);
 
@@ -22,6 +23,7 @@ public interface StreamRepository extends JpaRepository<StreamEntity, Long> {
 
   List<StreamEntity> findAllByOutputChannelEncoderDeviceUserAndOutputChannelEncoderSerialNumber(
       UserEntity user, String encoderSerial);
+
   List<StreamEntity> findAllByInputChannelDecoderDeviceUserAndInputChannelDecoderSerialNumber(
       UserEntity user, String decoderSerial);
 
