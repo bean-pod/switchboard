@@ -5,11 +5,11 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { Route } from "react-router-dom";
 import AdminProtectedRoute from "../AdminProtectedRoute";
 
-import * as AuthenticationApi from "../../api/AuthenticationApi";
+import * as AuthenticationUtil from "../../api/AuthenticationUtil";
 
 Enzyme.configure({ adapter: new Adapter() });
-jest.mock("../../api/AuthenticationApi");
-jest.spyOn(AuthenticationApi, "isAdmin");
+jest.mock("../../api/AuthenticationUtil");
+jest.spyOn(AuthenticationUtil, "isAdmin");
 
 describe("<AdminProtectedRoute/> class component", () => {
   let wrapper;
@@ -33,7 +33,7 @@ describe("<AdminProtectedRoute/> class component", () => {
   describe("component() function", () => {
     describe("when AuthApi.isAdmin() returns true", () => {
       beforeEach(() => {
-        AuthenticationApi.isAdmin.mockReturnValue(true);
+        AuthenticationUtil.isAdmin.mockReturnValue(true);
       });
       it("should return a <ProtectedRoute> with expected props", () => {
         wrapper = Enzyme.shallow(
@@ -47,7 +47,7 @@ describe("<AdminProtectedRoute/> class component", () => {
     });
     describe("when AuthApi.isAdmin() returns false", () => {
       beforeEach(() => {
-        AuthenticationApi.isAdmin.mockReturnValue(false);
+        AuthenticationUtil.isAdmin.mockReturnValue(false);
       });
       it("should return a <Redirect/> component with pathname /Invalid", () => {
         wrapper = Enzyme.shallow(

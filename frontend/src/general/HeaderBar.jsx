@@ -4,7 +4,8 @@ import { withRouter, NavLink } from "react-router-dom";
 import { AppBar, IconButton, makeStyles, Toolbar } from "@material-ui/core";
 import { AccountCircle, Home } from "@material-ui/icons/";
 
-import { isAuthenticated, handleLogout } from "../api/AuthenticationApi";
+import { logOut } from "../api/AuthenticationApi";
+import { isAuthenticated } from "../api/AuthenticationUtil";
 
 class HeaderBar extends React.Component {
   constructor(props) {
@@ -18,7 +19,7 @@ class HeaderBar extends React.Component {
 
   handleLogout() {
     const { history } = this.props;
-    handleLogout();
+    logOut();
     history.push("/Login");
     history.go(0);
   }
@@ -45,7 +46,7 @@ class HeaderBar extends React.Component {
               id="acctBtn"
               color="inherit"
               disabled={!isAuthenticated()}
-              onClick={handleLogout}
+              onClick={logOut}
             >
               <AccountCircle />
             </IconButton>

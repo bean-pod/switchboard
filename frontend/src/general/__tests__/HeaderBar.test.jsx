@@ -69,11 +69,11 @@ describe("<HeaderBar/> functional Component", () => {
   });
   describe("handleLogout() function", () => {
     beforeEach(() => {
-      jest.spyOn(AuthApi, "handleLogout");
+      jest.spyOn(AuthApi, "logOut");
       wrapper.instance().handleLogout();
     });
-    it("calls AuthApi.handleLogout() function", () => {
-      expect(AuthApi.handleLogout).toBeCalled();
+    it("calls AuthApi.logOut() function", () => {
+      expect(AuthApi.logOut).toBeCalled();
     });
     it("calls history.push() with expected value", () => {
       expect(mockPush).toBeCalledWith("/Login");
