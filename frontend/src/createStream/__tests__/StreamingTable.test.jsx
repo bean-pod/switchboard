@@ -102,7 +102,6 @@ describe("<StreamingTable/> class component", () => {
       // act
       wrapper.instance().onReceiverSelected(mockEvent);
       expect(wrapper.state()).toEqual(expected);
-      expect(wrapper.state()).not.toEqual(defaultState);
     });
   });
   describe("handleSendersChange() function", () => {
@@ -125,7 +124,6 @@ describe("<StreamingTable/> class component", () => {
       // act
       wrapper.instance().handleSendersChange(mockSenders);
       expect(wrapper.state()).toStrictEqual(expected);
-      expect(wrapper.state()).not.toStrictEqual(defaultState);
     });
   });
   describe("handleReceiversChange() function", () => {
@@ -148,7 +146,6 @@ describe("<StreamingTable/> class component", () => {
       // act
       wrapper.instance().handleReceiversChange(mockReceivers);
       expect(wrapper.state()).toStrictEqual(expected);
-      expect(wrapper.state()).not.toStrictEqual(defaultState);
     });
   });
   describe("handleSubmit() function", () => {
@@ -193,7 +190,7 @@ describe("<StreamingTable/> class component", () => {
         };
         wrapper.setState(state);
         wrapper.instance().handleSubmit(mockEvent);
-        expect(StreamApi.createStream).toBeCalledWith(selectedReceiverID,selectedSenderID)
+        expect(StreamApi.createStream).toBeCalledWith(state.selectedReceiverID,state.selectedSenderID)
       });
     });
   });
