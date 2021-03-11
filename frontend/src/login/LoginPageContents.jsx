@@ -27,7 +27,6 @@ export default class LoginPageContents extends React.Component {
       });
     });
     history.push("/Home");
-    history.go(0);
   }
 
   setDialogOpen(open) {
