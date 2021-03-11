@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 import { saveToken } from "./AuthenticationUtil";
 
 export const unknownErrorMessage =
@@ -26,4 +27,57 @@ export async function logIn(credentials) {
       }
       return Promise.reject(new Error(message));
     });
+}
+
+export function getAccessToken() {
+  return Cookies.get("access_token");
+}
+
+export function getAdminToken() {
+  return Cookies.get("admin_token");
+}
+
+export function getRefreshToken() {
+  return Cookies.get("refresh_token");
+}
+
+export function isAuthenticated() {
+  return !!getAccessToken();
+}
+
+export function isAdmin() {
+  return !!getAdminToken();
+}
+
+export function handleLogout() {
+  // API call.then(response =>
+  Cookies.remove("access_token");
+  Cookies.remove("admin_token");
+  Cookies.remove("refresh_token");
+}
+
+export async function handleLogin() {
+  //   if (getRefreshToken()) {
+  try {
+    // const tokens = await refreshTokens() // call an API, returns tokens
+
+    const tokens = {
+      access_token: true,
+      admin_token: true,
+      refresh_token: true
+    };
+    const expires = (tokens.expires_in || 60 * 60) * 1000;
+    const inOneHour = new Date(new Date().getTime() + expires);
+
+    // you will have the exact same setters in your Login page/app too
+    Cookies.set("access_token", tokens.access_token, { expires: inOneHour });
+    Cookies.set("admin_token", tokens.admin_token, { expires: inOneHour });
+    Cookies.set("refresh_token", tokens.refresh_token, { expires: inOneHour });
+
+    return true;
+  } catch (error) {
+    return false;
+  }
+  // }
+  // return false;
 }

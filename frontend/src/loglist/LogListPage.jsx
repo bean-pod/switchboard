@@ -1,11 +1,10 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 import LogsTableWrapper from "./LogsTableWrapper";
 import Page from "../general/Page";
+import * as logsDataSource from "../api/LogApi";
 
-export default function LogListPage(props) {
-  const { logsDataSource } = props;
+export default function LogListPage() {
   const breadcrumbs = [
     ["Home", "/Home"],
     ["Logs", "/Logs"]
@@ -17,7 +16,3 @@ export default function LogListPage(props) {
     </Page>
   );
 }
-
-LogListPage.propTypes = {
-  logsDataSource: PropTypes.objectOf(PropTypes.func).isRequired
-};

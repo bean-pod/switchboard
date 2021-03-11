@@ -1,12 +1,11 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 import Page from "../general/Page";
 import DeviceListTabTable from "./DeviceListTabTable";
 import * as useStyles from "../DefaultMakeStylesTheme";
+import * as dataSource from "../api/DeviceApi";
 
-export default function DeviceListPage(props) {
-  const { dataSource } = props;
+export default function DeviceListPage() {
   const breadcrumb = [
     ["Home", "/Home"],
     ["My Devices", "/Devices"]
@@ -17,7 +16,3 @@ export default function DeviceListPage(props) {
     </Page>
   );
 }
-
-DeviceListPage.propTypes = {
-  dataSource: PropTypes.objectOf(PropTypes.func).isRequired
-};
