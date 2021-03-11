@@ -14,7 +14,7 @@ export default function StreamDetailsButton(props) {
       <NavLink
         to={{
           pathname: `/Streams/Details/${streamInfo.id}`,
-          state: { streamInfo }
+          state: { stream: streamInfo }
         }}
       >
         <IconButton>
