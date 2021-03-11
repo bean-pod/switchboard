@@ -39,7 +39,11 @@ describe("<ProtectedRoute/> class component", () => {
       describe("if prop authenticationRequired is true", () => {
         it("should call the passed render function", () => {
           wrapper = Enzyme.shallow(
-            <ProtectedRoute path={dummyPath} render={dummyRender} authenticationRequired />
+            <ProtectedRoute
+              path={dummyPath}
+              render={dummyRender}
+              authenticationRequired
+            />
           );
 
           wrapper.instance().component(dummyLocation);
@@ -64,7 +68,11 @@ describe("<ProtectedRoute/> class component", () => {
       describe("if prop authenticationRequired is true", () => {
         it("should return a <Redirect/> component with expected props", () => {
           wrapper = Enzyme.shallow(
-            <ProtectedRoute path={dummyPath} render={dummyRender} authenticationRequired />
+            <ProtectedRoute
+              path={dummyPath}
+              render={dummyRender}
+              authenticationRequired
+            />
           );
 
           const redirect = wrapper.instance().component(dummyLocation);

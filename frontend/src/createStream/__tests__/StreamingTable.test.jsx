@@ -15,18 +15,11 @@ import StreamingTable from "../StreamingTable";
 import SelectDevicesTable from "../SelectDevicesTable";
 import StreamButton from "../../general/Buttons/StreamButton";
 
-import * as StreamApi from "../../api/StreamApi"
+import * as StreamApi from "../../api/StreamApi";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-const authorizationHeader = {
-  headers: {
-    Authorization: "Bearer the_token"
-  }
-};
-
 describe("<StreamingTable/> class component", () => {
-
   let wrapper;
 
   beforeEach(() => {
@@ -150,9 +143,9 @@ describe("<StreamingTable/> class component", () => {
   });
   describe("handleSubmit() function", () => {
     const mockEvent = { preventDefault: jest.fn() };
-    beforeEach(()=>{
-      jest.spyOn(StreamApi, "createStream").mockImplementation(()=>{});
-    })
+    beforeEach(() => {
+      jest.spyOn(StreamApi, "createStream").mockImplementation(() => {});
+    });
     describe("should not call StreamAPI.createStream", () => {
       it("if selectedReceiverID & selectedSenderID are not set", () => {
         const state = {
@@ -161,7 +154,7 @@ describe("<StreamingTable/> class component", () => {
         };
         wrapper.setState(state);
         wrapper.instance().handleSubmit(mockEvent);
-        expect(StreamApi.createStream).not.toBeCalled()
+        expect(StreamApi.createStream).not.toBeCalled();
       });
       it("if selectedSenderID is not set", () => {
         const state = {
@@ -170,7 +163,7 @@ describe("<StreamingTable/> class component", () => {
         };
         wrapper.setState(state);
         wrapper.instance().handleSubmit(mockEvent);
-        expect(StreamApi.createStream).not.toBeCalled()
+        expect(StreamApi.createStream).not.toBeCalled();
       });
       it("if selectedReceiverID is not set", () => {
         const state = {
@@ -179,7 +172,7 @@ describe("<StreamingTable/> class component", () => {
         };
         wrapper.setState(state);
         wrapper.instance().handleSubmit(mockEvent);
-        expect(StreamApi.createStream).not.toBeCalled()
+        expect(StreamApi.createStream).not.toBeCalled();
       });
     });
     describe("should call StreamApi.createStream", () => {
@@ -190,7 +183,10 @@ describe("<StreamingTable/> class component", () => {
         };
         wrapper.setState(state);
         wrapper.instance().handleSubmit(mockEvent);
-        expect(StreamApi.createStream).toBeCalledWith(state.selectedReceiverID,state.selectedSenderID)
+        expect(StreamApi.createStream).toBeCalledWith(
+          state.selectedReceiverID,
+          state.selectedSenderID
+        );
       });
     });
   });
