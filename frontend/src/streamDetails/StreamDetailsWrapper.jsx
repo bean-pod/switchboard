@@ -7,7 +7,6 @@ import DashboardCard from "../general/dashboard/DashboardCard";
 import StreamDeviceDetails from "./StreamDeviceDetails";
 import DeleteStreamDialogOpener from "./DeleteStreamDialogOpener";
 // import StreamLogs from "./StreamLogs";
-// import { getSampleStream } from "../api/SampleStream";
 
 export default function StreamDetailsWrapper(props) {
   const { stream } = props;
@@ -34,7 +33,7 @@ export default function StreamDetailsWrapper(props) {
         </Grid>
         <Grid item xs={7}>
           <DashboardCard title="Logs">
-            {/* <StreamLogs logsSource={ FILL IN FUNCTION HERE} /> */}
+            {/* <StreamLogs logsSource={ TODO: FILL IN FUNCTION HERE } /> */}
           </DashboardCard>
         </Grid>
         <Grid item xs={5}>
