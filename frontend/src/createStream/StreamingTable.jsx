@@ -3,6 +3,7 @@ import { Grid } from "@material-ui/core";
 
 import SelectDevicesTable from "./SelectDevicesTable";
 import StreamButton from "../general/Buttons/StreamButton";
+import * as StreamApi from "../api/StreamApi";
 
 import * as deviceApi from "../api/DeviceApi";
 // import { createStream } from "../api/StreamApi";
@@ -47,7 +48,7 @@ export default class StreamingTable extends React.Component {
     event.preventDefault();
     const { selectedReceiverID, selectedSenderID } = this.state;
     if (selectedReceiverID !== "" && selectedSenderID !== "") {
-      // createStream( selectedReceiverID, selectedSenderID);
+      StreamApi.createStream(selectedReceiverID, selectedSenderID);
     }
   }
 
