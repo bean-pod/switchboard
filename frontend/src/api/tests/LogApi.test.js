@@ -54,15 +54,17 @@ SampleData.getAllLogs((result) => {
 });
 
 const authorizationHeader = {
-    headers: {
-      Authorization: "Bearer the_token"
-    }
-  };
+  headers: {
+    Authorization: "Bearer the_token"
+  }
+};
 
 describe("Log Api", () => {
   beforeEach(() => {
-    AuthenticationUtil.getAuthorizationHeader.mockReturnValue(authorizationHeader);
-  })
+    AuthenticationUtil.getAuthorizationHeader.mockReturnValue(
+      authorizationHeader
+    );
+  });
   afterEach(() => {
     jest.clearAllMocks();
   });

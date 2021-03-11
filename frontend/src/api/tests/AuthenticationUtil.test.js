@@ -2,9 +2,11 @@ import { afterEach, describe, expect, jest } from "@jest/globals";
 import Cookies from "js-cookie";
 import * as AuthenticationUtil from "../AuthenticationUtil";
 
-const dummyToken = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYxNTU2ODI1M30.FwKJDZnHUaO3Z7m37xe7eahvP-Q5MqxpCDXMdEyTZ7reOtoHQBvIi7LoE4OeXds5qUb1vUfEMS1jzUbAvwmQ3A";
+const dummyToken =
+  "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYxNTU2ODI1M30.FwKJDZnHUaO3Z7m37xe7eahvP-Q5MqxpCDXMdEyTZ7reOtoHQBvIi7LoE4OeXds5qUb1vUfEMS1jzUbAvwmQ3A";
 const dummyTokenExpiry = new Date(1615568253000);
-const dummyTokenNotAdmin = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjE1NTY4MjUzfQ.FwKJDZnHUaO3Z7m37xe7eahvP-Q5MqxpCDXMdEyTZ7reOtoHQBvIi7LoE4OeXds5qUb1vUfEMS1jzUbAvwmQ3A";
+const dummyTokenNotAdmin =
+  "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjE1NTY4MjUzfQ.FwKJDZnHUaO3Z7m37xe7eahvP-Q5MqxpCDXMdEyTZ7reOtoHQBvIi7LoE4OeXds5qUb1vUfEMS1jzUbAvwmQ3A";
 
 jest.mock("js-cookie");
 jest.spyOn(Cookies, "get");
@@ -19,7 +21,9 @@ describe("AuthenticationUtil", () => {
   describe("saveToken", () => {
     it("should save the token to local storage", () => {
       AuthenticationUtil.saveToken(dummyToken);
-      expect(Cookies.set).toHaveBeenCalledWith("authToken", dummyToken, {expires: dummyTokenExpiry});
+      expect(Cookies.set).toHaveBeenCalledWith("authToken", dummyToken, {
+        expires: dummyTokenExpiry
+      });
     });
   });
 
@@ -55,7 +59,6 @@ describe("AuthenticationUtil", () => {
     });
   });
 
-  
   describe("isAdmin", () => {
     it("should return true if jwt token has role admin", () => {
       Cookies.get.mockReturnValue(dummyToken);

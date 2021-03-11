@@ -19,9 +19,11 @@ describe("<PathNotFoundPage/> functional Component", () => {
   describe("returns a component that", () => {
     describe("when AuthenticationUtil.isAuthenticated() returns true", () => {
       beforeEach(() => {
-        jest.spyOn(AuthenticationUtil, "isAuthenticated").mockImplementation(() => {
-          return true;
-        });
+        jest
+          .spyOn(AuthenticationUtil, "isAuthenticated")
+          .mockImplementation(() => {
+            return true;
+          });
         wrapper = Enzyme.shallow(<PathNotFoundPage />);
       });
       it("Contains 1 <Page/> component with correct props", () => {
@@ -75,9 +77,11 @@ describe("<PathNotFoundPage/> functional Component", () => {
     });
     describe("when AuthenticationUtil.isAuthenticated() returns false", () => {
       beforeEach(() => {
-        jest.spyOn(AuthenticationUtil, "isAuthenticated").mockImplementation(() => {
-          return false;
-        });
+        jest
+          .spyOn(AuthenticationUtil, "isAuthenticated")
+          .mockImplementation(() => {
+            return false;
+          });
         wrapper = Enzyme.shallow(<PathNotFoundPage />);
       });
       it("Contains 1 <Page/> component with correct props", () => {

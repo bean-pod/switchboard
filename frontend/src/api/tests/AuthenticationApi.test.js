@@ -45,7 +45,9 @@ describe("AuthenticationApi", () => {
       });
       await AuthenticationApi.logIn({ username: "user", password: "pass" });
 
-      expect(AuthenticationUtil.saveToken).toHaveBeenCalledWith(dummyAuthorizationHeader);
+      expect(AuthenticationUtil.saveToken).toHaveBeenCalledWith(
+        dummyAuthorizationHeader
+      );
     });
   });
 
@@ -56,5 +58,4 @@ describe("AuthenticationApi", () => {
       expect(Cookies.remove).toHaveBeenCalledWith("authToken");
     });
   });
-
 });
