@@ -4,7 +4,7 @@ import { Grid } from "@material-ui/core";
 import SelectDevicesTable from "./SelectDevicesTable";
 import StreamButton from "../general/Buttons/StreamButton";
 
-import * as deviceApi from "../api/DeviceApi";
+import * as DeviceApi from "../api/DeviceApi";
 import { createStream } from "../api/StreamApi";
 
 export default class StreamingTable extends React.Component {
@@ -27,8 +27,8 @@ export default class StreamingTable extends React.Component {
   }
 
   componentDidMount() {
-    deviceApi.getSenders(this.handleSendersChange);
-    deviceApi.getReceivers(this.handleReceiversChange);
+    DeviceApi.getSenders(this.handleSendersChange);
+    DeviceApi.getReceivers(this.handleReceiversChange);
   }
 
   handleSendersChange(senders) {
