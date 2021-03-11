@@ -10,25 +10,25 @@ import DeleteStreamDialogOpener from "./DeleteStreamDialogOpener";
 // import { getSampleStream } from "../api/SampleStream";
 
 export default function StreamDetailsWrapper(props) {
-  const { streamDetailSource } = props;
+  const { stream } = props;
   return (
     <Container>
       <Grid container spacing={3}>
         <Grid item xs={6}>
           <DashboardCard title="Sender Details">
             <StreamDeviceDetails
-              device={streamDetailSource.sender}
-              channel={streamDetailSource.outputChannel}
+              device={stream.sender}
+              channel={stream.outputChannel}
             />
           </DashboardCard>
           channel=
-          {streamDetailSource.outputChannel}
+          {stream.outputChannel}
         </Grid>
         <Grid item xs={6}>
           <DashboardCard title="Receiver Details">
             <StreamDeviceDetails
-              device={streamDetailSource.receiver}
-              channel={streamDetailSource.inputChannel}
+              device={stream.receiver}
+              channel={stream.inputChannel}
             />
           </DashboardCard>
         </Grid>
@@ -44,12 +44,12 @@ export default function StreamDetailsWrapper(props) {
         </Grid>
       </Grid>
       <Box className="alignRightFloatPadded">
-        <DeleteStreamDialogOpener deleteId={streamDetailSource.id} />
+        <DeleteStreamDialogOpener deleteId={stream.id} />
       </Box>
     </Container>
   );
 }
 
 StreamDetailsWrapper.propTypes = {
-  streamDetailSource: PropTypes.instanceOf(StreamInfo).isRequired
+  stream: PropTypes.instanceOf(StreamInfo).isRequired
 };

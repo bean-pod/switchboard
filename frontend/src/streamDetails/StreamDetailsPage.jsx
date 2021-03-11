@@ -21,7 +21,7 @@ export default function StreamDetailsPage(props) {
 
   return (
     <Page title="Stream Details" breadcrumbs={breadcrumbs}>
-      <StreamDetailsWrapper streamDetailSource={stream} />
+      <StreamDetailsWrapper stream={stream} />
     </Page>
   );
 }
