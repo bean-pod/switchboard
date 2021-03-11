@@ -71,7 +71,6 @@ describe("<LoginPageContents/> class component", () => {
           password: somePassword
         });
         expect(mockHistory.push).toHaveBeenCalledWith("/Home");
-        expect(mockHistory.go).toHaveBeenCalledWith(0);
       });
     });
     describe("when logIn rejects", () => {
