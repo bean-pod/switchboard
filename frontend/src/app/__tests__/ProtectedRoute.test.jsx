@@ -5,11 +5,11 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { Route } from "react-router-dom";
 import ProtectedRoute from "../ProtectedRoute";
 
-import * as AuthenticationApi from "../../api/AuthenticationApi";
+import * as AuthenticationUtil from "../../api/AuthenticationUtil";
 
 Enzyme.configure({ adapter: new Adapter() });
-jest.mock("../../api/AuthenticationApi");
-jest.spyOn(AuthenticationApi, "isAuthenticated");
+jest.mock("../../api/AuthenticationUtil");
+jest.spyOn(AuthenticationUtil, "isAuthenticated");
 
 describe("<ProtectedRoute/> class component", () => {
   let wrapper;
@@ -34,7 +34,7 @@ describe("<ProtectedRoute/> class component", () => {
   describe("component() function", () => {
     describe("when AuthApi.isAuthenticated() returns true", () => {
       beforeEach(() => {
-        AuthenticationApi.isAuthenticated.mockReturnValue(true);
+        AuthenticationUtil.isAuthenticated.mockReturnValue(true);
       });
       describe("if prop authenticationRequired is true", () => {
         it("should call the passed render function", () => {
@@ -63,7 +63,7 @@ describe("<ProtectedRoute/> class component", () => {
     });
     describe("when AuthApi.isAuthenticated() returns false", () => {
       beforeEach(() => {
-        AuthenticationApi.isAuthenticated.mockReturnValue(false);
+        AuthenticationUtil.isAuthenticated.mockReturnValue(false);
       });
       describe("if prop authenticationRequired is true", () => {
         it("should return a <Redirect/> component with expected props", () => {

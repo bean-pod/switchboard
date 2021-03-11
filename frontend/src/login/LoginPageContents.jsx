@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import LoginFailedDialog from "./LoginFailedDialog";
 import LoginConsole from "./LoginConsole";
-import { handleLogin, logIn } from "../api/AuthenticationApi";
+import { logIn } from "../api/AuthenticationApi";
 
 export default class LoginPageContents extends React.Component {
   constructor(props) {
@@ -19,14 +19,16 @@ export default class LoginPageContents extends React.Component {
 
   handleSubmit(username, password) {
     const { history } = this.props;
-    handleLogin();
-    logIn({ username, password }).catch((error) => {
-      this.setState({
-        dialogOpen: true,
-        dialogMessage: error.message
+    logIn({ username, password })
+      .then(() => {
+        history.push("/Home");
+      })
+      .catch((error) => {
+        this.setState({
+          dialogOpen: true,
+          dialogMessage: error.message
+        });
       });
-    });
-    history.push("/Home");
   }
 
   setDialogOpen(open) {

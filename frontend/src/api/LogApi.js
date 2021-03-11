@@ -1,5 +1,6 @@
 import axios from "axios";
 import LogInfo from "../model/LogInfo";
+import { getAuthorizationHeader } from "./AuthenticationUtil";
 import * as SampleData from "./SampleData";
 import { getAuthorizationHeader } from "./AuthenticationUtil";
 
@@ -21,9 +22,9 @@ async function getLogs(endpoint) {
 }
 
 export async function getAllLogs() {
-  return getLogs(process.env.REACT_APP_LOG);
+  return getLogs(process.env.REACT_APP_LOGS, getAuthorizationHeader());
 }
 
 export async function getDeviceLogs(deviceSerialNumber) {
-  return getLogs(`${process.env.REACT_APP_LOG}/${deviceSerialNumber}`);
+  return getLogs(`${process.env.REACT_APP_LOGS}/${deviceSerialNumber}`, getAuthorizationHeader());
 }

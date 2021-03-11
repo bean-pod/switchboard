@@ -11,7 +11,6 @@ import * as AuthenticationApi from "../../api/AuthenticationApi";
 Enzyme.configure({ adapter: new Adapter() });
 jest.mock("../../api/AuthenticationApi");
 jest.spyOn(AuthenticationApi, "logIn");
-jest.spyOn(AuthenticationApi, "handleLogin");
 
 describe("<LoginPageContents/> class component", () => {
   let wrapper;
@@ -60,12 +59,10 @@ describe("<LoginPageContents/> class component", () => {
     const somePassword = "password";
     describe("when logIn resolves", () => {
       it("Calls login and redirects to home", () => {
-        AuthenticationApi.handleLogin.mockReturnValue();
         AuthenticationApi.logIn.mockResolvedValue();
 
         wrapper.instance().handleSubmit(someUsername, somePassword);
 
-        expect(AuthenticationApi.handleLogin).toHaveBeenCalled();
         expect(AuthenticationApi.logIn).toHaveBeenCalledWith({
           username: someUsername,
           password: somePassword
@@ -76,7 +73,6 @@ describe("<LoginPageContents/> class component", () => {
     describe("when logIn rejects", () => {
       it("Changes state to dialog open", async () => {
         const someErrorMessage = "errorMessage";
-        AuthenticationApi.handleLogin.mockReturnValue();
         AuthenticationApi.logIn.mockRejectedValue({
           message: someErrorMessage
         });
