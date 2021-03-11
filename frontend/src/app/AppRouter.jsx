@@ -47,6 +47,13 @@ export default function AppRouter() {
           }}
         />
         <ProtectedRoute
+          path="/Streams/Details/:streamId"
+          authenticationRequired
+          render={(location) => {
+            return <StreamDetailsPage location={location} />;
+          }}
+        />
+        <ProtectedRoute
           path="/Streams"
           authenticationRequired
           render={() => {
@@ -58,13 +65,6 @@ export default function AppRouter() {
           authenticationRequired
           render={() => {
             return <LogListPage />;
-          }}
-        />
-        <ProtectedRoute
-          path="/Streams/Details/:streamId"
-          authenticationRequired
-          render={(location) => {
-            return <StreamDetailsPage location={location} />;
           }}
         />
         <Route path="/">

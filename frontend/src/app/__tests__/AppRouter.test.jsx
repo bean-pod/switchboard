@@ -73,19 +73,7 @@ describe("<AppRouter/> functional component", () => {
     const createStreamPage = createStreamRoute.props().render();
     expect(createStreamPage.type).toEqual(CreateStreamPage);
 
-    const streamListRoute = protectedRoutes.at(5);
-    expect(streamListRoute.props().path).toEqual("/Streams");
-    expect(streamListRoute.props().authenticationRequired).toBeTruthy();
-    const streamListPage = streamListRoute.props().render();
-    expect(streamListPage.type).toEqual(StreamListPage);
-
-    const logListRoute = protectedRoutes.at(6);
-    expect(logListRoute.props().path).toEqual("/Logs");
-    expect(logListRoute.props().authenticationRequired).toBeTruthy();
-    const logListPage = logListRoute.props().render();
-    expect(logListPage.type).toEqual(LogListPage);
-
-    const streamDetailsRoute = protectedRoutes.at(7);
+    const streamDetailsRoute = protectedRoutes.at(5);
     expect(streamDetailsRoute.props().path).toEqual(
       "/Streams/Details/:streamId"
     );
@@ -94,6 +82,18 @@ describe("<AppRouter/> functional component", () => {
       .props()
       .render(dummyStreamLocation);
     expect(streamDetailsPage.type).toEqual(StreamDetailsPage);
+
+    const streamListRoute = protectedRoutes.at(6);
+    expect(streamListRoute.props().path).toEqual("/Streams");
+    expect(streamListRoute.props().authenticationRequired).toBeTruthy();
+    const streamListPage = streamListRoute.props().render();
+    expect(streamListPage.type).toEqual(StreamListPage);
+
+    const logListRoute = protectedRoutes.at(7);
+    expect(logListRoute.props().path).toEqual("/Logs");
+    expect(logListRoute.props().authenticationRequired).toBeTruthy();
+    const logListPage = logListRoute.props().render();
+    expect(logListPage.type).toEqual(LogListPage);
 
     const route = wrapper.find(Route);
     expect(route).toHaveLength(1);
