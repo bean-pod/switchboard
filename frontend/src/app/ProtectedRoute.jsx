@@ -11,10 +11,10 @@ export default class ProtectedRoute extends React.Component {
   }
 
   component(location) {
-    const { isUserPage, render } = this.props;
+    const { authenticationRequired, render } = this.props;
     const authenticated = isAuthenticated();
 
-    if (isUserPage) {
+    if (authenticationRequired) {
       if (authenticated) {
         return render(location);
       }
@@ -43,10 +43,10 @@ export default class ProtectedRoute extends React.Component {
 
 ProtectedRoute.propTypes = {
   path: PropTypes.string.isRequired,
-  isUserPage: PropTypes.bool,
+  authenticationRequired: PropTypes.bool,
   render: PropTypes.func.isRequired
 };
 
 ProtectedRoute.defaultProps = {
-  isUserPage: false
+  authenticationRequired: false
 };

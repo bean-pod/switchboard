@@ -36,17 +36,17 @@ describe("<ProtectedRoute/> class component", () => {
       beforeEach(() => {
         AuthenticationApi.isAuthenticated.mockReturnValue(true);
       });
-      describe("if prop isUserPage is true", () => {
+      describe("if prop authenticationRequired is true", () => {
         it("should call the passed render function", () => {
           wrapper = Enzyme.shallow(
-            <ProtectedRoute path={dummyPath} render={dummyRender} isUserPage />
+            <ProtectedRoute path={dummyPath} render={dummyRender} authenticationRequired />
           );
 
           wrapper.instance().component(dummyLocation);
           expect(dummyRender).toHaveBeenCalledWith(dummyLocation);
         });
       });
-      describe("if prop isUserPage is false", () => {
+      describe("if prop authenticationRequired is false", () => {
         it("should return a <Redirect/> component", () => {
           wrapper = Enzyme.shallow(
             <ProtectedRoute path={dummyPath} render={dummyRender} />
@@ -61,17 +61,17 @@ describe("<ProtectedRoute/> class component", () => {
       beforeEach(() => {
         AuthenticationApi.isAuthenticated.mockReturnValue(false);
       });
-      describe("if prop isUserPage is true", () => {
+      describe("if prop authenticationRequired is true", () => {
         it("should return a <Redirect/> component with expected props", () => {
           wrapper = Enzyme.shallow(
-            <ProtectedRoute path={dummyPath} render={dummyRender} isUserPage />
+            <ProtectedRoute path={dummyPath} render={dummyRender} authenticationRequired />
           );
 
           const redirect = wrapper.instance().component(dummyLocation);
           expect(redirect.props.to).toStrictEqual({ pathname: "/Login" });
         });
       });
-      describe("if prop isUserPage is false", () => {
+      describe("if prop authenticationRequired is false", () => {
         it("should call the passed render function", () => {
           wrapper = Enzyme.shallow(
             <ProtectedRoute path={dummyPath} render={dummyRender} />

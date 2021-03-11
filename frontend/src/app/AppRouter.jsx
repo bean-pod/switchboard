@@ -19,42 +19,42 @@ export default function AppRouter() {
         <ProtectedRoute path="/Login" render={() => <LoginPage />} />
         <ProtectedRoute
           path="/Home"
-          isUserPage
+          authenticationRequired
           render={() => {
             return <HomePage />;
           }}
         />
         <ProtectedRoute
           path="/Devices/Details/:serialNumber"
-          isUserPage
+          authenticationRequired
           render={(location) => {
             return <DeviceDetailsPage location={location} />;
           }}
         />
         <ProtectedRoute
           path="/Devices"
-          isUserPage
+          authenticationRequired
           render={() => {
             return <DeviceListPage />;
           }}
         />
         <ProtectedRoute
           path="/Streams/New"
-          isUserPage
+          authenticationRequired
           render={() => {
             return <CreateStreamPage />;
           }}
         />
         <ProtectedRoute
           path="/Streams"
-          isUserPage
+          authenticationRequired
           render={() => {
             return <StreamListPage />;
           }}
         />
         <ProtectedRoute
           path="/Logs"
-          isUserPage
+          authenticationRequired
           render={() => {
             return <LogListPage />;
           }}
