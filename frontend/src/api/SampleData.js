@@ -420,7 +420,13 @@ export function getSampleStream() {
     extras
   );
 
-  return new StreamInfo(1, sampleSender, sampleReceiver, sampleSender.channels[0].port, sampleReceiver.channels[1].port);
+  return new StreamInfo(
+    1,
+    sampleSender,
+    sampleReceiver,
+    sampleSender.channels[0].port,
+    sampleReceiver.channels[1].port
+  );
 }
 
 export function getAllLogs(callback) {
