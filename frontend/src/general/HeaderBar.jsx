@@ -1,9 +1,12 @@
 import React from "react";
+import PropTypes from "prop-types";
+import { withRouter, NavLink } from "react-router-dom";
 import { AppBar, IconButton, makeStyles, Toolbar } from "@material-ui/core";
 import { AccountCircle, Home } from "@material-ui/icons/";
-import { NavLink } from "react-router-dom";
 
-export default class HeaderBar extends React.Component {
+import { isAuthenticated, handleLogout } from "../api/AuthenticationApi";
+
+class HeaderBar extends React.Component {
   constructor(props) {
     super(props);
     this.classes = makeStyles((theme) => ({
@@ -13,13 +16,20 @@ export default class HeaderBar extends React.Component {
     }));
   }
 
+  handleLogout() {
+    const { history } = this.props;
+    handleLogout();
+    history.push("/Login");
+    history.go(0);
+  }
+
   render() {
     return (
       <div className="headerBar">
         <AppBar position="static">
           <Toolbar className="darkGrey">
             <div className="headerTitle">
-              <NavLink to="/" className="headerTitle">
+              <NavLink to="/Home" className="headerTitle">
                 <IconButton
                   edge="start"
                   className={this.classes.menuButton}
@@ -31,7 +41,12 @@ export default class HeaderBar extends React.Component {
               </NavLink>
               Switchboard
             </div>
-            <IconButton id="acctBtn" color="inherit">
+            <IconButton
+              id="acctBtn"
+              color="inherit"
+              disabled={!isAuthenticated()}
+              onClick={handleLogout}
+            >
               <AccountCircle />
             </IconButton>
           </Toolbar>
@@ -40,3 +55,11 @@ export default class HeaderBar extends React.Component {
     );
   }
 }
+export default withRouter(HeaderBar);
+
+HeaderBar.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+    go: PropTypes.func.isRequired
+  }).isRequired
+};

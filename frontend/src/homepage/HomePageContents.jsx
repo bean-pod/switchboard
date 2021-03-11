@@ -7,6 +7,8 @@ import ActivityLogCard from "./ActivityLogCard";
 import DevicesCard from "./DevicesCard";
 import AdminPanelCard from "./AdminPanelCard";
 
+import { isAdmin } from "../api/AuthenticationApi";
+
 export default function HomePageContents() {
   return (
     <Grid
@@ -28,9 +30,13 @@ export default function HomePageContents() {
         <Grid item xs={12}>
           <ActivityLogCard />
         </Grid>
-        <Grid item xs={12}>
-          <AdminPanelCard />
-        </Grid>
+        {isAdmin() ? (
+          <Grid item xs={12}>
+            <AdminPanelCard />
+          </Grid>
+        ) : (
+          <div />
+        )}
       </GridColumn>
     </Grid>
   );

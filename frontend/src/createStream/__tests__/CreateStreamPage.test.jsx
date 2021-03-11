@@ -9,16 +9,15 @@ import StreamingTable from "../StreamingTable";
 Enzyme.configure({ adapter: new Adapter() });
 
 describe("<CreateStreamPage/> functional Component", () => {
-  const dummySource = { dummy: () => {} };
-  const wrapper = Enzyme.shallow(<CreateStreamPage dataSource={dummySource} />);
+  const wrapper = Enzyme.shallow(<CreateStreamPage />);
 
   describe("returns a component that", () => {
     it("Contains 1 <Page/> component with expected props", () => {
       const expectedTitle = "Create a Stream";
       const expectedCrumb = [
         ["Home", "/Home"],
-        ["Active Streams", "/Streaming"],
-        ["New Stream", "/Streaming/New"]
+        ["Active Streams", "/Streams"],
+        ["New Stream", "/Streams/New"]
       ];
 
       expect(wrapper.find(Page)).toHaveLength(1);
@@ -27,11 +26,8 @@ describe("<CreateStreamPage/> functional Component", () => {
       expect(page.props().title).toBe(expectedTitle);
       expect(page.props().breadcrumbs).toStrictEqual(expectedCrumb);
     });
-    it("Contains 1 <StreamingTable/> component with expected props", () => {
+    it("Contains 1 <StreamingTable/> component", () => {
       expect(wrapper.find(StreamingTable)).toHaveLength(1);
-
-      const streamingTable = wrapper.find(StreamingTable).first();
-      expect(streamingTable.props().dataSource).toStrictEqual(dummySource);
     });
   });
 });

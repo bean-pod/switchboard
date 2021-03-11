@@ -10,7 +10,7 @@ import HeaderBar from "../HeaderBar";
 import DynamicBreadcrumb from "../DynamicBreadcrumb";
 
 Enzyme.configure({ adapter: new Adapter() });
-describe("<Title/> functional Component", () => {
+describe("<Page/> functional Component", () => {
   const dummyTitle = "testString";
   const dummyCrumb = [["bread", "crumb"]];
   const dummyChild = <div className="someDummyChild" />;
