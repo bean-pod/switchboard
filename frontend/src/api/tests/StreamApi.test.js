@@ -54,9 +54,11 @@ describe("Stream Api", () => {
   describe("getStream", () => {
     it("should call axios.get and return a single stream's information", async () => {
       axios.get.mockResolvedValue({ data: firstStreamResponse });
+
       authenticationUtil.getAuthorizationHeader = jest
         .fn()
         .mockReturnValue(authorizationHeader);
+
       const response = await StreamApi.getStream(123);
 
       // check that callback was invoked with correct value
@@ -101,6 +103,10 @@ describe("Stream Api", () => {
   describe("deleteStream", () => {
     it("should call axios.get and resolve the promise once the delete is complete", async () => {
       axios.delete.mockResolvedValue();
+      authenticationUtil.getAuthorizationHeader = jest
+        .fn()
+        .mockReturnValue(authorizationHeader);
+
       authenticationUtil.getAuthorizationHeader = jest
         .fn()
         .mockReturnValue(authorizationHeader);
