@@ -398,7 +398,7 @@ export function getAllStreams() {
 }
 
 export function getSampleStream() {
-  const sampleSender = DeviceInfo(
+  const sampleSender = new DeviceInfo(
     "1:10:111:999",
     null,
     "123:456",
@@ -409,7 +409,7 @@ export function getSampleStream() {
     extras
   );
 
-  const sampleReceiver = DeviceInfo(
+  const sampleReceiver = new DeviceInfo(
     "1:22:333:989",
     null,
     "145:396",
@@ -420,7 +420,7 @@ export function getSampleStream() {
     extras
   );
 
-  return new StreamInfo(1, sampleSender, sampleReceiver, 20000, 30001);
+  return new StreamInfo(1, sampleSender, sampleReceiver, sampleSender.channels[0].port, sampleReceiver.channels[1].port);
 }
 
 export function getAllLogs(callback) {

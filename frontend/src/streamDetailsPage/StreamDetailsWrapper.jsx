@@ -16,12 +16,18 @@ export default function StreamDetailsWrapper(props) {
       <Grid container spacing={3}>
         <Grid item xs={6}>
           <DashboardCard title="Sender Details">
-            <StreamDeviceDetails device={streamDetailSource.sender} />
+            <StreamDeviceDetails
+              device={streamDetailSource.sender}
+              channel={streamDetailSource.outputChannel}
+            />
           </DashboardCard>
         </Grid>
         <Grid item xs={6}>
           <DashboardCard title="Receiver Details">
-            <StreamDeviceDetails device={streamDetailSource.receiver} />
+            <StreamDeviceDetails
+              device={streamDetailSource.receiver}
+              channel={streamDetailSource.inputChannel}
+            />
           </DashboardCard>
         </Grid>
         <Grid item xs={7}>

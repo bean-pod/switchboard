@@ -11,7 +11,7 @@ import {
 import DeviceInfo from "../model/DeviceInfo";
 
 export default function StreamDeviceDetails(props) {
-  const { device } = props;
+  const { device, channel } = props;
 
   return (
     <>
@@ -26,6 +26,10 @@ export default function StreamDeviceDetails(props) {
               <TableCell>Serial Number</TableCell>
               <TableCell>{device.serialNumber}</TableCell>
             </TableRow>
+            <TableRow>
+              <TableCell>Channel</TableCell>
+              <TableCell>{channel}</TableCell>
+            </TableRow>
           </TableBody>
         </Table>
       </TableContainer>
@@ -34,5 +38,6 @@ export default function StreamDeviceDetails(props) {
 }
 
 StreamDeviceDetails.propTypes = {
-  device: PropTypes.instanceOf(DeviceInfo).isRequired
+  device: PropTypes.instanceOf(DeviceInfo).isRequired,
+  channel: PropTypes.number.isRequired
 };
