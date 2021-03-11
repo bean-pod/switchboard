@@ -14,6 +14,8 @@ import StreamListPage from "../../streamlist/StreamListPage";
 import LogListPage from "../../loglist/LogListPage";
 import PathNotFoundPage from "../../general/PathNotFoundPage";
 import DeviceInfo from "../../model/DeviceInfo";
+import StreamDetailsPage from "../../streamDetails/StreamDetailsPage";
+import StreamInfo from "../../model/StreamInfo";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -23,13 +25,22 @@ const dummyLocation = {
   }
 };
 
+const dummySender = new DeviceInfo(1, 1, 1, 1, 1, 1, [1, 2]);
+const dummyReceiver = new DeviceInfo(2, 2, 2, 2, 2, 2, [3, 4]);
+
+const dummyStreamLocation = {
+  state: {
+    stream: new StreamInfo(1, dummySender, dummyReceiver, 2, 3)
+  }
+};
+
 describe("<AppRouter/> functional component", () => {
   let wrapper;
   it("returns a component with the correct elements", () => {
     wrapper = Enzyme.shallow(<AppRouter />);
 
     const protectedRoutes = wrapper.find(ProtectedRoute);
-    expect(protectedRoutes).toHaveLength(7);
+    expect(protectedRoutes).toHaveLength(8);
 
     const loginRoute = protectedRoutes.at(0);
     expect(loginRoute.props().path).toEqual("/Login");
@@ -73,6 +84,16 @@ describe("<AppRouter/> functional component", () => {
     expect(logListRoute.props().authenticationRequired).toBeTruthy();
     const logListPage = logListRoute.props().render();
     expect(logListPage.type).toEqual(LogListPage);
+
+    const streamDetailsRoute = protectedRoutes.at(7);
+    expect(streamDetailsRoute.props().path).toEqual(
+      "/Streams/Details/:streamId"
+    );
+    expect(streamDetailsRoute.props().authenticationRequired).toBeTruthy();
+    const streamDetailsPage = streamDetailsRoute
+      .props()
+      .render(dummyStreamLocation);
+    expect(streamDetailsPage.type).toEqual(StreamDetailsPage);
 
     const route = wrapper.find(Route);
     expect(route).toHaveLength(1);
