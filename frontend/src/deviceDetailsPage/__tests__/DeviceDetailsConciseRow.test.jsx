@@ -8,6 +8,7 @@ import ChannelDetailsTable from "../../devicelist/ChannelDetailsTable";
 import InputChannelInfo from "../../model/InputChannelInfo";
 import OutputChannelInfo from "../../model/OutputChannelInfo";
 import StatusIndicator from "../../general/StatusIndicator";
+import DeviceName from "../DeviceName";
 
 Enzyme.configure({ adapter: new Adapter() });
 jest.mock("axios");
@@ -98,7 +99,7 @@ describe("DeviceDetailsConciseRow class", () => {
       });
     });
   });
-  describe("<DeviceDetailsConciseRow/>", () => {
+  describe("render function", () => {
     it("Renders one (1) <TableRow/> components", () => {
       const dummyValue = [];
       wrapper = Enzyme.shallow(
@@ -125,8 +126,12 @@ describe("DeviceDetailsConciseRow class", () => {
     it('should create a StatusIndicator component when passed "status"', () => {
       const name = "status";
       const value = "Offline";
+      const device = {
+        serialNumber: "serial"
+      };
+
       wrapper = Enzyme.shallow(
-        DeviceDetailsConciseRow.createTableCellContents(name, value)
+        DeviceDetailsConciseRow.createTableCellContents(name, value, device)
       );
 
       expect(wrapper.type()).toEqual("div");
@@ -137,11 +142,29 @@ describe("DeviceDetailsConciseRow class", () => {
 
       const name = "channels";
       const value = [];
-      DeviceDetailsConciseRow.createTableCellContents(name, value);
+      const device = {
+        serialNumber: "serial"
+      };
+
+      DeviceDetailsConciseRow.createTableCellContents(name, value, device);
 
       expect(DeviceDetailsConciseRow.createInnerTable).toHaveBeenCalledWith(
         value
       );
+    });
+    it('should call createInnerTable() when passed "channels"', () => {
+      jest.spyOn(DeviceDetailsConciseRow, "createInnerTable");
+
+      const name = "name";
+      const value = "Name";
+      const device = {
+        serialNumber: "serial"
+      };
+
+      wrapper = Enzyme.shallow(
+        DeviceDetailsConciseRow.createTableCellContents(name, value, device)
+      );
+      expect(wrapper.instance()).toBeInstanceOf(DeviceName);
     });
   });
 });

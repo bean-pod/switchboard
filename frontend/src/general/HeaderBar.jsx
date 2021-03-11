@@ -1,9 +1,12 @@
 import React from "react";
+import PropTypes from "prop-types";
+import { withRouter, NavLink } from "react-router-dom";
 import { AppBar, IconButton, makeStyles, Toolbar } from "@material-ui/core";
-import { AccountCircle, Menu, Notifications } from "@material-ui/icons/";
-import { NavLink } from "react-router-dom";
+import { AccountCircle, Home } from "@material-ui/icons/";
 
-export default class HeaderBar extends React.Component {
+import { isAuthenticated, handleLogout } from "../api/AuthenticationApi";
+
+class HeaderBar extends React.Component {
   constructor(props) {
     super(props);
     this.classes = makeStyles((theme) => ({
@@ -13,40 +16,50 @@ export default class HeaderBar extends React.Component {
     }));
   }
 
+  handleLogout() {
+    const { history } = this.props;
+    handleLogout();
+    history.push("/Login");
+    history.go(0);
+  }
+
   render() {
     return (
-      <>
-        <div className="headerBar">
-          <AppBar position="static">
-            <Toolbar className="darkGrey">
-              <IconButton
-                edge="start"
-                className={this.classes.menuButton}
-                color="inherit"
-                aria-label="menu"
-              >
-                <Menu />
-              </IconButton>
-              <div className="headerTitle">
-                <NavLink
-                  to="/"
-                  activeClassName="headerTitle"
-                  className="headerTitle"
-                  exact
+      <div className="headerBar">
+        <AppBar position="static">
+          <Toolbar className="darkGrey">
+            <div className="headerTitle">
+              <NavLink to="/Home" className="headerTitle">
+                <IconButton
+                  edge="start"
+                  className={this.classes.menuButton}
+                  color="inherit"
+                  aria-label="menu"
                 >
-                  Switchboard
-                </NavLink>
-              </div>
-              <IconButton id="notifBtn" color="inherit">
-                <Notifications />
-              </IconButton>
-              <IconButton id="acctBtn" color="inherit">
-                <AccountCircle />
-              </IconButton>
-            </Toolbar>
-          </AppBar>
-        </div>
-      </>
+                  <Home />
+                </IconButton>
+              </NavLink>
+              Switchboard
+            </div>
+            <IconButton
+              id="acctBtn"
+              color="inherit"
+              disabled={!isAuthenticated()}
+              onClick={handleLogout}
+            >
+              <AccountCircle />
+            </IconButton>
+          </Toolbar>
+        </AppBar>
+      </div>
     );
   }
 }
+export default withRouter(HeaderBar);
+
+HeaderBar.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+    go: PropTypes.func.isRequired
+  }).isRequired
+};
