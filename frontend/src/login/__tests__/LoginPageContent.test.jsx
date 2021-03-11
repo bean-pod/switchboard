@@ -58,10 +58,12 @@ describe("<LoginPageContents/> class component", () => {
     const someUsername = "username";
     const somePassword = "password";
     describe("when logIn resolves", () => {
-      it("Calls login and redirects to home", () => {
+      it("Calls login and redirects to home", async () => {
         AuthenticationApi.logIn.mockResolvedValue();
 
         wrapper.instance().handleSubmit(someUsername, somePassword);
+
+        await new Promise(setImmediate);
 
         expect(AuthenticationApi.logIn).toHaveBeenCalledWith({
           username: someUsername,
