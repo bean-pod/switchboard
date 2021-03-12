@@ -34,7 +34,7 @@ describe("<StreamDetailsPage/> functional component", () => {
       it("contains one <Page/> component with expected props", () => {
         const expectedTitle = "Stream Details";
         const expectedBreadcrumbs = [
-          ["Home", "/"],
+          ["Home", "/Home"],
           ["Active Streams", "/Streams"],
           ["Stream Details", `/Streams/Details/${dummyStream.id}`]
         ];
@@ -63,7 +63,7 @@ describe("<StreamDetailsPage/> functional component", () => {
       it("contains one <Page/> component with expected props", () => {
         const expectedTitle = "Stream Details";
         const expectedBreadcrumbs = [
-          ["Home", "/"],
+          ["Home", "/Home"],
           ["Active Streams", "/Streams"],
           ["Stream Details", `/Streams/Details/${expectedDefaultStream.id}`]
         ];
