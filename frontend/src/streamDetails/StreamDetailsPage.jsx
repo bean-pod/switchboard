@@ -27,7 +27,7 @@ export default function StreamDetailsPage(props) {
 }
 
 StreamDetailsPage.defaultProps = {
-  location: { state: { stream: SampleData.getAllStreams()[0] } }
+  location: { state: { stream: SampleData.getSampleStream() } }
 };
 
 StreamDetailsPage.propTypes = {
