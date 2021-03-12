@@ -18,16 +18,15 @@ export default class CreateUserPageContents extends React.Component {
     this.setDialogMessage = this.setDialogMessage.bind(this);
   }
 
-  handleSubmit(username, password, email) {
+  handleSubmit(username, password) {
     const { history } = this.props;
     axios
       .post(
         process.env.REACT_APP_SIGNUP,
         {
-          // id: ,
           username,
           password,
-          email
+          userRole: "USER"
         },
         getAuthorizationHeader()
       )

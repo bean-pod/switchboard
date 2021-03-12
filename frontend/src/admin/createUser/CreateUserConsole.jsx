@@ -23,11 +23,10 @@ export default function CreateUserConsole(props) {
   const classes = useStyles();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
 
   const onSubmit = (event) => {
     event.preventDefault();
-    handleSubmit(username, password, email);
+    handleSubmit(username, password);
   };
 
   return (
@@ -62,19 +61,6 @@ export default function CreateUserConsole(props) {
             helperText="Password must be between 5 to 20 characters"
             autoComplete="current-password"
             onChange={(event) => setPassword(event.target.value)}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="email"
-            label="Email"
-            type="email"
-            id="email"
-            value={email}
-            autoComplete="email"
-            onChange={(event) => setEmail(event.target.value)}
           />
           <Button
             type="submit"
