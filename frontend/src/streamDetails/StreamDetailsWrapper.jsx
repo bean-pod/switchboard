@@ -20,8 +20,6 @@ export default function StreamDetailsWrapper(props) {
               channel={stream.outputChannel}
             />
           </DashboardCard>
-          channel=
-          {stream.outputChannel}
         </Grid>
         <Grid item xs={6}>
           <DashboardCard title="Receiver Details">
