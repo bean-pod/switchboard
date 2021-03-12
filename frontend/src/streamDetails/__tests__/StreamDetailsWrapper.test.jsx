@@ -24,13 +24,13 @@ describe("<StreamDetailsWrapper/> functional component", () => {
     beforeEach(() => {
       wrapper = Enzyme.shallow(<StreamDetailsWrapper stream={dummyStream} />);
     });
-    it("Contains 1 Container component", () => {
+    it("Contains 1 Container component with expected props", () => {
       expect(wrapper.find(Container)).toHaveLength(1);
     });
-    it("Contains 5 Grid components", () => {
-        const gridComponents = wrapper.find(Grid);
-        
-        expect(gridComponents).toHaveLength(5);
+    it("Contains 5 Grid components with expected props", () => {
+      const gridComponents = wrapper.find(Grid);
+
+      expect(gridComponents).toHaveLength(5);
       // iterate through grid components to test each
       for (let i = 0; i < gridComponents.length; i++) {
         const gridProps = wrapper.find(Grid).at(i).props();
@@ -54,7 +54,7 @@ describe("<StreamDetailsWrapper/> functional component", () => {
         }
       }
     });
-    it("Contains 4 DashboardCard components", () => {
+    it("Contains 4 DashboardCard components with expected props", () => {
       expect(wrapper.find(DashboardCard)).toHaveLength(4);
 
       const senderCardProps = wrapper.find(DashboardCard).at(0).props();
@@ -62,33 +62,33 @@ describe("<StreamDetailsWrapper/> functional component", () => {
 
       const receiverCardProps = wrapper.find(DashboardCard).at(1).props();
       expect(receiverCardProps.title).toBe("Receiver Details");
-      
+
       const logsCardProps = wrapper.find(DashboardCard).at(2).props();
       expect(logsCardProps.title).toBe("Logs");
-      
+
       const statisticsCardProps = wrapper.find(DashboardCard).at(3).props();
       expect(statisticsCardProps.title).toBe("Statistics");
     });
-    it("Contains 2 StreamDeviceDetails components", () => {
-      const streamDeviceDetails = wrapper.find(StreamDeviceDetails)
+    it("Contains 2 StreamDeviceDetails components with expected props", () => {
+      const streamDeviceDetails = wrapper.find(StreamDeviceDetails);
       expect(streamDeviceDetails).toHaveLength(2);
 
       const senderDetailsProps = streamDeviceDetails.at(0).props();
       expect(senderDetailsProps.device).toStrictEqual(dummySender);
       expect(senderDetailsProps.channel).toBe(2);
-      
+
       const receiverDetailsProps = streamDeviceDetails.at(1).props();
       expect(receiverDetailsProps.device).toStrictEqual(dummyReceiver);
       expect(receiverDetailsProps.channel).toBe(3);
     });
-    it("Contains 1 Box component", () => {
+    it("Contains 1 Box component with expected props", () => {
       const boxComponent = wrapper.find(Box);
       expect(boxComponent).toHaveLength(1);
-      
+
       const boxProps = boxComponent.first().props();
       expect(boxProps.className).toBe("alignRightFloatPadded");
     });
-    it("Contains 1 DeleteStreamDialogOpener component", () => {
+    it("Contains 1 DeleteStreamDialogOpener component with expected props", () => {
       const deleteDialogOpener = wrapper.find(DeleteStreamDialogOpener);
       expect(deleteDialogOpener).toHaveLength(1);
 
