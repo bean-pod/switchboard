@@ -1,7 +1,6 @@
 import axios from "axios";
 import { convertToDataObject } from "../model/ConvertDataFormat";
 import StreamInfo from "../model/StreamInfo";
-import * as SampleData from "./SampleData";
 import { getAuthorizationHeader } from "./AuthenticationUtil";
 
 export async function getStream(streamId) {
