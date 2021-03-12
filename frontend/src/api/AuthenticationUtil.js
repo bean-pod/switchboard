@@ -36,7 +36,7 @@ export function isAuthenticated() {
 export function isAdmin() {
   const token = Cookies.get("authToken");
   const tokenPayload = parseJwt(token.split(" ")[1]);
-  return tokenPayload.sub === "admin";
+  return tokenPayload.role === "ADMIN" || tokenPayload.role === "SUPERUSER";
 }
 
 export default {
