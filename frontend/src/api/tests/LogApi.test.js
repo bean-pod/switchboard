@@ -1,13 +1,20 @@
 import axios from "axios";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import { afterEach, describe, expect, jest, it } from "@jest/globals";
+import { afterEach, describe, expect, it, jest } from "@jest/globals";
 import * as LogApi from "../LogApi";
 import * as SampleData from "../SampleData";
+import * as authenticationUtil from "../AuthenticationUtil";
 
 Enzyme.configure({ adapter: new Adapter() });
 
 jest.mock("axios");
+
+const authorizationHeader = {
+  headers: {
+    Authorization: "Bearer the_token"
+  }
+};
 
 const mockLogs = [
   {
@@ -52,9 +59,14 @@ describe("Log Api", () => {
   describe("getDeviceLogs", () => {
     it("should call axios.get and return device logs from a device/serial number", async () => {
       axios.get.mockResolvedValue({ data: mockLogs });
-
+      authenticationUtil.getAuthorizationHeader = jest
+        .fn()
+        .mockReturnValue(authorizationHeader);
       const result = await LogApi.getDeviceLogs(123);
-      expect(axios.get).toHaveBeenCalledWith("http://localhost:8080/logs/123");
+      expect(axios.get).toHaveBeenCalledWith(
+        "http://localhost:8080/log/123",
+        authorizationHeader
+      );
       expect(result).toEqual(expectedLogsResponse);
     });
     it("If there is no response from the backend, it should return sample data", async () => {
@@ -68,9 +80,14 @@ describe("Log Api", () => {
   describe("getAllLogs", () => {
     it("should call axios.get and return an array of streams", async () => {
       axios.get.mockResolvedValue({ data: mockLogs });
-
+      authenticationUtil.getAuthorizationHeader = jest
+        .fn()
+        .mockReturnValue(authorizationHeader);
       const result = await LogApi.getAllLogs();
-      expect(axios.get).toHaveBeenCalledWith("http://localhost:8080/logs");
+      expect(axios.get).toHaveBeenCalledWith(
+        "http://localhost:8080/log",
+        authorizationHeader
+      );
       expect(result).toEqual(expectedLogsResponse);
     });
     it("If there is no response from the backend, it should return sample data", async () => {

@@ -10,7 +10,7 @@ servers:
     description: Local Enviorment
 
 paths:
-  /logs/{serialNumber}:
+  /log/{serialNumber}:
     get:
       operationId: retrieveDeviceLogs
       description: Get a list of logs for a specific device
@@ -43,7 +43,7 @@ paths:
                 type: string
                 example: 'User moh has been created successfully'
 
-  /logs:
+  /log:
     get:
       operationId: retrieveAllLogs
       description: Get a list of logs
@@ -438,6 +438,13 @@ components:
         password:
           type: string
           example: '123#rt.'
+        userRole:
+          type: string
+          enum:
+            - ADMIN
+            - USER
+            - SUPERUSER
+          example: 'ADMIN'
 
     LogsModel:
       description: A list of all logs
