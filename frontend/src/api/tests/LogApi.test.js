@@ -12,12 +12,6 @@ jest.mock("axios");
 jest.mock("../AuthenticationUtil");
 jest.spyOn(AuthenticationUtil, "getAuthorizationHeader");
 
-const authorizationHeader = {
-  headers: {
-    Authorization: "Bearer the_token"
-  }
-};
-
 const mockLogs = [
   {
     id: 1,
