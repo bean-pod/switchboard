@@ -80,7 +80,7 @@ describe("<LoginPageContents/> class component", () => {
         });
 
         wrapper.instance().handleSubmit(someUsername, somePassword);
-        
+
         const flushPromises = () => new Promise(setImmediate);
         await flushPromises();
 

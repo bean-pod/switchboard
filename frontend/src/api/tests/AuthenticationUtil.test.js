@@ -22,7 +22,8 @@ describe("AuthenticationUtil", () => {
     it("should save the token to local storage", () => {
       AuthenticationUtil.saveToken(dummyToken);
       expect(Cookies.set).toHaveBeenCalledWith("authToken", dummyToken, {
-        expires: dummyTokenExpiry, SameSite: "Strict"
+        expires: dummyTokenExpiry,
+        SameSite: "Strict"
       });
     });
   });
