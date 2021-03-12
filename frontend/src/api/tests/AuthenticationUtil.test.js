@@ -7,7 +7,8 @@ const dummySuperuserToken =
 const dummyTokenExpiry = new Date(1615667806000);
 const dummyUserToken =
   "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0YWtvbyIsInJvbGUiOiJVU0VSIiwiZXhwIjoxNjE1NjY3ODQzfQ.ZREE9nlhA0706bxdWvSjne2K4pivSJDUN_1SY5YNhh4SR-6RPXXLEpqVMHnfT9tZxLiJZ8YCdRvgA6wxhX-dSw";
-const dummyAdminToken = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJub2dnIiwicm9sZSI6IkFETUlOIiwiZXhwIjoxNjE1NjY3ODY2fQ.rxXWY5gwPtt0wu_1Qcaedp-rNZnCWP95aLq9LHGF7I8InO3N_2CV25Jhf1o84wc7slgqyMV9lFROEiVFUvDMAg";
+const dummyAdminToken =
+  "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJub2dnIiwicm9sZSI6IkFETUlOIiwiZXhwIjoxNjE1NjY3ODY2fQ.rxXWY5gwPtt0wu_1Qcaedp-rNZnCWP95aLq9LHGF7I8InO3N_2CV25Jhf1o84wc7slgqyMV9lFROEiVFUvDMAg";
 
 jest.mock("js-cookie");
 jest.spyOn(Cookies, "get");
@@ -22,10 +23,14 @@ describe("AuthenticationUtil", () => {
   describe("saveToken", () => {
     it("should save the token in a cookie", () => {
       AuthenticationUtil.saveToken(dummySuperuserToken);
-      expect(Cookies.set).toHaveBeenCalledWith("authToken", dummySuperuserToken, {
-        expires: dummyTokenExpiry,
-        SameSite: "Strict"
-      });
+      expect(Cookies.set).toHaveBeenCalledWith(
+        "authToken",
+        dummySuperuserToken,
+        {
+          expires: dummyTokenExpiry,
+          SameSite: "Strict"
+        }
+      );
     });
   });
 
@@ -71,12 +76,12 @@ describe("AuthenticationUtil", () => {
     });
 
     it("should return true if jwt token has role ADMIN", () => {
-        Cookies.get.mockReturnValue(dummyAdminToken);
-        const admin = AuthenticationUtil.isAdmin();
-  
-        expect(Cookies.get).toHaveBeenCalledWith("authToken");
-        expect(admin).toEqual(true);
-      });
+      Cookies.get.mockReturnValue(dummyAdminToken);
+      const admin = AuthenticationUtil.isAdmin();
+
+      expect(Cookies.get).toHaveBeenCalledWith("authToken");
+      expect(admin).toEqual(true);
+    });
 
     it("should return false if jwt token has role USER", () => {
       Cookies.get.mockReturnValue(dummyUserToken);
