@@ -18,7 +18,7 @@ function parseJwt(token) {
 export function saveToken(token) {
   const tokenPayload = parseJwt(token.split(" ")[1]);
   const expiryDate = new Date(tokenPayload.exp * 1000);
-  Cookies.set("authToken", token, { expires: expiryDate });
+  Cookies.set("authToken", token, { expires: expiryDate, SameSite: "Strict" });
 }
 
 export function getAuthorizationHeader() {

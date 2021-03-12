@@ -78,8 +78,5 @@ describe("<HeaderBar/> functional Component", () => {
     it("calls history.push() with expected value", () => {
       expect(mockPush).toBeCalledWith("/Login");
     });
-    it("calls history.go() with expected value", () => {
-      expect(mockGo).toBeCalledWith(0);
-    });
   });
 });

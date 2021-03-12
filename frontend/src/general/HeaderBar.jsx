@@ -15,13 +15,13 @@ class HeaderBar extends React.Component {
         marginRight: theme.spacing(2)
       }
     }));
+    this.handleLogout = this.handleLogout.bind(this);
   }
 
   handleLogout() {
     const { history } = this.props;
     logOut();
     history.push("/Login");
-    history.go(0);
   }
 
   render() {
@@ -46,7 +46,7 @@ class HeaderBar extends React.Component {
               id="acctBtn"
               color="inherit"
               disabled={!isAuthenticated()}
-              onClick={logOut}
+              onClick={this.handleLogout}
             >
               <AccountCircle />
             </IconButton>
