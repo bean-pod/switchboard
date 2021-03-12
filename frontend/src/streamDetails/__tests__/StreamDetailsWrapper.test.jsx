@@ -32,7 +32,7 @@ describe("<StreamDetailsWrapper/> functional component", () => {
 
       expect(gridComponents).toHaveLength(5);
       // iterate through grid components to test each
-      for (let i = 0; i < gridComponents.length; i++) {
+      for (let i = 0; i < gridComponents.length; i += 1) {
         const gridProps = wrapper.find(Grid).at(i).props();
 
         if (i === 0) {
