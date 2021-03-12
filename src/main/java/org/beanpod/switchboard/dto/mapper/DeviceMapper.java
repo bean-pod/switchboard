@@ -13,7 +13,7 @@ import org.openapitools.model.DeviceModel;
 
 @Mapper(
     componentModel = "spring",
-    nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
+    nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
     uses = {UserMapper.class})
 public interface DeviceMapper {
 
