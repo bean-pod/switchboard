@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import axios from "axios";
 import CreateUserFailedDialog from "./CreateUserFailedDialog";
 import CreateUserConsole from "./CreateUserConsole";
-import { getAuthorizationHeader } from "../api/AuthenticationUtil";
+import { getAuthorizationHeader } from "../../api/AuthenticationUtil";
 
 export default class CreateUserPageContents extends React.Component {
   constructor(props) {
@@ -31,14 +31,16 @@ export default class CreateUserPageContents extends React.Component {
         },
         getAuthorizationHeader()
       )
+      .then(() => {
+        history.push("/Admin");
+        history.go(0);
+      })
       .catch((error) => {
         this.setState({
           dialogOpen: true,
           dialogMessage: error.message
         });
       });
-    history.push("/Admin");
-    history.go(0);
   }
 
   setDialogOpen(open) {

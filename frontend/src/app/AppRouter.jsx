@@ -10,7 +10,7 @@ import DeviceDetailsPage from "../deviceDetailsPage/DeviceDetailsPage";
 import StreamListPage from "../streamlist/StreamListPage";
 import CreateStreamPage from "../createStream/CreateStreamPage";
 import LogListPage from "../loglist/LogListPage";
-import CreateUserPage from "../admin/CreateUserPage";
+import CreateUserPage from "../admin/createUser/CreateUserPage";
 import PathNotFoundPage from "../general/PathNotFoundPage";
 
 export default function AppRouter() {

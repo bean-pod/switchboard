@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-import Page from "../general/Page";
+import Page from "../../general/Page";
 import CreateUserPageContents from "./CreateUserPageContents";
 
 export default function CreateUserPage() {
