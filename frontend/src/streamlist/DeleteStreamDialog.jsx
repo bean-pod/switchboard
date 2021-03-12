@@ -9,6 +9,7 @@ export default class DeleteStreamDialog extends React.Component {
     super(props);
 
     this.dialogElement = React.createRef();
+    this.afterDelete = this.afterDelete.bind(this);
     this.confirmDelete = this.confirmDelete.bind(this);
     this.openDialog = this.openDialog.bind(this);
   }
@@ -22,7 +23,7 @@ export default class DeleteStreamDialog extends React.Component {
 
   confirmDelete() {
     const { deleteId } = this.props;
-    deleteStream(deleteId).then(this.afterDelete.bind(this));
+    deleteStream(deleteId).then(this.afterDelete);
   }
 
   // used by Summoner to summon
