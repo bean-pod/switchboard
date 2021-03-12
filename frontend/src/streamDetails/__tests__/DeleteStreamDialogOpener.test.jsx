@@ -3,8 +3,7 @@ import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import { describe, expect } from "@jest/globals";
 
-import { IconButton, Tooltip } from "@material-ui/core";
-import { Delete } from "@material-ui/icons";
+import { Button, Tooltip } from "@material-ui/core";
 import DeleteStreamDialogOpener from "../DeleteStreamDialogOpener";
 import DeleteStreamDialog from "../DeleteStreamDialog";
 
@@ -27,8 +26,7 @@ describe("<DeleteStreamDialogOpener/> class", () => {
     );
     it("renders the correct components", () => {
       expect(wrapper.find(Tooltip)).toHaveLength(1);
-      expect(wrapper.find(IconButton)).toHaveLength(1);
-      expect(wrapper.find(Delete)).toHaveLength(1);
+      expect(wrapper.find(Button)).toHaveLength(1);
       expect(wrapper.find(DeleteStreamDialog)).toHaveLength(1);
     });
   });
