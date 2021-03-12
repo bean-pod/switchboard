@@ -80,8 +80,9 @@ describe("<LoginPageContents/> class component", () => {
         });
 
         wrapper.instance().handleSubmit(someUsername, somePassword);
-
-        await Promise.resolve(setImmediate);
+        
+        const flushPromises = () => new Promise(setImmediate);
+        await flushPromises();
 
         expect(wrapper.state()).toEqual({
           dialogOpen: true,
