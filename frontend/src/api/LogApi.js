@@ -22,12 +22,11 @@ async function getLogs(endpoint) {
 }
 
 export async function getAllLogs() {
-  return getLogs(process.env.REACT_APP_LOGS, getAuthorizationHeader());
+  return getLogs(process.env.REACT_APP_LOGS);
 }
 
 export async function getDeviceLogs(deviceSerialNumber) {
   return getLogs(
-    `${process.env.REACT_APP_LOGS}/${deviceSerialNumber}`,
-    getAuthorizationHeader()
+    `${process.env.REACT_APP_LOGS}/${deviceSerialNumber}`
   );
 }
