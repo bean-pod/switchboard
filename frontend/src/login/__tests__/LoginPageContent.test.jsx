@@ -11,7 +11,6 @@ import * as AuthenticationApi from "../../api/AuthenticationApi";
 Enzyme.configure({ adapter: new Adapter() });
 jest.mock("../../api/AuthenticationApi");
 jest.spyOn(AuthenticationApi, "logIn");
-jest.spyOn(AuthenticationApi, "handleLogin");
 
 describe("<LoginPageContents/> class component", () => {
   let wrapper;
@@ -59,32 +58,31 @@ describe("<LoginPageContents/> class component", () => {
     const someUsername = "username";
     const somePassword = "password";
     describe("when logIn resolves", () => {
-      it("Calls login and redirects to home", () => {
-        AuthenticationApi.handleLogin.mockReturnValue();
+      it("Calls login and redirects to home", async () => {
         AuthenticationApi.logIn.mockResolvedValue();
 
         wrapper.instance().handleSubmit(someUsername, somePassword);
 
-        expect(AuthenticationApi.handleLogin).toHaveBeenCalled();
+        await new Promise(setImmediate);
+
         expect(AuthenticationApi.logIn).toHaveBeenCalledWith({
           username: someUsername,
           password: somePassword
         });
         expect(mockHistory.push).toHaveBeenCalledWith("/Home");
-        expect(mockHistory.go).toHaveBeenCalledWith(0);
       });
     });
     describe("when logIn rejects", () => {
       it("Changes state to dialog open", async () => {
         const someErrorMessage = "errorMessage";
-        AuthenticationApi.handleLogin.mockReturnValue();
         AuthenticationApi.logIn.mockRejectedValue({
           message: someErrorMessage
         });
 
         wrapper.instance().handleSubmit(someUsername, somePassword);
 
-        await Promise.resolve(setImmediate);
+        const flushPromises = () => new Promise(setImmediate);
+        await flushPromises();
 
         expect(wrapper.state()).toEqual({
           dialogOpen: true,

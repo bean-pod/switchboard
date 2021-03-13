@@ -3,7 +3,7 @@ import React from "react";
 import DashboardButton from "./dashboard/DashboardButton";
 import DashboardCard from "./dashboard/DashboardCard";
 import Page from "./Page";
-import { isAuthenticated } from "../api/AuthenticationApi";
+import { isAuthenticated } from "../api/AuthenticationUtil";
 
 export default function PathNotFoundPage() {
   return (

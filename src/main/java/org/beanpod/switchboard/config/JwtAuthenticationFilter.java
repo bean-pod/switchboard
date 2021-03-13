@@ -58,9 +58,12 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
       FilterChain chain,
       Authentication authResult) {
     String username = ((SwitchBoardUserDetails) authResult.getPrincipal()).getUsername();
+    String userRole =
+        String.valueOf(((SwitchBoardUserDetails) authResult.getPrincipal()).getUserRole());
     String token =
         JWT.create()
             .withSubject(username)
+            .withClaim("role", userRole)
             .withExpiresAt(
                 new Date(System.currentTimeMillis() + securityProperties.getExpirationTime()))
             .sign(HMAC512(securityProperties.getSecret().getBytes()));

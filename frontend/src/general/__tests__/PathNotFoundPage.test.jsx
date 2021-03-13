@@ -7,7 +7,7 @@ import { Grid } from "@material-ui/core";
 import PathNotFoundPage from "../PathNotFoundPage";
 import Page from "../Page";
 
-import * as AuthApi from "../../api/AuthenticationApi";
+import * as AuthenticationUtil from "../../api/AuthenticationUtil";
 import DashboardButton from "../dashboard/DashboardButton";
 import DashboardCard from "../dashboard/DashboardCard";
 
@@ -17,11 +17,13 @@ describe("<PathNotFoundPage/> functional Component", () => {
   let wrapper;
 
   describe("returns a component that", () => {
-    describe("when AuthApi.isAuthenticated() returns true", () => {
+    describe("when AuthenticationUtil.isAuthenticated() returns true", () => {
       beforeEach(() => {
-        jest.spyOn(AuthApi, "isAuthenticated").mockImplementation(() => {
-          return true;
-        });
+        jest
+          .spyOn(AuthenticationUtil, "isAuthenticated")
+          .mockImplementation(() => {
+            return true;
+          });
         wrapper = Enzyme.shallow(<PathNotFoundPage />);
       });
       it("Contains 1 <Page/> component with correct props", () => {
@@ -73,11 +75,13 @@ describe("<PathNotFoundPage/> functional Component", () => {
         expect(props.children).toBe(expectedText);
       });
     });
-    describe("when AuthApi.isAuthenticated() returns false", () => {
+    describe("when AuthenticationUtil.isAuthenticated() returns false", () => {
       beforeEach(() => {
-        jest.spyOn(AuthApi, "isAuthenticated").mockImplementation(() => {
-          return false;
-        });
+        jest
+          .spyOn(AuthenticationUtil, "isAuthenticated")
+          .mockImplementation(() => {
+            return false;
+          });
         wrapper = Enzyme.shallow(<PathNotFoundPage />);
       });
       it("Contains 1 <Page/> component with correct props", () => {

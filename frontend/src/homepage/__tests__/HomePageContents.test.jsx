@@ -18,16 +18,16 @@ import ActiveStreamCard from "../ActiveStreamCard";
 import ActivityLogCard from "../ActivityLogCard";
 import DevicesCard from "../DevicesCard";
 
-import * as AuthenticationApi from "../../api/AuthenticationApi";
+import * as AuthenticationUtil from "../../api/AuthenticationUtil";
 
 Enzyme.configure({ adapter: new Adapter() });
-jest.mock("../../api/AuthenticationApi");
+jest.mock("../../api/AuthenticationUtil");
 describe("<HomePage/> functional component", () => {
   let wrapper;
 
-  describe("when AuthenticationApi.isAdmin() returns true", () => {
+  describe("when AuthenticationUtil.isAdmin() returns true", () => {
     beforeEach(() => {
-      AuthenticationApi.isAdmin.mockImplementation(() => true);
+      AuthenticationUtil.isAdmin.mockImplementation(() => true);
       wrapper = Enzyme.shallow(<HomePageContents />);
     });
     afterEach(() => {
@@ -109,9 +109,9 @@ describe("<HomePage/> functional component", () => {
       expect(wrapper.find(AdminPanelCard)).toHaveLength(1);
     });
   });
-  describe("when AuthenticationApi.isAdmin() returns false", () => {
+  describe("when AuthenticationUtil.isAdmin() returns false", () => {
     beforeEach(() => {
-      AuthenticationApi.isAdmin.mockImplementation(() => false);
+      AuthenticationUtil.isAdmin.mockImplementation(() => false);
       wrapper = Enzyme.shallow(<HomePageContents />);
     });
 
