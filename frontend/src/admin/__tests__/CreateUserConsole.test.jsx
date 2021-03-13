@@ -16,7 +16,9 @@ describe("CreateUserConsole", () => {
   const mockHandleSubmit = jest.fn();
 
   beforeEach(() => {
-    wrapper = Enzyme.mount(<CreateUserConsole handleSubmit={mockHandleSubmit} />);
+    wrapper = Enzyme.mount(
+      <CreateUserConsole handleSubmit={mockHandleSubmit} />
+    );
   });
 
   afterEach(() => {

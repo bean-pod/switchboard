@@ -3,10 +3,10 @@ import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
+import axios from "axios";
 import CreateUserPageContents from "../createUser/CreateUserPageContents";
 import CreateUserConsole from "../createUser/CreateUserConsole";
 import CreateUserFailedDialog from "../createUser/CreateUserFailedDialog";
-import axios from "axios";
 import * as AuthenticationUtil from "../../api/AuthenticationUtil";
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -15,7 +15,7 @@ jest.mock("../../api/AuthenticationUtil");
 const getAuthorizationHeader = jest.fn();
 jest
   .spyOn(AuthenticationUtil, "getAuthorizationHeader")
-  .mockImplementationOnce(()=> getAuthorizationHeader)
+  .mockImplementationOnce(() => getAuthorizationHeader);
 
 describe("<CreateUserPageContents/> class component", () => {
   let wrapper;
@@ -31,7 +31,10 @@ describe("<CreateUserPageContents/> class component", () => {
   describe("render() returns a component that", () => {
     it("Contains one <CreateUserConsole/> component", () => {
       expect(wrapper.find(CreateUserConsole)).toHaveLength(1);
-      const createUserConsoleProps = wrapper.find(CreateUserConsole).first().props();
+      const createUserConsoleProps = wrapper
+        .find(CreateUserConsole)
+        .first()
+        .props();
       expect(createUserConsoleProps.handleSubmit).toEqual(
         wrapper.instance().handleSubmit
       );
@@ -68,7 +71,10 @@ describe("<CreateUserPageContents/> class component", () => {
     describe("when it resolves", () => {
       it("axios post is successful and redirects to home", async () => {
         axios.post.mockImplementationOnce(() => Promise.resolve(data));
-        axios.post.mockResolvedValueOnce(() => mockHistory.push("/Admin"), mockHistory.go(0));
+        axios.post.mockResolvedValueOnce(
+          () => mockHistory.push("/Admin"),
+          mockHistory.go(0)
+        );
 
         wrapper.instance().handleSubmit(someUsername, somePassword);
 
@@ -94,14 +100,14 @@ describe("<CreateUserPageContents/> class component", () => {
         const someErrorMessage = "errorMessage";
         axios.post.mockImplementationOnce(() => Promise.reject(data));
         axios.post.mockRejectedValue(
-          wrapper.instance().setDialogOpen(true), 
+          wrapper.instance().setDialogOpen(true),
           wrapper.instance().setDialogMessage(someErrorMessage)
         );
 
         wrapper.instance().handleSubmit(someUsername, somePassword);
 
         await Promise.resolve(setImmediate);
-        
+
         expect(wrapper.state()).toEqual({
           dialogOpen: true,
           dialogMessage: someErrorMessage
