@@ -7,6 +7,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Optional;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
@@ -47,8 +49,15 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
             JWT.require(Algorithm.HMAC512(securityProperties.getSecret()))
                 .build()
                 .verify(token.replace(BEARER_TOKEN_PREFIX, ""))
-                .getSubject())
-        .map(user -> new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>()))
+                .getClaims())
+        .map(
+            user ->
+                new UsernamePasswordAuthenticationToken(
+                    user.get("sub").asString(),
+                    null,
+                    new ArrayList<>(
+                        Collections.singletonList(
+                            new SimpleGrantedAuthority(user.get("role").asString())))))
         .orElse(null);
   }
 }

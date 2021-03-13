@@ -7,7 +7,7 @@ import ActivityLogCard from "./ActivityLogCard";
 import DevicesCard from "./DevicesCard";
 import AdminPanelCard from "./AdminPanelCard";
 
-import { isAdmin } from "../api/AuthenticationApi";
+import { isAdmin } from "../api/AuthenticationUtil";
 
 export default function HomePageContents() {
   return (
