@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Container, TextField } from "@material-ui/core";
 import PropTypes from "prop-types";
-import { useStyles } from "../../login/LoginConsole"
+import { useStyles } from "../../login/LoginConsole";
 
 export default function CreateUserConsole(props) {
   const { handleSubmit } = props;
