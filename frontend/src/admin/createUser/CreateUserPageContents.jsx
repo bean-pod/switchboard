@@ -35,10 +35,8 @@ export default class CreateUserPageContents extends React.Component {
         history.go(0);
       })
       .catch((error) => {
-        this.setState({
-          dialogOpen: true,
-          dialogMessage: error.message
-        });
+        this.setDialogOpen(true);
+        this.setDialogMessage(error.message);
       });
   }
 
