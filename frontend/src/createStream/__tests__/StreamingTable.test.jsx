@@ -19,12 +19,6 @@ import * as StreamApi from "../../api/StreamApi";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-const authorizationHeader = {
-  headers: {
-    Authorization: "Bearer the_token"
-  }
-};
-
 describe("<StreamingTable/> class component", () => {
   let wrapper;
 

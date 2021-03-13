@@ -2,7 +2,6 @@ import React from "react";
 import { Grid } from "@material-ui/core";
 import SelectDevicesTable from "./SelectDevicesTable";
 import StreamButton from "../general/Buttons/StreamButton";
-import * as StreamApi from "../api/StreamApi";
 
 import * as DeviceApi from "../api/DeviceApi";
 import { createStream } from "../api/StreamApi";
