@@ -140,4 +140,28 @@ describe("Stream Api", () => {
       );
     });
   });
+
+  describe("createStream", () => {
+    it("should call axios.post and return a 200", () => {
+      const selectedReceiverID = "a1";
+      const selectedSenderID = "b2";
+      const expectedBody = {
+        inputChannelId: selectedReceiverID,
+        outputChannelId: selectedSenderID
+      };
+
+      axios.post.mockResolvedValue();
+      authenticationUtil.getAuthorizationHeader = jest
+        .fn()
+        .mockReturnValue(authorizationHeader);
+
+      StreamApi.createStream(selectedReceiverID, selectedSenderID);
+
+      expect(axios.post).toHaveBeenCalledWith(
+        "http://localhost:8080/stream",
+        expectedBody,
+        authorizationHeader
+      );
+    });
+  });
 });

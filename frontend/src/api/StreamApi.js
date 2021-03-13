@@ -40,7 +40,7 @@ export async function deleteStream(streamId) {
   );
 }
 
-export function createStream(selectedReceiverID, selectedSenderID) {
+export async function createStream(selectedReceiverID, selectedSenderID) {
   return axios.post(
     process.env.REACT_APP_STREAM,
     {

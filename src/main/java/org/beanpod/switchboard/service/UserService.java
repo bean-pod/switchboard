@@ -3,7 +3,6 @@ package org.beanpod.switchboard.service;
 import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.dao.UserDaoImpl;
 import org.beanpod.switchboard.dto.UserDto;
-import org.beanpod.switchboard.repository.UserRepository;
 import org.openapitools.model.UserModel;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 public class UserService implements UserDetailsService {
 
   private final UserDaoImpl userDao;
-  private final UserRepository userRepository;
   private final BCryptPasswordEncoder bcryptPasswordEncoder;
 
   @Override
