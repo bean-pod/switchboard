@@ -1,7 +1,7 @@
 import axios from "axios";
 import LogInfo from "../model/LogInfo";
-import * as SampleData from "./SampleData";
 import { getAuthorizationHeader } from "./AuthenticationUtil";
+import * as SampleData from "./SampleData";
 
 async function getLogs(endpoint) {
   return axios

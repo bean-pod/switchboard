@@ -4,17 +4,13 @@ import Adapter from "enzyme-adapter-react-16";
 import { afterEach, describe, expect, it, jest } from "@jest/globals";
 import * as LogApi from "../LogApi";
 import * as SampleData from "../SampleData";
-import * as authenticationUtil from "../AuthenticationUtil";
+import * as AuthenticationUtil from "../AuthenticationUtil";
 
 Enzyme.configure({ adapter: new Adapter() });
 
 jest.mock("axios");
-
-const authorizationHeader = {
-  headers: {
-    Authorization: "Bearer the_token"
-  }
-};
+jest.mock("../AuthenticationUtil");
+jest.spyOn(AuthenticationUtil, "getAuthorizationHeader");
 
 const mockLogs = [
   {
@@ -51,7 +47,18 @@ SampleData.getAllLogs((result) => {
   sampleLogs = result;
 });
 
+const authorizationHeader = {
+  headers: {
+    Authorization: "Bearer the_token"
+  }
+};
+
 describe("Log Api", () => {
+  beforeEach(() => {
+    AuthenticationUtil.getAuthorizationHeader.mockReturnValue(
+      authorizationHeader
+    );
+  });
   afterEach(() => {
     jest.clearAllMocks();
   });
@@ -59,7 +66,7 @@ describe("Log Api", () => {
   describe("getDeviceLogs", () => {
     it("should call axios.get and return device logs from a device/serial number", async () => {
       axios.get.mockResolvedValue({ data: mockLogs });
-      authenticationUtil.getAuthorizationHeader = jest
+      AuthenticationUtil.getAuthorizationHeader = jest
         .fn()
         .mockReturnValue(authorizationHeader);
       const result = await LogApi.getDeviceLogs(123);
@@ -80,7 +87,7 @@ describe("Log Api", () => {
   describe("getAllLogs", () => {
     it("should call axios.get and return an array of streams", async () => {
       axios.get.mockResolvedValue({ data: mockLogs });
-      authenticationUtil.getAuthorizationHeader = jest
+      AuthenticationUtil.getAuthorizationHeader = jest
         .fn()
         .mockReturnValue(authorizationHeader);
       const result = await LogApi.getAllLogs();
