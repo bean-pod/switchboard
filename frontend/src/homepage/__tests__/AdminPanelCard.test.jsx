@@ -60,7 +60,7 @@ describe("<AdminPanelCard/> functional component", () => {
       });
       describe("Second <DashboardButton/> has expected props", () => {
         const secondButton = wrapper.find(DashboardButton).at(1);
-        expect(secondButton.props().href).toBe("/Admin");
+        expect(secondButton.props().href).toBe("/Admin/CreateUser");
         expect(secondButton.props().children).toBe("Create a User");
       });
     });
