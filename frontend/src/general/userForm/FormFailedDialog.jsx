@@ -8,6 +8,7 @@ export default class FormFailedDialog extends React.Component {
 
     this.dialogElement = React.createRef();
     this.openDialog = this.openDialog.bind(this);
+    this.closeDialog = this.closeDialog.bind(this);
   }
 
   openDialog() {
@@ -19,11 +20,11 @@ export default class FormFailedDialog extends React.Component {
   }
 
   render() {
-    const { title, message } = this.props;
+    const { title, message, closeFn } = this.props;
 
     const actionButton = {
       name: "OK",
-      onClick: this.closeDialog
+      onClick: closeFn
     };
 
     return (

@@ -40,6 +40,10 @@ export default class CreateUserPageContents extends React.Component {
     this.dialogElement.current.openDialog();
   }
 
+  closeDialog() {
+    this.dialogElement.current.closeDialog();
+  }
+
   render() {
     const { dialogMessage } = this.state;
     return (
@@ -53,6 +57,7 @@ export default class CreateUserPageContents extends React.Component {
         <FormFailedDialog
           ref={this.dialogElement}
           title="Failed to create user"
+          closeFn={this.closeDialog} 
           message={dialogMessage}
         />
       </>

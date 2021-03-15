@@ -8,7 +8,7 @@ export default function DialogButtons(props) {
 
   return (
     <MuiDialogActions>
-      <Button onClick={button.onClick} color="secondary" autoFocus>
+      <Button onClick={button.onClick} autoFocus>
         {button.name}
       </Button>
     </MuiDialogActions>
