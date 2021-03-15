@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import MuiDialog from "@material-ui/core/Dialog/Dialog";
 import { DialogTitle } from "@material-ui/core";
 import DialogBody from "./DialogBody";
+import DialogSingleButton from "./DialogSingleButton";
 import DialogButtons from "./DialogButtons";
 
 export default class Dialog extends React.Component {
@@ -43,7 +44,7 @@ export default class Dialog extends React.Component {
         <DialogTitle>{title}</DialogTitle>
         <DialogBody>{children}</DialogBody>
         {noCancel ? (
-          <DialogButtons button1={undefined} button2={actionButton} />
+          <DialogSingleButton button={actionButton} />
         ) : (
           <DialogButtons button1={cancelButton} button2={actionButton} />
         )}
