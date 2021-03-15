@@ -38,9 +38,8 @@ export default class FormConsole extends React.Component {
     const { password } = this.state;
     return (
       <Container component="main" maxWidth="xs">
-        <div className={classes.paper}>
+        <div>
           <form
-            className={classes.form}
             noValidate={!isValidate}
             onSubmit={this.onSubmit}
           >
@@ -87,7 +86,6 @@ export default class FormConsole extends React.Component {
               fullWidth
               variant="contained"
               color="primary"
-              className={classes.submit}
             >
               {buttonName}
             </Button>
