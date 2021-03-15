@@ -15,7 +15,7 @@ export default function DialogSingleButton(props) {
   );
 }
 
-DialogButtons.propTypes = {
+DialogSingleButton.propTypes = {
   button: PropTypes.shape({
     name: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired
