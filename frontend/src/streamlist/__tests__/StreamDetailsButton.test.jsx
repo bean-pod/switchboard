@@ -40,7 +40,7 @@ describe("<StreamDetailsButton/> functional component", () => {
       const navLinkProps = navLink.first().props();
       expect(navLinkProps.to).toStrictEqual(expectedToProp);
     });
-    it("containes 1 IconButton and 1 Description component", () => {
+    it("contains 1 IconButton and 1 Description component", () => {
       expect(wrapper.find(IconButton)).toHaveLength(1);
       expect(wrapper.find(Description)).toHaveLength(1);
     });
