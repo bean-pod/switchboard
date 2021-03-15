@@ -32,27 +32,26 @@ describe("<StreamDetailsWrapper/> functional component", () => {
 
       expect(gridComponents).toHaveLength(5);
       // iterate through grid components to test each
-      for (let i = 0; i < gridComponents.length; i += 1) {
-        const gridProps = wrapper.find(Grid).at(i).props();
 
-        if (i === 0) {
-          // single container grid
-          expect(gridProps.container).toBeTruthy();
-          expect(gridProps.spacing).toBe(3);
-        } else {
-          // check item grids
-          expect(gridProps.item).toBeTruthy();
+      const containerGridProps = gridComponents.at(0).props();
+      expect(containerGridProps.container).toBeTruthy();
+      expect(containerGridProps.spacing).toBe(3);
 
-          if (i > 0 && i < 3) {
-            // first row
-            expect(gridProps.xs).toBe(6);
-          } else if (i === 3) {
-            expect(gridProps.xs).toBe(7);
-          } else {
-            expect(gridProps.xs).toBe(5);
-          }
-        }
-      }
+      let itemGridProps = gridComponents.at(1).props();
+      expect(itemGridProps.item).toBeTruthy();
+      expect(itemGridProps.xs).toBe(6);
+
+      itemGridProps = gridComponents.at(2).props();
+      expect(itemGridProps.item).toBeTruthy();
+      expect(itemGridProps.xs).toBe(6);
+
+      itemGridProps = gridComponents.at(3).props();
+      expect(itemGridProps.item).toBeTruthy();
+      expect(itemGridProps.xs).toBe(7);
+
+      itemGridProps = gridComponents.at(4).props();
+      expect(itemGridProps.item).toBeTruthy();
+      expect(itemGridProps.xs).toBe(5);
     });
     it("Contains 4 DashboardCard components with expected props", () => {
       expect(wrapper.find(DashboardCard)).toHaveLength(4);
