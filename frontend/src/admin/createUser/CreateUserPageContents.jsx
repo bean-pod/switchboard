@@ -48,7 +48,7 @@ export default class CreateUserPageContents extends React.Component {
           handleSubmit={this.handleSubmit}
           buttonName="Create"
           isValidate
-          isCreate
+          isCreateUser
         />
         <FormFailedDialog
           ref={this.dialogElement}

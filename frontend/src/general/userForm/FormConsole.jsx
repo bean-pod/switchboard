@@ -34,7 +34,7 @@ export default class FormConsole extends React.Component {
   }
 
   render() {
-    const { buttonName, isValidate, isCreate } = this.props;
+    const { buttonName, isValidate, isCreateUser } = this.props;
     const { password } = this.state;
     return (
       <Container component="main" maxWidth="xs">
@@ -63,15 +63,15 @@ export default class FormConsole extends React.Component {
               id="password"
               value={password}
               error={
-                isCreate
+                isCreateUser
                   ? password.length < 5 && password.length > 0
                   : undefined
               }
               inputProps={
-                isCreate ? { maxLength: 20, minLength: 5 } : undefined
+                isCreateUser ? { maxLength: 20, minLength: 5 } : undefined
               }
               helperText={
-                isCreate
+                isCreateUser
                   ? "Password must be between 5 to 20 characters"
                   : undefined
               }
@@ -92,10 +92,10 @@ FormConsole.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   buttonName: PropTypes.string.isRequired,
   isValidate: PropTypes.bool,
-  isCreate: PropTypes.bool
+  isCreateUser: PropTypes.bool
 };
 
 FormConsole.defaultProps = {
   isValidate: false,
-  isCreate: false
+  isCreateUser: false
 };
