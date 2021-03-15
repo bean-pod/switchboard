@@ -77,7 +77,7 @@ describe("<AppRouter/> functional component", () => {
     expect(streamDetailsRoute.props().path).toEqual(
       "/Streams/Details/:streamId"
     );
-    expect(streamDetailsRoute.props().authenticationRequired).toBeTruthy();
+    expect(streamDetailsRoute.props().authenticationRequired).toBe(true);
     const streamDetailsPage = streamDetailsRoute
       .props()
       .render(dummyStreamLocation);

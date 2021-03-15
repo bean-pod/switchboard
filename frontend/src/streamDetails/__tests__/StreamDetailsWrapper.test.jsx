@@ -36,23 +36,23 @@ describe("<StreamDetailsPageContents/> functional component", () => {
       // iterate through grid components to test each
 
       const containerGridProps = gridComponents.at(0).props();
-      expect(containerGridProps.container).toBeTruthy();
+      expect(containerGridProps.container).toBe(true);
       expect(containerGridProps.spacing).toBe(3);
 
       let itemGridProps = gridComponents.at(1).props();
-      expect(itemGridProps.item).toBeTruthy();
+      expect(itemGridProps.item).toBe(true);
       expect(itemGridProps.xs).toBe(6);
 
       itemGridProps = gridComponents.at(2).props();
-      expect(itemGridProps.item).toBeTruthy();
+      expect(itemGridProps.item).toBe(true);
       expect(itemGridProps.xs).toBe(6);
 
       itemGridProps = gridComponents.at(3).props();
-      expect(itemGridProps.item).toBeTruthy();
+      expect(itemGridProps.item).toBe(true);
       expect(itemGridProps.xs).toBe(7);
 
       itemGridProps = gridComponents.at(4).props();
-      expect(itemGridProps.item).toBeTruthy();
+      expect(itemGridProps.item).toBe(true);
       expect(itemGridProps.xs).toBe(5);
     });
     it("Contains 4 DashboardCard components with expected props", () => {
