@@ -9,7 +9,7 @@ export default function CreateUserPage() {
   const breadcrumbs = [
     ["Home", "/Home"],
     ["Admin", "/Admin"],
-    ["Create a User", "/CreateUser"]
+    ["Create a User", "/New"]
   ];
 
   return (
