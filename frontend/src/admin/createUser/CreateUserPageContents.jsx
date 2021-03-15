@@ -11,6 +11,7 @@ export default class CreateUserPageContents extends React.Component {
     this.state = {
       dialogMessage: ""
     };
+    this.dialogElement = React.createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
     this.openDialog = this.openDialog.bind(this);
     this.setDialogMessage = this.setDialogMessage.bind(this);

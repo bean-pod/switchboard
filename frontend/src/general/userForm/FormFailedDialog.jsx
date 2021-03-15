@@ -15,7 +15,7 @@ export default class FormFailedDialog extends React.Component {
   }
 
   closeDialog() {
-    this.dialogElement.current.closeDialog()
+    this.dialogElement.current.closeDialog();
   }
 
   render() {

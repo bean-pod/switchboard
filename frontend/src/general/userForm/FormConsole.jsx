@@ -39,10 +39,7 @@ export default class FormConsole extends React.Component {
     return (
       <Container component="main" maxWidth="xs">
         <div>
-          <form
-            noValidate={!isValidate}
-            onSubmit={this.onSubmit}
-          >
+          <form noValidate={!isValidate} onSubmit={this.onSubmit}>
             <TextField
               variant="outlined"
               margin="normal"
@@ -81,12 +78,7 @@ export default class FormConsole extends React.Component {
               autoComplete="current-password"
               onChange={(event) => this.setPassword(event.target.value)}
             />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-            >
+            <Button type="submit" fullWidth variant="contained" color="primary">
               {buttonName}
             </Button>
           </form>
