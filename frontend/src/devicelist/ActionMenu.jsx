@@ -58,7 +58,7 @@ export default class ActionMenu extends React.Component {
           <MenuItem onClick={this.handleClose}>
             <NavLink
               to={{
-                pathname: `/Devices/Details/${device.name}`,
+                pathname: `/Devices/Details/${device.serialNumber}`,
                 state: { device }
               }}
               className="hideLinkStyle"
