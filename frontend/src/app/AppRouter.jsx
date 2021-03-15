@@ -61,7 +61,7 @@ export default function AppRouter() {
           }}
         />
         <ProtectedRoute
-          path="/Admin/CreateUser"
+          path="/Admin/New"
           authenticationRequired
           render={() => {
             return <CreateUserPage />;

@@ -1,49 +1,32 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import axios from "axios";
-import CreateUserFailedDialog from "./CreateUserFailedDialog";
-import CreateUserConsole from "./CreateUserConsole";
-import { getAuthorizationHeader } from "../../api/AuthenticationUtil";
+import FormConsole from "../../general/userForm/FormConsole";
+import FormFailedDialog from "../../general/userForm/FormFailedDialog";
+import * as UserManagementApi from "../../api/UserManagementApi";
 
 export default class CreateUserPageContents extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dialogOpen: false,
       dialogMessage: ""
     };
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.setDialogOpen = this.setDialogOpen.bind(this);
+    this.openDialog = this.openDialog.bind(this);
     this.setDialogMessage = this.setDialogMessage.bind(this);
   }
 
   handleSubmit(username, password) {
     const { history } = this.props;
-    axios
-      .post(
-        process.env.REACT_APP_SIGNUP,
-        {
-          username,
-          password,
-          userRole: "USER"
-        },
-        getAuthorizationHeader()
-      )
+    UserManagementApi.createUser({ username, password })
       .then(() => {
         history.push("/Admin");
         history.go(0);
       })
       .catch((error) => {
-        this.setDialogOpen(true);
+        this.openDialog();
         this.setDialogMessage(error.message);
       });
-  }
-
-  setDialogOpen(open) {
-    this.setState({
-      dialogOpen: open
-    });
   }
 
   setDialogMessage(message) {
@@ -52,14 +35,23 @@ export default class CreateUserPageContents extends React.Component {
     });
   }
 
+  openDialog() {
+    this.dialogElement.current.openDialog();
+  }
+
   render() {
-    const { dialogOpen, dialogMessage } = this.state;
+    const { dialogMessage } = this.state;
     return (
       <>
-        <CreateUserConsole handleSubmit={this.handleSubmit} />
-        <CreateUserFailedDialog
-          open={dialogOpen}
-          setOpen={this.setDialogOpen}
+        <FormConsole
+          handleSubmit={this.handleSubmit}
+          buttonName="Create"
+          isValidate
+          isCreate
+        />
+        <FormFailedDialog
+          ref={this.dialogElement}
+          title="Login Failed"
           message={dialogMessage}
         />
       </>
