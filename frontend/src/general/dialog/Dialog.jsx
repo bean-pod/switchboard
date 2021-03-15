@@ -34,7 +34,7 @@ export default class Dialog extends React.Component {
     const okButton = {
       name: "OK",
       onClick: this.closeDialog
-    }
+    };
 
     const { title, actionButton, children, noCancel } = this.props;
     const { open } = this.state;
