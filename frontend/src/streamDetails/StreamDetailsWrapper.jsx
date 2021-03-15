@@ -30,14 +30,10 @@ export default function StreamDetailsWrapper(props) {
           </DashboardCard>
         </Grid>
         <Grid item xs={7}>
-          <DashboardCard title="Logs">
-            {/* <StreamLogs logsSource={ TODO: FILL IN FUNCTION HERE } /> */}
-          </DashboardCard>
+          <DashboardCard title="Logs" />
         </Grid>
         <Grid item xs={5}>
-          <DashboardCard title="Statistics">
-            {/* TODO: fill in once stream stats are up */}
-          </DashboardCard>
+          <DashboardCard title="Statistics" />
         </Grid>
       </Grid>
       <Box className="alignRightFloatPadded">
