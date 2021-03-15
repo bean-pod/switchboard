@@ -41,6 +41,13 @@ class CustomRestExceptionHandlerTest {
   }
 
   @Test
+  final void handleMissingChannelException() {
+    ResponseEntity<Object> responseEntity =
+        customRestExceptionHandler.handleMissingChannelException(exception);
+    assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
+  }
+
+  @Test
   final void testHandleDeviceAlreadyExistsException() {
     ResponseEntity<Object> responseEntity =
         customRestExceptionHandler.handleDeviceAlreadyExistsException(exception);
