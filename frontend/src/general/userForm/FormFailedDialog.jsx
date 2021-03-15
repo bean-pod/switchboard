@@ -14,12 +14,16 @@ export default class FormFailedDialog extends React.Component {
     return this.dialogElement.current.openDialog();
   }
 
+  closeDialog() {
+    this.dialogElement.current.closeDialog()
+  }
+
   render() {
     const { title, message } = this.props;
 
     const actionButton = {
       name: "OK",
-      onClick: this.dialogElement.current.closeDialog()
+      onClick: this.closeDialog
     };
 
     return (
