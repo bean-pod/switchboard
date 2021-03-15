@@ -13,9 +13,8 @@ describe("<DeleteStreamDialog/> class", () => {
   let wrapper;
 
   const mockPush = jest.fn();
-  const mockGo = jest.fn();
   const dummyHistory = {
-    push: mockPush,
+    push: mockPush
   };
   const mockOpenDialog = jest.fn();
   const mockCloseDialog = jest.fn();
