@@ -31,6 +31,11 @@ export default class Dialog extends React.Component {
       onClick: this.closeDialog
     };
 
+    const okButton = {
+      name: "OK",
+      onClick: this.closeDialog
+    }
+
     const { title, actionButton, children, noCancel } = this.props;
     const { open } = this.state;
     return (
@@ -44,7 +49,7 @@ export default class Dialog extends React.Component {
         <DialogTitle>{title}</DialogTitle>
         <DialogBody>{children}</DialogBody>
         {noCancel ? (
-          <DialogSingleButton button={actionButton} />
+          <DialogSingleButton button={okButton} />
         ) : (
           <DialogButtons button1={cancelButton} button2={actionButton} />
         )}

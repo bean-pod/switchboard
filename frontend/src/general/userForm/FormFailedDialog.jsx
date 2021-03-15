@@ -8,30 +8,20 @@ export default class FormFailedDialog extends React.Component {
 
     this.dialogElement = React.createRef();
     this.openDialog = this.openDialog.bind(this);
-    this.closeDialog = this.closeDialog.bind(this);
   }
 
   openDialog() {
     return this.dialogElement.current.openDialog();
   }
 
-  closeDialog() {
-    return this.dialogElement.current.closeDialog();
-  }
-
   render() {
-    const { title, message, closeFn } = this.props;
-
-    const actionButton = {
-      name: "OK",
-      onClick: closeFn
-    };
+    const { title, message } = this.props;
 
     return (
       <Dialog
         ref={this.dialogElement}
         title={title}
-        actionButton={actionButton}
+        actionButton={undefined}
         noCancel
       >
         {message}
