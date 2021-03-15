@@ -7,7 +7,7 @@ import DashboardCard from "../general/dashboard/DashboardCard";
 import StreamDeviceDetails from "./StreamDeviceDetails";
 import DeleteStreamDialogOpener from "./DeleteStreamDialogOpener";
 
-export default function StreamDetailsWrapper(props) {
+export default function StreamDetailsPageContents(props) {
   const { stream } = props;
   return (
     <Container>
@@ -42,6 +42,6 @@ export default function StreamDetailsWrapper(props) {
   );
 }
 
-StreamDetailsWrapper.propTypes = {
+StreamDetailsPageContents.propTypes = {
   stream: PropTypes.instanceOf(StreamInfo).isRequired
 };

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import StreamInfo from "../model/StreamInfo";
 import * as SampleData from "../api/SampleData";
-import StreamDetailsWrapper from "./StreamDetailsWrapper";
+import StreamDetailsPageContents from "./StreamDetailsPageContents";
 import Page from "../general/Page";
 
 export default function StreamDetailsPage(props) {
@@ -21,7 +21,7 @@ export default function StreamDetailsPage(props) {
 
   return (
     <Page title="Stream Details" breadcrumbs={breadcrumbs}>
-      <StreamDetailsWrapper stream={stream} />
+      <StreamDetailsPageContents stream={stream} />
     </Page>
   );
 }
