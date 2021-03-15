@@ -4,7 +4,7 @@ import Adapter from "enzyme-adapter-react-16";
 import { Box, Container, Grid } from "@material-ui/core";
 import { beforeEach, describe, expect, it } from "@jest/globals";
 
-import StreamDetailsWrapper from "../StreamDetailsWrapper";
+import StreamDetailsPageContents from "../StreamDetailsPageContents";
 import DashboardCard from "../../general/dashboard/DashboardCard";
 import StreamDeviceDetails from "../StreamDeviceDetails";
 import DeleteStreamDialogOpener from "../DeleteStreamDialogOpener";
@@ -14,7 +14,7 @@ import StreamInfo from "../../model/StreamInfo";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe("<StreamDetailsWrapper/> functional component", () => {
+describe("<StreamDetailsPageContents/> functional component", () => {
   let wrapper;
 
   describe("returns a component that", () => {
@@ -22,7 +22,9 @@ describe("<StreamDetailsWrapper/> functional component", () => {
     const dummyReceiver = new DeviceInfo(2, 2, 2, 2, 2, 2, [3, 4]);
     const dummyStream = new StreamInfo(1, dummySender, dummyReceiver, 2, 3);
     beforeEach(() => {
-      wrapper = Enzyme.shallow(<StreamDetailsWrapper stream={dummyStream} />);
+      wrapper = Enzyme.shallow(
+        <StreamDetailsPageContents stream={dummyStream} />
+      );
     });
     it("Contains 1 Container component with expected props", () => {
       expect(wrapper.find(Container)).toHaveLength(1);

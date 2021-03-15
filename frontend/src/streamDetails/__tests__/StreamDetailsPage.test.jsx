@@ -5,7 +5,7 @@ import { beforeEach, describe, expect, it } from "@jest/globals";
 
 import Page from "../../general/Page";
 import StreamDetailsPage from "../StreamDetailsPage";
-import StreamDetailsWrapper from "../StreamDetailsWrapper";
+import StreamDetailsPageContents from "../StreamDetailsPageContents";
 import DeviceInfo from "../../model/DeviceInfo";
 import StreamInfo from "../../model/StreamInfo";
 import { getSampleStream } from "../../api/SampleData";
@@ -45,10 +45,10 @@ describe("<StreamDetailsPage/> functional component", () => {
         expect(props.title).toBe(expectedTitle);
         expect(props.breadcrumbs).toStrictEqual(expectedBreadcrumbs);
       });
-      it("contains one <StreamDetailsWrapper component with expected props", () => {
-        expect(wrapper.find(StreamDetailsWrapper)).toHaveLength(1);
+      it("contains one <StreamDetailsPageContents component with expected props", () => {
+        expect(wrapper.find(StreamDetailsPageContents)).toHaveLength(1);
 
-        const props = wrapper.find(StreamDetailsWrapper).first().props();
+        const props = wrapper.find(StreamDetailsPageContents).first().props();
         expect(props.stream).toBeInstanceOf(StreamInfo);
         expect(props.stream).toStrictEqual(dummyStream);
       });
@@ -74,9 +74,9 @@ describe("<StreamDetailsPage/> functional component", () => {
         expect(props.title).toBe(expectedTitle);
         expect(props.breadcrumbs).toStrictEqual(expectedBreadcrumbs);
       });
-      it("contains one <StreamDetailsWrapper/> component with expected props", () => {
-        expect(wrapper.find(StreamDetailsWrapper)).toHaveLength(1);
-        const props = wrapper.find(StreamDetailsWrapper).first().props();
+      it("contains one <StreamDetailsPageContents/> component with expected props", () => {
+        expect(wrapper.find(StreamDetailsPageContents)).toHaveLength(1);
+        const props = wrapper.find(StreamDetailsPageContents).first().props();
         expect(props.stream).toBeInstanceOf(StreamInfo);
         expect(props.stream).toStrictEqual(expectedDefaultStream);
       });
