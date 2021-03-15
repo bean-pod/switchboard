@@ -76,7 +76,7 @@ describe("<AppRouter/> functional component", () => {
     expect(logListPage.type).toEqual(LogListPage);
 
     const createUserRoute = protectedRoutes.at(7);
-    expect(createUserRoute.props().path).toEqual("/Admin/CreateUser");
+    expect(createUserRoute.props().path).toEqual("/Admin/New");
     expect(createUserRoute.props().authenticationRequired).toBeTruthy();
     const createUserPage = createUserRoute.props().render();
     expect(createUserPage.type).toEqual(CreateUserPage);
