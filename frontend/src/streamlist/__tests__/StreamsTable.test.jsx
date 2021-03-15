@@ -150,7 +150,7 @@ describe("<StreamsTable/> component", () => {
         });
         it(`should have a render() function that returns a <StatusIndicator/> component`, () => {
           const dummyData = {
-            streamInfo: dummyStreams[0]
+            status: "Online"
           };
           const renderResult = result[4].render(dummyData);
           expect(renderResult).toMatchObject(expected[4].render(dummyData));
@@ -192,7 +192,9 @@ describe("<StreamsTable/> component", () => {
           expect(result[7].export).toBe(expected[7].export);
         });
         it(`should have a render() function that returns a <StreamDetailsButton/> component`, () => {
-          const dummyData = {};
+          const dummyData = {
+            streamInfo: dummyStreams[0]
+          };
           const renderResult = result[7].render(dummyData);
           expect(renderResult).toMatchObject(expected[7].render(dummyData));
         });
