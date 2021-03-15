@@ -26,7 +26,7 @@ describe("<ProtectedRoute/> class component", () => {
       const routeComponent = wrapper.find(Route);
       expect(routeComponent).toHaveLength(1);
       const props = routeComponent.first().props();
-      expect(props.exact).toBeTruthy();
+      expect(props.exact).toBe(true);
       expect(props.path).toEqual(dummyPath);
       expect(props.render).toBeInstanceOf(Function);
     });
