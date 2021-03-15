@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import FormConsole from "../../general/userForm/FormConsole";
 import FormFailedDialog from "../../general/userForm/FormFailedDialog";
-import * as UserManagementApi from "../../api/UserManagementApi";
+import { createUser } from "../../api/UserManagementApi";
 
 export default class CreateUserPageContents extends React.Component {
   constructor(props) {
@@ -18,7 +18,7 @@ export default class CreateUserPageContents extends React.Component {
 
   handleSubmit(username, password) {
     const { history } = this.props;
-    UserManagementApi.createUser({ username, password })
+    createUser({ username, password })
       .then(() => {
         history.push("/Admin");
         history.go(0);
