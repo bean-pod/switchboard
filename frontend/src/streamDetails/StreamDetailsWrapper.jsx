@@ -6,7 +6,6 @@ import StreamInfo from "../model/StreamInfo";
 import DashboardCard from "../general/dashboard/DashboardCard";
 import StreamDeviceDetails from "./StreamDeviceDetails";
 import DeleteStreamDialogOpener from "./DeleteStreamDialogOpener";
-// import StreamLogs from "./StreamLogs";
 
 export default function StreamDetailsWrapper(props) {
   const { stream } = props;
