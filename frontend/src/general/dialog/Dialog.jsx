@@ -30,7 +30,7 @@ export default class Dialog extends React.Component {
       onClick: this.closeDialog
     };
 
-    const { title, actionButton, children } = this.props;
+    const { title, actionButton, children, noCancel } = this.props;
     const { open } = this.state;
     return (
       <MuiDialog
@@ -42,7 +42,11 @@ export default class Dialog extends React.Component {
       >
         <DialogTitle>{title}</DialogTitle>
         <DialogBody>{children}</DialogBody>
-        <DialogButtons button1={cancelButton} button2={actionButton} />
+        {noCancel ? (
+          <DialogButtons button1={undefined} button2={actionButton} />
+        ) : (
+          <DialogButtons button1={cancelButton} button2={actionButton} />
+        )}
       </MuiDialog>
     );
   }
@@ -57,5 +61,10 @@ Dialog.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
-  ]).isRequired
+  ]).isRequired,
+  noCancel: PropTypes.bool
+};
+
+Dialog.defaultProps = {
+  noCancel: false
 };
