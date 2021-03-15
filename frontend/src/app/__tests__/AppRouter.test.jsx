@@ -38,7 +38,7 @@ describe("<AppRouter/> functional component", () => {
 
     const homeRoute = protectedRoutes.at(1);
     expect(homeRoute.props().path).toEqual("/Home");
-    expect(homeRoute.props().authenticationRequired).toBeTruthy();
+    expect(homeRoute.props().authenticationRequired).toBe(true);
     const homePage = homeRoute.props().render();
     expect(homePage.type).toEqual(HomePage);
 
@@ -46,31 +46,31 @@ describe("<AppRouter/> functional component", () => {
     expect(deviceDetailsRoute.props().path).toEqual(
       "/Devices/Details/:serialNumber"
     );
-    expect(deviceDetailsRoute.props().authenticationRequired).toBeTruthy();
+    expect(deviceDetailsRoute.props().authenticationRequired).toBe(true);
     const deviceDetailsPage = deviceDetailsRoute.props().render(dummyLocation);
     expect(deviceDetailsPage.type).toEqual(DeviceDetailsPage);
 
     const deviceListRoute = protectedRoutes.at(3);
     expect(deviceListRoute.props().path).toEqual("/Devices");
-    expect(deviceListRoute.props().authenticationRequired).toBeTruthy();
+    expect(deviceListRoute.props().authenticationRequired).toBe(true);
     const deviceListPage = deviceListRoute.props().render();
     expect(deviceListPage.type).toEqual(DeviceListPage);
 
     const createStreamRoute = protectedRoutes.at(4);
     expect(createStreamRoute.props().path).toEqual("/Streams/New");
-    expect(createStreamRoute.props().authenticationRequired).toBeTruthy();
+    expect(createStreamRoute.props().authenticationRequired).toBe(true);
     const createStreamPage = createStreamRoute.props().render();
     expect(createStreamPage.type).toEqual(CreateStreamPage);
 
     const streamListRoute = protectedRoutes.at(5);
     expect(streamListRoute.props().path).toEqual("/Streams");
-    expect(streamListRoute.props().authenticationRequired).toBeTruthy();
+    expect(streamListRoute.props().authenticationRequired).toBe(true);
     const streamListPage = streamListRoute.props().render();
     expect(streamListPage.type).toEqual(StreamListPage);
 
     const logListRoute = protectedRoutes.at(6);
     expect(logListRoute.props().path).toEqual("/Logs");
-    expect(logListRoute.props().authenticationRequired).toBeTruthy();
+    expect(logListRoute.props().authenticationRequired).toBe(true);
     const logListPage = logListRoute.props().render();
     expect(logListPage.type).toEqual(LogListPage);
 
