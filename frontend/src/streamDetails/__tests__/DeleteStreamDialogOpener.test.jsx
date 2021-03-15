@@ -24,10 +24,14 @@ describe("<DeleteStreamDialogOpener/> class", () => {
         history={dummyHistory}
       />
     );
-    it("renders the correct components", () => {
+    it("renders the correct components, with expected props where appropriate", () => {
       expect(wrapper.find(Tooltip)).toHaveLength(1);
-      expect(wrapper.find(Button)).toHaveLength(1);
       expect(wrapper.find(DeleteStreamDialog)).toHaveLength(1);
+
+      expect(wrapper.find(Button)).toHaveLength(1);
+      const buttonProps = wrapper.find(Button).first().props();
+      expect(buttonProps.variant).toBe("contained");
+      expect(buttonProps.color).toBe("secondary");
     });
   });
   describe("openDialog() function", () => {
