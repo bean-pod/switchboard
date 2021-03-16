@@ -7,7 +7,6 @@ import { Button, Tooltip } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import DeleteStreamDialogOpener from "../DeleteStreamDialogOpener";
 import DeleteStreamDialog from "../DeleteStreamDialog";
-import { func } from "prop-types";
 
 Enzyme.configure({ adapter: new Adapter() });
 
