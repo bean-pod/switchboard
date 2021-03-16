@@ -18,8 +18,17 @@ describe("<CreateUserPageContents/> class component", () => {
     push: jest.fn(),
     go: jest.fn()
   };
+  const mockOpenDialog = jest.fn();
 
   beforeEach(() => {
+    const mockRefElement = {
+      current: {
+        openDialog: mockOpenDialog
+      }
+    };
+    jest.spyOn(React, "createRef").mockImplementation(() => {
+      return mockRefElement;
+    }); 
     wrapper = Enzyme.shallow(<CreateUserPageContents history={mockHistory} />);
   });
 
@@ -48,25 +57,12 @@ describe("<CreateUserPageContents/> class component", () => {
     wrapper.instance().setDialogMessage(changedState);
     expect(wrapper.state().dialogMessage).toBe(changedState);
   });
-  /* describe("openDialog() function", () => {
-    const mockOpenDialog = jest.fn();
-    const mockRefElement = {
-      current: {
-        openDialog: mockOpenDialog
-      }
-    };
-    jest.spyOn(React, "createRef").mockImplementation(() => {
-      return mockRefElement;
-    });
-
-    wrapper = Enzyme.shallow(
-      <CreateUserPageContents history={mockHistory} />
-    );
+  describe("openDialog() function", () => {
     it("calls dialogElement.current.openDialog()", () => {
       wrapper.instance().openDialog();
       expect(mockOpenDialog).toBeCalledTimes(1);
     });
-  }); */
+  });
   describe("handleSubmit()", () => {
     const someUsername = "username";
     const somePassword = "password";
@@ -86,7 +82,7 @@ describe("<CreateUserPageContents/> class component", () => {
         expect(mockHistory.go).toHaveBeenCalledWith(0);
       });
     });
-    /* describe("when createUser rejects", () => {
+    describe("when createUser rejects", () => {
       it("Calls openDialog", async () => {
         const someErrorMessage = "errorMessage";
         UserManagementApi.createUser.mockRejectedValue({
@@ -102,6 +98,6 @@ describe("<CreateUserPageContents/> class component", () => {
           dialogMessage: someErrorMessage
         });
       });
-    }); */
+    });
   });
 });
