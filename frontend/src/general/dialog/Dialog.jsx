@@ -63,7 +63,7 @@ Dialog.propTypes = {
   actionButton: PropTypes.shape({
     name: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired
-  }).isRequired,
+  }),
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
@@ -72,5 +72,6 @@ Dialog.propTypes = {
 };
 
 Dialog.defaultProps = {
-  noCancel: false
+  noCancel: false,
+  actionButton: undefined
 };

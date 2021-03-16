@@ -21,7 +21,6 @@ export default class FormFailedDialog extends React.Component {
       <Dialog
         ref={this.dialogElement}
         title={title}
-        actionButton={undefined}
         noCancel
       >
         {message}
