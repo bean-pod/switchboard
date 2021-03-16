@@ -2,7 +2,7 @@ import React from "react";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import { beforeEach, describe, expect, jest } from "@jest/globals";
-import FormFailedDialog from "../../userForm/FormFailedDialog";
+import FormFailedDialog from "../FormFailedDialog";
 import Dialog from "../../dialog/Dialog";
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -13,12 +13,12 @@ describe("<FormFailedDialog/> class", () => {
   const dummyValues = {
     title: "test",
     message: "test"
-  }
+  };
 
   const mockOpenDialog = jest.fn();
   const mockRefElement = {
     current: {
-      openDialog: mockOpenDialog,
+      openDialog: mockOpenDialog
     }
   };
   beforeEach(() => {
