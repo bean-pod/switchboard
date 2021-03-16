@@ -28,7 +28,7 @@ describe("<CreateUserPageContents/> class component", () => {
     };
     jest.spyOn(React, "createRef").mockImplementation(() => {
       return mockRefElement;
-    }); 
+    });
     wrapper = Enzyme.shallow(<CreateUserPageContents history={mockHistory} />);
   });
 
