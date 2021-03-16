@@ -38,7 +38,7 @@ describe("<CreateUserPageContents/> class component", () => {
       expect(wrapper.find(FormFailedDialog)).toHaveLength(1);
       const FormFailedDialogProps = wrapper.find(FormFailedDialog).props();
       expect(FormFailedDialogProps.title).toEqual("Failed to create user");
-      expect(FormFailedDialogProps.message).toEqual("");
+      expect(FormFailedDialogProps.errorMessage).toEqual("");
     });
   });
   it("setDialogMessage() function that sets the state of dialogMessage", () => {
