@@ -11,7 +11,7 @@ Enzyme.configure({ adapter: new Adapter() });
 
 describe("<CreateUserPage/> class component", () => {
   let wrapper;
-  
+
   beforeEach(() => {
     wrapper = Enzyme.shallow(<CreateUserPage />);
   });
@@ -19,9 +19,9 @@ describe("<CreateUserPage/> class component", () => {
   it("Contains one <Page/> component with correct props", () => {
     const expectedTitle = "Create a User";
     const expectedBreadcrumb = [
-        ["Home", "/Home"],
-        ["Admin", "/Admin"],
-        ["Create a User", "/Admin/New"]
+      ["Home", "/Home"],
+      ["Admin", "/Admin"],
+      ["Create a User", "/Admin/New"]
     ];
 
     expect(wrapper.find(Page)).toHaveLength(1);
