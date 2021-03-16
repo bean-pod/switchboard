@@ -26,7 +26,10 @@ describe("<FormFailedDialog/> class", () => {
       return mockRefElement;
     });
     wrapper = Enzyme.shallow(
-      <FormFailedDialog title={dummyValues.title} errorMessage={dummyValues.message} />
+      <FormFailedDialog
+        title={dummyValues.title}
+        errorMessage={dummyValues.message}
+      />
     );
   });
   afterEach(() => {

@@ -42,7 +42,7 @@ describe("<CreateUserPageContents/> class component", () => {
     });
   });
   it("setDialogMessage() function that sets the state of dialogMessage", () => {
-    const startState = "startTest"
+    const startState = "startTest";
     wrapper.setState({ dialogMessage: startState });
     const changedState = "testValue";
     wrapper.instance().setDialogMessage(changedState);
