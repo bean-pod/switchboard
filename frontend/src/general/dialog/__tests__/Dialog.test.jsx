@@ -8,6 +8,7 @@ import { DialogTitle } from "@material-ui/core";
 import Dialog from "../Dialog";
 import DialogBody from "../DialogBody";
 import DialogButtons from "../DialogButtons";
+import DialogSingleButton from "../DialogSingleButton";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -23,11 +24,22 @@ describe("<Dialog/> Class Component", () => {
   );
 
   describe("render() function", () => {
-    it("returns a component that contains the right elements", () => {
+    it("if noCancel prop is default to false, returns a component that contains the right elements", () => {
       expect(wrapper.find(MuiDialog)).toHaveLength(1);
       expect(wrapper.find(DialogTitle)).toHaveLength(1);
       expect(wrapper.find(DialogBody)).toHaveLength(1);
       expect(wrapper.find(DialogButtons)).toHaveLength(1);
+    });
+    it("if noCancel prop is true, returns a component that contains the right elements", () => {
+      const wrapperNoCancel = Enzyme.shallow(
+        <Dialog title={dummyTitle} actionButton={actionButton} noCancel>
+          {testBody}
+        </Dialog>
+      );
+      expect(wrapperNoCancel.find(MuiDialog)).toHaveLength(1);
+      expect(wrapperNoCancel.find(DialogTitle)).toHaveLength(1);
+      expect(wrapperNoCancel.find(DialogBody)).toHaveLength(1);
+      expect(wrapperNoCancel.find(DialogSingleButton)).toHaveLength(1);
     });
   });
 
