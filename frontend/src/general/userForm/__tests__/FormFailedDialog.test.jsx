@@ -34,7 +34,7 @@ describe("<FormFailedDialog/> class", () => {
   });
 
   describe("render() function", () => {
-    it("renders one <Dialog/> Component", () => {
+    it("renders one <Dialog/> Component with the expected props", () => {
       expect(wrapper.find(Dialog)).toHaveLength(1);
       const formDialogProps = wrapper.find(Dialog).props();
       expect(formDialogProps.title).toEqual(dummyValues.title);
