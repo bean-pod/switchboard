@@ -109,10 +109,12 @@ export function deleteDevice(deviceId) {
 }
 
 export async function updateDeviceName(deviceId, updatedName) {
-  return axios
-    .put(process.env.REACT_APP_DEVICE, {
+  return axios.put(
+    process.env.REACT_APP_DEVICE,
+    {
       serialNumber: deviceId,
       displayName: updatedName
-    })
-    .catch(() => {});
+    },
+    getAuthorizationHeader()
+  );
 }
