@@ -50,12 +50,14 @@ describe("<CreateUserPageContents/> class component", () => {
       expect(FormFailedDialogProps.errorMessage).toEqual("");
     });
   });
-  it("setDialogMessage() function that sets the state of dialogMessage", () => {
-    const startState = "startTest";
-    wrapper.setState({ dialogMessage: startState });
-    const changedState = "testValue";
-    wrapper.instance().setDialogMessage(changedState);
-    expect(wrapper.state().dialogMessage).toBe(changedState);
+  describe("setDialogMessage()", () => {
+    it("sets the state of dialogMessage", () => {
+      const startState = "startTest";
+      wrapper.setState({ dialogMessage: startState });
+      const changedState = "testValue";
+      wrapper.instance().setDialogMessage(changedState);
+      expect(wrapper.state().dialogMessage).toBe(changedState);
+    });
   });
   describe("openDialog() function", () => {
     it("calls dialogElement.current.openDialog()", () => {
@@ -66,7 +68,7 @@ describe("<CreateUserPageContents/> class component", () => {
   describe("handleSubmit()", () => {
     const someUsername = "username";
     const somePassword = "password";
-    describe("when CreateUser resolves", () => {
+    describe("when createUser resolves", () => {
       it("Calls createUser and redirects to Admin", async () => {
         UserManagementApi.createUser.mockResolvedValue();
 
