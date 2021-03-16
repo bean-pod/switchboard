@@ -42,9 +42,11 @@ describe("<CreateUserPageContents/> class component", () => {
     });
   });
   it("setDialogMessage() function that sets the state of dialogMessage", () => {
-    const expectedValue = "testValue";
-    wrapper.instance().setDialogMessage(expectedValue);
-    expect(wrapper.state().dialogMessage).toBe(expectedValue);
+    const startState = "startTest"
+    wrapper.setState({ dialogMessage: startState });
+    const changedState = "testValue";
+    wrapper.instance().setDialogMessage(changedState);
+    expect(wrapper.state().dialogMessage).toBe(changedState);
   });
   /* describe("openDialog() function", () => {
     const mockOpenDialog = jest.fn();
