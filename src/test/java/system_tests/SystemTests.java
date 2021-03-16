@@ -245,13 +245,12 @@ public class SystemTests{
     driver.findElement(By.cssSelector(".MuiButton-textSecondary > .MuiButton-label")).click();
 
     // Check for stream deletion
-    WebElement streamsTable = driver.findElement(By.tagName("table")); // find streams table
-
     {
       WebDriverWait wait = new WebDriverWait(driver, 5);
       wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName("td")));
     }
 
+    WebElement streamsTable = driver.findElement(By.tagName("table")); // find streams table
     List<WebElement> devicesRows =
         streamsTable.findElements(By.tagName("td")); // find all td elements inside found table
     boolean assertValue = devicesRows.stream().anyMatch(data -> data.getText().contains("Online"));
