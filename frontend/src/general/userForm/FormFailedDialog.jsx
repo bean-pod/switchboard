@@ -15,11 +15,11 @@ export default class FormFailedDialog extends React.Component {
   }
 
   render() {
-    const { title, message } = this.props;
+    const { title, errorMessage } = this.props;
 
     return (
       <Dialog ref={this.dialogElement} title={title} noCancel>
-        {message}
+        {errorMessage}
       </Dialog>
     );
   }
@@ -27,5 +27,5 @@ export default class FormFailedDialog extends React.Component {
 
 FormFailedDialog.propTypes = {
   title: PropTypes.string.isRequired,
-  message: PropTypes.string.isRequired
+  errorMessage: PropTypes.string.isRequired
 };
