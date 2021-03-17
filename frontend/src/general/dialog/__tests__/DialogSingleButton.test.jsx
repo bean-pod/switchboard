@@ -27,6 +27,7 @@ describe("<DialogSingleButton/> Class Component", () => {
       const button = wrapper.find(Button);
       expect(button).toHaveLength(1);
       expect(button.text()).toBe(name);
+      expect(button.props().onClick).toEqual(onClick);
     });
   });
 });
