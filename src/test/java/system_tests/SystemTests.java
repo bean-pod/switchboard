@@ -1,5 +1,6 @@
 package system_tests;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -8,7 +9,6 @@ import features.AuthorizedTestRestTemplate;
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import lombok.SneakyThrows;
 import org.beanpod.switchboard.SwitchboardApplication;
 import org.beanpod.switchboard.fixture.DecoderFixture;
 import org.beanpod.switchboard.fixture.DeviceFixture;
@@ -30,6 +30,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +65,6 @@ public class SystemTests{
     driver = new ChromeDriver();
     driver.manage().window().setSize(new Dimension(1280, 1024));
     driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-    login();
   }
 
   @AfterAll
@@ -74,6 +74,24 @@ public class SystemTests{
 
   @Test
   @Order(1)
+  void testLogin(){
+    driver.get("http://localhost:3000/login");
+
+    driver.findElement(By.id("username")).sendKeys("test_username");
+    driver.findElement(By.id("password")).sendKeys("test_password");
+    driver.findElement(By.cssSelector(".MuiButton-label")).click();
+
+    {
+      WebDriverWait wait = new WebDriverWait(driver, 5);
+      wait.until((ExpectedCondition<Boolean>) d ->
+          d.findElement(By.className("title")).getText().equals("Dashboard"));
+    }
+
+    assertEquals("http://localhost:3000/Home", driver.getCurrentUrl());
+  }
+
+  @Test
+  @Order(2)
   void testAddEncoder() throws IOException {
     // Mock sender self-registration
 
@@ -106,7 +124,7 @@ public class SystemTests{
   }
 
   @Test
-  @Order(2)
+  @Order(3)
   void testAddDecoder() throws IOException {
     // mock receiver self-registration
     testRestTemplate.postForObject("http://localhost:8080/device", DeviceFixture.getDeviceModel(),
@@ -139,7 +157,7 @@ public class SystemTests{
   }
 
   @Test
-  @Order(3)
+  @Order(4)
   void testCreateStream() {
     driver.get("http://localhost:3000/Streams/New");
     {
@@ -214,7 +232,7 @@ public class SystemTests{
   }
 
   @Test
-  @Order(4)
+  @Order(5)
   void testDeleteStream() {
     driver.get("http://localhost:3000/Streams");
 
@@ -236,14 +254,5 @@ public class SystemTests{
     boolean assertValue = devicesRows.stream().anyMatch(data -> data.getText().contains("Online"));
 
     assertFalse(assertValue);
-  }
-
-
-  @SneakyThrows
-  private void login() {
-    driver.get("http://localhost:3000/login");
-    driver.findElement(By.id("username")).sendKeys("test_username");
-    driver.findElement(By.id("password")).sendKeys("test_password");
-    driver.findElement(By.cssSelector(".MuiButton-label")).click();
   }
 }
