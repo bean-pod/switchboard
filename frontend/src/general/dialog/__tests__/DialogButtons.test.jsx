@@ -29,7 +29,7 @@ describe("<DialogButtons/> Class Component", () => {
       const wrapperOneButton = Enzyme.shallow(
         <DialogButtons button1={dummyButton1} />
       );
-      
+
       it("only renders one <Button/> component", () => {
         expect(wrapperOneButton.find(MuiDialogActions)).toHaveLength(1);
         const button = wrapperOneButton.find(Button);
@@ -38,7 +38,7 @@ describe("<DialogButtons/> Class Component", () => {
 
         expect(button.text()).toBe(name1);
         expect(button.props().onClick).toBe(dummyButton1.onClick);
-        
+
         wrapperOneButton.unmount();
       });
     });

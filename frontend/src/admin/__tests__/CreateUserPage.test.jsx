@@ -11,7 +11,7 @@ Enzyme.configure({ adapter: new Adapter() });
 
 describe("<CreateUserPage/> class component", () => {
   let wrapper;
-  
+
   beforeEach(() => {
     wrapper = Enzyme.shallow(<CreateUserPage />);
   });
