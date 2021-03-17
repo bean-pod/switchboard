@@ -41,7 +41,7 @@ describe("<AppRouter/> functional component", () => {
     wrapper = Enzyme.shallow(<AppRouter />);
 
     const protectedRoutes = wrapper.find(ProtectedRoute);
-    expect(protectedRoutes).toHaveLength(8);
+    expect(protectedRoutes).toHaveLength(9);
 
     const loginRoute = protectedRoutes.at(0);
     expect(loginRoute.props().path).toEqual("/Login");
@@ -96,7 +96,7 @@ describe("<AppRouter/> functional component", () => {
     const logListPage = logListRoute.props().render();
     expect(logListPage.type).toEqual(LogListPage);
 
-    const createUserRoute = protectedRoutes.at(7);
+    const createUserRoute = protectedRoutes.at(8);
     expect(createUserRoute.props().path).toEqual("/Admin/New");
     expect(createUserRoute.props().authenticationRequired).toBe(true);
     const createUserPage = createUserRoute.props().render();
