@@ -15,12 +15,23 @@ import LogListPage from "../../loglist/LogListPage";
 import PathNotFoundPage from "../../general/PathNotFoundPage";
 import CreateUserPage from "../../admin/createUser/CreateUserPage";
 import DeviceInfo from "../../model/DeviceInfo";
+import StreamDetailsPage from "../../streamDetails/StreamDetailsPage";
+import StreamInfo from "../../model/StreamInfo";
 
 Enzyme.configure({ adapter: new Adapter() });
 
 const dummyLocation = {
   state: {
     device: new DeviceInfo(1, 1, 1, 1, 1, 1, [1, 1])
+  }
+};
+
+const dummySender = new DeviceInfo(1, 1, 1, 1, 1, 1, [1, 2]);
+const dummyReceiver = new DeviceInfo(2, 2, 2, 2, 2, 2, [3, 4]);
+
+const dummyStreamLocation = {
+  state: {
+    stream: new StreamInfo(1, dummySender, dummyReceiver, 2, 3)
   }
 };
 
@@ -63,13 +74,23 @@ describe("<AppRouter/> functional component", () => {
     const createStreamPage = createStreamRoute.props().render();
     expect(createStreamPage.type).toEqual(CreateStreamPage);
 
-    const streamListRoute = protectedRoutes.at(5);
+    const streamDetailsRoute = protectedRoutes.at(5);
+    expect(streamDetailsRoute.props().path).toEqual(
+      "/Streams/Details/:streamId"
+    );
+    expect(streamDetailsRoute.props().authenticationRequired).toBe(true);
+    const streamDetailsPage = streamDetailsRoute
+      .props()
+      .render(dummyStreamLocation);
+    expect(streamDetailsPage.type).toEqual(StreamDetailsPage);
+
+    const streamListRoute = protectedRoutes.at(6);
     expect(streamListRoute.props().path).toEqual("/Streams");
     expect(streamListRoute.props().authenticationRequired).toBe(true);
     const streamListPage = streamListRoute.props().render();
     expect(streamListPage.type).toEqual(StreamListPage);
 
-    const logListRoute = protectedRoutes.at(6);
+    const logListRoute = protectedRoutes.at(7);
     expect(logListRoute.props().path).toEqual("/Logs");
     expect(logListRoute.props().authenticationRequired).toBe(true);
     const logListPage = logListRoute.props().render();

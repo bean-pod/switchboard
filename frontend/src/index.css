@@ -118,6 +118,16 @@ select {
   margin-right: 0;
 }
 
+.alignRightFloatPadded {
+  display: flex;
+  position: relative;
+  float: right;
+  align-items: center;
+  margin-left: auto;
+  margin-right: 0;
+  margin-top: 1em;
+}
+
 .headerTitle {
   color: white;
   text-decoration: none;
