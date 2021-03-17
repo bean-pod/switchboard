@@ -24,32 +24,34 @@ describe("<Dialog/> Class Component", () => {
   );
 
   describe("render() function", () => {
-    it("if noCancel prop is default to false, returns a component that contains the right elements", () => {
-      expect(wrapper.find(MuiDialog)).toHaveLength(1);
-      expect(wrapper.find(DialogTitle)).toHaveLength(1);
-      expect(wrapper.find(DialogBody)).toHaveLength(1);
-      expect(wrapper.find(DialogButtons)).toHaveLength(1);
-    });
-    it("if noCancel prop is true, returns a component that contains the right elements", () => {
-      const wrapperNoCancel = Enzyme.shallow(
-        <Dialog title={dummyTitle} actionButton={actionButton} noCancel>
-          {testBody}
-        </Dialog>
-      );
-      expect(wrapperNoCancel.find(MuiDialog)).toHaveLength(1);
-      expect(wrapperNoCancel.find(DialogTitle)).toHaveLength(1);
-      expect(wrapperNoCancel.find(DialogBody)).toHaveLength(1);
-      expect(wrapperNoCancel.find(DialogSingleButton)).toHaveLength(1);
-    });
-    it("if isError prop is true, returns a DialogTitle with red title", () => {
-      const wrapperisError = Enzyme.shallow(
-        <Dialog title={dummyTitle} actionButton={actionButton} isError>
-          {testBody}
-        </Dialog>
-      );
-      expect(wrapperisError.find(DialogTitle).hasClass("warningText")).toBe(
-        true
-      );
+    describe("renders a component with the expected elements", () => {
+      it("if noCancel prop is default to false, returns a component that contains the right elements", () => {
+        expect(wrapper.find(MuiDialog)).toHaveLength(1);
+        expect(wrapper.find(DialogTitle)).toHaveLength(1);
+        expect(wrapper.find(DialogBody)).toHaveLength(1);
+        expect(wrapper.find(DialogButtons)).toHaveLength(1);
+      });
+      it("if noCancel prop is true, returns a component that contains the right elements", () => {
+        const wrapperNoCancel = Enzyme.shallow(
+          <Dialog title={dummyTitle} actionButton={actionButton} noCancel>
+            {testBody}
+          </Dialog>
+        );
+        expect(wrapperNoCancel.find(MuiDialog)).toHaveLength(1);
+        expect(wrapperNoCancel.find(DialogTitle)).toHaveLength(1);
+        expect(wrapperNoCancel.find(DialogBody)).toHaveLength(1);
+        expect(wrapperNoCancel.find(DialogSingleButton)).toHaveLength(1);
+      });
+      it("if isError prop is true, returns a DialogTitle with red title", () => {
+        const wrapperisError = Enzyme.shallow(
+          <Dialog title={dummyTitle} actionButton={actionButton} isError>
+            {testBody}
+          </Dialog>
+        );
+        expect(wrapperisError.find(DialogTitle).hasClass("warningText")).toBe(
+          true
+        );
+      });
     });
   });
 
