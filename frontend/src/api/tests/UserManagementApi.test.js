@@ -18,14 +18,13 @@ const authorizationHeader = {
 
 describe("UserManagementApi", () => {
   describe("createUser()", () => {
-    it("should call axios.post and return a 200", () => {
+    it("should call axios.post with the user credentials and authorization header", () => {
       const expectedCredentials = {
         username: "user",
         password: "password",
         userRole: "USER"
       };
 
-      axios.post.mockResolvedValue();
       authenticationUtil.getAuthorizationHeader = jest
         .fn()
         .mockReturnValue(authorizationHeader);
