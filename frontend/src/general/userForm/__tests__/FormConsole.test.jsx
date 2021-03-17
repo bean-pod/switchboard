@@ -1,4 +1,4 @@
-import { describe, expect, it, jest } from "@jest/globals";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import React from "react";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
@@ -8,19 +8,23 @@ import FormConsole from "../FormConsole";
 Enzyme.configure({ adapter: new Adapter() });
 
 describe("<FormConsole />", () => {
+  let wrapper;
   const mockHandleSubmit = jest.fn();
   const dummyValues = {
     handleSubmit: mockHandleSubmit,
     buttonName: "Create"
   };
-  const wrapper = Enzyme.mount(
-    <FormConsole
-      handleSubmit={dummyValues.handleSubmit}
-      buttonName={dummyValues.buttonName}
-      isValidate
-      isCreateUser
-    />
-  );
+
+  beforeEach(() => {
+    wrapper = Enzyme.mount(
+      <FormConsole
+        handleSubmit={dummyValues.handleSubmit}
+        buttonName={dummyValues.buttonName}
+        isValidate
+        isCreateUser
+      />
+    );
+  });
 
   describe("render()", () => {
     it("should have the correct components", () => {
@@ -29,11 +33,25 @@ describe("<FormConsole />", () => {
       expect(wrapper.find(Button)).toHaveLength(1);
     });
     it("if isValidate is true, it should have the form's noValidate to true", () => {
-      expect(wrapper.find("form").prop("noValidate")).toBe(false);
+      const wrapperIsValidate = Enzyme.mount(
+        <FormConsole
+          handleSubmit={dummyValues.handleSubmit}
+          buttonName={dummyValues.buttonName}
+          isValidate
+        />
+      );
+      expect(wrapperIsValidate.find("form").prop("noValidate")).toBe(false);
     });
     describe("if isCreateUser is true, it should have the password TextField to have error, inputProps and helperText props", () => {
-      const textField = wrapper.find(TextField).at(1);
-      const passwordState = wrapper.state().password;
+      const wrapperIsCreate = Enzyme.mount(
+        <FormConsole
+          handleSubmit={dummyValues.handleSubmit}
+          buttonName={dummyValues.buttonName}
+          isCreateUser
+        />
+      );
+      const textField = wrapperIsCreate.find(TextField).at(1);
+      const passwordState = wrapperIsCreate.state().password;
       it("error should be passed password.length < 5 && password.length > 0", () => {
         expect(textField.prop("error")).toBe(
           passwordState.length < 5 && passwordState.length > 0
