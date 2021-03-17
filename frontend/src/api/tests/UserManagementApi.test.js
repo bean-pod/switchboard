@@ -1,7 +1,7 @@
 import axios from "axios";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import { afterEach, describe, expect, jest, it } from "@jest/globals";
+import { describe, expect, jest, it } from "@jest/globals";
 import * as authenticationUtil from "../AuthenticationUtil";
 import * as UserManagementApi from "../UserManagementApi";
 
@@ -17,15 +17,11 @@ const authorizationHeader = {
 };
 
 describe("UserManagementApi", () => {
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
-
   describe("createUser()", () => {
     it("should call axios.post and return a 200", () => {
       const expectedCredentials = {
-        username: "test user",
-        password: "test password",
+        username: "user",
+        password: "password",
         userRole: "USER"
       };
 

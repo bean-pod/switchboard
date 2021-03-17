@@ -1,7 +1,7 @@
 import React from "react";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import { beforeEach, describe, expect, it } from "@jest/globals";
+import { describe, expect, it } from "@jest/globals";
 
 import CreateUserPage from "../createUser/CreateUserPage";
 import Page from "../../general/Page";
@@ -10,11 +10,7 @@ import CreateUserPageContents from "../createUser/CreateUserPageContents";
 Enzyme.configure({ adapter: new Adapter() });
 
 describe("<CreateUserPage/> class component", () => {
-  let wrapper;
-
-  beforeEach(() => {
-    wrapper = Enzyme.shallow(<CreateUserPage />);
-  });
+  const wrapper = Enzyme.shallow(<CreateUserPage />);
 
   it("Contains one <Page/> component with correct props", () => {
     const expectedTitle = "Create a User";

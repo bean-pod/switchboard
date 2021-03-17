@@ -35,7 +35,9 @@ describe("<CreateUserPageContents/> class component", () => {
   describe("render() returns a component that", () => {
     it("Contains one <FormConsole/> component with the expected props", () => {
       expect(wrapper.find(FormConsole)).toHaveLength(1);
+
       const formConsoleProps = wrapper.find(FormConsole).props();
+
       expect(formConsoleProps.handleSubmit).toEqual(
         wrapper.instance().handleSubmit
       );
@@ -43,31 +45,40 @@ describe("<CreateUserPageContents/> class component", () => {
       expect(formConsoleProps.isValidate).toBe(true);
       expect(formConsoleProps.isCreateUser).toBe(true);
     });
+
     it("Contains one <FormFailedDialog/> component with the expected props", () => {
       expect(wrapper.find(FormFailedDialog)).toHaveLength(1);
+
       const FormFailedDialogProps = wrapper.find(FormFailedDialog).props();
+
       expect(FormFailedDialogProps.title).toEqual("Failed to create user");
       expect(FormFailedDialogProps.errorMessage).toEqual("");
     });
   });
+
   describe("setDialogMessage()", () => {
     it("sets the state of dialogMessage", () => {
-      const startState = "startTest";
+      const startState = "initialMessage";
       wrapper.setState({ dialogMessage: startState });
-      const changedState = "testValue";
+
+      const changedState = "test";
       wrapper.instance().setDialogMessage(changedState);
+
       expect(wrapper.state().dialogMessage).toBe(changedState);
     });
   });
+
   describe("openDialog() function", () => {
     it("calls dialogElement.current.openDialog()", () => {
       wrapper.instance().openDialog();
       expect(mockOpenDialog).toBeCalledTimes(1);
     });
   });
+
   describe("handleSubmit() function", () => {
     const someUsername = "username";
     const somePassword = "password";
+
     describe("when createUser() resolves", () => {
       it("Calls createUser() and redirects to Home", async () => {
         UserManagementApi.createUser.mockResolvedValue();
@@ -84,6 +95,7 @@ describe("<CreateUserPageContents/> class component", () => {
         expect(mockHistory.go).toHaveBeenCalledWith(0);
       });
     });
+
     describe("when createUser() rejects", () => {
       it("Calls openDialog()", async () => {
         const someErrorMessage = "errorMessage";

@@ -11,20 +11,21 @@ import DialogSingleButton from "../DialogSingleButton";
 Enzyme.configure({ adapter: new Adapter() });
 
 describe("<DialogSingleButton/> class component", () => {
-  const name = "test button";
+  const name = "test";
   const onClick = () => {};
-
   const dummyButton = {
     name,
     onClick
   };
 
   const wrapper = Enzyme.shallow(<DialogSingleButton button={dummyButton} />);
+
   describe("render()", () => {
     it("returns a <MuiDialogActions/> component that has a <Button/> and the right elements", () => {
       expect(wrapper.find(MuiDialogActions)).toHaveLength(1);
 
       const button = wrapper.find(Button);
+
       expect(button).toHaveLength(1);
       expect(button.text()).toBe(name);
       expect(button.props().onClick).toEqual(onClick);

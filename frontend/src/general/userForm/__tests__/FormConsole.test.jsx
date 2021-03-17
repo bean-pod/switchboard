@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { describe, expect, it, jest } from "@jest/globals";
 import React from "react";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
@@ -8,23 +8,20 @@ import FormConsole from "../FormConsole";
 Enzyme.configure({ adapter: new Adapter() });
 
 describe("<FormConsole/> class component", () => {
-  let wrapper;
   const mockHandleSubmit = jest.fn();
   const dummyValues = {
     handleSubmit: mockHandleSubmit,
     buttonName: "Create"
   };
 
-  beforeEach(() => {
-    wrapper = Enzyme.mount(
-      <FormConsole
-        handleSubmit={dummyValues.handleSubmit}
-        buttonName={dummyValues.buttonName}
-        isValidate
-        isCreateUser
-      />
-    );
-  });
+  const wrapper = Enzyme.mount(
+    <FormConsole
+      handleSubmit={dummyValues.handleSubmit}
+      buttonName={dummyValues.buttonName}
+      isValidate
+      isCreateUser
+    />
+  );
 
   describe("render()", () => {
     it("should have 1 <Container/>, 2 <TextFields/> and 1 <Button/>", () => {
@@ -32,6 +29,13 @@ describe("<FormConsole/> class component", () => {
       expect(wrapper.find(TextField)).toHaveLength(2);
       expect(wrapper.find(Button)).toHaveLength(1);
     });
+
+    it("contains the props buttonName as a child of <Button/>", () => {
+      expect(wrapper.find(Button).children().text()).toEqual(
+        dummyValues.buttonName
+      );
+    });
+
     it("if isValidate prop is true, it should have the form's noValidate to true", () => {
       const wrapperIsValidate = Enzyme.mount(
         <FormConsole
@@ -40,13 +44,10 @@ describe("<FormConsole/> class component", () => {
           isValidate
         />
       );
+
       expect(wrapperIsValidate.find("form").prop("noValidate")).toBe(false);
     });
-    it("contains the props buttonName as a child of <Button/>", () => {
-      expect(wrapper.find(Button).children().text()).toEqual(
-        dummyValues.buttonName
-      );
-    });
+
     describe("if isCreateUser prop is true, password <TextField/> should have error, inputProps and helperText props", () => {
       const wrapperIsCreate = Enzyme.mount(
         <FormConsole
@@ -78,24 +79,31 @@ describe("<FormConsole/> class component", () => {
       });
     });
   });
+
   describe("setUsername() function", () => {
     it("should set the state username", () => {
       const initialUsername = "initialUser";
       wrapper.setState({ username: initialUsername });
+
       const expectedUsername = "test";
       wrapper.instance().setUsername(expectedUsername);
+
       expect(wrapper.state().username).toBe(expectedUsername);
     });
   });
+
   describe("setPassword() function", () => {
     it("should set the state password", () => {
       const initialPassword = "initialPassword";
       wrapper.setState({ password: initialPassword });
+
       const expectedPassword = "test";
       wrapper.instance().setPassword(expectedPassword);
+
       expect(wrapper.state().password).toBe(expectedPassword);
     });
   });
+
   describe("onSubmit() function", () => {
     const targetValue = "test";
     const event = {
@@ -104,8 +112,10 @@ describe("<FormConsole/> class component", () => {
       },
       preventDefault: jest.fn()
     };
+
     it("should have the passed function handleSubmit be called with username and password state", () => {
       wrapper.instance().onSubmit(event);
+
       expect(mockHandleSubmit).toHaveBeenCalledWith(
         wrapper.state().username,
         wrapper.state().password
