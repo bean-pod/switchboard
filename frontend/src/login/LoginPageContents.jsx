@@ -1,8 +1,9 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import LoginFailedDialog from "./LoginFailedDialog";
 import LoginConsole from "./LoginConsole";
-import * as AuthenticationApi from "../api/AuthenticationApi";
+import { logIn } from "../api/AuthenticationApi";
 
 export default class LoginPageContents extends React.Component {
   constructor(props) {
@@ -17,12 +18,17 @@ export default class LoginPageContents extends React.Component {
   }
 
   handleSubmit(username, password) {
-    AuthenticationApi.logIn({ username, password }).catch((error) => {
-      this.setState({
-        dialogOpen: true,
-        dialogMessage: error.message
+    const { history } = this.props;
+    logIn({ username, password })
+      .then(() => {
+        history.push("/Home");
+      })
+      .catch((error) => {
+        this.setState({
+          dialogOpen: true,
+          dialogMessage: error.message
+        });
       });
-    });
   }
 
   setDialogOpen(open) {
@@ -51,3 +57,10 @@ export default class LoginPageContents extends React.Component {
     );
   }
 }
+
+LoginPageContents.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+    go: PropTypes.func.isRequired
+  }).isRequired
+};

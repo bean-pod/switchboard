@@ -1,5 +1,6 @@
 import axios from "axios";
-import { saveToken } from "./AuthenticationUtil";
+import Cookies from "js-cookie";
+import * as AuthenticationUtil from "./AuthenticationUtil";
 
 export const unknownErrorMessage =
   "An unknown error occurred. Please try again later.";
@@ -17,7 +18,7 @@ export async function logIn(credentials) {
   return axios
     .get(process.env.REACT_APP_TOKEN, authorizationHeader)
     .then((response) => {
-      saveToken(response.headers.authorization);
+      AuthenticationUtil.saveToken(response.headers.authorization);
     })
     .catch((error) => {
       let message = unknownErrorMessage;
@@ -26,4 +27,8 @@ export async function logIn(credentials) {
       }
       return Promise.reject(new Error(message));
     });
+}
+
+export function logOut() {
+  Cookies.remove("authToken");
 }

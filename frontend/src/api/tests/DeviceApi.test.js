@@ -1,5 +1,5 @@
 import axios from "axios";
-import { jest } from "@jest/globals";
+import { describe, expect, jest } from "@jest/globals";
 import * as DeviceApi from "../DeviceApi";
 import * as DeviceFixture from "./DeviceFixture";
 import * as authenticationUtil from "../AuthenticationUtil";
@@ -70,6 +70,27 @@ describe("DeviceApi", () => {
           done(error);
         }
       });
+    });
+  });
+
+  describe("updateDeviceName", () => {
+    it("Should call axios with the device serial number, new name, and authorization headers", async () => {
+      axios.put.mockResolvedValue();
+
+      authenticationUtil.getAuthorizationHeader = jest
+        .fn()
+        .mockReturnValue(authorizationHeader);
+
+      const dummySerial = "someDeviceId";
+      const dummyName = "someDeviceName";
+
+      await DeviceApi.updateDeviceName(dummySerial, dummyName);
+
+      expect(axios.put).toHaveBeenCalledWith(
+        process.env.REACT_APP_DEVICE,
+        { serialNumber: dummySerial, displayName: dummyName },
+        authorizationHeader
+      );
     });
   });
 });

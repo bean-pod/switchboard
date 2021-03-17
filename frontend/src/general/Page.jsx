@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Container } from "@material-ui/core";
+import { Box, Container } from "@material-ui/core";
 import DynamicBreadcrumb from "./DynamicBreadcrumb";
 import Title from "./Title";
 import HeaderBar from "./HeaderBar";
@@ -12,8 +12,10 @@ export default function Page(props) {
       <HeaderBar />
       <Container>
         <DynamicBreadcrumb breadcrumbs={breadcrumbs} />
-        <Title title={title} deviceList={deviceList} />
-        {children}
+        <Box className="areaUnderBreadcrumbs">
+          <Title title={title} deviceList={deviceList} />
+          {children}
+        </Box>
       </Container>
     </>
   );

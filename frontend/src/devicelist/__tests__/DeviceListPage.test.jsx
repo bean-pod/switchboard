@@ -11,12 +11,9 @@ Enzyme.configure({ adapter: new Adapter() });
 
 describe("<DeviceListPage/> functional component", () => {
   let wrapper;
-  const dummySource = {
-    dummyfunction: () => {}
-  };
 
   beforeEach(() => {
-    wrapper = Enzyme.shallow(<DeviceListPage dataSource={dummySource} />);
+    wrapper = Enzyme.shallow(<DeviceListPage />);
   });
   describe("returns a component that", () => {
     it("Contains 1 <Page/> component with the expected props", () => {

@@ -2,7 +2,7 @@ import React from "react";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import { beforeAll, describe, expect, it } from "@jest/globals";
-import { Container } from "@material-ui/core";
+import { Box, Container } from "@material-ui/core";
 import Page from "../Page";
 
 import Title from "../Title";
@@ -10,7 +10,7 @@ import HeaderBar from "../HeaderBar";
 import DynamicBreadcrumb from "../DynamicBreadcrumb";
 
 Enzyme.configure({ adapter: new Adapter() });
-describe("<Title/> functional Component", () => {
+describe("<Page/> functional Component", () => {
   const dummyTitle = "testString";
   const dummyCrumb = [["bread", "crumb"]];
   const dummyChild = <div className="someDummyChild" />;
@@ -38,6 +38,10 @@ describe("<Title/> functional Component", () => {
         const crumb = wrapper.find(DynamicBreadcrumb).first();
         expect(crumb.props().breadcrumbs[0][0]).toBe(dummyCrumb[0][0]);
         expect(crumb.props().breadcrumbs[0][1]).toBe(dummyCrumb[0][1]);
+      });
+      it("Contains 1 <Box/> component with areaUnderBreacrumbs styling", () => {
+        expect(wrapper.find(Box)).toHaveLength(1);
+        expect(wrapper.find(Box).hasClass("areaUnderBreadcrumbs")).toBe(true);
       });
       it("Contains 1 <Title/> component with expected props", () => {
         expect(wrapper.find(Title)).toHaveLength(1);

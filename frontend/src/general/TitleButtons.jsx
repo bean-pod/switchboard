@@ -6,7 +6,7 @@ export default function TitleButtons() {
   return (
     <div className="alignRightFloat">
       <NavLink
-        to="/Streaming"
+        to="/Streams"
         activeClassName="hideLinkStyle"
         className="hideLinkStyle"
         exact

@@ -1,10 +1,14 @@
-import { afterEach, describe, expect, jest } from "@jest/globals";
+import { afterEach, describe, expect, it, jest } from "@jest/globals";
 import axios from "axios";
-import { saveToken } from "../AuthenticationUtil";
+import Cookies from "js-cookie";
+import * as AuthenticationUtil from "../AuthenticationUtil";
 import * as AuthenticationApi from "../AuthenticationApi";
 
 jest.mock("axios");
 jest.mock("../AuthenticationUtil");
+jest.spyOn(AuthenticationUtil, "saveToken");
+jest.mock("js-cookie");
+jest.spyOn(Cookies, "remove");
 
 describe("AuthenticationApi", () => {
   afterEach(() => {
@@ -32,16 +36,26 @@ describe("AuthenticationApi", () => {
       ).rejects.toEqual(new Error(AuthenticationApi.unknownErrorMessage));
     });
 
-    it("should save token in localstorage", async () => {
-      const expectedToken = "Bearer the_token";
+    it("should save token using AuthenticationUtil", async () => {
+      const dummyAuthorizationHeader = "Bearer the_token";
       axios.get.mockResolvedValue({
         headers: {
-          authorization: expectedToken
+          authorization: dummyAuthorizationHeader
         }
       });
       await AuthenticationApi.logIn({ username: "user", password: "pass" });
 
-      expect(saveToken).toHaveBeenCalledWith(expectedToken);
+      expect(AuthenticationUtil.saveToken).toHaveBeenCalledWith(
+        dummyAuthorizationHeader
+      );
+    });
+  });
+
+  describe("logOut() function", () => {
+    it("should call Cookies.remove() once", () => {
+      AuthenticationApi.logOut();
+
+      expect(Cookies.remove).toHaveBeenCalledWith("authToken");
     });
   });
 });

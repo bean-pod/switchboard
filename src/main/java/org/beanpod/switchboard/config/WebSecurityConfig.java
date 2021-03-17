@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import org.beanpod.switchboard.service.UserService;
 import org.openapitools.model.UserModel;
+import org.openapitools.model.UserModel.UserRoleEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +15,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -39,10 +41,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
         .authorizeRequests()
-        .antMatchers("/user/sign-up")
-        .permitAll()
+        .antMatchers("/user/**")
+        .hasAnyAuthority("ADMIN", "SUPERUSER")
+        .antMatchers("/**")
+        .hasAnyAuthority("USER", "SUPERUSER")
         .anyRequest()
         .authenticated()
+        .and()
+        .exceptionHandling()
+        .authenticationEntryPoint(authenticationEntryPoint())
         .and()
         .addFilter(new JwtAuthenticationFilter(authenticationManagerBean(), securityProperties))
         .addFilter(new JwtAuthorizationFilter(authenticationManagerBean(), securityProperties));
@@ -53,7 +60,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     UserModel superuser =
         new UserModel()
             .username(securityProperties.getSuperuserUsername())
-            .password(securityProperties.getSuperuserPassword());
+            .password(securityProperties.getSuperuserPassword())
+            .userRole(UserRoleEnum.SUPERUSER);
     try {
       userService.signUpUser(superuser);
     } catch (ValidationException validationException) {
@@ -72,10 +80,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Bean
   CorsConfigurationSource corsConfigurationSource() {
     final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    CorsConfiguration corsConfiguration = new CorsConfiguration();
-    corsConfiguration.addAllowedMethod(CorsConfiguration.ALL);
-    corsConfiguration.addAllowedOrigin(CorsConfiguration.ALL);
-    source.registerCorsConfiguration("/**", corsConfiguration.applyPermitDefaultValues());
+    final CorsConfiguration corsConfiguration = new CorsConfiguration().applyPermitDefaultValues();
+    corsConfiguration.addAllowedMethod("DELETE");
+    corsConfiguration.addAllowedMethod("PUT");
+    source.registerCorsConfiguration("/**", corsConfiguration);
     return source;
+  }
+
+  @Bean
+  public AuthenticationEntryPoint authenticationEntryPoint() {
+    return new CustomAuthenticationEntryPoint();
   }
 }

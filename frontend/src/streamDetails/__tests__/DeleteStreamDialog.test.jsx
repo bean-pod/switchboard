@@ -13,10 +13,8 @@ describe("<DeleteStreamDialog/> class", () => {
   let wrapper;
 
   const mockPush = jest.fn();
-  const mockGo = jest.fn();
   const dummyHistory = {
-    push: mockPush,
-    go: mockGo
+    push: mockPush
   };
   const mockOpenDialog = jest.fn();
   const mockCloseDialog = jest.fn();
@@ -61,8 +59,7 @@ describe("<DeleteStreamDialog/> class", () => {
   });
   describe("afterDelete() function", () => {
     it("closes the dialog and redirects to the Streaming page", () => {
-      const expectedPushArg = "/Streaming";
-      const expectedGoArg = 0;
+      const expectedPushArg = "/Streams";
 
       wrapper.instance().afterDelete();
       wrapper.instance().forceUpdate();
@@ -70,9 +67,6 @@ describe("<DeleteStreamDialog/> class", () => {
       expect(mockCloseDialog).toBeCalledTimes(1);
       expect(mockPush).toBeCalledTimes(1);
       expect(mockPush).toBeCalledWith(expectedPushArg);
-
-      expect(mockGo).toBeCalledTimes(1);
-      expect(mockGo).toBeCalledWith(expectedGoArg);
     });
   });
 });

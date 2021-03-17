@@ -1,10 +1,8 @@
 import React from "react";
-import { Box, TableContainer, Typography } from "@material-ui/core";
+import { Box, TableContainer } from "@material-ui/core";
 import PropTypes from "prop-types";
 
 import {
-  ExpandLess,
-  ExpandMore,
   ArrowDownward,
   FirstPage,
   LastPage,
@@ -15,7 +13,7 @@ import {
 import MaterialTable from "material-table";
 
 import StatusIndicator from "../general/StatusIndicator";
-import DeleteStreamDialogOpener from "./DeleteStreamDialogOpener";
+import StreamDetailsButton from "./StreamDetailsButton";
 import StreamInfo from "../model/StreamInfo";
 
 export default class StreamsTable extends React.Component {
@@ -60,24 +58,10 @@ export default class StreamsTable extends React.Component {
         filtering: false,
         sorting: false,
         render: function Actions(rowData) {
-          return <DeleteStreamDialogOpener deleteId={rowData.id} />;
+          return <StreamDetailsButton streamInfo={rowData} />;
         },
         align: "center",
         export: false
-      }
-    ];
-    this.detailPanel = [
-      {
-        icon: ExpandMore,
-        openIcon: ExpandLess,
-        tooltip: "Show Stream Details",
-        render: function DetailPanel(rowData) {
-          return (
-            <div className="lightestGrey">
-              <Typography variant="h6">{rowData.extras}</Typography>
-            </div>
-          );
-        }
       }
     ];
     this.options = {
@@ -102,10 +86,6 @@ export default class StreamsTable extends React.Component {
     return this.columnInfo;
   }
 
-  getDetailPanel() {
-    return this.detailPanel;
-  }
-
   getOptions() {
     return this.options;
   }
@@ -123,7 +103,6 @@ export default class StreamsTable extends React.Component {
             <MaterialTable
               columns={this.getColumnInfo()}
               data={streams}
-              detailPanel={this.getDetailPanel()}
               options={this.getOptions()}
               icons={this.getIcons()}
             />

@@ -391,16 +391,42 @@ export function getAllStreams() {
   ];
 
   return [
-    new StreamInfo(1, sampleSenders[0], sampleReceivers[0], [
-      "Additional Stream Details go here"
-    ]),
-    new StreamInfo(2, sampleSenders[1], sampleReceivers[1], [
-      "Additional Stream Details go here"
-    ]),
-    new StreamInfo(3, sampleSenders[1], sampleReceivers[0], [
-      "Additional Stream Details go here"
-    ])
+    new StreamInfo(1, sampleSenders[0], sampleReceivers[0], 1, 2),
+    new StreamInfo(2, sampleSenders[1], sampleReceivers[1], 3, 4),
+    new StreamInfo(3, sampleSenders[1], sampleReceivers[0], 5, 6)
   ];
+}
+
+export function getSampleStream() {
+  const sampleSender = new DeviceInfo(
+    "1:10:111:999",
+    null,
+    "123:456",
+    "Sender 1",
+    "Online",
+    sampleOutputChannels,
+    "encoder",
+    extras
+  );
+
+  const sampleReceiver = new DeviceInfo(
+    "1:22:333:989",
+    null,
+    "145:396",
+    "Receiver 1",
+    "Online",
+    sampleOutputChannels,
+    "decoder",
+    extras
+  );
+
+  return new StreamInfo(
+    1,
+    sampleSender,
+    sampleReceiver,
+    sampleSender.channels[0].port,
+    sampleReceiver.channels[1].port
+  );
 }
 
 export function getAllLogs(callback) {
