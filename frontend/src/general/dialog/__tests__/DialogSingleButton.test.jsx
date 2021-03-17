@@ -10,7 +10,7 @@ import DialogSingleButton from "../DialogSingleButton";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe("<DialogSingleButton/> Class Component", () => {
+describe("<DialogSingleButton/> class component", () => {
   const name = "test button";
   const onClick = () => {};
 
@@ -20,8 +20,8 @@ describe("<DialogSingleButton/> Class Component", () => {
   };
 
   const wrapper = Enzyme.shallow(<DialogSingleButton button={dummyButton} />);
-  describe("render() function", () => {
-    it("returns a component that contains the right elements", () => {
+  describe("render()", () => {
+    it("returns a <MuiDialogActions/> component that has a <Button/> and the right elements", () => {
       expect(wrapper.find(MuiDialogActions)).toHaveLength(1);
 
       const button = wrapper.find(Button);

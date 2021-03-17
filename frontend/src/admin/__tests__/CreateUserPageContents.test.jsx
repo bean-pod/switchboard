@@ -65,11 +65,11 @@ describe("<CreateUserPageContents/> class component", () => {
       expect(mockOpenDialog).toBeCalledTimes(1);
     });
   });
-  describe("handleSubmit()", () => {
+  describe("handleSubmit() function", () => {
     const someUsername = "username";
     const somePassword = "password";
-    describe("when createUser resolves", () => {
-      it("Calls createUser and redirects to Home", async () => {
+    describe("when createUser() resolves", () => {
+      it("Calls createUser() and redirects to Home", async () => {
         UserManagementApi.createUser.mockResolvedValue();
 
         wrapper.instance().handleSubmit(someUsername, somePassword);
@@ -84,8 +84,8 @@ describe("<CreateUserPageContents/> class component", () => {
         expect(mockHistory.go).toHaveBeenCalledWith(0);
       });
     });
-    describe("when createUser rejects", () => {
-      it("Calls openDialog", async () => {
+    describe("when createUser() rejects", () => {
+      it("Calls openDialog()", async () => {
         const someErrorMessage = "errorMessage";
         UserManagementApi.createUser.mockRejectedValue({
           message: someErrorMessage

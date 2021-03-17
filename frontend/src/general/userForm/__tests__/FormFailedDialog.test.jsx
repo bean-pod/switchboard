@@ -7,7 +7,7 @@ import Dialog from "../../dialog/Dialog";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe("<FormFailedDialog/> class", () => {
+describe("<FormFailedDialog/> class component", () => {
   let wrapper;
   const dummyValues = {
     title: "test",
@@ -36,7 +36,7 @@ describe("<FormFailedDialog/> class", () => {
     jest.clearAllMocks();
   });
 
-  describe("render() function", () => {
+  describe("render()", () => {
     it("renders one <Dialog/> Component with the expected props and values", () => {
       expect(wrapper.find(Dialog)).toHaveLength(1);
       const formDialogProps = wrapper.find(Dialog).props();
@@ -44,7 +44,7 @@ describe("<FormFailedDialog/> class", () => {
       expect(formDialogProps.noCancel).toBe(true);
       expect(formDialogProps.isError).toBe(true);
     });
-    it("contains the props errorMessage as a child", () => {
+    it("contains the props errorMessage as a child of <Dialog/>", () => {
       expect(wrapper.find(Dialog).children().text()).toEqual(
         dummyValues.message
       );

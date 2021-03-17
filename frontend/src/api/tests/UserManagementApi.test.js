@@ -16,12 +16,12 @@ const authorizationHeader = {
   }
 };
 
-describe("User Management Api", () => {
+describe("UserManagementApi", () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
 
-  describe("createUser", () => {
+  describe("createUser()", () => {
     it("should call axios.post and return a 200", () => {
       const expectedCredentials = {
         username: "test user",
