@@ -4,19 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import features.AuthorizedTestRestTemplate;
-import features.SpringIntegrationTest;
-import java.beans.Encoder;
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.beanpod.switchboard.SwitchboardApplication;
-import org.beanpod.switchboard.dto.DeviceDto;
-import org.beanpod.switchboard.entity.DecoderEntity;
-import org.beanpod.switchboard.entity.EncoderEntity;
 import org.beanpod.switchboard.fixture.DecoderFixture;
 import org.beanpod.switchboard.fixture.DeviceFixture;
 import org.beanpod.switchboard.fixture.EncoderFixture;
@@ -43,8 +36,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.ComponentScans;
 import org.springframework.context.annotation.Import;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -54,35 +45,15 @@ import org.springframework.context.annotation.Import;
 )
 @Import(AuthorizedTestRestTemplate.class)
 @TestInstance(Lifecycle.PER_CLASS)
-//TODO make sure those annotationsa are necessary
-@ComponentScan("system_tests")
-@ComponentScan("org.beanpod.switchboard")
 public class SystemTests{
 
   @Autowired
   private TestRestTemplate testRestTemplate;
 
   private WebDriver driver;
-  private String testSenderDeviceParams;
-  private String testSenderEncoderParams;
-  private String testReceiverDeviceParams;
-  private String testReceiverDecoderParams;
-
 
   @BeforeAll
   void setUp() throws JsonProcessingException {
-    ObjectMapper objectMapper = new ObjectMapper();
-    //TODO remote these if not needed anymore
-    // create a test sender
-    EncoderEntity testSender = EncoderFixture.getEncoderEntity1();
-    testSenderDeviceParams = objectMapper.writeValueAsString(testSender.getDevice());
-    testSenderEncoderParams = objectMapper.writeValueAsString(testSender);
-
-    // create a test receiver
-    DecoderEntity testReceiver = DecoderFixture.getDecoderEntity2();
-    testReceiverDeviceParams = objectMapper.writeValueAsString(testReceiver.getDevice());
-    testReceiverDecoderParams = objectMapper.writeValueAsString(testReceiver);
-
     // Set up Selenium Chrome Driver
     if (System.getProperty("os.name").toLowerCase().contains("windows")) {
       System.setProperty(
@@ -246,7 +217,7 @@ public class SystemTests{
     driver.findElement(By.cssSelector(".MuiButton-label")).click();
     driver.findElement(By.cssSelector(".MuiButton-textSecondary > .MuiButton-label")).click();
 
-    driver.navigate().refresh();
+    driver.get("http://localhost:3000/Streams");
 
     // Check for stream deletion
     {
