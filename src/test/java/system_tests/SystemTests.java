@@ -42,14 +42,12 @@ import org.springframework.context.annotation.Import;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest(
     classes = SwitchboardApplication.class,
-    webEnvironment= WebEnvironment.DEFINED_PORT
-)
+    webEnvironment = WebEnvironment.DEFINED_PORT)
 @Import(AuthorizedTestRestTemplate.class)
 @TestInstance(Lifecycle.PER_CLASS)
-public class SystemTests{
+public class SystemTests {
 
-  @Autowired
-  private TestRestTemplate testRestTemplate;
+  @Autowired private TestRestTemplate testRestTemplate;
 
   private WebDriver driver;
 
@@ -74,7 +72,7 @@ public class SystemTests{
 
   @Test
   @Order(1)
-  void testLogin(){
+  void testLogin() {
     driver.get("http://localhost:3000/login");
 
     driver.findElement(By.id("username")).sendKeys("test_username");
@@ -83,8 +81,9 @@ public class SystemTests{
 
     {
       WebDriverWait wait = new WebDriverWait(driver, 5);
-      wait.until((ExpectedCondition<Boolean>) d ->
-          d.findElement(By.className("title")).getText().equals("Dashboard"));
+      wait.until(
+          (ExpectedCondition<Boolean>)
+              d -> d.findElement(By.className("title")).getText().equals("Dashboard"));
     }
 
     assertEquals("http://localhost:3000/Home", driver.getCurrentUrl());
@@ -95,9 +94,11 @@ public class SystemTests{
   void testAddEncoder() throws IOException {
     // Mock sender self-registration
 
-    testRestTemplate.postForObject("http://localhost:8080/device", DeviceFixture.getDeviceModel(),
-        DeviceModel.class);
-    testRestTemplate.postForObject("http://localhost:8080/encoder", EncoderFixture.getEncoderModelWithOutputChannel(),
+    testRestTemplate.postForObject(
+        "http://localhost:8080/device", DeviceFixture.getDeviceModel(), DeviceModel.class);
+    testRestTemplate.postForObject(
+        "http://localhost:8080/encoder",
+        EncoderFixture.getEncoderModelWithOutputChannel(),
         EncoderModel.class);
 
     // Go to List of Senders
@@ -127,9 +128,11 @@ public class SystemTests{
   @Order(3)
   void testAddDecoder() throws IOException {
     // mock receiver self-registration
-    testRestTemplate.postForObject("http://localhost:8080/device", DeviceFixture.getDeviceModel(),
-        DeviceModel.class);
-    testRestTemplate.postForObject("http://localhost:8080/decoder", DecoderFixture.getDecoderModelWithInputChannel(),
+    testRestTemplate.postForObject(
+        "http://localhost:8080/device", DeviceFixture.getDeviceModel(), DeviceModel.class);
+    testRestTemplate.postForObject(
+        "http://localhost:8080/decoder",
+        DecoderFixture.getDecoderModelWithInputChannel(),
         DecoderModel.class);
 
     // Go to List of Receivers

@@ -77,19 +77,21 @@ public class ChannelFixture {
   }
 
   public static InputChannelModel getInputChannelModel() {
-    ChannelModel channelModel = new ChannelModel()
+    ChannelModel channelModel =
+        new ChannelModel().id(INPUT_CHANNEL_ID).name("Test input channel").port(PORT);
+    return new InputChannelModel()
         .id(INPUT_CHANNEL_ID)
-        .name("Test input channel")
-        .port(PORT);
-    return new InputChannelModel().id(INPUT_CHANNEL_ID).channel(channelModel).decoder(DecoderFixture.getDecoderModel());
+        .channel(channelModel)
+        .decoder(DecoderFixture.getDecoderModel());
   }
 
   public static OutputChannelModel getOutputChannelModel() {
-    ChannelModel channelModel = new ChannelModel()
+    ChannelModel channelModel =
+        new ChannelModel().id(OUTPUT_CHANNEL_ID).name("Test output channel").port(PORT);
+    return new OutputChannelModel()
         .id(OUTPUT_CHANNEL_ID)
-        .name("Test output channel")
-        .port(PORT);
-    return new OutputChannelModel().id(OUTPUT_CHANNEL_ID).channel(channelModel).encoder(EncoderFixture.getEncoderModel());
+        .channel(channelModel)
+        .encoder(EncoderFixture.getEncoderModel());
   }
 
   public static Set<InputChannelEntity> getInputChannelEntities() {
