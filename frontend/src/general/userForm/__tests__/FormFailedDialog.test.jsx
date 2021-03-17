@@ -34,6 +34,7 @@ describe("<FormFailedDialog/> class component", () => {
 
   afterEach(() => {
     jest.clearAllMocks();
+    wrapper.unmount();
   });
 
   describe("render()", () => {

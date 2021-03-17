@@ -1,4 +1,4 @@
-import { describe, expect, it, jest } from "@jest/globals";
+import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import React from "react";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
@@ -8,20 +8,27 @@ import FormConsole from "../FormConsole";
 Enzyme.configure({ adapter: new Adapter() });
 
 describe("<FormConsole/> class component", () => {
+  let wrapper;
   const mockHandleSubmit = jest.fn();
   const dummyValues = {
     handleSubmit: mockHandleSubmit,
     buttonName: "Create"
   };
 
-  const wrapper = Enzyme.shallow(
-    <FormConsole
-      handleSubmit={dummyValues.handleSubmit}
-      buttonName={dummyValues.buttonName}
-      isValidate
-      isCreateUser
-    />
-  );
+  beforeEach(() => {
+    wrapper = Enzyme.shallow(
+      <FormConsole
+        handleSubmit={dummyValues.handleSubmit}
+        buttonName={dummyValues.buttonName}
+        isValidate
+        isCreateUser
+      />
+    );
+  });
+
+  afterEach(() => {
+    wrapper.unmount();
+  });
 
   describe("render()", () => {
     it("should have 1 <Container/>, 2 <TextFields/> and 1 <Button/>", () => {

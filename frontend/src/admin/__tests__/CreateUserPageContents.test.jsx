@@ -1,7 +1,7 @@
 import React from "react";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import CreateUserPageContents from "../createUser/CreateUserPageContents";
 import FormConsole from "../../general/userForm/FormConsole";
@@ -30,6 +30,11 @@ describe("<CreateUserPageContents/> class component", () => {
       return mockRefElement;
     });
     wrapper = Enzyme.shallow(<CreateUserPageContents history={mockHistory} />);
+  });
+
+  afterEach(() => {
+    wrapper.unmount();
+    jest.clearAllMocks();
   });
 
   describe("render() returns a component that", () => {
