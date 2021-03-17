@@ -14,7 +14,7 @@ describe("<FormConsole/> class component", () => {
     buttonName: "Create"
   };
 
-  const wrapper = Enzyme.mount(
+  const wrapper = Enzyme.shallow(
     <FormConsole
       handleSubmit={dummyValues.handleSubmit}
       buttonName={dummyValues.buttonName}
@@ -37,7 +37,7 @@ describe("<FormConsole/> class component", () => {
     });
 
     it("if isValidate prop is true, it should have the form's noValidate to true", () => {
-      const wrapperIsValidate = Enzyme.mount(
+      const wrapperIsValidate = Enzyme.shallow(
         <FormConsole
           handleSubmit={dummyValues.handleSubmit}
           buttonName={dummyValues.buttonName}
@@ -49,7 +49,7 @@ describe("<FormConsole/> class component", () => {
     });
 
     describe("if isCreateUser prop is true, password <TextField/> should have error, inputProps and helperText props", () => {
-      const wrapperIsCreate = Enzyme.mount(
+      const wrapperIsCreate = Enzyme.shallow(
         <FormConsole
           handleSubmit={dummyValues.handleSubmit}
           buttonName={dummyValues.buttonName}
