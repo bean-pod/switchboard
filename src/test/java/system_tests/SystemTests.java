@@ -170,7 +170,7 @@ public class SystemTests{
   @Test
   @Order(3)
   void testCreateStream() {
-    driver.get("http://localhost:3000/Streaming/New");
+    driver.get("http://localhost:3000/Streams/New");
     {
       WebDriverWait wait = new WebDriverWait(driver, 100);
       wait.until(
@@ -220,15 +220,15 @@ public class SystemTests{
     driver.findElement(By.cssSelector(".MuiMenuItem-root")).click();
     driver.findElement(By.cssSelector(".buttonText")).click();
 
-    driver.get("http://localhost:3000/Streaming");
+    driver.get("http://localhost:3000/Streams");
 
     // Check for stream creation
-    WebElement streamsTable = driver.findElement(By.tagName("table")); // find streams table
-
     {
       WebDriverWait wait = new WebDriverWait(driver, 5);
-      wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName("td")));
+      wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName("table")));
     }
+
+    WebElement streamsTable = driver.findElement(By.tagName("table")); // find streams table
 
     List<WebElement> devicesRows =
         streamsTable.findElements(By.tagName("td")); // find all td elements inside found table
@@ -240,14 +240,18 @@ public class SystemTests{
   @Test
   @Order(4)
   void testDeleteStream() {
-    driver.get("http://localhost:3000/Streaming");
-    driver.findElement(By.cssSelector(".MuiTableRow-root:nth-child(1) > .MuiTableCell-root > .MuiButtonBase-root > .MuiIconButton-label path")).click();
+    driver.get("http://localhost:3000/Streams");
+
+    driver.findElement(By.cssSelector(".MuiTableRow-root:nth-child(1) a path")).click();
+    driver.findElement(By.cssSelector(".MuiButton-label")).click();
     driver.findElement(By.cssSelector(".MuiButton-textSecondary > .MuiButton-label")).click();
+
+    driver.navigate().refresh();
 
     // Check for stream deletion
     {
       WebDriverWait wait = new WebDriverWait(driver, 5);
-      wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName("td")));
+      wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName("table")));
     }
 
     WebElement streamsTable = driver.findElement(By.tagName("table")); // find streams table
