@@ -47,7 +47,7 @@ describe("<Dialog/> Class Component", () => {
           {testBody}
         </Dialog>
       );
-      expect(wrapperisError.find(DialogTitle).hasClass("red")).toBe(true);
+      expect(wrapperisError.find(DialogTitle).hasClass("warningText")).toBe(true);
     });
   });
 

@@ -46,7 +46,7 @@ export default class Dialog extends React.Component {
         aria-describedby="dialog-description"
         id="dialog"
       >
-        <DialogTitle className={isError ? "red" : undefined}>
+        <DialogTitle className={isError ? "warningText" : undefined}>
           {title}
         </DialogTitle>
         <DialogBody>{children}</DialogBody>
