@@ -36,7 +36,7 @@ export default class Dialog extends React.Component {
       onClick: this.closeDialog
     };
 
-    const { title, actionButton, children, noCancel } = this.props;
+    const { title, actionButton, children, noCancel, isError } = this.props;
     const { open } = this.state;
     return (
       <MuiDialog
@@ -46,7 +46,9 @@ export default class Dialog extends React.Component {
         aria-describedby="dialog-description"
         id="dialog"
       >
-        <DialogTitle>{title}</DialogTitle>
+        <DialogTitle className={isError ? "red" : undefined}>
+          {title}
+        </DialogTitle>
         <DialogBody>{children}</DialogBody>
         {noCancel ? (
           <DialogSingleButton button={okButton} />
@@ -68,10 +70,12 @@ Dialog.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
   ]).isRequired,
-  noCancel: PropTypes.bool
+  noCancel: PropTypes.bool,
+  isError: PropTypes.bool
 };
 
 Dialog.defaultProps = {
   noCancel: false,
+  isError: false,
   actionButton: undefined
 };

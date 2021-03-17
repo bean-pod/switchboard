@@ -41,6 +41,14 @@ describe("<Dialog/> Class Component", () => {
       expect(wrapperNoCancel.find(DialogBody)).toHaveLength(1);
       expect(wrapperNoCancel.find(DialogSingleButton)).toHaveLength(1);
     });
+    it("if isError prop is true, returns a DialogTitle with red title", () => {
+      const wrapperisError = Enzyme.shallow(
+        <Dialog title={dummyTitle} actionButton={actionButton} isError>
+          {testBody}
+        </Dialog>
+      );
+      expect(wrapperisError.find(DialogTitle).hasClass("red")).toBe(true);
+    });
   });
 
   describe("openDialog() function", () => {
