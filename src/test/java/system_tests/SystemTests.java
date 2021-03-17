@@ -201,6 +201,11 @@ public class SystemTests{
 
     WebElement streamsTable = driver.findElement(By.tagName("table")); // find streams table
 
+    {
+      WebDriverWait wait = new WebDriverWait(driver, 5);
+      wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName("td")));
+    }
+
     List<WebElement> devicesRows =
         streamsTable.findElements(By.tagName("td")); // find all td elements inside found table
     boolean assertValue = devicesRows.stream().anyMatch(data -> data.getText().contains("Online"));
