@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import MuiDialog from "@material-ui/core/Dialog/Dialog";
 import { DialogTitle } from "@material-ui/core";
 import DialogBody from "./DialogBody";
-import DialogSingleButton from "./DialogSingleButton";
 import DialogButtons from "./DialogButtons";
 
 export default class Dialog extends React.Component {
@@ -36,7 +35,7 @@ export default class Dialog extends React.Component {
       onClick: this.closeDialog
     };
 
-    const { title, actionButton, children, noCancel, isError } = this.props;
+    const { title, actionButton, children, isError } = this.props;
     const { open } = this.state;
     return (
       <MuiDialog
@@ -50,8 +49,8 @@ export default class Dialog extends React.Component {
           {title}
         </DialogTitle>
         <DialogBody>{children}</DialogBody>
-        {noCancel ? (
-          <DialogSingleButton button={okButton} />
+        {actionButton === undefined ? (
+          <DialogButtons button1={okButton} />
         ) : (
           <DialogButtons button1={cancelButton} button2={actionButton} />
         )}
@@ -70,12 +69,10 @@ Dialog.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
   ]).isRequired,
-  noCancel: PropTypes.bool,
   isError: PropTypes.bool
 };
 
 Dialog.defaultProps = {
-  noCancel: false,
   isError: false,
   actionButton: undefined
 };

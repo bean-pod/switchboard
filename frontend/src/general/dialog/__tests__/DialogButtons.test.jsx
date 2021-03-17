@@ -24,17 +24,37 @@ describe("<DialogButtons/> Class Component", () => {
     onClick
   };
 
-  const wrapper = Enzyme.shallow(
-    <DialogButtons button1={dummyButton1} button2={dummyButton2} />
-  );
   describe("render() function", () => {
-    it("returns a component that contains the right elements", () => {
-      expect(wrapper.find(MuiDialogActions)).toHaveLength(1);
+    describe("if button2 prop defaults to undefined aka there is no actionButton", () => {
+      const wrapperOneButton = Enzyme.shallow(
+        <DialogButtons button1={dummyButton1} />
+      );
+      it("only renders one <Button/> component", () => {
+        expect(wrapperOneButton.find(MuiDialogActions)).toHaveLength(1);
+        const button = wrapperOneButton.find(Button);
 
-      const buttons = wrapper.find(Button);
-      expect(buttons).toHaveLength(2);
-      expect(buttons.first().text()).toBe(name1);
-      expect(buttons.last().text()).toBe(name2);
+        expect(button).toHaveLength(1);
+
+        expect(button.text()).toBe(name1);
+        expect(button.props().onClick).toBe(dummyButton1.onClick);
+      });
+    });
+    describe("if button2 prop is defined aka there is an actionButton", () => {
+      const wrapperTwoButtons = Enzyme.shallow(
+        <DialogButtons button1={dummyButton1} button2={dummyButton2} />
+      );
+      it("returns 2 <Button/> components", () => {
+        expect(wrapperTwoButtons.find(MuiDialogActions)).toHaveLength(1);
+        const buttons = wrapperTwoButtons.find(Button);
+
+        expect(buttons).toHaveLength(2);
+
+        expect(buttons.first().text()).toBe(name1);
+        expect(buttons.first().props().onClick).toBe(dummyButton1.onClick);
+
+        expect(buttons.last().text()).toBe(name2);
+        expect(buttons.last().props().onClick).toBe(dummyButton2.onClick);
+      });
     });
   });
 });

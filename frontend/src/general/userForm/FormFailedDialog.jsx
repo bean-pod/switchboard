@@ -18,7 +18,7 @@ export default class FormFailedDialog extends React.Component {
     const { title, errorMessage } = this.props;
 
     return (
-      <Dialog ref={this.dialogElement} title={title} noCancel isError>
+      <Dialog ref={this.dialogElement} title={title} isError>
         {errorMessage}
       </Dialog>
     );

@@ -1,22 +1,23 @@
 import React from "react";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import { describe, expect } from "@jest/globals";
+import { describe, expect, it } from "@jest/globals";
 
 import MuiDialog from "@material-ui/core/Dialog/Dialog";
 import { DialogTitle } from "@material-ui/core";
 import Dialog from "../Dialog";
 import DialogBody from "../DialogBody";
 import DialogButtons from "../DialogButtons";
-import DialogSingleButton from "../DialogSingleButton";
 
 Enzyme.configure({ adapter: new Adapter() });
 
 describe("<Dialog/> Class Component", () => {
   const testBody = "testString";
   const dummyTitle = "testString";
+
   const onClick = () => {};
   const actionButton = { name: "name1", onClick };
+
   const wrapper = Enzyme.shallow(
     <Dialog title={dummyTitle} actionButton={actionButton}>
       {testBody}
@@ -24,34 +25,38 @@ describe("<Dialog/> Class Component", () => {
   );
 
   describe("render() function", () => {
-    describe("renders a component with the expected elements", () => {
-      it("if noCancel prop is default to false, returns a component that contains the right elements", () => {
-        expect(wrapper.find(MuiDialog)).toHaveLength(1);
-        expect(wrapper.find(DialogTitle)).toHaveLength(1);
-        expect(wrapper.find(DialogBody)).toHaveLength(1);
-        expect(wrapper.find(DialogButtons)).toHaveLength(1);
+    it("returns a component that contains the right elements", () => {
+      expect(wrapper.find(MuiDialog)).toHaveLength(1);
+      expect(wrapper.find(DialogTitle)).toHaveLength(1);
+      expect(wrapper.find(DialogBody)).toHaveLength(1);
+      expect(wrapper.find(DialogButtons)).toHaveLength(1);
+    });
+    describe("if an actionButton is passed as a prop", () => {
+      it("button2 prop should be passed with the actionButton", () => {
+        const dialogButtonsComponent = wrapper.find(DialogButtons);
+        expect(dialogButtonsComponent.props().button2).toBe(actionButton);
       });
-      it("if noCancel prop is true, returns a component that contains the right elements", () => {
-        const wrapperNoCancel = Enzyme.shallow(
-          <Dialog title={dummyTitle} actionButton={actionButton} noCancel>
-            {testBody}
-          </Dialog>
+    });
+    describe("if no actionButton is passed as a prop", () => {
+      const wrapperNoActionButton = Enzyme.shallow(
+        <Dialog title={dummyTitle}>{testBody}</Dialog>
+      );
+      it("button2 prop should be undefined", () => {
+        const dialogButtonsComponent = wrapperNoActionButton.find(
+          DialogButtons
         );
-        expect(wrapperNoCancel.find(MuiDialog)).toHaveLength(1);
-        expect(wrapperNoCancel.find(DialogTitle)).toHaveLength(1);
-        expect(wrapperNoCancel.find(DialogBody)).toHaveLength(1);
-        expect(wrapperNoCancel.find(DialogSingleButton)).toHaveLength(1);
+        expect(dialogButtonsComponent.props().button2).toBe(undefined);
       });
-      it("if isError prop is true, returns a DialogTitle with red title", () => {
-        const wrapperisError = Enzyme.shallow(
-          <Dialog title={dummyTitle} actionButton={actionButton} isError>
-            {testBody}
-          </Dialog>
-        );
-        expect(wrapperisError.find(DialogTitle).hasClass("warningText")).toBe(
-          true
-        );
-      });
+    });
+    it("if isError prop is true, returns a DialogTitle with red title", () => {
+      const wrapperisError = Enzyme.shallow(
+        <Dialog title={dummyTitle} actionButton={actionButton} isError>
+          {testBody}
+        </Dialog>
+      );
+      expect(wrapperisError.find(DialogTitle).hasClass("warningText")).toBe(
+        true
+      );
     });
   });
 

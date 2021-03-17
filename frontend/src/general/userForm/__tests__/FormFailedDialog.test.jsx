@@ -43,7 +43,6 @@ describe("<FormFailedDialog/> class component", () => {
       const formDialogProps = wrapper.find(Dialog).props();
 
       expect(formDialogProps.title).toEqual(dummyValues.title);
-      expect(formDialogProps.noCancel).toBe(true);
       expect(formDialogProps.isError).toBe(true);
     });
 
