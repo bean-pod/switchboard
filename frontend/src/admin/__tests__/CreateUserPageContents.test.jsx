@@ -69,7 +69,7 @@ describe("<CreateUserPageContents/> class component", () => {
     const someUsername = "username";
     const somePassword = "password";
     describe("when createUser resolves", () => {
-      it("Calls createUser and redirects to Admin", async () => {
+      it("Calls createUser and redirects to Home", async () => {
         UserManagementApi.createUser.mockResolvedValue();
 
         wrapper.instance().handleSubmit(someUsername, somePassword);
@@ -80,7 +80,7 @@ describe("<CreateUserPageContents/> class component", () => {
           username: someUsername,
           password: somePassword
         });
-        expect(mockHistory.push).toHaveBeenCalledWith("/Admin");
+        expect(mockHistory.push).toHaveBeenCalledWith("/Home");
         expect(mockHistory.go).toHaveBeenCalledWith(0);
       });
     });

@@ -21,7 +21,7 @@ export default class CreateUserPageContents extends React.Component {
     const { history } = this.props;
     createUser({ username, password })
       .then(() => {
-        history.push("/Admin");
+        history.push("/Home");
         history.go(0);
       })
       .catch((error) => {
