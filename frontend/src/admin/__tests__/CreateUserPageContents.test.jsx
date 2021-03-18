@@ -64,7 +64,9 @@ describe("<CreateUserPageContents/> class component", () => {
       const FormFailedDialogProps = wrapper.find(FormFailedDialog).props();
 
       expect(FormFailedDialogProps.title).toEqual("Failed to create user");
-      expect(FormFailedDialogProps.errorMessage).toEqual("");
+      expect(FormFailedDialogProps.errorMessage).toEqual(
+        wrapper.state().dialogMessage
+      );
     });
   });
 
@@ -109,7 +111,7 @@ describe("<CreateUserPageContents/> class component", () => {
     });
 
     describe("when createUser() rejects", () => {
-      it("Calls openDialog()", async () => {
+      it("Calls openDialog() and changes the state dialogMessage to the error message", async () => {
         const someErrorMessage = "errorMessage";
         UserManagementApi.createUser.mockRejectedValue({
           message: someErrorMessage
@@ -119,6 +121,8 @@ describe("<CreateUserPageContents/> class component", () => {
 
         const flushPromises = () => new Promise(setImmediate);
         await flushPromises();
+
+        expect(mockOpenDialog).toHaveBeenCalled();
 
         expect(wrapper.state()).toEqual({
           dialogMessage: someErrorMessage
