@@ -56,7 +56,7 @@ describe("<Dialog/> Class Component", () => {
           DialogButtons
         );
 
-        expect(dialogButtonsComponent.props().button2).toBe(undefined);
+        expect(dialogButtonsComponent.props().button2).toBeUndefined();
 
         wrapperNoActionButton.unmount();
       });
