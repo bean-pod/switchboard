@@ -60,18 +60,30 @@ describe("<FormConsole/> class component", () => {
       );
 
       expect(wrapperIsValidate.find("form").prop("noValidate")).toBe(false);
+
+      wrapperIsValidate.unmount();
     });
 
     describe("if isCreateUser prop is true, password <TextField/> should have error, inputProps and helperText props", () => {
-      const wrapperIsCreate = Enzyme.shallow(
-        <FormConsole
-          handleSubmit={dummyValues.handleSubmit}
-          buttonName={dummyValues.buttonName}
-          isCreateUser
-        />
-      );
-      const textField = wrapperIsCreate.find(TextField).at(1);
-      const passwordState = wrapperIsCreate.state().password;
+      let wrapperIsCreate;
+      let textField;
+      let passwordState;
+
+      beforeEach(() => {
+        wrapperIsCreate = Enzyme.shallow(
+          <FormConsole
+            handleSubmit={dummyValues.handleSubmit}
+            buttonName={dummyValues.buttonName}
+            isCreateUser
+          />
+        );
+        textField = wrapperIsCreate.find(TextField).at(1);
+        passwordState = wrapperIsCreate.state().password;
+      });
+
+      afterEach(() => {
+        wrapperIsCreate.unmount();
+      });
 
       it("error should be passed password.length < 5 && password.length > 0", () => {
         expect(textField.prop("error")).toBe(
