@@ -50,7 +50,7 @@ describe("<Dialog/> Class Component", () => {
       const wrapperNoActionButton = Enzyme.shallow(
         <Dialog title={dummyTitle}>{testBody}</Dialog>
       );
-
+      
       it("button2 prop should be undefined", () => {
         const dialogButtonsComponent = wrapperNoActionButton.find(
           DialogButtons
@@ -64,7 +64,7 @@ describe("<Dialog/> Class Component", () => {
 
     it("if isError prop is true, returns a DialogTitle with red title", () => {
       const wrapperisError = Enzyme.shallow(
-        <Dialog title={dummyTitle} actionButton={actionButton} isError>
+        <Dialog title={dummyTitle} isError>
           {testBody}
         </Dialog>
       );
