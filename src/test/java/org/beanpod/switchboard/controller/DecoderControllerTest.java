@@ -119,6 +119,7 @@ class DecoderControllerTest {
           decoderController.createDecoder(decoderDto);
         });
   }
+
   // When a device is available in the DB
   @Test
   final void testCreateDecoderAlreadyExists() {

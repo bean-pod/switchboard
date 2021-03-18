@@ -8,6 +8,10 @@ import org.springframework.stereotype.Component;
 @Getter
 public class SecurityProperties {
 
+  public static final String AUTHORIZATION_HEADER_STRING = "Authorization";
+  public static final String BEARER_TOKEN_PREFIX = "Bearer ";
+  public static final String BASIC_AUTHENTICATION_PREFIX = "Basic ";
+
   @Value("${security.authentication.jwt.expirationtime}")
   private long expirationTime = 86_400_000; // 1 day
 
@@ -22,10 +26,4 @@ public class SecurityProperties {
 
   @Value("${security.authentication.superuser.password}")
   private String superuserPassword;
-
-  public static final String AUTHORIZATION_HEADER_STRING = "Authorization";
-
-  public static final String BEARER_TOKEN_PREFIX = "Bearer ";
-
-  public static final String BASIC_AUTHENTICATION_PREFIX = "Basic ";
 }

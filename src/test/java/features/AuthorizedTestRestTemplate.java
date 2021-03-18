@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 @RequiredArgsConstructor
 @Configuration
 public class AuthorizedTestRestTemplate {
+
   private final String baseUrl = "http://127.0.0.1:8080";
   private final SecurityProperties securityProperties;
   private String token = null;

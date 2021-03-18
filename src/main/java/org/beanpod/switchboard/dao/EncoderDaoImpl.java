@@ -19,7 +19,7 @@ public class EncoderDaoImpl {
   public EncoderDto save(EncoderDto encoder) {
     Optional<EncoderDto> encoderDto = findEncoder(encoder.getSerialNumber());
 
-    if(!encoderDto.isEmpty()){
+    if (!encoderDto.isEmpty()) {
       encoderMapper.updateEncoderFromDto(encoder, encoderDto.orElse(encoder));
     }
     return encoderMapper.toEncoderDto(
