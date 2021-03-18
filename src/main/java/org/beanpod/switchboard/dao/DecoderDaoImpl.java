@@ -3,6 +3,7 @@ package org.beanpod.switchboard.dao;
 import java.util.List;
 import java.util.Optional;
 import org.beanpod.switchboard.dto.DecoderDto;
+import org.beanpod.switchboard.dto.EncoderDto;
 import org.beanpod.switchboard.dto.mapper.DecoderMapper;
 import org.beanpod.switchboard.entity.DecoderEntity;
 import org.beanpod.switchboard.repository.DecoderRepository;
@@ -29,9 +30,13 @@ public class DecoderDaoImpl {
         .map(decoderMapper::toDecoderDto);
   }
 
-  public DecoderDto save(DecoderDto decoderDto) {
+  public DecoderDto save(DecoderDto decoder) {
+    Optional<DecoderDto> decoderDto = findDecoder(decoder.getSerialNumber());
+    if(!decoderDto.isEmpty()){
+      decoderMapper.updateDecoderFromDto(decoder, decoderDto.orElse(decoder));
+    }
     return decoderMapper.toDecoderDto(
-        decoderRepository.save(decoderMapper.toDecoderEntity(decoderDto)));
+        decoderRepository.save(decoderMapper.toDecoderEntity(decoderDto.orElse(decoder))));
   }
 
   public Long deleteDecoder(String serialNumber) {

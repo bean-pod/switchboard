@@ -16,9 +16,14 @@ public class EncoderDaoImpl {
   private final EncoderRepository encoderRepository;
   private final EncoderMapper encoderMapper;
 
-  public EncoderDto save(EncoderDto encoderDto) {
+  public EncoderDto save(EncoderDto encoder) {
+    Optional<EncoderDto> encoderDto = findEncoder(encoder.getSerialNumber());
+
+    if(!encoderDto.isEmpty()){
+      encoderMapper.updateEncoderFromDto(encoder, encoderDto.orElse(encoder));
+    }
     return encoderMapper.toEncoderDto(
-        encoderRepository.save(encoderMapper.toEncoderEntity(encoderDto)));
+        encoderRepository.save(encoderMapper.toEncoderEntity(encoderDto.orElse(encoder))));
   }
 
   public Optional<EncoderDto> findEncoder(String serialNumber) {
