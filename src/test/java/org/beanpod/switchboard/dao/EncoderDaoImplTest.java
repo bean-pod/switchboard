@@ -52,8 +52,8 @@ class EncoderDaoImplTest {
   }
 
   @Test
-  final void testSaveIfNotEmpty(){
-    EncoderDaoImpl encoderDaoImp = new EncoderDaoImpl(encoderRepository,encoderMapper);
+  final void testSaveIfNotEmpty() {
+    EncoderDaoImpl encoderDaoImp = new EncoderDaoImpl(encoderRepository, encoderMapper);
     EncoderDaoImpl encoderDaoImp1 = Mockito.spy(encoderDaoImp);
     Mockito.doReturn(Optional.of(encoderDto)).when(encoderDaoImp1).findEncoder(any());
     when(encoderDaoImp.findEncoder(any())).thenReturn(Optional.of(encoderDto));
@@ -63,7 +63,6 @@ class EncoderDaoImplTest {
     EncoderDto encoderDTO = encoderDaoImp1.save(encoderDto);
     assertEquals(encoderDTO, encoderDto);
   }
-
 
   @Test
   final void testFindEncoder() {

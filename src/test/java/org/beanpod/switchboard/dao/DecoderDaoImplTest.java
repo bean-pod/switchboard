@@ -50,9 +50,10 @@ class DecoderDaoImplTest {
     DecoderDto decoderDTO = decoderDaoImpl.save(decoderDto);
     assertEquals(decoderDTO, decoderDto);
   }
+
   @Test
-  final void testSaveIfNotEmpty(){
-    DecoderDaoImpl decoderDaoImp = new DecoderDaoImpl(decoderRepository,decoderMapper);
+  final void testSaveIfNotEmpty() {
+    DecoderDaoImpl decoderDaoImp = new DecoderDaoImpl(decoderRepository, decoderMapper);
     DecoderDaoImpl decoderDaoImp1 = Mockito.spy(decoderDaoImp);
     Mockito.doReturn(Optional.of(decoderDto)).when(decoderDaoImp1).findDecoder(any());
     when(decoderDaoImp.findDecoder(any())).thenReturn(Optional.of(decoderDto));
