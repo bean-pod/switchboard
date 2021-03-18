@@ -106,6 +106,14 @@ describe("<FormConsole/> class component", () => {
     });
   });
 
+  describe("form tag onSubmit", () => {
+    it("should return FormConsole.onSubmit()", () => {
+      expect(wrapper.find("form").prop("onSubmit")).toEqual(
+        wrapper.instance().onSubmit
+      );
+    });
+  });
+
   describe("setUsername() function", () => {
     it("should set the state username", () => {
       const initialUsername = "initialUser";
