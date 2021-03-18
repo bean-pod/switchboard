@@ -17,6 +17,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 class EncoderDaoImplTest {
@@ -49,6 +50,20 @@ class EncoderDaoImplTest {
     EncoderDto encoderDTO = encoderDaoImpl.save(encoderDto);
     assertEquals(encoderDTO, encoderDto);
   }
+
+  @Test
+  final void testSaveIfNotEmpty(){
+    EncoderDaoImpl encoderDaoImp = new EncoderDaoImpl(encoderRepository,encoderMapper);
+    EncoderDaoImpl encoderDaoImp1 = Mockito.spy(encoderDaoImp);
+    Mockito.doReturn(Optional.of(encoderDto)).when(encoderDaoImp1).findEncoder(any());
+    when(encoderDaoImp.findEncoder(any())).thenReturn(Optional.of(encoderDto));
+    when(encoderMapper.toEncoderDto(any())).thenReturn(encoderDto);
+    when(encoderMapper.toEncoderEntity(any())).thenReturn(encoder);
+    when(encoderRepository.save(encoder)).thenReturn(encoder);
+    EncoderDto encoderDTO = encoderDaoImp1.save(encoderDto);
+    assertEquals(encoderDTO, encoderDto);
+  }
+
 
   @Test
   final void testFindEncoder() {
