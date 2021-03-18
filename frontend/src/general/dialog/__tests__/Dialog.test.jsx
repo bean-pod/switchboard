@@ -50,7 +50,7 @@ describe("<Dialog/> Class Component", () => {
       const wrapperNoActionButton = Enzyme.shallow(
         <Dialog title={dummyTitle}>{testBody}</Dialog>
       );
-      
+
       it("button2 prop should be undefined", () => {
         const dialogButtonsComponent = wrapperNoActionButton.find(
           DialogButtons
