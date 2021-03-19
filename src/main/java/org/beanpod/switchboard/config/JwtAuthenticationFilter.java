@@ -1,9 +1,11 @@
 package org.beanpod.switchboard.config;
 
 import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
+import static org.beanpod.switchboard.config.SecurityProperties.AUTHENTICATION_URL;
 import static org.beanpod.switchboard.config.SecurityProperties.AUTHORIZATION_HEADER_STRING;
 import static org.beanpod.switchboard.config.SecurityProperties.BASIC_AUTHENTICATION_PREFIX;
 import static org.beanpod.switchboard.config.SecurityProperties.BEARER_TOKEN_PREFIX;
+import static org.beanpod.switchboard.config.SecurityProperties.EXPIRATION_TIME;
 
 import com.auth0.jwt.JWT;
 import java.nio.charset.StandardCharsets;
@@ -29,7 +31,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
       AuthenticationManager authenticationManager, SecurityProperties securityProperties) {
     this.authenticationManager = authenticationManager;
     this.securityProperties = securityProperties;
-    setFilterProcessesUrl(securityProperties.getAuthenticationUrl());
+    setFilterProcessesUrl(AUTHENTICATION_URL);
   }
 
   @Override
@@ -65,7 +67,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             .withSubject(username)
             .withClaim("role", userRole)
             .withExpiresAt(
-                new Date(System.currentTimeMillis() + securityProperties.getExpirationTime()))
+                new Date(System.currentTimeMillis() + EXPIRATION_TIME))
             .sign(HMAC512(securityProperties.getSecret().getBytes()));
     response.addHeader(AUTHORIZATION_HEADER_STRING, BEARER_TOKEN_PREFIX + token);
     response.addHeader("Access-Control-Expose-Headers", AUTHORIZATION_HEADER_STRING);

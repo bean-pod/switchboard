@@ -7,10 +7,6 @@ import org.springframework.stereotype.Component;
 @Getter
 public class SecurityProperties {
 
-  private final long expirationTime = 86_400_000; // 1 day
-
-  private final String authenticationUrl = "/login";
-
   private final String secret =
       System.getenv("JWT_SECRET") != null ? System.getenv("JWT_SECRET") : "switchboardsecret";
 
@@ -19,6 +15,10 @@ public class SecurityProperties {
 
   private final String superuserPassword =
       System.getenv("SUPERUSER_PASSWORD") != null ? System.getenv("SUPERUSER_PASSWORD") : "admin";
+
+  public static final long EXPIRATION_TIME = 86_400_000; // 1 day
+
+  public static final String AUTHENTICATION_URL = "/login";
 
   public static final String AUTHORIZATION_HEADER_STRING = "Authorization";
 

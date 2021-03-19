@@ -30,7 +30,6 @@ public class JwtAuthenticationFilterTest {
   @BeforeEach
   public void setup() {
     initMocks(this);
-    when(securityProperties.getAuthenticationUrl()).thenReturn("/login");
     jwtAuthenticationFilter =
         new JwtAuthenticationFilter(authenticationManager, securityProperties);
   }
