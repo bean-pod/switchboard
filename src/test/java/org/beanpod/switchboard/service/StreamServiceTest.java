@@ -5,16 +5,20 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
+import java.util.List;
 import org.beanpod.switchboard.dao.ChannelDaoImpl;
 import org.beanpod.switchboard.dao.StreamDaoImpl;
 import org.beanpod.switchboard.dto.DeviceDto;
 import org.beanpod.switchboard.dto.InputChannelDto;
 import org.beanpod.switchboard.dto.OutputChannelDto;
 import org.beanpod.switchboard.dto.StreamDto;
+import org.beanpod.switchboard.dto.StreamStatDto;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
+import org.beanpod.switchboard.dto.mapper.StreamStatMapper;
 import org.beanpod.switchboard.entity.StreamEntity;
 import org.beanpod.switchboard.fixture.ChannelFixture;
 import org.beanpod.switchboard.fixture.StreamFixture;
+import org.beanpod.switchboard.fixture.StreamStatFixture;
 import org.beanpod.switchboard.util.NetworkingUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,22 +26,24 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.openapitools.model.CreateStreamRequest;
 
-public class StreamServiceTest {
+class StreamServiceTest {
 
   @InjectMocks private StreamServiceImpl streamService;
   @Mock private StreamDaoImpl streamDao;
   @Mock private StreamMapper mapper;
+  @Mock private StreamStatMapper streamStatMapper;
   @Mock private ChannelDaoImpl channelDao;
   @Mock private NetworkingUtil networkingUtil;
 
   @BeforeEach
   public void setup() {
     initMocks(this);
-    streamService = new StreamServiceImpl(streamDao, mapper, channelDao, networkingUtil);
+    streamService =
+        new StreamServiceImpl(streamDao, mapper, streamStatMapper, channelDao, networkingUtil);
   }
 
   @Test
-  public void testCreateStream_DevicesOnSameLocalNetworkAsService() {
+  void testCreateStream_DevicesOnSameLocalNetworkAsService() {
     CreateStreamRequest createStreamRequest = StreamFixture.getCreateStreamRequest();
     InputChannelDto inputChannelDto = ChannelFixture.getInputChannelDto();
     OutputChannelDto outputChannelDto = ChannelFixture.getOutputChannelDto();
@@ -61,7 +67,7 @@ public class StreamServiceTest {
   }
 
   @Test
-  public void testCreateStream_DevicesOnSamePrivateNetwork() {
+  void testCreateStream_DevicesOnSamePrivateNetwork() {
     CreateStreamRequest createStreamRequest = StreamFixture.getCreateStreamRequest();
     InputChannelDto inputChannelDto = ChannelFixture.getInputChannelDto();
     OutputChannelDto outputChannelDto = ChannelFixture.getOutputChannelDto();
@@ -85,7 +91,7 @@ public class StreamServiceTest {
   }
 
   @Test
-  public void testCreateStream_DevicesOnDifferentPrivateNetworks() {
+  void testCreateStream_DevicesOnDifferentPrivateNetworks() {
     CreateStreamRequest createStreamRequest = StreamFixture.getCreateStreamRequest();
     InputChannelDto inputChannelDto = ChannelFixture.getInputChannelDto();
     OutputChannelDto outputChannelDto = ChannelFixture.getOutputChannelDto();
@@ -109,7 +115,23 @@ public class StreamServiceTest {
   }
 
   @Test
-  public void testUpdateStream() {
+  void testGetStreamStats() {
+    List<StreamStatDto> streamStatsDto = StreamStatFixture.getStreamStatDtoList();
+    when(streamDao.getStreamStats()).thenReturn(streamStatsDto);
+    List<StreamStatDto> streamStats = streamService.getStreamStats();
+    assertEquals(streamStats.get(0).getId(), streamStatsDto.get(0).getId());
+  }
+
+  @Test
+  void testGetStreamStat() {
+    when(streamDao.getStreamStat(any()))
+        .thenReturn(java.util.Optional.ofNullable(StreamStatFixture.getStreamStatDto()));
+    StreamStatDto streamStatDto = streamService.getStreamStat(StreamFixture.ID);
+    assertEquals(streamStatDto, StreamStatFixture.getStreamStatDto());
+  }
+
+  @Test
+  void testUpdateStream() {
     // given
     StreamDto streamDto = StreamFixture.getStreamDto();
     StreamEntity streamEntity = StreamFixture.getStreamEntity();
@@ -122,5 +144,13 @@ public class StreamServiceTest {
 
     // then
     assertEquals(streamDto, result);
+  }
+
+  @Test
+  void testUpdateStreamStat() {
+    StreamStatDto streamStat = StreamStatFixture.getStreamStatDto();
+    when(streamDao.updateStreamStat(any())).thenReturn(streamStat);
+    StreamStatDto streamStatDto = streamService.updateStreamStat(streamStat);
+    assertEquals(streamStat.getId(), streamStatDto.getId());
   }
 }

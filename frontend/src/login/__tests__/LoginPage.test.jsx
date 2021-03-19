@@ -12,6 +12,8 @@ Enzyme.configure({ adapter: new Adapter() });
 describe("<LoginPage/> class component", () => {
   let wrapper;
 
+  jest.mock("react-router-dom");
+
   beforeEach(() => {
     wrapper = Enzyme.shallow(<LoginPage />);
   });

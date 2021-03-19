@@ -10,14 +10,9 @@ import LogsTableWrapper from "../LogsTableWrapper";
 Enzyme.configure({ adapter: new Adapter() });
 
 describe("<LogListPage/> functional component", () => {
-  const mockDataSource = {
-    dummyFunction1: () => {}
-  };
-  const wrapper = Enzyme.shallow(
-    <LogListPage logsDataSource={mockDataSource} />
-  );
+  const wrapper = Enzyme.shallow(<LogListPage />);
   describe("returns a component that contains", () => {
-    it("one <Page/> Component", () => {
+    it("one <Page/> Component with expected props", () => {
       const expectedTitle = "Logs";
       const expectedBreadcrumbs = [
         ["Home", "/Home"],

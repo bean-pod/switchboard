@@ -9,6 +9,12 @@ public class ExceptionType {
     throw new IllegalStateException("Utility class");
   }
 
+  public static class MissingChannelsException extends RuntimeException {
+    public MissingChannelsException(String s) {
+      super(SERIAL_NUMBER + s);
+    }
+  }
+
   public static class DeviceAlreadyExistsException extends RuntimeException {
 
     public DeviceAlreadyExistsException(String s) {
@@ -48,6 +54,14 @@ public class ExceptionType {
 
     public UnknownException(String controllerName) {
       super(String.format(MESSAGE_TEMPLATE, controllerName));
+    }
+  }
+
+  public static class CouldNotAuthenticateUserException extends RuntimeException {
+    public static final String MESSAGE = "Could not authenticate the user";
+
+    public CouldNotAuthenticateUserException() {
+      super(MESSAGE);
     }
   }
 }
