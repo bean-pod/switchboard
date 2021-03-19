@@ -1,27 +1,24 @@
 package org.beanpod.switchboard.config;
 
 import lombok.Getter;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 @Getter
 public class SecurityProperties {
 
-  @Value("${security.authentication.jwt.expirationtime}")
-  private long expirationTime = 86_400_000; // 1 day
+  private final long expirationTime = 86_400_000; // 1 day
 
-  @Value("${security.authentication.jwt.secret}")
-  private String secret;
+  private final String authenticationUrl = "/login";
 
-  @Value("${security.authentication.url}")
-  private String authenticationUrl = "/login";
+  private final String secret =
+      System.getenv("JWT_SECRET") != null ? System.getenv("JWT_SECRET") : "switchboardsecret";
 
-  @Value("${security.authentication.superuser.username}")
-  private String superuserUsername;
+  private final String superuserUsername =
+      System.getenv("SUPERUSER_USERNAME") != null ? System.getenv("SUPERUSER_USERNAME") : "admin";
 
-  @Value("${security.authentication.superuser.password}")
-  private String superuserPassword;
+  private final String superuserPassword =
+      System.getenv("SUPERUSER_PASSWORD") != null ? System.getenv("SUPERUSER_PASSWORD") : "admin";
 
   public static final String AUTHORIZATION_HEADER_STRING = "Authorization";
 
