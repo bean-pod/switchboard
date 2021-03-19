@@ -74,7 +74,7 @@ export default function AppRouter() {
           </Route>
         </Switch>
       </BrowserRouter>
-      <SnackbarWrapper/>
+      <SnackbarWrapper />
     </>
   );
 }

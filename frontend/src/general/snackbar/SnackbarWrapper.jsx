@@ -5,7 +5,5 @@ import SnackbarMessage from "./SnackbarMessage";
 export default function SnackbarWrapper() {
   const history = useHistory();
 
-  return (
-    <SnackbarMessage history={history} />
-  );
+  return <SnackbarMessage history={history} />;
 }

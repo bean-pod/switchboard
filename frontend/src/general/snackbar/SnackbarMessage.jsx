@@ -10,7 +10,7 @@ export default class SnackbarMessage extends React.Component {
     super(props);
     this.state = {
       open: false,
-      isSuccess: false, 
+      isSuccess: false,
       status: "",
       message: "",
       pathname: ""
@@ -27,6 +27,17 @@ export default class SnackbarMessage extends React.Component {
 
   componentDidMount() {
     openSnackbarFn = this.openSnackbar;
+  }
+
+  handleClose(event, reason) {
+    const { pathname } = this.state;
+    if (reason === "clickaway") {
+      return;
+    }
+    this.setOpen(false);
+    if (pathname !== "") {
+      this.refresh();
+    }
   }
 
   setOpen(open) {
@@ -58,20 +69,10 @@ export default class SnackbarMessage extends React.Component {
       pathname
     });
   }
-  
-  refresh() {
-    const { history } = this.props;
-    const { pathname } = this.state;
-    if (history.location.pathname.endsWith(pathname)) {
-      history.go(0);
-    } else {
-      history.push(`/${pathname}`);
-    }
-  }
 
   openSnackbar(stat, msg, path) {
     this.setStatus(stat);
-    if (stat != "error") {
+    if (stat !== "error") {
       this.setIsSuccess(true);
     } else {
       this.setIsSuccess(false);
@@ -81,14 +82,13 @@ export default class SnackbarMessage extends React.Component {
     this.setOpen(true);
   }
 
-  handleClose(event, reason) {
+  refresh() {
+    const { history } = this.props;
     const { pathname } = this.state;
-    if (reason === "clickaway") {
-      return;
-    }
-    this.setOpen(false);
-    if (pathname != ""){
-      this.refresh();
+    if (history.location.pathname.endsWith(pathname)) {
+      history.go(0);
+    } else {
+      history.push(`/${pathname}`);
     }
   }
 
@@ -140,7 +140,7 @@ export default class SnackbarMessage extends React.Component {
 
 SnackbarMessage.propTypes = {
   history: PropTypes.func.isRequired
-}
+};
 
 export function snackbar(status, message, pathname = "") {
   openSnackbarFn(status, message, pathname);
