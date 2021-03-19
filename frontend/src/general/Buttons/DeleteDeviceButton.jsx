@@ -8,7 +8,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import PropTypes from "prop-types";
 import { MenuItem } from "@material-ui/core";
 import * as DeviceApi from "../../api/DeviceApi";
-import { snackbar } from "../SnackbarMessage";
+import { snackbar } from "../snackbar/SnackbarMessage";
 
 function renderDeleteButton(openDeleteDialog) {
   return (

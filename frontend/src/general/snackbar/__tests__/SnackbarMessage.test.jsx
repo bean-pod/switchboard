@@ -3,7 +3,6 @@ import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import { afterEach, describe, expect, it, jest } from "@jest/globals";
 import { Snackbar, SnackbarContent } from "@material-ui/core";
-import { useHistory } from "react-router-dom";
 import SnackbarMessage from "../SnackbarMessage";
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -53,7 +52,7 @@ describe("<Snackbar /> Class Component", () => {
   });
 
   describe("render() function", () => {
-    wrapper = Enzyme.shallow(<SnackbarMessage />);
+    wrapper = Enzyme.shallow(<SnackbarMessage history={mockHistory} />);
     describe("returns a component that", () => {
       it("Contains 1 <Snackbar/> component", () => {
         expect(wrapper.find(Snackbar)).toHaveLength(1);
