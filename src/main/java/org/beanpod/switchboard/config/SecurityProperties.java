@@ -18,7 +18,7 @@ public class SecurityProperties {
 
   public static final long EXPIRATION_TIME = 86_400_000; // 1 day
 
-  public static final String AUTHENTICATION_URL = "/login";
+  public static final String AUTHENTICATION_URL = "/auth/token";
 
   public static final String AUTHORIZATION_HEADER_STRING = "Authorization";
 
