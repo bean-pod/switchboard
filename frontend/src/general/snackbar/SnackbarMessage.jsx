@@ -1,11 +1,12 @@
 import React from "react";
-import PropTypes from "prop-types";
+import ReactRouterPropTypes from "react-router-prop-types";
 import { Snackbar, SnackbarContent, IconButton, Box } from "@material-ui/core";
 import { CheckCircle, Error, Close } from "@material-ui/icons";
+import { withRouter } from "react-router";
 
 let openSnackbarFn;
 
-export default class SnackbarMessage extends React.Component {
+class SnackbarMessage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -83,9 +84,9 @@ export default class SnackbarMessage extends React.Component {
   }
 
   refresh() {
-    const { history } = this.props;
+    const { history, location } = this.props;
     const { pathname } = this.state;
-    if (history.location.pathname.endsWith(pathname)) {
+    if (location.pathname.endsWith(pathname)) {
       history.go(0);
     } else {
       history.push(`/${pathname}`);
@@ -139,9 +140,12 @@ export default class SnackbarMessage extends React.Component {
 }
 
 SnackbarMessage.propTypes = {
-  history: PropTypes.func.isRequired
+  history: ReactRouterPropTypes.history.isRequired,
+  location: ReactRouterPropTypes.location.isRequired
 };
 
 export function snackbar(status, message, pathname = "") {
   openSnackbarFn(status, message, pathname);
 }
+
+export default withRouter(SnackbarMessage);
