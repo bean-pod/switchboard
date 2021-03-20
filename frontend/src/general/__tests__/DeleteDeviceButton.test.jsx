@@ -14,7 +14,7 @@ import { afterEach, describe, expect, jest, it } from "@jest/globals";
 import axios from "axios";
 
 import DeleteDeviceButton from "../Buttons/DeleteDeviceButton";
-import * as SnackbarMessage from "../snackbar/SnackbarMessage";
+import * as SnackbarMessage from "../SnackbarMessage";
 
 Enzyme.configure({ adapter: new Adapter() });
 jest.mock("axios");

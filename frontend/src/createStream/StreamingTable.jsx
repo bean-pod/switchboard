@@ -2,7 +2,7 @@ import React from "react";
 import { Grid } from "@material-ui/core";
 import SelectDevicesTable from "./SelectDevicesTable";
 import StreamButton from "../general/Buttons/StreamButton";
-import { snackbar } from "../general/snackbar/SnackbarMessage";
+import { snackbar } from "../general/SnackbarMessage";
 
 import * as DeviceApi from "../api/DeviceApi";
 import { createStream } from "../api/StreamApi";

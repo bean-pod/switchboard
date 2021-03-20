@@ -12,7 +12,7 @@ import CreateStreamPage from "../createStream/CreateStreamPage";
 import LogListPage from "../loglist/LogListPage";
 import StreamDetailsPage from "../streamDetails/StreamDetailsPage";
 import PathNotFoundPage from "../general/PathNotFoundPage";
-import SnackbarMessage from "../general/snackbar/SnackbarMessage";
+import SnackbarMessage from "../general/SnackbarMessage";
 
 export default function AppRouter() {
   return (
