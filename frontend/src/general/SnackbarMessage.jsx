@@ -113,12 +113,13 @@ class SnackbarMessage extends React.Component {
             style={{
               backgroundColor: isSuccess ? "#4caf50" : "#f44336"
             }}
-            // prettier-ignore
             message={(
-              <Box id='message-id' className="snackMessage">
-                {isSuccess ? 
-                  <CheckCircle className="iconPadding" /> : 
-                  <Error className="iconPadding" />}
+              <Box id="message-id" className="snackMessage">
+                {isSuccess ? (
+                  <CheckCircle className="iconPadding" />
+                ) : (
+                  <Error className="iconPadding" />
+                )}
                 {message || `Form submission status: ${status}`}
               </Box>
             )}

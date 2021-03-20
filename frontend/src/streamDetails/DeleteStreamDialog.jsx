@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 import Dialog from "../general/dialog/Dialog";
 import { deleteStream } from "../api/StreamApi";
+import { snackbar } from "../general/SnackbarMessage";
 
 export default class DeleteStreamDialog extends React.Component {
   constructor(props) {
@@ -15,14 +16,18 @@ export default class DeleteStreamDialog extends React.Component {
   }
 
   afterDelete() {
-    const { history } = this.props;
+    const { deleteId } = this.props;
     this.dialogElement.current.closeDialog();
-    history.push("/Streams");
+    snackbar("success", `Stream ${deleteId} successfully deleted`, "Streams");
   }
 
   confirmDelete() {
     const { deleteId } = this.props;
-    deleteStream(deleteId).then(this.afterDelete);
+    deleteStream(deleteId)
+      .then(this.afterDelete)
+      .catch(() => {
+        snackbar("error", `Failed to delete stream ${deleteId}`);
+      });
   }
 
   // used by Summoner to summon
@@ -53,9 +58,5 @@ export default class DeleteStreamDialog extends React.Component {
 }
 
 DeleteStreamDialog.propTypes = {
-  deleteId: PropTypes.number.isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-    go: PropTypes.func.isRequired
-  }).isRequired
+  deleteId: PropTypes.number.isRequired
 };

@@ -53,8 +53,7 @@ export default function DeleteDeviceButton(props) {
       .catch(() => {
         snackbar(
           "error",
-          `Could not delete device (Serial Number: ${deleteId})`,
-          "Devices"
+          `Could not delete device (Serial Number: ${deleteId})`
         );
       });
     return setOpen(false);

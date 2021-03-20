@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import * as DeviceApi from "../api/DeviceApi";
 import EditableName from "./EditableName";
 import StaticName from "./StaticName";
+import { snackbar } from "../general/SnackbarMessage";
 
 export default class DeviceName extends React.Component {
   constructor(props) {
@@ -41,11 +42,20 @@ export default class DeviceName extends React.Component {
     this.deviceName = newName;
     this.setState({ editing: false });
 
-    DeviceApi.updateDeviceName(this.deviceId, newName).catch(() => {
-      // If update was unsuccessful, return to the old name
-      this.deviceName = oldName;
-      this.forceUpdate();
-    });
+    DeviceApi.updateDeviceName(this.deviceId, newName)
+      .then(() => {
+        snackbar(
+          "success",
+          `Device successfully renamed to ${newName}`,
+          `Devices/Details/${this.deviceId}`
+        );
+      })
+      .catch(() => {
+        // If update was unsuccessful, return to the old name
+        this.deviceName = oldName;
+        this.forceUpdate();
+        snackbar("error", `Failed to rename device`);
+      });
   }
 
   render() {

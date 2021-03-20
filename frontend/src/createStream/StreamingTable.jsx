@@ -51,7 +51,7 @@ export default class StreamingTable extends React.Component {
         .then(() => {
           snackbar(
             "success",
-            `Stream successful between Sender ${selectedSenderID} and Receiver ${selectedReceiverID}!`
+            `Stream successful between Sender ${selectedSenderID} and Receiver ${selectedReceiverID}`
           );
         })
         .catch(() => {

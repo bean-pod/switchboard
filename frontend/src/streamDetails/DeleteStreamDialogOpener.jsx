@@ -19,7 +19,7 @@ class DeleteStreamDialogOpener extends React.Component {
   }
 
   render() {
-    const { deleteId, history } = this.props;
+    const { deleteId } = this.props;
     return (
       <>
         <Tooltip title="Delete Stream" aria-label="delete stream">
@@ -32,11 +32,7 @@ class DeleteStreamDialogOpener extends React.Component {
             Delete
           </Button>
         </Tooltip>
-        <DeleteStreamDialog
-          ref={this.dialogElement}
-          deleteId={deleteId}
-          history={history}
-        />
+        <DeleteStreamDialog ref={this.dialogElement} deleteId={deleteId} />
       </>
     );
   }
@@ -45,9 +41,5 @@ class DeleteStreamDialogOpener extends React.Component {
 export default withRouter(DeleteStreamDialogOpener);
 
 DeleteStreamDialogOpener.propTypes = {
-  deleteId: PropTypes.number.isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-    go: PropTypes.func.isRequired
-  }).isRequired
+  deleteId: PropTypes.number.isRequired
 };
