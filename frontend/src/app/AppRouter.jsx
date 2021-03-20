@@ -73,8 +73,8 @@ export default function AppRouter() {
             <PathNotFoundPage />
           </Route>
         </Switch>
+        <SnackbarMessage />
       </BrowserRouter>
-      <SnackbarMessage />
     </>
   );
 }
