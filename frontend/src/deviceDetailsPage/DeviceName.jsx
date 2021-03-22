@@ -47,7 +47,7 @@ export default class DeviceName extends React.Component {
         snackbar(
           "success",
           `Device successfully renamed to ${newName}`,
-          `Devices/Details/${this.deviceId}`
+          "Devices"
         );
       })
       .catch(() => {
