@@ -106,20 +106,19 @@ class SnackbarMessage extends React.Component {
             horizontal: "right"
           }}
           open={open}
-          autoHideDuration={6000}
+          autoHideDuration={3000}
           onClose={this.handleClose}
         >
           <SnackbarContent
             style={{
               backgroundColor: isSuccess ? "#4caf50" : "#f44336"
             }}
+            // prettier-ignore
             message={(
-              <Box id="message-id" className="snackMessage">
-                {isSuccess ? (
-                  <CheckCircle className="iconPadding" />
-                ) : (
-                  <Error className="iconPadding" />
-                )}
+              <Box id='message-id' className="snackMessage">
+                {isSuccess ? 
+                  <CheckCircle className="iconPadding" /> : 
+                  <Error className="iconPadding" />}
                 {message || `Form submission status: ${status}`}
               </Box>
             )}
