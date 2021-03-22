@@ -61,7 +61,6 @@ export default class CreateUserPageContents extends React.Component {
 
 CreateUserPageContents.propTypes = {
   history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-    go: PropTypes.func.isRequired
+    push: PropTypes.func.isRequired
   }).isRequired
 };
