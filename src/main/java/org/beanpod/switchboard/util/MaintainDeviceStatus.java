@@ -54,6 +54,9 @@ public class MaintainDeviceStatus {
 
         updatedDevices.add(encoderOrDecoder.getDevice());
       }
+      else{
+        updatedDevices.add(encoderOrDecoder.getDevice());
+      }
     }
 
     return updatedDevices;
