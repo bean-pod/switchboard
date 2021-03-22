@@ -51,7 +51,6 @@ export default class CreateUserPageContents extends React.Component {
         />
         <FormFailedDialog
           ref={this.dialogElement}
-          title="Failed to create user"
           errorMessage={dialogMessage}
         />
       </>
