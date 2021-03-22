@@ -5,7 +5,7 @@ import { Grid } from "@material-ui/core";
 import DeviceDetailsTabTable from "./DeviceDetailsTabTable";
 import DeviceInfo from "../model/DeviceInfo";
 import { getSampleSender } from "../api/SampleData";
-import DeviceDetailsCard from "./DeviceDetailsCard";
+import DeviceInfoCard from "./DeviceInfoCard";
 
 export default function DeviceDetailsPageContents(props) {
   const { device } = props;
@@ -14,7 +14,7 @@ export default function DeviceDetailsPageContents(props) {
   return (
     <Grid container>
       <Grid item xs={6}>
-       <DeviceDetailsCard device = {device}/>
+       <DeviceInfoCard device = {device}/>
       </Grid>
       <Grid item xs={6}>
         <DeviceDetailsTabTable tabs={tabs} device={device} />

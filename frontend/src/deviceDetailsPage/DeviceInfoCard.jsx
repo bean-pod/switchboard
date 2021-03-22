@@ -4,7 +4,7 @@ import { Grid } from "@material-ui/core";
 import DashboardCard from "../general/dashboard/DashboardCard";
 import DeviceDetailsInfoTable from "./DeviceDetailsInfoTable";
 
-export default function DeviceDetailsCard(props) {
+export default function DeviceInfoCard(props) {
   const { device } = props;
 
   return (
