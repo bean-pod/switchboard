@@ -6,7 +6,7 @@ import HorizontalTabPanel from "../general/HorizontalTabPanel";
 import DeviceDetailsActivityPanel from "./TabPanels/DeviceDetailsActivityPanel";
 import DeviceDetailsNotesPanel from "./TabPanels/DeviceDetailsNotesPanel";
 import DeviceInfo from "../model/DeviceInfo";
-import DeviceDetailsConciseTable from "./DeviceDetailsConciseTable";
+import DeviceInfoTable from "./DeviceDetailsTable";
 
 export default class DeviceDetailsTabTable extends React.Component {
   constructor(props) {
@@ -26,7 +26,7 @@ export default class DeviceDetailsTabTable extends React.Component {
   static getPanelContents(tabInfo, device) {
     switch (tabInfo) {
       case "Overview":
-        return <DeviceDetailsConciseTable device={device} />;
+        return <DeviceInfoTable device={device} />;
       case "Activity Log":
         return <DeviceDetailsActivityPanel device={device} />;
       case "Notes":

@@ -2,18 +2,18 @@ import React from "react";
 import { TableContainer, Table, TableBody, Paper } from "@material-ui/core";
 import PropTypes from "prop-types";
 
-import DeviceDetailsConciseRow from "./DeviceDetailsConciseRow";
+import DeviceInfoRow from "./DeviceInfoRow";
 import DeviceInfo from "../model/DeviceInfo";
 
-export default function DeviceDetailsConciseTable(props) {
-  const { device } = props;
+export default function DeviceInfoTable(props) {
+  const { device, properties } = props;
   return (
     <>
-      <TableContainer component={Paper}>
+      <TableContainer>
         <Table>
           <TableBody>
-            {DeviceInfo.getConciseProperties().map((property) => (
-              <DeviceDetailsConciseRow
+            {properties.map((property) => (
+              <DeviceInfoRow
                 name={property}
                 value={device[property]}
                 device={device}
@@ -27,6 +27,7 @@ export default function DeviceDetailsConciseTable(props) {
   );
 }
 
-DeviceDetailsConciseTable.propTypes = {
-  device: PropTypes.instanceOf(DeviceInfo).isRequired
+DeviceInfoTable.propTypes = {
+  device: PropTypes.instanceOf(DeviceInfo).isRequired,
+  properties : PropTypes.arrayOf(PropTypes.string).isRequired
 };

@@ -9,7 +9,7 @@ import StatusIndicator from "../general/StatusIndicator";
 import DeviceName from "./DeviceName";
 import DeviceInfo from "../model/DeviceInfo";
 
-export default class DeviceDetailsConciseRow extends React.Component {
+export default class DeviceInfoRow extends React.Component {
   static getPropertyDisplayName(name) {
     switch (name) {
       case "serialNumber":
@@ -42,7 +42,7 @@ export default class DeviceDetailsConciseRow extends React.Component {
   static createTableCellContents(name, value, device) {
     switch (name) {
       case "channels":
-        return DeviceDetailsConciseRow.createInnerTable(value);
+        return DeviceInfoRow.createInnerTable(value);
       case "status":
         return <StatusIndicator status={value} />;
       case "name":
@@ -57,17 +57,17 @@ export default class DeviceDetailsConciseRow extends React.Component {
     return (
       <TableRow>
         <TableCell>
-          {DeviceDetailsConciseRow.getPropertyDisplayName(name)}
+          {DeviceInfoRow.getPropertyDisplayName(name)}
         </TableCell>
         <TableCell align="center">
-          {DeviceDetailsConciseRow.createTableCellContents(name, value, device)}
+          {DeviceInfoRow.createTableCellContents(name, value, device)}
         </TableCell>
       </TableRow>
     );
   }
 }
 
-DeviceDetailsConciseRow.propTypes = {
+DeviceInfoRow.propTypes = {
   name: Proptypes.string.isRequired,
   value: Proptypes.oneOfType([
     Proptypes.string,

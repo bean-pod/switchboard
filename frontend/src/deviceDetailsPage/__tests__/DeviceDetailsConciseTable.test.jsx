@@ -11,7 +11,7 @@ import {
 } from "@jest/globals";
 import DeviceInfo from "../../model/DeviceInfo";
 import DeviceDetailsConciseTable from "../DeviceDetailsConciseTable";
-import DeviceDetailsConciseRow from "../DeviceDetailsConciseRow";
+import DeviceInfoRow from "../DeviceInfoRow";
 
 Enzyme.configure({ adapter: new Adapter() });
 jest.mock("axios");
@@ -42,6 +42,6 @@ describe("DeviceDetailsConciseTable", () => {
     expect(DeviceInfo.getConciseProperties).toHaveBeenCalled();
   });
   it("Renders the correct number of properties", () => {
-    expect(wrapper.find(DeviceDetailsConciseRow)).toHaveLength(3);
+    expect(wrapper.find(DeviceInfoRow)).toHaveLength(3);
   });
 });
