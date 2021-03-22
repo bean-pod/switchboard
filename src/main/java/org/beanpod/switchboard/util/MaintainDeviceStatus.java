@@ -53,8 +53,7 @@ public class MaintainDeviceStatus {
         deviceDao.save(deviceMapper.toDeviceDto(encoderOrDecoder.getDevice()));
 
         updatedDevices.add(encoderOrDecoder.getDevice());
-      }
-      else{
+      } else {
         updatedDevices.add(encoderOrDecoder.getDevice());
       }
     }
