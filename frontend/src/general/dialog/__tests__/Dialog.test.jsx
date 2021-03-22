@@ -51,7 +51,7 @@ describe("<Dialog/> Class Component", () => {
         const wrapperNoActionButton = Enzyme.shallow(
           <Dialog title={dummyTitle}>{testBody}</Dialog>
         );
-        
+
         const dialogButtonsComponent = wrapperNoActionButton.find(
           DialogButtons
         );

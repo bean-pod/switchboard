@@ -22,7 +22,7 @@ jest.spyOn(UserManagementApi, "createUser");
 describe("<CreateUserPageContents/> class component", () => {
   let wrapper;
   const mockHistory = {
-    push: jest.fn(),
+    push: jest.fn()
   };
   const mockOpenDialog = jest.fn();
 
