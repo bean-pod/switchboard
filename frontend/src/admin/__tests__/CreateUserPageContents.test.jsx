@@ -23,7 +23,6 @@ describe("<CreateUserPageContents/> class component", () => {
   let wrapper;
   const mockHistory = {
     push: jest.fn(),
-    go: jest.fn()
   };
   const mockOpenDialog = jest.fn();
 
@@ -106,7 +105,6 @@ describe("<CreateUserPageContents/> class component", () => {
           password: somePassword
         });
         expect(mockHistory.push).toHaveBeenCalledWith("/Home");
-        expect(mockHistory.go).toHaveBeenCalledWith(0);
       });
     });
 

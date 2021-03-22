@@ -22,7 +22,6 @@ export default class CreateUserPageContents extends React.Component {
     createUser({ username, password })
       .then(() => {
         history.push("/Home");
-        history.go(0);
       })
       .catch((error) => {
         this.openDialog();
