@@ -11,8 +11,7 @@ export default function DeviceDetailsInfoTable(props){
         "serialNumber",
         "status",
         "publicIp",
-        "privateIp",
-        "channels"
+        "privateIp"
       ];
     return (
         <DeviceInfoTable device={device} properties={properties}/>
