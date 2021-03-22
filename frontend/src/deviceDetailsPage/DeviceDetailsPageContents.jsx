@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Grid } from "@material-ui/core";
+import { Grid, Box, Container } from "@material-ui/core";
 
 import DeviceInfo from "../model/DeviceInfo";
 import DeviceInfoCard from "./cards/DeviceInfoCard";
@@ -18,6 +19,7 @@ export default function DeviceDetailsPageContents(props) {
       <GridColumn width={6}>
         <Grid item xs={12}>
           <DeviceInfoCard device={device} />
+    <Container>
         </Grid>
         <Grid item xs={12}>
           <DeviceChannelCard device={device} />
@@ -27,6 +29,10 @@ export default function DeviceDetailsPageContents(props) {
         <DeviceLogCard device={device} />
       </Grid>
     </Grid>
+      <Box className="alignRightFloatPadded">
+        <DeleteDeviceDialogOpener device={device} />
+      </Box>
+    </Container>
   );
 }
 DeviceDetailsPageContents.defaultProps = {
