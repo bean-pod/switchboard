@@ -24,8 +24,8 @@ describe("<DialogButtons/> Class Component", () => {
     onClick
   };
 
-  describe("render() function", () => {
-    describe("if button2 prop defaults to undefined aka there is no actionButton", () => {
+  describe("return() function", () => {
+    describe("if no actionButton is passed to button2", () => {
       const wrapperOneButton = Enzyme.shallow(
         <DialogButtons button1={dummyButton1} />
       );
@@ -42,7 +42,7 @@ describe("<DialogButtons/> Class Component", () => {
         wrapperOneButton.unmount();
       });
     });
-    describe("if button2 prop is defined aka there is an actionButton", () => {
+    describe("if an actionButton is passed to button2", () => {
       const wrapperTwoButtons = Enzyme.shallow(
         <DialogButtons button1={dummyButton1} button2={dummyButton2} />
       );
