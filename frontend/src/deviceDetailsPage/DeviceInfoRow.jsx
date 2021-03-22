@@ -56,9 +56,7 @@ export default class DeviceInfoRow extends React.Component {
     const { name, value, device } = this.props;
     return (
       <TableRow>
-        <TableCell>
-          {DeviceInfoRow.getPropertyDisplayName(name)}
-        </TableCell>
+        <TableCell>{DeviceInfoRow.getPropertyDisplayName(name)}</TableCell>
         <TableCell align="center">
           {DeviceInfoRow.createTableCellContents(name, value, device)}
         </TableCell>

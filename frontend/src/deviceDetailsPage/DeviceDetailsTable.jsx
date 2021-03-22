@@ -29,5 +29,5 @@ export default function DeviceInfoTable(props) {
 
 DeviceInfoTable.propTypes = {
   device: PropTypes.instanceOf(DeviceInfo).isRequired,
-  properties : PropTypes.arrayOf(PropTypes.string).isRequired
+  properties: PropTypes.arrayOf(PropTypes.string).isRequired
 };

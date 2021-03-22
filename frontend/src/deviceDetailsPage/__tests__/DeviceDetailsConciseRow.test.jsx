@@ -25,18 +25,14 @@ describe("DeviceInfoRow class", () => {
     it("should return Serial Number when passed serialNumber", () => {
       const expected = "Serial Number";
       // act
-      const result = DeviceInfoRow.getPropertyDisplayName(
-        "serialNumber"
-      );
+      const result = DeviceInfoRow.getPropertyDisplayName("serialNumber");
       // assert
       expect(result).toEqual(expected);
     });
     it('should return "Last Communication" when passed "lastCommunication"', () => {
       const expected = "Last Communication";
       // act
-      const result = DeviceInfoRow.getPropertyDisplayName(
-        "lastCommunication"
-      );
+      const result = DeviceInfoRow.getPropertyDisplayName("lastCommunication");
       // assert
       expect(result).toEqual(expected);
     });
@@ -50,9 +46,7 @@ describe("DeviceInfoRow class", () => {
     it('should return "Private IP Address" when passed "privateIp"', () => {
       const expected = "Private IP Address";
       // act
-      const result = DeviceInfoRow.getPropertyDisplayName(
-        "privateIp"
-      );
+      const result = DeviceInfoRow.getPropertyDisplayName("privateIp");
       // assert
       expect(result).toEqual(expected);
     });
@@ -148,9 +142,7 @@ describe("DeviceInfoRow class", () => {
 
       DeviceInfoRow.createTableCellContents(name, value, device);
 
-      expect(DeviceInfoRow.createInnerTable).toHaveBeenCalledWith(
-        value
-      );
+      expect(DeviceInfoRow.createInnerTable).toHaveBeenCalledWith(value);
     });
     it('should call createInnerTable() when passed "channels"', () => {
       jest.spyOn(DeviceInfoRow, "createInnerTable");

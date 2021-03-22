@@ -27,12 +27,7 @@ export default class DeviceLogTableWrapper extends React.Component {
 
   render() {
     const { logs } = this.state;
-    return (
-          <LogsTable
-            title={`${this.device.name} Logs`}
-            logs={logs}
-          />
-    );
+    return <LogsTable title={`${this.device.name} Logs`} logs={logs} />;
   }
 }
 
