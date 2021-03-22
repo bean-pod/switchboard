@@ -61,7 +61,6 @@ export default class FormConsole extends React.Component {
               label="Password"
               type="password"
               id="password"
-              value={password}
               error={
                 isCreateUser
                   ? password.length < 5 && password.length > 0
