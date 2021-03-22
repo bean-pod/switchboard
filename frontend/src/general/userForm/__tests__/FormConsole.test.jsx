@@ -27,8 +27,6 @@ describe("<FormConsole/> class component", () => {
       <FormConsole
         handleSubmit={dummyValues.handleSubmit}
         buttonName={dummyValues.buttonName}
-        isValidate
-        isCreateUser
       />
     );
   });
@@ -50,7 +48,7 @@ describe("<FormConsole/> class component", () => {
       );
     });
 
-    it("if isValidate prop is true, it should have the form's noValidate to true", () => {
+    it("if isValidate prop is true, it should have the form's noValidate to false", () => {
       const wrapperIsValidate = Enzyme.shallow(
         <FormConsole
           handleSubmit={dummyValues.handleSubmit}
