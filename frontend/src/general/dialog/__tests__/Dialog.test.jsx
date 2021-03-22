@@ -47,11 +47,11 @@ describe("<Dialog/> Class Component", () => {
     });
 
     describe("if no actionButton is passed as a prop", () => {
-      const wrapperNoActionButton = Enzyme.shallow(
-        <Dialog title={dummyTitle}>{testBody}</Dialog>
-      );
-
       it("button2 prop should be undefined", () => {
+        const wrapperNoActionButton = Enzyme.shallow(
+          <Dialog title={dummyTitle}>{testBody}</Dialog>
+        );
+        
         const dialogButtonsComponent = wrapperNoActionButton.find(
           DialogButtons
         );
