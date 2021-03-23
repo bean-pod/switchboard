@@ -32,19 +32,19 @@ describe("<DeviceDetailsPageContents/> functional component", () => {
       expect(wrapper.find(Grid)).toHaveLength(4);
     });
     it("Contains 1 <GridColumn/> Component", () => {
-      expect(wrapper.find(GridColumn)).toHaveLength(4);
+      expect(wrapper.find(GridColumn)).toHaveLength(1);
     });
     it("Contains 1 <DeviceInfoCard/> Component", () => {
-      expect(wrapper.find(DeviceInfoCard)).toHaveLength(4);
+      expect(wrapper.find(DeviceInfoCard)).toHaveLength(1);
     });
     it("Contains 1 <DeviceChannelCard/> Component", () => {
-      expect(wrapper.find(DeviceChannelCard)).toHaveLength(4);
+      expect(wrapper.find(DeviceChannelCard)).toHaveLength(1);
     });
     it("Contains 1 <DeviceLogCard/> Component", () => {
-      expect(wrapper.find(DeviceLogCard)).toHaveLength(4);
+      expect(wrapper.find(DeviceLogCard)).toHaveLength(1);
     });
     it("Contains 1 <DeleteDeviceDialogOpener/> Component", () => {
-      expect(wrapper.find(DeleteDeviceDialogOpener)).toHaveLength(4);
+      expect(wrapper.find(DeleteDeviceDialogOpener)).toHaveLength(1);
     });
   });
 });
