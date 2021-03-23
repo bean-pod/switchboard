@@ -5,7 +5,6 @@ import Adapter from "enzyme-adapter-react-16";
 import { describe, expect, it, beforeEach } from "@jest/globals";
 
 import DeviceInfo from "../../model/DeviceInfo";
-import DeviceDetailsTabTable from "../DeviceDetailsTabTable";
 import DeviceDetailsPageContents from "../DeviceDetailsPageContents";
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -27,8 +26,6 @@ describe("<DeviceDetailsPageContents/> functional component", () => {
     it("Contains 3 Grid Components", () => {
       expect(wrapper.find(Grid)).toHaveLength(3);
     });
-    it("Contains 2 <DeviceDetailsTabTable/> Components", () => {
-      expect(wrapper.find(DeviceDetailsTabTable)).toHaveLength(2);
-    });
+    it("Contains 2 <DeviceDetailsTabTable/> Components", () => {});
   });
 });

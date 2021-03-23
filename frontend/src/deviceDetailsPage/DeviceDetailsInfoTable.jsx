@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import DeviceInfoTable from "./DeviceDetailsTable";
+import DeviceInfoTable from "./DeviceInfoTable/DeviceInfoTable";
 import DeviceInfo from "../model/DeviceInfo";
 
 export default function DeviceDetailsInfoTable(props) {
