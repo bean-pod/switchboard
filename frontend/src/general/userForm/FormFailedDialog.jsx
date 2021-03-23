@@ -15,10 +15,10 @@ export default class FormFailedDialog extends React.Component {
   }
 
   render() {
-    const { errorMessage } = this.props;
+    const { title, errorMessage } = this.props;
 
     return (
-      <Dialog ref={this.dialogElement} title="Failed to create user" isError>
+      <Dialog ref={this.dialogElement} title={title} isError>
         {errorMessage}
       </Dialog>
     );
