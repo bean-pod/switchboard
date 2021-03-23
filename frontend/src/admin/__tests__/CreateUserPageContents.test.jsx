@@ -11,7 +11,7 @@ import {
 } from "@jest/globals";
 
 import CreateUserPageContents from "../createUser/CreateUserPageContents";
-import FormConsole from "../../general/userForm/FormConsole";
+import CreateUserFormConsole from "../createUser/CreateUserFormConsole";
 import FormFailedDialog from "../../general/userForm/FormFailedDialog";
 import * as UserManagementApi from "../../api/UserManagementApi";
 
@@ -44,20 +44,17 @@ describe("<CreateUserPageContents/> class component", () => {
   });
 
   describe("render() returns a component that", () => {
-    it("Contains one <FormConsole/> component with the expected props", () => {
-      expect(wrapper.find(FormConsole)).toHaveLength(1);
+    it("contains one <CreateUserFormConsole/> component with handleSubmit passed as prop", () => {
+      expect(wrapper.find(CreateUserFormConsole)).toHaveLength(1);
 
-      const formConsoleProps = wrapper.find(FormConsole).props();
+      const formConsoleProps = wrapper.find(CreateUserFormConsole).props();
 
       expect(formConsoleProps.handleSubmit).toEqual(
         wrapper.instance().handleSubmit
       );
-      expect(formConsoleProps.buttonName).toEqual("Create");
-      expect(formConsoleProps.isValidate).toBe(true);
-      expect(formConsoleProps.isCreateUser).toBe(true);
     });
 
-    it("Contains one <FormFailedDialog/> component with the expected props", () => {
+    it("contains one <FormFailedDialog/> component with the expected props", () => {
       expect(wrapper.find(FormFailedDialog)).toHaveLength(1);
 
       const FormFailedDialogProps = wrapper.find(FormFailedDialog).props();
@@ -69,7 +66,7 @@ describe("<CreateUserPageContents/> class component", () => {
     });
   });
 
-  describe("setDialogMessage()", () => {
+  describe("setDialogMessage() function", () => {
     it("sets the state of dialogMessage", () => {
       const startState = "initialMessage";
       wrapper.setState({ dialogMessage: startState });

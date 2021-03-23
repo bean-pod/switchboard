@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import FormConsole from "../../general/userForm/FormConsole";
 import FormFailedDialog from "../../general/userForm/FormFailedDialog";
 import { createUser } from "../../api/UserManagementApi";
+import CreateUserFormConsole from "./CreateUserFormConsole";
 
 export default class CreateUserPageContents extends React.Component {
   constructor(props) {
@@ -43,12 +43,7 @@ export default class CreateUserPageContents extends React.Component {
     const { dialogMessage } = this.state;
     return (
       <>
-        <FormConsole
-          handleSubmit={this.handleSubmit}
-          buttonName="Create"
-          isValidate
-          isCreateUser
-        />
+        <CreateUserFormConsole handleSubmit={this.handleSubmit} />
         <FormFailedDialog
           ref={this.dialogElement}
           title="Failed to create user"
