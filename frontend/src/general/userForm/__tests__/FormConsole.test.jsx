@@ -67,54 +67,83 @@ describe("<FormConsole/> class component", () => {
       });
     });
 
-    describe("if error, inputProps and helperText props are defined, password <TextField/>", () => {
-      let wrapperIsCreate;
-      let textField;
-      let passwordState;
+    describe("if passwordError, passwordInputProps, passwordHelperText", () => {
+      describe("are not defined, password <TexField/> component's", () => {
+        let textField;
 
-      const error = { upperbound: 5, lowerbound: 0 };
-      const input = { maxLength: 20, minLength: 5 };
-      const text = "Password must be between 5 to 20 characters";
+        beforeEach(() => {
+          textField = wrapper.find(TextField).at(0);
+        });
 
-      beforeEach(() => {
-        wrapperIsCreate = Enzyme.shallow(
-          <FormConsole
-            handleSubmit={dummyValues.handleSubmit}
-            buttonName="Create"
-            passwordError={error}
-            passwordInputProps={input}
-            passwordHelperText={text}
-          />
-        );
-        textField = wrapperIsCreate.find(TextField).at(1);
-        passwordState = wrapperIsCreate.state().password;
+        it("error should be undefined", () => {
+          expect(textField.prop("error")).toEqual(undefined);
+        });
+
+        it("inputProps should be undefined", () => {
+          expect(textField.prop("inputProps")).toEqual(undefined);
+        });
+        
+        it("helperText should be undefined", () => {
+          expect(textField.prop("helperText")).toEqual(undefined);
+        });
+
+        describe("the setPasswordError() function", () => {
+          it("should return undefined", () => {
+            const result = wrapper.instance().setPasswordError();
+            expect(result).toEqual(undefined);
+          });
+        });
       });
+      
+      describe("are defined, password <TextField/> component's", () => {
+        let wrapperIsCreate;
+        let textField;
+        let passwordState;
 
-      afterEach(() => {
-        wrapperIsCreate.unmount();
-      });
+        const dummyError = { upperbound: 5, lowerbound: 0 };
+        const dummyInput = { maxLength: 20, minLength: 5 };
+        const dummyText = "Password must be between 5 to 20 characters";
 
-      it("error prop should be passed setPasswordError function", () => {
-        expect(textField.prop("error")).toEqual(
-          wrapperIsCreate.instance().setPasswordError
-        );
-      });
-
-      it("inputProps prop should be passed { maxLength: 20, minLength: 5 }", () => {
-        expect(textField.prop("inputProps")).toEqual(input);
-      });
-
-      it("helperText prop should be equal to Password must be between 5 to 20 characters", () => {
-        expect(textField.prop("helperText")).toEqual(text);
-      });
-
-      describe("the setPasswordError() function", () => {
-        it("should return a statement respecting the passed passwordError prop conditions", () => {
-          const result = wrapperIsCreate.instance().setPasswordError();
-          expect(result).toEqual(
-            passwordState.length < error.upperbound &&
-              passwordState.length > error.lowerbound
+        beforeEach(() => {
+          wrapperIsCreate = Enzyme.shallow(
+            <FormConsole
+              handleSubmit={dummyValues.handleSubmit}
+              buttonName="Create"
+              passwordError={dummyError}
+              passwordInputProps={dummyInput}
+              passwordHelperText={dummyText}
+            />
           );
+          textField = wrapperIsCreate.find(TextField).at(1);
+          passwordState = wrapperIsCreate.state().password;
+        });
+
+        afterEach(() => {
+          wrapperIsCreate.unmount();
+        });
+
+        it("error prop should be equal to setPasswordError function", () => {
+          expect(textField.prop("error")).toEqual(
+            wrapperIsCreate.instance().setPasswordError
+          );
+        });
+
+        it("inputProps prop should be equal to passwordInputProps", () => {
+          expect(textField.prop("inputProps")).toEqual(dummyInput);
+        });
+
+        it("helperText prop should be equal to passwordHelperText", () => {
+          expect(textField.prop("helperText")).toEqual(dummyText);
+        });
+
+        describe("the setPasswordError() function", () => {
+          it("should return a statement respecting the passed passwordError prop conditions", () => {
+            const result = wrapperIsCreate.instance().setPasswordError();
+            expect(result).toEqual(
+              passwordState.length < dummyError.upperbound &&
+              passwordState.length > dummyError.lowerbound
+            );
+          });
         });
       });
     });
@@ -149,13 +178,6 @@ describe("<FormConsole/> class component", () => {
       wrapper.instance().setPassword(expectedPassword);
 
       expect(wrapper.state().password).toBe(expectedPassword);
-    });
-  });
-
-  describe("the setPasswordError() function", () => {
-    it("should return undefined, if passwordError prop is undefined", () => {
-      const result = wrapper.instance().setPasswordError();
-      expect(result).toEqual(undefined);
     });
   });
 
