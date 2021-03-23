@@ -48,32 +48,24 @@ describe("<Dialog/> Class Component", () => {
 
     describe("if no actionButton is passed as a prop", () => {
       it("button2 prop should be undefined", () => {
-        const wrapperNoActionButton = Enzyme.shallow(
+        wrapper = Enzyme.shallow(
           <Dialog title={dummyTitle}>{testBody}</Dialog>
         );
 
-        const dialogButtonsComponent = wrapperNoActionButton.find(
-          DialogButtons
-        );
+        const dialogButtonsComponent = wrapper.find(DialogButtons);
 
         expect(dialogButtonsComponent.props().button2).toBeUndefined();
-
-        wrapperNoActionButton.unmount();
       });
     });
 
     it("if isError prop is true, returns a DialogTitle with red title", () => {
-      const wrapperisError = Enzyme.shallow(
+      wrapper = Enzyme.shallow(
         <Dialog title={dummyTitle} isError>
           {testBody}
         </Dialog>
       );
 
-      expect(wrapperisError.find(DialogTitle).hasClass("warningText")).toBe(
-        true
-      );
-
-      wrapperisError.unmount();
+      expect(wrapper.find(DialogTitle).hasClass("warningText")).toBe(true);
     });
   });
 

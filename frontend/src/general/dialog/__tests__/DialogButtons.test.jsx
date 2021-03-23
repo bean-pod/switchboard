@@ -1,7 +1,7 @@
 import React from "react";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import { describe, expect } from "@jest/globals";
+import { afterEach, describe, expect } from "@jest/globals";
 
 import { Button } from "@material-ui/core";
 import MuiDialogActions from "@material-ui/core/DialogActions";
@@ -25,31 +25,34 @@ describe("<DialogButtons/> Class Component", () => {
   };
 
   describe("return() function", () => {
-    describe("if no actionButton is passed to button2", () => {
-      const wrapperOneButton = Enzyme.shallow(
-        <DialogButtons button1={dummyButton1} />
-      );
+    let wrapper;
 
+    afterEach(() => {
+      wrapper.unmount();
+    });
+
+    describe("if no actionButton is passed to button2", () => {
       it("only renders one <Button/> component", () => {
-        expect(wrapperOneButton.find(MuiDialogActions)).toHaveLength(1);
-        const button = wrapperOneButton.find(Button);
+        wrapper = Enzyme.shallow(<DialogButtons button1={dummyButton1} />);
+
+        expect(wrapper.find(MuiDialogActions)).toHaveLength(1);
+        const button = wrapper.find(Button);
 
         expect(button).toHaveLength(1);
 
         expect(button.text()).toBe(name1);
         expect(button.props().onClick).toBe(dummyButton1.onClick);
-
-        wrapperOneButton.unmount();
       });
     });
-    describe("if an actionButton is passed to button2", () => {
-      const wrapperTwoButtons = Enzyme.shallow(
-        <DialogButtons button1={dummyButton1} button2={dummyButton2} />
-      );
 
+    describe("if an actionButton is passed to button2", () => {
       it("returns 2 <Button/> components", () => {
-        expect(wrapperTwoButtons.find(MuiDialogActions)).toHaveLength(1);
-        const buttons = wrapperTwoButtons.find(Button);
+        wrapper = Enzyme.shallow(
+          <DialogButtons button1={dummyButton1} button2={dummyButton2} />
+        );
+
+        expect(wrapper.find(MuiDialogActions)).toHaveLength(1);
+        const buttons = wrapper.find(Button);
 
         expect(buttons).toHaveLength(2);
 
@@ -58,8 +61,6 @@ describe("<DialogButtons/> Class Component", () => {
 
         expect(buttons.last().text()).toBe(name2);
         expect(buttons.last().props().onClick).toBe(dummyButton2.onClick);
-
-        wrapperTwoButtons.unmount();
       });
     });
   });
