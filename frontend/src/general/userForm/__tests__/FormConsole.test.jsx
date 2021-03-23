@@ -82,7 +82,7 @@ describe("<FormConsole/> class component", () => {
         it("inputProps should be undefined", () => {
           expect(textField.prop("inputProps")).toEqual(undefined);
         });
-        
+
         it("helperText should be undefined", () => {
           expect(textField.prop("helperText")).toEqual(undefined);
         });
@@ -94,7 +94,7 @@ describe("<FormConsole/> class component", () => {
           });
         });
       });
-      
+
       describe("are defined, password <TextField/> component's", () => {
         let wrapperIsCreate;
         let textField;
@@ -141,7 +141,7 @@ describe("<FormConsole/> class component", () => {
             const result = wrapperIsCreate.instance().setPasswordError();
             expect(result).toEqual(
               passwordState.length < dummyError.upperbound &&
-              passwordState.length > dummyError.lowerbound
+                passwordState.length > dummyError.lowerbound
             );
           });
         });
