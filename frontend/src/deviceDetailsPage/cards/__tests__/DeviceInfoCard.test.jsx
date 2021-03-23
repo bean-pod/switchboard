@@ -50,7 +50,9 @@ describe("<DeviceInfoCard/> functional component", () => {
 
       expect(secondGrid.props().item).toBe(true);
       expect(secondGrid.props().xs).toBe(expectedXs);
-      expect(secondGrid.props().children.type.name).toBe("DeviceDetailsInfoTable");
+      expect(secondGrid.props().children.type.name).toBe(
+        "DeviceDetailsInfoTable"
+      );
     });
     it("Contains 1 <DeviceDetailsInfoTable/> component with expected props", () => {
       expect(wrapper.find(DeviceDetailsInfoTable)).toHaveLength(1);
