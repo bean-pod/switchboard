@@ -100,9 +100,9 @@ describe("<FormConsole/> class component", () => {
         let textField;
         let passwordState;
 
-        const dummyError = { upperbound: 5, lowerbound: 0 };
-        const dummyInput = { maxLength: 20, minLength: 5 };
-        const dummyText = "Password must be between 5 to 20 characters";
+        const dummyError = { upperbound: 2, lowerbound: 0 };
+        const dummyInput = { maxLength: 8, minLength: 2 };
+        const dummyText = "test";
 
         beforeEach(() => {
           wrapperIsCreate = Enzyme.shallow(
