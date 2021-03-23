@@ -26,5 +26,6 @@ export default class FormFailedDialog extends React.Component {
 }
 
 FormFailedDialog.propTypes = {
+  title: PropTypes.string.isRequired,
   errorMessage: PropTypes.string.isRequired
 };
