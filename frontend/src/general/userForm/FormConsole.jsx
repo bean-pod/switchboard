@@ -13,6 +13,7 @@ export default class FormConsole extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.setUsername = this.setUsername.bind(this);
     this.setPassword = this.setPassword.bind(this);
+    this.setPasswordError = this.setPasswordError.bind(this);
   }
 
   onSubmit(event) {
@@ -34,9 +35,25 @@ export default class FormConsole extends React.Component {
     });
   }
 
-  render() {
-    const { buttonName, isValidate, isCreateUser } = this.props;
+  setPasswordError() {
+    const { passwordError } = this.props;
     const { password } = this.state;
+    if (passwordError) {
+      return (
+        password.length < passwordError.upperbound &&
+        password.length > passwordError.lowerbound
+      );
+    }
+    return undefined;
+  }
+
+  render() {
+    const {
+      buttonName,
+      isValidate,
+      passwordInputProps,
+      passwordHelperText
+    } = this.props;
     return (
       <DashboardCard title="">
         <div>
@@ -62,19 +79,9 @@ export default class FormConsole extends React.Component {
               label="Password"
               type="password"
               id="password"
-              error={
-                isCreateUser
-                  ? password.length < 5 && password.length > 0
-                  : undefined
-              }
-              inputProps={
-                isCreateUser ? { maxLength: 20, minLength: 5 } : undefined
-              }
-              helperText={
-                isCreateUser
-                  ? "Password must be between 5 to 20 characters"
-                  : undefined
-              }
+              error={this.setPasswordError}
+              inputProps={passwordInputProps}
+              helperText={passwordHelperText}
               autoComplete="current-password"
               onChange={(event) => this.setPassword(event.target.value)}
             />
@@ -92,10 +99,20 @@ FormConsole.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   buttonName: PropTypes.string.isRequired,
   isValidate: PropTypes.bool,
-  isCreateUser: PropTypes.bool
+  passwordError: PropTypes.shape({
+    upperbound: PropTypes.number.isRequired,
+    lowerbound: PropTypes.number.isRequired
+  }),
+  passwordInputProps: PropTypes.shape({
+    maxLength: PropTypes.number.isRequired,
+    minLength: PropTypes.number.isRequired
+  }),
+  passwordHelperText: PropTypes.string
 };
 
 FormConsole.defaultProps = {
   isValidate: false,
-  isCreateUser: false
+  passwordError: undefined,
+  passwordInputProps: undefined,
+  passwordHelperText: undefined
 };
