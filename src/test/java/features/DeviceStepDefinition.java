@@ -1,8 +1,13 @@
 package features;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
+
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import java.net.URI;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.beanpod.switchboard.dto.DeviceDto;
@@ -13,14 +18,9 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 
-import java.net.URI;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertIterableEquals;
-
 @RequiredArgsConstructor
 public class DeviceStepDefinition extends SpringIntegrationTest {
+
   private final String baseUrl = "http://localhost:8080/device";
   private final TestRestTemplate testRestTemplate;
   private ResponseEntity responseEntity;

@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class StreamStatDto {
+
   @NotNull private long id;
   private Long time;
   private Long flow;
