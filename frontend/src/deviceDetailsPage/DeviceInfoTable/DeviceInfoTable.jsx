@@ -1,9 +1,9 @@
 import React from "react";
-import { TableContainer, Table, TableBody, Paper } from "@material-ui/core";
+import { TableContainer, Table, TableBody } from "@material-ui/core";
 import PropTypes from "prop-types";
 
 import DeviceInfoRow from "./DeviceInfoRow";
-import DeviceInfo from "../model/DeviceInfo";
+import DeviceInfo from "../../model/DeviceInfo";
 
 export default function DeviceInfoTable(props) {
   const { device, properties } = props;
