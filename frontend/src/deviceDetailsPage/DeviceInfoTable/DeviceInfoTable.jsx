@@ -8,22 +8,20 @@ import DeviceInfo from "../../model/DeviceInfo";
 export default function DeviceInfoTable(props) {
   const { device, properties } = props;
   return (
-    <>
-      <TableContainer>
-        <Table>
-          <TableBody>
-            {properties.map((property) => (
-              <DeviceInfoRow
-                name={property}
-                value={device[property]}
-                device={device}
-                key={`device_${property}`}
-              />
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </>
+    <TableContainer>
+      <Table>
+        <TableBody>
+          {properties.map((property) => (
+            <DeviceInfoRow
+              name={property}
+              value={device[property]}
+              device={device}
+              key={`device_${property}`}
+            />
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 }
 

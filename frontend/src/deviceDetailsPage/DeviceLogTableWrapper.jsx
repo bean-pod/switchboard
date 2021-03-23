@@ -1,4 +1,3 @@
-import { Container, Paper } from "@material-ui/core";
 import React from "react";
 import PropTypes from "prop-types";
 import DeviceInfo from "../model/DeviceInfo";

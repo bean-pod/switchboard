@@ -58,7 +58,6 @@ export default class DeleteStreamDialog extends React.Component {
 DeleteStreamDialog.propTypes = {
   device: PropTypes.instanceOf(DeviceInfo).isRequired,
   history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-    go: PropTypes.func.isRequired
+    push: PropTypes.func.isRequired
   }).isRequired
 };

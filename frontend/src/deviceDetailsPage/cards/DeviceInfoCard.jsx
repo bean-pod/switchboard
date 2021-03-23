@@ -19,3 +19,7 @@ export default function DeviceInfoCard(props) {
     </DashboardCard>
   );
 }
+
+DeviceInfoCard.propTypes = {
+  device: PropTypes.instanceOf(DeviceInfo).isRequired
+};

@@ -7,10 +7,9 @@ import {
   expect,
   jest,
   it,
-  beforeAll,
   beforeEach
 } from "@jest/globals";
-import { TableCell, TableContainer, TableRow } from "@material-ui/core";
+import { TableCell, TableRow } from "@material-ui/core";
 
 import DeviceInfoRow from "../DeviceInfoRow";
 import ChannelDetailsTable from "../../../devicelist/ChannelDetailsTable";
@@ -94,7 +93,7 @@ describe("<DeviceInfoRow/> Class component", () => {
     it('should return "Status" when passed "status"', () => {
       const expected = "Status";
       const input = "status";
-      const value="Offline";
+      const value = "Offline";
       wrapper = Enzyme.shallow(
         <DeviceInfoRow name={input} value={value} device={dummyDevice} />
       );
@@ -128,8 +127,8 @@ describe("<DeviceInfoRow/> Class component", () => {
   });
   describe("createInnerTable() function", () => {
     const dummyValue = [new InputChannelInfo(), new OutputChannelInfo()];
-    
-    beforeEach(()=>{
+
+    beforeEach(() => {
       const dummyName = "channels";
       const dummyDevice = new DeviceInfo("serial");
       wrapper = Enzyme.shallow(
@@ -139,30 +138,32 @@ describe("<DeviceInfoRow/> Class component", () => {
           device={dummyDevice}
         />
       );
-  
+
       // act
       wrapper = Enzyme.shallow(wrapper.instance().createInnerTable());
-    })
+    });
     describe("returns a component that", () => {
-      it("Contains 1 <ChannelDetailsTable/> component with expected props", ()=>{
+      it("Contains 1 <ChannelDetailsTable/> component with expected props", () => {
         expect(wrapper.find(ChannelDetailsTable)).toHaveLength(1);
         const props = wrapper.find(ChannelDetailsTable).first().props();
         expect(props.channels).toStrictEqual(dummyValue);
-      })
+      });
     });
   });
   describe("render() function", () => {
-    
-    beforeEach(()=>{
+    beforeEach(() => {
       const dummyName = "Test_Name";
       const dummyValue = [];
       const dummyDevice = new DeviceInfo();
       wrapper = Enzyme.shallow(
-        <DeviceInfoRow name={dummyName} value={dummyValue} device={dummyDevice} />
+        <DeviceInfoRow
+          name={dummyName}
+          value={dummyValue}
+          device={dummyDevice}
+        />
       );
-    })
+    });
     it("Renders one (1) <TableRow/> component", () => {
-
       expect(wrapper.find(TableRow)).toHaveLength(1);
     });
     it('Renders two (2) <TableCell/> components if name is not "channels"', () => {
@@ -182,7 +183,7 @@ describe("<DeviceInfoRow/> Class component", () => {
           device={dummyDevice}
         />
       );
-  
+
       // act
       wrapper = Enzyme.shallow(wrapper.instance().createTableCellContents());
 
@@ -199,14 +200,13 @@ describe("<DeviceInfoRow/> Class component", () => {
           device={dummyDevice}
         />
       );
-  
+
       // act
       wrapper = Enzyme.shallow(wrapper.instance().createTableCellContents());
 
       expect(wrapper.instance()).toBeInstanceOf(DeviceName);
     });
     it('should return the same component as createInnerTable when passed "channels"', () => {
-
       const dummyName = "channels";
       const dummyValue = [];
 
@@ -218,7 +218,7 @@ describe("<DeviceInfoRow/> Class component", () => {
         />
       );
       const expected = Enzyme.shallow(wrapper.instance().createInnerTable());
-  
+
       // act
       wrapper = Enzyme.shallow(wrapper.instance().createTableCellContents());
 
