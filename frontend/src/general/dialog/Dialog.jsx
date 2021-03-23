@@ -25,18 +25,14 @@ export default class Dialog extends React.Component {
   }
 
   render() {
-    const cancelButton = {
-      name: "Cancel",
-      onClick: this.closeDialog
-    };
-
-    const okButton = {
-      name: "OK",
-      onClick: this.closeDialog
-    };
-
     const { title, actionButton, children, isError } = this.props;
     const { open } = this.state;
+
+    const button = {
+      name: actionButton ? "Cancel" : "OK",
+      onClick: this.closeDialog
+    };
+
     return (
       <MuiDialog
         open={open}
@@ -49,10 +45,10 @@ export default class Dialog extends React.Component {
           {title}
         </DialogTitle>
         <DialogBody>{children}</DialogBody>
-        {actionButton === undefined ? (
-          <DialogButtons button1={okButton} />
+        {actionButton ? (
+          <DialogButtons button1={button} button2={actionButton} />
         ) : (
-          <DialogButtons button1={cancelButton} button2={actionButton} />
+          <DialogButtons button1={button} />
         )}
       </MuiDialog>
     );
