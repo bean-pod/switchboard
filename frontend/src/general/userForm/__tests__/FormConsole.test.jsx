@@ -9,8 +9,9 @@ import {
 import React from "react";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import { Button, Container, TextField } from "@material-ui/core";
+import { Button, TextField } from "@material-ui/core";
 import FormConsole from "../FormConsole";
+import DashboardCard from "../../dashboard/DashboardCard";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -36,8 +37,8 @@ describe("<FormConsole/> class component", () => {
   });
 
   describe("render()", () => {
-    it("should have 1 <Container/>, 2 <TextFields/> and 1 <Button/>", () => {
-      expect(wrapper.find(Container)).toHaveLength(1);
+    it("should have 1 <DashboardCard/>, 2 <TextFields/> and 1 <Button/>", () => {
+      expect(wrapper.find(DashboardCard)).toHaveLength(1);
       expect(wrapper.find(TextField)).toHaveLength(2);
       expect(wrapper.find(Button)).toHaveLength(1);
     });
@@ -48,21 +49,25 @@ describe("<FormConsole/> class component", () => {
       );
     });
 
-    it("if isValidate prop is true, it should have the form's noValidate to false", () => {
-      const wrapperIsValidate = Enzyme.shallow(
-        <FormConsole
-          handleSubmit={dummyValues.handleSubmit}
-          buttonName={dummyValues.buttonName}
-          isValidate
-        />
-      );
+    describe("isValidate prop", () => {
+      it("if true, it should have the form's noValidate to false", () => {
+        wrapper = Enzyme.shallow(
+          <FormConsole
+            handleSubmit={dummyValues.handleSubmit}
+            buttonName={dummyValues.buttonName}
+            isValidate
+          />
+        );
 
-      expect(wrapperIsValidate.find("form").prop("noValidate")).toBe(false);
+        expect(wrapper.find("form").prop("noValidate")).toBe(false);
+      });
 
-      wrapperIsValidate.unmount();
+      it("if default to false, it should have the form's noValidate to true", () => {
+        expect(wrapper.find("form").prop("noValidate")).toBe(true);
+      });
     });
 
-    describe("if isCreateUser prop is true, password <TextField/> should have error, inputProps and helperText props", () => {
+    describe("if isCreateUser prop is true, password <TextField/>", () => {
       let wrapperIsCreate;
       let textField;
       let passwordState;
@@ -83,20 +88,20 @@ describe("<FormConsole/> class component", () => {
         wrapperIsCreate.unmount();
       });
 
-      it("error should be passed password.length < 5 && password.length > 0", () => {
+      it("error prop should be passed password.length < 5 && password.length > 0", () => {
         expect(textField.prop("error")).toBe(
           passwordState.length < 5 && passwordState.length > 0
         );
       });
 
-      it("inputProps should be passed { maxLength: 20, minLength: 5 }", () => {
+      it("inputProps prop should be passed { maxLength: 20, minLength: 5 }", () => {
         expect(textField.prop("inputProps")).toEqual({
           maxLength: 20,
           minLength: 5
         });
       });
 
-      it("helperText should be equal to Password must be between 5 to 20 characters", () => {
+      it("helperText prop should be equal to Password must be between 5 to 20 characters", () => {
         expect(textField.prop("helperText")).toEqual(
           "Password must be between 5 to 20 characters"
         );

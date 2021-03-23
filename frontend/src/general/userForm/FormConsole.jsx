@@ -1,6 +1,7 @@
 import React from "react";
-import { Button, Container, TextField } from "@material-ui/core";
+import { Button, TextField } from "@material-ui/core";
 import PropTypes from "prop-types";
+import DashboardCard from "../dashboard/DashboardCard";
 
 export default class FormConsole extends React.Component {
   constructor(props) {
@@ -37,7 +38,7 @@ export default class FormConsole extends React.Component {
     const { buttonName, isValidate, isCreateUser } = this.props;
     const { password } = this.state;
     return (
-      <Container component="main" maxWidth="xs">
+      <DashboardCard title="">
         <div>
           <form noValidate={!isValidate} onSubmit={this.onSubmit}>
             <TextField
@@ -82,7 +83,7 @@ export default class FormConsole extends React.Component {
             </Button>
           </form>
         </div>
-      </Container>
+      </DashboardCard>
     );
   }
 }
