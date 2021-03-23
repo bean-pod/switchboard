@@ -10,7 +10,15 @@ import DeviceName from "../DeviceName";
 import DeviceInfo from "../../model/DeviceInfo";
 
 export default class DeviceInfoRow extends React.Component {
-  static getPropertyDisplayName(name) {
+  constructor(props) {
+    super(props);
+    this.getPropertyDisplayName = this.getPropertyDisplayName.bind(this);
+    this.createInnerTable = this.createInnerTable.bind(this);
+    this.createTableCellContents = this.createTableCellContents.bind(this);
+  }
+
+  getPropertyDisplayName() {
+    const { name } = this.props;
     switch (name) {
       case "serialNumber":
         return "Serial Number";
@@ -31,7 +39,8 @@ export default class DeviceInfoRow extends React.Component {
     }
   }
 
-  static createInnerTable(value) {
+  createInnerTable() {
+    const { value } = this.props;
     return (
       <TableContainer>
         <ChannelDetailsTable channels={value} />
@@ -39,27 +48,29 @@ export default class DeviceInfoRow extends React.Component {
     );
   }
 
-  static createTableCellContents(name, value, device) {
+  createTableCellContents() {
+    const {
+      name,
+      value,
+      device: { serialNumber }
+    } = this.props;
     switch (name) {
       case "channels":
-        return DeviceInfoRow.createInnerTable(value);
+        return this.createInnerTable();
       case "status":
         return <StatusIndicator status={value} />;
       case "name":
-        return <DeviceName deviceName={value} deviceId={device.serialNumber} />;
+        return <DeviceName deviceName={value} deviceId={serialNumber} />;
       default:
         return value;
     }
   }
 
   render() {
-    const { name, value, device } = this.props;
     return (
       <TableRow>
-        <TableCell>{DeviceInfoRow.getPropertyDisplayName(name)}</TableCell>
-        <TableCell align="center">
-          {DeviceInfoRow.createTableCellContents(name, value, device)}
-        </TableCell>
+        <TableCell>{this.getPropertyDisplayName()}</TableCell>
+        <TableCell align="center">{this.createTableCellContents()}</TableCell>
       </TableRow>
     );
   }
