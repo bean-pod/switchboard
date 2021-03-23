@@ -6,7 +6,7 @@ import DeviceInfo from "../../model/DeviceInfo";
 import DashboardCard from "../../general/dashboard/DashboardCard";
 import ChannelDetailsTable from "../../devicelist/ChannelDetailsTable";
 
-export default function ChannelsCard(props) {
+export default function DeviceChannelCard(props) {
   const {
     device: { channels }
   } = props;
@@ -22,6 +22,6 @@ export default function ChannelsCard(props) {
   );
 }
 
-ChannelsCard.propTypes = {
+DeviceChannelCard.propTypes = {
   device: PropTypes.instanceOf(DeviceInfo).isRequired
 };
