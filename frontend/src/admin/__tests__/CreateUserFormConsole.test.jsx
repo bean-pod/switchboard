@@ -1,4 +1,11 @@
-import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals";
+import {
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  jest
+} from "@jest/globals";
 import React from "react";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
@@ -14,7 +21,7 @@ describe("CreateUserFormConsole functional component", () => {
   beforeEach(() => {
     // need mount to test inner component is passed the right prop
     wrapper = Enzyme.mount(
-      <CreateUserFormConsole handleSubmit={mockHandleSubmit} />    
+      <CreateUserFormConsole handleSubmit={mockHandleSubmit} />
     );
   });
 
@@ -24,7 +31,7 @@ describe("CreateUserFormConsole functional component", () => {
   });
 
   describe("return()", () => {
-    it("should return one <FormConsole/> component", () =>{
+    it("should return one <FormConsole/> component", () => {
       expect(wrapper.find(FormConsole)).toHaveLength(1);
     });
 
@@ -32,7 +39,9 @@ describe("CreateUserFormConsole functional component", () => {
       it("to be equal to the <CreateUserFormConsole/>'s handleSubmit prop", () => {
         const userFormConsole = wrapper.find(FormConsole);
 
-        expect(userFormConsole.props().handleSubmit).toEqual(wrapper.props().handleSubmit);
+        expect(userFormConsole.props().handleSubmit).toEqual(
+          wrapper.props().handleSubmit
+        );
       });
     });
   });
