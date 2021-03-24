@@ -1,6 +1,6 @@
 import React from "react";
-import { Button, TextField } from "@material-ui/core";
 import PropTypes from "prop-types";
+import { Button, TextField, Grid } from "@material-ui/core";
 import DashboardCard from "../dashboard/DashboardCard";
 
 export default class FormConsole extends React.Component {
@@ -55,42 +55,57 @@ export default class FormConsole extends React.Component {
       passwordHelperText
     } = this.props;
     return (
-      <DashboardCard title="">
-        <div>
-          <form noValidate={!isValidate} onSubmit={this.onSubmit}>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="username"
-              label="Username"
-              name="username"
-              autoComplete="username"
-              autoFocus
-              onChange={(event) => this.setUsername(event.target.value)}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              error={this.setPasswordError}
-              inputProps={passwordInputProps}
-              helperText={passwordHelperText}
-              autoComplete="current-password"
-              onChange={(event) => this.setPassword(event.target.value)}
-            />
-            <Button type="submit" fullWidth variant="contained" color="primary">
-              {buttonName}
-            </Button>
-          </form>
-        </div>
-      </DashboardCard>
+      <Grid
+        container
+        justify="center"
+        alignItems="stretch"
+        direction="row"
+        spacing={3}
+      >
+        <Grid item xs={6}>
+          <DashboardCard title="">
+            <div>
+              <form noValidate={!isValidate} onSubmit={this.onSubmit}>
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="username"
+                  label="Username"
+                  name="username"
+                  autoComplete="username"
+                  autoFocus
+                  onChange={(event) => this.setUsername(event.target.value)}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  error={this.setPasswordError}
+                  inputProps={passwordInputProps}
+                  helperText={passwordHelperText}
+                  autoComplete="current-password"
+                  onChange={(event) => this.setPassword(event.target.value)}
+                />
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                >
+                  {buttonName}
+                </Button>
+              </form>
+            </div>
+          </DashboardCard>
+        </Grid>
+      </Grid>
     );
   }
 }
