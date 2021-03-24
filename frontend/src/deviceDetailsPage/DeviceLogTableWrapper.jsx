@@ -15,7 +15,9 @@ export default class DeviceLogTableWrapper extends React.Component {
   }
 
   componentDidMount() {
-    LogApi.getDeviceLogs(this.device.serialNumber).then((logs)=> this.handleLogsChange(logs));
+    LogApi.getDeviceLogs(this.device.serialNumber).then((logs) =>
+      this.handleLogsChange(logs)
+    );
   }
 
   handleLogsChange(logs) {

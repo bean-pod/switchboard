@@ -55,9 +55,10 @@ describe("<DeviceLogTableWrapper/> Class Component", () => {
 
         LogApi.getDeviceLogs.mockReturnValue(Promise.resolve(expectedLogs));
 
+        wrapper = Enzyme.shallow(
+          <DeviceLogTableWrapper device={dummyDevice} />
+        );
 
-        wrapper = Enzyme.shallow(<DeviceLogTableWrapper device={dummyDevice} />);
-        
         expect(LogApi.getDeviceLogs).toBeCalledWith(dummyDevice.serialNumber);
         wrapper.instance().componentDidMount();
         await new Promise(setImmediate);
@@ -66,7 +67,6 @@ describe("<DeviceLogTableWrapper/> Class Component", () => {
       });
 
       it("that rejects and does nothing", () => {
-
         LogApi.getDeviceLogs.mockReturnValue(Promise.reject());
 
         wrapper = Enzyme.shallow(
