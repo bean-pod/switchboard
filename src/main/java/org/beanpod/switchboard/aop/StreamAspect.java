@@ -68,16 +68,13 @@ public class StreamAspect {
                 + " to input channel %d of encoder %s",
             outputId, decoderSerial, inputId, encoderSerial);
 
-    Long streamId = Optional.of(response.getBody())
-        .map(StreamModel::getId)
-        .orElseThrow(() -> new UnknownException(stream));
+    Long streamId =
+        Optional.of(response.getBody())
+            .map(StreamModel::getId)
+            .orElseThrow(() -> new UnknownException(stream));
 
-      streamLogService.createLog(
-          OffsetDateTime.now(),
-          message,
-          decoderSerial,
-          encoderSerial,
-          streamId.toString());
+    streamLogService.createLog(
+        OffsetDateTime.now(), message, decoderSerial, encoderSerial, streamId.toString());
   }
 
   @Before("execution(* org.beanpod.switchboard.controller.StreamController.deleteStream(..))")
