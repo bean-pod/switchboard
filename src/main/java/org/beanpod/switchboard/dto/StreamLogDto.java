@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.beanpod.switchboard.entity.LogEntity;
 
 @Setter
 @Getter
@@ -21,6 +22,5 @@ public class StreamLogDto {
 
   @NotNull private String streamId;
 
-  @JsonIgnoreProperties("log_id")
-  private LogDto logDto;
+  private LogEntity logEntity;
 }
