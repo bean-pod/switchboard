@@ -5,7 +5,7 @@ import Dialog from "../../general/dialog/Dialog";
 import { deleteDevice } from "../../api/DeviceApi";
 import DeviceInfo from "../../model/DeviceInfo";
 
-export default class DeleteStreamDialog extends React.Component {
+export default class DeleteDeviceDialog extends React.Component {
   constructor(props) {
     super(props);
 
@@ -55,7 +55,7 @@ export default class DeleteStreamDialog extends React.Component {
   }
 }
 
-DeleteStreamDialog.propTypes = {
+DeleteDeviceDialog.propTypes = {
   device: PropTypes.instanceOf(DeviceInfo).isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired
