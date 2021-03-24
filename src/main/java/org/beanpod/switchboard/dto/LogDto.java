@@ -3,7 +3,6 @@ package org.beanpod.switchboard.dto;
 import java.time.OffsetDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Builder.Default;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,8 +29,9 @@ public class LogDto {
 
   private StreamLog streamLog;
 
-  //for backward compatibility
-  public LogDto(Long id, OffsetDateTime dateTime, String message, String level, String serialNumber){
+  // for backward compatibility
+  public LogDto(
+      Long id, OffsetDateTime dateTime, String message, String level, String serialNumber) {
     this.id = id;
     this.dateTime = dateTime;
     this.message = message;

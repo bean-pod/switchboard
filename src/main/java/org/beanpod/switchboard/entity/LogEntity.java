@@ -39,7 +39,7 @@ public class LogEntity {
   @PrimaryKeyJoinColumn
   private StreamLog streamLog;
 
-  public LogEntity(OffsetDateTime dateTime, String message, String level, String serialNumber){
+  public LogEntity(OffsetDateTime dateTime, String message, String level, String serialNumber) {
     this.dateTime = dateTime;
     this.message = message;
     this.level = level;

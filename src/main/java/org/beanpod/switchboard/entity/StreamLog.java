@@ -35,7 +35,7 @@ public class StreamLog {
   @JoinColumn(name = "log_id")
   private LogEntity logEntity;
 
-  public StreamLog(String serialNumber, String streamId){
+  public StreamLog(String serialNumber, String streamId) {
     this.serialNumber = serialNumber;
     this.streamId = streamId;
   }
