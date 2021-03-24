@@ -1,5 +1,6 @@
 package org.beanpod.switchboard.aop;
 
+import java.time.OffsetDateTime;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.JoinPoint;
@@ -7,12 +8,8 @@ import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.beanpod.switchboard.dao.StreamDaoImpl;
-import org.beanpod.switchboard.dao.StreamLogDaoImpl;
-import org.beanpod.switchboard.dto.LogDto;
 import org.beanpod.switchboard.dto.StreamDto;
-import org.beanpod.switchboard.dto.mapper.LogMapper;
 import org.beanpod.switchboard.exceptions.ExceptionType.UnknownException;
-import org.beanpod.switchboard.service.LogService;
 import org.beanpod.switchboard.service.StreamLogService;
 import org.openapitools.model.DecoderModel;
 import org.openapitools.model.EncoderModel;
@@ -29,11 +26,8 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class StreamAspect {
 
-  private final LogService logService;
   private final StreamDaoImpl streamDao;
-  private final StreamLogDaoImpl streamLogDao;
   private final StreamLogService streamLogService;
-  private final LogMapper logMapper;
 
   String stream = "stream";
 
@@ -73,15 +67,13 @@ public class StreamAspect {
             "A stream started from output channel %d of decoder %s"
                 + " to input channel %d of encoder %s",
             outputId, decoderSerial, inputId, encoderSerial);
-    LogDto logDto = logService.createLog(message, "info", decoderSerial);
-    streamLogService.createStreamLog(
-        logDto.getId(),
+
+    streamLogService.createLog(
+        OffsetDateTime.now(),
+        message,
+        decoderSerial,
         encoderSerial,
-        Optional.of(response.getBody())
-            .map(StreamModel::getId)
-            .map(String::valueOf)
-            .orElseThrow(() -> new UnknownException(stream)),
-        logMapper.toLogEntity(logDto));
+        response.getBody().getId().toString());
   }
 
   @Before("execution(* org.beanpod.switchboard.controller.StreamController.deleteStream(..))")
@@ -95,8 +87,8 @@ public class StreamAspect {
         String.format(
             "Deleted stream of ID %d between decoder %s and encoder %s",
             streamId, decoderSerial, encoderSerial);
-    LogDto logDto = logService.createLog(message, "info", decoderSerial);
-    streamLogService.createStreamLog(
-        logDto.getId(), encoderSerial, streamId.toString(), logMapper.toLogEntity(logDto));
+
+    streamLogService.createLog(
+        OffsetDateTime.now(), message, decoderSerial, encoderSerial, streamId.toString());
   }
 }
