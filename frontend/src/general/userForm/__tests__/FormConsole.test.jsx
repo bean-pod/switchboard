@@ -101,6 +101,32 @@ describe("<FormConsole/> class component", () => {
             );
           });
         });
+
+        describe("when calling passwordOnChange() function", () => {
+          it("should update the state password (through setPassword function)", () => {
+            const initialPassword = "initialPassword";
+            wrapper.setState({ password: initialPassword });
+
+            const dummyPassword = "test";
+            wrapper.instance().passwordOnChange(dummyPassword);
+
+            expect(wrapper.state().password).toBe(dummyPassword);
+          });
+
+          describe("should call setPasswordError()", () => {
+            it("passwordErrorCondition should stay false if passwordError prop is undefined", () => {
+              const passwordErrorStateInitial = wrapper.state()
+                .passwordErrorCondition;
+
+              const dummyPassword = "test";
+              wrapper.instance().passwordOnChange(dummyPassword);
+
+              expect(wrapper.state().passwordErrorCondition).toBe(
+                passwordErrorStateInitial
+              );
+            });
+          });
+        });
       });
 
       describe("are defined, password <TextField/> component's", () => {
@@ -165,6 +191,48 @@ describe("<FormConsole/> class component", () => {
             expect(wrapperIsCreate.state().passwordErrorCondition).toEqual(
               false
             );
+          });
+        });
+
+        describe("when calling passwordOnChange() function", () => {
+          it("should update the state password (through setPassword function)", () => {
+            const initialPassword = "initialPassword";
+            wrapper.setState({ password: initialPassword });
+
+            const dummyPassword = "test";
+            wrapper.instance().passwordOnChange(dummyPassword);
+
+            expect(wrapper.state().password).toBe(dummyPassword);
+          });
+
+          describe("should call setPasswordError()", () => {
+            it("passwordErrorCondition should be true if the passed argument/password respects the conditions of passwordError prop", () => {
+              // initial condition check
+              expect(wrapperIsCreate.state().passwordErrorCondition).toBe(
+                false
+              );
+
+              // passed dummy boundaries are password.length < 2 && password.length > 0
+              const passwordTest = "a";
+              wrapperIsCreate.instance().passwordOnChange(passwordTest);
+
+              expect(wrapperIsCreate.state().passwordErrorCondition).toBe(true);
+            });
+
+            it("passwordErrorCondition should be false if the passed argument/password does not meet the conditions of passwordError prop", () => {
+              // initial condition check
+              expect(wrapperIsCreate.state().passwordErrorCondition).toBe(
+                false
+              );
+
+              // passed dummy boundaries are password.length < 2 && password.length > 0
+              const passwordTest = "asdas";
+              wrapperIsCreate.instance().passwordOnChange(passwordTest);
+
+              expect(wrapperIsCreate.state().passwordErrorCondition).toEqual(
+                false
+              );
+            });
           });
         });
       });
