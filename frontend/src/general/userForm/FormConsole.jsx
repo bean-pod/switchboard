@@ -15,6 +15,7 @@ export default class FormConsole extends React.Component {
     this.setUsername = this.setUsername.bind(this);
     this.setPassword = this.setPassword.bind(this);
     this.setPasswordError = this.setPasswordError.bind(this);
+    this.passwordOnChange = this.passwordOnChange.bind(this);
   }
 
   onSubmit(event) {
@@ -34,7 +35,6 @@ export default class FormConsole extends React.Component {
     this.setState({
       password
     });
-    this.setPasswordError(password);
   }
 
   setPasswordError(password) {
@@ -49,6 +49,11 @@ export default class FormConsole extends React.Component {
         this.setState({ error: false });
       }
     }
+  }
+
+  passwordOnChange(password){
+    this.setPassword(password);
+    this.setPasswordError(password);
   }
 
   render() {
@@ -96,7 +101,7 @@ export default class FormConsole extends React.Component {
                   inputProps={passwordInputProps}
                   helperText={passwordHelperText}
                   autoComplete="current-password"
-                  onChange={(event) => this.setPassword(event.target.value)}
+                  onChange={(event) => this.passwordOnChange(event.target.value)}
                 />
                 <Button
                   type="submit"
