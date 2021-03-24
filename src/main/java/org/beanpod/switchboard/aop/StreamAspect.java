@@ -68,14 +68,16 @@ public class StreamAspect {
                 + " to input channel %d of encoder %s",
             outputId, decoderSerial, inputId, encoderSerial);
 
-    if (response.getBody() == null) throw new NullPointerException("response.getBody() is null");
-    else {
+    try {
       streamLogService.createLog(
           OffsetDateTime.now(),
           message,
           decoderSerial,
           encoderSerial,
           response.getBody().getId().toString());
+    } catch (NullPointerException e) {
+      e.printStackTrace();
+      System.err.println("response.getBody() is null");
     }
   }
 
