@@ -66,4 +66,11 @@ public class EncoderFixture {
   public static EncoderModel getEncoderModel() {
     return new EncoderModel().serialNumber(SERIAL_NUMBER).device(DeviceFixture.getDeviceModel());
   }
+
+  public static EncoderModel getEncoderModelWithOutputChannel() {
+    return new EncoderModel()
+        .serialNumber(SERIAL_NUMBER)
+        .device(DeviceFixture.getDeviceModel())
+        .output(List.of(ChannelFixture.getOutputChannelModel()));
+  }
 }
