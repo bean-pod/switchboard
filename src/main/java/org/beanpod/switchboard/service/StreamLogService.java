@@ -22,7 +22,7 @@ public class StreamLogService {
       String decoderSerial,
       String encoderSerial,
       String streamId) {
-    LogEntity logEntity = new LogEntity(OffsetDateTime.now(), message, "info", decoderSerial);
+    LogEntity logEntity = new LogEntity(dateTime, message, "info", decoderSerial);
     StreamLog streamLog = new StreamLog(encoderSerial, streamId);
 
     // logEntity.setStreamLog(streamLog); // will cause infinite loop
