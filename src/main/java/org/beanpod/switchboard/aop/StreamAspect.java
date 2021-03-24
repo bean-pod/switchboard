@@ -76,7 +76,6 @@ public class StreamAspect {
           encoderSerial,
           response.getBody().getId().toString());
     } catch (NullPointerException e) {
-      e.printStackTrace();
       System.err.println("response.getBody() is null");
     }
   }
