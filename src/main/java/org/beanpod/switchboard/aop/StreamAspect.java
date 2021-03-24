@@ -68,12 +68,15 @@ public class StreamAspect {
                 + " to input channel %d of encoder %s",
             outputId, decoderSerial, inputId, encoderSerial);
 
-    streamLogService.createLog(
-        OffsetDateTime.now(),
-        message,
-        decoderSerial,
-        encoderSerial,
-        response.getBody().getId().toString());
+    if (response.getBody() == null) throw new NullPointerException("response.getBody() is null");
+    else {
+      streamLogService.createLog(
+          OffsetDateTime.now(),
+          message,
+          decoderSerial,
+          encoderSerial,
+          response.getBody().getId().toString());
+    }
   }
 
   @Before("execution(* org.beanpod.switchboard.controller.StreamController.deleteStream(..))")
