@@ -34,4 +34,9 @@ public class StreamLog {
   @MapsId
   @JoinColumn(name = "log_id")
   private LogEntity logEntity;
+
+  public StreamLog(String serialNumber, String streamId){
+    this.serialNumber = serialNumber;
+    this.streamId = streamId;
+  }
 }
