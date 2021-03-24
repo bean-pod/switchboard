@@ -43,6 +43,7 @@
     <sonar.java.checkstyle.reportPaths>${project.build.directory}/checkstyle-result.xml
     </sonar.java.checkstyle.reportPaths>
     <sonar.eslint.reportPaths>frontend/lint/report.json</sonar.eslint.reportPaths>
+    <sonar.exclusions>src/dto/LogDto.java</sonar.exclusions>
   </properties>
 
   <dependencies>
