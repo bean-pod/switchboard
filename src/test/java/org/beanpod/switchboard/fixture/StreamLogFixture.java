@@ -9,7 +9,7 @@ public class StreamLogFixture {
         .id(LogFixture.id)
         .serialNumber(DeviceFixture.SERIAL_NUMBER2)
         .streamId(String.valueOf(StreamFixture.ID))
-        .logDto(LogFixture.getLogDto())
+        .logEntity(LogFixture.getLogEntity())
         .build();
   }
 
