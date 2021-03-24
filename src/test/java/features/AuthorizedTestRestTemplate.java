@@ -1,5 +1,8 @@
 package features;
 
+import static org.beanpod.switchboard.config.SecurityProperties.AUTHENTICATION_URL;
+
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.config.SecurityProperties;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -13,7 +16,6 @@ import org.springframework.http.ResponseEntity;
 @Configuration
 public class AuthorizedTestRestTemplate {
 
-  private final String baseUrl = "http://127.0.0.1:8080";
   private final SecurityProperties securityProperties;
   private String token = null;
 
@@ -32,13 +34,14 @@ public class AuthorizedTestRestTemplate {
   }
 
   private void getNewToken() {
-    String url = baseUrl + securityProperties.getAuthenticationUrl();
+    String baseUrl = "http://127.0.0.1:8080";
+    String url = baseUrl + AUTHENTICATION_URL;
     ResponseEntity<String> response =
         new TestRestTemplate()
             .withBasicAuth(
                 securityProperties.getSuperuserUsername(),
                 securityProperties.getSuperuserPassword())
             .getForEntity(url, String.class);
-    token = response.getHeaders().get("Authorization").get(0);
+    token = Objects.requireNonNull(response.getHeaders().get("Authorization")).get(0);
   }
 }
