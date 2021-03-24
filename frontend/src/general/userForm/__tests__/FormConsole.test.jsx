@@ -9,7 +9,7 @@ import {
 import React from "react";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import { Button, TextField } from "@material-ui/core";
+import { Button, Grid, TextField } from "@material-ui/core";
 import FormConsole from "../FormConsole";
 import DashboardCard from "../../dashboard/DashboardCard";
 
@@ -37,7 +37,8 @@ describe("<FormConsole/> class component", () => {
   });
 
   describe("render() function", () => {
-    it("should have 1 <DashboardCard/>, 2 <TextFields/> and 1 <Button/>", () => {
+    it("should have 2 <Grid/>, 1 <DashboardCard/>, 2 <TextFields/> and 1 <Button/>", () => {
+      expect(wrapper.find(Grid)).toHaveLength(2);
       expect(wrapper.find(DashboardCard)).toHaveLength(1);
       expect(wrapper.find(TextField)).toHaveLength(2);
       expect(wrapper.find(Button)).toHaveLength(1);
@@ -68,7 +69,7 @@ describe("<FormConsole/> class component", () => {
     });
 
     describe("if passwordError, passwordInputProps, passwordHelperText", () => {
-      describe("are not defined, password <TexField/> component's", () => {
+      describe("are not defined, password <TextField/> component's", () => {
         let textField;
 
         beforeEach(() => {
@@ -87,10 +88,17 @@ describe("<FormConsole/> class component", () => {
           expect(textField.prop("helperText")).toEqual(undefined);
         });
 
-        describe("the setPasswordError() function", () => {
-          it("should return undefined", () => {
-            const result = wrapper.instance().setPasswordError();
-            expect(result).toEqual(undefined);
+        describe("when calling setPasswordError() function", () => {
+          it("passwordErrorCondition should stay false if passwordError prop is undefined", () => {
+            const passwordErrorStateInitial = wrapper.state()
+              .passwordErrorCondition;
+
+            const dummyPass = "test";
+            wrapper.instance().setPasswordError(dummyPass);
+
+            expect(wrapper.state().passwordErrorCondition).toBe(
+              passwordErrorStateInitial
+            );
           });
         });
       });
@@ -98,7 +106,6 @@ describe("<FormConsole/> class component", () => {
       describe("are defined, password <TextField/> component's", () => {
         let wrapperIsCreate;
         let textField;
-        let passwordState;
 
         const dummyError = { upperbound: 2, lowerbound: 0 };
         const dummyInput = { maxLength: 8, minLength: 2 };
@@ -115,16 +122,15 @@ describe("<FormConsole/> class component", () => {
             />
           );
           textField = wrapperIsCreate.find(TextField).at(1);
-          passwordState = wrapperIsCreate.state().password;
         });
 
         afterEach(() => {
           wrapperIsCreate.unmount();
         });
 
-        it("error prop should be equal to setPasswordError function", () => {
+        it("error prop should be equal to passwordErrorCondition state", () => {
           expect(textField.prop("error")).toEqual(
-            wrapperIsCreate.instance().setPasswordError
+            wrapperIsCreate.state().passwordErrorCondition
           );
         });
 
@@ -136,12 +142,28 @@ describe("<FormConsole/> class component", () => {
           expect(textField.prop("helperText")).toEqual(dummyText);
         });
 
-        describe("the setPasswordError() function", () => {
-          it("should return a statement respecting the passed passwordError prop conditions", () => {
-            const result = wrapperIsCreate.instance().setPasswordError();
-            expect(result).toEqual(
-              passwordState.length < dummyError.upperbound &&
-                passwordState.length > dummyError.lowerbound
+        describe("when calling setPasswordError() function", () => {
+          it("passwordErrorCondition should be true if the passed argument/password respects the conditions of passwordError prop", () => {
+            // initial condition check
+            expect(wrapperIsCreate.state().passwordErrorCondition).toBe(false);
+
+            // passed dummy boundaries are password.length < 2 && password.length > 0
+            const passwordTest = "a";
+            wrapperIsCreate.instance().setPasswordError(passwordTest);
+
+            expect(wrapperIsCreate.state().passwordErrorCondition).toBe(true);
+          });
+
+          it("passwordErrorCondition should be false if the passed argument/password does not meet the conditions of passwordError prop", () => {
+            // initial condition check
+            expect(wrapperIsCreate.state().passwordErrorCondition).toBe(false);
+
+            // passed dummy boundaries are password.length < 2 && password.length > 0
+            const passwordTest = "asdas";
+            wrapperIsCreate.instance().setPasswordError(passwordTest);
+
+            expect(wrapperIsCreate.state().passwordErrorCondition).toEqual(
+              false
             );
           });
         });

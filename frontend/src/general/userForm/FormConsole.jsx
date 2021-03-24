@@ -9,7 +9,7 @@ export default class FormConsole extends React.Component {
     this.state = {
       username: "",
       password: "",
-      error: false
+      passwordErrorCondition: false
     };
     this.onSubmit = this.onSubmit.bind(this);
     this.setUsername = this.setUsername.bind(this);
@@ -44,14 +44,14 @@ export default class FormConsole extends React.Component {
         password.length < passwordError.upperbound &&
         password.length > passwordError.lowerbound
       ) {
-        this.setState({ error: true });
+        this.setState({ passwordErrorCondition: true });
       } else {
-        this.setState({ error: false });
+        this.setState({ passwordErrorCondition: false });
       }
     }
   }
 
-  passwordOnChange(password){
+  passwordOnChange(password) {
     this.setPassword(password);
     this.setPasswordError(password);
   }
@@ -63,7 +63,7 @@ export default class FormConsole extends React.Component {
       passwordInputProps,
       passwordHelperText
     } = this.props;
-    const { error } = this.state;
+    const { passwordErrorCondition } = this.state;
     return (
       <Grid
         container
@@ -97,10 +97,11 @@ export default class FormConsole extends React.Component {
                   label="Password"
                   type="password"
                   id="password"
-                  error={error}
+                  error={passwordErrorCondition}
                   inputProps={passwordInputProps}
                   helperText={passwordHelperText}
                   autoComplete="current-password"
+                  // prettier-ignore
                   onChange={(event) => this.passwordOnChange(event.target.value)}
                 />
                 <Button
