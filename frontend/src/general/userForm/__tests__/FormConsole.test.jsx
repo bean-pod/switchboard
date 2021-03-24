@@ -114,7 +114,7 @@ describe("<FormConsole/> class component", () => {
           });
 
           describe("should call setPasswordError()", () => {
-            it("passwordErrorCondition should stay false if passwordError prop is undefined", () => {
+            it("passwordErrorCondition should stay unchanged/false if passwordError prop is undefined", () => {
               const passwordErrorStateInitial = wrapper.state()
                 .passwordErrorCondition;
 
@@ -188,9 +188,7 @@ describe("<FormConsole/> class component", () => {
             const passwordTest = "asdas";
             wrapperIsCreate.instance().setPasswordError(passwordTest);
 
-            expect(wrapperIsCreate.state().passwordErrorCondition).toEqual(
-              false
-            );
+            expect(wrapperIsCreate.state().passwordErrorCondition).toBe(false);
           });
         });
 
@@ -229,7 +227,7 @@ describe("<FormConsole/> class component", () => {
               const passwordTest = "asdas";
               wrapperIsCreate.instance().passwordOnChange(passwordTest);
 
-              expect(wrapperIsCreate.state().passwordErrorCondition).toEqual(
+              expect(wrapperIsCreate.state().passwordErrorCondition).toBe(
                 false
               );
             });
