@@ -40,7 +40,7 @@ describe("<DialogButtons/> Class Component", () => {
 
         expect(button).toHaveLength(1);
 
-        expect(button.text()).toBe(name1);
+        expect(button.text()).toEqual(name1);
         expect(button.props().onClick).toBe(dummyButton1.onClick);
       });
     });
@@ -56,10 +56,10 @@ describe("<DialogButtons/> Class Component", () => {
 
         expect(buttons).toHaveLength(2);
 
-        expect(buttons.first().text()).toBe(name1);
+        expect(buttons.first().text()).toEqual(name1);
         expect(buttons.first().props().onClick).toBe(dummyButton1.onClick);
 
-        expect(buttons.last().text()).toBe(name2);
+        expect(buttons.last().text()).toEqual(name2);
         expect(buttons.last().props().onClick).toBe(dummyButton2.onClick);
       });
     });

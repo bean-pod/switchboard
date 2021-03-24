@@ -39,7 +39,7 @@ describe("CreateUserFormConsole functional component", () => {
       it("to be equal to the <CreateUserFormConsole/>'s handleSubmit prop", () => {
         const userFormConsole = wrapper.find(FormConsole);
 
-        expect(userFormConsole.props().handleSubmit).toEqual(
+        expect(userFormConsole.props().handleSubmit).toBe(
           wrapper.props().handleSubmit
         );
       });

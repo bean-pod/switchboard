@@ -49,7 +49,7 @@ describe("<CreateUserPageContents/> class component", () => {
 
       const formConsoleProps = wrapper.find(CreateUserFormConsole).props();
 
-      expect(formConsoleProps.handleSubmit).toEqual(
+      expect(formConsoleProps.handleSubmit).toBe(
         wrapper.instance().handleSubmit
       );
     });
@@ -60,7 +60,7 @@ describe("<CreateUserPageContents/> class component", () => {
       const FormFailedDialogProps = wrapper.find(FormFailedDialog).props();
 
       expect(FormFailedDialogProps.title).toEqual("Failed to create user");
-      expect(FormFailedDialogProps.errorMessage).toEqual(
+      expect(FormFailedDialogProps.errorMessage).toBe(
         wrapper.state().dialogMessage
       );
     });
@@ -74,7 +74,7 @@ describe("<CreateUserPageContents/> class component", () => {
       const changedState = "test";
       wrapper.instance().setDialogMessage(changedState);
 
-      expect(wrapper.state().dialogMessage).toBe(changedState);
+      expect(wrapper.state().dialogMessage).toEqual(changedState);
     });
   });
 

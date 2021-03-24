@@ -77,15 +77,15 @@ describe("<FormConsole/> class component", () => {
         });
 
         it("error should be undefined", () => {
-          expect(textField.prop("error")).toEqual(undefined);
+          expect(textField.prop("error")).toBeUndefined();
         });
 
         it("inputProps should be undefined", () => {
-          expect(textField.prop("inputProps")).toEqual(undefined);
+          expect(textField.prop("inputProps")).toBeUndefined();
         });
 
         it("helperText should be undefined", () => {
-          expect(textField.prop("helperText")).toEqual(undefined);
+          expect(textField.prop("helperText")).toBeUndefined();
         });
 
         describe("when calling setPasswordError() function", () => {
@@ -96,7 +96,7 @@ describe("<FormConsole/> class component", () => {
             const dummyPass = "test";
             wrapper.instance().setPasswordError(dummyPass);
 
-            expect(wrapper.state().passwordErrorCondition).toBe(
+            expect(wrapper.state().passwordErrorCondition).toEqual(
               passwordErrorStateInitial
             );
           });
@@ -110,7 +110,7 @@ describe("<FormConsole/> class component", () => {
             const dummyPassword = "test";
             wrapper.instance().passwordOnChange(dummyPassword);
 
-            expect(wrapper.state().password).toBe(dummyPassword);
+            expect(wrapper.state().password).toEqual(dummyPassword);
           });
 
           describe("should call setPasswordError()", () => {
@@ -121,7 +121,7 @@ describe("<FormConsole/> class component", () => {
               const dummyPassword = "test";
               wrapper.instance().passwordOnChange(dummyPassword);
 
-              expect(wrapper.state().passwordErrorCondition).toBe(
+              expect(wrapper.state().passwordErrorCondition).toEqual(
                 passwordErrorStateInitial
               );
             });
@@ -155,7 +155,7 @@ describe("<FormConsole/> class component", () => {
         });
 
         it("error prop should be equal to passwordErrorCondition state", () => {
-          expect(textField.prop("error")).toEqual(
+          expect(textField.prop("error")).toBe(
             wrapperIsCreate.state().passwordErrorCondition
           );
         });
@@ -200,7 +200,7 @@ describe("<FormConsole/> class component", () => {
             const dummyPassword = "test";
             wrapper.instance().passwordOnChange(dummyPassword);
 
-            expect(wrapper.state().password).toBe(dummyPassword);
+            expect(wrapper.state().password).toEqual(dummyPassword);
           });
 
           describe("should call setPasswordError()", () => {
@@ -239,7 +239,7 @@ describe("<FormConsole/> class component", () => {
 
   describe("form tag onSubmit", () => {
     it("should return FormConsole.onSubmit()", () => {
-      expect(wrapper.find("form").prop("onSubmit")).toEqual(
+      expect(wrapper.find("form").prop("onSubmit")).toBe(
         wrapper.instance().onSubmit
       );
     });
@@ -253,7 +253,7 @@ describe("<FormConsole/> class component", () => {
       const expectedUsername = "test";
       wrapper.instance().setUsername(expectedUsername);
 
-      expect(wrapper.state().username).toBe(expectedUsername);
+      expect(wrapper.state().username).toEqual(expectedUsername);
     });
   });
 
@@ -265,7 +265,7 @@ describe("<FormConsole/> class component", () => {
       const expectedPassword = "test";
       wrapper.instance().setPassword(expectedPassword);
 
-      expect(wrapper.state().password).toBe(expectedPassword);
+      expect(wrapper.state().password).toEqual(expectedPassword);
     });
   });
 
