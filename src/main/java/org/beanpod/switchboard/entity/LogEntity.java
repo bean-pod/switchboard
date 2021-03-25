@@ -12,6 +12,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
@@ -20,29 +22,27 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class LogEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @NonNull
   private OffsetDateTime dateTime;
 
+  @NonNull
   private String message;
 
+  @NonNull
   private String level;
 
   // first device
+  @NonNull
   private String serialNumber;
 
   @OneToOne(mappedBy = "logEntity", cascade = CascadeType.ALL)
   @PrimaryKeyJoinColumn
   private StreamLog streamLog;
-
-  public LogEntity(OffsetDateTime dateTime, String message, String level, String serialNumber) {
-    this.dateTime = dateTime;
-    this.message = message;
-    this.level = level;
-    this.serialNumber = serialNumber;
-  }
 }

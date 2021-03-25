@@ -11,6 +11,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
@@ -19,6 +21,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class StreamLog {
 
   @Id
@@ -26,17 +29,16 @@ public class StreamLog {
   private Long id;
 
   // second device
-  @NotNull private String serialNumber;
+  @NotNull
+  @NonNull
+  private String serialNumber;
 
-  @NotNull private String streamId;
+  @NotNull
+  @NonNull
+  private String streamId;
 
   @OneToOne
   @MapsId
   @JoinColumn(name = "log_id")
   private LogEntity logEntity;
-
-  public StreamLog(String serialNumber, String streamId) {
-    this.serialNumber = serialNumber;
-    this.streamId = streamId;
-  }
 }
