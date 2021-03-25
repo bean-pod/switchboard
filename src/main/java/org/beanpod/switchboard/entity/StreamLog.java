@@ -29,13 +29,9 @@ public class StreamLog {
   private Long id;
 
   // second device
-  @NotNull
-  @NonNull
-  private String serialNumber;
+  @NotNull @NonNull private String serialNumber;
 
-  @NotNull
-  @NonNull
-  private String streamId;
+  @NotNull @NonNull private String streamId;
 
   @OneToOne
   @MapsId

@@ -29,18 +29,14 @@ public class LogEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @NonNull
-  private OffsetDateTime dateTime;
+  @NonNull private OffsetDateTime dateTime;
 
-  @NonNull
-  private String message;
+  @NonNull private String message;
 
-  @NonNull
-  private String level;
+  @NonNull private String level;
 
   // first device
-  @NonNull
-  private String serialNumber;
+  @NonNull private String serialNumber;
 
   @OneToOne(mappedBy = "logEntity", cascade = CascadeType.ALL)
   @PrimaryKeyJoinColumn

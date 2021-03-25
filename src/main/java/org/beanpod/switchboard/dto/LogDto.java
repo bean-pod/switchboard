@@ -20,20 +20,15 @@ import org.beanpod.switchboard.entity.StreamLog;
 @RequiredArgsConstructor
 public class LogDto {
 
-  @NonNull
-  private Long id;
+  @NonNull private Long id;
 
-  @NonNull
-  private OffsetDateTime dateTime;
+  @NonNull private OffsetDateTime dateTime;
 
-  @NonNull
-  private String message;
+  @NonNull private String message;
 
-  @NonNull
-  private String level;
+  @NonNull private String level;
 
-  @NonNull
-  private String serialNumber;
+  @NonNull private String serialNumber;
 
   private StreamLog streamLog;
 }
