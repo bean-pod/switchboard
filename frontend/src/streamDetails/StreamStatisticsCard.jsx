@@ -1,0 +1,39 @@
+import React from "react";
+import PropTypes from "prop-types";
+import { Box, Button, Grid } from "@material-ui/core";
+
+import DashboardCard from "../general/dashboard/DashboardCard";
+import SimpleTable from "../general/simpleTable/SimpleTable";
+import zipProperties from "../general/simpleTable/SimpleTableUtil";
+
+export default function StreamStatisticsCard(props) {
+  const { streamId } = props;
+
+  const propertyNames = ["test"];
+  const properties = [1];
+
+  const propertyPairs = zipProperties(propertyNames, properties);
+  return (
+    <>
+      <DashboardCard title="Statistics">
+        <Grid container>
+          <Grid item xs={12}>
+            <SimpleTable propertyPairs={propertyPairs} />
+          </Grid>
+          <Grid item xs={12}>
+            <Box className="alignRightFloatPadded">
+              <Button size="small" variant="outlined" color="primary">
+                More Details for
+                {streamId}
+              </Button>
+            </Box>
+          </Grid>
+        </Grid>
+      </DashboardCard>
+    </>
+  );
+}
+
+StreamStatisticsCard.propTypes = {
+  streamId: PropTypes.string.isRequired
+};
