@@ -6,7 +6,7 @@ import * as authenticationUtil from "../AuthenticationUtil";
 // import StreamApi itself
 import * as StreamApi from "../StreamApi";
 import StreamInfo from "../../model/StreamInfo";
-import { convertToDataObject } from "../../model/ConvertDataFormat";
+import { convertDeviceToDataObject } from "../../model/ConvertDataFormat";
 import * as StreamFixture from "./StreamFixture";
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -22,15 +22,15 @@ const {
 
 const expectedFirstStreamRespone = new StreamInfo(
   1,
-  convertToDataObject(firstStreamResponse.outputChannel.encoder),
-  convertToDataObject(firstStreamResponse.inputChannel.decoder),
+  convertDeviceToDataObject(firstStreamResponse.outputChannel.encoder),
+  convertDeviceToDataObject(firstStreamResponse.inputChannel.decoder),
   20001,
   20002
 );
 const expectedSecondStreamResponse = new StreamInfo(
   2,
-  convertToDataObject(secondStreamResponse.outputChannel.encoder),
-  convertToDataObject(secondStreamResponse.inputChannel.decoder),
+  convertDeviceToDataObject(secondStreamResponse.outputChannel.encoder),
+  convertDeviceToDataObject(secondStreamResponse.inputChannel.decoder),
   20000,
   20003
 );

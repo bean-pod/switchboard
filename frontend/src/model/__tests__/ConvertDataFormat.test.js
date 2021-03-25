@@ -1,6 +1,6 @@
 import { expect, test } from "@jest/globals";
 import {
-  convertToDataObject,
+  convertDeviceToDataObject,
   convertToServiceObject
 } from "../ConvertDataFormat";
 import DeviceInfo from "../DeviceInfo";
@@ -72,12 +72,12 @@ const sampleAxiosReceiver = {
   extras: undefined
 };
 
-test("convertToDataObject returns DeviceInfo object with correct data", () => {
+test("convertDeviceToDataObject returns DeviceInfo object with correct data", () => {
   const axiosSenderToLocal = JSON.stringify(
-    convertToDataObject(sampleAxiosSender)
+    convertDeviceToDataObject(sampleAxiosSender)
   );
   const axiosReceiverToLocal = JSON.stringify(
-    convertToDataObject(sampleAxiosReceiver)
+    convertDeviceToDataObject(sampleAxiosReceiver)
   );
 
   expect(axiosSenderToLocal).toStrictEqual(JSON.stringify(sampleLocalSender));
