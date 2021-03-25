@@ -1,5 +1,8 @@
 import axios from "axios";
-import { convertDeviceToDataObject, convertStatsToDataObject } from "../model/ConvertDataFormat";
+import {
+  convertDeviceToDataObject,
+  convertStatsToDataObject
+} from "../model/ConvertDataFormat";
 import StreamInfo from "../model/StreamInfo";
 import { getAuthorizationHeader } from "./AuthenticationUtil";
 
