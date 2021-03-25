@@ -1,38 +1,22 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import {
-  TableContainer,
-  Table,
-  TableBody,
-  TableRow,
-  TableCell
-} from "@material-ui/core";
 import DeviceInfo from "../model/DeviceInfo";
+
+import SimpleTable from "../general/simpleTable/SimpleTable";
+import zipProperties from "../general/simpleTable/SimpleTableUtil";
 
 export default function StreamDeviceDetails(props) {
   const { device, channel } = props;
 
+  const propertyNames = ["Name", "Serial Number", "Channel"];
+  const properties = [device.name, device.serialNumber, channel];
+
+  const propertyPairs = zipProperties(propertyNames, properties);
+
   return (
     <>
-      <TableContainer style={{ maxHeight: 300 }}>
-        <Table>
-          <TableBody>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>{device.name}</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Serial Number</TableCell>
-              <TableCell>{device.serialNumber}</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Channel</TableCell>
-              <TableCell>{channel}</TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <SimpleTable propertyPairs={propertyPairs} />
     </>
   );
 }
