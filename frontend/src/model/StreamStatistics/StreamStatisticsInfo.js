@@ -1,4 +1,4 @@
-export default class StreamStatistics {
+export default class StreamStatisticsInfo {
   constructor(streamId, time, window, link, send, receive) {
     this.streamId = streamId;
     this.time = time;

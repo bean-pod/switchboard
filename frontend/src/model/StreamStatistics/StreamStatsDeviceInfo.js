@@ -1,4 +1,4 @@
-export default class StreamStatsDevice {
+export default class StreamStatsDeviceInfo {
   constructor(
     deviceType,
     packets,
