@@ -25,7 +25,6 @@ public class StreamLogService {
     LogEntity logEntity = new LogEntity(dateTime, message, "info", decoderSerial);
     StreamLog streamLog = new StreamLog(encoderSerial, streamId);
 
-    // logEntity.setStreamLog(streamLog); // will cause infinite loop
     streamLog.setLogEntity(logEntity);
 
     StreamLogDto streamLogDto = logStreamMapper.toLogStreamDto(streamLog);
