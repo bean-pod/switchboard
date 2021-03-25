@@ -1,5 +1,5 @@
 import axios from "axios";
-import { convertToDataObject } from "../model/ConvertDataFormat";
+import { convertDeviceToDataObject } from "../model/ConvertDataFormat";
 import StreamInfo from "../model/StreamInfo";
 import { getAuthorizationHeader } from "./AuthenticationUtil";
 
@@ -13,8 +13,8 @@ export async function getStream(streamId) {
       const stream = response.data;
       return new StreamInfo(
         stream.id,
-        convertToDataObject(stream.outputChannel.encoder),
-        convertToDataObject(stream.inputChannel.decoder),
+        convertDeviceToDataObject(stream.outputChannel.encoder),
+        convertDeviceToDataObject(stream.inputChannel.decoder),
         stream.outputChannel.channel.port,
         stream.inputChannel.channel.port
       );

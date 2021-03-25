@@ -1,6 +1,6 @@
 import DeviceInfo from "./DeviceInfo";
 
-export function convertToDataObject(databaseDevice) {
+export function convertDeviceToDataObject(databaseDevice) {
   return new DeviceInfo(
     databaseDevice.serialNumber,
     databaseDevice.lastCommunication,
