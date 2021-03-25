@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.beanpod.switchboard.entity.StreamLog;
 
@@ -15,27 +17,23 @@ import org.beanpod.switchboard.entity.StreamLog;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@RequiredArgsConstructor
 public class LogDto {
 
+  @NonNull
   private Long id;
 
+  @NonNull
   private OffsetDateTime dateTime;
 
+  @NonNull
   private String message;
 
+  @NonNull
   private String level;
 
+  @NonNull
   private String serialNumber;
 
   private StreamLog streamLog;
-
-  // for backward compatibility
-  public LogDto(
-      Long id, OffsetDateTime dateTime, String message, String level, String serialNumber) {
-    this.id = id;
-    this.dateTime = dateTime;
-    this.message = message;
-    this.level = level;
-    this.serialNumber = serialNumber;
-  }
 }
