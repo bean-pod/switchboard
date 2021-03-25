@@ -1,10 +1,11 @@
 import axios from "axios";
 import LogInfo from "../model/LogInfo";
+import { getAuthorizationHeader } from "./AuthenticationUtil";
 import * as SampleData from "./SampleData";
 
 async function getLogs(endpoint) {
   return axios
-    .get(endpoint)
+    .get(endpoint, getAuthorizationHeader())
     .then((response) => {
       return Promise.resolve(
         response.data.map((log) => {
@@ -20,9 +21,9 @@ async function getLogs(endpoint) {
 }
 
 export async function getAllLogs() {
-  return getLogs(process.env.REACT_APP_LOGS);
+  return getLogs(process.env.REACT_APP_LOG);
 }
 
 export async function getDeviceLogs(deviceSerialNumber) {
-  return getLogs(`${process.env.REACT_APP_LOGS}/${deviceSerialNumber}`);
+  return getLogs(`${process.env.REACT_APP_LOG}/${deviceSerialNumber}`);
 }

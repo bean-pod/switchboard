@@ -9,10 +9,8 @@ import {
   jest,
   it
 } from "@jest/globals";
-import { Box, TableContainer, Typography } from "@material-ui/core";
+import { Box, TableContainer } from "@material-ui/core";
 import {
-  ExpandLess,
-  ExpandMore,
   ArrowDownward,
   FirstPage,
   LastPage,
@@ -21,7 +19,7 @@ import {
 } from "@material-ui/icons";
 import MaterialTable from "material-table";
 import StreamsTable from "../StreamsTable";
-import DeleteStream from "../DeleteStream";
+import StreamDetailsButton from "../StreamDetailsButton";
 import StatusIndicator from "../../general/StatusIndicator";
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -103,7 +101,7 @@ describe("<StreamsTable/> component", () => {
         filtering: false,
         sorting: false,
         render: function Actions(rowData) {
-          return <DeleteStream deleteId={rowData.id} />;
+          return <StreamDetailsButton streamInfo={rowData} />;
         },
         align: "center",
         export: false
@@ -193,55 +191,13 @@ describe("<StreamsTable/> component", () => {
         it(`should have export "${expected[7].export}"`, () => {
           expect(result[7].export).toBe(expected[7].export);
         });
-        it(`should have a render() function that returns a <DeleteStream/> component`, () => {
+        it(`should have a render() function that returns a <StreamDetailsButton/> component`, () => {
           const dummyData = {
-            id: 444
+            streamInfo: dummyStreams[0]
           };
           const renderResult = result[7].render(dummyData);
           expect(renderResult).toMatchObject(expected[7].render(dummyData));
         });
-      });
-    });
-  });
-
-  describe("getDetailPanel() function to return an array", () => {
-    const dummyStreams = [null];
-    wrapper = Enzyme.shallow(<StreamsTable streams={dummyStreams} />);
-    const result = wrapper.instance().getDetailPanel();
-    const getDetailPanelExpectedResult = [
-      {
-        icon: ExpandMore,
-        openIcon: ExpandLess,
-        tooltip: "Show Stream Details",
-        render: function DetailPanel(rowData) {
-          return (
-            <div className="lightestGrey">
-              <Typography variant="h6">{rowData.extras}</Typography>
-            </div>
-          );
-        }
-      }
-    ];
-    describe("containing a single object", () => {
-      expect(result.length).toBe(1);
-      expect(typeof result[0]).toBe("object");
-      it("has a property icon which has value ExpandMore", () => {
-        expect(result[0].icon).toBe(ExpandMore);
-      });
-      it("has a property openIcon which has value ExpandLess", () => {
-        expect(result[0].openIcon).toBe(ExpandLess);
-      });
-      it("has a property tooltip which has value: the expected message", () => {
-        expect(result[0].tooltip).toBe(getDetailPanelExpectedResult[0].tooltip);
-      });
-      it(`should have a render() function returns a predefined component`, () => {
-        const dummyData = {
-          extras: 444
-        };
-        const renderResult = result[0].render(dummyData);
-        expect(renderResult).toMatchObject(
-          getDetailPanelExpectedResult[0].render(dummyData)
-        );
       });
     });
   });

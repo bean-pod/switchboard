@@ -8,7 +8,7 @@ import org.openapitools.model.StreamModel;
 
 @Mapper(
     componentModel = "spring",
-    uses = {InputChannelMapper.class, OutputChannelMapper.class})
+    uses = {InputChannelMapper.class, OutputChannelMapper.class, StreamStatMapper.class})
 public interface StreamMapper {
 
   StreamDto toDto(StreamModel streamModel);

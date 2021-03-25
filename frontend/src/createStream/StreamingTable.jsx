@@ -1,11 +1,10 @@
 import React from "react";
 import { Grid } from "@material-ui/core";
-
-import axios from "axios";
-
-import PropTypes from "prop-types";
 import SelectDevicesTable from "./SelectDevicesTable";
 import StreamButton from "../general/Buttons/StreamButton";
+
+import * as DeviceApi from "../api/DeviceApi";
+import { createStream } from "../api/StreamApi";
 
 export default class StreamingTable extends React.Component {
   constructor(props) {
@@ -17,7 +16,6 @@ export default class StreamingTable extends React.Component {
       selectedReceiverID: ""
     };
 
-    this.dataSource = props.dataSource;
     this.handleSendersChange = this.handleSendersChange.bind(this);
     this.handleReceiversChange = this.handleReceiversChange.bind(this);
 
@@ -28,8 +26,8 @@ export default class StreamingTable extends React.Component {
   }
 
   componentDidMount() {
-    this.dataSource.getSenders(this.handleSendersChange);
-    this.dataSource.getReceivers(this.handleReceiversChange);
+    DeviceApi.getSenders(this.handleSendersChange);
+    DeviceApi.getReceivers(this.handleReceiversChange);
   }
 
   handleSendersChange(senders) {
@@ -45,14 +43,11 @@ export default class StreamingTable extends React.Component {
   }
 
   handleSubmit(event) {
+    event.preventDefault();
     const { selectedReceiverID, selectedSenderID } = this.state;
     if (selectedReceiverID !== "" && selectedSenderID !== "") {
-      axios.post(process.env.REACT_APP_STREAM, {
-        inputChannelId: selectedReceiverID,
-        outputChannelId: selectedSenderID
-      });
+      createStream(selectedReceiverID, selectedSenderID);
     }
-    event.preventDefault();
   }
 
   onSenderSelected(selectedSender) {
@@ -115,6 +110,3 @@ export default class StreamingTable extends React.Component {
     );
   }
 }
-StreamingTable.propTypes = {
-  dataSource: PropTypes.objectOf(PropTypes.func).isRequired
-};

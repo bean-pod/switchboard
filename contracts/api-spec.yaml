@@ -10,7 +10,7 @@ servers:
     description: Local Enviorment
 
 paths:
-  /logs/{serialNumber}:
+  /log/{serialNumber}:
     get:
       operationId: retrieveDeviceLogs
       description: Get a list of logs for a specific device
@@ -43,7 +43,7 @@ paths:
                 type: string
                 example: 'User moh has been created successfully'
 
-  /logs:
+  /log:
     get:
       operationId: retrieveAllLogs
       description: Get a list of logs
@@ -423,6 +423,53 @@ paths:
         '200':
           description: Successful deletion of the stream
 
+  /stream/statistics/{id}:
+    get:
+      operationId: getStreamStatById
+      description: Retrieve a stream stat by id
+      tags:
+        - Streams
+      parameters:
+        - $ref: '#/components/parameters/StreamId'
+      responses:
+        '200':
+          description: Succesful retrievel of a stream stat
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StreamStatModel'
+
+  /stream/statistics:
+    get:
+      operationId: retrieveStreamStats
+      description: Retrieve all the existing stream statistics
+      tags:
+        - Streams
+      responses:
+        '200':
+          description: Successful retrieval of stream statistics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StreamStatsModel'
+    put:
+      operationId: updateStreamStat
+      description: update a stream's stat
+      tags:
+        - Streams
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StreamStatModel'
+      responses:
+        '200':
+          description: successful update of a stream stat
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StreamStatModel'
 components:
   schemas:
     UserModel:
@@ -438,6 +485,13 @@ components:
         password:
           type: string
           example: '123#rt.'
+        userRole:
+          type: string
+          enum:
+            - ADMIN
+            - USER
+            - SUPERUSER
+          example: 'ADMIN'
 
     LogsModel:
       description: A list of all logs
@@ -637,6 +691,12 @@ components:
         format: int64
       example: [ '1234' ]
 
+    StreamStatsModel:
+      description: A list of stream stats
+      type: array
+      items:
+        $ref: '#/components/schemas/StreamStatModel'
+
     CreateStreamRequest:
       description: An object to request the creation of a stream between an input and output channel
       properties:
@@ -648,6 +708,102 @@ components:
           type: integer
           format: int64
           example: '2'
+
+    StreamStatModel:
+      description: A stat that is related to a specific stream
+      properties:
+        id:
+          type: integer
+          format: int64
+        time:
+          type: integer
+          format: int64
+        window:
+          $ref: '#/components/schemas/WindowStatModel'
+        link:
+          $ref: '#/components/schemas/LinkStatModel'
+        send:
+          $ref: '#/components/schemas/SendStatModel'
+        recv:
+          $ref: '#/components/schemas/RecvStatModel'
+
+    WindowStatModel:
+      description: A statistic related to a stream
+      properties:
+        flow:
+          type: integer
+          format: int64
+        congestion:
+          type: integer
+          format: int64
+        flight:
+          type: integer
+          format: int64
+
+    LinkStatModel:
+      description: A statistic related to a stream
+      properties:
+        rtt:
+          type: number
+        bandwidth:
+          type: number
+        maxBandwidth:
+          type: integer
+          format: int64
+
+    SendStatModel:
+      description: A statistic related to a stream
+      properties:
+        packets:
+          type: integer
+          format: int64
+        packetsLost:
+          type: integer
+          format: int64
+        packetsDropped:
+          type: integer
+          format: int64
+        packetsRetransmitted:
+          type: integer
+          format: int64
+        bytes:
+          type: integer
+          format: int64
+        bytesDropped:
+          type: integer
+          format: int64
+        mbitRate:
+          type: number
+
+    RecvStatModel:
+      description: A statistic related to a stream
+      properties:
+        packets:
+          type: integer
+          format: int64
+        packetsLost:
+          type: integer
+          format: int64
+        packetsDropped:
+          type: integer
+          format: int64
+        packetsRetransmitted:
+          type: integer
+          format: int64
+        packetsBelated:
+          type: integer
+          format: int64
+        bytes:
+          type: integer
+          format: int64
+        bytesLost:
+          type: integer
+          format: int64
+        bytesDropped:
+          type: integer
+          format: int64
+        mbitRate:
+          type: number
 
   parameters:
     DeviceSerialNumber:

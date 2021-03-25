@@ -8,7 +8,7 @@ import org.beanpod.switchboard.dao.LogDaoImpl;
 import org.beanpod.switchboard.dto.mapper.LogMapper;
 import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.service.LogService;
-import org.openapitools.api.LogsApi;
+import org.openapitools.api.LogApi;
 import org.openapitools.model.CreateLogRequest;
 import org.openapitools.model.LogModel;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-public class LogController implements LogsApi {
+public class LogController implements LogApi {
 
   public static final String CONTROLLER_NAME = "Log";
   private final LogDaoImpl logDao;

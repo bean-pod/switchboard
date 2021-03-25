@@ -10,6 +10,7 @@ import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import org.beanpod.switchboard.dao.DecoderDaoImpl;
@@ -107,6 +108,16 @@ class DecoderControllerTest {
     when(decoderDao.save(decoderDto)).thenReturn(decoderDto);
     ResponseEntity response = decoderController.createDecoder(decoderDto);
     assertEquals(200, response.getStatusCodeValue());
+  }
+
+  @Test
+  final void testCreateDecoderWithoutChannels() {
+    decoderDto.setInput(Collections.emptySet());
+    assertThrows(
+        ExceptionType.MissingChannelsException.class,
+        () -> {
+          decoderController.createDecoder(decoderDto);
+        });
   }
 
   // When a device is available in the DB
