@@ -1,5 +1,5 @@
 import axios from "axios";
-import { convertDeviceToDataObject } from "../model/ConvertDataFormat";
+import { convertDeviceToDataObject, convertStatsToDataObject } from "../model/ConvertDataFormat";
 import StreamInfo from "../model/StreamInfo";
 import { getAuthorizationHeader } from "./AuthenticationUtil";
 
@@ -49,4 +49,16 @@ export async function createStream(selectedReceiverID, selectedSenderID) {
     },
     getAuthorizationHeader()
   );
+}
+
+export async function getStreamStatistics(streamId) {
+  return axios
+    .get(
+      `${process.env.REACT_APP_STREAM}/statistics/${streamId}`,
+      getAuthorizationHeader()
+    )
+    .then((response) => {
+      const stats = response.data;
+      return convertStatsToDataObject(stats);
+    });
 }
