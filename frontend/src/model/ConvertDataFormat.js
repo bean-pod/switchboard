@@ -33,24 +33,24 @@ export function convertStatsToDataObject(databaseStats) {
     ),
     new StreamStatsDeviceInfo(
       "send",
-      databaseStates.send.packets,
-      databaseStates.send.packetsLost,
-      databaseStates.send.packetsDropped,
-      databaseStates.send.packetsRetransmitted,
-      databaseStates.send.bytes,
-      databaseStates.send.bytesDropped,
-      databaseStates.send.mbitRate
+      databaseStats.send.packets,
+      databaseStats.send.packetsLost,
+      databaseStats.send.packetsDropped,
+      databaseStats.send.packetsRetransmitted,
+      databaseStats.send.bytes,
+      databaseStats.send.bytesDropped,
+      databaseStats.send.mbitRate
     ),
     new StreamStatsDeviceInfo(
       "receive",
-      databaseStates.send.packets,
-      databaseStates.send.packetsLost,
-      databaseStates.send.packetsDropped,
-      databaseStates.send.packetsRetransmitted,
-      databaseStates.send.packetsBelated,
-      databaseStates.send.bytes,
-      databaseStates.send.bytesDropped,
-      databaseStates.send.mbitRate
+      databaseStats.send.packets,
+      databaseStats.send.packetsLost,
+      databaseStats.send.packetsDropped,
+      databaseStats.send.packetsRetransmitted,
+      databaseStats.send.packetsBelated,
+      databaseStats.send.bytes,
+      databaseStats.send.bytesDropped,
+      databaseStats.send.mbitRate
     )
   );
 }
