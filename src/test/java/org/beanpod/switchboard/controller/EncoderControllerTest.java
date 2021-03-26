@@ -94,7 +94,8 @@ class EncoderControllerTest {
   // When a encoder is available in the DB
   @Test
   final void testRetrieveEncoder() {
-    when(encoderDao.findEncoder(user, EncoderFixture.SERIAL_NUMBER)).thenReturn(Optional.of(encoderDTO));
+    when(encoderDao.findEncoder(user, EncoderFixture.SERIAL_NUMBER))
+        .thenReturn(Optional.of(encoderDTO));
     when(maintainDeviceStatus.maintainStatusField(anyList())).thenReturn(listOfDevices);
 
     ResponseEntity<EncoderDto> actualEncoder =
@@ -118,7 +119,8 @@ class EncoderControllerTest {
   // When a device is available in the DB
   @Test
   final void testCreateEncoder() {
-    when(deviceService.findDevice(user, EncoderFixture.SERIAL_NUMBER)).thenReturn(Optional.of(deviceDto));
+    when(deviceService.findDevice(user, EncoderFixture.SERIAL_NUMBER))
+        .thenReturn(Optional.of(deviceDto));
     when(encoderDao.save(encoderDTO)).thenReturn(encoderDTO);
     ResponseEntity response = encoderController.createEncoder(encoderDTO);
     assertEquals(200, response.getStatusCodeValue());
@@ -157,7 +159,8 @@ class EncoderControllerTest {
   @Test
   final void testUpdateEncoder() {
     EncoderDto encoderDto = EncoderFixture.getEncoderDto();
-    when(encoderDao.findEncoder(user, EncoderFixture.SERIAL_NUMBER)).thenReturn(Optional.of(encoderDto));
+    when(encoderDao.findEncoder(user, EncoderFixture.SERIAL_NUMBER))
+        .thenReturn(Optional.of(encoderDto));
 
     when(encoderDao.save(encoderDto)).thenReturn(encoderDto);
 

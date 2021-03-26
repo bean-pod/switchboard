@@ -57,7 +57,7 @@ class DeviceControllerTest {
     UserMockUtil.mockUser(user, request, userPrincipal, userDao);
   }
 
-  private void setupDeviceFixture(){
+  private void setupDeviceFixture() {
     device = DeviceFixture.getDevice1();
     deviceDTO = DeviceFixture.getDeviceDto();
     createDeviceRequest = DeviceFixture.getCreateDeviceRequest();
@@ -82,7 +82,8 @@ class DeviceControllerTest {
   // When a device is available in the DB
   @Test
   final void testRetrieveDevice() {
-    when(deviceDao.findDevice(user, DeviceFixture.SERIAL_NUMBER)).thenReturn(Optional.of(deviceDTO));
+    when(deviceDao.findDevice(user, DeviceFixture.SERIAL_NUMBER))
+        .thenReturn(Optional.of(deviceDTO));
     when(deviceMapper.toDeviceModel(deviceDTO)).thenReturn(deviceModel);
     ResponseEntity<DeviceModel> response = deviceController.retrieveDevice("1");
 
@@ -148,7 +149,8 @@ class DeviceControllerTest {
   // When a device is available in the DB
   @Test
   final void testUpdateDevice() {
-    when(deviceDao.findDevice(user, DeviceFixture.SERIAL_NUMBER)).thenReturn(Optional.of(deviceDTO));
+    when(deviceDao.findDevice(user, DeviceFixture.SERIAL_NUMBER))
+        .thenReturn(Optional.of(deviceDTO));
     deviceModel.setStatus("Stopped");
     when(deviceMapper.toDeviceDto(deviceModel)).thenReturn(deviceDTO);
     when(deviceDao.save(deviceDTO)).thenReturn(deviceDTO);

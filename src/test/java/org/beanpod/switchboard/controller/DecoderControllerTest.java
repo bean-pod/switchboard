@@ -31,7 +31,6 @@ import org.beanpod.switchboard.fixture.StreamFixture;
 import org.beanpod.switchboard.fixture.UserFixture;
 import org.beanpod.switchboard.service.DecoderService;
 import org.beanpod.switchboard.util.MaintainDeviceStatus;
-import org.h2.engine.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -91,7 +90,8 @@ class DecoderControllerTest {
   // When a decoder is available in the DB
   @Test
   final void testRetrieveDecoder() {
-    when(decoderDao.findDecoder(user, DecoderFixture.SERIAL_NUMBER)).thenReturn(Optional.of(decoderDto));
+    when(decoderDao.findDecoder(user, DecoderFixture.SERIAL_NUMBER))
+        .thenReturn(Optional.of(decoderDto));
     when(maintainDeviceStatus.maintainStatusField(anyList())).thenReturn(listOfDevices);
     ResponseEntity<DecoderDto> actualDecoder = decoderController.retrieveDecoder("1");
 
@@ -113,7 +113,8 @@ class DecoderControllerTest {
   // When a device is unavailable in the DB
   @Test
   final void testCreateDecoder() {
-    when(deviceService.findDevice(user, DecoderFixture.SERIAL_NUMBER)).thenReturn(Optional.of(deviceDto));
+    when(deviceService.findDevice(user, DecoderFixture.SERIAL_NUMBER))
+        .thenReturn(Optional.of(deviceDto));
     when(decoderDao.save(decoderDto)).thenReturn(decoderDto);
     ResponseEntity response = decoderController.createDecoder(decoderDto);
     assertEquals(200, response.getStatusCodeValue());
@@ -151,7 +152,8 @@ class DecoderControllerTest {
   // When a encoder is available in the DB
   @Test
   final void testUpdateDecoder() {
-    when(decoderDao.findDecoder(user, DecoderFixture.SERIAL_NUMBER)).thenReturn(Optional.of(decoderDto));
+    when(decoderDao.findDecoder(user, DecoderFixture.SERIAL_NUMBER))
+        .thenReturn(Optional.of(decoderDto));
     when(decoderDao.save(decoderDto)).thenReturn(decoderDto);
 
     ResponseEntity<DecoderDto> response = decoderController.updateDecoder(decoderDto);

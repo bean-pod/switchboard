@@ -7,7 +7,6 @@ import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 import java.nio.file.attribute.UserPrincipal;
-import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
@@ -29,7 +28,6 @@ import org.beanpod.switchboard.fixture.DecoderFixture;
 import org.beanpod.switchboard.fixture.EncoderFixture;
 import org.beanpod.switchboard.fixture.UserFixture;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -63,7 +61,7 @@ class ChannelControllerTest {
     UserMockUtil.mockUser(user, httpServletRequest, userPrincipal, userDao);
   }
 
-  private void setupChannelFixture(){
+  private void setupChannelFixture() {
     channelEntityList = List.of(ChannelFixture.getChannelEntity1());
     channelDtoList = List.of(ChannelFixture.getChannelDto());
     encoderDto = EncoderFixture.getEncoderDto();
