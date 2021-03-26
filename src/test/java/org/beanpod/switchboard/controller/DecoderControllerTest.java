@@ -10,24 +10,29 @@ import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.nio.file.attribute.UserPrincipal;
 import java.util.List;
 import java.util.Optional;
+import javax.servlet.http.HttpServletRequest;
 import org.beanpod.switchboard.dao.DecoderDaoImpl;
 import org.beanpod.switchboard.dao.DeviceDaoImpl;
+import org.beanpod.switchboard.dao.UserDaoImpl;
 import org.beanpod.switchboard.dto.DecoderDto;
 import org.beanpod.switchboard.dto.DeviceDto;
 import org.beanpod.switchboard.dto.mapper.DecoderMapper;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
 import org.beanpod.switchboard.entity.DecoderEntity;
 import org.beanpod.switchboard.entity.DeviceEntity;
+import org.beanpod.switchboard.entity.UserEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.fixture.DecoderFixture;
 import org.beanpod.switchboard.fixture.DeviceFixture;
 import org.beanpod.switchboard.fixture.StreamFixture;
+import org.beanpod.switchboard.fixture.UserFixture;
 import org.beanpod.switchboard.service.DecoderService;
 import org.beanpod.switchboard.util.MaintainDeviceStatus;
+import org.h2.engine.User;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -39,11 +44,10 @@ class DecoderControllerTest {
 
   // stubbed Objects
   private static List<DeviceEntity> listOfDevices;
-  private static DeviceEntity device;
   private static DeviceDto deviceDto;
-  private static DecoderEntity decoder;
   private static DecoderDto decoderDto;
   private static List<DecoderEntity> listOfDecoders;
+  private static UserEntity user;
   @InjectMocks private DecoderController decoderController;
   @Mock private DecoderDaoImpl decoderDao;
   @Mock private DecoderService decoderService;
@@ -51,24 +55,28 @@ class DecoderControllerTest {
   @Mock private DecoderMapper decoderMapper;
   @Mock private StreamMapper streamMapper;
   @Mock private MaintainDeviceStatus maintainDeviceStatus;
-
-  @BeforeEach
-  void setupDecoderFixture() {
-    listOfDevices = DeviceFixture.getListOfDevices();
-    device = DeviceFixture.getDevice1();
-    deviceDto = DeviceFixture.getDeviceDto();
-    decoder = DecoderFixture.getDecoderEntity1();
-    decoderDto = DecoderFixture.getDecoderDto();
-    listOfDecoders = DecoderFixture.getListOfDecoders();
-  }
+  @Mock private HttpServletRequest httpServletRequest;
+  @Mock private UserPrincipal userPrincipal;
+  @Mock private UserDaoImpl userDao;
 
   @BeforeEach
   void setup() {
+    setupDecoderFixture();
+
     MockitoAnnotations.initMocks(this); // to be able to initiate decoderController object
+
+    UserMockUtil.mockUser(user, httpServletRequest, userPrincipal, userDao);
+  }
+
+  private void setupDecoderFixture() {
+    listOfDevices = DeviceFixture.getListOfDevices();
+    deviceDto = DeviceFixture.getDeviceDto();
+    decoderDto = DecoderFixture.getDecoderDto();
+    listOfDecoders = DecoderFixture.getListOfDecoders();
+    user = UserFixture.getUserEntity();
   }
 
   @Test
-  @Disabled
   final void testRetrieveAllDecoders() {
     when(decoderDao.getDecoders()).thenReturn(listOfDecoders);
     when(decoderMapper.toDecoderDtos(any())).thenReturn(DecoderFixture.getDecoderDtos());
@@ -82,9 +90,8 @@ class DecoderControllerTest {
 
   // When a decoder is available in the DB
   @Test
-  @Disabled
   final void testRetrieveDecoder() {
-    when(decoderDao.findDecoder(DecoderFixture.SERIAL_NUMBER)).thenReturn(Optional.of(decoderDto));
+    when(decoderDao.findDecoder(user, DecoderFixture.SERIAL_NUMBER)).thenReturn(Optional.of(decoderDto));
     when(maintainDeviceStatus.maintainStatusField(anyList())).thenReturn(listOfDevices);
     ResponseEntity<DecoderDto> actualDecoder = decoderController.retrieveDecoder("1");
 
@@ -95,7 +102,6 @@ class DecoderControllerTest {
 
   // When a decoder is unavailable in the DB
   @Test
-  @Disabled
   final void testRetrieveDecoderEmpty() {
     assertThrows(
         ExceptionType.DeviceNotFoundException.class,
@@ -106,9 +112,8 @@ class DecoderControllerTest {
 
   // When a device is unavailable in the DB
   @Test
-  @Disabled
   final void testCreateDecoder() {
-    when(deviceService.findDevice(DecoderFixture.SERIAL_NUMBER)).thenReturn(Optional.of(deviceDto));
+    when(deviceService.findDevice(user, DecoderFixture.SERIAL_NUMBER)).thenReturn(Optional.of(deviceDto));
     when(decoderDao.save(decoderDto)).thenReturn(decoderDto);
     ResponseEntity response = decoderController.createDecoder(decoderDto);
     assertEquals(200, response.getStatusCodeValue());
@@ -116,7 +121,6 @@ class DecoderControllerTest {
 
   // When a device is available in the DB
   @Test
-  @Disabled
   final void testCreateDecoderAlreadyExists() {
     assertThrows(
         ExceptionType.DeviceNotFoundException.class,
@@ -127,9 +131,8 @@ class DecoderControllerTest {
 
   // When a decoder is available in the DB
   @Test
-  @Disabled
   final void testDeleteDecoder() {
-    when(decoderDao.deleteDecoder(DecoderFixture.SERIAL_NUMBER)).thenReturn(Long.valueOf(1));
+    when(decoderDao.deleteDecoder(user, DecoderFixture.SERIAL_NUMBER)).thenReturn(Long.valueOf(1));
     ResponseEntity<String> response = decoderController.deleteDecoder("1");
     assertEquals(200, response.getStatusCodeValue());
     assertEquals("Decoder with serial number 1 Deleted", response.getBody());
@@ -137,7 +140,6 @@ class DecoderControllerTest {
 
   // When a decoder is unavailable in the DB
   @Test
-  @Disabled
   final void testDeleteDecoderNotExisting() {
     assertThrows(
         ExceptionType.DeviceNotFoundException.class,
@@ -148,9 +150,8 @@ class DecoderControllerTest {
 
   // When a encoder is available in the DB
   @Test
-  @Disabled
   final void testUpdateDecoder() {
-    when(decoderDao.findDecoder(DecoderFixture.SERIAL_NUMBER)).thenReturn(Optional.of(decoderDto));
+    when(decoderDao.findDecoder(user, DecoderFixture.SERIAL_NUMBER)).thenReturn(Optional.of(decoderDto));
     when(decoderDao.save(decoderDto)).thenReturn(decoderDto);
 
     ResponseEntity<DecoderDto> response = decoderController.updateDecoder(decoderDto);
@@ -160,7 +161,6 @@ class DecoderControllerTest {
 
   // Test exceptions when updating encoder
   @Test
-  @Disabled
   final void testUpdateDecoderExceptions() {
     DecoderDto decoderDto = DecoderFixture.getDecoderDto();
     when(decoderDao.findDecoder(decoderDto.getSerialNumber())).thenReturn(Optional.empty());
@@ -173,7 +173,6 @@ class DecoderControllerTest {
   }
 
   @Test
-  @Disabled
   final void testGetDecoderStreams() {
     when(decoderService.getDecoderStreams(any(String.class)))
         .thenReturn(List.of(StreamFixture.getStreamDto()));

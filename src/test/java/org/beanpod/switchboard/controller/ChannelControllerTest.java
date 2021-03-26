@@ -6,12 +6,15 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
+import java.nio.file.attribute.UserPrincipal;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
+import javax.servlet.http.HttpServletRequest;
 import org.beanpod.switchboard.dao.ChannelDaoImpl;
 import org.beanpod.switchboard.dao.DecoderDaoImpl;
 import org.beanpod.switchboard.dao.EncoderDaoImpl;
+import org.beanpod.switchboard.dao.UserDaoImpl;
 import org.beanpod.switchboard.dto.ChannelDto;
 import org.beanpod.switchboard.dto.DecoderDto;
 import org.beanpod.switchboard.dto.EncoderDto;
@@ -19,10 +22,12 @@ import org.beanpod.switchboard.dto.InputChannelDto;
 import org.beanpod.switchboard.dto.OutputChannelDto;
 import org.beanpod.switchboard.dto.mapper.ChannelMapper;
 import org.beanpod.switchboard.entity.ChannelEntity;
+import org.beanpod.switchboard.entity.UserEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.fixture.ChannelFixture;
 import org.beanpod.switchboard.fixture.DecoderFixture;
 import org.beanpod.switchboard.fixture.EncoderFixture;
+import org.beanpod.switchboard.fixture.UserFixture;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -39,14 +44,26 @@ class ChannelControllerTest {
   public static ChannelDto channelDto;
   public static InputChannelDto inputChannelDto;
   public static OutputChannelDto outputChannelDto;
+  public static UserEntity user;
   @InjectMocks ChannelController channelController;
   @Mock ChannelDaoImpl channelService;
   @Mock DecoderDaoImpl decoderService;
   @Mock EncoderDaoImpl encoderService;
   @Mock ChannelMapper channelMapper;
+  @Mock HttpServletRequest httpServletRequest;
+  @Mock UserPrincipal userPrincipal;
+  @Mock UserDaoImpl userDao;
 
   @BeforeEach
-  void setupChannelFixture() throws ParseException {
+  void setup() {
+    setupChannelFixture();
+
+    initMocks(this);
+
+    UserMockUtil.mockUser(user, httpServletRequest, userPrincipal, userDao);
+  }
+
+  private void setupChannelFixture(){
     channelEntityList = List.of(ChannelFixture.getChannelEntity1());
     channelDtoList = List.of(ChannelFixture.getChannelDto());
     encoderDto = EncoderFixture.getEncoderDto();
@@ -54,11 +71,7 @@ class ChannelControllerTest {
     channelDto = ChannelFixture.getChannelDto();
     inputChannelDto = ChannelFixture.getInputChannelDto();
     outputChannelDto = ChannelFixture.getOutputChannelDto();
-  }
-
-  @BeforeEach
-  void setUp() {
-    initMocks(this);
+    user = UserFixture.getUserEntity();
   }
 
   @Test
@@ -124,16 +137,14 @@ class ChannelControllerTest {
   }
 
   @Test
-  @Disabled
   void deleteOutputChannel() {
-    when(channelService.deleteOutputChannelById(ChannelFixture.CHANNEL_ID)).thenReturn(1L);
+    when(channelService.deleteOutputChannelById(user, ChannelFixture.CHANNEL_ID)).thenReturn(1L);
     ResponseEntity<String> stringResponseEntity =
         channelController.deleteOutputChannel(ChannelFixture.CHANNEL_ID);
     assertEquals(200, stringResponseEntity.getStatusCodeValue());
   }
 
   @Test
-  @Disabled
   void deleteNonExistingOutputChannel() {
     when(channelService.deleteOutputChannelById(ChannelFixture.CHANNEL_ID)).thenReturn(0L);
     assertThrows(
@@ -142,16 +153,14 @@ class ChannelControllerTest {
   }
 
   @Test
-  @Disabled
   void deleteInputChannel() {
-    when(channelService.deleteInputChannelById(ChannelFixture.CHANNEL_ID)).thenReturn(1L);
+    when(channelService.deleteInputChannelById(user, ChannelFixture.CHANNEL_ID)).thenReturn(1L);
     ResponseEntity<String> stringResponseEntity =
         channelController.deleteInputChannel(ChannelFixture.CHANNEL_ID);
     assertEquals(200, stringResponseEntity.getStatusCodeValue());
   }
 
   @Test
-  @Disabled
   void deleteNonExistingInputChannel() {
     when(channelService.deleteInputChannelById(ChannelFixture.CHANNEL_ID)).thenReturn(0L);
     assertThrows(
