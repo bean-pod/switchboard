@@ -1,5 +1,6 @@
 package org.beanpod.switchboard.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -27,6 +28,12 @@ public class StreamEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
   private long id;
+
+  @OneToOne(
+      mappedBy = "stream",
+      cascade = {CascadeType.ALL})
+  @NotNull
+  private StreamStatEntity streamStatEntity;
 
   @OneToOne(optional = false, fetch = FetchType.LAZY)
   @JoinColumn(name = "input_channel_id")

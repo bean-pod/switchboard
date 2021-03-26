@@ -6,7 +6,9 @@ import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.dao.StreamDaoImpl;
 import org.beanpod.switchboard.dto.StreamDto;
+import org.beanpod.switchboard.dto.StreamStatDto;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
+import org.beanpod.switchboard.dto.mapper.StreamStatMapper;
 import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.exceptions.ExceptionType.UnknownException;
 import org.beanpod.switchboard.service.StreamService;
@@ -14,6 +16,7 @@ import org.beanpod.switchboard.util.MaintainDeviceStatus;
 import org.openapitools.api.StreamApi;
 import org.openapitools.model.CreateStreamRequest;
 import org.openapitools.model.StreamModel;
+import org.openapitools.model.StreamStatModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,6 +31,7 @@ public class StreamController implements StreamApi {
   private final StreamDaoImpl streamDao;
   private final StreamService streamService;
   private final StreamMapper mapper;
+  private final StreamStatMapper statMapper;
   private final MaintainDeviceStatus maintainDeviceStatus;
 
   @Override
@@ -48,6 +52,16 @@ public class StreamController implements StreamApi {
 
     return streamDto
         .map(mapper::toModel)
+        .map(ResponseEntity::ok)
+        .orElseThrow(() -> new UnknownException(CONTROLLER_NAME));
+  }
+
+  @Override
+  public ResponseEntity<StreamStatModel> getStreamStatById(Long id) {
+    Optional<StreamStatDto> streamStatDto = streamDao.getStreamStat(id);
+
+    return streamStatDto
+        .map(statMapper::toModel)
         .map(ResponseEntity::ok)
         .orElseThrow(() -> new UnknownException(CONTROLLER_NAME));
   }
@@ -80,5 +94,23 @@ public class StreamController implements StreamApi {
         .map(mapper::toModel)
         .map(ResponseEntity::ok)
         .orElseThrow(() -> new UnknownException(CONTROLLER_NAME));
+  }
+
+  @Override
+  public ResponseEntity<StreamStatModel> updateStreamStat(@Valid StreamStatModel streamStatModel) {
+    return Optional.of(streamStatModel)
+        .map(statMapper::toDto)
+        .map(streamService::updateStreamStat)
+        .map(statMapper::toModel)
+        .map(ResponseEntity::ok)
+        .orElseThrow(() -> new UnknownException(CONTROLLER_NAME));
+  }
+
+  @Override
+  public ResponseEntity<List<StreamStatModel>> retrieveStreamStats() {
+    return Optional.of(streamService.getStreamStats())
+        .map(statMapper::toModelList)
+        .map(ResponseEntity::ok)
+        .orElseThrow(() -> new ExceptionType.UnknownException(CONTROLLER_NAME));
   }
 }

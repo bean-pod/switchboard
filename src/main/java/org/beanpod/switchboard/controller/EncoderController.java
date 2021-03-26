@@ -83,6 +83,10 @@ public class EncoderController {
 
   @PostMapping
   public ResponseEntity<EncoderDto> createEncoder(@RequestBody @Valid EncoderDto encoderDto) {
+    if (encoderDto.getOutput().isEmpty()) {
+      throw new ExceptionType.MissingChannelsException(encoderDto.getSerialNumber());
+    }
+
     UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
 
     Optional<DeviceDto> deviceOptional =

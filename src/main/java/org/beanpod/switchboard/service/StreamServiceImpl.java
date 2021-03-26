@@ -1,5 +1,6 @@
 package org.beanpod.switchboard.service;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.beanpod.switchboard.dao.ChannelDaoImpl;
@@ -8,7 +9,9 @@ import org.beanpod.switchboard.dto.DeviceDto;
 import org.beanpod.switchboard.dto.InputChannelDto;
 import org.beanpod.switchboard.dto.OutputChannelDto;
 import org.beanpod.switchboard.dto.StreamDto;
+import org.beanpod.switchboard.dto.StreamStatDto;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
+import org.beanpod.switchboard.dto.mapper.StreamStatMapper;
 import org.beanpod.switchboard.entity.StreamEntity;
 import org.beanpod.switchboard.util.NetworkingUtil;
 import org.openapitools.model.CreateStreamRequest;
@@ -23,6 +26,7 @@ public class StreamServiceImpl implements StreamService {
 
   private final StreamDaoImpl streamDao;
   private final StreamMapper mapper;
+  private final StreamStatMapper statMapper;
   private final ChannelDaoImpl channelDao;
   private final NetworkingUtil networkingUtil;
 
@@ -59,6 +63,21 @@ public class StreamServiceImpl implements StreamService {
     log.info("Updating stream {}", streamDto.getId());
     StreamEntity updatedStreamEntity = streamDao.updateStream(streamDto);
     return mapper.toDto(updatedStreamEntity);
+  }
+
+  public StreamStatDto updateStreamStat(StreamStatDto streamStatDto) {
+    log.info("Updating stream statistics {}", streamStatDto.getId());
+    return streamDao.updateStreamStat(streamStatDto);
+  }
+
+  @Override
+  public List<StreamStatDto> getStreamStats() {
+    return streamDao.getStreamStats();
+  }
+
+  @Override
+  public StreamStatDto getStreamStat(Long id) {
+    return streamDao.getStreamStat(id).orElse(null);
   }
 
   private boolean shouldUseRendezvousMode(

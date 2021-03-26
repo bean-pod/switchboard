@@ -81,6 +81,10 @@ public class DecoderController {
 
   @PostMapping
   public ResponseEntity<DecoderDto> createDecoder(@RequestBody @Valid DecoderDto decoderDto) {
+    if (decoderDto.getInput().isEmpty()) {
+      throw new ExceptionType.MissingChannelsException(decoderDto.getSerialNumber());
+    }
+
     UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
 
     Optional<DeviceDto> deviceOptional =

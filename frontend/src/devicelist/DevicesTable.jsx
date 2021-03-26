@@ -1,5 +1,4 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
 import { Box, TableContainer, Typography } from "@material-ui/core";
 import PropTypes from "prop-types";
 
@@ -37,25 +36,11 @@ function getComponents() {
   };
 }
 
-function buildNavlink(deviceInfo) {
-  return (
-    <NavLink
-      to={{
-        pathname: `/Devices/Details/${deviceInfo.serialNumber}`,
-        state: { device: deviceInfo }
-      }}
-    >
-      {deviceInfo.name}
-    </NavLink>
-  );
-}
-
 function getColumnInfo() {
   return [
     {
       title: "Name",
-      field: "name",
-      render: (rowData) => buildNavlink(rowData)
+      field: "name"
     },
     {
       title: "Serial Number",

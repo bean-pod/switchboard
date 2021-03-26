@@ -10,6 +10,7 @@ import DeviceDetailsPage from "../deviceDetailsPage/DeviceDetailsPage";
 import StreamListPage from "../streamlist/StreamListPage";
 import CreateStreamPage from "../createStream/CreateStreamPage";
 import LogListPage from "../loglist/LogListPage";
+import StreamDetailsPage from "../streamDetails/StreamDetailsPage";
 import PathNotFoundPage from "../general/PathNotFoundPage";
 
 export default function AppRouter() {
@@ -43,6 +44,13 @@ export default function AppRouter() {
           authenticationRequired
           render={() => {
             return <CreateStreamPage />;
+          }}
+        />
+        <ProtectedRoute
+          path="/Streams/Details/:streamId"
+          authenticationRequired
+          render={(location) => {
+            return <StreamDetailsPage location={location} />;
           }}
         />
         <ProtectedRoute
