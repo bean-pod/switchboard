@@ -20,15 +20,4 @@ export default class DeviceInfo {
     this.deviceType = deviceType;
     this.extras = extras;
   }
-
-  static getConciseProperties() {
-    return [
-      "name",
-      "serialNumber",
-      "status",
-      "publicIp",
-      "privateIp",
-      "channels"
-    ];
-  }
 }
