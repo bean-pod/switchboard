@@ -67,7 +67,6 @@ class DeviceControllerTest {
   }
 
   @Test
-  @Disabled
   final void testRetrieveAllDevices() {
     when(deviceDao.getDevices()).thenReturn(List.of(device));
     when(deviceMapper.toDeviceDtos(any())).thenReturn(List.of(deviceDTO));
@@ -83,7 +82,6 @@ class DeviceControllerTest {
 
   // When a device is available in the DB
   @Test
-  @Disabled
   final void testRetrieveDevice() {
     when(deviceDao.findDevice(user, DeviceFixture.SERIAL_NUMBER))
         .thenReturn(Optional.of(deviceDTO));
@@ -99,7 +97,6 @@ class DeviceControllerTest {
 
   // When a device is unavailable in the DB
   @Test
-  @Disabled
   final void testRetrieveDeviceEmpty() {
     assertThrows(
         ExceptionType.DeviceNotFoundException.class,
@@ -108,7 +105,6 @@ class DeviceControllerTest {
 
   // When a device is unavailable in the DB
   @Test
-  @Disabled
   final void testCreateDeviceAlreadyExists() {
     when(deviceDao.findDevice(DeviceFixture.SERIAL_NUMBER)).thenReturn(Optional.of(deviceDTO));
 
@@ -119,7 +115,6 @@ class DeviceControllerTest {
 
   // When a device is unavailable in the DB
   @Test
-  @Disabled
   final void testCreateDevice() {
     when(deviceDao.save(deviceDTO)).thenReturn(deviceDTO);
     when(request.getRemoteAddr()).thenReturn(DeviceFixture.PUBLIC_IP_ADDRESS);
@@ -137,7 +132,6 @@ class DeviceControllerTest {
 
   // When a device is available in the DB
   @Test
-  @Disabled
   final void testDeleteDevice() {
     when(deviceDao.deleteDevice(user, DeviceFixture.SERIAL_NUMBER)).thenReturn(Long.valueOf(1));
     ResponseEntity<String> response = deviceController.deleteDevice(DeviceFixture.SERIAL_NUMBER);
@@ -147,7 +141,6 @@ class DeviceControllerTest {
 
   // When a device is unavailable in the DB
   @Test
-  @Disabled
   final void testDeleteDeviceNotExisting() {
     assertThrows(
         ExceptionType.DeviceNotFoundException.class,
@@ -156,7 +149,6 @@ class DeviceControllerTest {
 
   // When a device is available in the DB
   @Test
-  @Disabled
   final void testUpdateDevice() {
     when(deviceDao.findDevice(user, DeviceFixture.SERIAL_NUMBER))
         .thenReturn(Optional.of(deviceDTO));
@@ -176,7 +168,6 @@ class DeviceControllerTest {
    * serial number = 3 doesn't exist
    */
   @Test
-  @Disabled
   final void testUpdateDeviceExceptions() {
     // When device is unavailable in the DB
     assertThrows(

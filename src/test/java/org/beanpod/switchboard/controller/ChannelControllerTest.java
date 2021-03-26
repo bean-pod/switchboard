@@ -136,7 +136,6 @@ class ChannelControllerTest {
   }
 
   @Test
-  @Disabled
   void deleteOutputChannel() {
     when(channelService.deleteOutputChannelById(user, ChannelFixture.CHANNEL_ID)).thenReturn(1L);
     ResponseEntity<String> stringResponseEntity =
@@ -145,7 +144,6 @@ class ChannelControllerTest {
   }
 
   @Test
-  @Disabled
   void deleteNonExistingOutputChannel() {
     when(channelService.deleteOutputChannelById(ChannelFixture.CHANNEL_ID)).thenReturn(0L);
     assertThrows(
@@ -154,7 +152,6 @@ class ChannelControllerTest {
   }
 
   @Test
-  @Disabled
   void deleteInputChannel() {
     when(channelService.deleteInputChannelById(user, ChannelFixture.CHANNEL_ID)).thenReturn(1L);
     ResponseEntity<String> stringResponseEntity =
@@ -163,7 +160,6 @@ class ChannelControllerTest {
   }
 
   @Test
-  @Disabled
   void deleteNonExistingInputChannel() {
     when(channelService.deleteInputChannelById(ChannelFixture.CHANNEL_ID)).thenReturn(0L);
     assertThrows(
