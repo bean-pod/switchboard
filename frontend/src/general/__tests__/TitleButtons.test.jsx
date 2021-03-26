@@ -18,7 +18,7 @@ describe("<TitleButtons/> functional component", () => {
       expect(wrapper.find(NavLink)).toHaveLength(1);
 
       const navLinkProps = wrapper.find(NavLink).first().props();
-      expect(navLinkProps.to).toBe("/Streams");
+      expect(navLinkProps.to).toBe("/Streams/New");
       expect(navLinkProps.activeClassName).toBe("hideLinkStyle");
       expect(navLinkProps.className).toBe("hideLinkStyle");
       expect(navLinkProps.exact).toBe(true);
