@@ -12,11 +12,21 @@ import {
 import DeviceName from "../DeviceName";
 import EditableName from "../EditableName";
 import StaticName from "../StaticName";
+
 import * as DeviceApi from "../../api/DeviceApi";
+import * as SnackbarMessage from "../../general/SnackbarMessage";
 
 Enzyme.configure({ adapter: new Adapter() });
 jest.mock("../../api/DeviceApi");
 jest.spyOn(DeviceApi, "updateDeviceName");
+
+let stat;
+let message;
+let pathname;
+const snackbar = jest.fn();
+jest
+  .spyOn(SnackbarMessage, "snackbar")
+  .mockImplementation(() => snackbar(stat, message, pathname));
 
 describe("<DeviceName/> component", () => {
   let wrapper;
@@ -41,6 +51,7 @@ describe("<DeviceName/> component", () => {
 
   afterEach(() => {
     jest.clearAllMocks();
+    wrapper.unmount();
   });
 
   describe("render() function returns a component that ", () => {
@@ -108,7 +119,13 @@ describe("<DeviceName/> component", () => {
         const newName = "New Name";
         wrapper.instance().setName(newName);
 
-        DeviceApi.updateDeviceName.mockResolvedValue();
+        DeviceApi.updateDeviceName.mockResolvedValue(
+          snackbar(
+            "success",
+            `Device successfully renamed to ${newName}`,
+            "Devices"
+          )
+        );
 
         const editEvent = {
           preventDefault: jest.fn()
@@ -124,6 +141,13 @@ describe("<DeviceName/> component", () => {
         expect(staticName).toHaveLength(1);
         const props = staticName.first().props();
         expect(props.deviceName).toEqual(newName);
+
+        expect(snackbar).toHaveBeenCalledTimes(1);
+        expect(snackbar).toHaveBeenCalledWith(
+          "success",
+          `Device successfully renamed to ${newName}`,
+          "Devices"
+        );
       });
     });
 
@@ -132,7 +156,9 @@ describe("<DeviceName/> component", () => {
         const newName = "New Name";
         wrapper.instance().setName(newName);
 
-        DeviceApi.updateDeviceName.mockRejectedValue();
+        DeviceApi.updateDeviceName.mockRejectedValue(
+          snackbar("error", `Failed to rename device`)
+        );
 
         const editEvent = {
           preventDefault: jest.fn()
@@ -150,6 +176,12 @@ describe("<DeviceName/> component", () => {
         expect(staticName).toHaveLength(1);
         const props = staticName.first().props();
         expect(props.deviceName).toEqual(mockDevice.name);
+
+        expect(snackbar).toHaveBeenCalledTimes(1);
+        expect(snackbar).toHaveBeenCalledWith(
+          "error",
+          `Failed to rename device`
+        );
       });
     });
   });

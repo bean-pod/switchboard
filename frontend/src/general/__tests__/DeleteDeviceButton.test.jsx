@@ -27,8 +27,6 @@ jest
   .spyOn(SnackbarMessage, "snackbar")
   .mockImplementation(() => snackbar(stat, message, pathname));
 
-const flushPromises = () => new Promise(setImmediate);
-
 describe("DeleteButton", () => {
   let wrapper;
 
@@ -43,6 +41,7 @@ describe("DeleteButton", () => {
   });
   afterEach(() => {
     jest.clearAllMocks();
+    wrapper.unmount();
   });
 
   it("Should have 3 total buttons and one dialog for button = true", () => {
@@ -86,7 +85,7 @@ describe("DeleteButton", () => {
     });
 
     describe("ConfirmButton", () => {
-      it("Should call axios.delete, close the dialog and display a snackbar", async () => {
+      it("Should call axios.delete, close the dialog and display a success snackbar", () => {
         // click the delete button to set open to true
         wrapper.find("#deleteBtn").simulate("click");
         expect(setOpen).toHaveBeenCalledWith(true);
@@ -107,9 +106,6 @@ describe("DeleteButton", () => {
 
         // check that axios.delete was called
         expect(axios.delete).toHaveBeenCalled();
-
-        // Wait for axios promise to finish
-        await flushPromises();
 
         // open should be false
         expect(setOpen).toHaveBeenCalledWith(false);
@@ -148,6 +144,7 @@ describe("DeleteButton", () => {
         expect(axios.delete).toHaveBeenCalled();
 
         // Wait for axios promise to finish
+        const flushPromises = () => new Promise(setImmediate);
         await flushPromises();
 
         // open should be false
