@@ -2,7 +2,6 @@ import React from "react";
 import { Grid } from "@material-ui/core";
 import SelectDevicesTable from "./SelectDevicesTable";
 import StreamButton from "../general/Buttons/StreamButton";
-import { snackbar } from "../general/SnackbarMessage";
 
 import * as DeviceApi from "../api/DeviceApi";
 import { createStream } from "../api/StreamApi";
@@ -47,19 +46,7 @@ export default class StreamingTable extends React.Component {
     event.preventDefault();
     const { selectedReceiverID, selectedSenderID } = this.state;
     if (selectedReceiverID !== "" && selectedSenderID !== "") {
-      createStream(selectedReceiverID, selectedSenderID)
-        .then(() => {
-          snackbar(
-            "success",
-            `Stream successful between Sender ${selectedSenderID} and Receiver ${selectedReceiverID}`
-          );
-        })
-        .catch(() => {
-          snackbar(
-            "error",
-            `Stream failed between Sender ${selectedSenderID} and Receiver ${selectedReceiverID}`
-          );
-        });
+      createStream(selectedReceiverID, selectedSenderID);
     }
   }
 
