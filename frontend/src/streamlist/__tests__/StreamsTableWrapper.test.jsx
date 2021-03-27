@@ -1,9 +1,10 @@
 import React from "react";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import { beforeEach, describe, expect, it } from "@jest/globals";
+import { afterEach, beforeEach, describe, expect, it } from "@jest/globals";
 import StreamsTableWrapper from "../StreamsTableWrapper";
 import StreamsTable from "../StreamsTable";
+import StreamsTableSimple from "../StreamsTableSimple";
 import StreamInfo from "../../model/StreamInfo";
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -16,14 +17,22 @@ describe("<StreamsTableWrapper/> Component", () => {
     }
   };
 
+  afterEach(() => {
+    wrapper.unmount();
+  });
+
   describe("Should contain the following components", () => {
-    beforeEach(() => {
+    it("if isSimple prop defaults to false, it contains 1 <StreamsTable/> component", () => {
       wrapper = Enzyme.shallow(
         <StreamsTableWrapper dataSource={dummySource} />
       );
-    });
-    it("Contains 1 <StreamsTable/> component", () => {
       expect(wrapper.find(StreamsTable)).toHaveLength(1);
+    });
+    it("if isSimple prop is true, it contains 1 <StreamsTableSimple/> component", () => {
+      wrapper = Enzyme.shallow(
+        <StreamsTableWrapper dataSource={dummySource} isSimple />
+      );
+      expect(wrapper.find(StreamsTableSimple)).toHaveLength(1);
     });
   });
 
