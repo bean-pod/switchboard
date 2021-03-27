@@ -2,7 +2,6 @@ package org.beanpod.switchboard.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class JsonUtilTest {
@@ -12,8 +11,8 @@ class JsonUtilTest {
 
   @Test
   final void isJSONValidTest(){
-    boolean result = jsonUtil.isJSONValid("hello");
-    boolean result1 = jsonUtil.isJSONValid("");
+    boolean result = jsonUtil.isJsonValid("hello");
+    boolean result1 = jsonUtil.isJsonValid("");
     assertEquals(false, result);
     assertEquals(true, result1);
   }

@@ -83,6 +83,11 @@ class EncoderServiceTest {
         ()->{
           encoderService.uploadJson(invalidJsonFile,invalidJsonFile);
         });
+    assertThrows(
+        ExceptionType.InvalidJsonException.class,
+        ()->{
+          encoderService.uploadJson(validJsonFile,invalidJsonFile);
+        });
     encoderService.uploadJson(validJsonFile,validJsonFile);
   }
 }
