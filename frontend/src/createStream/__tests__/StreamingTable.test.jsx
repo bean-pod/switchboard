@@ -227,7 +227,7 @@ describe("<StreamingTable/> class component", () => {
             `Stream failed between Sender ${state.selectedSenderID} and Receiver ${state.selectedReceiverID}`
           )
         );
-        
+
         wrapper.instance().handleSubmit(mockEvent);
         expect(StreamApi.createStream).toBeCalledWith(
           state.selectedReceiverID,
