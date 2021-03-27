@@ -64,7 +64,8 @@ public class EncoderController {
       builder.configurationSchema(schema.getBytes());
     }
     if (instance != null) {
-      builder.configurationInstance(instance.getBytes())
+      builder
+          .configurationInstance(instance.getBytes())
           .configurationLastModified(Date.from(Instant.now()));
     }
     updateEncoder(builder.build());
