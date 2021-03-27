@@ -66,9 +66,6 @@ export default class ActionMenu extends React.Component {
               View Details
             </NavLink>
           </MenuItem>
-          <MenuItem onClick={this.handleClose}>
-            Start stream with this as receiver
-          </MenuItem>
           <DeleteDeviceButton button={false} deleteId={device.serialNumber} />
         </Menu>
       </>
