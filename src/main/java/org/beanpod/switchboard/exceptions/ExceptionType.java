@@ -66,4 +66,11 @@ public class ExceptionType {
       super(MESSAGE);
     }
   }
+
+  public static class InvalidJsonException extends RuntimeException {
+
+    public static final String MESSAGE = "Invalid Json file:";
+
+    public InvalidJsonException(String s) { super(MESSAGE + s); }
+  }
 }

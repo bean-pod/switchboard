@@ -64,4 +64,11 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         new ExceptionResponse(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), "Unknown Error");
     return new ResponseEntity<>(exceptionResponse, exceptionResponse.getStatus());
   }
+
+  @ExceptionHandler(ExceptionType.InvalidJsonException.class)
+  public final ResponseEntity<ExceptionResponse> handleInvalidJsonException(Exception ex) {
+    ExceptionResponse exceptionResponse =
+        new ExceptionResponse(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), "Invalid Json");
+    return new ResponseEntity<>(exceptionResponse, exceptionResponse.getStatus());
+  }
 }

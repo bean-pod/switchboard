@@ -55,10 +55,12 @@ public class EncoderController {
   @PutMapping(
       value = "config/{serialNumber}",
       consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-  public String uploadImage(
+  public String uploadJson(
       @PathVariable @Valid String serialNumber,
       @RequestParam(value = "configurationSchema", required = false) MultipartFile schema,
       @RequestParam(value = "configurationInstance", required = false) MultipartFile instance) {
+
+    encoderService.uploadJson(schema,instance);
     EncoderDtoBuilder builder = EncoderDto.builder().serialNumber(serialNumber);
     if (schema != null) {
       builder.configurationSchema(schema.getBytes());
@@ -69,7 +71,7 @@ public class EncoderController {
           .configurationLastModified(Date.from(Instant.now()));
     }
     updateEncoder(builder.build());
-    return "Configuration uploaded successfully";
+    return "Configurations uploaded.";
   }
 
   @GetMapping
