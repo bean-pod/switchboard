@@ -35,6 +35,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.openapitools.model.StreamModel;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mock.web.MockMultipartFile;
 
 class EncoderControllerTest {
 
@@ -66,6 +67,19 @@ class EncoderControllerTest {
   @BeforeEach
   void setup() {
     MockitoAnnotations.initMocks(this);
+  }
+
+  @Test
+  final void testUploadJson(){
+    MockMultipartFile validJsonFile = new MockMultipartFile("json", "", "application/json", "{\"json\": \"someValue\"}".getBytes());
+    EncoderDto encoderDto = EncoderFixture.getEncoderDto();
+    when(encoderDao.findEncoder(EncoderFixture.SERIAL_NUMBER)).thenReturn(Optional.of(encoderDto));
+    when(encoderDao.save(encoderDto)).thenReturn(encoderDto);
+
+    String s1 = encoderController.uploadJson(EncoderFixture.SERIAL_NUMBER, validJsonFile, validJsonFile);
+    String s2 = encoderController.uploadJson(EncoderFixture.SERIAL_NUMBER, null, null);
+    assertEquals("Configurations uploaded.",s1);
+    assertEquals("Configurations uploaded.",s2);
   }
 
   @Test
