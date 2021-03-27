@@ -1,16 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Box, Button, Grid } from "@material-ui/core";
+import { Box, Grid } from "@material-ui/core";
 
 import DashboardCard from "../general/dashboard/DashboardCard";
 import SimpleTable from "../general/simpleTable/SimpleTable";
 import zipProperties from "../general/simpleTable/SimpleTableUtil";
+import StreamStatisticsButton from "./StreamStatisticsButton";
+import { getStreamStatistics } from "../api/StreamApi";
 
 export default function StreamStatisticsCard(props) {
   const { streamId } = props;
 
-  const propertyNames = ["test"];
-  const properties = [1];
+  const stats = getStreamStatistics(streamId);
+  const propertyNames = ["Time"];
+  const properties = [stats.time];
 
   const propertyPairs = zipProperties(propertyNames, properties);
   return (
@@ -22,10 +25,7 @@ export default function StreamStatisticsCard(props) {
           </Grid>
           <Grid item xs={12}>
             <Box className="alignRightFloatPadded">
-              <Button size="small" variant="outlined" color="primary">
-                More Details for
-                {streamId}
-              </Button>
+              <StreamStatisticsButton statistics={stats} />
             </Box>
           </Grid>
         </Grid>
