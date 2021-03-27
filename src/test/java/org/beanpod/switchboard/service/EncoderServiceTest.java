@@ -6,7 +6,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.io.IOException;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
@@ -19,7 +18,6 @@ import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.fixture.EncoderFixture;
 import org.beanpod.switchboard.fixture.StreamFixture;
 import org.beanpod.switchboard.util.DateUtil;
-import org.beanpod.switchboard.util.JsonUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -33,6 +31,7 @@ class EncoderServiceTest {
   @Mock private StreamDaoImpl streamDao;
   @Mock private EncoderDaoImpl encoderDao;
   @Mock private DateUtil dateUtil;
+
   @BeforeEach
   void setup() {
     MockitoAnnotations.initMocks(this);
@@ -75,19 +74,23 @@ class EncoderServiceTest {
   }
 
   @Test
-  final void testUploadJson(){
-    MockMultipartFile invalidJsonFile = new MockMultipartFile("json", "", "application/json", "{\"json\" \"someValue\"}".getBytes());
-    MockMultipartFile validJsonFile = new MockMultipartFile("json", "", "application/json", "{\"json\": \"someValue\"}".getBytes());
+  final void testUploadJson() {
+    MockMultipartFile invalidJsonFile =
+        new MockMultipartFile(
+            "json", "", "application/json", "{\"json\" \"someValue\"}".getBytes());
+    MockMultipartFile validJsonFile =
+        new MockMultipartFile(
+            "json", "", "application/json", "{\"json\": \"someValue\"}".getBytes());
     assertThrows(
         ExceptionType.InvalidJsonException.class,
-        ()->{
-          encoderService.uploadJson(invalidJsonFile,invalidJsonFile);
+        () -> {
+          encoderService.uploadJson(invalidJsonFile, invalidJsonFile);
         });
     assertThrows(
         ExceptionType.InvalidJsonException.class,
-        ()->{
-          encoderService.uploadJson(validJsonFile,invalidJsonFile);
+        () -> {
+          encoderService.uploadJson(validJsonFile, invalidJsonFile);
         });
-    encoderService.uploadJson(validJsonFile,validJsonFile);
+    encoderService.uploadJson(validJsonFile, validJsonFile);
   }
 }
