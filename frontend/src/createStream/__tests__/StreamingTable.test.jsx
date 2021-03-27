@@ -20,13 +20,8 @@ import * as SnackbarMessage from "../../general/SnackbarMessage";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-let stat;
-let message;
-let pathname;
-const snackbar = jest.fn();
-jest
-  .spyOn(SnackbarMessage, "snackbar")
-  .mockImplementation(() => snackbar(stat, message, pathname));
+const snackbarSpy = jest.spyOn(SnackbarMessage, "snackbar");
+const flushPromises = () => new Promise(setImmediate);
 
 describe("<StreamingTable/> class component", () => {
   let wrapper;
@@ -187,19 +182,14 @@ describe("<StreamingTable/> class component", () => {
     });
     describe("should call StreamApi.createStream", () => {
       describe("if selectedReceiverID & selectedSenderID are both set", () => {
-        it("and and the post resolves, a success snackbar should appear", async () => {
+        it("and the post resolves, a success snackbar should appear", async () => {
           const state = {
             selectedSenderID: "someID",
             selectedReceiverID: "someOtherId"
           };
           wrapper.setState(state);
 
-          StreamApi.createStream.mockResolvedValueOnce(
-            snackbar(
-              "success",
-              `Stream successful between Sender ${state.selectedSenderID} and Receiver ${state.selectedReceiverID}`
-            )
-          );
+          StreamApi.createStream.mockResolvedValueOnce();
 
           wrapper.instance().handleSubmit(mockEvent);
           expect(StreamApi.createStream).toBeCalledWith(
@@ -207,42 +197,39 @@ describe("<StreamingTable/> class component", () => {
             state.selectedSenderID
           );
 
-          expect(snackbar).toHaveBeenCalledTimes(1);
-          expect(snackbar).toHaveBeenCalledWith(
+          // Wait for axios promise to finish
+          await flushPromises();
+
+          expect(snackbarSpy).toHaveBeenCalledTimes(1);
+          expect(snackbarSpy).toHaveBeenCalledWith(
             "success",
             `Stream successful between Sender ${state.selectedSenderID} and Receiver ${state.selectedReceiverID}`
           );
         });
-      });
-      it("and the post rejects, an error snackbar should appear", async () => {
-        const state = {
-          selectedSenderID: "someID",
-          selectedReceiverID: "someOtherId"
-        };
-        wrapper.setState(state);
+        it("and the post rejects, an error snackbar should appear", async () => {
+          const state = {
+            selectedSenderID: "someID",
+            selectedReceiverID: "someOtherId"
+          };
+          wrapper.setState(state);
 
-        StreamApi.createStream.mockRejectedValueOnce(
-          snackbar(
+          StreamApi.createStream.mockRejectedValueOnce();
+
+          wrapper.instance().handleSubmit(mockEvent);
+          expect(StreamApi.createStream).toBeCalledWith(
+            state.selectedReceiverID,
+            state.selectedSenderID
+          );
+
+          // Wait for axios promise to finish
+          await flushPromises();
+
+          expect(snackbarSpy).toHaveBeenCalledTimes(1);
+          expect(snackbarSpy).toHaveBeenCalledWith(
             "error",
             `Stream failed between Sender ${state.selectedSenderID} and Receiver ${state.selectedReceiverID}`
-          )
-        );
-
-        wrapper.instance().handleSubmit(mockEvent);
-        expect(StreamApi.createStream).toBeCalledWith(
-          state.selectedReceiverID,
-          state.selectedSenderID
-        );
-
-        // Wait for axios promise to finish
-        const flushPromises = () => new Promise(setImmediate);
-        await flushPromises();
-
-        expect(snackbar).toHaveBeenCalledTimes(1);
-        expect(snackbar).toHaveBeenCalledWith(
-          "error",
-          `Stream failed between Sender ${state.selectedSenderID} and Receiver ${state.selectedReceiverID}`
-        );
+          );
+        });
       });
     });
   });

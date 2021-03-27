@@ -10,13 +10,8 @@ import * as SnackbarMessage from "../../general/SnackbarMessage";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-let stat;
-let message;
-let pathname;
-const snackbar = jest.fn();
-jest
-  .spyOn(SnackbarMessage, "snackbar")
-  .mockImplementation(() => snackbar(stat, message, pathname));
+const snackbarSpy = jest.spyOn(SnackbarMessage, "snackbar");
+const flushPromises = () => new Promise(setImmediate);
 
 describe("<DeleteStreamDialog/> class", () => {
   let wrapper;
@@ -61,40 +56,31 @@ describe("<DeleteStreamDialog/> class", () => {
       expect(StreamApi.deleteStream).toBeCalledWith(dummyId);
     });
     describe("if stream", () => {
-      it("is deleted successfully, it displays a success snackbar", () => {
-        StreamApi.deleteStream.mockResolvedValueOnce(
-          snackbar(
-            "success",
-            `Stream ${dummyId} successfully deleted`,
-            "Streams"
-          )
-        );
+      it("is deleted successfully, it displays a success snackbar", async () => {
+        StreamApi.deleteStream.mockResolvedValueOnce();
 
         wrapper.instance().confirmDelete();
-
         expect(StreamApi.deleteStream).toHaveBeenCalledWith(dummyId);
 
-        expect(snackbar).toHaveBeenCalledTimes(1);
-        expect(snackbar).toHaveBeenCalledWith(
+        await flushPromises();
+
+        expect(snackbarSpy).toHaveBeenCalledTimes(1);
+        expect(snackbarSpy).toHaveBeenCalledWith(
           "success",
           `Stream ${dummyId} successfully deleted`,
           "Streams"
         );
       });
       it("fails to delete, it displays an error snackbar", async () => {
-        StreamApi.deleteStream.mockRejectedValueOnce(
-          snackbar("error", `Failed to delete stream ${dummyId}`)
-        );
+        StreamApi.deleteStream.mockRejectedValueOnce();
 
         wrapper.instance().confirmDelete();
-
-        const flushPromises = () => new Promise(setImmediate);
-        await flushPromises();
-
         expect(StreamApi.deleteStream).toHaveBeenCalledWith(dummyId);
 
-        expect(snackbar).toHaveBeenCalledTimes(1);
-        expect(snackbar).toHaveBeenCalledWith(
+        await flushPromises();
+
+        expect(snackbarSpy).toHaveBeenCalledTimes(1);
+        expect(snackbarSpy).toHaveBeenCalledWith(
           "error",
           `Failed to delete stream ${dummyId}`
         );
