@@ -8,11 +8,13 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.beanpod.switchboard.dao.DeviceDaoImpl;
 import org.beanpod.switchboard.dao.EncoderDaoImpl;
 import org.beanpod.switchboard.dto.DeviceDto;
 import org.beanpod.switchboard.dto.EncoderDto;
+import org.beanpod.switchboard.dto.EncoderDto.EncoderDtoBuilder;
 import org.beanpod.switchboard.dto.mapper.EncoderMapper;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
 import org.beanpod.switchboard.entity.DeviceEntity;
@@ -21,6 +23,7 @@ import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.service.EncoderService;
 import org.beanpod.switchboard.util.MaintainDeviceStatus;
 import org.openapitools.model.StreamModel;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +32,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @Slf4j
 @RestController
@@ -45,6 +50,26 @@ public class EncoderController {
   private final StreamMapper streamMapper;
   private final EncoderService encoderService;
   private final MaintainDeviceStatus maintainDeviceStatus;
+
+  @SneakyThrows
+  @PutMapping(
+      value = "config/{serialNumber}",
+      consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+  public String uploadImage(
+      @PathVariable @Valid String serialNumber,
+      @RequestParam(value = "configurationSchema", required = false) MultipartFile schema,
+      @RequestParam(value = "configurationInstance", required = false) MultipartFile instance) {
+    EncoderDtoBuilder builder = EncoderDto.builder().serialNumber(serialNumber);
+    if (schema != null) {
+      builder.configurationSchema(schema.getBytes());
+    }
+    if (instance != null) {
+      builder.configurationInstance(instance.getBytes())
+          .configurationLastModified(Date.from(Instant.now()));
+    }
+    updateEncoder(builder.build());
+    return "Configuration uploaded successfully";
+  }
 
   @GetMapping
   public List<EncoderDto> retrieveAllEncoders() {
@@ -66,7 +91,6 @@ public class EncoderController {
       // update the retrieved decoder object
       encoder.get().getDevice().setStatus(updatedDevice.getStatus());
     }
-
     // return encoder
     return encoder
         .map(ResponseEntity::ok)
