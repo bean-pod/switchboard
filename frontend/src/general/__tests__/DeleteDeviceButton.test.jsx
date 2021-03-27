@@ -19,25 +19,19 @@ import * as SnackbarMessage from "../SnackbarMessage";
 Enzyme.configure({ adapter: new Adapter() });
 jest.mock("axios");
 
-let stat;
-let message;
-let pathname;
-const snackbar = jest.fn();
-jest
-  .spyOn(SnackbarMessage, "snackbar")
-  .mockImplementation(() => snackbar(stat, message, pathname));
+const snackbarSpy = jest.spyOn(SnackbarMessage, "snackbar");
+const flushPromises = () => new Promise(setImmediate);
 
 describe("DeleteButton", () => {
   let wrapper;
+  const testId = "1:10:111:999";
 
   const setOpen = jest.fn();
   const handleClick = jest.spyOn(React, "useState");
 
   beforeEach(() => {
     handleClick.mockImplementation((open) => [open, setOpen]);
-    wrapper = Enzyme.shallow(
-      <DeleteDeviceButton button deleteId="1:10:111:999" />
-    );
+    wrapper = Enzyme.shallow(<DeleteDeviceButton button deleteId={testId} />);
   });
   afterEach(() => {
     jest.clearAllMocks();
@@ -85,21 +79,13 @@ describe("DeleteButton", () => {
     });
 
     describe("ConfirmButton", () => {
-      it("Should call axios.delete, close the dialog and display a success snackbar", () => {
+      it("Should call axios.delete, close the dialog and display a success snackbar", async () => {
         // click the delete button to set open to true
         wrapper.find("#deleteBtn").simulate("click");
         expect(setOpen).toHaveBeenCalledWith(true);
 
         // mock axios before clicking confirm
-        const axiosPromise = Promise.resolve(wrapper.props().deleteId);
-        axios.delete.mockImplementationOnce(() => axiosPromise);
-        axios.delete.mockResolvedValueOnce(
-          snackbar(
-            "success",
-            `Device deleted! (Serial Number: ${wrapper.props().deleteId})`,
-            "Devices"
-          )
-        );
+        axios.delete.mockResolvedValueOnce();
 
         // click confirm
         wrapper.find("#confirmDeleteBtn").simulate("click");
@@ -110,11 +96,14 @@ describe("DeleteButton", () => {
         // open should be false
         expect(setOpen).toHaveBeenCalledWith(false);
 
+        // Wait for axios promise to finish
+        await flushPromises();
+
         // snackbar should be displayed
-        expect(snackbar).toHaveBeenCalledTimes(1);
-        expect(snackbar).toHaveBeenCalledWith(
+        expect(snackbarSpy).toHaveBeenCalledTimes(1);
+        expect(snackbarSpy).toHaveBeenCalledWith(
           "success",
-          `Device deleted! (Serial Number: ${wrapper.props().deleteId})`,
+          `Device deleted! (Serial Number: ${testId})`,
           "Devices"
         );
       });
@@ -124,18 +113,7 @@ describe("DeleteButton", () => {
         expect(setOpen).toHaveBeenCalledWith(true);
 
         // mock axios before clicking confirm
-        axios.delete.mockImplementationOnce(() =>
-          Promise.reject(wrapper.props().deleteId)
-        );
-        axios.delete.mockRejectedValueOnce(
-          snackbar(
-            "error",
-            `Could not delete device (Serial Number: ${
-              wrapper.props().deleteId
-            })`,
-            "Devices"
-          )
-        );
+        axios.delete.mockRejectedValueOnce();
 
         // click confirm
         wrapper.find("#confirmDeleteBtn").simulate("click");
@@ -144,20 +122,16 @@ describe("DeleteButton", () => {
         expect(axios.delete).toHaveBeenCalled();
 
         // Wait for axios promise to finish
-        const flushPromises = () => new Promise(setImmediate);
         await flushPromises();
 
         // open should be false
         expect(setOpen).toHaveBeenCalledWith(false);
 
         // error snackbar should be displayed
-        expect(snackbar).toHaveBeenCalledTimes(1);
-        expect(snackbar).toHaveBeenCalledWith(
+        expect(snackbarSpy).toHaveBeenCalledTimes(1);
+        expect(snackbarSpy).toHaveBeenCalledWith(
           "error",
-          `Could not delete device (Serial Number: ${
-            wrapper.props().deleteId
-          })`,
-          "Devices"
+          `Could not delete device (Serial Number: ${testId})`
         );
       });
     });
