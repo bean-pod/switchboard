@@ -17,7 +17,7 @@ export default function ActiveStreamCard() {
           <StreamsTableWrapper dataSource={dataSource} />
         </Grid>
         <Grid item xs={4}>
-          <DashBoardButton href="/Streams">See More</DashBoardButton>
+          <DashBoardButton href="/Streams">See more</DashBoardButton>
         </Grid>
         <Grid item xs={4}>
           <DashBoardButton href="/Streams/New">Start Stream</DashBoardButton>

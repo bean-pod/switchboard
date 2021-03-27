@@ -71,7 +71,7 @@ describe("<ActiveStreamCard/> functional Component", () => {
       const firstButton = wrapper.find(DashboardButton).first();
 
       expect(firstButton.props().href).toBe("/Streams");
-      expect(firstButton.props().children).toBe("See More");
+      expect(firstButton.props().children).toBe("See more");
     });
     it("Second <DashboardButton/> has expected props", () => {
       const firstButton = wrapper.find(DashboardButton).at(1);
