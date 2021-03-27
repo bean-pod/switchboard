@@ -34,10 +34,11 @@ export default class StreamsTableWrapper extends React.Component {
     const { isSimple } = this.props;
     return (
       <>
-        {isSimple ? 
-          <StreamsTableSimple streams={streams}/> :
+        {isSimple ? (
+          <StreamsTableSimple streams={streams} />
+        ) : (
           <StreamsTable streams={streams} />
-        }
+        )}
       </>
     );
   }
@@ -50,4 +51,4 @@ StreamsTableWrapper.propTypes = {
 
 StreamsTableWrapper.defaultProps = {
   isSimple: false
-}
+};

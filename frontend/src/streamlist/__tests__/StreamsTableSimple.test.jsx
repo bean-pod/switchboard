@@ -30,12 +30,15 @@ describe("<StreamsTableSimple/> component", () => {
 
   afterEach(() => {
     jest.clearAllMocks();
+    wrapper.unmount();
   });
 
   describe("has the correct components", () => {
     const dummyStreams = [];
     beforeEach(() => {
-      wrapper = Enzyme.shallow(<StreamsTableSimple streamDetails={dummyStreams} />);
+      wrapper = Enzyme.shallow(
+        <StreamsTableSimple streamDetails={dummyStreams} />
+      );
     });
     it("contains one Box component", () => {
       expect(wrapper.find(Box)).toHaveLength(1);
