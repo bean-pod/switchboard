@@ -16,7 +16,7 @@ import StatusIndicator from "../general/StatusIndicator";
 import StreamDetailsButton from "./StreamDetailsButton";
 import StreamInfo from "../model/StreamInfo";
 
-export default class StreamsTable extends React.Component {
+export default class StreamsTableSimple extends React.Component {
   constructor(props) {
     super(props);
 
@@ -102,6 +102,6 @@ export default class StreamsTable extends React.Component {
   }
 }
 
-StreamsTable.propTypes = {
+StreamsTableSimple.propTypes = {
   streams: PropTypes.arrayOf(PropTypes.instanceOf(StreamInfo)).isRequired
 };
