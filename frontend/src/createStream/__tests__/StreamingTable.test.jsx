@@ -221,17 +221,17 @@ describe("<StreamingTable/> class component", () => {
         };
         wrapper.setState(state);
 
-        wrapper.instance().handleSubmit(mockEvent);
-        expect(StreamApi.createStream).toBeCalledWith(
-          state.selectedReceiverID,
-          state.selectedSenderID
-        );
-
         StreamApi.createStream.mockRejectedValueOnce(
           snackbar(
             "error",
             `Stream failed between Sender ${state.selectedSenderID} and Receiver ${state.selectedReceiverID}`
           )
+        );
+        
+        wrapper.instance().handleSubmit(mockEvent);
+        expect(StreamApi.createStream).toBeCalledWith(
+          state.selectedReceiverID,
+          state.selectedSenderID
         );
 
         // Wait for axios promise to finish

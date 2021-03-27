@@ -2,7 +2,6 @@ import axios from "axios";
 import { convertToDataObject } from "../model/ConvertDataFormat";
 import StreamInfo from "../model/StreamInfo";
 import { getAuthorizationHeader } from "./AuthenticationUtil";
-import { snackbar } from "../general/SnackbarMessage";
 
 export async function getStream(streamId) {
   return axios
@@ -50,17 +49,5 @@ export async function createStream(selectedReceiverID, selectedSenderID) {
         outputChannelId: selectedSenderID
       },
       getAuthorizationHeader()
-    )
-    .then(() => {
-      snackbar(
-        "success",
-        `Stream successful between Sender ${selectedSenderID} and Receiver ${selectedReceiverID}`
-      );
-    })
-    .catch(() => {
-      snackbar(
-        "error",
-        `Stream failed between Sender ${selectedSenderID} and Receiver ${selectedReceiverID}`
-      );
-    });
+    );
 }
