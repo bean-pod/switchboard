@@ -71,6 +71,8 @@ public class ExceptionType {
 
     public static final String MESSAGE = "Invalid Json file:";
 
-    public InvalidJsonException(String s) { super(MESSAGE + s); }
+    public InvalidJsonException(String s) {
+      super(MESSAGE + s);
+    }
   }
 }

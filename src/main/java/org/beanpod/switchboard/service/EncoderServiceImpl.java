@@ -47,7 +47,7 @@ public class EncoderServiceImpl implements EncoderService {
     if (!isSchemaValid) {
       throw new InvalidJsonException("configuration schema.");
     }
-    if (!isInstanceValid){
+    if (!isInstanceValid) {
       throw new InvalidJsonException("Instance schema.");
     }
   }

@@ -60,7 +60,7 @@ public class EncoderController {
       @RequestParam(value = "configurationSchema", required = false) MultipartFile schema,
       @RequestParam(value = "configurationInstance", required = false) MultipartFile instance) {
 
-    encoderService.uploadJson(schema,instance);
+    encoderService.uploadJson(schema, instance);
     EncoderDtoBuilder builder = EncoderDto.builder().serialNumber(serialNumber);
     if (schema != null) {
       builder.configurationSchema(schema.getBytes());
