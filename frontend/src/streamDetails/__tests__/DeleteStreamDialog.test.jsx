@@ -72,6 +72,8 @@ describe("<DeleteStreamDialog/> class", () => {
 
         wrapper.instance().confirmDelete();
 
+        expect(StreamApi.deleteStream).toHaveBeenCalledWith(dummyId);
+
         expect(snackbar).toHaveBeenCalledTimes(1);
         expect(snackbar).toHaveBeenCalledWith(
           "success",
@@ -88,6 +90,8 @@ describe("<DeleteStreamDialog/> class", () => {
 
         const flushPromises = () => new Promise(setImmediate);
         await flushPromises();
+
+        expect(StreamApi.deleteStream).toHaveBeenCalledWith(dummyId);
 
         expect(snackbar).toHaveBeenCalledTimes(1);
         expect(snackbar).toHaveBeenCalledWith(

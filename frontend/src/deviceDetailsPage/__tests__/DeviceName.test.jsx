@@ -131,7 +131,6 @@ describe("<DeviceName/> component", () => {
           preventDefault: jest.fn()
         };
         wrapper.instance().confirmEditing(editEvent);
-
         expect(DeviceApi.updateDeviceName).toHaveBeenCalledWith(
           mockDevice.id,
           newName
@@ -164,13 +163,13 @@ describe("<DeviceName/> component", () => {
           preventDefault: jest.fn()
         };
         wrapper.instance().confirmEditing(editEvent);
-        const flushPromises = () => new Promise(setImmediate);
-        await flushPromises();
-
         expect(DeviceApi.updateDeviceName).toHaveBeenCalledWith(
           mockDevice.id,
           newName
         );
+
+        const flushPromises = () => new Promise(setImmediate);
+        await flushPromises();
 
         const staticName = wrapper.find(StaticName);
         expect(staticName).toHaveLength(1);
