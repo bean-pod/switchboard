@@ -43,7 +43,7 @@ public class EncoderServiceImpl implements EncoderService {
   @Override
   public void uploadJson(MultipartFile schema, MultipartFile instance) {
     boolean isSchemaValid = JsonUtil.isJsonValid(new String(schema.getBytes()));
-    boolean isInstanceValid = JsonUtil.isJsonValid(new String(schema.getBytes()));
+    boolean isInstanceValid = JsonUtil.isJsonValid(new String(instance.getBytes()));
     if (!isSchemaValid) {
       throw new InvalidJsonException("configuration schema.");
     }
