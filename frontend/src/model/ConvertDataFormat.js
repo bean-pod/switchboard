@@ -43,14 +43,15 @@ export function convertStatsToDataObject(databaseStats) {
     ),
     new StreamStatsDeviceInfo(
       "receive",
-      databaseStats.send.packets,
-      databaseStats.send.packetsLost,
-      databaseStats.send.packetsDropped,
-      databaseStats.send.packetsRetransmitted,
-      databaseStats.send.packetsBelated,
-      databaseStats.send.bytes,
-      databaseStats.send.bytesDropped,
-      databaseStats.send.mbitRate
+      databaseStats.recv.packets,
+      databaseStats.recv.packetsLost,
+      databaseStats.recv.packetsDropped,
+      databaseStats.recv.packetsRetransmitted,
+      databaseStats.recv.packetsBelated,
+      databaseStats.recv.bytes,
+      databaseStats.recv.bytesLost,
+      databaseStats.recv.bytesDropped,
+      databaseStats.recv.mbitRate
     )
   );
 }
