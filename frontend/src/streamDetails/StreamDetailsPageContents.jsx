@@ -4,7 +4,7 @@ import { Box, Container, Grid } from "@material-ui/core";
 
 import StreamInfo from "../model/StreamInfo";
 import DashboardCard from "../general/dashboard/DashboardCard";
-import StreamDeviceDetails from "./StreamDeviceDetails";
+import StreamDeviceInfoTable from "./StreamDeviceInfoTable";
 import DeleteStreamDialogOpener from "./DeleteStreamDialogOpener";
 
 export default function StreamDetailsPageContents(props) {
@@ -14,7 +14,7 @@ export default function StreamDetailsPageContents(props) {
       <Grid container spacing={3}>
         <Grid item xs={6}>
           <DashboardCard title="Sender Details">
-            <StreamDeviceDetails
+            <StreamDeviceInfoTable
               device={stream.sender}
               channel={stream.outputChannel}
             />
@@ -22,7 +22,7 @@ export default function StreamDetailsPageContents(props) {
         </Grid>
         <Grid item xs={6}>
           <DashboardCard title="Receiver Details">
-            <StreamDeviceDetails
+            <StreamDeviceInfoTable
               device={stream.receiver}
               channel={stream.inputChannel}
             />
