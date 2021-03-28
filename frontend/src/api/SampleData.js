@@ -3,6 +3,7 @@ import OutChannelInfo from "../model/OutputChannelInfo";
 import InChannelInfo from "../model/InputChannelInfo";
 import StreamInfo from "../model/StreamInfo";
 import LogInfo from "../model/LogInfo";
+import { convertStatsToDataObject } from "../model/ConvertDataFormat"
 
 const extras = ["Additional Device details go here"];
 const sampleInputChannels = [
@@ -443,4 +444,45 @@ export function getAllLogs(callback) {
   ];
 
   callback(sampleLogs);
+}
+
+export function getSampleStreamStats() {
+  const sampleDbStreamStats = {
+    "id": 11,
+    "time": 11,
+    "window": {
+      "flow": 11,
+      "congestion": 11,
+      "flight": 11
+    },
+    "link": {
+      "rtt": 11,
+      "bandwidth": 11,
+      "maxBandwidth": 11
+    },
+    "send": {
+      "packets": 11,
+      "packetsLost": 11,
+      "packetsDropped": 11,
+      "packetsRetransmitted": 11,
+      "bytes": 11,
+      "bytesDropped": 11,
+      "mbitRate": 11
+    },
+    "recv": {
+      "packets": 11,
+      "packetsLost": 11,
+      "packetsDropped": 11,
+      "packetsRetransmitted": 11,
+      "packetsBelated": 11,
+      "bytes": 11,
+      "bytesLost": 11,
+      "bytesDropped": 11,
+      "mbitRate": 11
+    }
+
+
+  };
+
+  return convertStatsToDataObject(sampleDbStreamStats);
 }
