@@ -49,16 +49,10 @@ export default class StreamingTable extends React.Component {
     if (selectedReceiverID !== "" && selectedSenderID !== "") {
       createStream(selectedReceiverID, selectedSenderID)
         .then(() => {
-          snackbar(
-            "success",
-            `Stream successful between Sender ${selectedSenderID} and Receiver ${selectedReceiverID}`
-          );
+          snackbar("success", `Stream successful!`);
         })
         .catch(() => {
-          snackbar(
-            "error",
-            `Stream failed between Sender ${selectedSenderID} and Receiver ${selectedReceiverID}`
-          );
+          snackbar("error", `Stream failed`);
         });
     }
   }

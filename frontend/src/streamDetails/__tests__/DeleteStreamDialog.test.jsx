@@ -67,7 +67,7 @@ describe("<DeleteStreamDialog/> class", () => {
         expect(snackbarSpy).toHaveBeenCalledTimes(1);
         expect(snackbarSpy).toHaveBeenCalledWith(
           "success",
-          `Stream ${dummyId} successfully deleted`,
+          `Stream successfully deleted`,
           "Streams"
         );
       });
@@ -82,7 +82,7 @@ describe("<DeleteStreamDialog/> class", () => {
         expect(snackbarSpy).toHaveBeenCalledTimes(1);
         expect(snackbarSpy).toHaveBeenCalledWith(
           "error",
-          `Failed to delete stream ${dummyId}`
+          `Failed to delete stream`
         );
       });
     });

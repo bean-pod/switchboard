@@ -16,9 +16,8 @@ export default class DeleteStreamDialog extends React.Component {
   }
 
   afterDelete() {
-    const { deleteId } = this.props;
     this.dialogElement.current.closeDialog();
-    snackbar("success", `Stream ${deleteId} successfully deleted`, "Streams");
+    snackbar("success", `Stream successfully deleted`, "Streams");
   }
 
   confirmDelete() {
@@ -26,7 +25,7 @@ export default class DeleteStreamDialog extends React.Component {
     deleteStream(deleteId)
       .then(this.afterDelete)
       .catch(() => {
-        snackbar("error", `Failed to delete stream ${deleteId}`);
+        snackbar("error", `Failed to delete stream`);
       });
   }
 
