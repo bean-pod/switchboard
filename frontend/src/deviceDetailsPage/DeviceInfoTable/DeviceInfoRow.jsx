@@ -2,15 +2,23 @@ import React from "react";
 import Proptypes from "prop-types";
 
 import { TableContainer, TableCell, TableRow } from "@material-ui/core";
-import ChannelDetailsTable from "../devicelist/ChannelDetailsTable";
-import InputChannelInfo from "../model/InputChannelInfo";
-import OutputChannelInfo from "../model/OutputChannelInfo";
-import StatusIndicator from "../general/StatusIndicator";
-import DeviceName from "./DeviceName";
-import DeviceInfo from "../model/DeviceInfo";
+import ChannelDetailsTable from "../../devicelist/ChannelDetailsTable";
+import InputChannelInfo from "../../model/InputChannelInfo";
+import OutputChannelInfo from "../../model/OutputChannelInfo";
+import StatusIndicator from "../../general/StatusIndicator";
+import DeviceName from "../DeviceName";
+import DeviceInfo from "../../model/DeviceInfo";
 
-export default class DeviceDetailsConciseRow extends React.Component {
-  static getPropertyDisplayName(name) {
+export default class DeviceInfoRow extends React.Component {
+  constructor(props) {
+    super(props);
+    this.getPropertyDisplayName = this.getPropertyDisplayName.bind(this);
+    this.createInnerTable = this.createInnerTable.bind(this);
+    this.createTableCellContents = this.createTableCellContents.bind(this);
+  }
+
+  getPropertyDisplayName() {
+    const { name } = this.props;
     switch (name) {
       case "serialNumber":
         return "Serial Number";
@@ -31,7 +39,8 @@ export default class DeviceDetailsConciseRow extends React.Component {
     }
   }
 
-  static createInnerTable(value) {
+  createInnerTable() {
+    const { value } = this.props;
     return (
       <TableContainer>
         <ChannelDetailsTable channels={value} />
@@ -39,35 +48,35 @@ export default class DeviceDetailsConciseRow extends React.Component {
     );
   }
 
-  static createTableCellContents(name, value, device) {
+  createTableCellContents() {
+    const {
+      name,
+      value,
+      device: { serialNumber }
+    } = this.props;
     switch (name) {
       case "channels":
-        return DeviceDetailsConciseRow.createInnerTable(value);
+        return this.createInnerTable();
       case "status":
         return <StatusIndicator status={value} />;
       case "name":
-        return <DeviceName deviceName={value} deviceId={device.serialNumber} />;
+        return <DeviceName deviceName={value} deviceId={serialNumber} />;
       default:
         return value;
     }
   }
 
   render() {
-    const { name, value, device } = this.props;
     return (
       <TableRow>
-        <TableCell>
-          {DeviceDetailsConciseRow.getPropertyDisplayName(name)}
-        </TableCell>
-        <TableCell align="center">
-          {DeviceDetailsConciseRow.createTableCellContents(name, value, device)}
-        </TableCell>
+        <TableCell>{this.getPropertyDisplayName()}</TableCell>
+        <TableCell align="center">{this.createTableCellContents()}</TableCell>
       </TableRow>
     );
   }
 }
 
-DeviceDetailsConciseRow.propTypes = {
+DeviceInfoRow.propTypes = {
   name: Proptypes.string.isRequired,
   value: Proptypes.oneOfType([
     Proptypes.string,
