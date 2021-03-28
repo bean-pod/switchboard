@@ -105,7 +105,8 @@ describe("<CreateUserPageContents/> class component", () => {
         // snackbar should be displayed
         expect(snackbarSpy).toHaveBeenCalledTimes(1);
         expect(snackbarSpy).toHaveBeenCalledWith(
-          "success", `User ${someUsername} successfully created!`
+          "success",
+          `User ${someUsername} successfully created!`
         );
       });
     });
