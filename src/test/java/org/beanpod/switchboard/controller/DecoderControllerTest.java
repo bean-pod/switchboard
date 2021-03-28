@@ -11,6 +11,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.nio.file.attribute.UserPrincipal;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
@@ -105,9 +106,7 @@ class DecoderControllerTest {
   final void testRetrieveDecoderEmpty() {
     assertThrows(
         ExceptionType.DeviceNotFoundException.class,
-        () -> {
-          decoderController.retrieveDecoder("NotAvailable");
-        });
+        () -> decoderController.retrieveDecoder("NotAvailable"));
   }
 
   // When a device is unavailable in the DB
@@ -116,7 +115,7 @@ class DecoderControllerTest {
     when(deviceService.findDevice(user, DecoderFixture.SERIAL_NUMBER))
         .thenReturn(Optional.of(deviceDto));
     when(decoderDao.save(decoderDto)).thenReturn(decoderDto);
-    ResponseEntity response = decoderController.createDecoder(decoderDto);
+    ResponseEntity<DecoderDto> response = decoderController.createDecoder(decoderDto);
     assertEquals(200, response.getStatusCodeValue());
   }
 
@@ -125,9 +124,7 @@ class DecoderControllerTest {
     decoderDto.setInput(Collections.emptySet());
     assertThrows(
         ExceptionType.MissingChannelsException.class,
-        () -> {
-          decoderController.createDecoder(decoderDto);
-        });
+        () -> decoderController.createDecoder(decoderDto));
   }
 
   // When a device is available in the DB
@@ -135,9 +132,7 @@ class DecoderControllerTest {
   final void testCreateDecoderAlreadyExists() {
     assertThrows(
         ExceptionType.DeviceNotFoundException.class,
-        () -> {
-          decoderController.createDecoder(decoderDto);
-        });
+        () -> decoderController.createDecoder(decoderDto));
   }
 
   // When a decoder is available in the DB
@@ -154,9 +149,7 @@ class DecoderControllerTest {
   final void testDeleteDecoderNotExisting() {
     assertThrows(
         ExceptionType.DeviceNotFoundException.class,
-        () -> {
-          decoderController.deleteDecoder("Not Available decoder");
-        });
+        () -> decoderController.deleteDecoder("Not Available decoder"));
   }
 
   // When a encoder is available in the DB
@@ -179,9 +172,7 @@ class DecoderControllerTest {
 
     assertThrows(
         ExceptionType.DeviceNotFoundException.class,
-        () -> {
-          decoderController.updateDecoder(decoderDto);
-        });
+        () -> decoderController.updateDecoder(decoderDto));
   }
 
   @Test
