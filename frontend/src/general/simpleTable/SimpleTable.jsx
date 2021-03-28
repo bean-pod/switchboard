@@ -24,6 +24,6 @@ export default function SimpleTable(props) {
 }
 
 SimpleTable.propTypes = {
-  propertyPairs: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string))
+  propertyPairs: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.node))
     .isRequired
 };

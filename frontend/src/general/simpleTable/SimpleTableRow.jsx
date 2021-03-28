@@ -17,5 +17,5 @@ export default function SimpleTableRow(props) {
 
 SimpleTableRow.propTypes = {
   name: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired
+  value: PropTypes.node.isRequired
 };
