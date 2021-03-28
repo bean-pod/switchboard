@@ -28,7 +28,6 @@ import org.beanpod.switchboard.fixture.DecoderFixture;
 import org.beanpod.switchboard.fixture.EncoderFixture;
 import org.beanpod.switchboard.fixture.UserFixture;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -93,9 +92,7 @@ class ChannelControllerTest {
   void testRetrieveChannelEmpty() {
     assertThrows(
         ExceptionType.DeviceNotFoundException.class,
-        () -> {
-          channelController.retrieveChannel(ChannelFixture.CHANNEL_ID);
-        });
+        () -> channelController.retrieveChannel(ChannelFixture.CHANNEL_ID));
   }
 
   @Test
@@ -110,9 +107,7 @@ class ChannelControllerTest {
     when(channelService.findChannel(ChannelFixture.CHANNEL_ID)).thenReturn(Optional.of(channelDto));
     assertThrows(
         ExceptionType.DeviceAlreadyExistsException.class,
-        () -> {
-          channelController.createChannel(channelDto);
-        });
+        () -> channelController.createChannel(channelDto));
   }
 
   @Test

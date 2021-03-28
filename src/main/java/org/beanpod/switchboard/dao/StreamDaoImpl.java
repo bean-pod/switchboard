@@ -63,7 +63,7 @@ public class StreamDaoImpl {
   public Optional<StreamStatDto> getStreamStat(Long id) {
     return streamStatRepository.findStreamStatEntityById(id).map(statMapper::toDto);
   }
-  
+
   public List<StreamDto> getEncoderStreams(String encoderSerialNumber) {
     List<StreamEntity> streamEntities = streamRepository.getEncoderStreams(encoderSerialNumber);
     return mapper.toDtoList(streamEntities);

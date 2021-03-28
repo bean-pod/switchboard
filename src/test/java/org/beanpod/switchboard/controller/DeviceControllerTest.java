@@ -23,7 +23,6 @@ import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.fixture.DeviceFixture;
 import org.beanpod.switchboard.fixture.UserFixture;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
