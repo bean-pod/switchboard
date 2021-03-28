@@ -64,6 +64,12 @@ export default class StreamsTable extends React.Component {
         export: false
       }
     ];
+    this.simpleColumnInfo = [
+      this.columnInfo[2],
+      this.columnInfo[3],
+      this.columnInfo[4],
+      this.columnInfo[7]
+    ];
     this.options = {
       toolbar: false,
       headerStyle: {
@@ -83,6 +89,11 @@ export default class StreamsTable extends React.Component {
   }
 
   getColumnInfo() {
+    const { isSimple } = this.props;
+    if (isSimple) {
+      return this.simpleColumnInfo;
+    }
+
     return this.columnInfo;
   }
 
@@ -119,5 +130,10 @@ export default class StreamsTable extends React.Component {
 }
 
 StreamsTable.propTypes = {
-  streams: PropTypes.arrayOf(PropTypes.instanceOf(StreamInfo)).isRequired
+  streams: PropTypes.arrayOf(PropTypes.instanceOf(StreamInfo)).isRequired,
+  isSimple: PropTypes.bool
 };
+
+StreamsTable.defaultProps = {
+  isSimple: false
+}

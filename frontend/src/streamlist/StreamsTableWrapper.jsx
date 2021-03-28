@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import StreamsTable from "./StreamsTable";
-import StreamsTableSimple from "./StreamsTableSimple";
 import { getAllStreams } from "../api/SampleData";
 
 export default class StreamsTableWrapper extends React.Component {
@@ -32,15 +31,7 @@ export default class StreamsTableWrapper extends React.Component {
   render() {
     const { streams } = this.state;
     const { isSimple } = this.props;
-    return (
-      <>
-        {isSimple ? (
-          <StreamsTableSimple streams={streams} />
-        ) : (
-          <StreamsTable streams={streams} />
-        )}
-      </>
-    );
+    return <StreamsTable streams={streams} isSimple={isSimple} />;
   }
 }
 
