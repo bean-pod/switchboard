@@ -25,6 +25,14 @@ export default function StreamStatisticsPage(props) {
   );
 }
 
+StreamStatisticsPage.defaultProps = {
+  location: { state: { statistics: getSampleStreamStats() } }
+}
+
 StreamStatisticsPage.propTypes = {
-  statistics: PropTypes.instanceOf(StreamStatisticsInfo).isRequired
+  location: PropTypes.shape({
+    state: PropTypes.shape({
+      statistics: PropTypes.instanceOf(StreamStatisticsInfo)
+    })
+  })
 };
