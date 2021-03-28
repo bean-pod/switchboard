@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Button } from "@material-ui/core";
 import { NavLink } from "react-router-dom";
 
-import StreamStatisticsInfo from "../model/StreamStatistics/StreamStatisticsInfo";
+import StreamStatisticsInfo from "../../model/StreamStatistics/StreamStatisticsInfo";
 
 export default function StreamStatisticsButton(props) {
   const { statistics } = props;

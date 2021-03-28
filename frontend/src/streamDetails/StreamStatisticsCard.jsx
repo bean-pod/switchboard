@@ -5,7 +5,7 @@ import { Box, Grid } from "@material-ui/core";
 import DashboardCard from "../general/dashboard/DashboardCard";
 import SimpleTable from "../general/simpleTable/SimpleTable";
 import zipProperties from "../general/simpleTable/SimpleTableUtil";
-import StreamStatisticsButton from "./StreamStatisticsButton";
+import StreamStatisticsButton from "./DetailedStreamStatistics/StreamStatisticsButton";
 import { getStreamStatistics } from "../api/StreamApi";
 
 export default function StreamStatisticsCard(props) {
