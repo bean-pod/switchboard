@@ -13,6 +13,7 @@ import CreateStreamPage from "../../createStream/CreateStreamPage";
 import StreamListPage from "../../streamlist/StreamListPage";
 import LogListPage from "../../loglist/LogListPage";
 import PathNotFoundPage from "../../general/PathNotFoundPage";
+import CreateUserPage from "../../admin/createUser/CreateUserPage";
 import DeviceInfo from "../../model/DeviceInfo";
 import StreamDetailsPage from "../../streamDetails/StreamDetailsPage";
 import StreamInfo from "../../model/StreamInfo";
@@ -40,7 +41,7 @@ describe("<AppRouter/> functional component", () => {
     wrapper = Enzyme.shallow(<AppRouter />);
 
     const protectedRoutes = wrapper.find(ProtectedRoute);
-    expect(protectedRoutes).toHaveLength(8);
+    expect(protectedRoutes).toHaveLength(9);
 
     const loginRoute = protectedRoutes.at(0);
     expect(loginRoute.props().path).toEqual("/Login");
@@ -94,6 +95,12 @@ describe("<AppRouter/> functional component", () => {
     expect(logListRoute.props().authenticationRequired).toBe(true);
     const logListPage = logListRoute.props().render();
     expect(logListPage.type).toEqual(LogListPage);
+
+    const createUserRoute = protectedRoutes.at(8);
+    expect(createUserRoute.props().path).toEqual("/Admin/New");
+    expect(createUserRoute.props().authenticationRequired).toBe(true);
+    const createUserPage = createUserRoute.props().render();
+    expect(createUserPage.type).toEqual(CreateUserPage);
 
     const route = wrapper.find(Route);
     expect(route).toHaveLength(1);
