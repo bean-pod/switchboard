@@ -90,13 +90,10 @@ export default class StreamsTable extends React.Component {
 
   getColumnInfo() {
     const { isSimple } = this.props;
-    let result;
     if (isSimple) {
-      result = this.simpleColumnInfo;
-    } else {
-      result = this.columnInfo;
+      return this.simpleColumnInfo;
     }
-    return result;
+    return this.columnInfo;
   }
 
   getOptions() {
