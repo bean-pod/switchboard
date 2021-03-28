@@ -27,3 +27,7 @@ export async function getAllLogs() {
 export async function getDeviceLogs(deviceSerialNumber) {
   return getLogs(`${process.env.REACT_APP_LOG}/${deviceSerialNumber}`);
 }
+
+export async function getStreamLogs(streamId) {
+  return getLogs(`${process.env.REACT_APP_LOG}/${streamId}`); // change this
+}

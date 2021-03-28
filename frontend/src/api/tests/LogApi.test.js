@@ -84,6 +84,28 @@ describe("Log Api", () => {
     });
   });
 
+  describe("getStreamLogs", () => {
+    it("should call axios.get and return stream logs from a stream id", async () => {
+      axios.get.mockResolvedValue({ data: mockLogs });
+      AuthenticationUtil.getAuthorizationHeader = jest
+        .fn()
+        .mockReturnValue(authorizationHeader);
+      const result = await LogApi.getStreamLogs(123);
+      expect(axios.get).toHaveBeenCalledWith(
+        "http://localhost:8080/log/123", // change this
+        authorizationHeader
+      );
+      expect(result).toEqual(expectedLogsResponse);
+    });
+    it("If there is no response from the backend, it should return sample data", async () => {
+      axios.get.mockRejectedValue();
+
+      const result = await LogApi.getStreamLogs();
+
+      expect(result).toEqual(sampleLogs);
+    });
+  });
+
   describe("getAllLogs", () => {
     it("should call axios.get and return an array of streams", async () => {
       axios.get.mockResolvedValue({ data: mockLogs });

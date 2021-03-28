@@ -8,6 +8,7 @@ import StreamDetailsPageContents from "../StreamDetailsPageContents";
 import DashboardCard from "../../general/dashboard/DashboardCard";
 import StreamDeviceDetails from "../StreamDeviceDetails";
 import DeleteStreamDialogOpener from "../DeleteStreamDialogOpener";
+import StreamLogsWrapper from "../StreamLogsWrapper";
 
 import DeviceInfo from "../../model/DeviceInfo";
 import StreamInfo from "../../model/StreamInfo";
@@ -71,6 +72,13 @@ describe("<StreamDetailsPageContents/> functional component", () => {
       expect(statisticsCardProps.title).toBe("Statistics");
     });
     it("Contains 2 StreamDeviceDetails components with expected props", () => {
+      const streamLogsWrapper = wrapper.find(StreamLogsWrapper);
+      expect(streamLogsWrapper).toHaveLength(1);
+
+      const streamLogDetailsProps = streamLogsWrapper.props();
+      expect(streamLogDetailsProps.streamId).toStrictEqual(1);
+    });
+    it("Contains 1 StreamLogsWrapper component with expected props", () => {
       const streamDeviceDetails = wrapper.find(StreamDeviceDetails);
       expect(streamDeviceDetails).toHaveLength(2);
 
