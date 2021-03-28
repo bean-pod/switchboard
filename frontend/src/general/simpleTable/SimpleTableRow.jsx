@@ -6,7 +6,7 @@ export default function SimpleTableRow(props) {
   const { name, value, centerValue } = props;
 
   let align = "left";
-  if(centerValue) {
+  if (centerValue) {
     align = "center";
   }
 
@@ -22,7 +22,7 @@ export default function SimpleTableRow(props) {
 
 SimpleTableRow.defaultProps = {
   centerValue: false
-}
+};
 
 SimpleTableRow.propTypes = {
   name: PropTypes.string.isRequired,

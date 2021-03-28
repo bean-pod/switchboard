@@ -29,17 +29,24 @@ describe("<StreamDeviceDetailsCard/> functional component", () => {
     );
     const dummyChannel = 10;
     const dummyTitle = "Device Card";
-    const expectedPairs = zipProperties(["Name", "Serial Number", "Channel"], [dummyDevice.name, dummyDevice.serialNumber, dummyChannel]);
+    const expectedPairs = zipProperties(
+      ["Name", "Serial Number", "Channel"],
+      [dummyDevice.name, dummyDevice.serialNumber, dummyChannel]
+    );
 
     beforeEach(() => {
       wrapper = Enzyme.shallow(
-        <StreamDeviceDetailsCard cardTitle={dummyTitle} device={dummyDevice} channel={dummyChannel} />
+        <StreamDeviceDetailsCard
+          cardTitle={dummyTitle}
+          device={dummyDevice}
+          channel={dummyChannel}
+        />
       );
     });
     it("contains 1 DashboardCard component with expected props", () => {
       const dashCard = wrapper.find(DashboardCard);
       expect(dashCard).toHaveLength(1);
-      
+
       const dashCardProps = dashCard.props();
       const expectedTitle = "Device Card";
       expect(dashCardProps.title).toBe(expectedTitle);

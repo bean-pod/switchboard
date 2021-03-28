@@ -34,7 +34,7 @@ describe("<StreamLogsCard /> functional component", () => {
 
       const firstGridProps = grids.at(0).props();
       expect(firstGridProps.container).toBe(true);
-      
+
       const secondGridProps = grids.at(1).props();
       expect(secondGridProps.item).toBe(true);
       expect(secondGridProps.xs).toBe(12);

@@ -26,7 +26,7 @@ export default function SimpleTable(props) {
 
 SimpleTable.defaultProps = {
   centerValues: false
-}
+};
 SimpleTable.propTypes = {
   propertyPairs: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.node))
     .isRequired,
