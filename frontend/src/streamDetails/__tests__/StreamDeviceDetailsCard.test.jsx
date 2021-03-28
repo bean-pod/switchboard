@@ -13,7 +13,7 @@ import DeviceInfo from "../../model/DeviceInfo";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe("<StreamDeviceDetails/> functional component", () => {
+describe("<StreamDeviceDetailsCard/> functional component", () => {
   let wrapper;
 
   describe("returns a component that", () => {
