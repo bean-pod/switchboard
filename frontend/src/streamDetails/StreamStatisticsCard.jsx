@@ -35,5 +35,5 @@ export default function StreamStatisticsCard(props) {
 }
 
 StreamStatisticsCard.propTypes = {
-  streamId: PropTypes.string.isRequired
+  streamId: PropTypes.number.isRequired
 };
