@@ -79,8 +79,8 @@ class EncoderControllerTest {
     when(encoderDao.save(encoderDto)).thenReturn(encoderDto);
 
     String s1 =
-        encoderController.uploadJson(EncoderFixture.SERIAL_NUMBER, validJsonFile, validJsonFile);
-    String s2 = encoderController.uploadJson(EncoderFixture.SERIAL_NUMBER, null, null);
+        encoderController.uploadConfiguration(EncoderFixture.SERIAL_NUMBER, validJsonFile, validJsonFile);
+    String s2 = encoderController.uploadConfiguration(EncoderFixture.SERIAL_NUMBER, null, null);
     assertEquals("Configurations uploaded.", s1);
     assertEquals("Configurations uploaded.", s2);
   }

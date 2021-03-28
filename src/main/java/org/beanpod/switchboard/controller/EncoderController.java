@@ -55,7 +55,7 @@ public class EncoderController {
   @PutMapping(
       value = "config/{serialNumber}",
       consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-  public String uploadJson(
+  public String uploadConfiguration(
       @PathVariable @Valid String serialNumber,
       @RequestParam(value = "configurationSchema", required = false) MultipartFile schema,
       @RequestParam(value = "configurationInstance", required = false) MultipartFile instance) {
