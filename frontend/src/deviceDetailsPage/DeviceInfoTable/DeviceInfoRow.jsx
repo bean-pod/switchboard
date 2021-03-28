@@ -32,6 +32,8 @@ export default class DeviceInfoRow extends React.Component {
         return "Name";
       case "status":
         return "Status";
+      case "channel":
+        return "Channel";
       case "channels":
         return "Channels";
       default:

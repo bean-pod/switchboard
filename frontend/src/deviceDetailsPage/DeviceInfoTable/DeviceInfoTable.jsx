@@ -6,7 +6,7 @@ import DeviceInfoRow from "./DeviceInfoRow";
 import DeviceInfo from "../../model/DeviceInfo";
 
 export default function DeviceInfoTable(props) {
-  const { device, properties } = props;
+  const { device, properties, activeChannel } = props;
   return (
     <TableContainer>
       <Table>
@@ -14,7 +14,7 @@ export default function DeviceInfoTable(props) {
           {properties.map((property) => (
             <DeviceInfoRow
               name={property}
-              value={device[property]}
+              value={property === "channel" ? activeChannel : device[property]}
               device={device}
               key={`device_${property}`}
             />
@@ -27,5 +27,9 @@ export default function DeviceInfoTable(props) {
 
 DeviceInfoTable.propTypes = {
   device: PropTypes.instanceOf(DeviceInfo).isRequired,
-  properties: PropTypes.arrayOf(PropTypes.string).isRequired
+  properties: PropTypes.arrayOf(PropTypes.string).isRequired,
+  activeChannel: PropTypes.number
+};
+DeviceInfoTable.defaultProps = {
+  activeChannel: -1
 };
