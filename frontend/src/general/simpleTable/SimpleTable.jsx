@@ -4,7 +4,7 @@ import { TableBody, Table, TableContainer } from "@material-ui/core";
 import SimpleTableRow from "./SimpleTableRow";
 
 export default function SimpleTable(props) {
-  const { propertyPairs } = props;
+  const { propertyPairs, centerValues } = props;
 
   return (
     <TableContainer>
@@ -14,6 +14,7 @@ export default function SimpleTable(props) {
             <SimpleTableRow
               name={propertyPair[0]}
               value={propertyPair[1]}
+              centerValue={centerValues}
               key={`component_${propertyPair[0]}`}
             />
           ))}
@@ -23,7 +24,11 @@ export default function SimpleTable(props) {
   );
 }
 
+SimpleTable.defaultProps = {
+  centerValues: false
+}
 SimpleTable.propTypes = {
   propertyPairs: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.node))
-    .isRequired
+    .isRequired,
+  centerValues: PropTypes.bool
 };
