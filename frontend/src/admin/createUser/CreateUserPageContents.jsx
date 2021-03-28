@@ -1,9 +1,9 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 import FormFailedDialog from "../../general/userForm/FormFailedDialog";
 import { createUser } from "../../api/UserManagementApi";
 import CreateUserFormConsole from "./CreateUserFormConsole";
+import { snackbar } from "../../general/SnackbarMessage";
 
 export default class CreateUserPageContents extends React.Component {
   constructor(props) {
@@ -18,10 +18,9 @@ export default class CreateUserPageContents extends React.Component {
   }
 
   handleSubmit(username, password) {
-    const { history } = this.props;
     createUser({ username, password })
       .then(() => {
-        history.push("/Home");
+        snackbar("success", `User ${username} successfully created!`);
       })
       .catch((error) => {
         this.openDialog();
@@ -53,9 +52,3 @@ export default class CreateUserPageContents extends React.Component {
     );
   }
 }
-
-CreateUserPageContents.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired
-  }).isRequired
-};
