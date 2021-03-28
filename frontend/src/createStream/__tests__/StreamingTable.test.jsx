@@ -203,7 +203,7 @@ describe("<StreamingTable/> class component", () => {
           expect(snackbarSpy).toHaveBeenCalledTimes(1);
           expect(snackbarSpy).toHaveBeenCalledWith(
             "success",
-            `Stream successful`
+            `Stream successful!`
           );
         });
         it("and the post rejects, an error snackbar should appear", async () => {

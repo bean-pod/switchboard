@@ -67,7 +67,7 @@ describe("<DeleteStreamDialog/> class", () => {
         expect(snackbarSpy).toHaveBeenCalledTimes(1);
         expect(snackbarSpy).toHaveBeenCalledWith(
           "success",
-          `Stream successfully deleted`,
+          `Stream successfully deleted!`,
           "Streams"
         );
       });
