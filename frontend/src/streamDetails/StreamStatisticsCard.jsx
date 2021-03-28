@@ -8,30 +8,49 @@ import zipProperties from "../general/simpleTable/SimpleTableUtil";
 import StreamStatisticsButton from "./DetailedStreamStatistics/StreamStatisticsButton";
 import { getStreamStatistics } from "../api/StreamApi";
 
-export default function StreamStatisticsCard(props) {
-  const { streamId } = props;
+export default class StreamStatisticsCard extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      stats: []
+    }
+    this.streamId = props.streamId;
+    this.handleStatsChange = this.handleStatsChange.bind(this);
+  }
 
-  const stats = getStreamStatistics(streamId);
-  const propertyNames = ["Time"];
-  const properties = [stats.time];
+  componentDidMount() {
+    getStreamStatistics(this.streamId).then(this.handleStatsChange);
+  }
 
-  const propertyPairs = zipProperties(propertyNames, properties);
-  return (
-    <>
-      <DashboardCard title="Statistics">
-        <Grid container>
-          <Grid item xs={12}>
-            <SimpleTable propertyPairs={propertyPairs} />
+  handleStatsChange(stats) {
+    this.setState({
+      stats
+    });
+  }
+
+  render() {
+    const { stats } = this.state;
+    const propertyNames = ["Time"];
+    const properties = [stats.time];
+  
+    const propertyPairs = zipProperties(propertyNames, properties);
+    return (
+      <>
+        <DashboardCard title="Statistics">
+          <Grid container>
+            <Grid item xs={12}>
+              <SimpleTable propertyPairs={propertyPairs} />
+            </Grid>
+            <Grid item xs={12}>
+              <Box className="alignRightFloatPadded">
+                <StreamStatisticsButton statistics={stats} />
+              </Box>
+            </Grid>
           </Grid>
-          <Grid item xs={12}>
-            <Box className="alignRightFloatPadded">
-              <StreamStatisticsButton statistics={stats} />
-            </Box>
-          </Grid>
-        </Grid>
-      </DashboardCard>
-    </>
-  );
+        </DashboardCard>
+      </>
+    );
+  }
 }
 
 StreamStatisticsCard.propTypes = {
