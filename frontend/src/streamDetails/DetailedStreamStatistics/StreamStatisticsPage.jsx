@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import StreamStatisticsInfo from "../../model/StreamStatistics/StreamStatisticsInfo";
 import Page from "../../general/Page";
 import StreamStatisticsPageContents from "./StreamStatisticsPageContents";
+import { getSampleStreamStats } from "../../api/SampleData";
 
 export default function StreamStatisticsPage(props) {
   const {
@@ -19,7 +20,10 @@ export default function StreamStatisticsPage(props) {
   ];
 
   return (
-    <Page title={`Stream ${streamId} Statistics`} breadcrumbs={breadcrumbs}>
+    <Page
+      title={`Stream ${statistics.id} Statistics`}
+      breadcrumbs={breadcrumbs}
+    >
       <StreamStatisticsPageContents statistics={statistics} />
     </Page>
   );
