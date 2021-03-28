@@ -93,6 +93,13 @@ describe("<DeleteStreamDialog/> class", () => {
       wrapper.instance().forceUpdate();
 
       expect(mockCloseDialog).toBeCalledTimes(1);
+
+      expect(snackbarSpy).toHaveBeenCalledTimes(1);
+      expect(snackbarSpy).toHaveBeenCalledWith(
+        "success",
+        `Stream successfully deleted!`,
+        "Streams"
+      );
     });
   });
 });

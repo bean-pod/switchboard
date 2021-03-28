@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import Dialog from "../../general/dialog/Dialog";
 import { deleteDevice } from "../../api/DeviceApi";
 import DeviceInfo from "../../model/DeviceInfo";
+import { snackbar } from "../../general/SnackbarMessage";
 
 export default class DeleteDeviceDialog extends React.Component {
   constructor(props) {
@@ -16,16 +17,29 @@ export default class DeleteDeviceDialog extends React.Component {
   }
 
   afterDelete() {
-    const { history } = this.props;
+    const {
+      device: { serialNumber }
+    } = this.props;
     this.dialogElement.current.closeDialog();
-    history.push("/Devices");
+    snackbar(
+      "success",
+      `Device deleted! (Serial Number: ${serialNumber})`,
+      "Devices"
+    );
   }
 
   confirmDelete() {
     const {
       device: { serialNumber }
     } = this.props;
-    deleteDevice(serialNumber).then(this.afterDelete);
+    deleteDevice(serialNumber)
+      .then(this.afterDelete)
+      .catch(() => {
+        snackbar(
+          "error",
+          `Could not delete device (Serial Number: ${serialNumber})`
+        );
+      });
   }
 
   // used by Summoner to summon
@@ -56,8 +70,5 @@ export default class DeleteDeviceDialog extends React.Component {
 }
 
 DeleteDeviceDialog.propTypes = {
-  device: PropTypes.instanceOf(DeviceInfo).isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired
-  }).isRequired
+  device: PropTypes.instanceOf(DeviceInfo).isRequired
 };
