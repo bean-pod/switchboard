@@ -12,6 +12,7 @@ import CreateStreamPage from "../createStream/CreateStreamPage";
 import LogListPage from "../loglist/LogListPage";
 import StreamDetailsPage from "../streamDetails/StreamDetailsPage";
 import PathNotFoundPage from "../general/PathNotFoundPage";
+import StreamStatisticsPage from "../streamDetails/DetailedStreamStatistics/StreamStatisticsPage";
 
 export default function AppRouter() {
   return (
@@ -44,6 +45,13 @@ export default function AppRouter() {
           authenticationRequired
           render={() => {
             return <CreateStreamPage />;
+          }}
+        />
+        <ProtectedRoute
+          path="/Streams/Details/:streamId/Statistics"
+          authenticationRequired
+          render={(location) => {
+            return <StreamStatisticsPage location={location} />;
           }}
         />
         <ProtectedRoute
