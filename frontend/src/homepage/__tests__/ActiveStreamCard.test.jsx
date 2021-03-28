@@ -61,8 +61,9 @@ describe("<ActiveStreamCard/> functional Component", () => {
 
       expect(fourthGrid.props().children.type.name).toBe("DashboardButton");
     });
-    it("Contains 1 <StreamTableWrapper/> component", () => {
+    it("Contains 1 <StreamTableWrapper/> component with isSimple props passed true", () => {
       expect(wrapper.find(StreamsTableWrapper)).toHaveLength(1);
+      expect(wrapper.find(StreamsTableWrapper).props().isSimple).toBe(true);
     });
     it("Contains 2 <DashboardButton/> components", () => {
       expect(wrapper.find(DashboardButton)).toHaveLength(2);
