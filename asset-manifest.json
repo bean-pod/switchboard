@@ -1,12 +1,12 @@
 {
   "files": {
     "main.css": "/Home/static/css/main.b893dab2.chunk.css",
-    "main.js": "/Home/static/js/main.e4fd89c0.chunk.js",
-    "main.js.map": "/Home/static/js/main.e4fd89c0.chunk.js.map",
+    "main.js": "/Home/static/js/main.67a60ac1.chunk.js",
+    "main.js.map": "/Home/static/js/main.67a60ac1.chunk.js.map",
     "runtime-main.js": "/Home/static/js/runtime-main.27c52c08.js",
     "runtime-main.js.map": "/Home/static/js/runtime-main.27c52c08.js.map",
-    "static/js/2.8fd6fcfd.chunk.js": "/Home/static/js/2.8fd6fcfd.chunk.js",
-    "static/js/2.8fd6fcfd.chunk.js.map": "/Home/static/js/2.8fd6fcfd.chunk.js.map",
+    "static/js/2.dc59a3f1.chunk.js": "/Home/static/js/2.dc59a3f1.chunk.js",
+    "static/js/2.dc59a3f1.chunk.js.map": "/Home/static/js/2.dc59a3f1.chunk.js.map",
     "static/js/3.7465d2cd.chunk.js": "/Home/static/js/3.7465d2cd.chunk.js",
     "static/js/3.7465d2cd.chunk.js.map": "/Home/static/js/3.7465d2cd.chunk.js.map",
     "static/js/4.97ebbe2f.chunk.js": "/Home/static/js/4.97ebbe2f.chunk.js",
@@ -15,15 +15,15 @@
     "static/js/5.99e9eb3d.chunk.js.map": "/Home/static/js/5.99e9eb3d.chunk.js.map",
     "index.html": "/Home/index.html",
     "static/css/main.b893dab2.chunk.css.map": "/Home/static/css/main.b893dab2.chunk.css.map",
-    "static/js/2.8fd6fcfd.chunk.js.LICENSE.txt": "/Home/static/js/2.8fd6fcfd.chunk.js.LICENSE.txt",
+    "static/js/2.dc59a3f1.chunk.js.LICENSE.txt": "/Home/static/js/2.dc59a3f1.chunk.js.LICENSE.txt",
     "static/js/3.7465d2cd.chunk.js.LICENSE.txt": "/Home/static/js/3.7465d2cd.chunk.js.LICENSE.txt",
     "static/js/4.97ebbe2f.chunk.js.LICENSE.txt": "/Home/static/js/4.97ebbe2f.chunk.js.LICENSE.txt",
     "static/js/5.99e9eb3d.chunk.js.LICENSE.txt": "/Home/static/js/5.99e9eb3d.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.27c52c08.js",
-    "static/js/2.8fd6fcfd.chunk.js",
+    "static/js/2.dc59a3f1.chunk.js",
     "static/css/main.b893dab2.chunk.css",
-    "static/js/main.e4fd89c0.chunk.js"
+    "static/js/main.67a60ac1.chunk.js"
   ]
 }
