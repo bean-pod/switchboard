@@ -69,11 +69,12 @@ class CustomRestExceptionHandlerTest {
   }
 
   @Test
-  final void testHandleInvalidJsonException(){
+  final void testHandleInvalidJsonException() {
     ResponseEntity<ExceptionResponse> responseEntity =
         customRestExceptionHandler.handleInvalidJsonException(exception);
     assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseEntity.getStatusCode());
   }
+
   @Test
   final void testUnknownError() {
     ResponseEntity<ExceptionResponse> exceptionResponse =
