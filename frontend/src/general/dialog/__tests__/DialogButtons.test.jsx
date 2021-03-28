@@ -1,7 +1,7 @@
 import React from "react";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import { describe, expect } from "@jest/globals";
+import { afterEach, describe, expect } from "@jest/globals";
 
 import { Button } from "@material-ui/core";
 import MuiDialogActions from "@material-ui/core/DialogActions";
@@ -24,17 +24,44 @@ describe("<DialogButtons/> Class Component", () => {
     onClick
   };
 
-  const wrapper = Enzyme.shallow(
-    <DialogButtons button1={dummyButton1} button2={dummyButton2} />
-  );
-  describe("render() function", () => {
-    it("returns a component that contains the right elements", () => {
-      expect(wrapper.find(MuiDialogActions)).toHaveLength(1);
+  describe("return() function", () => {
+    let wrapper;
 
-      const buttons = wrapper.find(Button);
-      expect(buttons).toHaveLength(2);
-      expect(buttons.first().text()).toBe(name1);
-      expect(buttons.last().text()).toBe(name2);
+    afterEach(() => {
+      wrapper.unmount();
+    });
+
+    describe("if no actionButton is passed to button2", () => {
+      it("only renders one <Button/> component", () => {
+        wrapper = Enzyme.shallow(<DialogButtons button1={dummyButton1} />);
+
+        expect(wrapper.find(MuiDialogActions)).toHaveLength(1);
+        const button = wrapper.find(Button);
+
+        expect(button).toHaveLength(1);
+
+        expect(button.text()).toEqual(name1);
+        expect(button.props().onClick).toBe(dummyButton1.onClick);
+      });
+    });
+
+    describe("if an actionButton is passed to button2", () => {
+      it("returns 2 <Button/> components", () => {
+        wrapper = Enzyme.shallow(
+          <DialogButtons button1={dummyButton1} button2={dummyButton2} />
+        );
+
+        expect(wrapper.find(MuiDialogActions)).toHaveLength(1);
+        const buttons = wrapper.find(Button);
+
+        expect(buttons).toHaveLength(2);
+
+        expect(buttons.first().text()).toEqual(name1);
+        expect(buttons.first().props().onClick).toBe(dummyButton1.onClick);
+
+        expect(buttons.last().text()).toEqual(name2);
+        expect(buttons.last().props().onClick).toBe(dummyButton2.onClick);
+      });
     });
   });
 });
