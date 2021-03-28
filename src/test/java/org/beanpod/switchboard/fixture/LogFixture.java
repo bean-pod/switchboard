@@ -44,6 +44,17 @@ public class LogFixture {
         .message(message)
         .level(level)
         .serialNumber(DeviceFixture.SERIAL_NUMBER)
+        .streamLog(StreamLogFixture.getStreamLog())
+        .build();
+  }
+
+  public static LogDto getLogDtoCustomConstructor() {
+    return LogDto.builder()
+        .id(id)
+        .dateTime(dateTime)
+        .message(message)
+        .level(level)
+        .serialNumber(DeviceFixture.SERIAL_NUMBER)
         .build();
   }
 

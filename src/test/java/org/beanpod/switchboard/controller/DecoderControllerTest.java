@@ -120,6 +120,16 @@ class DecoderControllerTest {
     assertEquals(200, response.getStatusCodeValue());
   }
 
+  @Test
+  final void testCreateDecoderWithoutChannels() {
+    decoderDto.setInput(Collections.emptySet());
+    assertThrows(
+        ExceptionType.MissingChannelsException.class,
+        () -> {
+          decoderController.createDecoder(decoderDto);
+        });
+  }
+
   // When a device is available in the DB
   @Test
   final void testCreateDecoderAlreadyExists() {

@@ -1,5 +1,6 @@
 package org.beanpod.switchboard.aop;
 
+import java.time.OffsetDateTime;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.JoinPoint;
@@ -9,7 +10,7 @@ import org.aspectj.lang.annotation.Before;
 import org.beanpod.switchboard.dao.StreamDaoImpl;
 import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.exceptions.ExceptionType.UnknownException;
-import org.beanpod.switchboard.service.LogService;
+import org.beanpod.switchboard.service.StreamLogService;
 import org.openapitools.model.DecoderModel;
 import org.openapitools.model.EncoderModel;
 import org.openapitools.model.InputChannelModel;
@@ -25,8 +26,9 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class StreamAspect {
 
-  private final LogService logService;
   private final StreamDaoImpl streamDao;
+  private final StreamLogService streamLogService;
+
   String stream = "stream";
 
   @AfterReturning(
@@ -65,7 +67,14 @@ public class StreamAspect {
             "A stream started from output channel %d of decoder %s"
                 + " to input channel %d of encoder %s",
             outputId, decoderSerial, inputId, encoderSerial);
-    logService.createLog(message, "info", decoderSerial + "," + encoderSerial);
+
+    Long streamId =
+        Optional.of(response.getBody())
+            .map(StreamModel::getId)
+            .orElseThrow(() -> new UnknownException(stream));
+
+    streamLogService.createLog(
+        OffsetDateTime.now(), message, decoderSerial, encoderSerial, streamId.toString());
   }
 
   @Before("execution(* org.beanpod.switchboard.controller.StreamController.deleteStream(..))")
@@ -79,6 +88,8 @@ public class StreamAspect {
         String.format(
             "Deleted stream of ID %d between decoder %s and encoder %s",
             streamId, decoderSerial, encoderSerial);
-    logService.createLog(message, "info", decoderSerial + "," + encoderSerial);
+
+    streamLogService.createLog(
+        OffsetDateTime.now(), message, decoderSerial, encoderSerial, streamId.toString());
   }
 }

@@ -27,7 +27,7 @@ public class LogService {
   private final LogDaoImpl logDao;
   private final LogMapper logMapper;
 
-  public void createLog(String message, String level, String serialNumber) {
+  public LogDto createLog(String message, String level, String serialNumber) {
 
     LogEntity logEntity =
         LogEntity.builder()
@@ -36,7 +36,7 @@ public class LogService {
             .dateTime(OffsetDateTime.now())
             .serialNumber(serialNumber)
             .build();
-    logRepository.save(logEntity);
+    return logMapper.logEntityToLogDto(logRepository.save(logEntity));
   }
 
   public LogDto createLog(LogModel logModel) {

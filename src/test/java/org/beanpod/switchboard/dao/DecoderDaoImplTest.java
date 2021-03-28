@@ -17,6 +17,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 class DecoderDaoImplTest {
@@ -47,6 +48,19 @@ class DecoderDaoImplTest {
     when(decoderMapper.toDecoderEntity(any())).thenReturn(decoder);
     when(decoderRepository.save(decoder)).thenReturn(decoder);
     DecoderDto decoderDTO = decoderDaoImpl.save(decoderDto);
+    assertEquals(decoderDTO, decoderDto);
+  }
+
+  @Test
+  final void testSaveIfNotEmpty() {
+    DecoderDaoImpl decoderDaoImp = new DecoderDaoImpl(decoderRepository, decoderMapper);
+    DecoderDaoImpl decoderDaoImp1 = Mockito.spy(decoderDaoImp);
+    Mockito.doReturn(Optional.of(decoderDto)).when(decoderDaoImp1).findDecoder(any());
+    when(decoderDaoImp.findDecoder(any())).thenReturn(Optional.of(decoderDto));
+    when(decoderMapper.toDecoderDto(any())).thenReturn(decoderDto);
+    when(decoderMapper.toDecoderEntity(any())).thenReturn(decoder);
+    when(decoderRepository.save(decoder)).thenReturn(decoder);
+    DecoderDto decoderDTO = decoderDaoImp1.save(decoderDto);
     assertEquals(decoderDTO, decoderDto);
   }
 

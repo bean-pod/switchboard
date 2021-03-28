@@ -10,6 +10,7 @@ public class ExceptionType {
   }
 
   public static class MissingChannelsException extends RuntimeException {
+
     public MissingChannelsException(String s) {
       super(SERIAL_NUMBER + s);
     }
@@ -58,6 +59,7 @@ public class ExceptionType {
   }
 
   public static class CouldNotAuthenticateUserException extends RuntimeException {
+
     public static final String MESSAGE = "Could not authenticate the user";
 
     public CouldNotAuthenticateUserException() {

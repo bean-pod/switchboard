@@ -20,9 +20,13 @@ public class DecoderDaoImpl {
     this.decoderMapper = decoderMapper;
   }
 
-  public DecoderDto save(DecoderDto decoderDto) {
+  public DecoderDto save(DecoderDto decoder) {
+    Optional<DecoderDto> decoderDto = findDecoder(decoder.getSerialNumber());
+    if (!decoderDto.isEmpty()) {
+      decoderMapper.updateDecoderFromDto(decoder, decoderDto.orElse(decoder));
+    }
     return decoderMapper.toDecoderDto(
-        decoderRepository.save(decoderMapper.toDecoderEntity(decoderDto)));
+        decoderRepository.save(decoderMapper.toDecoderEntity(decoderDto.orElse(decoder))));
   }
 
   // General data access methods
