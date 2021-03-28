@@ -15,7 +15,7 @@ export default function StreamStatisticsPage(props) {
   const breadcrumbs = [
     ["Home", "/Home"],
     ["Active Streams", "/Streams"],
-    ["Stream Details", `/Streams/Details/${statistics.id}`],
+    ["Stream Details"],
     ["Statistics", `/Streams/Details/${statistics.id}/Statistics`]
   ];
 
