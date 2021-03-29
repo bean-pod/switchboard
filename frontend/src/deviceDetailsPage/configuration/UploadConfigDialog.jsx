@@ -13,7 +13,8 @@ export default class UploadConfigDialog extends React.Component {
     this.dialogElement = React.createRef();
     this.openDialog = this.openDialog.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.afterUpload = this.handleUpload.bind(this);
+
+    this.afterUpload = this.afterUpload.bind(this);
     this.handleUpload = this.handleUpload.bind(this);
   }
 
