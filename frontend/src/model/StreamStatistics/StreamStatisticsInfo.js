@@ -1,6 +1,6 @@
 export default class StreamStatisticsInfo {
-  constructor(streamId, time, window, link, send, receive) {
-    this.streamId = streamId;
+  constructor(id, time, window, link, send, receive) {
+    this.id = id;
     this.time = time;
     this.window = window;
     this.link = link;
