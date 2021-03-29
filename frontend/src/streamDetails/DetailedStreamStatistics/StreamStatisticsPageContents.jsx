@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Container, Grid } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 
 import StreamStatisticsInfo from "../../model/StreamStatistics/StreamStatisticsInfo";
 import StatisticsOverviewCard from "./StatisticsOverviewCard";
@@ -11,19 +11,17 @@ export default function StreamStatisticsPageContents(props) {
   const { statistics } = props;
 
   return (
-    <Container>
-      <Grid container spacing={3}>
-        <Grid item xs={4}>
-          <StatisticsOverviewCard stats={statistics} />
-        </Grid>
-        <Grid item xs={4}>
-          <StatisticsSendingCard stats={statistics} />
-        </Grid>
-        <Grid item xs={4}>
-          <StatisticsReceivingCard stats={statistics} />
-        </Grid>
+    <Grid container spacing={3}>
+      <Grid item xs={4}>
+        <StatisticsOverviewCard stats={statistics} />
       </Grid>
-    </Container>
+      <Grid item xs={4}>
+        <StatisticsSendingCard stats={statistics} />
+      </Grid>
+      <Grid item xs={4}>
+        <StatisticsReceivingCard stats={statistics} />
+      </Grid>
+    </Grid>
   );
 }
 
