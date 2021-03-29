@@ -68,14 +68,14 @@ describe("<StreamDetailsPageContents/> functional component", () => {
       const statisticsCardProps = wrapper.find(DashboardCard).at(2).props();
       expect(statisticsCardProps.title).toBe("Statistics");
     });
-    it("Contains 2 StreamDeviceDetails components with expected props", () => {
+    it("Contains 1 StreamLogCard component with expected props", () => {
       const streamLogCard = wrapper.find(StreamLogCard);
       expect(streamLogCard).toHaveLength(1);
 
       const streamLogCardProps = streamLogCard.props();
       expect(streamLogCardProps.streamId).toStrictEqual(1);
     });
-    it("Contains 1 StreamLogsWrapper component with expected props", () => {
+    it("Contains 2 StreamDeviceDetails component with expected props", () => {
       const streamDeviceDetails = wrapper.find(StreamDeviceDetails);
       expect(streamDeviceDetails).toHaveLength(2);
 

@@ -19,7 +19,7 @@ import * as LogApi from "../../api/LogApi";
 Enzyme.configure({ adapter: new Adapter() });
 jest.mock("../../api/LogApi");
 
-describe("<StreamLogsWrapper/> Class Component", () => {
+describe("<StreamLogTableWrapper/> Class Component", () => {
   let wrapper;
   const dummyId = 1;
   const expectedLogs = [new LogInfo(5)];
