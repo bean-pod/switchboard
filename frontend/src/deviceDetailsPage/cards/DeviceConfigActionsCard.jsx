@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Grid } from "@material-ui/core";
 
 import DashboardCard from "../../general/dashboard/DashboardCard";
-import UploadConfigDialogOpenButton from "../configurationButtons/uploadConfigDialog/UploadConfigDialogOpenButton";
+import UploadConfigDialogOpenButton from "../configurationButtons/UploadConfigDialogOpenButton";
 import DownloadConfigButton from "../configurationButtons/DownloadConfigButton";
 
 import DeviceInfo from "../../model/DeviceInfo";

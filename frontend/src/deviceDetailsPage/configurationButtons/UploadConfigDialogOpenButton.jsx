@@ -5,7 +5,7 @@ import { CloudUpload } from "@material-ui/icons";
 
 import UploadConfigDialog from "./UploadConfigDialog";
 
-import DeviceInfo from "../../../model/DeviceInfo";
+import DeviceInfo from "../../model/DeviceInfo";
 
 export default class UploadConfigDialogOpenButton extends React.Component {
   constructor(props) {
