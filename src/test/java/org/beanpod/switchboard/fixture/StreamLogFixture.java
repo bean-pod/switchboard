@@ -33,9 +33,15 @@ public class StreamLogFixture {
         .logEntity(LogFixture.getLogModel());
   }
 
-  public static List<StreamLogModel> getListOfStreamLogs() {
-    List<StreamLogModel> listOfStreamLogs = new ArrayList<>();
-    listOfStreamLogs.add(getStreamLogModel());
+  public static List<StreamLogModel> getListOfStreamLogsModel() {
+    List<StreamLogModel> listOfStreamLogsModel = new ArrayList<>();
+    listOfStreamLogsModel.add(getStreamLogModel());
+    return listOfStreamLogsModel;
+  }
+
+  public static List<StreamLog> getListOfStreamLogs() {
+    List<StreamLog> listOfStreamLogs = new ArrayList<>();
+    listOfStreamLogs.add(getStreamLog());
     return listOfStreamLogs;
   }
 }
