@@ -5,16 +5,16 @@ import { Box } from "@material-ui/core";
 import TitleButtons from "./TitleButtons";
 
 export default function Title(props) {
-  const { title, deviceList } = props;
+  const { title, buttonType } = props;
   return (
     <Box className="flexContents headerAreaUnderline">
       <div className="title">{title}</div>
-      {deviceList ? <TitleButtons /> : <></>}
+      {buttonType ? <TitleButtons type={buttonType} /> : <></>}
     </Box>
   );
 }
 
 Title.propTypes = {
   title: PropTypes.string.isRequired,
-  deviceList: PropTypes.bool.isRequired
+  buttonType: PropTypes.string.isRequired
 };
