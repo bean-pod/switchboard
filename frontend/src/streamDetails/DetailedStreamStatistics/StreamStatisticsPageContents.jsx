@@ -10,23 +10,19 @@ import StatisticsReceivingCard from "./StatisticsReceivingCard";
 
 export default function StreamStatisticsPageContents(props) {
   const { statistics } = props;
-  
+
   return (
     <Container>
-      <Grid conatiner spacing={3}>
-        <GridColumn width={6}>
-          <Grid item xs={12}>
-            <StatisticsOverviewCard stats={statistics} />
-          </Grid>
-        </GridColumn>
-        <GridColumn width={6}>
-          <Grid item xs={6}>
-            <StatisticsSendingCard stats={statistics} />
-          </Grid>
-          <Grid item xs={6}>
-            <StatisticsReceivingCard stats={statistics} />
-          </Grid>
-        </GridColumn>
+      <Grid container spacing={3}>
+        <Grid item xs={4}>
+          <StatisticsOverviewCard stats={statistics} />
+        </Grid>
+        <Grid item xs={4}>
+          <StatisticsSendingCard stats={statistics} />
+        </Grid>
+        <Grid item xs={4}>
+          <StatisticsReceivingCard stats={statistics} />
+        </Grid>
       </Grid>
     </Container>
   );
