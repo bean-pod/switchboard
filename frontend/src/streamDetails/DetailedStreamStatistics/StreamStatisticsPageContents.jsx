@@ -2,23 +2,31 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Container, Grid } from "@material-ui/core";
 
+import GridColumn from "../../general/dashboard/GridColumn";
 import StreamStatisticsInfo from "../../model/StreamStatistics/StreamStatisticsInfo";
+import StatisticsOverviewCard from "./StatisticsOverviewCard";
+import StatisticsSendingCard from "./StatisticsSendingCard";
+import StatisticsReceivingCard from "./StatisticsReceivingCard";
 
 export default function StreamStatisticsPageContents(props) {
   const { statistics } = props;
+  
   return (
     <Container>
       <Grid conatiner spacing={3}>
-        {statistics ? "GOTEM" : "got none..."}
-        <Grid item xs={12}>
-          General info
-        </Grid>
-        <Grid item xs={6}>
-          Sending stats
-        </Grid>
-        <Grid item xs={6}>
-          Receiving stats
-        </Grid>
+        <GridColumn width={6}>
+          <Grid item xs={12}>
+            <StatisticsOverviewCard stats={statistics} />
+          </Grid>
+        </GridColumn>
+        <GridColumn width={6}>
+          <Grid item xs={6}>
+            <StatisticsSendingCard stats={statistics} />
+          </Grid>
+          <Grid item xs={6}>
+            <StatisticsReceivingCard stats={statistics} />
+          </Grid>
+        </GridColumn>
       </Grid>
     </Container>
   );
