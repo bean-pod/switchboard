@@ -15,7 +15,7 @@ export default class DownloadConfigButton extends React.Component {
 
   handleDownload() {
     const { device } = this.props;
-    return device.configuration
+    return device.configuration;
   }
 
   render() {

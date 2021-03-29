@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Button } from "@material-ui/core";
 import { CloudUpload } from "@material-ui/icons";
 
-import UploadConfigDialog from "../configurationButtons/UploadConfigDialog";
+import UploadConfigDialog from "../configuration/UploadConfigDialog";
 import DeviceInfo from "../../model/DeviceInfo";
 
 export default class UploadConfigDialogOpenButton extends React.Component {

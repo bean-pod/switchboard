@@ -33,57 +33,57 @@ describe("<DeviceDetailsPageContents/> functional component", () => {
       expect(wrapper.find(Grid)).toHaveLength(5);
     });
     it("First <Grid/> Component has expected props", () => {
-      const expected={
+      const expected = {
         container: true,
         spacing: 3,
         children: "GridColumn"
-      }
+      };
       const props = wrapper.find(Grid).at(0).props();
-      expect(props.container).toBe=(expected.container);
-      expect(props.spacing).toBe=(expected.spacing);
+      expect(props.container).toBe = expected.container;
+      expect(props.spacing).toBe = expected.spacing;
     });
     it("Second <Grid/> Component has expected props", () => {
-      const expected={
+      const expected = {
         item: true,
         xs: 12,
         children: "DeviceInfoCard"
-      }
+      };
       const props = wrapper.find(Grid).at(1).props();
-      expect(props.item).toBe=(expected.item);
-      expect(props.xs).toBe=(expected.xs);
+      expect(props.item).toBe = expected.item;
+      expect(props.xs).toBe = expected.xs;
       expect(props.children.type.name).toBe(expected.children);
     });
     it("Third <Grid/> Component has expected props", () => {
-      const expected={
+      const expected = {
         item: true,
         xs: 12,
         children: "DeviceChannelCard"
-      }
+      };
       const props = wrapper.find(Grid).at(2).props();
-      expect(props.item).toBe=(expected.item);
-      expect(props.xs).toBe=(expected.xs);
+      expect(props.item).toBe = expected.item;
+      expect(props.xs).toBe = expected.xs;
       expect(props.children.type.name).toBe(expected.children);
     });
     it("Fourth <Grid/> Component has expected props", () => {
-      const expected={
+      const expected = {
         item: true,
         xs: 12,
         children: "DeviceConfigActionsCard"
-      }
+      };
       const props = wrapper.find(Grid).at(3).props();
-      expect(props.item).toBe=(expected.item);
-      expect(props.xs).toBe=(expected.xs);
+      expect(props.item).toBe = expected.item;
+      expect(props.xs).toBe = expected.xs;
       expect(props.children.type.name).toBe(expected.children);
     });
     it("Fifth <Grid/> Component has expected props", () => {
-      const expected={
+      const expected = {
         item: true,
         xs: 6,
         children: "DeviceLogCard"
-      }
+      };
       const props = wrapper.find(Grid).at(4).props();
-      expect(props.item).toBe=(expected.item);
-      expect(props.xs).toBe=(expected.xs);
+      expect(props.item).toBe = expected.item;
+      expect(props.xs).toBe = expected.xs;
       expect(props.children.type.name).toBe(expected.children);
     });
 

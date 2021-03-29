@@ -3,16 +3,16 @@ import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import { afterEach, beforeEach, describe, expect } from "@jest/globals";
 
-import DownloadConfigButton from "../DownloadConfigButton";
 import { Button } from "@material-ui/core";
 import { GetApp } from "@material-ui/icons";
+import DownloadConfigButton from "../DownloadConfigButton";
 import DeviceInfo from "../../../model/DeviceInfo";
 
 Enzyme.configure({ adapter: new Adapter() });
 
 describe("<DownloadConfigButton/> class", () => {
   let wrapper;
-  let dummyDevice = new DeviceInfo(
+  const dummyDevice = new DeviceInfo(
     "serial",
     "sometime",
     "public",
@@ -22,17 +22,15 @@ describe("<DownloadConfigButton/> class", () => {
     "encoder",
     "yabadoo"
   );
-  dummyDevice.configuration = "a configuration"
+  dummyDevice.configuration = "a configuration";
 
-  beforeEach(()=>{
-      wrapper = Enzyme.shallow(
-        <DownloadConfigButton device={dummyDevice}/>
-      );
-  })
-  
-  afterEach(()=>{
-      wrapper.unmount()
-  })
+  beforeEach(() => {
+    wrapper = Enzyme.shallow(<DownloadConfigButton device={dummyDevice} />);
+  });
+
+  afterEach(() => {
+    wrapper.unmount();
+  });
 
   describe("render() function renders a component that", () => {
     it("Contains one <Button/> component with expected props", () => {
@@ -43,13 +41,13 @@ describe("<DownloadConfigButton/> class", () => {
       expect(buttonProps.variant).toBe("contained");
       expect(buttonProps.color).toBe("primary");
       expect(buttonProps.onClick).toBe(wrapper.instance().handleDownload);
-      
+
       const expectedStartIcon = <GetApp />;
       expect(buttonProps.startIcon).toStrictEqual(expectedStartIcon);
     });
   });
   it("handleDownload() function returns expected value", () => {
-      const returnedValue = wrapper.instance().handleDownload();
-      expect(returnedValue).toBe(dummyDevice.configuration);
+    const returnedValue = wrapper.instance().handleDownload();
+    expect(returnedValue).toBe(dummyDevice.configuration);
   });
 });
