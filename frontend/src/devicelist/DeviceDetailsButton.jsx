@@ -13,7 +13,7 @@ export default function DeviceDetailsButton(props) {
     <>
       <NavLink
         to={{
-          pathname: `/Devices/Details/${device.serialNumber}`,
+          pathname: `/Devices/Details/${device.serialNumber}`
         }}
       >
         <Tooltip title="View Device Details">

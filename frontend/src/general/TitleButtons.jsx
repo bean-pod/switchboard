@@ -40,7 +40,7 @@ export default function TitleButtons(props) {
     }
     return <></>;
   }
-  
+
   return <div className="alignRightFloat">{determineButton()}</div>;
 }
 
