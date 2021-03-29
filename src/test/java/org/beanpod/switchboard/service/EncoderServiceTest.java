@@ -61,7 +61,7 @@ public class EncoderServiceTest {
         .thenReturn(Optional.of(EncoderFixture.getEncoderDto()));
     when(dateUtil.getCurrentDate()).thenReturn(testDate);
     when(encoderDao.save(eq(user), any(EncoderDto.class))).thenReturn(null);
-    when(streamDao.getEncoderStreams(any(String.class)))
+    when(streamDao.getEncoderStreams(eq(user), any(String.class)))
         .thenReturn(List.of(StreamFixture.getStreamDto()));
 
     List<StreamDto> response = encoderService.getEncoderStreams(user, EncoderFixture.SERIAL_NUMBER);
@@ -69,7 +69,7 @@ public class EncoderServiceTest {
     verify(encoderDao).findEncoder(user, EncoderFixture.SERIAL_NUMBER);
     verify(dateUtil).getCurrentDate();
     verify(encoderDao).save(user, expectedUpdatedEncoder);
-    verify(streamDao).getEncoderStreams(EncoderFixture.SERIAL_NUMBER);
+    verify(streamDao).getEncoderStreams(user, EncoderFixture.SERIAL_NUMBER);
 
     assertIterableEquals(List.of(StreamFixture.getStreamDto()), response);
   }

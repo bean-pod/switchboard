@@ -54,6 +54,6 @@ public class EncoderServiceImpl implements EncoderService {
 
     // Pending resolution of StreamDao, we may need to change streamDao method
     // to better enforce ownership.
-    return streamDao.getEncoderStreams(encoderSerialNumber);
+    return streamDao.getEncoderStreams(user, encoderSerialNumber);
   }
 }

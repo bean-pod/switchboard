@@ -61,7 +61,7 @@ public class DecoderServiceTest {
         .thenReturn(Optional.of(DecoderFixture.getDecoderDto()));
     when(dateUtil.getCurrentDate()).thenReturn(testDate);
     when(decoderDao.save(eq(user), any(DecoderDto.class))).thenReturn(null);
-    when(streamDao.getDecoderStreams(any(String.class)))
+    when(streamDao.getDecoderStreams(eq(user), any(String.class)))
         .thenReturn(List.of(StreamFixture.getStreamDto()));
 
     List<StreamDto> response = decoderService.getDecoderStreams(user, DecoderFixture.SERIAL_NUMBER);
@@ -69,7 +69,7 @@ public class DecoderServiceTest {
     verify(decoderDao).findDecoder(user, DecoderFixture.SERIAL_NUMBER);
     verify(dateUtil).getCurrentDate();
     verify(decoderDao).save(user, expectedUpdatedDecoder);
-    verify(streamDao).getDecoderStreams(DecoderFixture.SERIAL_NUMBER);
+    verify(streamDao).getDecoderStreams(user, DecoderFixture.SERIAL_NUMBER);
 
     assertIterableEquals(List.of(StreamFixture.getStreamDto()), response);
   }

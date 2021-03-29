@@ -64,15 +64,15 @@ public class StreamDaoImpl {
     return streamStatRepository.findStreamStatEntityById(id).map(statMapper::toDto);
   }
 
-  public List<StreamDto> getEncoderStreams(String encoderSerialNumber) {
-    List<StreamEntity> streamEntities = streamRepository.getEncoderStreams(encoderSerialNumber);
-    return mapper.toDtoList(streamEntities);
-  }
-
-  public List<StreamDto> getDecoderStreams(String decoderSerialNumber) {
-    List<StreamEntity> streamEntities = streamRepository.getDecoderStreams(decoderSerialNumber);
-    return mapper.toDtoList(streamEntities);
-  }
+//  public List<StreamDto> getEncoderStreams(String encoderSerialNumber) {
+//    List<StreamEntity> streamEntities = streamRepository.getEncoderStreams(encoderSerialNumber);
+//    return mapper.toDtoList(streamEntities);
+//  }
+//
+//  public List<StreamDto> getDecoderStreams(String decoderSerialNumber) {
+//    List<StreamEntity> streamEntities = streamRepository.getDecoderStreams(decoderSerialNumber);
+//    return mapper.toDtoList(streamEntities);
+//  }
 
   public List<StreamStatDto> getStreamStats() {
     List<StreamStatEntity> streamStats = streamStatRepository.findAll();

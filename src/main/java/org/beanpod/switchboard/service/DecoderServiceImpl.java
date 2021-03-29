@@ -54,6 +54,6 @@ public class DecoderServiceImpl implements DecoderService {
 
     // Pending resolution of StreamDao, we may need to change streamDao method
     // to better enforce ownership.
-    return streamDao.getDecoderStreams(decoderSerialNumber);
+    return streamDao.getDecoderStreams(user, decoderSerialNumber);
   }
 }
