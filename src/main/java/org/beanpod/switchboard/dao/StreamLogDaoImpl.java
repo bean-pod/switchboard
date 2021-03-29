@@ -20,8 +20,8 @@ public class StreamLogDaoImpl {
         logStreamRepository.save(logStreamMapper.toStreamLog(streamLogDto)));
   }
 
-  public List<StreamLogModel> getStreamLogs(Long serialNumber) {
+  public List<StreamLogModel> getStreamLogs(Long streamId) {
     return logStreamMapper.toStreamLogModels(
-        logStreamRepository.findByStreamId(serialNumber.toString()));
+        logStreamRepository.findByStreamId(streamId.toString()));
   }
 }
