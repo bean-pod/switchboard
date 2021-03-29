@@ -23,7 +23,7 @@ public class StreamLogControllerTest {
 
   @BeforeEach
   void setupLogFixture() {
-    streamLogModels = StreamLogFixture.getListOfStreamLogs();
+    streamLogModels = StreamLogFixture.getListOfStreamLogsModel();
   }
 
   @BeforeEach
