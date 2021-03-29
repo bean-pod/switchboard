@@ -10,6 +10,7 @@ import DeviceDetailsPage from "../deviceDetailsPage/DeviceDetailsPage";
 import StreamListPage from "../streamlist/StreamListPage";
 import CreateStreamPage from "../createStream/CreateStreamPage";
 import LogListPage from "../loglist/LogListPage";
+import CreateUserPage from "../admin/createUser/CreateUserPage";
 import StreamDetailsPage from "../streamDetails/StreamDetailsPage";
 import PathNotFoundPage from "../general/PathNotFoundPage";
 import StreamStatisticsPage from "../streamDetails/DetailedStreamStatistics/StreamStatisticsPage";
@@ -73,6 +74,13 @@ export default function AppRouter() {
           authenticationRequired
           render={() => {
             return <LogListPage />;
+          }}
+        />
+        <ProtectedRoute
+          path="/Admin/New"
+          authenticationRequired
+          render={() => {
+            return <CreateUserPage />;
           }}
         />
         <Route path="/">

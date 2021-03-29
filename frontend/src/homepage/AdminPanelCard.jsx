@@ -12,7 +12,7 @@ export default function AdminPanelCard() {
           <DashBoardButton href="/Admin">View Users</DashBoardButton>
         </Grid>
         <Grid item xs={4}>
-          <DashBoardButton href="/Admin">Create a User</DashBoardButton>
+          <DashBoardButton href="/Admin/New">Create a User</DashBoardButton>
         </Grid>
       </Grid>
     </DashboardCard>

@@ -25,13 +25,14 @@ export default class Dialog extends React.Component {
   }
 
   render() {
-    const cancelButton = {
-      name: "Cancel",
+    const { title, actionButton, children, isError } = this.props;
+    const { open } = this.state;
+
+    const button = {
+      name: actionButton ? "Cancel" : "OK",
       onClick: this.closeDialog
     };
 
-    const { title, actionButton, children } = this.props;
-    const { open } = this.state;
     return (
       <MuiDialog
         open={open}
@@ -40,9 +41,15 @@ export default class Dialog extends React.Component {
         aria-describedby="dialog-description"
         id="dialog"
       >
-        <DialogTitle>{title}</DialogTitle>
+        <DialogTitle className={isError ? "warningText" : undefined}>
+          {title}
+        </DialogTitle>
         <DialogBody>{children}</DialogBody>
-        <DialogButtons button1={cancelButton} button2={actionButton} />
+        {actionButton ? (
+          <DialogButtons button1={button} button2={actionButton} />
+        ) : (
+          <DialogButtons button1={button} />
+        )}
       </MuiDialog>
     );
   }
@@ -53,9 +60,15 @@ Dialog.propTypes = {
   actionButton: PropTypes.shape({
     name: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired
-  }).isRequired,
+  }),
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
-  ]).isRequired
+  ]).isRequired,
+  isError: PropTypes.bool
+};
+
+Dialog.defaultProps = {
+  isError: false,
+  actionButton: undefined
 };
