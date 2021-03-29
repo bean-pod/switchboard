@@ -15,7 +15,7 @@ export default class DownloadConfigButton extends React.Component {
 
   handleDownload() {
     const { device } = this.props;
-    const thing = device.configuration;
+    return device.configuration
   }
 
   render() {
@@ -23,8 +23,8 @@ export default class DownloadConfigButton extends React.Component {
       <Button
         variant="contained"
         color="primary"
-        startIcon={<GetApp />}
         onClick={this.handleDownload}
+        startIcon={<GetApp />}
       >
         Download
       </Button>
