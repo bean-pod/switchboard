@@ -448,37 +448,37 @@ export function getAllLogs(callback) {
 
 export function getSampleStreamStats() {
   const sampleDbStreamStats = {
-    id: 11,
-    time: 11,
+    id: 1,
+    time: 2,
     window: {
-      flow: 11,
-      congestion: 11,
-      flight: 11
+      flow: 31,
+      congestion: 32,
+      flight: 33
     },
     link: {
-      rtt: 11,
-      bandwidth: 11,
-      maxBandwidth: 11
+      rtt: 41,
+      bandwidth: 42,
+      maxBandwidth: 43
     },
     send: {
-      packets: 11,
-      packetsLost: 11,
-      packetsDropped: 11,
-      packetsRetransmitted: 11,
-      bytes: 11,
-      bytesDropped: 11,
-      mbitRate: 11
+      packets: 51,
+      packetsLost: 52,
+      packetsDropped: 53,
+      packetsRetransmitted: 54,
+      bytes: 55,
+      bytesDropped: 56,
+      mbitRate: 57
     },
     recv: {
-      packets: 11,
-      packetsLost: 11,
-      packetsDropped: 11,
-      packetsRetransmitted: 11,
-      packetsBelated: 11,
-      bytes: 11,
-      bytesLost: 11,
-      bytesDropped: 11,
-      mbitRate: 11
+      packets: 61,
+      packetsLost: 62,
+      packetsDropped: 63,
+      packetsRetransmitted: 64,
+      packetsBelated: 65,
+      bytes: 66,
+      bytesLost: 67,
+      bytesDropped: 68,
+      mbitRate: 69
     }
   };
 
