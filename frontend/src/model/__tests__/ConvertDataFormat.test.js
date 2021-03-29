@@ -115,37 +115,10 @@ const sampleDBStats = {
 const sampleLocalStats = new StreamStatisticsInfo(
   11,
   11,
-  new StreamStatsWindowInfo(
-    11,
-    11,
-    11
-  ),
-  new StreamStatsLinkInfo(
-    11,
-    11,
-    11
-  ),
-  new StreamStatsDeviceInfo(
-    "send",
-    11,
-    11,
-    11,
-    11,
-    11,
-    11,
-    11
-  ),
-  new StreamStatsDeviceInfo(
-    "receive",
-    11,
-    11,
-    11,
-    11,
-    11,
-    11,
-    11,
-    11
-  )
+  new StreamStatsWindowInfo(11, 11, 11),
+  new StreamStatsLinkInfo(11, 11, 11),
+  new StreamStatsDeviceInfo("send", 11, 11, 11, 11, 11, 11, 11),
+  new StreamStatsDeviceInfo("receive", 11, 11, 11, 11, 11, 11, 11, 11)
 );
 
 test("convertDeviceToDataObject returns DeviceInfo object with correct data", () => {

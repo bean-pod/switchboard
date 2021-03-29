@@ -13,7 +13,7 @@ export default class StreamStatisticsCard extends React.Component {
     super(props);
     this.state = {
       stats: []
-    }
+    };
     this.streamId = props.streamId;
     this.handleStatsChange = this.handleStatsChange.bind(this);
   }
@@ -32,7 +32,7 @@ export default class StreamStatisticsCard extends React.Component {
     const { stats } = this.state;
     const propertyNames = ["Time"];
     const properties = [stats.time];
-  
+
     const propertyPairs = zipProperties(propertyNames, properties);
     return (
       <>
