@@ -1,6 +1,7 @@
 import DeviceInfo from "./DeviceInfo";
 import StreamStatisticsInfo from "./StreamStatistics/StreamStatisticsInfo";
-import { StreamStatsSendInfo, StreamStatsReceiveInfo } from "./StreamStatistics/StreamStatsDeviceInfo";
+import StreamStatsSendInfo from "./StreamStatistics/StreamStatsSendInfo";
+import StreamStatsReceiveInfo from "./StreamStatistics/StreamStatsReceiveInfo";
 import StreamStatsLinkInfo from "./StreamStatistics/StreamStatsLinkInfo";
 import StreamStatsWindowInfo from "./StreamStatistics/StreamStatsWindowInfo";
 
