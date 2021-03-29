@@ -20,8 +20,8 @@ import MaterialTable, { MTableToolbar } from "material-table";
 
 import ChannelDetailsTable from "./ChannelDetailsTable";
 import StatusIndicator from "../general/StatusIndicator";
-import ActionMenu from "./ActionMenu";
 import DeviceInfo from "../model/DeviceInfo";
+import DeviceDetailsButton from "./DeviceDetailsButton";
 
 function getComponents() {
   return {
@@ -73,7 +73,7 @@ function getColumnInfo() {
       filtering: false,
       sorting: false,
       render: function Actions(rowData) {
-        return <ActionMenu device={rowData} />;
+        return <DeviceDetailsButton device={rowData} />;
       },
       align: "center",
       export: false
