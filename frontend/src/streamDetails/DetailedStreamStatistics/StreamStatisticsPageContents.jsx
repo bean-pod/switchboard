@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Container, Grid } from "@material-ui/core";
 
-import GridColumn from "../../general/dashboard/GridColumn";
 import StreamStatisticsInfo from "../../model/StreamStatistics/StreamStatisticsInfo";
 import StatisticsOverviewCard from "./StatisticsOverviewCard";
 import StatisticsSendingCard from "./StatisticsSendingCard";
