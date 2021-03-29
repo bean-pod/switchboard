@@ -86,7 +86,7 @@ function getDetailPanel() {
     {
       icon: ExpandMore,
       openIcon: ExpandLess,
-      tooltip: "Show Device Details",
+      tooltip: "Show Channels",
       render: function DetailPanel(rowData) {
         return (
           <div className="lightestGrey" style={{ padding: "1.5em" }}>
