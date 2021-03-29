@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Dialog from "../../general/dialog/Dialog";
+import Dialog from "../../../general/dialog/Dialog";
 
 export default class UploadConfigDialog extends React.Component {
   constructor(props) {

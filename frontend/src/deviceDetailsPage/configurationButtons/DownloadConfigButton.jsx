@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Button } from "@material-ui/core";
 import { GetApp } from "@material-ui/icons";
 
-import DeviceInfo from "../model/DeviceInfo";
+import DeviceInfo from "../../model/DeviceInfo";
 
 export default class DownloadConfigButton extends React.Component {
   constructor(props) {
