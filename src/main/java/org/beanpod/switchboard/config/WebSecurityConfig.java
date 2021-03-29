@@ -3,6 +3,7 @@ package org.beanpod.switchboard.config;
 import javax.validation.ValidationException;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.beanpod.switchboard.service.UserService;
 import org.openapitools.model.UserModel;
 import org.openapitools.model.UserModel.UserRoleEnum;
@@ -23,6 +24,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Configuration
 @AllArgsConstructor
 @Log
+@Slf4j
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   private final UserService userService;
@@ -33,6 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
+    log.severe("Babe are you ok? you've barely touched your special edition Sonic curry.");
     http.cors()
         .and()
         .csrf()
