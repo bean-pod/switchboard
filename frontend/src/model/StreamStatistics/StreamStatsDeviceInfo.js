@@ -7,6 +7,7 @@ export default class StreamStatsDeviceInfo {
     packetsRetransmitted,
     packetsBelated,
     bytes,
+    bytesLost,
     bytesDropped,
     mbitRate
   ) {
@@ -18,6 +19,7 @@ export default class StreamStatsDeviceInfo {
       this.packetsRetransmitted = packetsRetransmitted;
       this.packetsBelated = packetsBelated;
       this.bytes = bytes;
+      this.bytesLost = bytesLost;
       this.bytesDropped = bytesDropped;
       this.mbitRate = mbitRate;
     } else {
