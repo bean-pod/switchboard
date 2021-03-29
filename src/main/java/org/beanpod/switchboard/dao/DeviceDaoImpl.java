@@ -19,34 +19,36 @@ public class DeviceDaoImpl {
   private final DeviceRepository deviceRepository;
   private final DeviceMapper deviceMapper;
 
-  public DeviceDto save(DeviceDto device) {
-    Optional<DeviceDto> deviceDto = findDevice(device.getSerialNumber());
+  public DeviceDto save(UserEntity user, DeviceDto device) {
+    Optional<DeviceDto> deviceDto = findDevice(user, device.getSerialNumber());
     deviceMapper.updateDeviceFromDto(device, deviceDto.orElse(null));
     return deviceMapper.toDeviceDto(
         deviceRepository.save(deviceMapper.toDeviceEntity(deviceDto.orElse(null))));
   }
 
-  // General data access methods
-
-  public DeviceDto createDevice(CreateDeviceRequest createDeviceRequest, String publicIpAddress) {
-    DeviceDto deviceDto = deviceMapper.toDeviceDto(createDeviceRequest, publicIpAddress);
-    deviceDto.setStatus(MaintainDeviceStatus.OFFLINE_STATUS);
-    DeviceEntity deviceEntity = deviceMapper.toDeviceEntity(deviceDto);
-    DeviceEntity savedDeviceEntity = deviceRepository.save(deviceEntity);
-    return deviceMapper.toDeviceDto(savedDeviceEntity);
-  }
-
-  public List<DeviceEntity> getDevices() {
-    return deviceRepository.findAll();
-  }
-
-  public Optional<DeviceDto> findDevice(String serialNumber) {
-    return deviceRepository.findDeviceBySerialNumber(serialNumber).map(deviceMapper::toDeviceDto);
-  }
-
-  public Long deleteDevice(String serialNumber) {
-    return deviceRepository.deleteDeviceEntitiesBySerialNumber(serialNumber);
-  }
+  //  General data access methods
+  //
+  //  public DeviceDto createDevice(CreateDeviceRequest createDeviceRequest, String publicIpAddress)
+  // {
+  //    DeviceDto deviceDto = deviceMapper.toDeviceDto(createDeviceRequest, publicIpAddress);
+  //    deviceDto.setStatus(MaintainDeviceStatus.OFFLINE_STATUS);
+  //    DeviceEntity deviceEntity = deviceMapper.toDeviceEntity(deviceDto);
+  //    DeviceEntity savedDeviceEntity = deviceRepository.save(deviceEntity);
+  //    return deviceMapper.toDeviceDto(savedDeviceEntity);
+  //  }
+  //
+  //  public List<DeviceEntity> getDevices() {
+  //    return deviceRepository.findAll();
+  //  }
+  //
+  //  public Optional<DeviceDto> findDevice(String serialNumber) {
+  //    return
+  // deviceRepository.findDeviceBySerialNumber(serialNumber).map(deviceMapper::toDeviceDto);
+  //  }
+  //
+  //  public Long deleteDevice(String serialNumber) {
+  //    return deviceRepository.deleteDeviceEntitiesBySerialNumber(serialNumber);
+  //  }
 
   // Ownership data access methods
 

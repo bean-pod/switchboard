@@ -6,9 +6,9 @@ import org.beanpod.switchboard.entity.UserEntity;
 
 public interface DecoderService {
 
-  // General data access methods
-
-  List<StreamDto> getDecoderStreams(String decoderSerialNumber);
+  //  General data access methods
+  //
+  //  List<StreamDto> getDecoderStreams(String decoderSerialNumber);
 
   // Ownership data access methods
 

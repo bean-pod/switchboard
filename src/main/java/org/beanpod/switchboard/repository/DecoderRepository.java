@@ -12,13 +12,13 @@ public interface DecoderRepository extends JpaRepository<DecoderEntity, String> 
 
   DecoderEntity save(DecoderEntity decoderEntity);
 
-  // General data access methods
-
-  List<DecoderEntity> findAll();
-
-  Optional<DecoderEntity> findDecoderBySerialNumber(String serialNumber);
-
-  Long deleteDecoderEntityBySerialNumber(String serialNumber);
+  //  General data access methods
+  //
+  //  List<DecoderEntity> findAll();
+  //
+  //  Optional<DecoderEntity> findDecoderBySerialNumber(String serialNumber);
+  //
+  //  Long deleteDecoderEntityBySerialNumber(String serialNumber);
 
   // Ownership data access methods
 

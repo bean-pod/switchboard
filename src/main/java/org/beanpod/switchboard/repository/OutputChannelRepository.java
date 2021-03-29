@@ -10,9 +10,9 @@ public interface OutputChannelRepository extends JpaRepository<OutputChannelEnti
 
   OutputChannelEntity save(OutputChannelEntity outputChannelEntity);
 
-  // General data access methods
-
-  Long deleteOutputChannelEntitiesById(Long id);
+  //  General data access methods
+  //
+  //  Long deleteOutputChannelEntitiesById(Long id);
 
   // Ownership data access methods
 

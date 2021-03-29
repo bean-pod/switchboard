@@ -17,31 +17,31 @@ public class EncoderDaoImpl {
   private final EncoderRepository encoderRepository;
   private final EncoderMapper encoderMapper;
 
-  public EncoderDto save(EncoderDto encoder) {
-    Optional<EncoderDto> encoderDto = findEncoder(encoder.getSerialNumber());
+  public EncoderDto save(UserEntity user, EncoderDto encoder) {
+    Optional<EncoderDto> encoderDto = findEncoder(user, encoder.getSerialNumber());
 
-    if (!encoderDto.isEmpty()) {
+    if (encoderDto.isPresent()) {
       encoderMapper.updateEncoderFromDto(encoder, encoderDto.orElse(encoder));
     }
     return encoderMapper.toEncoderDto(
         encoderRepository.save(encoderMapper.toEncoderEntity(encoderDto.orElse(encoder))));
   }
 
-  // General data access methods
-
-  public List<EncoderEntity> getEncoders() {
-    return encoderRepository.findAll();
-  }
-
-  public Optional<EncoderDto> findEncoder(String serialNumber) {
-    return encoderRepository
-        .findEncoderBySerialNumber(serialNumber)
-        .map(encoderMapper::toEncoderDto);
-  }
-
-  public long deleteEncoder(String serialNumber) {
-    return encoderRepository.deleteEncoderEntityBySerialNumber(serialNumber);
-  }
+  //  General data access methods
+  //
+  //  public List<EncoderEntity> getEncoders() {
+  //    return encoderRepository.findAll();
+  //  }
+  //
+  //  public Optional<EncoderDto> findEncoder(String serialNumber) {
+  //    return encoderRepository
+  //        .findEncoderBySerialNumber(serialNumber)
+  //        .map(encoderMapper::toEncoderDto);
+  //  }
+  //
+  //  public long deleteEncoder(String serialNumber) {
+  //    return encoderRepository.deleteEncoderEntityBySerialNumber(serialNumber);
+  //  }
 
   // Ownership data access methods
 

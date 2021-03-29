@@ -63,7 +63,8 @@ public class DeviceController implements DeviceApi {
     UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
     String publicIpAddress = request.getRemoteAddr();
 
-    Optional<DeviceDto> deviceLookup = deviceDao.findDevice(createDeviceRequest.getSerialNumber());
+    Optional<DeviceDto> deviceLookup =
+        deviceDao.findDevice(user, createDeviceRequest.getSerialNumber());
     if (deviceLookup.isPresent()) {
       throw new ExceptionType.DeviceAlreadyExistsException(createDeviceRequest.getSerialNumber());
     }
@@ -98,7 +99,7 @@ public class DeviceController implements DeviceApi {
 
     return Optional.of(deviceModel)
         .map(deviceMapper::toDeviceDto)
-        .map(deviceDao::save)
+        .map(deviceDto -> deviceDao.save(user, deviceDto))
         .map(deviceMapper::toDeviceModel)
         .map(ResponseEntity::ok)
         .orElseThrow(() -> new ExceptionType.UnknownException(CONTROLLER_NAME));

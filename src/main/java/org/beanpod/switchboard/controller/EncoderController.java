@@ -96,7 +96,7 @@ public class EncoderController {
     }
     encoderDto.setDevice(deviceOptional.get());
     encoderDto.setLastCommunication(Date.from(Instant.now()));
-    return ResponseEntity.ok(encoderDao.save(encoderDto));
+    return ResponseEntity.ok(encoderDao.save(user, encoderDto));
   }
 
   @DeleteMapping("/{serialNumber}")
@@ -119,16 +119,15 @@ public class EncoderController {
     if (encoder.isEmpty()) {
       throw new ExceptionType.DeviceNotFoundException(encoderDto.getSerialNumber());
     }
-    return ResponseEntity.ok(encoderDao.save(encoderDto));
+    return ResponseEntity.ok(encoderDao.save(user, encoderDto));
   }
 
   @GetMapping("/{serialNumber}/streams")
   public ResponseEntity<List<StreamModel>> getEncoderStreams(@PathVariable String serialNumber) {
     UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
 
-    // Is there a way to add a second parameter, user, in Optional.of for getEncoderStreams?
     return Optional.of(serialNumber)
-        .map(encoderService::getEncoderStreams)
+        .map(sn -> encoderService.getEncoderStreams(user, sn))
         .map(streamMapper::toModelList)
         .map(ResponseEntity::ok)
         .orElseThrow(this::getUnknownException);

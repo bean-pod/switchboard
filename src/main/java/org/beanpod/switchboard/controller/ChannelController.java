@@ -82,13 +82,14 @@ public class ChannelController {
   public ResponseEntity<InputChannelDto> createInputChannel(
       @PathVariable Long id, @PathVariable String serial) {
     // TODO change device not found exception to channel not found
+    UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
     ChannelDto channelDto =
         channelDao
             .findChannel(id)
             .orElseThrow(() -> new ExceptionType.DeviceNotFoundException(id.toString()));
     DecoderDto decoderDto =
         decoderDao
-            .findDecoder(serial)
+            .findDecoder(user, serial)
             .orElseThrow(() -> new ExceptionType.DeviceNotFoundException(serial));
     InputChannelDto inputChannelDto =
         InputChannelDto.builder().channel(channelDto).decoder(decoderDto).build();
@@ -100,13 +101,14 @@ public class ChannelController {
   public ResponseEntity<OutputChannelDto> createOutputChannel(
       @PathVariable Long id, @PathVariable String serial) {
     // TODO change device not found exception to channel not found
+    UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
     ChannelDto channelDto =
         channelDao
             .findChannel(id)
             .orElseThrow(() -> new ExceptionType.DeviceNotFoundException(id.toString()));
     EncoderDto encoderDto =
         encoderDao
-            .findEncoder(serial)
+            .findEncoder(user, serial)
             .orElseThrow(() -> new ExceptionType.DeviceNotFoundException(serial));
     OutputChannelDto outputChannelDto =
         OutputChannelDto.builder().channel(channelDto).encoder(encoderDto).build();

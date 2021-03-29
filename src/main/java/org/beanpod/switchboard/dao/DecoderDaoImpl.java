@@ -20,30 +20,30 @@ public class DecoderDaoImpl {
     this.decoderMapper = decoderMapper;
   }
 
-  public DecoderDto save(DecoderDto decoder) {
-    Optional<DecoderDto> decoderDto = findDecoder(decoder.getSerialNumber());
-    if (!decoderDto.isEmpty()) {
+  public DecoderDto save(UserEntity user, DecoderDto decoder) {
+    Optional<DecoderDto> decoderDto = findDecoder(user, decoder.getSerialNumber());
+    if (decoderDto.isPresent()) {
       decoderMapper.updateDecoderFromDto(decoder, decoderDto.orElse(decoder));
     }
     return decoderMapper.toDecoderDto(
         decoderRepository.save(decoderMapper.toDecoderEntity(decoderDto.orElse(decoder))));
   }
 
-  // General data access methods
-
-  public List<DecoderEntity> getDecoders() {
-    return decoderRepository.findAll();
-  }
-
-  public Optional<DecoderDto> findDecoder(String serialNumber) {
-    return decoderRepository
-        .findDecoderBySerialNumber(serialNumber)
-        .map(decoderMapper::toDecoderDto);
-  }
-
-  public Long deleteDecoder(String serialNumber) {
-    return decoderRepository.deleteDecoderEntityBySerialNumber(serialNumber);
-  }
+  //  General data access methods
+  //
+  //  public List<DecoderEntity> getDecoders() {
+  //    return decoderRepository.findAll();
+  //  }
+  //
+  //  public Optional<DecoderDto> findDecoder(String serialNumber) {
+  //    return decoderRepository
+  //        .findDecoderBySerialNumber(serialNumber)
+  //        .map(decoderMapper::toDecoderDto);
+  //  }
+  //
+  //  public Long deleteDecoder(String serialNumber) {
+  //    return decoderRepository.deleteDecoderEntityBySerialNumber(serialNumber);
+  //  }
 
   // Ownership data access methods
 

@@ -75,11 +75,11 @@ public class ChannelDaoImpl {
     return inputChannelMapper.toInputChannelDto(inputChannelEntity);
   }
 
-  // InputChannelEntity general data access methods
-
-  public Long deleteOutputChannelById(Long id) {
-    return outputChannelRepository.deleteOutputChannelEntitiesById(id);
-  }
+  //  InputChannelEntity general data access methods
+  //
+  //  public Long deleteOutputChannelById(Long id) {
+  //    return outputChannelRepository.deleteOutputChannelEntitiesById(id);
+  //  }
 
   // InputChannelEntity ownership data access methods
 
@@ -101,11 +101,11 @@ public class ChannelDaoImpl {
     return outputChannelMapper.toOutputChannelDto(outputChannelEntity);
   }
 
-  // OutputChannelEntity general data access methods
-
-  public Long deleteInputChannelById(Long id) {
-    return inputChannelRepository.deleteInputChannelEntityById(id);
-  }
+  //  OutputChannelEntity general data access methods
+  //
+  //  public Long deleteInputChannelById(Long id) {
+  //    return inputChannelRepository.deleteInputChannelEntityById(id);
+  //  }
 
   // OutputChannelEntity ownership data access methods
 

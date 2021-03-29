@@ -10,9 +10,9 @@ public interface InputChannelRepository extends JpaRepository<InputChannelEntity
 
   InputChannelEntity save(InputChannelEntity inputChannelEntity);
 
-  // General data access methods
-
-  Long deleteInputChannelEntityById(Long id);
+  //  General data access methods
+  //
+  //  Long deleteInputChannelEntityById(Long id);
 
   // Ownership data access methods
 
