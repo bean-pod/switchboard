@@ -23,15 +23,15 @@ export default function StatisticsReceivingCard(props) {
     "MegaBit Rate"
   ];
   const properties = [
-    stats.recv.packets,
-    stats.recv.packetsLost,
-    stats.recv.packetsDropped,
-    stats.recv.packetsRetransmitted,
-    stats.recv.packetsBelated,
-    stats.recv.bytes,
-    stats.recv.bytesLost,
-    stats.recv.bytesDropped,
-    stats.recv.mbitRate
+    stats.receive.packets,
+    stats.receive.packetsLost,
+    stats.receive.packetsDropped,
+    stats.receive.packetsRetransmitted,
+    stats.receive.packetsBelated,
+    stats.receive.bytes,
+    stats.receive.bytesLost,
+    stats.receive.bytesDropped,
+    stats.receive.mbitRate
   ];
 
   const propertyPairs = zipProperties(propertyNames, properties);
