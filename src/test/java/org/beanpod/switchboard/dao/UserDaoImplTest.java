@@ -58,11 +58,7 @@ class UserDaoImplTest {
   final void testSaveException() {
     Optional<UserEntity> user = Optional.of(userEntity);
     when(userRepository.findByUsername(any())).thenReturn(user);
-    assertThrows(
-        ValidationException.class,
-        () -> {
-          userDaoImpl.save(userModel);
-        });
+    assertThrows(ValidationException.class, () -> userDaoImpl.save(userModel));
   }
 
   @Test
@@ -78,9 +74,6 @@ class UserDaoImplTest {
     Optional<UserEntity> empty = Optional.empty();
     when(userRepository.findByUsername(any())).thenReturn(empty);
     assertThrows(
-        UsernameNotFoundException.class,
-        () -> {
-          userDaoImpl.loadUserByUsername("moh1@gmail.com");
-        });
+        UsernameNotFoundException.class, () -> userDaoImpl.loadUserByUsername("moh1@gmail.com"));
   }
 }

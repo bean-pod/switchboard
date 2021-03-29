@@ -22,6 +22,7 @@ import org.beanpod.switchboard.entity.UserEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.fixture.DeviceFixture;
 import org.beanpod.switchboard.fixture.UserFixture;
+import org.beanpod.switchboard.util.UserMockUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -67,7 +68,7 @@ class DeviceControllerTest {
 
   @Test
   final void testRetrieveAllDevices() {
-    when(deviceDao.getDevices()).thenReturn(List.of(device));
+    when(deviceDao.getDevices(user)).thenReturn(List.of(device));
     when(deviceMapper.toDeviceDtos(any())).thenReturn(List.of(deviceDTO));
     when(deviceMapper.toDeviceModelList(any())).thenReturn(List.of(deviceModel));
     ResponseEntity<List<DeviceModel>> response = deviceController.retrieveAllDevices();
@@ -105,7 +106,8 @@ class DeviceControllerTest {
   // When a device is unavailable in the DB
   @Test
   final void testCreateDeviceAlreadyExists() {
-    when(deviceDao.findDevice(DeviceFixture.SERIAL_NUMBER)).thenReturn(Optional.of(deviceDTO));
+    when(deviceDao.findDevice(user, DeviceFixture.SERIAL_NUMBER))
+        .thenReturn(Optional.of(deviceDTO));
 
     assertThrows(
         ExceptionType.DeviceAlreadyExistsException.class,
@@ -115,7 +117,7 @@ class DeviceControllerTest {
   // When a device is unavailable in the DB
   @Test
   final void testCreateDevice() {
-    when(deviceDao.save(deviceDTO)).thenReturn(deviceDTO);
+    when(deviceDao.save(user, deviceDTO)).thenReturn(deviceDTO);
     when(request.getRemoteAddr()).thenReturn(DeviceFixture.PUBLIC_IP_ADDRESS);
     when(deviceDao.createDevice(user, createDeviceRequest, DeviceFixture.PUBLIC_IP_ADDRESS))
         .thenReturn(deviceDTO);
@@ -153,7 +155,7 @@ class DeviceControllerTest {
         .thenReturn(Optional.of(deviceDTO));
     deviceModel.setStatus("Stopped");
     when(deviceMapper.toDeviceDto(deviceModel)).thenReturn(deviceDTO);
-    when(deviceDao.save(deviceDTO)).thenReturn(deviceDTO);
+    when(deviceDao.save(user, deviceDTO)).thenReturn(deviceDTO);
     when(deviceMapper.toDeviceModel(deviceDTO)).thenReturn(deviceModel);
     ResponseEntity<DeviceModel> response = deviceController.updateDevice(deviceModel);
 

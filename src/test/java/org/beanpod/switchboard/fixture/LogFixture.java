@@ -14,7 +14,7 @@ public class LogFixture {
 
   public static final Long id = (long) 1;
   public static final OffsetDateTime dateTime =
-      OffsetDateTime.of(LocalDateTime.of(2017, 05, 12, 05, 45), ZoneOffset.ofHoursMinutes(0, 0));
+      OffsetDateTime.of(LocalDateTime.of(2017, 5, 12, 5, 45), ZoneOffset.ofHoursMinutes(0, 0));
   public static final String message = "data inserted";
   public static final String level = "info";
 

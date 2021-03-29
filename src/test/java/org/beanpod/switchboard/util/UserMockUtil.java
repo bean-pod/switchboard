@@ -1,4 +1,4 @@
-package org.beanpod.switchboard.controller;
+package org.beanpod.switchboard.util;
 
 import static org.mockito.Mockito.when;
 
@@ -8,7 +8,7 @@ import org.beanpod.switchboard.dao.UserDaoImpl;
 import org.beanpod.switchboard.entity.UserEntity;
 
 public class UserMockUtil {
-  static void mockUser(
+  public static void mockUser(
       UserEntity user,
       HttpServletRequest httpServletRequest,
       UserPrincipal userPrincipal,

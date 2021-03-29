@@ -9,7 +9,6 @@ import java.util.List;
 import org.beanpod.switchboard.dao.LogDaoImpl;
 import org.beanpod.switchboard.dto.LogDto;
 import org.beanpod.switchboard.dto.mapper.LogMapper;
-import org.beanpod.switchboard.entity.LogEntity;
 import org.beanpod.switchboard.fixture.LogFixture;
 import org.beanpod.switchboard.service.LogService;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +25,6 @@ class LogControllerTest {
   private static List<LogModel> logModels;
   private static LogModel logModel;
   private static LogDto logDto;
-  private static LogEntity logEntity;
   @InjectMocks private LogController logController;
   @Mock private LogDaoImpl logDao;
   @Mock private LogMapper logMapper;
@@ -37,7 +35,6 @@ class LogControllerTest {
     logModels = LogFixture.getListOfLogs();
     logModel = LogFixture.getLogModel();
     logDto = LogFixture.getLogDto();
-    logEntity = LogFixture.getLogEntity();
   }
 
   @BeforeEach

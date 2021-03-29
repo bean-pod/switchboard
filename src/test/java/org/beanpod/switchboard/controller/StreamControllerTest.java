@@ -7,6 +7,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import org.beanpod.switchboard.dao.StreamDaoImpl;
 import org.beanpod.switchboard.dto.StreamDto;
@@ -79,8 +80,7 @@ class StreamControllerTest {
     when(streamDao.getStreams()).thenThrow(new RuntimeException());
 
     // when & then
-    RuntimeException exception =
-        assertThrows(RuntimeException.class, () -> streamController.getStreams());
+    assertThrows(RuntimeException.class, () -> streamController.getStreams());
   }
 
   @Test
@@ -169,7 +169,7 @@ class StreamControllerTest {
     when(streamService.updateStreamStat(any())).thenReturn(streamStatDto);
 
     ResponseEntity<StreamStatModel> result = streamController.updateStreamStat(streamStatModel);
-    assertEquals(StreamFixture.ID, result.getBody().getId());
+    assertEquals(StreamFixture.ID, Objects.requireNonNull(result.getBody()).getId());
   }
 
   @Test
@@ -181,6 +181,7 @@ class StreamControllerTest {
     when(streamService.getStreamStats()).thenReturn(streamStatDto);
 
     ResponseEntity<List<StreamStatModel>> result = streamController.retrieveStreamStats();
-    assertEquals(streamStatDto.get(0).getId(), result.getBody().get(0).getId());
+    assertEquals(
+        streamStatDto.get(0).getId(), Objects.requireNonNull(result.getBody()).get(0).getId());
   }
 }

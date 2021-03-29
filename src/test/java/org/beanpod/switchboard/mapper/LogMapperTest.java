@@ -36,7 +36,7 @@ public class LogMapperTest {
     String validDateTime = "2017-05-12 05:45+00:00";
 
     try {
-      OffsetDateTime offsetDateTime = logMapper.map(validDateTime);
+      logMapper.map(validDateTime);
       Assertions.fail("Expected exception to be thrown");
     } catch (DateTimeParseException e) {
       assertThat(e)

@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.mockito.MockitoAnnotations.initMocks;
 
 import java.nio.file.attribute.UserPrincipal;
 import java.util.List;
@@ -27,10 +26,12 @@ import org.beanpod.switchboard.fixture.ChannelFixture;
 import org.beanpod.switchboard.fixture.DecoderFixture;
 import org.beanpod.switchboard.fixture.EncoderFixture;
 import org.beanpod.switchboard.fixture.UserFixture;
+import org.beanpod.switchboard.util.UserMockUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.http.ResponseEntity;
 
 class ChannelControllerTest {
@@ -56,7 +57,7 @@ class ChannelControllerTest {
   void setup() {
     setupChannelFixture();
 
-    initMocks(this);
+    MockitoAnnotations.initMocks(this);
 
     UserMockUtil.mockUser(user, httpServletRequest, userPrincipal, userDao);
   }
@@ -114,7 +115,7 @@ class ChannelControllerTest {
   void createInputChannel() {
     when(channelService.saveInputChannel(any())).thenReturn(inputChannelDto);
     when(channelService.findChannel(ChannelFixture.CHANNEL_ID)).thenReturn(Optional.of(channelDto));
-    when(decoderService.findDecoder("1")).thenReturn(Optional.of(decoderDto));
+    when(decoderService.findDecoder(user, "1")).thenReturn(Optional.of(decoderDto));
     ResponseEntity<InputChannelDto> inputChannel =
         channelController.createInputChannel(ChannelFixture.CHANNEL_ID, "1");
     assertEquals(inputChannelDto, inputChannel.getBody());
@@ -124,7 +125,7 @@ class ChannelControllerTest {
   void createOutputChannel() {
     when(channelService.saveOutputChannel(any())).thenReturn(outputChannelDto);
     when(channelService.findChannel(ChannelFixture.CHANNEL_ID)).thenReturn(Optional.of(channelDto));
-    when(encoderService.findEncoder("1")).thenReturn(Optional.of(encoderDto));
+    when(encoderService.findEncoder(user, "1")).thenReturn(Optional.of(encoderDto));
     ResponseEntity<OutputChannelDto> outputChannel =
         channelController.createOutputChannel(ChannelFixture.CHANNEL_ID, "1");
     assertEquals(outputChannelDto, outputChannel.getBody());
@@ -140,7 +141,7 @@ class ChannelControllerTest {
 
   @Test
   void deleteNonExistingOutputChannel() {
-    when(channelService.deleteOutputChannelById(ChannelFixture.CHANNEL_ID)).thenReturn(0L);
+    when(channelService.deleteOutputChannelById(user, ChannelFixture.CHANNEL_ID)).thenReturn(0L);
     assertThrows(
         ExceptionType.DeviceNotFoundException.class,
         () -> channelController.deleteOutputChannel(1L));
@@ -156,7 +157,7 @@ class ChannelControllerTest {
 
   @Test
   void deleteNonExistingInputChannel() {
-    when(channelService.deleteInputChannelById(ChannelFixture.CHANNEL_ID)).thenReturn(0L);
+    when(channelService.deleteInputChannelById(user, ChannelFixture.CHANNEL_ID)).thenReturn(0L);
     assertThrows(
         ExceptionType.DeviceNotFoundException.class,
         () -> channelController.deleteInputChannel(ChannelFixture.CHANNEL_ID));

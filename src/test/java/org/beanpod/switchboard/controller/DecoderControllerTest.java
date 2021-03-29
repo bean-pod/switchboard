@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -32,6 +33,7 @@ import org.beanpod.switchboard.fixture.StreamFixture;
 import org.beanpod.switchboard.fixture.UserFixture;
 import org.beanpod.switchboard.service.DecoderService;
 import org.beanpod.switchboard.util.MaintainDeviceStatus;
+import org.beanpod.switchboard.util.UserMockUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -78,7 +80,7 @@ class DecoderControllerTest {
 
   @Test
   final void testRetrieveAllDecoders() {
-    when(decoderDao.getDecoders()).thenReturn(listOfDecoders);
+    when(decoderDao.getDecoders(user)).thenReturn(listOfDecoders);
     when(decoderMapper.toDecoderDtos(any())).thenReturn(DecoderFixture.getDecoderDtos());
 
     List<DecoderDto> allDecoders = decoderController.retrieveAllDecoders();
@@ -114,7 +116,7 @@ class DecoderControllerTest {
   final void testCreateDecoder() {
     when(deviceService.findDevice(user, DecoderFixture.SERIAL_NUMBER))
         .thenReturn(Optional.of(deviceDto));
-    when(decoderDao.save(decoderDto)).thenReturn(decoderDto);
+    when(decoderDao.save(user, decoderDto)).thenReturn(decoderDto);
     ResponseEntity<DecoderDto> response = decoderController.createDecoder(decoderDto);
     assertEquals(200, response.getStatusCodeValue());
   }
@@ -157,7 +159,7 @@ class DecoderControllerTest {
   final void testUpdateDecoder() {
     when(decoderDao.findDecoder(user, DecoderFixture.SERIAL_NUMBER))
         .thenReturn(Optional.of(decoderDto));
-    when(decoderDao.save(decoderDto)).thenReturn(decoderDto);
+    when(decoderDao.save(user, decoderDto)).thenReturn(decoderDto);
 
     ResponseEntity<DecoderDto> response = decoderController.updateDecoder(decoderDto);
 
@@ -168,7 +170,7 @@ class DecoderControllerTest {
   @Test
   final void testUpdateDecoderExceptions() {
     DecoderDto decoderDto = DecoderFixture.getDecoderDto();
-    when(decoderDao.findDecoder(decoderDto.getSerialNumber())).thenReturn(Optional.empty());
+    when(decoderDao.findDecoder(user, decoderDto.getSerialNumber())).thenReturn(Optional.empty());
 
     assertThrows(
         ExceptionType.DeviceNotFoundException.class,
@@ -177,14 +179,14 @@ class DecoderControllerTest {
 
   @Test
   final void testGetDecoderStreams() {
-    when(decoderService.getDecoderStreams(any(String.class)))
+    when(decoderService.getDecoderStreams(eq(user), any(String.class)))
         .thenReturn(List.of(StreamFixture.getStreamDto()));
     when(streamMapper.toModelList(anyList())).thenReturn(StreamFixture.getStreamModelList());
 
     ResponseEntity<List<StreamModel>> response =
         decoderController.getDecoderStreams(DecoderFixture.SERIAL_NUMBER);
 
-    verify(decoderService).getDecoderStreams(DecoderFixture.SERIAL_NUMBER);
+    verify(decoderService).getDecoderStreams(user, DecoderFixture.SERIAL_NUMBER);
     verify(streamMapper).toModelList(List.of(StreamFixture.getStreamDto()));
 
     assertEquals(200, response.getStatusCodeValue());
