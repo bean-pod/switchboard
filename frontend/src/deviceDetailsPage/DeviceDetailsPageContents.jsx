@@ -10,6 +10,7 @@ import DeviceChannelCard from "./cards/DeviceChannelCard";
 import { getSampleSender } from "../api/SampleData";
 import GridColumn from "../general/dashboard/GridColumn";
 import DeleteDeviceDialogOpener from "./DeleteDeviceDialog/DeleteDeviceDialogOpener";
+import DeviceConfigActionsCard from "./cards/DeviceConfigActionsCard";
 
 export default function DeviceDetailsPageContents(props) {
   const { device } = props;
@@ -23,6 +24,9 @@ export default function DeviceDetailsPageContents(props) {
           </Grid>
           <Grid item xs={12}>
             <DeviceChannelCard device={device} />
+          </Grid>
+          <Grid item xs={12}>
+            <DeviceConfigActionsCard device={device} />
           </Grid>
         </GridColumn>
         <Grid item xs={6}>
