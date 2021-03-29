@@ -56,10 +56,11 @@ describe("<DeleteStreamDialog/> class", () => {
       expect(StreamApi.deleteStream).toBeCalledWith(dummyId);
     });
     describe("if stream", () => {
-      it("is deleted successfully, it displays a success snackbar", async () => {
+      it("is deleted successfully, it closes the dialog and displays a success snackbar", async () => {
         StreamApi.deleteStream.mockResolvedValueOnce();
 
         wrapper.instance().confirmDelete();
+        expect(mockCloseDialog).toBeCalledTimes(1);
         expect(StreamApi.deleteStream).toHaveBeenCalledWith(dummyId);
 
         await flushPromises();
@@ -71,10 +72,11 @@ describe("<DeleteStreamDialog/> class", () => {
           "Streams"
         );
       });
-      it("fails to delete, it displays an error snackbar", async () => {
+      it("fails to delete, it closes the dialog and displays an error snackbar", async () => {
         StreamApi.deleteStream.mockRejectedValueOnce();
 
         wrapper.instance().confirmDelete();
+        expect(mockCloseDialog).toBeCalledTimes(1);
         expect(StreamApi.deleteStream).toHaveBeenCalledWith(dummyId);
 
         await flushPromises();
@@ -85,21 +87,6 @@ describe("<DeleteStreamDialog/> class", () => {
           `Failed to delete stream`
         );
       });
-    });
-  });
-  describe("afterDelete() function", () => {
-    it("closes the dialog", () => {
-      wrapper.instance().afterDelete();
-      wrapper.instance().forceUpdate();
-
-      expect(mockCloseDialog).toBeCalledTimes(1);
-
-      expect(snackbarSpy).toHaveBeenCalledTimes(1);
-      expect(snackbarSpy).toHaveBeenCalledWith(
-        "success",
-        `Stream successfully deleted!`,
-        "Streams"
-      );
     });
   });
 });

@@ -53,10 +53,11 @@ describe("<DeleteDeviceDialog/> class", () => {
   });
   describe("confirmDelete() function", () => {
     describe("calls DeviceApi with the device's serial number", () => {
-      it("and delete is successful, it displays a success snackbar", async () => {
+      it("and delete is successful, it closes the dialog and displays a success snackbar", async () => {
         DeviceApi.deleteDevice.mockResolvedValueOnce();
 
         wrapper.instance().confirmDelete();
+        expect(mockCloseDialog).toBeCalledTimes(1);
         expect(DeviceApi.deleteDevice).toBeCalledWith(device.serialNumber);
 
         await flushPromises();
@@ -68,10 +69,11 @@ describe("<DeleteDeviceDialog/> class", () => {
           "Devices"
         );
       });
-      it("and delete fails, it displays an error snackbar", async () => {
+      it("and delete fails, it closes the dialog and displays an error snackbar", async () => {
         DeviceApi.deleteDevice.mockRejectedValueOnce();
 
         wrapper.instance().confirmDelete();
+        expect(mockCloseDialog).toBeCalledTimes(1);
         expect(DeviceApi.deleteDevice).toBeCalledWith(device.serialNumber);
 
         await flushPromises();
@@ -82,21 +84,6 @@ describe("<DeleteDeviceDialog/> class", () => {
           `Could not delete device (Serial Number: ${device.serialNumber})`
         );
       });
-    });
-  });
-  describe("afterDelete() function", () => {
-    it("closes the dialog and redirects to the Devices page", () => {
-      wrapper.instance().afterDelete();
-      wrapper.instance().forceUpdate();
-
-      expect(mockCloseDialog).toBeCalledTimes(1);
-
-      expect(snackbarSpy).toHaveBeenCalledTimes(1);
-      expect(snackbarSpy).toHaveBeenCalledWith(
-        "success",
-        `Device deleted! (Serial Number: ${device.serialNumber})`,
-        "Devices"
-      );
     });
   });
 });

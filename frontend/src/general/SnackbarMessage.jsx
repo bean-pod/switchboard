@@ -21,6 +21,7 @@ class SnackbarMessage extends React.Component {
     this.setStatus = this.setStatus.bind(this);
     this.setMessage = this.setMessage.bind(this);
     this.setPathname = this.setPathname.bind(this);
+    this.addSnackbarProperties = this.addSnackbarProperties.bind(this);
     this.openSnackbar = this.openSnackbar.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.refresh = this.refresh.bind(this);
@@ -31,14 +32,10 @@ class SnackbarMessage extends React.Component {
   }
 
   handleClose(event, reason) {
-    const { pathname } = this.state;
     if (reason === "clickaway") {
       return;
     }
     this.setOpen(false);
-    if (pathname !== "") {
-      this.refresh();
-    }
   }
 
   setOpen(open) {
@@ -69,9 +66,10 @@ class SnackbarMessage extends React.Component {
     this.setState({
       pathname
     });
+    return pathname;
   }
 
-  openSnackbar(stat, msg, path) {
+  addSnackbarProperties(stat, msg) {
     this.setStatus(stat);
     if (stat !== "error") {
       this.setIsSuccess(true);
@@ -79,8 +77,20 @@ class SnackbarMessage extends React.Component {
       this.setIsSuccess(false);
     }
     this.setMessage(msg);
-    this.setPathname(path);
-    this.setOpen(true);
+  }
+
+  openSnackbar(stat, msg, path) {
+    const currentPathname = this.setPathname(path);
+    if (currentPathname !== "") {
+      this.refresh();
+      setTimeout(() => {
+        this.addSnackbarProperties(stat, msg);
+        this.setOpen(true);
+      }, 300);
+    } else {
+      this.addSnackbarProperties(stat, msg);
+      this.setOpen(true);
+    }
   }
 
   refresh() {

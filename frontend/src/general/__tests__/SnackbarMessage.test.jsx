@@ -187,61 +187,125 @@ describe("<SnackbarMessage /> Class Component", () => {
       expect(wrapper.state().message).toEqual(testValues.message);
     });
 
-    it("setPathname() sets the state pathname", () => {
+    it("setPathname() sets the state pathname and returns the passed pathname", () => {
       wrapper.setState({ pathname: initialValues.pathname });
       expect(wrapper.state().pathname).toEqual(initialValues.pathname);
 
-      wrapper.instance().setPathname(testValues.pathname);
+      const currentPathname = wrapper
+        .instance()
+        .setPathname(testValues.pathname);
 
       expect(wrapper.state().pathname).toEqual(testValues.pathname);
+      expect(currentPathname).toEqual(testValues.pathname);
+    });
+
+    describe("addSnackbarProperties()", () => {
+      describe("sets states status, message to the passed values", () => {
+        it("and if state status is success, should set state isSuccess to true", () => {
+          wrapper.instance().addSnackbarProperties("success", "test");
+
+          expect(wrapper.state().status).toEqual("success");
+          expect(wrapper.state().isSuccess).toEqual(true);
+          expect(wrapper.state().message).toEqual("test");
+        });
+
+        it("else, should set state isSuccess to false", () => {
+          wrapper.instance().addSnackbarProperties("error", "test");
+
+          expect(wrapper.state().status).toEqual("error");
+          expect(wrapper.state().isSuccess).toEqual(false);
+          expect(wrapper.state().message).toEqual("test");
+        });
+      });
     });
   });
 
   describe("openSnackbar() function", () => {
-    describe("state open should be set to true, and states status, message, and pathname should be set to the passed values", () => {
-      it("and if state status is success, should set state isSuccess to true", () => {
-        const dummySuccessSnackbar = {
-          status: "success",
-          message: "test",
-          pathname: "test"
-        };
+    beforeEach(() => {
+      jest.useFakeTimers();
+      jest.spyOn(wrapper.instance(), "refresh");
+    });
+    afterEach(() => {
+      jest.clearAllMocks();
+      jest.clearAllTimers();
+    });
+    const dummySuccessValues = {
+      status: "success",
+      message: "test",
+      pathname: "test"
+    };
+    const dummyErrorValues = {
+      status: "error",
+      message: "test",
+      pathname: "test"
+    };
+    it("success snackbar with no pathname passed", () => {
+      wrapper
+        .instance()
+        .openSnackbar(
+          dummySuccessValues.status,
+          dummySuccessValues.message,
+          ""
+        );
 
-        wrapper
-          .instance()
-          .openSnackbar(
-            dummySuccessSnackbar.status,
-            dummySuccessSnackbar.message,
-            dummySuccessSnackbar.pathname
-          );
+      expect(wrapper.state().pathname).toEqual("");
+      expect(wrapper.state().status).toEqual(dummySuccessValues.status);
+      expect(wrapper.state().isSuccess).toEqual(true);
+      expect(wrapper.state().message).toEqual(dummySuccessValues.message);
+      expect(wrapper.state().open).toBe(true);
+    });
+    it("success snackbar with pathname passed", () => {
+      wrapper
+        .instance()
+        .openSnackbar(
+          dummySuccessValues.status,
+          dummySuccessValues.message,
+          dummySuccessValues.pathname
+        );
 
-        expect(wrapper.state().status).toEqual(dummySuccessSnackbar.status);
-        expect(wrapper.state().isSuccess).toEqual(true);
-        expect(wrapper.state().message).toEqual(dummySuccessSnackbar.message);
-        expect(wrapper.state().pathname).toEqual(dummySuccessSnackbar.pathname);
-        expect(wrapper.state().open).toEqual(true);
-      });
+      expect(wrapper.state().pathname).toEqual(dummySuccessValues.pathname);
+      expect(wrapper.instance().refresh).toHaveBeenCalled();
 
-      it("else, should set state isSuccess to false", () => {
-        const dummyErrorSnackbar = {
-          status: "error",
-          message: "test",
-          pathname: "test"
-        };
+      expect(setTimeout).toHaveBeenCalledTimes(1);
+      expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 300);
+      jest.runAllTimers();
 
-        wrapper
-          .instance()
-          .openSnackbar(
-            dummyErrorSnackbar.status,
-            dummyErrorSnackbar.message,
-            dummyErrorSnackbar.pathname
-          );
+      expect(wrapper.state().status).toEqual(dummySuccessValues.status);
+      expect(wrapper.state().isSuccess).toEqual(true);
+      expect(wrapper.state().message).toEqual(dummySuccessValues.message);
+      expect(wrapper.state().open).toBe(true);
+    });
+    it("error snackbar with no pathname passed", () => {
+      wrapper
+        .instance()
+        .openSnackbar(dummyErrorValues.status, dummyErrorValues.message, "");
 
-        expect(wrapper.state().status).toEqual(dummyErrorSnackbar.status);
-        expect(wrapper.state().isSuccess).toEqual(false);
-        expect(wrapper.state().message).toEqual(dummyErrorSnackbar.message);
-        expect(wrapper.state().pathname).toEqual(dummyErrorSnackbar.pathname);
-        expect(wrapper.state().open).toEqual(true);
-      });
+      expect(wrapper.state().status).toEqual(dummyErrorValues.status);
+      expect(wrapper.state().isSuccess).toEqual(false);
+      expect(wrapper.state().message).toEqual(dummyErrorValues.message);
+      expect(wrapper.state().open).toBe(true);
+    });
+    it("error snackbar with pathname passed", () => {
+      wrapper
+        .instance()
+        .openSnackbar(
+          dummyErrorValues.status,
+          dummyErrorValues.message,
+          dummyErrorValues.pathname
+        );
+
+      expect(wrapper.state().pathname).toEqual(dummyErrorValues.pathname);
+      expect(wrapper.instance().refresh).toHaveBeenCalled();
+
+      expect(setTimeout).toHaveBeenCalledTimes(1);
+      expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 300);
+      jest.runAllTimers();
+
+      expect(wrapper.state().pathname).toEqual(dummyErrorValues.pathname);
+      expect(wrapper.state().status).toEqual(dummyErrorValues.status);
+      expect(wrapper.state().isSuccess).toEqual(false);
+      expect(wrapper.state().message).toEqual(dummyErrorValues.message);
+      expect(wrapper.state().open).toBe(true);
     });
   });
 
@@ -274,50 +338,14 @@ describe("<SnackbarMessage /> Class Component", () => {
       wrapper.instance().handleClose(null, "clickaway");
 
       expect(wrapper.state().open).toBe(true);
-
-      // check that this.refresh() is never called
-      expect(mockHistoryGo).not.toBeCalled();
-      expect(mockHistoryPush).not.toBeCalled();
     });
-    describe("if pathname state ", () => {
-      it("is an empty string, it should only set state open to false", () => {
-        wrapper.setState({ open: true });
-        expect(wrapper.state().open).toBe(true);
-        wrapper.setState({ pathname: "" });
-        expect(wrapper.state().pathname).toEqual("");
+    it("else, state open should be set to false", () => {
+      wrapper.setState({ open: true });
+      expect(wrapper.state().open).toBe(true);
 
-        wrapper.instance().handleClose(null, null);
+      wrapper.instance().handleClose(null, null);
 
-        // check that this.refresh() is never called
-        expect(wrapper.state().open).toBe(false);
-        expect(mockHistoryGo).not.toBeCalled();
-        expect(mockHistoryPush).not.toBeCalled();
-      });
-      describe("is not an empty string", () => {
-        it("and it is the same as the current page, history.go(0) should be called", () => {
-          wrapper.setState({ open: true });
-          expect(wrapper.state().open).toBe(true);
-          wrapper.setState({ pathname: mockLocation.pathname });
-          expect(wrapper.state().pathname).toEqual(mockLocation.pathname);
-
-          wrapper.instance().handleClose(null, null);
-
-          expect(wrapper.state().open).toBe(false);
-          expect(mockHistoryGo).toBeCalledWith(0);
-        });
-        it("and it is different from the current page, history.push(/pathname) should be called", () => {
-          const dummyOtherPath = "other";
-          wrapper.setState({ open: true });
-          expect(wrapper.state().open).toBe(true);
-          wrapper.setState({ pathname: dummyOtherPath });
-          expect(wrapper.state().pathname).not.toEqual(mockLocation.pathname);
-
-          wrapper.instance().handleClose(null, null);
-
-          expect(wrapper.state().open).toBe(false);
-          expect(mockHistoryPush).toBeCalledWith(`/${dummyOtherPath}`);
-        });
-      });
+      expect(wrapper.state().open).toBe(false);
     });
   });
 });
