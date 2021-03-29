@@ -10,7 +10,7 @@ import {
   jest
 } from "@jest/globals";
 
-import StreamLogsWrapper from "../StreamLogsWrapper";
+import StreamLogTableWrapper from "../StreamLogTableWrapper";
 import LogInfo from "../../model/LogInfo";
 import LogsTable from "../../loglist/LogsTable";
 
@@ -26,7 +26,7 @@ describe("<StreamLogsWrapper/> Class Component", () => {
 
   beforeEach(async () => {
     LogApi.getStreamLogs.mockResolvedValue(expectedLogs);
-    wrapper = Enzyme.shallow(<StreamLogsWrapper streamId={dummyId} />);
+    wrapper = Enzyme.shallow(<StreamLogTableWrapper streamId={dummyId} />);
 
     expect(LogApi.getStreamLogs).toBeCalledWith(dummyId);
     await new Promise(setImmediate);

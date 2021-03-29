@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import LogsTable from "../loglist/LogsTable";
 import * as LogApi from "../api/LogApi";
 
-export default class StreamLogsWrapper extends React.Component {
+export default class StreamLogTableWrapper extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -32,6 +32,6 @@ export default class StreamLogsWrapper extends React.Component {
   }
 }
 
-StreamLogsWrapper.propTypes = {
+StreamLogTableWrapper.propTypes = {
   streamId: PropTypes.number.isRequired
 };

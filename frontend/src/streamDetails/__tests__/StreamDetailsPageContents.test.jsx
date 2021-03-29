@@ -8,7 +8,7 @@ import StreamDetailsPageContents from "../StreamDetailsPageContents";
 import DashboardCard from "../../general/dashboard/DashboardCard";
 import StreamDeviceDetails from "../StreamDeviceDetails";
 import DeleteStreamDialogOpener from "../DeleteStreamDialogOpener";
-import StreamLogsWrapper from "../StreamLogsWrapper";
+import StreamLogCard from "../cards/StreamLogCard";
 
 import DeviceInfo from "../../model/DeviceInfo";
 import StreamInfo from "../../model/StreamInfo";
@@ -56,8 +56,8 @@ describe("<StreamDetailsPageContents/> functional component", () => {
       expect(itemGridProps.item).toBe(true);
       expect(itemGridProps.xs).toBe(5);
     });
-    it("Contains 4 DashboardCard components with expected props", () => {
-      expect(wrapper.find(DashboardCard)).toHaveLength(4);
+    it("Contains 3 DashboardCard components with expected props", () => {
+      expect(wrapper.find(DashboardCard)).toHaveLength(3);
 
       const senderCardProps = wrapper.find(DashboardCard).at(0).props();
       expect(senderCardProps.title).toBe("Sender Details");
@@ -65,18 +65,15 @@ describe("<StreamDetailsPageContents/> functional component", () => {
       const receiverCardProps = wrapper.find(DashboardCard).at(1).props();
       expect(receiverCardProps.title).toBe("Receiver Details");
 
-      const logsCardProps = wrapper.find(DashboardCard).at(2).props();
-      expect(logsCardProps.title).toBe("Logs");
-
-      const statisticsCardProps = wrapper.find(DashboardCard).at(3).props();
+      const statisticsCardProps = wrapper.find(DashboardCard).at(2).props();
       expect(statisticsCardProps.title).toBe("Statistics");
     });
     it("Contains 2 StreamDeviceDetails components with expected props", () => {
-      const streamLogsWrapper = wrapper.find(StreamLogsWrapper);
-      expect(streamLogsWrapper).toHaveLength(1);
+      const streamLogCard = wrapper.find(StreamLogCard);
+      expect(streamLogCard).toHaveLength(1);
 
-      const streamLogDetailsProps = streamLogsWrapper.props();
-      expect(streamLogDetailsProps.streamId).toStrictEqual(1);
+      const streamLogCardProps = streamLogCard.props();
+      expect(streamLogCardProps.streamId).toStrictEqual(1);
     });
     it("Contains 1 StreamLogsWrapper component with expected props", () => {
       const streamDeviceDetails = wrapper.find(StreamDeviceDetails);
