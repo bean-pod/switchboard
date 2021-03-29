@@ -4,12 +4,15 @@ import { Input } from "@material-ui/core";
 
 import Dialog from "../../general/dialog/Dialog";
 
+import { uploadConfiguration } from "../../api/DeviceApi";
+
 export default class UploadConfigDialog extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       file: null
     };
+
     this.dialogElement = React.createRef();
     this.openDialog = this.openDialog.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -27,10 +30,11 @@ export default class UploadConfigDialog extends React.Component {
   handleUpload() {
     const { deviceId } = this.props;
     const { file } = this.state;
-    const data = new FormData();
-    data.append("file", file);
-    // call Api.updateConfig
-    this.afterUpload(deviceId);
+    uploadConfiguration(deviceId, file)
+      .then(() => {
+        this.afterUpload();
+      })
+      .catch(() => {});
   }
 
   afterUpload() {
