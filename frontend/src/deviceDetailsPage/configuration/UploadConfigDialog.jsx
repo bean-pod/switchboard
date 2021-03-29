@@ -1,5 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Input } from "@material-ui/core";
+
 import Dialog from "../../general/dialog/Dialog";
 
 export default class UploadConfigDialog extends React.Component {
@@ -51,7 +53,12 @@ export default class UploadConfigDialog extends React.Component {
         title={title}
         actionButton={actionButton}
       >
-        <input type="file" name="file" onChange={this.handleChange} />
+        <Input
+          type="file"
+          name="file"
+          disableUnderline
+          onChange={this.handleChange}
+        />
       </Dialog>
     );
   }
