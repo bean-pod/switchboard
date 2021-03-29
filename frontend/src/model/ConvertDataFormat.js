@@ -1,6 +1,6 @@
 import DeviceInfo from "./DeviceInfo";
 import StreamStatisticsInfo from "./StreamStatistics/StreamStatisticsInfo";
-import StreamStatsDeviceInfo from "./StreamStatistics/StreamStatsDeviceInfo";
+import { StreamStatsSendInfo, StreamStatsReceiveInfo } from "./StreamStatistics/StreamStatsDeviceInfo";
 import StreamStatsLinkInfo from "./StreamStatistics/StreamStatsLinkInfo";
 import StreamStatsWindowInfo from "./StreamStatistics/StreamStatsWindowInfo";
 
@@ -31,8 +31,7 @@ export function convertStatsToDataObject(databaseStats) {
       databaseStats.link.bandwidth,
       databaseStats.link.maxBandwidth
     ),
-    new StreamStatsDeviceInfo(
-      "send",
+    new StreamStatsSendInfo(
       databaseStats.send.packets,
       databaseStats.send.packetsLost,
       databaseStats.send.packetsDropped,
@@ -41,8 +40,7 @@ export function convertStatsToDataObject(databaseStats) {
       databaseStats.send.bytesDropped,
       databaseStats.send.mbitRate
     ),
-    new StreamStatsDeviceInfo(
-      "receive",
+    new StreamStatsReceiveInfo(
       databaseStats.recv.packets,
       databaseStats.recv.packetsLost,
       databaseStats.recv.packetsDropped,

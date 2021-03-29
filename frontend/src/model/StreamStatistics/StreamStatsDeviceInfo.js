@@ -1,6 +1,25 @@
-export default class StreamStatsDeviceInfo {
+export class StreamStatsSendInfo {
   constructor(
-    deviceType,
+    packets,
+    packetsLost,
+    packetsDropped,
+    packetsRetransmitted,
+    bytes,
+    bytesDropped,
+    mbitRate
+  ) {
+    this.packets = packets;
+    this.packetsLost = packetsLost;
+    this.packetsDropped = packetsDropped;
+    this.packetsRetransmitted = packetsRetransmitted;
+    this.bytes = bytes;
+    this.bytesDropped = bytesDropped;
+    this.mbitRate = mbitRate;
+  }
+}
+
+export class StreamStatsReceiveInfo {
+  constructor(
     packets,
     packetsLost,
     packetsDropped,
@@ -11,26 +30,15 @@ export default class StreamStatsDeviceInfo {
     bytesDropped,
     mbitRate
   ) {
-    if (deviceType === "receive") {
-      this.deviceType = deviceType;
-      this.packets = packets;
-      this.packetsLost = packetsLost;
-      this.packetsDropped = packetsDropped;
-      this.packetsRetransmitted = packetsRetransmitted;
-      this.packetsBelated = packetsBelated;
-      this.bytes = bytes;
-      this.bytesLost = bytesLost;
-      this.bytesDropped = bytesDropped;
-      this.mbitRate = mbitRate;
-    } else {
-      this.deviceType = deviceType;
-      this.packets = packets;
-      this.packetsLost = packetsLost;
-      this.packetsDropped = packetsDropped;
-      this.packetsRetransmitted = packetsRetransmitted;
-      this.bytes = bytes;
-      this.bytesDropped = bytesDropped;
-      this.mbitRate = mbitRate;
-    }
+    this.packets = packets;
+    this.packetsLost = packetsLost;
+    this.packetsDropped = packetsDropped;
+    this.packetsRetransmitted = packetsRetransmitted;
+    this.packetsBelated = packetsBelated;
+    this.bytes = bytes;
+    this.bytesLost = bytesLost;
+    this.bytesDropped = bytesDropped;
+    this.mbitRate = mbitRate;
   }
+  
 }
