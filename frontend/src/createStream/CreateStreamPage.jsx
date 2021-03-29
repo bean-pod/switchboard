@@ -9,7 +9,11 @@ export default function CreateStreamPage() {
     ["New Stream", "/Streams/New"]
   ];
   return (
-    <Page title="Create a Stream" breadcrumbs={breadcrumbs} buttonName="viewStreams">
+    <Page
+      title="Create a Stream"
+      breadcrumbs={breadcrumbs}
+      buttonName="viewStreams"
+    >
       <StreamingTable />
     </Page>
   );
