@@ -8,7 +8,8 @@ import DeviceInfo from "../DeviceInfo";
 import InChannelInfo from "../InputChannelInfo";
 import OutChannelInfo from "../OutputChannelInfo";
 import StreamStatisticsInfo from "../StreamStatistics/StreamStatisticsInfo";
-import StreamStatsDeviceInfo from "../StreamStatistics/StreamStatsDeviceInfo";
+import StreamStatsSendInfo from "../StreamStatistics/StreamStatsSendInfo";
+import StreamStatsReceiveInfo from "../StreamStatistics/StreamStatsReceiveInfo";
 import StreamStatsLinkInfo from "../StreamStatistics/StreamStatsLinkInfo";
 import StreamStatsWindowInfo from "../StreamStatistics/StreamStatsWindowInfo";
 
@@ -117,8 +118,8 @@ const sampleLocalStats = new StreamStatisticsInfo(
   11,
   new StreamStatsWindowInfo(11, 11, 11),
   new StreamStatsLinkInfo(11, 11, 11),
-  new StreamStatsDeviceInfo("send", 11, 11, 11, 11, 11, 11, 11),
-  new StreamStatsDeviceInfo("receive", 11, 11, 11, 11, 11, 11, 11, 11)
+  new StreamStatsSendInfo(11, 11, 11, 11, 11, 11, 11),
+  new StreamStatsReceiveInfo(11, 11, 11, 11, 11, 11, 11, 11, 11)
 );
 
 test("convertDeviceToDataObject returns DeviceInfo object with correct data", () => {

@@ -7,7 +7,8 @@ import Page from "../../../general/Page";
 import StreamStatisticsPage from "../StreamStatisticsPage";
 import StreamStatisticsPageContents from "../StreamStatisticsPageContents";
 import StreamStatisticsInfo from "../../../model/StreamStatistics/StreamStatisticsInfo";
-import StreamStatsDeviceInfo from "../../../model/StreamStatistics/StreamStatsDeviceInfo";
+import StreamStatsSendInfo from "../../../model/StreamStatistics/StreamStatsSendInfo";
+import StreamStatsReceiveInfo from "../../../model/StreamStatistics/StreamStatsReceiveInfo";
 import StreamStatsLinkInfo from "../../../model/StreamStatistics/StreamStatsLinkInfo";
 import StreamStatsWindowInfo from "../../../model/StreamStatistics/StreamStatsWindowInfo";
 
@@ -22,8 +23,8 @@ describe("<StreamStatisticsPage/> functional component", () => {
     10,
     new StreamStatsWindowInfo(10, 10, 10),
     new StreamStatsLinkInfo(10, 10, 10),
-    new StreamStatsDeviceInfo("send", 10, 10, 10, 10, 10, 10, 10),
-    new StreamStatsDeviceInfo("receive", 10, 10, 10, 10, 10, 10, 10, 10, 10)
+    new StreamStatsSendInfo(10, 10, 10, 10, 10, 10, 10),
+    new StreamStatsReceiveInfo(10, 10, 10, 10, 10, 10, 10, 10, 10)
   );
   const dummyStatsLocation = {
     state: {
