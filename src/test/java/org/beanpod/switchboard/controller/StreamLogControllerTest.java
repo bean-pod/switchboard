@@ -6,9 +6,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.List;
 import org.beanpod.switchboard.dao.StreamLogDaoImpl;
-import org.beanpod.switchboard.dto.StreamLogDto;
 import org.beanpod.switchboard.fixture.StreamLogFixture;
-import org.beanpod.switchboard.service.StreamLogService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
