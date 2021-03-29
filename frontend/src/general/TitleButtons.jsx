@@ -6,20 +6,27 @@ import StreamButton from "./Buttons/StreamButton";
 export default function TitleButtons(props) {
   const { type } = props;
 
+  function defineStreamButton(buttonName) {
+    return (
+      <NavLink
+        to="/Streams/New"
+        activeClassName="hideLinkStyle"
+        className="hideLinkStyle"
+        exact
+      >
+        <StreamButton type="submit" buttonName={buttonName} />
+      </NavLink>
+    );
+  }
+
   function determineButton() {
-    if (type === "createStream") {
-      return (
-        <NavLink
-          to="/Streams/New"
-          activeClassName="hideLinkStyle"
-          className="hideLinkStyle"
-          exact
-        >
-          <StreamButton type="submit" buttonName="Stream" />
-        </NavLink>
-      );
+    if (type === "stream") {
+      defineStreamButton("Stream");
     }
-    if (type === "viewStreams") {
+    if (type === "create") {
+      defineStreamButton("Create");
+    }
+    if (type === "activeStreams") {
       return (
         <NavLink
           to="/Streams"
@@ -27,12 +34,13 @@ export default function TitleButtons(props) {
           className="hideLinkStyle"
           exact
         >
-          <StreamButton type="submit" buttonName="View Streams" />
+          <StreamButton type="submit" buttonName="Active Streams" />
         </NavLink>
       );
     }
     return <></>;
   }
+  
   return <div className="alignRightFloat">{determineButton()}</div>;
 }
 
