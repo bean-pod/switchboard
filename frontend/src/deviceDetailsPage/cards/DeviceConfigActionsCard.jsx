@@ -11,7 +11,7 @@ import DeviceInfo from "../../model/DeviceInfo";
 export default function DeviceConfigActionsCard(props) {
   const { device } = props;
   return (
-    <DashboardCard title="Devices">
+    <DashboardCard title="Configuration">
       <Grid container justify="center" direction="row" spacing={3}>
         <Grid item xs={4}>
           <UploadConfigDialogOpenButton device={device} />
