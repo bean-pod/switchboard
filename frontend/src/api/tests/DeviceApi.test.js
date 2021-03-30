@@ -93,11 +93,11 @@ describe("DeviceApi", () => {
       );
     });
   });
-  describe("uploadConfiguration() function",  ()=>{
-    it("Should return a promise that resolves to true", async ()=>{
+  describe("uploadConfiguration() function", () => {
+    it("Should return a promise that resolves to true", async () => {
       const result = await DeviceApi.uploadConfiguration();
 
       expect(result).toBe(true);
-    })
-  })
+    });
+  });
 });
