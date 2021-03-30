@@ -14,7 +14,7 @@ describe("<SimpleTable/> functional component", () => {
   let wrapper;
   const dummyNames = ["name"];
   const dummyValues = [1];
-  
+
   beforeEach(() => {
     jest.spyOn(SimpleTableUtil, "zipProperties").mockImplementation(() => {
       return [[dummyNames[0], dummyValues[0]]];
@@ -23,13 +23,16 @@ describe("<SimpleTable/> functional component", () => {
     wrapper = Enzyme.shallow(
       <SimpleTable propertyNames={dummyNames} properties={dummyValues} />
     );
-  })
+  });
   afterEach(() => {
     wrapper.unmount();
   });
-  
+
   it("calls zipProperties function", () => {
-    expect(SimpleTableUtil.zipProperties).toHaveBeenCalledWith(dummyNames, dummyValues);
+    expect(SimpleTableUtil.zipProperties).toHaveBeenCalledWith(
+      dummyNames,
+      dummyValues
+    );
   });
   it("has 1 component each for TableContainer, Table, and TableBody", () => {
     expect(wrapper.find(TableContainer)).toHaveLength(1);
