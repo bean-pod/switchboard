@@ -73,24 +73,4 @@ class EncoderServiceTest {
     verify(encoderDao).findEncoder(EncoderFixture.SERIAL_NUMBER);
   }
 
-  @Test
-  final void testUploadJson() {
-    MockMultipartFile invalidJsonFile =
-        new MockMultipartFile(
-            "json", "", "application/json", "{\"json\" \"someValue\"}".getBytes());
-    MockMultipartFile validJsonFile =
-        new MockMultipartFile(
-            "json", "", "application/json", "{\"json\": \"someValue\"}".getBytes());
-    assertThrows(
-        ExceptionType.InvalidJsonException.class,
-        () -> {
-          encoderService.uploadJson(invalidJsonFile, invalidJsonFile);
-        });
-    assertThrows(
-        ExceptionType.InvalidJsonException.class,
-        () -> {
-          encoderService.uploadJson(validJsonFile, invalidJsonFile);
-        });
-    encoderService.uploadJson(validJsonFile, validJsonFile);
-  }
 }

@@ -17,6 +17,7 @@ import org.beanpod.switchboard.dto.mapper.DeviceMapper;
 import org.beanpod.switchboard.entity.DeviceEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.fixture.DeviceFixture;
+import org.beanpod.switchboard.fixture.EncoderFixture;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -26,6 +27,7 @@ import org.openapitools.model.CreateDeviceRequest;
 import org.openapitools.model.DeviceModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mock.web.MockMultipartFile;
 
 class DeviceControllerTest {
 
@@ -50,6 +52,22 @@ class DeviceControllerTest {
   @BeforeEach
   void setup() {
     MockitoAnnotations.initMocks(this);
+  }
+
+  @Test
+  final void testUploadJson() {
+    MockMultipartFile validJsonFile =
+        new MockMultipartFile(
+            "json", "", "application/json", "{\"json\": \"someValue\"}".getBytes());
+    when(deviceService.findDevice(DeviceFixture.SERIAL_NUMBER)).thenReturn(Optional.of(deviceDTO));
+    deviceModel.setStatus("Stopped");
+    when(deviceMapper.toDeviceDto(deviceModel)).thenReturn(deviceDTO);
+    when(deviceService.save(deviceDTO)).thenReturn(deviceDTO);
+    when(deviceMapper.toDeviceModel(deviceDTO)).thenReturn(deviceModel);
+
+    String s1 =
+        deviceController.uploadConfiguration(DeviceFixture.SERIAL_NUMBER, validJsonFile).getBody();
+    assertEquals("Configurations uploaded.", s1);
   }
 
   @Test

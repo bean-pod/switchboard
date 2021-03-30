@@ -10,7 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -53,12 +52,4 @@ public class EncoderEntity implements DecoderEncoderInterface {
   @JoinColumn(name = "encoder_serial")
   @JsonIgnoreProperties("encoder")
   private Set<OutputChannelEntity> output;
-
-  @Lob private byte[] configurationSchema;
-  @Lob private byte[] configurationInstance;
-
-  @Column(name = "configuration_last_modified")
-  @Temporal(TemporalType.TIMESTAMP)
-  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-  private Date configurationLastModified;
 }

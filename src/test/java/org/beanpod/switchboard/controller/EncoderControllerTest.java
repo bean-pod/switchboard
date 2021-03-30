@@ -70,23 +70,6 @@ class EncoderControllerTest {
   }
 
   @Test
-  final void testUploadJson() {
-    MockMultipartFile validJsonFile =
-        new MockMultipartFile(
-            "json", "", "application/json", "{\"json\": \"someValue\"}".getBytes());
-    EncoderDto encoderDto = EncoderFixture.getEncoderDto();
-    when(encoderDao.findEncoder(EncoderFixture.SERIAL_NUMBER)).thenReturn(Optional.of(encoderDto));
-    when(encoderDao.save(encoderDto)).thenReturn(encoderDto);
-
-    String s1 =
-        encoderController.uploadConfiguration(
-            EncoderFixture.SERIAL_NUMBER, validJsonFile, validJsonFile);
-    String s2 = encoderController.uploadConfiguration(EncoderFixture.SERIAL_NUMBER, null, null);
-    assertEquals("Configurations uploaded.", s1);
-    assertEquals("Configurations uploaded.", s2);
-  }
-
-  @Test
   final void testRetrieveAllEncoders() {
     when(encoderDao.getEncoders()).thenReturn(listOfEncoders);
     when(encoderMapper.toEncoderDtos(any())).thenReturn(EncoderFixture.getEncoderDtos());

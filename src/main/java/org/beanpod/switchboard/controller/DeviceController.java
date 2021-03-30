@@ -1,11 +1,13 @@
 package org.beanpod.switchboard.controller;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.beanpod.switchboard.dao.DeviceDaoImpl;
 import org.beanpod.switchboard.dto.DeviceDto;
@@ -17,7 +19,9 @@ import org.openapitools.model.CreateDeviceRequest;
 import org.openapitools.model.DeviceModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @Slf4j
 @RestController
@@ -28,6 +32,22 @@ public class DeviceController implements DeviceApi {
   private final DeviceDaoImpl service;
   private final DeviceMapper deviceMapper;
   private final HttpServletRequest request;
+
+  @SneakyThrows
+  @Transactional
+  @Override
+  public ResponseEntity<String> uploadConfiguration(
+      @PathVariable @Valid String serialNumber,
+      @RequestParam(value = "configurationInstance", required = false) MultipartFile instance) {
+
+    DeviceModel deviceModel = new DeviceModel();
+    deviceModel.setSerialNumber(serialNumber);
+    deviceModel.setConfigurationInstance(instance.getBytes());
+    deviceModel.setConfigurationLastModified(OffsetDateTime.now());
+
+    updateDevice(deviceModel);
+    return ResponseEntity.ok("Configurations uploaded.");
+  }
 
   @Override
   public ResponseEntity<List<DeviceModel>> retrieveAllDevices() {
