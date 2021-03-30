@@ -7,7 +7,6 @@ import { Grid } from "@material-ui/core";
 import StreamDeviceDetailsCard from "../StreamDeviceDetailsCard";
 import DashboardCard from "../../general/dashboard/DashboardCard";
 import SimpleTable from "../../general/simpleTable/SimpleTable";
-import zipProperties from "../../general/simpleTable/SimpleTableUtil";
 
 import DeviceInfo from "../../model/DeviceInfo";
 
@@ -30,7 +29,11 @@ describe("<StreamDeviceDetailsCard/> functional component", () => {
     const dummyChannel = 10;
     const dummyTitle = "Device Card";
     const expectedNames = ["Name", "Serial Number", "Channel"];
-    const expectedValues = [dummyDevice.name, dummyDevice.serialNumber, dummyChannel];
+    const expectedValues = [
+      dummyDevice.name,
+      dummyDevice.serialNumber,
+      dummyChannel
+    ];
 
     beforeEach(() => {
       wrapper = Enzyme.shallow(

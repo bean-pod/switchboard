@@ -7,9 +7,9 @@ import { zipProperties } from "./SimpleTableUtil";
 
 export default function SimpleTable(props) {
   const { propertyNames, properties, centerValues } = props;
-  
+
   const propertyPairs = zipProperties(propertyNames, properties);
-  
+
   return (
     <TableContainer>
       <Table>
