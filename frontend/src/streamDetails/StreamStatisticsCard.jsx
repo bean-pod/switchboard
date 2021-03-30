@@ -41,14 +41,12 @@ export default class StreamStatisticsCard extends React.Component {
 
   getProperties() {
     const { stats } = this.state;
-    if(stats.length === 0) {
-      return [];
-    }
+    if (stats.length === 0) return [];
     return [
       stats.time,
       stats.link.rtt,
-      stats.link.packetsRetransmitted,
-      stats.link.packetsDropped
+      stats.send.packetsRetransmitted,
+      stats.send.packetsDropped
     ];
   }
 
