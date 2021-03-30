@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { TableBody, Table, TableContainer } from "@material-ui/core";
 import SimpleTableRow from "./SimpleTableRow";
 
-import zipProperties from "./SimpleTableUtil";
+import { zipProperties } from "./SimpleTableUtil";
 
 export default function SimpleTable(props) {
   const { propertyNames, properties, centerValues } = props;
