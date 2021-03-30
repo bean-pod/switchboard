@@ -16,6 +16,8 @@ export default class StreamStatisticsCard extends React.Component {
     };
     this.streamId = props.streamId;
     this.handleStatsChange = this.handleStatsChange.bind(this);
+    this.getPropertyNames = this.getPropertyNames.bind(this);
+    this.getProperties = this.getProperties.bind(this);
   }
 
   componentDidMount() {
@@ -28,10 +30,32 @@ export default class StreamStatisticsCard extends React.Component {
     });
   }
 
+  getPropertyNames() {
+    return [
+      "Time",
+      "Round-Trip-Time",
+      "Packets Retransmitted",
+      "Packets Dropped"
+    ];
+  }
+
+  getProperties() {
+    const { stats } = this.state;
+    if(stats.length === 0) {
+      return [];
+    }
+    return [
+      stats.time,
+      stats.link.rtt,
+      stats.link.packetsRetransmitted,
+      stats.link.packetsDropped
+    ];
+  }
+
   render() {
     const { stats } = this.state;
-    const propertyNames = ["Time"];
-    const properties = [stats.time];
+    const propertyNames = this.getPropertyNames();
+    const properties = this.getProperties();
 
     const propertyPairs = zipProperties(propertyNames, properties);
     return (
