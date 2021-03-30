@@ -93,11 +93,7 @@ export default class StreamingTable extends React.Component {
               alignItems="center"
               display="flex"
             >
-              <StreamButton
-                id="StreamingStreamBtn"
-                type="submit"
-                buttonName="stream"
-              />
+              <StreamButton id="StreamingStreamBtn" type="submit" />
             </Grid>
             <Grid item xs={3}>
               <div className="streamingTable" id="ReceiverTable">
