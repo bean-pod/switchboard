@@ -116,10 +116,28 @@ const sampleDBStats = {
 const sampleLocalStats = new StreamStatisticsInfo(
   11,
   11,
-  new StreamStatsWindowInfo(11, 11, 11),
-  new StreamStatsLinkInfo(11, 11, 11),
-  new StreamStatsSendInfo(11, 11, 11, 11, 11, 11, 11),
-  new StreamStatsReceiveInfo(11, 11, 11, 11, 11, 11, 11, 11, 11)
+  new StreamStatsWindowInfo({ flow: 11, congestion: 11, flight: 11 }),
+  new StreamStatsLinkInfo({ rtt: 11, bandwidth: 11, maxBandwidth: 11 }),
+  new StreamStatsSendInfo({
+    packets: 11,
+    packetsLost: 11,
+    packetsDropped: 11,
+    packetsRetransmitted: 11,
+    bytes: 11,
+    bytesDropped: 11,
+    mbitRate: 11
+  }),
+  new StreamStatsReceiveInfo({
+    packets: 11,
+    packetsLost: 11,
+    packetsDropped: 11,
+    packetsRetransmitted: 11,
+    packetsBelated: 11,
+    bytes: 11,
+    bytesLost: 11,
+    bytesDropped: 11,
+    mbitRate: 11
+  })
 );
 
 test("convertDeviceToDataObject returns DeviceInfo object with correct data", () => {
