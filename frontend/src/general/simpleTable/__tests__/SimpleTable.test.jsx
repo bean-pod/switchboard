@@ -1,7 +1,7 @@
 import React from "react";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import { describe, expect, it } from "@jest/globals";
+import { beforeEach, afterEach, describe, expect, it } from "@jest/globals";
 
 import { TableContainer, TableBody, Table } from "@material-ui/core";
 import SimpleTable from "../SimpleTable";
