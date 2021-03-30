@@ -47,12 +47,12 @@ describe("<StreamStatisticsOverviewCard/> functional component", () => {
       const expectedPairs = [
         ["Stream ID", 1],
         ["Time", 2],
-        ["Latency", 41],
-        ["Bandwidth", 42],
-        ["Maximum Bandwidth", 43],
         ["Flow", 31],
         ["Congestion", 32],
-        ["Flight", 33]
+        ["Flight", 33],
+        ["Latency", 41],
+        ["Bandwidth", 42],
+        ["Maximum Bandwidth", 43]
       ];
       const table = wrapper.find(SimpleTable);
       expect(table).toHaveLength(1);
