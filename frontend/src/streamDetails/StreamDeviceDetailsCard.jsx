@@ -13,18 +13,16 @@ export default function StreamDeviceDetailsCard(props) {
   const properties = [device.name, device.serialNumber, channel];
 
   return (
-    <>
-      <DashboardCard title={cardTitle}>
-        <Grid container>
-          <Grid item xs={12}>
-            <SimpleTable
-              propertyNames={propertyNames}
-              properties={properties}
-            />
-          </Grid>
+    <DashboardCard title={cardTitle}>
+      <Grid container>
+        <Grid item xs={12}>
+          <SimpleTable
+            propertyNames={propertyNames}
+            properties={properties}
+          />
         </Grid>
-      </DashboardCard>
-    </>
+      </Grid>
+    </DashboardCard>
   );
 }
 
