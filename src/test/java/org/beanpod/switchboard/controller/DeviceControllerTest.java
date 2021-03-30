@@ -1,5 +1,6 @@
 package org.beanpod.switchboard.controller;
 
+import static org.beanpod.switchboard.fixture.DeviceFixture.validJsonFile;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
@@ -56,14 +57,11 @@ class DeviceControllerTest {
 
   @Test
   final void testUploadJson() {
-    MockMultipartFile validJsonFile =
-        new MockMultipartFile(
-            "json", "", "application/json", "{\"json\": \"someValue\"}".getBytes());
-    when(deviceService.findDevice(DeviceFixture.SERIAL_NUMBER)).thenReturn(Optional.of(deviceDTO));
-    deviceModel.setStatus("Stopped");
-    when(deviceMapper.toDeviceDto(deviceModel)).thenReturn(deviceDTO);
-    when(deviceService.save(deviceDTO)).thenReturn(deviceDTO);
-    when(deviceMapper.toDeviceModel(deviceDTO)).thenReturn(deviceModel);
+
+    when(deviceService.findDevice(any())).thenReturn(Optional.of(deviceDTO));
+    when(deviceMapper.toDeviceDto((DeviceModel) any())).thenReturn(deviceDTO);
+    when(deviceService.save(any())).thenReturn(deviceDTO);
+    when(deviceMapper.toDeviceModel(any())).thenReturn(deviceModel);
 
     String s1 =
         deviceController.uploadConfiguration(DeviceFixture.SERIAL_NUMBER, validJsonFile).getBody();

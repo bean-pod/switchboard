@@ -2,10 +2,12 @@ package org.beanpod.switchboard.fixture;
 
 import java.util.ArrayList;
 import java.util.List;
+import lombok.SneakyThrows;
 import org.beanpod.switchboard.dto.DeviceDto;
 import org.beanpod.switchboard.entity.DeviceEntity;
 import org.openapitools.model.CreateDeviceRequest;
 import org.openapitools.model.DeviceModel;
+import org.springframework.mock.web.MockMultipartFile;
 
 public class DeviceFixture {
 
@@ -16,7 +18,10 @@ public class DeviceFixture {
   public static final String DISPLAY_NAME = "Device #1";
   public static final String DISPLAY_NAME2 = "Device #2";
   public static final String STATUS = "offline";
-
+  public static final MockMultipartFile validJsonFile =
+      new MockMultipartFile(
+          "json", "", "application/json", "{\"json\": \"someValue\"}".getBytes());
+  @SneakyThrows
   public static DeviceEntity getDevice1() {
     return DeviceEntity.builder()
         .serialNumber(SERIAL_NUMBER)
@@ -24,6 +29,7 @@ public class DeviceFixture {
         .publicIpAddress(PUBLIC_IP_ADDRESS)
         .displayName(DISPLAY_NAME)
         .status(STATUS)
+        .configurationInstance(validJsonFile.getBytes())
         .build();
   }
 
@@ -43,12 +49,14 @@ public class DeviceFixture {
     return listOfDevices;
   }
 
+  @SneakyThrows
   public static DeviceModel getDeviceModel() {
     return new DeviceModel()
         .displayName(DISPLAY_NAME)
         .serialNumber(SERIAL_NUMBER)
         .privateIpAddress(PRIVATE_IP_ADDRESS)
         .publicIpAddress(PUBLIC_IP_ADDRESS)
+        .configurationInstance(validJsonFile.getBytes())
         .status(STATUS);
   }
 
@@ -60,12 +68,14 @@ public class DeviceFixture {
         .status(STATUS);
   }
 
+  @SneakyThrows
   public static DeviceDto getDeviceDto() {
     return DeviceDto.builder()
         .serialNumber(SERIAL_NUMBER)
         .privateIpAddress(PRIVATE_IP_ADDRESS)
         .publicIpAddress(PUBLIC_IP_ADDRESS)
         .displayName(DISPLAY_NAME)
+        .configurationInstance(validJsonFile.getBytes())
         .status(STATUS)
         .build();
   }
