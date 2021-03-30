@@ -68,7 +68,6 @@ class CustomRestExceptionHandlerTest {
     assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
   }
 
-
   @Test
   final void testUnknownError() {
     ResponseEntity<ExceptionResponse> exceptionResponse =
