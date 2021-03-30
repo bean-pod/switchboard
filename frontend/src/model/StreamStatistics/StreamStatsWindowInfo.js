@@ -1,7 +1,7 @@
 export default class StreamStatsWindowInfo {
-  constructor(flow, congestion, flight) {
-    this.flow = flow;
-    this.congestion = congestion;
-    this.flight = flight;
+  constructor(window) {
+    this.flow = window.flow;
+    this.congestion = window.congestion;
+    this.flight = window.flight;
   }
 }

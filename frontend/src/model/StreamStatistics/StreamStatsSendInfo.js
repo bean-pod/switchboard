@@ -1,19 +1,11 @@
 export default class StreamStatsSendInfo {
-  constructor(
-    packets,
-    packetsLost,
-    packetsDropped,
-    packetsRetransmitted,
-    bytes,
-    bytesDropped,
-    mbitRate
-  ) {
-    this.packets = packets;
-    this.packetsLost = packetsLost;
-    this.packetsDropped = packetsDropped;
-    this.packetsRetransmitted = packetsRetransmitted;
-    this.bytes = bytes;
-    this.bytesDropped = bytesDropped;
-    this.mbitRate = mbitRate;
+  constructor(sending) {
+    this.packets = sending.packets;
+    this.packetsLost = sending.packetsLost;
+    this.packetsDropped = sending.packetsDropped;
+    this.packetsRetransmitted = sending.packetsRetransmitted;
+    this.bytes = sending.bytes;
+    this.bytesDropped = sending.bytesDropped;
+    this.mbitRate = sending.mbitRate;
   }
 }

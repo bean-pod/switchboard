@@ -1,23 +1,13 @@
 export default class StreamStatsReceiveInfo {
-  constructor(
-    packets,
-    packetsLost,
-    packetsDropped,
-    packetsRetransmitted,
-    packetsBelated,
-    bytes,
-    bytesLost,
-    bytesDropped,
-    mbitRate
-  ) {
-    this.packets = packets;
-    this.packetsLost = packetsLost;
-    this.packetsDropped = packetsDropped;
-    this.packetsRetransmitted = packetsRetransmitted;
-    this.packetsBelated = packetsBelated;
-    this.bytes = bytes;
-    this.bytesLost = bytesLost;
-    this.bytesDropped = bytesDropped;
-    this.mbitRate = mbitRate;
+  constructor(receiving) {
+    this.packets = receiving.packets;
+    this.packetsLost = receiving.packetsLost;
+    this.packetsDropped = receiving.packetsDropped;
+    this.packetsRetransmitted = receiving.packetsRetransmitted;
+    this.packetsBelated = receiving.packetsBelated;
+    this.bytes = receiving.bytes;
+    this.bytesLost = receiving.bytesLost;
+    this.bytesDropped = receiving.bytesDropped;
+    this.mbitRate = receiving.mbitRate;
   }
 }

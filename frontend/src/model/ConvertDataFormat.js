@@ -22,36 +22,10 @@ export function convertStatsToDataObject(databaseStats) {
   return new StreamStatisticsInfo(
     databaseStats.id,
     databaseStats.time,
-    new StreamStatsWindowInfo(
-      databaseStats.window.flow,
-      databaseStats.window.congestion,
-      databaseStats.window.flight
-    ),
-    new StreamStatsLinkInfo(
-      databaseStats.link.rtt,
-      databaseStats.link.bandwidth,
-      databaseStats.link.maxBandwidth
-    ),
-    new StreamStatsSendInfo(
-      databaseStats.send.packets,
-      databaseStats.send.packetsLost,
-      databaseStats.send.packetsDropped,
-      databaseStats.send.packetsRetransmitted,
-      databaseStats.send.bytes,
-      databaseStats.send.bytesDropped,
-      databaseStats.send.mbitRate
-    ),
-    new StreamStatsReceiveInfo(
-      databaseStats.recv.packets,
-      databaseStats.recv.packetsLost,
-      databaseStats.recv.packetsDropped,
-      databaseStats.recv.packetsRetransmitted,
-      databaseStats.recv.packetsBelated,
-      databaseStats.recv.bytes,
-      databaseStats.recv.bytesLost,
-      databaseStats.recv.bytesDropped,
-      databaseStats.recv.mbitRate
-    )
+    new StreamStatsWindowInfo(databaseStats.window),
+    new StreamStatsLinkInfo(databaseStats.link),
+    new StreamStatsSendInfo(databaseStats.send),
+    new StreamStatsReceiveInfo(databaseStats.recv)
   );
 }
 

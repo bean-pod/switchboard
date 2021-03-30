@@ -14,22 +14,22 @@ export default function StatisticsOverviewCard(props) {
   const propertyNames = [
     "Stream ID",
     "Time",
-    "Latency",
-    "Bandwidth",
-    "Maximum Bandwidth",
     "Flow",
     "Congestion",
-    "Flight"
+    "Flight",
+    "Latency",
+    "Bandwidth",
+    "Maximum Bandwidth"
   ];
   const properties = [
     stats.id,
     stats.time,
-    stats.window.rtt,
-    stats.window.bandwidth,
-    stats.window.maxBandwidth,
-    stats.link.flow,
-    stats.link.congestion,
-    stats.link.flight
+    stats.window.flow,
+    stats.window.congestion,
+    stats.window.flight,
+    stats.link.rtt,
+    stats.link.bandwidth,
+    stats.link.maxBandwidth
   ];
 
   const propertyPairs = zipProperties(propertyNames, properties);

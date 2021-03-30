@@ -1,7 +1,7 @@
 export default class StreamStatsLinkInfo {
-  constructor(rtt, bandwidth, maxBandwidth) {
-    this.rtt = rtt;
-    this.bandwidth = bandwidth;
-    this.maxBandwidth = maxBandwidth;
+  constructor(link) {
+    this.rtt = link.rtt;
+    this.bandwidth = link.bandwidth;
+    this.maxBandwidth = link.maxBandwidth;
   }
 }
