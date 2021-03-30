@@ -19,8 +19,8 @@ public class DeviceFixture {
   public static final String DISPLAY_NAME2 = "Device #2";
   public static final String STATUS = "offline";
   public static final MockMultipartFile validJsonFile =
-      new MockMultipartFile(
-          "json", "", "application/json", "{\"json\": \"someValue\"}".getBytes());
+      new MockMultipartFile("json", "", "application/json", "{\"json\": \"someValue\"}".getBytes());
+
   @SneakyThrows
   public static DeviceEntity getDevice1() {
     return DeviceEntity.builder()

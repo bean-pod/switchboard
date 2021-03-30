@@ -23,7 +23,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.mock.web.MockMultipartFile;
 
 class EncoderServiceTest {
 
@@ -72,5 +71,4 @@ class EncoderServiceTest {
 
     verify(encoderDao).findEncoder(EncoderFixture.SERIAL_NUMBER);
   }
-
 }
