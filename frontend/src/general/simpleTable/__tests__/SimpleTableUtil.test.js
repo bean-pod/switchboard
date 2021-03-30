@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 
-import zipProperties from "../SimpleTableUtil";
+import { zipProperties } from "../SimpleTableUtil";
 
 describe("zipProperties() method", () => {
   describe("when given two arrays", () => {
