@@ -17,6 +17,7 @@ import CreateUserPage from "../../admin/createUser/CreateUserPage";
 import DeviceInfo from "../../model/DeviceInfo";
 import StreamDetailsPage from "../../streamDetails/StreamDetailsPage";
 import StreamInfo from "../../model/StreamInfo";
+import StreamStatisticsPage from "../../streamDetails/DetailedStreamStatistics/StreamStatisticsPage";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -41,7 +42,7 @@ describe("<AppRouter/> functional component", () => {
     wrapper = Enzyme.shallow(<AppRouter />);
 
     const protectedRoutes = wrapper.find(ProtectedRoute);
-    expect(protectedRoutes).toHaveLength(9);
+    expect(protectedRoutes).toHaveLength(10);
 
     const loginRoute = protectedRoutes.at(0);
     expect(loginRoute.props().path).toEqual("/Login");
@@ -74,7 +75,13 @@ describe("<AppRouter/> functional component", () => {
     const createStreamPage = createStreamRoute.props().render();
     expect(createStreamPage.type).toEqual(CreateStreamPage);
 
-    const streamDetailsRoute = protectedRoutes.at(5);
+    const streamStatsRoute = protectedRoutes.at(5);
+    expect(streamStatsRoute.props().path).toEqual(`/Streams/Details/:streamId/Statistics`);
+    expect(streamStatsRoute.props().authenticationRequired).toBe(true);
+    const streamStatsPage = streamStatsRoute.props().render();
+    expect(streamStatsPage.type).toEqual(StreamStatisticsPage);
+
+    const streamDetailsRoute = protectedRoutes.at(6);
     expect(streamDetailsRoute.props().path).toEqual(
       "/Streams/Details/:streamId"
     );
@@ -84,19 +91,19 @@ describe("<AppRouter/> functional component", () => {
       .render(dummyStreamLocation);
     expect(streamDetailsPage.type).toEqual(StreamDetailsPage);
 
-    const streamListRoute = protectedRoutes.at(6);
+    const streamListRoute = protectedRoutes.at(7);
     expect(streamListRoute.props().path).toEqual("/Streams");
     expect(streamListRoute.props().authenticationRequired).toBe(true);
     const streamListPage = streamListRoute.props().render();
     expect(streamListPage.type).toEqual(StreamListPage);
 
-    const logListRoute = protectedRoutes.at(7);
+    const logListRoute = protectedRoutes.at(8);
     expect(logListRoute.props().path).toEqual("/Logs");
     expect(logListRoute.props().authenticationRequired).toBe(true);
     const logListPage = logListRoute.props().render();
     expect(logListPage.type).toEqual(LogListPage);
 
-    const createUserRoute = protectedRoutes.at(8);
+    const createUserRoute = protectedRoutes.at(9);
     expect(createUserRoute.props().path).toEqual("/Admin/New");
     expect(createUserRoute.props().authenticationRequired).toBe(true);
     const createUserPage = createUserRoute.props().render();
