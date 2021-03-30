@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 import StreamButton from "./Buttons/StreamButton";
-import ActiveStreamButton from "./Buttons/ActiveStreamsButton";
 
 export default function TitleButtons(props) {
   const { type } = props;
@@ -17,18 +16,6 @@ export default function TitleButtons(props) {
           exact
         >
           <StreamButton type="submit" />
-        </NavLink>
-      );
-    }
-    if (type === "activeStreams") {
-      return (
-        <NavLink
-          to="/Streams"
-          activeClassName="hideLinkStyle"
-          className="hideLinkStyle"
-          exact
-        >
-          <ActiveStreamButton type="submit" />
         </NavLink>
       );
     }

@@ -12,7 +12,6 @@ export default function CreateStreamPage() {
     <Page
       title="Create a Stream"
       breadcrumbs={breadcrumbs}
-      buttonName="activeStreams"
     >
       <StreamingTable />
     </Page>
