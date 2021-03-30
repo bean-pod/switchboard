@@ -30,10 +30,9 @@ export default class UploadConfigDialog extends React.Component {
   handleUpload() {
     const { deviceId } = this.props;
     const { file } = this.state;
-    uploadConfiguration(deviceId, file)
-      .then(() => {
-        this.afterUpload();
-      })
+    uploadConfiguration(deviceId, file).then(() => {
+      this.afterUpload();
+    });
   }
 
   afterUpload() {

@@ -132,6 +132,5 @@ export async function uploadConfiguration() {
   //   },
   //   getAuthorizationHeader()
   // );
-  return new Promise.resolve(true);
-  });
+  return Promise.resolve(true);
 }
