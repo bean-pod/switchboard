@@ -2,29 +2,23 @@ import React from "react";
 import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 import StreamButton from "./Buttons/StreamButton";
+import ActiveStreamButton from "./Buttons/ActiveStreamsButton";
 
 export default function TitleButtons(props) {
   const { type } = props;
 
-  function defineStreamButton(buttonName) {
-    return (
-      <NavLink
-        to="/Streams/New"
-        activeClassName="hideLinkStyle"
-        className="hideLinkStyle"
-        exact
-      >
-        <StreamButton type="submit" buttonName={buttonName} />
-      </NavLink>
-    );
-  }
-
   function determineButton() {
     if (type === "stream") {
-      defineStreamButton("Stream");
-    }
-    if (type === "create") {
-      defineStreamButton("Create");
+      return (
+        <NavLink
+          to="/Streams/New"
+          activeClassName="hideLinkStyle"
+          className="hideLinkStyle"
+          exact
+        >
+          <StreamButton type="submit" />
+        </NavLink>
+      );
     }
     if (type === "activeStreams") {
       return (
@@ -34,7 +28,7 @@ export default function TitleButtons(props) {
           className="hideLinkStyle"
           exact
         >
-          <StreamButton type="submit" buttonName="Active Streams" />
+          <ActiveStreamButton type="submit" />
         </NavLink>
       );
     }

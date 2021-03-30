@@ -4,17 +4,16 @@ import PropTypes from "prop-types";
 
 import { SwapHoriz } from "@material-ui/icons/";
 
-export default function StreamButton(props) {
+export default function ActiveStreamButton(props) {
   const { type } = props;
   const StyledButton = withStyles({
     root: {
-      background: "linear-gradient(45deg, #59bc31 30%, #59bc31 90%)",
+      background: "linear-gradient(45deg, #01b2fe 30%, #01b2fe 90%)",
       borderRadius: 90,
       border: 0,
       color: "white",
       height: 40,
-      padding: "0 5px",
-      margin: "1em"
+      padding: "0px"
     },
     label: {
       textTransform: ""
@@ -25,12 +24,12 @@ export default function StreamButton(props) {
     <StyledButton type={type}>
       <div className="buttonText">
         <SwapHoriz />
-        Stream
+        Active Streams
       </div>
     </StyledButton>
   );
 }
 
-StreamButton.propTypes = {
-  type: PropTypes.string.isRequired
+ActiveStreamButton.propTypes = {
+  type: PropTypes.string.isRequired,
 };

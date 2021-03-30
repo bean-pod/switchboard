@@ -9,7 +9,7 @@ export default function StreamListPage() {
     ["Active Streams", "/Streams"]
   ];
   return (
-    <Page title="Active Streams" breadcrumbs={breadcrumbs} buttonName="create">
+    <Page title="Active Streams" breadcrumbs={breadcrumbs} buttonName="stream">
       <StreamsTableWrapper dataSource={streamDataSource} />
     </Page>
   );
