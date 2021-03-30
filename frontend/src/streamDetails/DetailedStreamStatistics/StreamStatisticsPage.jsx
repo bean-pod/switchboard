@@ -20,10 +20,7 @@ export default function StreamStatisticsPage(props) {
   ];
 
   return (
-    <Page
-      title={`Stream ${statistics.id} Statistics`}
-      breadcrumbs={breadcrumbs}
-    >
+    <Page title="Stream Statistics" breadcrumbs={breadcrumbs}>
       <StreamStatisticsPageContents statistics={statistics} />
     </Page>
   );

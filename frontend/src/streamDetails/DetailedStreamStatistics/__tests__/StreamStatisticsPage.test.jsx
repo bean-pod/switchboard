@@ -26,37 +26,41 @@ describe("<StreamStatisticsPage/> functional component", () => {
     new StreamStatsSendInfo(10, 10, 10, 10, 10, 10, 10),
     new StreamStatsReceiveInfo(10, 10, 10, 10, 10, 10, 10, 10, 10)
   );
-  const dummyStatsLocation = {
-    state: {
-      dummyStreamStats
-    }
-  };
 
   describe("when passed a location prop", () => {
+    const dummyStatsLocation = {
+      state: {
+        statistics: dummyStreamStats
+      }
+    };
+
+    beforeEach(() => {
+      wrapper = Enzyme.shallow(
+        <StreamStatisticsPage location={dummyStatsLocation} />
+      );
+    });
+    afterEach(() => {
+      // wrapper.unmount();
+    });
+
     describe("returns a component that", () => {
-      beforeEach(() => {
-        wrapper = Enzyme.shallow(
-          <StreamStatisticsPage location={dummyStatsLocation} />
-        );
-      });
-      afterEach(() => {
-        wrapper.unmount();
-      });
       it("contains 1 Page component with expected props", () => {
-        const expectedTitle = `Stream ${dummyStreamStats.id} Statistics`;
-        const expectedBreadcrumbs = [
-          ["Home", "/Home"],
-          ["Active Streams", "/Streams"],
-          ["Stream Details"],
-          ["Statistics", `/Streams/Details/${dummyStreamStats.id}/Statistics`]
-        ];
+        const expectedProps = {
+          title: "Stream Statistics",
+          breadcrumbs: [
+            ["Home", "/Home"],
+            ["Active Streams", "/Streams"],
+            ["Stream Details"],
+            ["Statistics", `/Streams/Details/${dummyStreamStats.id}/Statistics`]
+          ]
+        };
 
         const page = wrapper.find(Page);
         expect(page).toHaveLength(1);
 
         const pageProps = page.props();
-        expect(pageProps.title).toBe(expectedTitle);
-        expect(pageProps.breadcrumbs).toStrictEqual(expectedBreadcrumbs);
+        expect(pageProps.title).toBe(expectedProps.title);
+        expect(pageProps.breadcrumbs).toStrictEqual(expectedProps.breadcrumbs);
       });
       it("contains 1 StreamStatisticsPageContents component with expected props", () => {
         const contents = wrapper.find(StreamStatisticsPageContents);
@@ -77,23 +81,25 @@ describe("<StreamStatisticsPage/> functional component", () => {
         wrapper.unmount();
       });
       it("contains 1 Page component with expected props", () => {
-        const expectedTitle = `Stream ${expectedDefaultStats.id} Statistics`;
-        const expectedBreadcrumbs = [
-          ["Home", "/Home"],
-          ["Active Streams", "/Streams"],
-          ["Stream Details"],
-          [
-            "Statistics",
-            `/Streams/Details/${expectedDefaultStats.id}/Statistics`
+        const expectedProps = {
+          title: "Stream Statistics",
+          breadcrumbs: [
+            ["Home", "/Home"],
+            ["Active Streams", "/Streams"],
+            ["Stream Details"],
+            [
+              "Statistics",
+              `/Streams/Details/${expectedDefaultStats.id}/Statistics`
+            ]
           ]
-        ];
+        };
 
         const page = wrapper.find(Page);
         expect(page).toHaveLength(1);
 
         const pageProps = page.props();
-        expect(pageProps.title).toBe(expectedTitle);
-        expect(pageProps.breadcrumbs).toStrictEqual(expectedBreadcrumbs);
+        expect(pageProps.title).toBe(expectedProps.title);
+        expect(pageProps.breadcrumbs).toStrictEqual(expectedProps.breadcrumbs);
       });
       it("contains 1 StreamStatisticsPageContents component with expected props", () => {
         const contents = wrapper.find(StreamStatisticsPageContents);
