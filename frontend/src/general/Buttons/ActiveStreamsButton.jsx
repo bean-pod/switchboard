@@ -31,5 +31,5 @@ export default function ActiveStreamButton(props) {
 }
 
 ActiveStreamButton.propTypes = {
-  type: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired
 };
