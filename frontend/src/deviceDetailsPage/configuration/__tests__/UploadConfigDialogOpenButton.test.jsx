@@ -14,14 +14,13 @@ import DeviceInfo from "../../../model/DeviceInfo";
 Enzyme.configure({ adapter: new Adapter() });
 
 describe("<UploadConfigDialogOpenButton/> class", () => {
-
-    const mockOpenDialog = jest.fn();
-    const mockRefElement = {
-      current: {
-        openDialog: mockOpenDialog
-      }
-    };
-    const dummyDevice = new DeviceInfo(
+  const mockOpenDialog = jest.fn();
+  const mockRefElement = {
+    current: {
+      openDialog: mockOpenDialog
+    }
+  };
+  const dummyDevice = new DeviceInfo(
     "serial",
     "sometime",
     "public",
@@ -34,33 +33,29 @@ describe("<UploadConfigDialogOpenButton/> class", () => {
 
   let wrapper;
 
-  beforeEach(()=>{
+  beforeEach(() => {
     jest.spyOn(React, "createRef").mockImplementation(() => {
-        return mockRefElement;
-      });
+      return mockRefElement;
+    });
 
     wrapper = Enzyme.shallow(
-        <UploadConfigDialogOpenButton
-          device={dummyDevice}
-        />
-      );
-  })
-  afterEach(()=>{
-      wrapper.unmount();
-  })
+      <UploadConfigDialogOpenButton device={dummyDevice} />
+    );
+  });
+  afterEach(() => {
+    wrapper.unmount();
+  });
 
   describe("render() function returns a component that", () => {
-
     it("Contains 1 <Button/> component with expected props", () => {
-
       expect(wrapper.find(Button)).toHaveLength(1);
 
-      const expected={
-        variant:"contained",
-        color:"primary",
-        startIcon:(<CloudUpload />),
+      const expected = {
+        variant: "contained",
+        color: "primary",
+        startIcon: <CloudUpload />,
         onClick: wrapper.instance().openDialog
-      }
+      };
       const props = wrapper.find(Button).at(0).props();
       expect(props.variant).toBe(expected.variant);
       expect(props.color).toBe(expected.color);
@@ -68,17 +63,15 @@ describe("<UploadConfigDialogOpenButton/> class", () => {
       expect(props.onClick).toBe(expected.onClick);
     });
     it("Contains 1 <UploadConfigDialog/> component with expected props", () => {
-        expect(wrapper.find(UploadConfigDialog)).toHaveLength(1);
-        const expected={
-            deviceId: dummyDevice.serialNumber
-        }
-        const props = wrapper.find(UploadConfigDialog).at(0).props();
-        expect(props.deviceId).toBe(expected.deviceId);
-
+      expect(wrapper.find(UploadConfigDialog)).toHaveLength(1);
+      const expected = {
+        deviceId: dummyDevice.serialNumber
+      };
+      const props = wrapper.find(UploadConfigDialog).at(0).props();
+      expect(props.deviceId).toBe(expected.deviceId);
     });
   });
   describe("openDialog() function", () => {
-   
     it("calls dialogElement.current.openDialog()", () => {
       wrapper.instance().openDialog();
       expect(mockOpenDialog).toBeCalledTimes(1);
