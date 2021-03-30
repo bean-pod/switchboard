@@ -6,14 +6,14 @@ import Title from "./Title";
 import HeaderBar from "./HeaderBar";
 
 export default function Page(props) {
-  const { breadcrumbs, title, buttonName, children } = props;
+  const { breadcrumbs, title, buttonType, children } = props;
   return (
     <>
       <HeaderBar />
       <Container>
         <DynamicBreadcrumb breadcrumbs={breadcrumbs} />
         <Box className="areaUnderBreadcrumbs">
-          <Title title={title} buttonType={buttonName} />
+          <Title title={title} buttonType={buttonType} />
           {children}
         </Box>
       </Container>
@@ -25,12 +25,12 @@ Page.propTypes = {
   breadcrumbs: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string))
     .isRequired,
   title: PropTypes.string.isRequired,
-  buttonName: PropTypes.string,
+  buttonType: PropTypes.string,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
   ]).isRequired
 };
 Page.defaultProps = {
-  buttonName: undefined
+  buttonType: undefined
 };

@@ -11,7 +11,7 @@ export default function DeviceListPage() {
     ["My Devices", "/Devices"]
   ];
   return (
-    <Page title="My Devices" breadcrumbs={breadcrumb} buttonName="stream">
+    <Page title="My Devices" breadcrumbs={breadcrumb} buttonType="stream">
       <DeviceListTabTable classes={useStyles} dataSource={dataSource} />
     </Page>
   );
