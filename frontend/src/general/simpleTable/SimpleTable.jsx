@@ -34,7 +34,5 @@ SimpleTable.defaultProps = {
 SimpleTable.propTypes = {
   propertyNames: PropTypes.arrayOf(PropTypes.string).isRequired,
   properties: PropTypes.arrayOf(PropTypes.node).isRequired,
-  // propertyPairs: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.node))
-  //   .isRequired,
   centerValues: PropTypes.bool
 };
