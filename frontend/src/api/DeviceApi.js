@@ -132,7 +132,6 @@ export async function uploadConfiguration() {
   //   },
   //   getAuthorizationHeader()
   // );
-  return new Promise((resolve) => {
-    resolve(true);
+  return new Promise.resolve(true);
   });
 }

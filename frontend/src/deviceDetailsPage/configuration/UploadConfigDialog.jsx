@@ -34,7 +34,6 @@ export default class UploadConfigDialog extends React.Component {
       .then(() => {
         this.afterUpload();
       })
-      .catch(() => {});
   }
 
   afterUpload() {
