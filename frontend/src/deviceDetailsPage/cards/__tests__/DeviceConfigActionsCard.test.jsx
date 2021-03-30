@@ -34,7 +34,7 @@ describe("<DeviceConfigActionsCard/> functional component", () => {
       expect(wrapper.find(DashboardCard)).toHaveLength(1);
       const dashboardCard = wrapper.find(DashboardCard).first();
 
-      expect(dashboardCard.props().title).toBe("Devices");
+      expect(dashboardCard.props().title).toBe("Configuration");
     });
     it("Contains 3 <Grid/> components", () => {
       expect(wrapper.find(Grid)).toHaveLength(3);
