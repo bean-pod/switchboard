@@ -169,7 +169,8 @@ class StreamControllerTest {
     when(streamService.updateStreamStat(any())).thenReturn(streamStatDto);
 
     ResponseEntity<StreamStatModel> result = streamController.updateStreamStat(streamStatModel);
-    assertEquals(StreamFixture.ID, Objects.requireNonNull(result.getBody()).getId());
+    assertNotNull(result.getBody());
+    assertEquals(StreamFixture.ID, result.getBody().getId());
   }
 
   @Test
@@ -181,7 +182,7 @@ class StreamControllerTest {
     when(streamService.getStreamStats()).thenReturn(streamStatDto);
 
     ResponseEntity<List<StreamStatModel>> result = streamController.retrieveStreamStats();
-    assertEquals(
-        streamStatDto.get(0).getId(), Objects.requireNonNull(result.getBody()).get(0).getId());
+    assertNotNull(result.getBody());
+    assertEquals(streamStatDto.get(0).getId(), result.getBody().get(0).getId());
   }
 }

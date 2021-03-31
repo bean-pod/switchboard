@@ -104,9 +104,8 @@ class EncoderControllerTest {
 
     assertNotNull(actualEncoder);
     assertEquals(200, actualEncoder.getStatusCodeValue());
-    assertEquals(
-        encoder.getSerialNumber(),
-        Objects.requireNonNull(actualEncoder.getBody()).getSerialNumber());
+    assertNotNull(actualEncoder.getBody());
+    assertEquals(encoder.getSerialNumber(), actualEncoder.getBody().getSerialNumber());
   }
 
   // When a encoder is unavailable in the DB
