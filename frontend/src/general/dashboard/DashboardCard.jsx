@@ -1,19 +1,21 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "./dashboard.css";
-import { Typography, Paper } from "@material-ui/core";
+import { Typography, Paper, Grid, Box } from "@material-ui/core";
+import SmallCardButton from "./SmallCardButton";
+import ButtonInfo from "./ButtonInfo";
 
 export default function DashboardCard(props) {
-  const { title, children } = props;
+  const { title, children, button } = props;
   return (
-    <>
-      <Paper className="dashboardCard" elevation={2}>
-        <Typography variant="h5" gutterBottom>
-          {title}
-        </Typography>
+    <Paper className="dashboardCard" elevation={2}>
+      <Typography variant="h5" gutterBottom>
+        {title}
+      </Typography>
+      <Grid container justify="center" direction="row" spacing={3}>
         {children}
-      </Paper>
-    </>
+      </Grid>
+    </Paper>
   );
 }
 
@@ -22,9 +24,11 @@ DashboardCard.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
-  ])
+  ]),
+  button: PropTypes.instanceOf(ButtonInfo)
 };
 
 DashboardCard.defaultProps = {
-  children: ""
+  children: "",
+  button: undefined
 };
