@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Box } from "@material-ui/core";
 
 import TabPanel from "./TabPanel";
 import DevicesTable from "./DevicesTable";
@@ -48,10 +47,10 @@ export default class DeviceListTabTable extends React.Component {
     return (
       <>
         <Tabs value={value} setValue={this.handleValueChange} />
-        <TabPanel value={value} index={0} >
+        <TabPanel value={value} index={0}>
           <DevicesTable devices={senders} title="List of Senders" />
         </TabPanel>
-        <TabPanel value={value} index={1} >
+        <TabPanel value={value} index={1}>
           <DevicesTable devices={receivers} title="List of Receivers" />
         </TabPanel>
       </>

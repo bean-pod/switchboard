@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Paper, Typography } from "@material-ui/core";
+import { Paper } from "@material-ui/core";
 import PropTypes from "prop-types";
 
 export default function TabPanel(props) {
@@ -12,11 +12,7 @@ export default function TabPanel(props) {
       id={`tabpanel-${index}`}
       aria-labelledby={`tab-${index}`}
     >
-      {value === index && (
-        <Paper>
-          {children}
-        </Paper>
-      )}
+      {value === index && <Paper>{children}</Paper>}
     </div>
   );
 }
