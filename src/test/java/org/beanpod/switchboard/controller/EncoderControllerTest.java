@@ -12,6 +12,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.nio.file.attribute.UserPrincipal;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -124,6 +125,14 @@ class EncoderControllerTest {
     when(encoderDao.save(user, encoderDTO)).thenReturn(encoderDTO);
     ResponseEntity<EncoderDto> response = encoderController.createEncoder(encoderDTO);
     assertEquals(200, response.getStatusCodeValue());
+  }
+
+  @Test
+  final void testCreateEncoderWithoutChannels() {
+    encoderDTO.setOutput(Collections.emptySet());
+    assertThrows(
+        ExceptionType.MissingChannelsException.class,
+        () -> encoderController.createEncoder(encoderDTO));
   }
 
   // When a device is unavailable in the DB
