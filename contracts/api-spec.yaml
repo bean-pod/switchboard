@@ -164,7 +164,7 @@ paths:
           multipart/form-data:
             schema:
               properties:
-                configurationInstance:
+                configuration:
                   type: string
                   format: binary
       responses:

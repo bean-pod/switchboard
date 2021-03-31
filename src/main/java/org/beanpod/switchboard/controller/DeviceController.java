@@ -38,15 +38,15 @@ public class DeviceController implements DeviceApi {
   @Override
   public ResponseEntity<String> uploadConfiguration(
       @PathVariable @Valid String serialNumber,
-      @RequestParam(value = "configurationInstance", required = false) MultipartFile instance) {
+      @RequestParam(value = "configuration", required = false) MultipartFile configuration) {
 
     DeviceModel deviceModel = new DeviceModel();
     deviceModel.setSerialNumber(serialNumber);
-    deviceModel.setConfigurationInstance(instance.getBytes());
+    deviceModel.setConfigurationInstance(configuration.getBytes());
     deviceModel.setConfigurationLastModified(OffsetDateTime.now());
 
     updateDevice(deviceModel);
-    return ResponseEntity.ok("Configurations uploaded.");
+    return ResponseEntity.ok("Configuration uploaded.");
   }
 
   @Override

@@ -18,7 +18,7 @@ public class DeviceFixture {
   public static final String DISPLAY_NAME = "Device #1";
   public static final String DISPLAY_NAME2 = "Device #2";
   public static final String STATUS = "offline";
-  public static final MockMultipartFile validJsonFile =
+  public static final MockMultipartFile file =
       new MockMultipartFile("json", "", "application/json", "{\"json\": \"someValue\"}".getBytes());
 
   @SneakyThrows
@@ -29,7 +29,7 @@ public class DeviceFixture {
         .publicIpAddress(PUBLIC_IP_ADDRESS)
         .displayName(DISPLAY_NAME)
         .status(STATUS)
-        .configurationInstance(validJsonFile.getBytes())
+        .configurationInstance(file.getBytes())
         .build();
   }
 
@@ -56,7 +56,7 @@ public class DeviceFixture {
         .serialNumber(SERIAL_NUMBER)
         .privateIpAddress(PRIVATE_IP_ADDRESS)
         .publicIpAddress(PUBLIC_IP_ADDRESS)
-        .configurationInstance(validJsonFile.getBytes())
+        .configurationInstance(file.getBytes())
         .status(STATUS);
   }
 
@@ -75,7 +75,7 @@ public class DeviceFixture {
         .privateIpAddress(PRIVATE_IP_ADDRESS)
         .publicIpAddress(PUBLIC_IP_ADDRESS)
         .displayName(DISPLAY_NAME)
-        .configurationInstance(validJsonFile.getBytes())
+        .configurationInstance(file.getBytes())
         .status(STATUS)
         .build();
   }
