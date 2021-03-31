@@ -26,32 +26,6 @@ public class DeviceDaoImpl {
         deviceRepository.save(deviceMapper.toDeviceEntity(deviceDto.orElse(null))));
   }
 
-  //  General data access methods
-  //
-  //  public DeviceDto createDevice(CreateDeviceRequest createDeviceRequest, String publicIpAddress)
-  // {
-  //    DeviceDto deviceDto = deviceMapper.toDeviceDto(createDeviceRequest, publicIpAddress);
-  //    deviceDto.setStatus(MaintainDeviceStatus.OFFLINE_STATUS);
-  //    DeviceEntity deviceEntity = deviceMapper.toDeviceEntity(deviceDto);
-  //    DeviceEntity savedDeviceEntity = deviceRepository.save(deviceEntity);
-  //    return deviceMapper.toDeviceDto(savedDeviceEntity);
-  //  }
-  //
-  //  public List<DeviceEntity> getDevices() {
-  //    return deviceRepository.findAll();
-  //  }
-  //
-  //  public Optional<DeviceDto> findDevice(String serialNumber) {
-  //    return
-  // deviceRepository.findDeviceBySerialNumber(serialNumber).map(deviceMapper::toDeviceDto);
-  //  }
-  //
-  //  public Long deleteDevice(String serialNumber) {
-  //    return deviceRepository.deleteDeviceEntitiesBySerialNumber(serialNumber);
-  //  }
-
-  // Ownership data access methods
-
   public DeviceDto createDevice(
       UserEntity user, CreateDeviceRequest createDeviceRequest, String publicIpAddress) {
     DeviceDto deviceDto = deviceMapper.toDeviceDto(user, createDeviceRequest, publicIpAddress);

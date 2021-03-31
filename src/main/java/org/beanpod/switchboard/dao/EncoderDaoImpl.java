@@ -27,24 +27,6 @@ public class EncoderDaoImpl {
         encoderRepository.save(encoderMapper.toEncoderEntity(encoderDto.orElse(encoder))));
   }
 
-  //  General data access methods
-  //
-  //  public List<EncoderEntity> getEncoders() {
-  //    return encoderRepository.findAll();
-  //  }
-  //
-  //  public Optional<EncoderDto> findEncoder(String serialNumber) {
-  //    return encoderRepository
-  //        .findEncoderBySerialNumber(serialNumber)
-  //        .map(encoderMapper::toEncoderDto);
-  //  }
-  //
-  //  public long deleteEncoder(String serialNumber) {
-  //    return encoderRepository.deleteEncoderEntityBySerialNumber(serialNumber);
-  //  }
-
-  // Ownership data access methods
-
   public List<EncoderEntity> getEncoders(UserEntity user) {
     return encoderRepository.findEncoderEntitiesByDeviceUser(user);
   }

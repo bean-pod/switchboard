@@ -36,8 +36,6 @@ public class ChannelDaoImpl {
         channelRepository.save(channelMapper.toChannelEntity(channelDto)));
   }
 
-  // ChannelEntity general data access methods
-
   public List<ChannelEntity> getChannels() {
     return channelRepository.findAll();
   }
@@ -50,9 +48,6 @@ public class ChannelDaoImpl {
     return channelRepository.deleteChannelEntitiesById(id);
   }
 
-  // ChannelEntity ownership data access methods
-
-
   // InputChannelEntity ------------------------------------------------------------------------
 
   public InputChannelDto saveInputChannel(InputChannelDto inputChannelDto) {
@@ -64,14 +59,6 @@ public class ChannelDaoImpl {
     InputChannelEntity inputChannelEntity = inputChannelRepository.getOne(id);
     return inputChannelMapper.toInputChannelDto(inputChannelEntity);
   }
-
-  //  InputChannelEntity general data access methods
-  //
-  //  public Long deleteOutputChannelById(Long id) {
-  //    return outputChannelRepository.deleteOutputChannelEntitiesById(id);
-  //  }
-
-  // InputChannelEntity ownership data access methods
 
   public Long deleteOutputChannelById(UserEntity user, Long id) {
     return outputChannelRepository.deleteOutputChannelEntitiesByEncoderDeviceUserAndId(user, id);
@@ -88,14 +75,6 @@ public class ChannelDaoImpl {
     OutputChannelEntity outputChannelEntity = outputChannelRepository.getOne(id);
     return outputChannelMapper.toOutputChannelDto(outputChannelEntity);
   }
-
-  //  OutputChannelEntity general data access methods
-  //
-  //  public Long deleteInputChannelById(Long id) {
-  //    return inputChannelRepository.deleteInputChannelEntityById(id);
-  //  }
-
-  // OutputChannelEntity ownership data access methods
 
   public Long deleteInputChannelById(UserEntity user, Long id) {
     return inputChannelRepository.deleteInputChannelEntityByDecoderDeviceUserAndId(user, id);

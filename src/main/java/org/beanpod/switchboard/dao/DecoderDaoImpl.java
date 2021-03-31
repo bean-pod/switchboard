@@ -29,24 +29,6 @@ public class DecoderDaoImpl {
         decoderRepository.save(decoderMapper.toDecoderEntity(decoderDto.orElse(decoder))));
   }
 
-  //  General data access methods
-  //
-  //  public List<DecoderEntity> getDecoders() {
-  //    return decoderRepository.findAll();
-  //  }
-  //
-  //  public Optional<DecoderDto> findDecoder(String serialNumber) {
-  //    return decoderRepository
-  //        .findDecoderBySerialNumber(serialNumber)
-  //        .map(decoderMapper::toDecoderDto);
-  //  }
-  //
-  //  public Long deleteDecoder(String serialNumber) {
-  //    return decoderRepository.deleteDecoderEntityBySerialNumber(serialNumber);
-  //  }
-
-  // Ownership data access methods
-
   public List<DecoderEntity> getDecoders(UserEntity user) {
     return decoderRepository.findDecoderEntitiesByDeviceUser(user);
   }

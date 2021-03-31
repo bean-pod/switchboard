@@ -21,25 +21,6 @@ public class EncoderServiceImpl implements EncoderService {
   private final StreamDaoImpl streamDao;
   private final DateUtil dateUtil;
 
-  //  General data access methods
-  //
-  //  @Override
-  //  public List<StreamDto> getEncoderStreams(String encoderSerialNumber) {
-  //    log.info("Getting encoder {} streams", encoderSerialNumber);
-  //    EncoderDto encoderDto =
-  //        encoderDao
-  //            .findEncoder(encoderSerialNumber)
-  //            .orElseThrow(() -> new ExceptionType.DeviceNotFoundException(encoderSerialNumber));
-  //
-  //    encoderDto.setLastCommunication(dateUtil.getCurrentDate());
-  //    encoderDao.save(encoderDto);
-  //    log.debug("Updated encoder {} last communication date", encoderSerialNumber);
-  //
-  //    return streamDao.getEncoderStreams(encoderSerialNumber);
-  //  }
-
-  // Ownership data access methods
-
   @Override
   public List<StreamDto> getEncoderStreams(UserEntity user, String encoderSerialNumber) {
     log.info("Getting encoder {} streams", encoderSerialNumber);

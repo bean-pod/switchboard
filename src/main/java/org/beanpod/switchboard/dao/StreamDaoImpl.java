@@ -55,28 +55,14 @@ public class StreamDaoImpl {
     streamRepository.deleteById(id);
   }
 
-  // General data access methods
-
   public Optional<StreamStatDto> getStreamStat(Long id) {
     return streamStatRepository.findStreamStatEntityById(id).map(statMapper::toDto);
   }
-
-  //  public List<StreamDto> getEncoderStreams(String encoderSerialNumber) {
-  //    List<StreamEntity> streamEntities = streamRepository.getEncoderStreams(encoderSerialNumber);
-  //    return mapper.toDtoList(streamEntities);
-  //  }
-  //
-  //  public List<StreamDto> getDecoderStreams(String decoderSerialNumber) {
-  //    List<StreamEntity> streamEntities = streamRepository.getDecoderStreams(decoderSerialNumber);
-  //    return mapper.toDtoList(streamEntities);
-  //  }
 
   public List<StreamStatDto> getStreamStats() {
     List<StreamStatEntity> streamStats = streamStatRepository.findAll();
     return statMapper.toDtoList(streamStats);
   }
-
-  // Ownership data access methods
 
   public List<StreamDto> getEncoderStreams(UserEntity user, String encoderSerialNumber) {
     List<StreamEntity> streamEntities =

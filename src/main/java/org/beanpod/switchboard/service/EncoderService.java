@@ -8,11 +8,5 @@ import org.springframework.stereotype.Service;
 @Service
 public interface EncoderService {
 
-  //  General data access methods
-  //
-  //  List<StreamDto> getEncoderStreams(String encoderSerialNumber);
-
-  // Ownership data access methods
-
   List<StreamDto> getEncoderStreams(UserEntity user, String encoderSerialNumber);
 }

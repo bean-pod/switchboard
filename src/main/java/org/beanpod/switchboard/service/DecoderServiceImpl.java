@@ -21,25 +21,6 @@ public class DecoderServiceImpl implements DecoderService {
   private final DecoderDaoImpl decoderDao;
   private final DateUtil dateUtil;
 
-  //  General data access methods
-  //
-  //  @Override
-  //  public List<StreamDto> getDecoderStreams(String decoderSerialNumber) {
-  //    log.info("Getting decoder {} streams", decoderSerialNumber);
-  //    DecoderDto decoder =
-  //        decoderDao
-  //            .findDecoder(decoderSerialNumber)
-  //            .orElseThrow(() -> new ExceptionType.DeviceNotFoundException(decoderSerialNumber));
-  //
-  //    decoder.setLastCommunication(dateUtil.getCurrentDate());
-  //    decoderDao.save(decoder);
-  //    log.debug("Updated decoder {} last communication date", decoderSerialNumber);
-  //
-  //    return streamDao.getDecoderStreams(decoderSerialNumber);
-  //  }
-
-  // Ownership data access methods
-
   @Override
   public List<StreamDto> getDecoderStreams(UserEntity user, String decoderSerialNumber) {
     log.info("Getting decoder {} streams", decoderSerialNumber);

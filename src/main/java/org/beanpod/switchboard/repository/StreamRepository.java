@@ -11,15 +11,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface StreamRepository extends JpaRepository<StreamEntity, Long> {
 
-  // General data access methods
-
   @Query("SELECT s FROM Stream s WHERE s.outputChannel.encoder.serialNumber = :encoderSerial")
   List<StreamEntity> getEncoderStreams(@Param(value = "encoderSerial") String encoderSerial);
 
   @Query("SELECT s FROM Stream s WHERE s.inputChannel.decoder.serialNumber = :decoderSerial")
   List<StreamEntity> getDecoderStreams(@Param(value = "decoderSerial") String decoderSerial);
-
-  // Ownership data access methods refactored using JPA repository named method convention
 
   List<StreamEntity> findAllByOutputChannelEncoderDeviceUserAndOutputChannelEncoderSerialNumber(
       UserEntity user, String encoderSerial);
