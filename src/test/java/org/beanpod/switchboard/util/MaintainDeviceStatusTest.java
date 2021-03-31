@@ -111,7 +111,7 @@ public class MaintainDeviceStatusTest {
   }
 
   @Test
-  final void testMaintainStreamStatusFieldOffline(){
+  final void testMaintainStreamStatusFieldOffline() {
     DeviceDto deviceDto = streamDto.getInputChannel().getDecoder().getDevice();
     deviceDto.setStatus("offline");
     DeviceDto deviceDto1 = streamDto.getOutputChannel().getEncoder().getDevice();
@@ -124,7 +124,7 @@ public class MaintainDeviceStatusTest {
   }
 
   @Test
-  final void testMaintainStreamStatusOnline(){
+  final void testMaintainStreamStatusOnline() {
     DeviceDto deviceDto = streamDto.getInputChannel().getDecoder().getDevice();
     deviceDto.setStatus("online");
     DeviceDto deviceDto1 = streamDto.getOutputChannel().getEncoder().getDevice();
