@@ -1,11 +1,17 @@
 import { expect, test } from "@jest/globals";
 import {
-  convertToDataObject,
+  convertDeviceToDataObject,
+  convertStatsToDataObject,
   convertToServiceObject
 } from "../ConvertDataFormat";
 import DeviceInfo from "../DeviceInfo";
 import InChannelInfo from "../InputChannelInfo";
 import OutChannelInfo from "../OutputChannelInfo";
+import StreamStatisticsInfo from "../StreamStatistics/StreamStatisticsInfo";
+import StreamStatsSendInfo from "../StreamStatistics/StreamStatsSendInfo";
+import StreamStatsReceiveInfo from "../StreamStatistics/StreamStatsReceiveInfo";
+import StreamStatsLinkInfo from "../StreamStatistics/StreamStatsLinkInfo";
+import StreamStatsWindowInfo from "../StreamStatistics/StreamStatsWindowInfo";
 
 const sampleInputChannels = [
   new InChannelInfo(1, "test input ch 1", 500, null),
@@ -72,12 +78,74 @@ const sampleAxiosReceiver = {
   extras: undefined
 };
 
-test("convertToDataObject returns DeviceInfo object with correct data", () => {
+const sampleDBStats = {
+  id: 11,
+  time: 11,
+  window: {
+    flow: 11,
+    congestion: 11,
+    flight: 11
+  },
+  link: {
+    rtt: 11,
+    bandwidth: 11,
+    maxBandwidth: 11
+  },
+  send: {
+    packets: 11,
+    packetsLost: 11,
+    packetsDropped: 11,
+    packetsRetransmitted: 11,
+    bytes: 11,
+    bytesDropped: 11,
+    mbitRate: 11
+  },
+  recv: {
+    packets: 11,
+    packetsLost: 11,
+    packetsDropped: 11,
+    packetsRetransmitted: 11,
+    packetsBelated: 11,
+    bytes: 11,
+    bytesLost: 11,
+    bytesDropped: 11,
+    mbitRate: 11
+  }
+};
+
+const sampleLocalStats = new StreamStatisticsInfo(
+  11,
+  11,
+  new StreamStatsWindowInfo({ flow: 11, congestion: 11, flight: 11 }),
+  new StreamStatsLinkInfo({ rtt: 11, bandwidth: 11, maxBandwidth: 11 }),
+  new StreamStatsSendInfo({
+    packets: 11,
+    packetsLost: 11,
+    packetsDropped: 11,
+    packetsRetransmitted: 11,
+    bytes: 11,
+    bytesDropped: 11,
+    mbitRate: 11
+  }),
+  new StreamStatsReceiveInfo({
+    packets: 11,
+    packetsLost: 11,
+    packetsDropped: 11,
+    packetsRetransmitted: 11,
+    packetsBelated: 11,
+    bytes: 11,
+    bytesLost: 11,
+    bytesDropped: 11,
+    mbitRate: 11
+  })
+);
+
+test("convertDeviceToDataObject returns DeviceInfo object with correct data", () => {
   const axiosSenderToLocal = JSON.stringify(
-    convertToDataObject(sampleAxiosSender)
+    convertDeviceToDataObject(sampleAxiosSender)
   );
   const axiosReceiverToLocal = JSON.stringify(
-    convertToDataObject(sampleAxiosReceiver)
+    convertDeviceToDataObject(sampleAxiosReceiver)
   );
 
   expect(axiosSenderToLocal).toStrictEqual(JSON.stringify(sampleLocalSender));
@@ -98,4 +166,12 @@ test("convertToServiceObject returns information in response format with correct
   expect(localReceiverToAxios).toStrictEqual(
     JSON.stringify(sampleAxiosReceiver)
   );
+});
+
+test("convertStatsToDataObject returns StreamStatisticsInfo object with correct data", () => {
+  const dbStatsToLocal = JSON.stringify(
+    convertStatsToDataObject(sampleDBStats)
+  );
+
+  expect(dbStatsToLocal).toStrictEqual(JSON.stringify(sampleLocalStats));
 });
