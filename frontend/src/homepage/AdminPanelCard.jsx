@@ -7,13 +7,11 @@ import DashBoardButton from "../general/dashboard/DashboardButton";
 export default function AdminPanelCard() {
   return (
     <DashboardCard title="Admin Panel">
-      <Grid container justify="center" direction="row" spacing={3}>
-        <Grid item xs={4}>
-          <DashBoardButton href="/Admin">View Users</DashBoardButton>
-        </Grid>
-        <Grid item xs={4}>
-          <DashBoardButton href="/Admin/New">Create a User</DashBoardButton>
-        </Grid>
+      <Grid item xs={4}>
+        <DashBoardButton href="/Admin">View Users</DashBoardButton>
+      </Grid>
+      <Grid item xs={4}>
+        <DashBoardButton href="/Admin/New">Create a User</DashBoardButton>
       </Grid>
     </DashboardCard>
   );
