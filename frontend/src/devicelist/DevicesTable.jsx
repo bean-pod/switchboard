@@ -131,8 +131,7 @@ export default function DevicesTable(props) {
   const { title, devices } = props;
   return (
     <>
-      <Box>
-        <TableContainer style={{ maxHeight: 570 }}>
+        <TableContainer >
           <MaterialTable
             title={title}
             components={getComponents()}
@@ -143,7 +142,6 @@ export default function DevicesTable(props) {
             icons={getIcons()}
           />
         </TableContainer>
-      </Box>
     </>
   );
 }
