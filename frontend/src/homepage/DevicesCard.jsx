@@ -7,12 +7,12 @@ import DashBoardButton from "../general/dashboard/DashboardButton";
 export default function DevicesCard() {
   return (
     <DashboardCard title="Devices">
-        <Grid item xs={4}>
-          <DashBoardButton href="/Devices">View Senders</DashBoardButton>
-        </Grid>
-        <Grid item xs={4}>
-          <DashBoardButton href="/Devices">View Receivers</DashBoardButton>
-        </Grid>
+      <Grid item xs={4}>
+        <DashBoardButton href="/Devices">View Senders</DashBoardButton>
+      </Grid>
+      <Grid item xs={4}>
+        <DashBoardButton href="/Devices">View Receivers</DashBoardButton>
+      </Grid>
     </DashboardCard>
   );
 }

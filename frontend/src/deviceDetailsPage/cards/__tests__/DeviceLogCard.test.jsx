@@ -33,10 +33,10 @@ describe("<DeviceLogCard/> functional component", () => {
     it("Contains 1 <Grid/> component with expected props", () => {
       expect(wrapper.find(Grid)).toHaveLength(1);
       const props = wrapper.find(Grid).at(0).props();
-      const expected={
+      const expected = {
         item: true,
-        xs : 12,
-        childType:"DeviceLogTableWrapper"
+        xs: 12,
+        childType: "DeviceLogTableWrapper"
       };
 
       expect(props.item).toBe(expected.item);
