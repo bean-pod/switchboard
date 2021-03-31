@@ -14,6 +14,15 @@ export default function DashboardCard(props) {
       </Typography>
       <Grid container justify="center" direction="row" spacing={3}>
         {children}
+        {button ? (
+          <Grid item xs={12}>
+            <Box className="alignRightFloatPadded">
+              <SmallCardButton button={button} />
+            </Box>
+          </Grid>
+        ) : (
+          null
+        )}
       </Grid>
     </Paper>
   );
