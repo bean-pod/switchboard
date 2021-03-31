@@ -1,8 +1,8 @@
 import React from "react";
-import { Tab, Tabs } from "@material-ui/core";
+import { AppBar, Tab, Tabs as MuiTabs } from "@material-ui/core";
 import PropTypes from "prop-types";
 
-export default class VerticalTabs extends React.Component {
+export default class Tabs extends React.Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
@@ -14,42 +14,24 @@ export default class VerticalTabs extends React.Component {
   }
 
   render() {
-    const {
-      value,
-      classes: { tabs }
-    } = this.props;
+    const { value } = this.props;
 
     return (
-      <>
-        <Tabs
+      <AppBar position="static" color="default" elevation={10}>
+        <MuiTabs
           value={value}
           onChange={this.handleChange}
-          aria-label="Vertical tabs"
-          className={`${tabs} lightGrey blackFont flexContents`}
-          orientation="vertical"
           indicatorColor="primary"
-          variant="scrollable"
         >
-          <Tab
-            label="Senders"
-            id="vertical-tab-0"
-            aria-controls="vertical-tabpanel-0"
-          />
-          <Tab
-            label="Receivers"
-            id="vertical-tab-1"
-            aria-controls="vertical-tabpanel-1"
-          />
-        </Tabs>
-      </>
+          <Tab label="Senders" id="tab-0" aria-controls="tabpanel-0" />
+          <Tab label="Receivers" id="tab-1" aria-controls="tabpanel-1" />
+        </MuiTabs>
+      </AppBar>
     );
   }
 }
 
-VerticalTabs.propTypes = {
+Tabs.propTypes = {
   setValue: PropTypes.func.isRequired,
-  value: PropTypes.number.isRequired,
-  classes: PropTypes.shape({
-    tabs: PropTypes.string
-  }).isRequired
+  value: PropTypes.number.isRequired
 };

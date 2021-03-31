@@ -4,7 +4,7 @@ import { Box } from "@material-ui/core";
 
 import TabPanel from "./TabPanel";
 import DevicesTable from "./DevicesTable";
-import VerticalTabs from "../general/VerticalTabs";
+import Tabs from "../general/VerticalTabs";
 
 export default class DeviceListTabTable extends React.Component {
   constructor(props) {
@@ -45,27 +45,15 @@ export default class DeviceListTabTable extends React.Component {
 
   render() {
     const { receivers, senders, value } = this.state;
-    const { classes } = this.props;
     return (
       <>
-        <Box
-          style={{
-            display: "flex",
-            flexGrow: 1
-          }}
-        >
-          <VerticalTabs
-            value={value}
-            setValue={this.handleValueChange}
-            classes={classes}
-          />
-          <TabPanel value={value} index={0} className="lightGreyBorder">
-            <DevicesTable devices={senders} title="List of Senders" />
-          </TabPanel>
-          <TabPanel value={value} index={1} className="lightGreyBorder">
-            <DevicesTable devices={receivers} title="List of Receivers" />
-          </TabPanel>
-        </Box>
+        <Tabs value={value} setValue={this.handleValueChange} />
+        <TabPanel value={value} index={0} >
+          <DevicesTable devices={senders} title="List of Senders" />
+        </TabPanel>
+        <TabPanel value={value} index={1} >
+          <DevicesTable devices={receivers} title="List of Receivers" />
+        </TabPanel>
       </>
     );
   }
