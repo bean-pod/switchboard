@@ -15,7 +15,7 @@ export default function SmallCardButton(props) {
       className="hideLinkStyle"
       to={{
         pathname,
-        state: { referenceObject }
+        state: referenceObject
       }}
     >
       <Button variant="contained" size="small">

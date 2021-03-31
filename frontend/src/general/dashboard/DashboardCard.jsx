@@ -20,9 +20,7 @@ export default function DashboardCard(props) {
               <SmallCardButton button={button} />
             </Box>
           </Grid>
-        ) : (
-          null
-        )}
+        ) : null}
       </Grid>
     </Paper>
   );

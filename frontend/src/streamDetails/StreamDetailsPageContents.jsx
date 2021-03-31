@@ -12,7 +12,7 @@ export default function StreamDetailsPageContents(props) {
   const { stream } = props;
   const button = new ButtonInfo(
     `/Devices/Details/${stream.sender.serialNumber}`,
-    stream.sender,
+    { device: stream.sender },
     "View Device"
   );
   return (
