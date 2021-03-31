@@ -8,7 +8,6 @@ import org.openapitools.model.UserModel;
 public class UserFixture {
 
   public static SwitchBoardUserDetails getUserDetails() {
-    new SwitchBoardUserDetails();
     return SwitchBoardUserDetails.builder().username("moh@gmail.com").password("1234.").build();
   }
 
@@ -17,12 +16,10 @@ public class UserFixture {
   }
 
   public static UserDto getUserDto() {
-    new UserDto();
     return UserDto.builder().username("moh@gmail.com").password("1234.").build();
   }
 
   public static UserEntity getUserEntity() {
-    new UserEntity();
     return UserEntity.builder().username("moh@gmail.com").password("1234.").build();
   }
 }
