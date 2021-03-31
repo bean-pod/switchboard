@@ -19,7 +19,6 @@ import org.beanpod.switchboard.fixture.UserFixture;
 import org.beanpod.switchboard.repository.EncoderRepository;
 import org.beanpod.switchboard.util.UserMockUtil;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -91,9 +90,8 @@ class EncoderDaoImplTest {
   }
 
   @Test
-  @Disabled
   final void testGetEncoders() {
-    when(encoderRepository.findAll()).thenReturn(listOfEncoders);
+    when(encoderRepository.findEncoderEntitiesByDeviceUser(user)).thenReturn(listOfEncoders);
     List<EncoderEntity> deviceEntities = encoderDaoImpl.getEncoders(user);
     assertIterableEquals(deviceEntities, listOfEncoders);
   }

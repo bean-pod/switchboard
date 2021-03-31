@@ -7,6 +7,7 @@ import java.util.TimeZone;
 import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.dao.DeviceDaoImpl;
 import org.beanpod.switchboard.dto.DecoderDto;
+import org.beanpod.switchboard.dto.DeviceDto;
 import org.beanpod.switchboard.dto.EncoderDto;
 import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.dto.mapper.DeviceMapper;
@@ -70,23 +71,19 @@ public class MaintainDeviceStatus {
     EncoderDto encoder = streamDto.getOutputChannel().getEncoder();
     List<DeviceEntity> updatedDevices = new ArrayList<>();
 
-    // update the status field for decoder
-    if ((decoder.getDevice().getStatus()).equalsIgnoreCase(OFFLINE_STATUS)) {
-      decoder.getDevice().setStatus(ONLINE_STATUS);
-      deviceDao.save(userMapper.toUserEntity(decoder.getDevice().getUser()), decoder.getDevice());
-
-      updatedDevices.add(deviceMapper.toDeviceEntity(decoder.getDevice()));
-    }
-
-    // update the status field for encoder
-    if ((encoder.getDevice().getStatus()).equalsIgnoreCase(OFFLINE_STATUS)) {
-      encoder.getDevice().setStatus(ONLINE_STATUS);
-      deviceDao.save(userMapper.toUserEntity(decoder.getDevice().getUser()), encoder.getDevice());
-
-      updatedDevices.add(deviceMapper.toDeviceEntity(decoder.getDevice()));
-    }
+    updateDeviceStatusField(decoder.getDevice(), updatedDevices);
+    updateDeviceStatusField(encoder.getDevice(), updatedDevices);
 
     return updatedDevices;
+  }
+
+  private void updateDeviceStatusField(DeviceDto device, List<DeviceEntity> updatedDevices) {
+    if ((device.getStatus()).equalsIgnoreCase(OFFLINE_STATUS)) {
+      device.setStatus(ONLINE_STATUS);
+      deviceDao.save(userMapper.toUserEntity(device.getUser()), device);
+
+      updatedDevices.add(deviceMapper.toDeviceEntity(device));
+    }
   }
 
   private Date getDateToBeCompared() {

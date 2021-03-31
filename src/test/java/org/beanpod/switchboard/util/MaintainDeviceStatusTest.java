@@ -14,6 +14,7 @@ import org.beanpod.switchboard.dao.UserDaoImpl;
 import org.beanpod.switchboard.dto.DeviceDto;
 import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.dto.mapper.DeviceMapper;
+import org.beanpod.switchboard.dto.mapper.UserMapper;
 import org.beanpod.switchboard.entity.EncoderEntity;
 import org.beanpod.switchboard.entity.UserEntity;
 import org.beanpod.switchboard.fixture.EncoderFixture;
@@ -22,7 +23,6 @@ import org.beanpod.switchboard.fixture.StreamFixture;
 import org.beanpod.switchboard.fixture.UserFixture;
 import org.beanpod.switchboard.repository.LogRepository;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -42,6 +42,7 @@ public class MaintainDeviceStatusTest {
   @Mock HttpServletRequest httpServletRequest;
   @Mock UserPrincipal userPrincipal;
   @Mock UserDaoImpl userDao;
+  @Mock UserMapper userMapper;
 
   @BeforeEach
   public void setup() {
@@ -110,20 +111,25 @@ public class MaintainDeviceStatusTest {
   }
 
   @Test
-  @Disabled
-  final void testMaintainStatusFieldForStreamDto() {
+  final void testMaintainStreamStatusFieldOffline(){
     DeviceDto deviceDto = streamDto.getInputChannel().getDecoder().getDevice();
     deviceDto.setStatus("offline");
     DeviceDto deviceDto1 = streamDto.getOutputChannel().getEncoder().getDevice();
     deviceDto1.setStatus("offline");
 
-    // TEST CASE 1: status is equal to offline
     maintainDeviceStatus.maintainStatusField(streamDto);
 
     assertEquals("online", deviceDto.getStatus(), "Status attribute is expected to be online");
     assertEquals("online", deviceDto1.getStatus(), "Status attribute is expected to be online");
+  }
 
-    // Test Case 2: status is equal to online
+  @Test
+  final void testMaintainStreamStatusOnline(){
+    DeviceDto deviceDto = streamDto.getInputChannel().getDecoder().getDevice();
+    deviceDto.setStatus("online");
+    DeviceDto deviceDto1 = streamDto.getOutputChannel().getEncoder().getDevice();
+    deviceDto1.setStatus("online");
+
     maintainDeviceStatus.maintainStatusField(streamDto);
 
     assertEquals("online", deviceDto.getStatus(), "Status attribute is expected to be online");

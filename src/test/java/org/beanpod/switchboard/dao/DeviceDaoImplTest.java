@@ -19,7 +19,6 @@ import org.beanpod.switchboard.fixture.UserFixture;
 import org.beanpod.switchboard.repository.DeviceRepository;
 import org.beanpod.switchboard.util.UserMockUtil;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -84,9 +83,8 @@ class DeviceDaoImplTest {
   }
 
   @Test
-  @Disabled
   final void testGetDevices() {
-    when(deviceRepository.findAll()).thenReturn(listOfDevices);
+    when(deviceRepository.findDeviceEntitiesByUser(user)).thenReturn(listOfDevices);
     List<DeviceEntity> deviceEntities = deviceDaoImpl.getDevices(user);
     assertIterableEquals(deviceEntities, listOfDevices);
   }
@@ -101,10 +99,9 @@ class DeviceDaoImplTest {
   }
 
   @Test
-  @Disabled
   final void testCreateDevice() {
     String ipAddress = DeviceFixture.PUBLIC_IP_ADDRESS;
-    when(deviceMapper.toDeviceDto(createDeviceRequest, ipAddress)).thenReturn(deviceDto);
+    when(deviceMapper.toDeviceDto(user, createDeviceRequest, ipAddress)).thenReturn(deviceDto);
     when(deviceMapper.toDeviceEntity(deviceDto)).thenReturn(deviceEntity);
     when(deviceRepository.save(deviceEntity)).thenReturn(deviceEntity);
     when(deviceMapper.toDeviceDto(deviceEntity)).thenReturn(deviceDto);
