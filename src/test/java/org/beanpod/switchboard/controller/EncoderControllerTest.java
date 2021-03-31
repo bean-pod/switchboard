@@ -14,7 +14,6 @@ import static org.mockito.Mockito.when;
 import java.nio.file.attribute.UserPrincipal;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import org.beanpod.switchboard.dao.DeviceDaoImpl;
