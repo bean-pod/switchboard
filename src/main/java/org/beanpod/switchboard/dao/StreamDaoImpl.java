@@ -46,9 +46,6 @@ public class StreamDaoImpl {
         streamStatRepository.save(statMapper.toEntity(streamStat.orElse(null))));
   }
 
-  // Usage of framework methods that may need to be overloaded in StreamRepository
-  // to enforce ownership data access
-
   public StreamDto getStreamById(Long id) {
     StreamEntity streamEntity = streamRepository.getOne(id);
     return mapper.toDto(streamEntity);
@@ -94,8 +91,6 @@ public class StreamDaoImpl {
             user, decoderSerialNumber);
     return mapper.toDtoList(streamEntities);
   }
-
-  // I'm confused as to what purpose the following two methods serve?
 
   public List<Long> getStreams() {
     return streamRepository.getAllId();

@@ -8,10 +8,6 @@ import org.beanpod.switchboard.repository.LogRepository;
 import org.openapitools.model.LogModel;
 import org.springframework.stereotype.Component;
 
-// Ownership data access methods are pending updates to LogEntity. The LogEntity
-// serial_number should be a foreign key relationship to the device's serial number
-// that created the log.
-
 @Component
 @RequiredArgsConstructor
 public class LogDaoImpl {

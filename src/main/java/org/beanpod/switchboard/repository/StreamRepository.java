@@ -27,8 +27,6 @@ public interface StreamRepository extends JpaRepository<StreamEntity, Long> {
   List<StreamEntity> findAllByInputChannelDecoderDeviceUserAndInputChannelDecoderSerialNumber(
       UserEntity user, String decoderSerial);
 
-  // I'm confused as to what purpose the following two methods serve?
-
   @Query("SELECT id FROM Stream")
   List<Long> getAllId();
 

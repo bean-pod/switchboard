@@ -27,20 +27,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-// If channels are standalone objects to be manipulated on their own,
-// channel ownership becomes difficult to establish or enforce
-
-// Pending clarification on what exactly is a Channel regarding ownership.
-// OutputChannel and InputChannel seem to belong to a device, but where does
-// that leave channel? What differs? Why do InputChannel and OutputChannel
-// encapsulate a Channel? Is Channel actually suppose to be an extension?
-
-// All Dao methods use framework methods that may need to be overloaded,
-// except for delete methods
-
-// I noted that ChannelController is not defined in the OpenApi specification.
-// Instead it uses the springframework for definition.
-
 @RestController
 @RequestMapping("/channel")
 @RequiredArgsConstructor

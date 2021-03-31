@@ -18,10 +18,6 @@ import org.beanpod.switchboard.repository.InputChannelRepository;
 import org.beanpod.switchboard.repository.OutputChannelRepository;
 import org.springframework.stereotype.Service;
 
-// I'm confused as to why channel management is not a device management responsibility
-// If channels are standalone objects to be manipulated on their own,
-// channel ownership becomes difficult to establish or enforce
-
 @Service
 @RequiredArgsConstructor
 public class ChannelDaoImpl {
@@ -56,10 +52,6 @@ public class ChannelDaoImpl {
 
   // ChannelEntity ownership data access methods
 
-  /*
-   * Difficulty establishing or enforcing ChannelEntity ownership as currently
-   * accessed.
-   */
 
   // InputChannelEntity ------------------------------------------------------------------------
 
@@ -68,8 +60,6 @@ public class ChannelDaoImpl {
         inputChannelRepository.save(inputChannelMapper.toInputChannelEntity(inputChannelDto)));
   }
 
-  // The following method uses a framework method that may need to be overloaded
-  // in InputChannelRepository to enforce ownership data access
   public InputChannelDto getInputChannelById(Long id) {
     InputChannelEntity inputChannelEntity = inputChannelRepository.getOne(id);
     return inputChannelMapper.toInputChannelDto(inputChannelEntity);
@@ -94,8 +84,6 @@ public class ChannelDaoImpl {
         outputChannelRepository.save(outputChannelMapper.toOutputChannelEntity(outputChannelDto)));
   }
 
-  // The following method uses a framework method that may need to be overloaded
-  // in OutputChannelRepository to enforce ownership data access
   public OutputChannelDto getOutputChannelById(Long id) {
     OutputChannelEntity outputChannelEntity = outputChannelRepository.getOne(id);
     return outputChannelMapper.toOutputChannelDto(outputChannelEntity);

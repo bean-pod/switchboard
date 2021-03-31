@@ -20,9 +20,6 @@ import org.openapitools.model.StreamStatModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
-// Usage of framework methods that may need to be overloaded in StreamRepository
-// to enforce ownership data access
-
 @RestController
 @RequiredArgsConstructor
 public class StreamController implements StreamApi {

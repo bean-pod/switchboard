@@ -5,8 +5,6 @@ import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.dto.StreamStatDto;
 import org.openapitools.model.CreateStreamRequest;
 
-// Blocked by StreamDaoImpl and ChannelDaoImpl
-
 public interface StreamService {
 
   StreamDto createStream(CreateStreamRequest createStreamRequest);

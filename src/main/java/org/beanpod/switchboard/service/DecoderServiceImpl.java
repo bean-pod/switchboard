@@ -52,8 +52,6 @@ public class DecoderServiceImpl implements DecoderService {
     decoderDao.save(user, decoder);
     log.debug("Updated decoder {} last communication date", decoderSerialNumber);
 
-    // Pending resolution of StreamDao, we may need to change streamDao method
-    // to better enforce ownership.
     return streamDao.getDecoderStreams(user, decoderSerialNumber);
   }
 }

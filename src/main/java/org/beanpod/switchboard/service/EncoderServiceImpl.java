@@ -52,8 +52,6 @@ public class EncoderServiceImpl implements EncoderService {
     encoderDao.save(user, encoderDto);
     log.debug("Updated encoder {} last communication date", encoderSerialNumber);
 
-    // Pending resolution of StreamDao, we may need to change streamDao method
-    // to better enforce ownership.
     return streamDao.getEncoderStreams(user, encoderSerialNumber);
   }
 }

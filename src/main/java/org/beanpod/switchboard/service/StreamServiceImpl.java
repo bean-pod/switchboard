@@ -17,8 +17,6 @@ import org.beanpod.switchboard.util.NetworkingUtil;
 import org.openapitools.model.CreateStreamRequest;
 import org.springframework.stereotype.Component;
 
-// Blocked by StreamDaoImpl and ChannelDaoImpl
-
 @Component
 @RequiredArgsConstructor
 @Slf4j

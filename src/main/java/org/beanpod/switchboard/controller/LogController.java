@@ -15,10 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-// Ownership data access methods are pending updates to LogEntity. The LogEntity
-// serial_number should be a foreign key relationship to the device's serial number
-// that created the log.
-
 @RestController
 @RequiredArgsConstructor
 public class LogController implements LogApi {
