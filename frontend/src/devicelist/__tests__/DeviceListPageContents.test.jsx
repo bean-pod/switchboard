@@ -100,9 +100,9 @@ describe("<DeviceListPageContents/> class component", () => {
       };
       const wrap = Enzyme.shallow(wrapper.instance().getTitle());
 
-    //   expect(wrapper.matchesElement(<DeviceTableTitle index={expected.index} handleChange={expected.handleChange}/>)).toBe(true);
+      //   expect(wrapper.matchesElement(<DeviceTableTitle index={expected.index} handleChange={expected.handleChange}/>)).toBe(true);
 
-      const props = wrap.instance().props;
+      const { props } = wrap.instance();
       expect(props.index).toBe(expected.index);
       expect(props.handleChange).toStrictEqual(expected.handleChange);
     });
@@ -114,12 +114,12 @@ describe("<DeviceListPageContents/> class component", () => {
     describe("returns a component that", () => {
       it("Contains 1 <DevicesTable/> component with expected props", () => {
         const someState = {
-            selected: 0,
-            senders: dummySenders,
-            receivers: dummyReceivers
-          };
+          selected: 0,
+          senders: dummySenders,
+          receivers: dummyReceivers
+        };
         wrapper.setState(someState);
-        
+
         const component = wrapper.find(DevicesTable);
         expect(component).toHaveLength(1);
         const expected = {
