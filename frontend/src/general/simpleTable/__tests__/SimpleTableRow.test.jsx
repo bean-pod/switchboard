@@ -32,7 +32,7 @@ describe("<SimpleTableRow/> functional component", () => {
   });
   describe("when centerValue is true", () => {
     const centerValue = Enzyme.shallow(
-      <SimpleTableRow name={dummyName} value={dummyValue} centerValue />
+      <SimpleTableRow name={dummyName} value={dummyValue} alignment="center" />
     );
 
     it("has 2 TableCell components with expected contents and props", () => {
