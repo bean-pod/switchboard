@@ -156,7 +156,7 @@ describe("<DeviceListPageContents/> class component", () => {
       };
       const deviceTableTitle = wrapper.instance().getTitle();
       expect(deviceTableTitle.type).toEqual(DeviceTableTitle);
-      
+
       const wrap = Enzyme.shallow(deviceTableTitle);
 
       const { props } = wrap.instance();
