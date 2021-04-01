@@ -154,9 +154,10 @@ describe("<DeviceListPageContents/> class component", () => {
         index: wrapper.state().selected,
         handleChange: wrapper.instance().handleChange
       };
-      const wrap = Enzyme.shallow(wrapper.instance().getTitle());
-
-      //   expect(wrapper.matchesElement(<DeviceTableTitle index={expected.index} handleChange={expected.handleChange}/>)).toBe(true);
+      const deviceTableTitle = wrapper.instance().getTitle();
+      expect(deviceTableTitle.type).toEqual(DeviceTableTitle);
+      
+      const wrap = Enzyme.shallow(deviceTableTitle);
 
       const { props } = wrap.instance();
       expect(props.index).toBe(expected.index);
