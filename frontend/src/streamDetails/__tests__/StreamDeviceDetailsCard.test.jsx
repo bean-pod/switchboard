@@ -28,12 +28,11 @@ describe("<StreamDeviceDetailsCard/> functional component", () => {
     );
     const dummyChannel = 10;
     const dummyTitle = "Device Card";
-    const expectedNames = ["Name", "Serial Number", "Channel"];
-    const expectedValues = [
-      dummyDevice.name,
-      dummyDevice.serialNumber,
-      dummyChannel
-    ];
+    const expectedProperties = {
+      "Name": dummyDevice.name,
+      "Serial Number": dummyDevice.serialNumber,
+      "Channel": dummyChannel
+    };
 
     beforeEach(() => {
       wrapper = Enzyme.shallow(
@@ -68,8 +67,7 @@ describe("<StreamDeviceDetailsCard/> functional component", () => {
       expect(simpleTable).toHaveLength(1);
 
       const simpleTableProps = simpleTable.props();
-      expect(simpleTableProps.propertyNames).toStrictEqual(expectedNames);
-      expect(simpleTableProps.properties).toStrictEqual(expectedValues);
+      expect(simpleTableProps.properties).toStrictEqual(expectedProperties);
     });
   });
 });
