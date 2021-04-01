@@ -50,7 +50,63 @@ describe("<DeviceListPageContents/> class component", () => {
       );
     });
   });
+  describe("handleChange()", () => {
+    beforeEach(() => {
+        wrapper = Enzyme.shallow(<DeviceListPageContents />);
+      });
+    it("should set the state", () => {
+      const startingState = {
+        selected: 0,
+        senders: [],
+        receivers: []
+      };
 
+      const expectedValue = 5;
+
+      wrapper.setState(startingState);
+
+      wrapper.instance().handleChange(expectedValue);
+      expect(wrapper.state().selected).toStrictEqual(expectedValue);
+    });
+  });
+  describe("handleSendersChange()", () => {
+    beforeEach(() => {
+        wrapper = Enzyme.shallow(<DeviceListPageContents />);
+      });
+    it("should set the state", () => {
+      const startingState = {
+        selected: 0,
+        senders: [],
+        receivers: []
+    };
+    
+    const expectedValue =[new DeviceInfo("thing!") ];
+
+      wrapper.setState(startingState);
+
+      wrapper.instance().handleSendersChange(expectedValue);
+      expect(wrapper.state().senders).toStrictEqual(expectedValue);
+    });
+  });
+  describe("handleReceiversChange()", () => {
+    beforeEach(() => {
+        wrapper = Enzyme.shallow(<DeviceListPageContents />);
+      });
+    it("should set the state", () => {
+      const startingState = {
+        selected: 0,
+        senders: [],
+        receivers: []
+      };
+
+      const expectedValue =[new DeviceInfo("thing!") ];
+
+      wrapper.setState(startingState);
+
+      wrapper.instance().handleReceiversChange(expectedValue);
+      expect(wrapper.state().receivers).toStrictEqual(expectedValue);
+    });
+  });
   describe("getDevices() function", () => {
     beforeEach(() => {
       wrapper = Enzyme.shallow(<DeviceListPageContents />);
