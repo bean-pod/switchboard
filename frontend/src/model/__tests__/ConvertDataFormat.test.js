@@ -1,4 +1,4 @@
-import { expect, test } from "@jest/globals";
+import { describe, it, expect } from "@jest/globals";
 import {
   convertDeviceToDataObject,
   convertStatsToDataObject,
@@ -140,38 +140,42 @@ const sampleLocalStats = new StreamStatisticsInfo(
   })
 );
 
-test("convertDeviceToDataObject returns DeviceInfo object with correct data", () => {
-  const axiosSenderToLocal = JSON.stringify(
-    convertDeviceToDataObject(sampleAxiosSender)
-  );
-  const axiosReceiverToLocal = JSON.stringify(
-    convertDeviceToDataObject(sampleAxiosReceiver)
-  );
-
-  expect(axiosSenderToLocal).toStrictEqual(JSON.stringify(sampleLocalSender));
-  expect(axiosReceiverToLocal).toStrictEqual(
-    JSON.stringify(sampleLocalReceiver)
-  );
+describe("convertDeviceToDataObject function", () => {
+  it("returns a DeviceInfo object with correct data", () => {
+    const axiosSenderToLocal = JSON.stringify(
+      convertDeviceToDataObject(sampleAxiosSender)
+    );
+    const axiosReceiverToLocal = JSON.stringify(
+      convertDeviceToDataObject(sampleAxiosReceiver)
+    );
+    
+    expect(axiosSenderToLocal).toStrictEqual(JSON.stringify(sampleLocalSender));
+    expect(axiosReceiverToLocal).toStrictEqual(
+      JSON.stringify(sampleLocalReceiver)
+    );
+  });
 });
 
-test("convertToServiceObject returns information in response format with correct data", () => {
-  const localSenderToAxios = JSON.stringify(
-    convertToServiceObject(sampleLocalSender)
-  );
-  const localReceiverToAxios = JSON.stringify(
-    convertToServiceObject(sampleLocalReceiver)
-  );
-
-  expect(localSenderToAxios).toStrictEqual(JSON.stringify(sampleAxiosSender));
-  expect(localReceiverToAxios).toStrictEqual(
-    JSON.stringify(sampleAxiosReceiver)
-  );
+describe("convertToServiceObject function", () => {
+  it("returns information in response format with correct data", () => {
+    const localSenderToAxios = JSON.stringify(
+      convertToServiceObject(sampleLocalSender)
+    );
+    const localReceiverToAxios = JSON.stringify(
+      convertToServiceObject(sampleLocalReceiver)
+    );
+    
+    expect(localSenderToAxios).toStrictEqual(JSON.stringify(sampleAxiosSender));
+    expect(localReceiverToAxios).toStrictEqual(
+      JSON.stringify(sampleAxiosReceiver)
+    );
+  });
 });
 
-test("convertStatsToDataObject returns StreamStatisticsInfo object with correct data", () => {
-  const dbStatsToLocal = JSON.stringify(
-    convertStatsToDataObject(sampleDBStats)
-  );
-
-  expect(dbStatsToLocal).toStrictEqual(JSON.stringify(sampleLocalStats));
+describe("convertStatsToDataObject function", () => {
+  it("returns a StreamStatisticsInfo object with correct data", () => {
+    const dbStatsToLocal = convertStatsToDataObject(sampleDBStats);
+    
+    expect(dbStatsToLocal).toStrictEqual(sampleLocalStats);
+  });
 });
