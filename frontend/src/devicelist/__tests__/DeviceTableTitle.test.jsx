@@ -88,4 +88,17 @@ describe("<DeviceTableTitle/> class component", () => {
       });
     });
   });
+
+  describe("handleChange() function", ()=>{
+      it("calls passed handleChange callback with expected args", ()=>{
+        const expectedArg = 4;
+        const dummyEvent = {
+            target:{
+                value: expectedArg
+            }
+        }  
+        wrapper.instance().handleChange(dummyEvent);
+        expect(mockHandleChange).toBeCalledWith(expectedArg);
+      })
+  })
 });
