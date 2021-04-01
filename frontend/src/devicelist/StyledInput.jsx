@@ -1,4 +1,3 @@
-import React from "react";
 import { InputBase, withStyles } from "@material-ui/core";
 
 export default withStyles({
