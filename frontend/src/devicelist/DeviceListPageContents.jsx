@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
+
 import { getSenders, getReceivers } from "../api/DeviceApi";
 import DeviceTableTitle from "./DeviceTableTitle";
 import DevicesTable from "./DevicesTable";
