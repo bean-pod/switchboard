@@ -6,7 +6,7 @@ import SimpleTableRow from "./SimpleTableRow";
 import { zipProperties } from "./SimpleTableUtil";
 
 export default function SimpleTable(props) {
-  const { propertyNames, properties, centerValues } = props;
+  const { propertyNames, properties, alignment } = props;
 
   const propertyPairs = zipProperties(propertyNames, properties);
 
@@ -18,7 +18,7 @@ export default function SimpleTable(props) {
             <SimpleTableRow
               name={propertyPair[0]}
               value={propertyPair[1]}
-              centerValue={centerValues}
+              alignment={alignment}
               key={`component_${propertyPair[0]}`}
             />
           ))}
@@ -29,10 +29,10 @@ export default function SimpleTable(props) {
 }
 
 SimpleTable.defaultProps = {
-  centerValues: false
+  alignment: "left"
 };
 SimpleTable.propTypes = {
   propertyNames: PropTypes.arrayOf(PropTypes.string).isRequired,
   properties: PropTypes.arrayOf(PropTypes.node).isRequired,
-  centerValues: PropTypes.bool
+  alignment: PropTypes.string
 };
