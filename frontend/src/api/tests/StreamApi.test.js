@@ -6,7 +6,10 @@ import * as authenticationUtil from "../AuthenticationUtil";
 // import StreamApi itself
 import * as StreamApi from "../StreamApi";
 import StreamInfo from "../../model/StreamInfo";
-import { convertToDataObject } from "../../model/ConvertDataFormat";
+import {
+  convertDeviceToDataObject,
+  convertStatsToDataObject
+} from "../../model/ConvertDataFormat";
 import * as StreamFixture from "./StreamFixture";
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -17,20 +20,21 @@ jest.mock("../AuthenticationUtil");
 const {
   firstStreamResponse,
   secondStreamResponse,
-  allStreamsResponse
+  allStreamsResponse,
+  streamStatResponse
 } = StreamFixture;
 
 const expectedFirstStreamRespone = new StreamInfo(
   1,
-  convertToDataObject(firstStreamResponse.outputChannel.encoder),
-  convertToDataObject(firstStreamResponse.inputChannel.decoder),
+  convertDeviceToDataObject(firstStreamResponse.outputChannel.encoder),
+  convertDeviceToDataObject(firstStreamResponse.inputChannel.decoder),
   20001,
   20002
 );
 const expectedSecondStreamResponse = new StreamInfo(
   2,
-  convertToDataObject(secondStreamResponse.outputChannel.encoder),
-  convertToDataObject(secondStreamResponse.inputChannel.decoder),
+  convertDeviceToDataObject(secondStreamResponse.outputChannel.encoder),
+  convertDeviceToDataObject(secondStreamResponse.inputChannel.decoder),
   20000,
   20003
 );
@@ -39,6 +43,8 @@ const expectedAllStreamsResponse = [
   expectedFirstStreamRespone,
   expectedSecondStreamResponse
 ];
+
+const expectedStatsResponse = convertStatsToDataObject(streamStatResponse);
 
 const authorizationHeader = {
   headers: {
@@ -162,6 +168,26 @@ describe("Stream Api", () => {
         expectedBody,
         authorizationHeader
       );
+    });
+  });
+
+  describe("getStreamStatistics", () => {
+    it("should call axios.get and return a single stream's statistics", async () => {
+      axios.get.mockResolvedValue({ data: streamStatResponse });
+
+      authenticationUtil.getAuthorizationHeader = jest
+        .fn()
+        .mockReturnValue(authorizationHeader);
+
+      const response = await StreamApi.getStreamStatistics(1);
+
+      // check that callback was invoked with correct value
+      expect(axios.get).toHaveBeenCalledWith(
+        `http://localhost:8080/stream/statistics/1`,
+        authorizationHeader
+      );
+
+      expect(response).toEqual(expectedStatsResponse);
     });
   });
 });
