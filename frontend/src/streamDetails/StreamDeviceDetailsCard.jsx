@@ -9,14 +9,17 @@ import SimpleTable from "../general/simpleTable/SimpleTable";
 export default function StreamDeviceDetailsCard(props) {
   const { cardTitle, device, channel } = props;
 
-  const propertyNames = ["Name", "Serial Number", "Channel"];
-  const properties = [device.name, device.serialNumber, channel];
+  const properties = {
+    Name: device.name,
+    "Serial Number": device.serialNumber,
+    Channel: channel
+  };
 
   return (
     <DashboardCard title={cardTitle}>
       <Grid container>
         <Grid item xs={12}>
-          <SimpleTable propertyNames={propertyNames} properties={properties} />
+          <SimpleTable properties={properties} />
         </Grid>
       </Grid>
     </DashboardCard>

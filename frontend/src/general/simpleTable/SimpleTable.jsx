@@ -6,15 +6,15 @@ import SimpleTableRow from "./SimpleTableRow";
 import { zipProperties } from "./SimpleTableUtil";
 
 export default function SimpleTable(props) {
-  const { propertyNames, properties, alignment } = props;
+  const { properties, alignment } = props;
 
-  const propertyPairs = zipProperties(propertyNames, properties);
+  const propertiesArr = zipProperties(properties);
 
   return (
     <TableContainer>
       <Table>
         <TableBody>
-          {propertyPairs.map((propertyPair) => (
+          {propertiesArr.map((propertyPair) => (
             <SimpleTableRow
               name={propertyPair[0]}
               value={propertyPair[1]}
