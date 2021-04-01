@@ -1,5 +1,5 @@
 import React from "react";
-import { TableContainer, Typography } from "@material-ui/core";
+import { Box, TableContainer, Typography } from "@material-ui/core";
 import PropTypes from "prop-types";
 
 import {
@@ -131,17 +131,19 @@ export default function DevicesTable(props) {
   const { title, devices } = props;
   return (
     <>
-      <TableContainer>
-        <MaterialTable
-          title={title}
-          components={getComponents()}
-          columns={getColumnInfo()}
-          data={devices}
-          detailPanel={getDetailPanel()}
-          options={getOptions()}
-          icons={getIcons()}
-        />
-      </TableContainer>
+      <Box>
+        <TableContainer style={{ maxHeight: 570 }}>
+          <MaterialTable
+            title={title}
+            components={getComponents()}
+            columns={getColumnInfo()}
+            data={devices}
+            detailPanel={getDetailPanel()}
+            options={getOptions()}
+            icons={getIcons()}
+          />
+        </TableContainer>
+      </Box>
     </>
   );
 }
