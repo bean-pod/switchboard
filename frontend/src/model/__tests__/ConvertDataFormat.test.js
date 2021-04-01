@@ -148,7 +148,7 @@ describe("convertDeviceToDataObject function", () => {
     const axiosReceiverToLocal = JSON.stringify(
       convertDeviceToDataObject(sampleAxiosReceiver)
     );
-    
+
     expect(axiosSenderToLocal).toStrictEqual(JSON.stringify(sampleLocalSender));
     expect(axiosReceiverToLocal).toStrictEqual(
       JSON.stringify(sampleLocalReceiver)
@@ -164,7 +164,7 @@ describe("convertToServiceObject function", () => {
     const localReceiverToAxios = JSON.stringify(
       convertToServiceObject(sampleLocalReceiver)
     );
-    
+
     expect(localSenderToAxios).toStrictEqual(JSON.stringify(sampleAxiosSender));
     expect(localReceiverToAxios).toStrictEqual(
       JSON.stringify(sampleAxiosReceiver)
@@ -175,7 +175,7 @@ describe("convertToServiceObject function", () => {
 describe("convertStatsToDataObject function", () => {
   it("returns a StreamStatisticsInfo object with correct data", () => {
     const dbStatsToLocal = convertStatsToDataObject(sampleDBStats);
-    
+
     expect(dbStatsToLocal).toStrictEqual(sampleLocalStats);
   });
 });
