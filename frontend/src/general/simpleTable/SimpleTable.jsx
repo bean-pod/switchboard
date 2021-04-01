@@ -3,16 +3,12 @@ import PropTypes from "prop-types";
 import { TableBody, Table, TableContainer } from "@material-ui/core";
 import SimpleTableRow from "./SimpleTableRow";
 
-function zipProperties(properties) {
-  return Object.keys(properties).map((propertyName) => {
-    return [propertyName, properties[propertyName]];
-  });
-}
-
 export default function SimpleTable(props) {
   const { properties, alignment } = props;
 
-  const propertiesArr = zipProperties(properties);
+  const propertiesArr = Object.keys(properties).map((propertyName) => {
+    return [propertyName, properties[propertyName]];
+  });
 
   return (
     <TableContainer>
