@@ -11,13 +11,10 @@ Enzyme.configure({ adapter: new Adapter() });
 
 describe("<SimpleTable/> functional component", () => {
   let wrapper;
-  const dummyProperties = { "name": 1 };
+  const dummyProperties = { name: 1 };
 
   beforeEach(() => {
-
-    wrapper = Enzyme.shallow(
-      <SimpleTable properties={dummyProperties} />
-    );
+    wrapper = Enzyme.shallow(<SimpleTable properties={dummyProperties} />);
   });
   afterEach(() => {
     wrapper.unmount();
@@ -42,10 +39,7 @@ describe("<SimpleTable/> functional component", () => {
   });
   describe("when alignment is center", () => {
     const centeredVals = Enzyme.shallow(
-      <SimpleTable
-        properties={dummyProperties}
-        alignment="center"
-      />
+      <SimpleTable properties={dummyProperties} alignment="center" />
     );
     it("has 1 SimpleTableRow component with expected props", () => {
       const row = centeredVals.find(SimpleTableRow);

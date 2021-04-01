@@ -29,9 +29,9 @@ describe("<StreamDeviceDetailsCard/> functional component", () => {
     const dummyChannel = 10;
     const dummyTitle = "Device Card";
     const expectedProperties = {
-      "Name": dummyDevice.name,
+      Name: dummyDevice.name,
       "Serial Number": dummyDevice.serialNumber,
-      "Channel": dummyChannel
+      Channel: dummyChannel
     };
 
     beforeEach(() => {
