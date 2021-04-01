@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { MenuItem, Select } from "@material-ui/core";
+import StyledInput from "./StyledInput";
 
 export default class DeviceTableTitle extends React.Component {
   constructor(props) {
@@ -21,6 +22,7 @@ export default class DeviceTableTitle extends React.Component {
         id="device-table-title-select"
         value={index}
         onChange={this.handleChange}
+        input={<StyledInput />}
       >
         <MenuItem value={0}>All Devices</MenuItem>
         <MenuItem value={1}>Senders</MenuItem>
