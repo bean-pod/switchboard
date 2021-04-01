@@ -6,41 +6,30 @@ import { beforeEach, afterEach, describe, expect, it } from "@jest/globals";
 import { TableContainer, TableBody, Table } from "@material-ui/core";
 import SimpleTable from "../SimpleTable";
 import SimpleTableRow from "../SimpleTableRow";
-import * as SimpleTableUtil from "../SimpleTableUtil";
 
 Enzyme.configure({ adapter: new Adapter() });
 
 describe("<SimpleTable/> functional component", () => {
   let wrapper;
-  const dummyNames = ["name"];
-  const dummyValues = [1];
+  const dummyProperties = { "name": 1 };
 
   beforeEach(() => {
-    jest.spyOn(SimpleTableUtil, "zipProperties").mockImplementation(() => {
-      return [[dummyNames[0], dummyValues[0]]];
-    });
 
     wrapper = Enzyme.shallow(
-      <SimpleTable propertyNames={dummyNames} properties={dummyValues} />
+      <SimpleTable properties={dummyProperties} />
     );
   });
   afterEach(() => {
     wrapper.unmount();
   });
 
-  it("calls zipProperties function", () => {
-    expect(SimpleTableUtil.zipProperties).toHaveBeenCalledWith(
-      dummyNames,
-      dummyValues
-    );
-  });
   it("has 1 component each for TableContainer, Table, and TableBody", () => {
     expect(wrapper.find(TableContainer)).toHaveLength(1);
     expect(wrapper.find(Table)).toHaveLength(1);
     expect(wrapper.find(TableBody)).toHaveLength(1);
   });
 
-  describe("when centerValues is not given or false", () => {
+  describe("when alignment is not given or left", () => {
     it("has 1 SimpleTableRow component with expected props", () => {
       const row = wrapper.find(SimpleTableRow);
       expect(row).toHaveLength(1);
@@ -48,15 +37,14 @@ describe("<SimpleTable/> functional component", () => {
       const rowProps = row.props();
       expect(rowProps.name).toBe("name");
       expect(rowProps.value).toBe(1);
-      expect(rowProps.centerValue).toBe(false);
+      expect(rowProps.alignment).toBe("left");
     });
   });
-  describe("when centerValues is true", () => {
+  describe("when alignment is center", () => {
     const centeredVals = Enzyme.shallow(
       <SimpleTable
-        propertyNames={dummyNames}
-        properties={dummyValues}
-        centerValues
+        properties={dummyProperties}
+        alignment="center"
       />
     );
     it("has 1 SimpleTableRow component with expected props", () => {
@@ -66,7 +54,7 @@ describe("<SimpleTable/> functional component", () => {
       const rowProps = row.props();
       expect(rowProps.name).toBe("name");
       expect(rowProps.value).toBe(1);
-      expect(rowProps.centerValue).toBe(true);
+      expect(rowProps.alignment).toBe("center");
     });
   });
 });
