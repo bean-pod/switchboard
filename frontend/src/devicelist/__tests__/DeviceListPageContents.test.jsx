@@ -52,8 +52,8 @@ describe("<DeviceListPageContents/> class component", () => {
   });
   describe("handleChange()", () => {
     beforeEach(() => {
-        wrapper = Enzyme.shallow(<DeviceListPageContents />);
-      });
+      wrapper = Enzyme.shallow(<DeviceListPageContents />);
+    });
     it("should set the state", () => {
       const startingState = {
         selected: 0,
@@ -71,16 +71,16 @@ describe("<DeviceListPageContents/> class component", () => {
   });
   describe("handleSendersChange()", () => {
     beforeEach(() => {
-        wrapper = Enzyme.shallow(<DeviceListPageContents />);
-      });
+      wrapper = Enzyme.shallow(<DeviceListPageContents />);
+    });
     it("should set the state", () => {
       const startingState = {
         selected: 0,
         senders: [],
         receivers: []
-    };
-    
-    const expectedValue =[new DeviceInfo("thing!") ];
+      };
+
+      const expectedValue = [new DeviceInfo("thing!")];
 
       wrapper.setState(startingState);
 
@@ -90,8 +90,8 @@ describe("<DeviceListPageContents/> class component", () => {
   });
   describe("handleReceiversChange()", () => {
     beforeEach(() => {
-        wrapper = Enzyme.shallow(<DeviceListPageContents />);
-      });
+      wrapper = Enzyme.shallow(<DeviceListPageContents />);
+    });
     it("should set the state", () => {
       const startingState = {
         selected: 0,
@@ -99,7 +99,7 @@ describe("<DeviceListPageContents/> class component", () => {
         receivers: []
       };
 
-      const expectedValue =[new DeviceInfo("thing!") ];
+      const expectedValue = [new DeviceInfo("thing!")];
 
       wrapper.setState(startingState);
 
