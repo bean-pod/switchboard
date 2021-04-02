@@ -24,7 +24,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/LogsModel'
 
-  /streamlog/{streamId}:
+  /log/stream/{streamId}:
     get:
       operationId: retrieveStreamLogs
       description: Get a list of logs for a specific stream
