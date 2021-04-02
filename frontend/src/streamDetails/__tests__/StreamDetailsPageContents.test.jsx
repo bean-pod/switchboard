@@ -7,6 +7,7 @@ import { beforeEach, describe, expect, it } from "@jest/globals";
 import StreamDetailsPageContents from "../StreamDetailsPageContents";
 import DashboardCard from "../../general/dashboard/DashboardCard";
 import StreamDeviceDetailsCard from "../StreamDeviceDetailsCard";
+import StreamStatisticsCard from "../StreamStatisticsCard";
 import DeleteStreamDialogOpener from "../DeleteStreamDialogOpener";
 
 import DeviceInfo from "../../model/DeviceInfo";
@@ -33,7 +34,6 @@ describe("<StreamDetailsPageContents/> functional component", () => {
       const gridComponents = wrapper.find(Grid);
 
       expect(gridComponents).toHaveLength(5);
-      // iterate through grid components to test each
 
       const containerGridProps = gridComponents.at(0).props();
       expect(containerGridProps.container).toBe(true);
@@ -55,14 +55,11 @@ describe("<StreamDetailsPageContents/> functional component", () => {
       expect(itemGridProps.item).toBe(true);
       expect(itemGridProps.xs).toBe(5);
     });
-    it("Contains 4 DashboardCard components with expected props", () => {
-      expect(wrapper.find(DashboardCard)).toHaveLength(2);
+    it("Contains 1 DashboardCard components with expected props", () => {
+      expect(wrapper.find(DashboardCard)).toHaveLength(1);
 
       const logsCardProps = wrapper.find(DashboardCard).at(0).props();
       expect(logsCardProps.title).toBe("Logs");
-
-      const statisticsCardProps = wrapper.find(DashboardCard).at(1).props();
-      expect(statisticsCardProps.title).toBe("Statistics");
     });
     it("Contains 2 StreamDeviceDetailsCard components with expected props", () => {
       const streamDeviceDetails = wrapper.find(StreamDeviceDetailsCard);
@@ -75,6 +72,13 @@ describe("<StreamDetailsPageContents/> functional component", () => {
       const receiverDetailsProps = streamDeviceDetails.at(1).props();
       expect(receiverDetailsProps.device).toStrictEqual(dummyReceiver);
       expect(receiverDetailsProps.channel).toBe(3);
+    });
+    it("Contains 1 StreamStatisticsCard component with expected props", () => {
+      const statsCard = wrapper.find(StreamStatisticsCard);
+      expect(statsCard).toHaveLength(1);
+
+      const statsCardProps = statsCard.props();
+      expect(statsCardProps.streamId).toBe(1);
     });
     it("Contains 1 Box component with expected props", () => {
       const boxComponent = wrapper.find(Box);
