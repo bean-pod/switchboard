@@ -9,6 +9,7 @@ import DashboardCard from "../../general/dashboard/DashboardCard";
 import SimpleTable from "../../general/simpleTable/SimpleTable";
 
 import DeviceInfo from "../../model/DeviceInfo";
+import ButtonInfo from "../../general/dashboard/ButtonInfo";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -33,6 +34,11 @@ describe("<StreamDeviceDetailsCard/> functional component", () => {
       "Serial Number": dummyDevice.serialNumber,
       Channel: dummyChannel
     };
+    const dummyButton = new ButtonInfo(
+      `/Devices/Details/${dummyDevice.serialNumber}`,
+      { device: dummyDevice },
+      "View Device"
+    );
 
     beforeEach(() => {
       wrapper = Enzyme.shallow(
@@ -48,8 +54,12 @@ describe("<StreamDeviceDetailsCard/> functional component", () => {
       expect(dashCard).toHaveLength(1);
 
       const dashCardProps = dashCard.props();
-      const expectedTitle = "Device Card";
-      expect(dashCardProps.title).toBe(expectedTitle);
+      const expectedProps = {
+        title: "Device Card",
+        button: dummyButton
+      };
+      expect(dashCardProps.title).toBe(expectedProps.title);
+      expect(dashCardProps.button).toStrictEqual(expectedProps.button);
     });
     it("contains 2 Grid components with expected props", () => {
       const grids = wrapper.find(Grid);
