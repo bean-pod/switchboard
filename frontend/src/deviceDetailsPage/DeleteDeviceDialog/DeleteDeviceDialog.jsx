@@ -17,9 +17,9 @@ export default class DeleteDeviceDialog extends React.Component {
   }
 
   afterDelete() {
-      const { history } = this.props;
-      this.dialogElement.current.closeDialog();
-      history.push("/Devices");
+    const { history } = this.props;
+    this.dialogElement.current.closeDialog();
+    history.push("/Devices");
   }
 
   confirmDelete() {
@@ -30,10 +30,7 @@ export default class DeleteDeviceDialog extends React.Component {
     deleteDevice(serialNumber)
       .then(() => {
         this.afterDelete();
-        snackbar(
-          "success",
-          `Device deleted! (Serial Number: ${serialNumber})`
-        );
+        snackbar("success", `Device deleted! (Serial Number: ${serialNumber})`);
       })
       .catch(() => {
         snackbar(

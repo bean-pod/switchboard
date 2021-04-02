@@ -30,7 +30,11 @@ class DeleteDeviceDialogOpener extends React.Component {
         >
           Delete
         </Button>
-        <DeleteDeviceDialog ref={this.dialogElement} device={device} history={history} />
+        <DeleteDeviceDialog
+          ref={this.dialogElement}
+          device={device}
+          history={history}
+        />
       </>
     );
   }
@@ -41,6 +45,6 @@ export default withRouter(DeleteDeviceDialogOpener);
 DeleteDeviceDialogOpener.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired
-    }).isRequired,
+  }).isRequired,
   device: PropTypes.instanceOf(DeviceInfo).isRequired
 };
