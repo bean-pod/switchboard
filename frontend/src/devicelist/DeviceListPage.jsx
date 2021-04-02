@@ -1,9 +1,7 @@
 import React from "react";
 
 import Page from "../general/Page";
-import DeviceListTabTable from "./DeviceListTabTable";
-import * as useStyles from "../DefaultMakeStylesTheme";
-import * as dataSource from "../api/DeviceApi";
+import DeviceListPageContents from "./DeviceListPageContents";
 
 export default function DeviceListPage() {
   const breadcrumb = [
@@ -12,7 +10,7 @@ export default function DeviceListPage() {
   ];
   return (
     <Page title="My Devices" breadcrumbs={breadcrumb} deviceList>
-      <DeviceListTabTable classes={useStyles} dataSource={dataSource} />
+      <DeviceListPageContents />
     </Page>
   );
 }

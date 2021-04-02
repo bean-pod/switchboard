@@ -10,6 +10,7 @@ import StreamStatisticsCard from "./StreamStatisticsCard";
 
 export default function StreamDetailsPageContents(props) {
   const { stream } = props;
+
   return (
     <Container>
       <Grid container spacing={3}>

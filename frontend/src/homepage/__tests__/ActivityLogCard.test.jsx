@@ -21,34 +21,25 @@ describe("<ActivityLogCard/> functional component", () => {
       const dashboardCard = wrapper.find(DashboardCard).first();
       expect(dashboardCard.props().title).toBe(expectedTitle);
     });
-    it("Contains 2 <Grid/> components", () => {
-      expect(wrapper.find(Grid)).toHaveLength(2);
-    });
-    it("First <Grid/> has expected props", () => {
-      const outerGrid = wrapper.find(Grid).first();
-      const expectedJustify = "center";
-      const expectedDirection = "row";
-      const expectedSpacing = 3;
+    it("Contains 1 <Grid/> component with expected props", () => {
+      expect(wrapper.find(Grid)).toHaveLength(1);
 
-      expect(outerGrid.props().container).toBe(true);
-      expect(outerGrid.props().justify).toBe(expectedJustify);
-      expect(outerGrid.props().direction).toBe(expectedDirection);
-      expect(outerGrid.props().spacing).toBe(expectedSpacing);
-    });
-    it("Second <Grid/> has expected props", () => {
-      const secondGrid = wrapper.find(Grid).at(1);
-      const expectedXs = 4;
-
-      expect(secondGrid.props().item).toBe(true);
-      expect(secondGrid.props().xs).toBe(expectedXs);
-      expect(secondGrid.props().children.type.name).toBe("DashboardButton");
+      const props = wrapper.find(Grid).at(0).props();
+      const expected = {
+        item: true,
+        xs: 4,
+        childType: "DashboardButton"
+      };
+      expect(props.item).toBe(expected.item);
+      expect(props.xs).toBe(expected.xs);
+      expect(props.children.type.name).toBe(expected.childType);
     });
     it("Contains 1 <DashboardButton/> component that  has expected props", () => {
       expect(wrapper.find(DashboardButton)).toHaveLength(1);
 
-      const firstButton = wrapper.find(DashboardButton).first();
-      expect(firstButton.props().href).toBe("/Logs");
-      expect(firstButton.props().children).toBe("View All");
+      const props = wrapper.find(DashboardButton).first().props();
+      expect(props.href).toBe("/Logs");
+      expect(props.children).toBe("View All");
     });
   });
 });

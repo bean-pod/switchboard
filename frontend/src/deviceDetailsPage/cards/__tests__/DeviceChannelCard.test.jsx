@@ -32,30 +32,23 @@ describe("<DeviceChannelCard/> functional component", () => {
 
       expect(dashboardCard.props().title).toBe("Channels");
     });
-    it("Contains 2 <Grid/> components", () => {
-      expect(wrapper.find(Grid)).toHaveLength(2);
-    });
-    it("First <Grid/> has expected props", () => {
-      const outerGrid = wrapper.find(Grid).first();
-      const expectedJustify = "center";
-      const expectedDirection = "row";
-      const expectedSpacing = 3;
 
-      expect(outerGrid.props().container).toBe(true);
-      expect(outerGrid.props().justify).toBe(expectedJustify);
-      expect(outerGrid.props().direction).toBe(expectedDirection);
-      expect(outerGrid.props().spacing).toBe(expectedSpacing);
-    });
-    it("Second <Grid/>  has expected props", () => {
-      const secondGrid = wrapper.find(Grid).at(1);
-      const expectedXs = 12;
+    it("Contains 1 <Grid/> component with expected props", () => {
+      expect(wrapper.find(Grid)).toHaveLength(1);
+      const props = wrapper.find(Grid).at(0).props();
+      const expected = {
+        item: true,
+        xs: 12,
+        childType: "ChannelDetailsTable"
+      };
 
-      expect(secondGrid.props().item).toBe(true);
-      expect(secondGrid.props().xs).toBe(expectedXs);
-      expect(secondGrid.props().children.type.name).toBe("ChannelDetailsTable");
+      expect(props.item).toBe(expected.item);
+      expect(props.xs).toBe(expected.xs);
+      expect(props.children.type.name).toBe(expected.childType);
     });
     it("Contains 1 <ChannelDetailsTable/> component with expected props", () => {
       expect(wrapper.find(ChannelDetailsTable)).toHaveLength(1);
+
       const props = wrapper.find(ChannelDetailsTable).first().props();
       expect(props.channels).toStrictEqual(dummyChannels);
     });

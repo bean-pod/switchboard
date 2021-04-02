@@ -55,13 +55,16 @@ describe("<StreamDetailsPageContents/> functional component", () => {
       expect(itemGridProps.item).toBe(true);
       expect(itemGridProps.xs).toBe(5);
     });
-    it("Contains 1 DashboardCard component with expected props", () => {
-      expect(wrapper.find(DashboardCard)).toHaveLength(1);
+    it("Contains 4 DashboardCard components with expected props", () => {
+      expect(wrapper.find(DashboardCard)).toHaveLength(2);
 
-      const senderCardProps = wrapper.find(DashboardCard).at(0).props();
-      expect(senderCardProps.title).toBe("Logs");
+      const logsCardProps = wrapper.find(DashboardCard).at(0).props();
+      expect(logsCardProps.title).toBe("Logs");
+
+      const statisticsCardProps = wrapper.find(DashboardCard).at(1).props();
+      expect(statisticsCardProps.title).toBe("Statistics");
     });
-    it("Contains 2 StreamDeviceDetailsCards components with expected props", () => {
+    it("Contains 2 StreamDeviceDetailsCard components with expected props", () => {
       const streamDeviceDetails = wrapper.find(StreamDeviceDetailsCard);
       expect(streamDeviceDetails).toHaveLength(2);
 

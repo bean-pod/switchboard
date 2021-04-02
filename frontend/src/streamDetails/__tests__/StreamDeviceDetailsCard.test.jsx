@@ -7,9 +7,9 @@ import { Grid } from "@material-ui/core";
 import StreamDeviceDetailsCard from "../StreamDeviceDetailsCard";
 import DashboardCard from "../../general/dashboard/DashboardCard";
 import SimpleTable from "../../general/simpleTable/SimpleTable";
-import zipProperties from "../../general/simpleTable/SimpleTableUtil";
 
 import DeviceInfo from "../../model/DeviceInfo";
+import ButtonInfo from "../../general/dashboard/ButtonInfo";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -29,9 +29,15 @@ describe("<StreamDeviceDetailsCard/> functional component", () => {
     );
     const dummyChannel = 10;
     const dummyTitle = "Device Card";
-    const expectedPairs = zipProperties(
-      ["Name", "Serial Number", "Channel"],
-      [dummyDevice.name, dummyDevice.serialNumber, dummyChannel]
+    const expectedProperties = {
+      Name: dummyDevice.name,
+      "Serial Number": dummyDevice.serialNumber,
+      Channel: dummyChannel
+    };
+    const dummyButton = new ButtonInfo(
+      `/Devices/Details/${dummyDevice.serialNumber}`,
+      { device: dummyDevice },
+      "View Device"
     );
 
     beforeEach(() => {
@@ -48,8 +54,12 @@ describe("<StreamDeviceDetailsCard/> functional component", () => {
       expect(dashCard).toHaveLength(1);
 
       const dashCardProps = dashCard.props();
-      const expectedTitle = "Device Card";
-      expect(dashCardProps.title).toBe(expectedTitle);
+      const expectedProps = {
+        title: "Device Card",
+        button: dummyButton
+      };
+      expect(dashCardProps.title).toBe(expectedProps.title);
+      expect(dashCardProps.button).toStrictEqual(expectedProps.button);
     });
     it("contains 2 Grid components with expected props", () => {
       const grids = wrapper.find(Grid);
@@ -67,7 +77,7 @@ describe("<StreamDeviceDetailsCard/> functional component", () => {
       expect(simpleTable).toHaveLength(1);
 
       const simpleTableProps = simpleTable.props();
-      expect(simpleTableProps.propertyPairs).toStrictEqual(expectedPairs);
+      expect(simpleTableProps.properties).toStrictEqual(expectedProperties);
     });
   });
 });

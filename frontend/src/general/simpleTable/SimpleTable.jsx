@@ -4,17 +4,21 @@ import { TableBody, Table, TableContainer } from "@material-ui/core";
 import SimpleTableRow from "./SimpleTableRow";
 
 export default function SimpleTable(props) {
-  const { propertyPairs, centerValues } = props;
+  const { properties, alignment } = props;
+
+  const propertiesArr = Object.keys(properties).map((propertyName) => {
+    return [propertyName, properties[propertyName]];
+  });
 
   return (
     <TableContainer>
       <Table>
         <TableBody>
-          {propertyPairs.map((propertyPair) => (
+          {propertiesArr.map((propertyPair) => (
             <SimpleTableRow
               name={propertyPair[0]}
               value={propertyPair[1]}
-              centerValue={centerValues}
+              alignment={alignment}
               key={`component_${propertyPair[0]}`}
             />
           ))}
@@ -25,10 +29,9 @@ export default function SimpleTable(props) {
 }
 
 SimpleTable.defaultProps = {
-  centerValues: false
+  alignment: "left"
 };
 SimpleTable.propTypes = {
-  propertyPairs: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.node))
-    .isRequired,
-  centerValues: PropTypes.bool
+  properties: PropTypes.arrayOf(PropTypes.node).isRequired,
+  alignment: PropTypes.string
 };

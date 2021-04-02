@@ -5,26 +5,29 @@ import { Grid } from "@material-ui/core";
 import DeviceInfo from "../model/DeviceInfo";
 import DashboardCard from "../general/dashboard/DashboardCard";
 import SimpleTable from "../general/simpleTable/SimpleTable";
-import zipProperties from "../general/simpleTable/SimpleTableUtil";
+import ButtonInfo from "../general/dashboard/ButtonInfo";
 
 export default function StreamDeviceDetailsCard(props) {
   const { cardTitle, device, channel } = props;
-
-  const propertyNames = ["Name", "Serial Number", "Channel"];
-  const properties = [device.name, device.serialNumber, channel];
-
-  const propertyPairs = zipProperties(propertyNames, properties);
+  const button = new ButtonInfo(
+    `/Devices/Details/${device.serialNumber}`,
+    { device },
+    "View Device"
+  );
+  const properties = {
+    Name: device.name,
+    "Serial Number": device.serialNumber,
+    Channel: channel
+  };
 
   return (
-    <>
-      <DashboardCard title={cardTitle}>
-        <Grid container>
-          <Grid item xs={12}>
-            <SimpleTable propertyPairs={propertyPairs} />
-          </Grid>
+    <DashboardCard title={cardTitle} button={button}>
+      <Grid container>
+        <Grid item xs={12}>
+          <SimpleTable properties={properties} />
         </Grid>
-      </DashboardCard>
-    </>
+      </Grid>
+    </DashboardCard>
   );
 }
 
