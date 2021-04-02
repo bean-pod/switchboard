@@ -25,14 +25,12 @@ public class StreamLogServiceTest {
   @Mock LogStreamMapper logStreamMapper;
 
   private StreamLogDto streamLogDto;
-  private LogEntity logEntity;
 
   @BeforeEach
   void setup() {
     MockitoAnnotations.initMocks(this);
 
     streamLogDto = StreamLogFixture.getStreamLogDto();
-    logEntity = LogFixture.getLogEntity();
   }
 
   @Test

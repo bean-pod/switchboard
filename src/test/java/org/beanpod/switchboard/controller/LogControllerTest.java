@@ -29,7 +29,6 @@ class LogControllerTest {
   private static List<LogModel> logModels;
   private static LogModel logModel;
   private static LogDto logDto;
-  private static LogEntity logEntity;
   private static List<StreamLogModel> streamLogModels;
   @InjectMocks private LogController logController;
   @Mock private LogDaoImpl logDao;
@@ -42,7 +41,6 @@ class LogControllerTest {
     logModels = LogFixture.getListOfLogs();
     logModel = LogFixture.getLogModel();
     logDto = LogFixture.getLogDto();
-    logEntity = LogFixture.getLogEntity();
     streamLogModels = StreamLogFixture.getListOfStreamLogsModel();
   }
 
@@ -82,8 +80,8 @@ class LogControllerTest {
 
   @Test
   final void testRetrieveStreamLogs() {
-    when(streamLogDao.getStreamLogs((long) 1)).thenReturn(streamLogModels);
-    ResponseEntity<List<StreamLogModel>> response = logController.retrieveStreamLogs((long) 1);
+    when(streamLogDao.getStreamLogs(1L)).thenReturn(streamLogModels);
+    ResponseEntity<List<StreamLogModel>> response = logController.retrieveStreamLogs(1L);
     assertEquals(HttpStatus.OK, response.getStatusCode());
     assertIterableEquals(streamLogModels, response.getBody());
   }

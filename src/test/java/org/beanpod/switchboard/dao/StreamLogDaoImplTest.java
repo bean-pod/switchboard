@@ -53,7 +53,7 @@ public class StreamLogDaoImplTest {
     when(logStreamMapper.toStreamLogModels(any())).thenReturn(streamLogModelList);
     when(logStreamRepository.findByStreamId("1")).thenReturn(streamLogList);
 
-    List<StreamLogModel> listOfStreamLogModels_actual = streamLogDao.getStreamLogs((long) 1);
+    List<StreamLogModel> listOfStreamLogModels_actual = streamLogDao.getStreamLogs(1L);
 
     assertEquals(listOfStreamLogModels_actual, streamLogModelList);
   }
