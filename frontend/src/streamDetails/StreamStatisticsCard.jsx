@@ -6,6 +6,7 @@ import DashboardCard from "../general/dashboard/DashboardCard";
 import SimpleTable from "../general/simpleTable/SimpleTable";
 import StreamStatisticsButton from "./DetailedStreamStatistics/StreamStatisticsButton";
 import { getStreamStatistics } from "../api/StreamApi";
+import ButtonInfo from "../general/dashboard/ButtonInfo";
 
 export default class StreamStatisticsCard extends React.Component {
   constructor(props) {
@@ -43,17 +44,18 @@ export default class StreamStatisticsCard extends React.Component {
     const { stats } = this.state;
     const properties = this.getProperties();
 
+    const button = new ButtonInfo(
+      `/Streams/Details/${stats.id}/Statistics`,
+      { statistics: stats },
+      "More Statistics"
+    );
+
     return (
       <>
-        <DashboardCard title="Statistics">
+        <DashboardCard title="Statistics" button={button}>
           <Grid container>
             <Grid item xs={12}>
               <SimpleTable properties={properties} />
-            </Grid>
-            <Grid item xs={12}>
-              <Box className="alignRightFloatPadded">
-                <StreamStatisticsButton statistics={stats} />
-              </Box>
             </Grid>
           </Grid>
         </DashboardCard>
