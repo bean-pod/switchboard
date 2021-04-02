@@ -1,12 +1,12 @@
 {
   "files": {
     "main.css": "/Home/static/css/main.b893dab2.chunk.css",
-    "main.js": "/Home/static/js/main.4ac9be9c.chunk.js",
-    "main.js.map": "/Home/static/js/main.4ac9be9c.chunk.js.map",
+    "main.js": "/Home/static/js/main.ef6a0029.chunk.js",
+    "main.js.map": "/Home/static/js/main.ef6a0029.chunk.js.map",
     "runtime-main.js": "/Home/static/js/runtime-main.90f99fca.js",
     "runtime-main.js.map": "/Home/static/js/runtime-main.90f99fca.js.map",
-    "static/js/2.e5611743.chunk.js": "/Home/static/js/2.e5611743.chunk.js",
-    "static/js/2.e5611743.chunk.js.map": "/Home/static/js/2.e5611743.chunk.js.map",
+    "static/js/2.c712651d.chunk.js": "/Home/static/js/2.c712651d.chunk.js",
+    "static/js/2.c712651d.chunk.js.map": "/Home/static/js/2.c712651d.chunk.js.map",
     "static/js/3.e080bafe.chunk.js": "/Home/static/js/3.e080bafe.chunk.js",
     "static/js/3.e080bafe.chunk.js.map": "/Home/static/js/3.e080bafe.chunk.js.map",
     "static/js/4.97ebbe2f.chunk.js": "/Home/static/js/4.97ebbe2f.chunk.js",
@@ -15,15 +15,15 @@
     "static/js/5.99e9eb3d.chunk.js.map": "/Home/static/js/5.99e9eb3d.chunk.js.map",
     "index.html": "/Home/index.html",
     "static/css/main.b893dab2.chunk.css.map": "/Home/static/css/main.b893dab2.chunk.css.map",
-    "static/js/2.e5611743.chunk.js.LICENSE.txt": "/Home/static/js/2.e5611743.chunk.js.LICENSE.txt",
+    "static/js/2.c712651d.chunk.js.LICENSE.txt": "/Home/static/js/2.c712651d.chunk.js.LICENSE.txt",
     "static/js/3.e080bafe.chunk.js.LICENSE.txt": "/Home/static/js/3.e080bafe.chunk.js.LICENSE.txt",
     "static/js/4.97ebbe2f.chunk.js.LICENSE.txt": "/Home/static/js/4.97ebbe2f.chunk.js.LICENSE.txt",
     "static/js/5.99e9eb3d.chunk.js.LICENSE.txt": "/Home/static/js/5.99e9eb3d.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.90f99fca.js",
-    "static/js/2.e5611743.chunk.js",
+    "static/js/2.c712651d.chunk.js",
     "static/css/main.b893dab2.chunk.css",
-    "static/js/main.4ac9be9c.chunk.js"
+    "static/js/main.ef6a0029.chunk.js"
   ]
 }
