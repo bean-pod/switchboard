@@ -66,7 +66,6 @@ class SnackbarMessage extends React.Component {
     this.setState({
       pathname
     });
-    return pathname;
   }
 
   addSnackbarProperties(stat, msg) {
@@ -80,17 +79,12 @@ class SnackbarMessage extends React.Component {
   }
 
   openSnackbar(stat, msg, path) {
-    const currentPathname = this.setPathname(path);
-    if (currentPathname !== "") {
+    this.setPathname(path);
+    if (path !== "") {
       this.refresh();
-      setTimeout(() => {
-        this.addSnackbarProperties(stat, msg);
-        this.setOpen(true);
-      }, 300);
-    } else {
-      this.addSnackbarProperties(stat, msg);
-      this.setOpen(true);
     }
+    this.addSnackbarProperties(stat, msg);
+    this.setOpen(true);
   }
 
   refresh() {
