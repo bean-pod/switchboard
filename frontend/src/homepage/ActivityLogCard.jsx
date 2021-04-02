@@ -7,10 +7,8 @@ import DashBoardButton from "../general/dashboard/DashboardButton";
 export default function ActivityLogCard() {
   return (
     <DashboardCard title="Activity Logs">
-      <Grid container justify="center" direction="row" spacing={3}>
-        <Grid item xs={4}>
-          <DashBoardButton href="/Logs">View All</DashBoardButton>
-        </Grid>
+      <Grid item xs={4}>
+        <DashBoardButton href="/Logs">View All</DashBoardButton>
       </Grid>
     </DashboardCard>
   );

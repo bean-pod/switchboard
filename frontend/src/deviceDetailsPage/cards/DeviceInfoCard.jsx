@@ -11,10 +11,8 @@ export default function DeviceInfoCard(props) {
 
   return (
     <DashboardCard title="Device Info">
-      <Grid container justify="center" direction="row" spacing={3}>
-        <Grid item xs={12}>
-          <DeviceDetailsInfoTable device={device} />
-        </Grid>
+      <Grid item xs={12}>
+        <DeviceDetailsInfoTable device={device} />
       </Grid>
     </DashboardCard>
   );

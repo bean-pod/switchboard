@@ -4,9 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import features.AuthorizedTestRestTemplate;
-import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import org.beanpod.switchboard.SwitchboardApplication;
@@ -52,7 +50,7 @@ public class SystemTests {
   private WebDriver driver;
 
   @BeforeAll
-  void setUp() throws JsonProcessingException {
+  void setUp() {
     // Set up Selenium Chrome Driver
     if (System.getProperty("os.name").toLowerCase().contains("windows")) {
       System.setProperty(
@@ -75,8 +73,8 @@ public class SystemTests {
   void testLogin() {
     driver.get("http://localhost:3000/login");
 
-    driver.findElement(By.id("username")).sendKeys("test_username");
-    driver.findElement(By.id("password")).sendKeys("test_password");
+    driver.findElement(By.id("username")).sendKeys("admin");
+    driver.findElement(By.id("password")).sendKeys("admin");
     driver.findElement(By.cssSelector(".MuiButton-label")).click();
 
     {
@@ -91,7 +89,7 @@ public class SystemTests {
 
   @Test
   @Order(2)
-  void testAddEncoder() throws IOException {
+  void testAddEncoder() {
     // Mock sender self-registration
 
     testRestTemplate.postForObject(
@@ -126,7 +124,7 @@ public class SystemTests {
 
   @Test
   @Order(3)
-  void testAddDecoder() throws IOException {
+  void testAddDecoder() {
     // mock receiver self-registration
     testRestTemplate.postForObject(
         "http://localhost:8080/device", DeviceFixture.getDeviceModel(), DeviceModel.class);
@@ -257,5 +255,46 @@ public class SystemTests {
     boolean assertValue = devicesRows.stream().anyMatch(data -> data.getText().contains("Online"));
 
     assertFalse(assertValue);
+  }
+
+  @Test
+  @Order(6)
+  void testRenameDevice() {
+    String rename = "Renamed Device";
+
+    // Go to List of Senders
+    driver.get("http://localhost:3000/Devices");
+
+    // View Sender Device Details
+    driver.findElement(By.cssSelector(".MuiIconButton-sizeSmall path")).click();
+    driver.findElement(By.linkText("View Details")).click();
+    {
+      WebElement element = driver.findElement(By.cssSelector("#editBtn .MuiSvgIcon-root"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).perform();
+    }
+
+    // Rename Sender Device
+    driver.findElement(By.cssSelector("#editBtn .MuiSvgIcon-root")).click();
+    driver.findElement(By.id("deviceName")).click();
+    driver.findElement(By.id("deviceName")).sendKeys(rename);
+    driver.findElement(By.cssSelector("#confirmEditBtn path")).click();
+
+    // Go to List of Senders
+    driver.get("http://localhost:3000/Devices");
+
+    // Check for renamed Sender
+    WebElement encodersTable = driver.findElement(By.tagName("table")); // find encoders table
+
+    {
+      WebDriverWait wait = new WebDriverWait(driver, 5);
+      wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName("tr")));
+    }
+
+    List<WebElement> devicesRows =
+        encodersTable.findElements(By.tagName("tr")); // find all tr elements inside found table
+    boolean assertValue = devicesRows.stream().anyMatch(row -> row.getText().contains(rename));
+
+    assertTrue(assertValue);
   }
 }

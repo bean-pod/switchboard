@@ -9,6 +9,7 @@ import DeleteStreamDialogOpener from "./DeleteStreamDialogOpener";
 
 export default function StreamDetailsPageContents(props) {
   const { stream } = props;
+
   return (
     <Container>
       <Grid container spacing={3}>
