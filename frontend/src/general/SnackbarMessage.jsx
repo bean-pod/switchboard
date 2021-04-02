@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Snackbar, SnackbarContent, IconButton, Box } from "@material-ui/core";
 import { CheckCircle, Error, Close } from "@material-ui/icons";
-import { withRouter } from "react-router";
+import { withRouter } from "react-router-dom";
 
 let openSnackbarFn;
 
