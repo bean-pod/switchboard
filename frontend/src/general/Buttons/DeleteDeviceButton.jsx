@@ -45,10 +45,7 @@ export default function DeleteDeviceButton(props) {
   const cancelDelete = () => {
     return setOpen(false);
   };
-  const afterDelete = () => {
-    snackbar("success", `Device deleted! (Serial Number: ${deleteId})`);
-  }
-
+ 
   const confirmDelete = () => {
     DeviceApi.deleteDevice(deleteId)
       .then(() => {
@@ -57,7 +54,7 @@ export default function DeleteDeviceButton(props) {
         } else {
           history.push("/Devices");
         }
-        afterDelete();
+        snackbar("success", `Device deleted! (Serial Number: ${deleteId})`);
       })
       .catch(() => {
         snackbar(
