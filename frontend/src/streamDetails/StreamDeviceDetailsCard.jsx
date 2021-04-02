@@ -5,10 +5,15 @@ import { Grid } from "@material-ui/core";
 import DeviceInfo from "../model/DeviceInfo";
 import DashboardCard from "../general/dashboard/DashboardCard";
 import SimpleTable from "../general/simpleTable/SimpleTable";
+import ButtonInfo from "../general/dashboard/ButtonInfo";
 
 export default function StreamDeviceDetailsCard(props) {
   const { cardTitle, device, channel } = props;
-
+  const button = new ButtonInfo(
+    `/Devices/Details/${device.serialNumber}`,
+    { device },
+    "View Device"
+  );
   const properties = {
     Name: device.name,
     "Serial Number": device.serialNumber,
@@ -16,7 +21,7 @@ export default function StreamDeviceDetailsCard(props) {
   };
 
   return (
-    <DashboardCard title={cardTitle}>
+    <DashboardCard title={cardTitle} button={button}>
       <Grid container>
         <Grid item xs={12}>
           <SimpleTable properties={properties} />
