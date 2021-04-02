@@ -17,6 +17,13 @@ describe("<StreamStatisticsCard/> class component", () => {
   const dummyStreamId = 1;
   const dummyStats = getSampleStreamStats();
 
+  const expectedProperties = {
+    "Time": dummyStats.time,
+    "Round-Trip-Time": dummyStats.link.rtt,
+    "Packets Retransmitted": dummyStats.send.packetsRetransmitted,
+    "Packets Dropped": dummyStats.send.packetsDropped
+  };
+
   beforeEach(() => {
     wrapper = Enzyme.shallow(<StreamStatisticsCard streamId={dummyStreamId} />);
   });
@@ -37,23 +44,8 @@ describe("<StreamStatisticsCard/> class component", () => {
       expect(wrapper.state()).toStrictEqual(expectedState);
     });
   });
-  describe("getPropertyNames() function", () => {
-    it("should return a specific array of property names", () => {
-      const expectedNames = [
-        "Time",
-        "Round-Trip-Time",
-        "Packets Retransmitted",
-        "Packets Dropped"
-      ];
-
-      const actualNames = wrapper.instance().getPropertyNames();
-      expect(actualNames).toStrictEqual(expectedNames);
-    });
-  });
   describe("getProperties() function", () => {
     it("should return a specific array of properties", () => {
-      const expectedProperties = [2, 41, 54, 53];
-
       wrapper.instance().handleStatsChange(dummyStats);
       const actualProperties = wrapper.instance().getProperties();
       expect(actualProperties).toStrictEqual(expectedProperties);
@@ -89,24 +81,13 @@ describe("<StreamStatisticsCard/> class component", () => {
       expect(gridProps.xs).toBe(expectedProps.xs);
     });
     it("should render 1 SimpleTable component with expected props", () => {
-      const expectedProps = {
-        propertyPairs: [
-          ["Time", 2],
-          ["Round-Trip-Time", 41],
-          ["Packets Retransmitted", 54],
-          ["Packets Dropped", 53]
-        ]
-      };
-
       wrapper.instance().handleStatsChange(dummyStats);
 
       const table = wrapper.find(SimpleTable);
       expect(table).toHaveLength(1);
 
       const tableProps = table.props();
-      expect(tableProps.propertyPairs).toStrictEqual(
-        expectedProps.propertyPairs
-      );
+      expect(tableProps.properties).toStrictEqual(expectedProperties);
     });
     it("should render 1 Box component with expected props", () => {
       const expectedProps = { className: "alignRightFloatPadded" };
