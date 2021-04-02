@@ -44,20 +44,20 @@ describe("<StatisticsSendingCard/> functional component", () => {
       expect(gridTwoProps.xs).toBe(12);
     });
     it("has 1 SimpleTable component with expected props", () => {
-      const expectedPairs = [
-        ["Packets", 51],
-        ["Packets Lost", 52],
-        ["Packets Dropped", 53],
-        ["Packets Retransmitted", 54],
-        ["Bytes", 55],
-        ["Bytes Dropped", 56],
-        ["MegaBit Rate", 57]
-      ];
+      const expectedProperties = {
+        Packets: 51,
+        "Packets Lost": 52,
+        "Packets Dropped": 53,
+        "Packets Retransmitted": 54,
+        Bytes: 55,
+        "Bytes Dropped": 56,
+        "MegaBit Rate": 57
+      };
       const table = wrapper.find(SimpleTable);
       expect(table).toHaveLength(1);
 
       const tableProps = table.props();
-      expect(tableProps.propertyPairs).toStrictEqual(expectedPairs);
+      expect(tableProps.properties).toStrictEqual(expectedProperties);
     });
   });
 });
