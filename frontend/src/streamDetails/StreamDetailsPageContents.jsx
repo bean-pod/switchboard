@@ -6,14 +6,20 @@ import StreamInfo from "../model/StreamInfo";
 import DashboardCard from "../general/dashboard/DashboardCard";
 import StreamDeviceDetails from "./StreamDeviceDetails";
 import DeleteStreamDialogOpener from "./DeleteStreamDialogOpener";
+import ButtonInfo from "../general/dashboard/ButtonInfo";
 
 export default function StreamDetailsPageContents(props) {
   const { stream } = props;
+  const button = new ButtonInfo(
+    `/Devices/Details/${stream.sender.serialNumber}`,
+    { device: stream.sender },
+    "View Device"
+  );
   return (
     <Container>
       <Grid container spacing={3}>
         <Grid item xs={6}>
-          <DashboardCard title="Sender Details">
+          <DashboardCard title="Sender Details" button={button}>
             <StreamDeviceDetails
               device={stream.sender}
               channel={stream.outputChannel}
