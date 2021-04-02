@@ -22,12 +22,10 @@ export default class SnackbarMessage extends React.Component {
 
   handleClose(event, reason) {
     if (reason !== "clickaway") {
-      return;
+      this.setState({
+        open: false
+      });
     }
-
-    this.setState({
-      open: false
-    });
   }
 
   openSnackbar(stat, msg) {
