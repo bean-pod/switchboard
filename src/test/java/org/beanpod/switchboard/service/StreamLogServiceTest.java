@@ -8,7 +8,6 @@ import java.time.OffsetDateTime;
 import org.beanpod.switchboard.dao.StreamLogDaoImpl;
 import org.beanpod.switchboard.dto.StreamLogDto;
 import org.beanpod.switchboard.dto.mapper.LogStreamMapper;
-import org.beanpod.switchboard.entity.LogEntity;
 import org.beanpod.switchboard.fixture.DeviceFixture;
 import org.beanpod.switchboard.fixture.LogFixture;
 import org.beanpod.switchboard.fixture.StreamFixture;

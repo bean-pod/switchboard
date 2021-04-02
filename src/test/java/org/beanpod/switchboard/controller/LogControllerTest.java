@@ -10,7 +10,6 @@ import org.beanpod.switchboard.dao.LogDaoImpl;
 import org.beanpod.switchboard.dao.StreamLogDaoImpl;
 import org.beanpod.switchboard.dto.LogDto;
 import org.beanpod.switchboard.dto.mapper.LogMapper;
-import org.beanpod.switchboard.entity.LogEntity;
 import org.beanpod.switchboard.fixture.LogFixture;
 import org.beanpod.switchboard.fixture.StreamLogFixture;
 import org.beanpod.switchboard.service.LogService;
