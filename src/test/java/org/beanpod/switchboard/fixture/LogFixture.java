@@ -48,16 +48,6 @@ public class LogFixture {
         .build();
   }
 
-  public static LogDto getLogDtoCustomConstructor() {
-    return LogDto.builder()
-        .id(id)
-        .dateTime(dateTime)
-        .message(message)
-        .level(level)
-        .serialNumber(DeviceFixture.SERIAL_NUMBER)
-        .build();
-  }
-
   public static CreateLogRequest getCreateLogRequest() {
     return new CreateLogRequest()
         .serialNumber(DeviceFixture.SERIAL_NUMBER)

@@ -59,6 +59,8 @@ public class MaintainDeviceStatus {
             deviceMapper.toDeviceDto(encoderOrDecoder.getDevice()));
 
         updatedDevices.add(encoderOrDecoder.getDevice());
+      } else {
+        updatedDevices.add(encoderOrDecoder.getDevice());
       }
     }
 
