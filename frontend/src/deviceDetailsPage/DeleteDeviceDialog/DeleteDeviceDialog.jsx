@@ -11,25 +11,19 @@ export default class DeleteDeviceDialog extends React.Component {
     super(props);
 
     this.dialogElement = React.createRef();
-    this.afterDelete = this.afterDelete.bind(this);
     this.confirmDelete = this.confirmDelete.bind(this);
     this.openDialog = this.openDialog.bind(this);
   }
 
-  afterDelete() {
-    const { history } = this.props;
-    this.dialogElement.current.closeDialog();
-    history.push("/Devices");
-  }
-
   confirmDelete() {
     const {
-      device: { serialNumber }
+      device: { serialNumber },
+      history
     } = this.props;
     this.dialogElement.current.closeDialog();
     deleteDevice(serialNumber)
       .then(() => {
-        this.afterDelete();
+        history.push("/Devices");
         snackbar("success", `Device deleted! (Serial Number: ${serialNumber})`);
       })
       .catch(() => {

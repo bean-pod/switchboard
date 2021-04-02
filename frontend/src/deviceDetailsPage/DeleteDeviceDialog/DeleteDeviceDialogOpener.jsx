@@ -43,8 +43,8 @@ class DeleteDeviceDialogOpener extends React.Component {
 export default withRouter(DeleteDeviceDialogOpener);
 
 DeleteDeviceDialogOpener.propTypes = {
+  device: PropTypes.instanceOf(DeviceInfo).isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired
-  }).isRequired,
-  device: PropTypes.instanceOf(DeviceInfo).isRequired
+  }).isRequired
 };

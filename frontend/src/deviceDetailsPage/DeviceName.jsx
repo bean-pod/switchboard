@@ -1,11 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { withRouter } from "react-router-dom";
+
 import * as DeviceApi from "../api/DeviceApi";
 import EditableName from "./EditableName";
 import StaticName from "./StaticName";
 import { snackbar } from "../general/SnackbarMessage";
 
-export default class DeviceName extends React.Component {
+class DeviceName extends React.Component {
   constructor(props) {
     super(props);
     this.deviceName = props.deviceName;
@@ -35,20 +37,18 @@ export default class DeviceName extends React.Component {
   }
 
   confirmEditing(event) {
-    // api call
     event.preventDefault();
     const { name: newName } = this.state;
+    const { history } = this.props;
+
     const oldName = this.deviceName;
     this.deviceName = newName;
     this.setState({ editing: false });
 
     DeviceApi.updateDeviceName(this.deviceId, newName)
       .then(() => {
-        snackbar(
-          "success",
-          `Device successfully renamed to ${newName}`,
-          "Devices"
-        );
+        history.push("/Devices");
+        snackbar("success", `Device successfully renamed to ${newName}`);
       })
       .catch(() => {
         // If update was unsuccessful, return to the old name
@@ -81,6 +81,11 @@ export default class DeviceName extends React.Component {
 }
 
 DeviceName.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired,
   deviceName: PropTypes.string.isRequired,
   deviceId: PropTypes.string.isRequired
 };
+
+export default withRouter(DeviceName);

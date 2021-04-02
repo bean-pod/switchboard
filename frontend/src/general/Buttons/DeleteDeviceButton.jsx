@@ -1,12 +1,15 @@
 import React from "react";
+import PropTypes from "prop-types";
+import { useHistory } from "react-router-dom";
+
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import PropTypes from "prop-types";
 import { MenuItem } from "@material-ui/core";
+
 import * as DeviceApi from "../../api/DeviceApi";
 import { snackbar } from "../SnackbarMessage";
 
@@ -34,6 +37,7 @@ function renderDeleteMenuItem(openDeleteDialog) {
 export default function DeleteDeviceButton(props) {
   const { button, deleteId } = props;
   const [open, setOpen] = React.useState(false);
+  const history = useHistory();
 
   const openDeleteDialog = () => {
     return setOpen(true);
@@ -44,11 +48,12 @@ export default function DeleteDeviceButton(props) {
   const confirmDelete = () => {
     DeviceApi.deleteDevice(deleteId)
       .then(() => {
-        snackbar(
-          "success",
-          `Device deleted! (Serial Number: ${deleteId})`,
-          "Devices"
-        );
+        if (history.location.pathname.endsWith("Devices")) {
+          history.go(0);
+        } else {
+          history.push("/Devices");
+        }
+        snackbar("success", `Device deleted! (Serial Number: ${deleteId})`);
       })
       .catch(() => {
         snackbar(

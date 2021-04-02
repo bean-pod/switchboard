@@ -15,11 +15,12 @@ export default class DeleteStreamDialog extends React.Component {
   }
 
   confirmDelete() {
-    const { deleteId } = this.props;
+    const { deleteId, history } = this.props;
     this.dialogElement.current.closeDialog();
     deleteStream(deleteId)
       .then(() => {
-        snackbar("success", `Stream successfully deleted!`, "Streams");
+        history.push("/Streams");
+        snackbar("success", `Stream successfully deleted!`);
       })
       .catch(() => {
         snackbar("error", `Failed to delete stream`);
@@ -54,5 +55,9 @@ export default class DeleteStreamDialog extends React.Component {
 }
 
 DeleteStreamDialog.propTypes = {
-  deleteId: PropTypes.number.isRequired
+  deleteId: PropTypes.number.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+    go: PropTypes.func.isRequired
+  }).isRequired
 };
