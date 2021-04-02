@@ -4,7 +4,6 @@ import { Box, Grid } from "@material-ui/core";
 
 import DashboardCard from "../general/dashboard/DashboardCard";
 import SimpleTable from "../general/simpleTable/SimpleTable";
-import zipProperties from "../general/simpleTable/SimpleTableUtil";
 import StreamStatisticsButton from "./DetailedStreamStatistics/StreamStatisticsButton";
 import { getStreamStatistics } from "../api/StreamApi";
 
@@ -16,7 +15,6 @@ export default class StreamStatisticsCard extends React.Component {
     };
     this.streamId = props.streamId;
     this.handleStatsChange = this.handleStatsChange.bind(this);
-    this.getPropertyNames = this.getPropertyNames.bind(this);
     this.getProperties = this.getProperties.bind(this);
   }
 
@@ -30,38 +28,27 @@ export default class StreamStatisticsCard extends React.Component {
     });
   }
 
-  getPropertyNames() {
-    return [
-      "Time",
-      "Round-Trip-Time",
-      "Packets Retransmitted",
-      "Packets Dropped"
-    ];
-  }
-
   getProperties() {
     const { stats } = this.state;
-    if (stats.length === 0) return [];
-    return [
-      stats.time,
-      stats.link.rtt,
-      stats.send.packetsRetransmitted,
-      stats.send.packetsDropped
-    ];
+    if (stats.length === 0) return {};
+    return {
+      "Time": stats.time,
+      "Round-Trip-Time": stats.link.rtt,
+      "Packets Retransmitted": stats.send.packetsRetransmitted,
+      "Packets Dropped": stats.send.packetsDropped
+    };
   }
 
   render() {
     const { stats } = this.state;
-    const propertyNames = this.getPropertyNames();
     const properties = this.getProperties();
 
-    const propertyPairs = zipProperties(propertyNames, properties);
     return (
       <>
         <DashboardCard title="Statistics">
           <Grid container>
             <Grid item xs={12}>
-              <SimpleTable propertyPairs={propertyPairs} />
+              <SimpleTable properties={properties} />
             </Grid>
             <Grid item xs={12}>
               <Box className="alignRightFloatPadded">
