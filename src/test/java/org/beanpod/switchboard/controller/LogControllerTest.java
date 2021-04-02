@@ -7,10 +7,12 @@ import static org.mockito.Mockito.when;
 
 import java.util.List;
 import org.beanpod.switchboard.dao.LogDaoImpl;
+import org.beanpod.switchboard.dao.StreamLogDaoImpl;
 import org.beanpod.switchboard.dto.LogDto;
 import org.beanpod.switchboard.dto.mapper.LogMapper;
 import org.beanpod.switchboard.entity.LogEntity;
 import org.beanpod.switchboard.fixture.LogFixture;
+import org.beanpod.switchboard.fixture.StreamLogFixture;
 import org.beanpod.switchboard.service.LogService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,6 +20,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.openapitools.model.LogModel;
+import org.openapitools.model.StreamLogModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -27,10 +30,12 @@ class LogControllerTest {
   private static LogModel logModel;
   private static LogDto logDto;
   private static LogEntity logEntity;
+  private static List<StreamLogModel> streamLogModels;
   @InjectMocks private LogController logController;
   @Mock private LogDaoImpl logDao;
   @Mock private LogMapper logMapper;
   @Mock private LogService logService;
+  @Mock private StreamLogDaoImpl streamLogDao;
 
   @BeforeEach
   void setupLogFixture() {
@@ -38,6 +43,7 @@ class LogControllerTest {
     logModel = LogFixture.getLogModel();
     logDto = LogFixture.getLogDto();
     logEntity = LogFixture.getLogEntity();
+    streamLogModels = StreamLogFixture.getListOfStreamLogsModel();
   }
 
   @BeforeEach
@@ -72,5 +78,13 @@ class LogControllerTest {
 
     assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     assertEquals(logModel, responseEntity.getBody());
+  }
+
+  @Test
+  final void testRetrieveStreamLogs() {
+    when(streamLogDao.getStreamLogs((long) 1)).thenReturn(streamLogModels);
+    ResponseEntity<List<StreamLogModel>> response = logController.retrieveStreamLogs((long) 1);
+    assertEquals(HttpStatus.OK, response.getStatusCode());
+    assertIterableEquals(streamLogModels, response.getBody());
   }
 }
