@@ -11,8 +11,15 @@ export default class DeleteDeviceDialog extends React.Component {
     super(props);
 
     this.dialogElement = React.createRef();
+    this.afterDelete = this.afterDelete.bind(this);
     this.confirmDelete = this.confirmDelete.bind(this);
     this.openDialog = this.openDialog.bind(this);
+  }
+
+  afterDelete() {
+      const { history } = this.props;
+      this.dialogElement.current.closeDialog();
+      history.push("/Devices");
   }
 
   confirmDelete() {
@@ -22,10 +29,10 @@ export default class DeleteDeviceDialog extends React.Component {
     this.dialogElement.current.closeDialog();
     deleteDevice(serialNumber)
       .then(() => {
+        this.afterDelete();
         snackbar(
           "success",
-          `Device deleted! (Serial Number: ${serialNumber})`,
-          "Devices"
+          `Device deleted! (Serial Number: ${serialNumber})`
         );
       })
       .catch(() => {
@@ -64,5 +71,8 @@ export default class DeleteDeviceDialog extends React.Component {
 }
 
 DeleteDeviceDialog.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired,
   device: PropTypes.instanceOf(DeviceInfo).isRequired
 };

@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Button } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
+import { withRouter } from "react-router-dom";
 import DeleteDeviceDialog from "./DeleteDeviceDialog";
 import DeviceInfo from "../../model/DeviceInfo";
 
@@ -18,7 +19,7 @@ class DeleteDeviceDialogOpener extends React.Component {
   }
 
   render() {
-    const { device } = this.props;
+    const { device, history } = this.props;
     return (
       <>
         <Button
@@ -29,14 +30,17 @@ class DeleteDeviceDialogOpener extends React.Component {
         >
           Delete
         </Button>
-        <DeleteDeviceDialog ref={this.dialogElement} device={device} />
+        <DeleteDeviceDialog ref={this.dialogElement} device={device} history={history} />
       </>
     );
   }
 }
 
-export default DeleteDeviceDialogOpener;
+export default withRouter(DeleteDeviceDialogOpener);
 
 DeleteDeviceDialogOpener.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired
+    }).isRequired,
   device: PropTypes.instanceOf(DeviceInfo).isRequired
 };
