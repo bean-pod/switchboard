@@ -9,14 +9,14 @@ export default function SmallCardButton(props) {
     button: { pathname, referenceObject, buttonText, onClick }
   } = props;
 
-  if (!!onClick){
+  if (onClick) {
     return (
       <Button variant="contained" size="small" onClick={onClick}>
-      {buttonText}
-    </Button>
-    )
+        {buttonText}
+      </Button>
+    );
   }
-  
+
   return (
     <NavLink
       activeClassName="hideLinkStyle"

@@ -1,7 +1,7 @@
 import React from "react";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import { afterAll, afterEach, beforeAll, describe, expect, it } from "@jest/globals";
+import { afterEach, describe, expect, it } from "@jest/globals";
 import { NavLink } from "react-router-dom";
 import { Button } from "@material-ui/core";
 
@@ -16,12 +16,12 @@ describe("<SmallCardButton/> functional Component", () => {
   const dummyObj = { thing: "thing" };
   const dummyButtonText = "buttonText";
   const dummyOnClick = jest.fn();
-  
+
   afterEach(() => {
     wrapper.unmount();
   });
-  
-  describe("when onClick is not defined",()=>{
+
+  describe("when onClick is not defined", () => {
     beforeEach(() => {
       const button = new ButtonInfo(dummyPath, dummyObj, dummyButtonText);
       wrapper = Enzyme.shallow(<SmallCardButton button={button} />);
@@ -38,7 +38,7 @@ describe("<SmallCardButton/> functional Component", () => {
             state: dummyObj
           }
         };
-  
+
         expect(props.activeClassName).toBe(expected.activeClassName);
         expect(props.className).toBe(expected.className);
         expect(props.to).toStrictEqual(expected.to);
@@ -51,7 +51,7 @@ describe("<SmallCardButton/> functional Component", () => {
           size: "small",
           children: dummyButtonText
         };
-  
+
         expect(props.variant).toBe(expected.variant);
         expect(props.size).toBe(expected.size);
         expect(props.children).toStrictEqual(expected.children);
@@ -59,9 +59,14 @@ describe("<SmallCardButton/> functional Component", () => {
     });
   });
 
-  describe("when onClick is defined",()=>{
+  describe("when onClick is defined", () => {
     beforeEach(() => {
-      const button = new ButtonInfo(dummyPath, dummyObj, dummyButtonText, dummyOnClick);
+      const button = new ButtonInfo(
+        dummyPath,
+        dummyObj,
+        dummyButtonText,
+        dummyOnClick
+      );
 
       wrapper = Enzyme.shallow(<SmallCardButton button={button} />);
     });
@@ -75,7 +80,7 @@ describe("<SmallCardButton/> functional Component", () => {
           onClick: dummyOnClick,
           children: dummyButtonText
         };
-  
+
         expect(props.variant).toBe(expected.variant);
         expect(props.size).toBe(expected.size);
         expect(props.onClick).toStrictEqual(expected.onClick);
@@ -83,6 +88,4 @@ describe("<SmallCardButton/> functional Component", () => {
       });
     });
   });
-
-
 });
