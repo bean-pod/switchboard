@@ -6,39 +6,27 @@ import { Grid } from "@material-ui/core";
 import DashboardCard from "../../general/dashboard/DashboardCard";
 import StreamStatisticsInfo from "../../model/StreamStatistics/StreamStatisticsInfo";
 import SimpleTable from "../../general/simpleTable/SimpleTable";
-import zipProperties from "../../general/simpleTable/SimpleTableUtil";
 
 export default function StatisticsOverviewCard(props) {
   const { stats } = props;
 
-  const propertyNames = [
-    "Stream ID",
-    "Time",
-    "Flow",
-    "Congestion",
-    "Flight",
-    "Latency",
-    "Bandwidth",
-    "Maximum Bandwidth"
-  ];
-  const properties = [
-    stats.id,
-    stats.time,
-    stats.window.flow,
-    stats.window.congestion,
-    stats.window.flight,
-    stats.link.rtt,
-    stats.link.bandwidth,
-    stats.link.maxBandwidth
-  ];
+  const properties = {
+    "Stream ID": stats.id,
+    Time: stats.time,
+    Flow: stats.window.flow,
+    Congestion: stats.window.congestion,
+    Flight: stats.window.flight,
+    Latency: stats.link.rtt,
+    Bandwidth: stats.link.bandwidth,
+    "Maximum Bandwidth": stats.link.maxBandwidth
+  };
 
-  const propertyPairs = zipProperties(propertyNames, properties);
   return (
     <>
       <DashboardCard title="Overview">
         <Grid container>
           <Grid item xs={12}>
-            <SimpleTable propertyPairs={propertyPairs} />
+            <SimpleTable properties={properties} />
           </Grid>
         </Grid>
       </DashboardCard>

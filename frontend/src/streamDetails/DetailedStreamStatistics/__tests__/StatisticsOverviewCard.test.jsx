@@ -44,21 +44,21 @@ describe("<StreamStatisticsOverviewCard/> functional component", () => {
       expect(gridTwoProps.xs).toBe(12);
     });
     it("has 1 SimpleTable component with expected props", () => {
-      const expectedPairs = [
-        ["Stream ID", 1],
-        ["Time", 2],
-        ["Flow", 31],
-        ["Congestion", 32],
-        ["Flight", 33],
-        ["Latency", 41],
-        ["Bandwidth", 42],
-        ["Maximum Bandwidth", 43]
-      ];
+      const expectedProperties = {
+        "Stream ID": 1,
+        Time: 2,
+        Flow: 31,
+        Congestion: 32,
+        Flight: 33,
+        Latency: 41,
+        Bandwidth: 42,
+        "Maximum Bandwidth": 43
+      };
       const table = wrapper.find(SimpleTable);
       expect(table).toHaveLength(1);
 
       const tableProps = table.props();
-      expect(tableProps.propertyPairs).toStrictEqual(expectedPairs);
+      expect(tableProps.properties).toStrictEqual(expectedProperties);
     });
   });
 });
