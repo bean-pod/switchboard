@@ -7,11 +7,13 @@ import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
+import lombok.SneakyThrows;
 import org.beanpod.switchboard.dao.DeviceDaoImpl;
 import org.beanpod.switchboard.dto.DeviceDto;
 import org.beanpod.switchboard.dto.mapper.DeviceMapper;
@@ -53,6 +55,7 @@ class DeviceControllerTest {
     MockitoAnnotations.initMocks(this);
   }
 
+  @SneakyThrows
   @Test
   final void testUploadConfiguration() {
 
@@ -61,9 +64,10 @@ class DeviceControllerTest {
     when(deviceService.save(any())).thenReturn(deviceDTO);
     when(deviceMapper.toDeviceModel(any())).thenReturn(deviceModel);
 
-    String s1 =
-        deviceController.uploadConfiguration(DeviceFixture.SERIAL_NUMBER, file).getBody();
-    assertEquals("Configurations uploaded.", s1);
+    String s1 = deviceController.uploadConfiguration(DeviceFixture.SERIAL_NUMBER, file).getBody();
+    verify(deviceService).save(deviceDTO);
+
+    assertEquals("Configuration uploaded.", s1);
   }
 
   @Test
