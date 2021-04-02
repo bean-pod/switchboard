@@ -18,7 +18,7 @@ describe("<StreamStatisticsCard/> class component", () => {
   const dummyStats = getSampleStreamStats();
 
   const expectedProperties = {
-    "Time": dummyStats.time,
+    Time: dummyStats.time,
     "Round-Trip-Time": dummyStats.link.rtt,
     "Packets Retransmitted": dummyStats.send.packetsRetransmitted,
     "Packets Dropped": dummyStats.send.packetsDropped
@@ -60,8 +60,8 @@ describe("<StreamStatisticsCard/> class component", () => {
   describe("render() function", () => {
     it("should render 1 DashboardCard with expected props", () => {
       wrapper.instance().handleStatsChange(dummyStats);
-      
-      const expectedProps = { 
+
+      const expectedProps = {
         title: "Statistics",
         button: expectedButton
       };
