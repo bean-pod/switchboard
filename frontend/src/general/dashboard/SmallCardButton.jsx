@@ -6,8 +6,16 @@ import ButtonInfo from "./ButtonInfo";
 
 export default function SmallCardButton(props) {
   const {
-    button: { pathname, referenceObject, buttonText }
+    button: { pathname, referenceObject, buttonText, onClick }
   } = props;
+
+  if (onClick) {
+    return (
+      <Button variant="contained" size="small" onClick={onClick}>
+        {buttonText}
+      </Button>
+    );
+  }
 
   return (
     <NavLink
