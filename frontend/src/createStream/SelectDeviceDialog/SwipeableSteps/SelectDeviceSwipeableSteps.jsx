@@ -4,6 +4,9 @@ import PropTypes from "prop-types";
 import SwipeableViews from "react-swipeable-views";
 import { KeyboardArrowLeft } from "@material-ui/icons";
 import { Button, DialogTitle, MobileStepper } from "@material-ui/core";
+import SelectDeviceTable from "../SelectDeviceTable";
+import SelectChannelTable from "../SelectChannelTable";
+import StreamDeviceCard from "../../../general/StreamDeviceCard";
 
 import StepperNextButton from "./StepperNextButton";
 
@@ -13,16 +16,45 @@ export default class SelectDeviceSwipeableSteps extends React.Component {
     this.state = {
       activeStep: 0
     };
+    const {
+      deviceList,
+      deviceIndex,
+      setDeviceIndex,
+      channelIndex,
+      setChannelIndex
+    } = this.props;
+
     this.steps = [
       {
-        label: "Select a Device"
-        
+        label: "Select a Device",
+        component: (
+          <SelectDeviceTable
+            selectedIndex={deviceIndex}
+            setIndex={setDeviceIndex}
+            deviceList={deviceList}
+          />
+        )
       },
       {
-        label: "Select a Channel"
+        label: "Select a Channel",
+        component: (
+          <SelectChannelTable
+            selectedIndex={channelIndex}
+            setIndex={setChannelIndex}
+            device={deviceList[deviceIndex]}
+          />
+        )
       },
       {
-        label: `Confirm Device`
+        label: `Confirm Device`,
+        component: (
+          <StreamDeviceCard
+            cardTitle="Device"
+            button={null}
+            device={deviceList[deviceIndex]}
+            channel={deviceList[deviceIndex].channels[channelIndex]}
+          />
+        )
       }
     ];
     this.handleNext = this.handleNext.bind(this);
