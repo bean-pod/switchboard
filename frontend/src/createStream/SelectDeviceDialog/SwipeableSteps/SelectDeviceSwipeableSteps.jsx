@@ -83,7 +83,7 @@ export default class SelectDeviceSwipeableSteps extends React.Component {
   }
 
   render() {
-    const { device, handleClose } = this.props;
+    const { handleClose } = this.props;
     const { activeStep } = this.state;
     const maxSteps = this.steps.length;
 
