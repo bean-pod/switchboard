@@ -21,6 +21,7 @@ export default class SelectDeviceSwipeableSteps extends React.Component {
     this.steps = [
       {
         label: "Select a Device"
+        
       },
       {
         label: "Select a Channel"
