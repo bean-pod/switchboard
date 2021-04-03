@@ -1,15 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useTheme } from "@material-ui/core/styles";
 
 import SwipeableViews from "react-swipeable-views";
-import { KeyboardArrowLeft, KeyboardArrowRight } from "@material-ui/icons";
-import {
-  Button,
-  DialogTitle,
-  MobileStepper,
-  Typography
-} from "@material-ui/core";
+import { KeyboardArrowLeft } from "@material-ui/icons";
+import { Button, DialogTitle, MobileStepper } from "@material-ui/core";
+
 import StepperNextButton from "./StepperNextButton";
 
 export default class SelectDeviceSwipeableSteps extends React.Component {
