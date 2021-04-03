@@ -50,11 +50,9 @@ export default class CreateStreamDeviceCardWrapper extends React.Component {
 
 CreateStreamDeviceCardWrapper.propTypes = {
   title: PropTypes.string.isRequired,
-  deviceList: Proptypes.arrayOf(
-      PropTypes.instanceOf(DeviceInfo)
-  ).isRequired,
+  deviceList: Proptypes.arrayOf(PropTypes.instanceOf(DeviceInfo)).isRequired,
   deviceIndex: PropTypes.number.isRequired,
   setDeviceIndex: PropTypes.func.isRequired,
   channelIndex: PropTypes.number.isRequired,
-  setChannelIndex: PropTypes.func.isRequired,
+  setChannelIndex: PropTypes.func.isRequired
 };
