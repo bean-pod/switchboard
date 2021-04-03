@@ -90,8 +90,7 @@ describe("<SnackbarMessage /> Class Component", () => {
               expect(wrapper.find(SnackbarContent).props().message).toEqual(
                 <Box id="message-id" className="snackMessage">
                   <Error className="iconPadding" />
-                  {wrapper.state().message ||
-                    `Form submission status: ${wrapper.state().status}`}
+                  {wrapper.state().message}
                 </Box>
               );
             });

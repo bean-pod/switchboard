@@ -63,7 +63,7 @@ export default class SnackbarMessage extends React.Component {
                 {isSuccess ? 
                   <CheckCircle className="iconPadding" /> : 
                   <Error className="iconPadding" />}
-                {message || `Form submission status: ${status}`}
+                {message}
               </Box>
             )}
             action={[
