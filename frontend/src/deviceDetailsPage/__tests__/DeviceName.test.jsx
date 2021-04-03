@@ -25,10 +25,6 @@ const flushPromises = () => new Promise(setImmediate);
 
 describe("<DeviceName/> component", () => {
   let wrapper;
-  const mockPush = jest.fn();
-  const dummyHistory = {
-    push: mockPush
-  };
   const mockDevice = {
     name: "Mock Device",
     id: "Serial Number"
@@ -44,11 +40,7 @@ describe("<DeviceName/> component", () => {
 
   beforeEach(() => {
     wrapper = Enzyme.shallow(
-      <DeviceName.WrappedComponent
-        deviceName={mockDevice.name}
-        deviceId={mockDevice.id}
-        history={dummyHistory}
-      />
+      <DeviceName deviceName={mockDevice.name} deviceId={mockDevice.id} />
     );
   });
 
@@ -119,8 +111,6 @@ describe("<DeviceName/> component", () => {
 
     describe("When updating name succeeds", () => {
       it("Calls updateDeviceName and contains <StaticName/> with the new name", async () => {
-        const expectedPushArg = "/Devices";
-
         const newName = "New Name";
         wrapper.instance().setName(newName);
 
@@ -142,8 +132,6 @@ describe("<DeviceName/> component", () => {
         const props = staticName.first().props();
         expect(props.deviceName).toEqual(newName);
 
-        expect(mockPush).toBeCalledTimes(1);
-        expect(mockPush).toBeCalledWith(expectedPushArg);
         expect(snackbarSpy).toHaveBeenCalledTimes(1);
         expect(snackbarSpy).toHaveBeenCalledWith(
           "success",
@@ -175,7 +163,6 @@ describe("<DeviceName/> component", () => {
         const props = staticName.first().props();
         expect(props.deviceName).toEqual(mockDevice.name);
 
-        expect(mockPush).not.toBeCalled();
         expect(snackbarSpy).toHaveBeenCalledTimes(1);
         expect(snackbarSpy).toHaveBeenCalledWith(
           "error",
