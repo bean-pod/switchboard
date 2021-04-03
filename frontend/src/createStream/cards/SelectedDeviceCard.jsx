@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import DeviceInfo from "../model/DeviceInfo";
 import ButtonInfo from "../../general/dashboard/ButtonInfo";
 import StreamDeviceCard from "../../general/StreamDeviceCard";
+import DeviceInfo from "../../model/DeviceInfo";
 
 export default function SelectedDeviceCard(props) {
   const { title, openDialog, device, channelId } = props;

@@ -1,13 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import DeviceInfo from "../model/DeviceInfo";
 import SelectedDeviceCard from "./SelectedDeviceCard";
 import UnselectedDeviceCard from "./UnselectedDeviceCard";
+import DeviceInfo from "../../model/DeviceInfo";
 
 export default function CreateStreamCardToggler(props) {
   const { title, openDialog, device, channelIndex } = props;
-  if (deviceIndex != -1) {
+  if (deviceIndex !== -1) {
     return (
       <SelectedDeviceCard
         title={title}

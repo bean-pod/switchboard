@@ -1,8 +1,7 @@
 import React from "react";
 import { Button, Grid } from "@material-ui/core";
 
-import DashboardCard from "../general/dashboard/DashboardCard";
-import DashBoardButton from "../general/dashboard/DashboardButton";
+import DashboardCard from "../../general/dashboard/DashboardCard";
 
 export default function UnselectedDeviceCard(props) {
   const { title, onClick } = props;
