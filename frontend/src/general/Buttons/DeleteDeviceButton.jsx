@@ -54,7 +54,6 @@ export default function DeleteDeviceButton(props) {
         } else {
           history.push("/Devices");
         }
-        snackbar("success", `Device deleted! (Serial Number: ${deleteId})`);
       })
       .catch(() => {
         snackbar(
