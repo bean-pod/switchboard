@@ -83,6 +83,18 @@ export default class SelectDeviceSwipeableSteps extends React.Component {
     });
   }
 
+  disableNext() {
+    const { activeStep } = this.state;
+    switch (activeStep) {
+      case 0:
+        return deviceIndex === -1;
+      case 1:
+        return channelIndex === -1;
+      default:
+        return false;
+    }
+  }
+
   render() {
     const { handleClose } = this.props;
     const { activeStep } = this.state;
@@ -97,13 +109,8 @@ export default class SelectDeviceSwipeableSteps extends React.Component {
           onChangeIndex={this.handleStepChange}
           enableMouseEvents
         >
-          {this.steps.map((step, index) => {
-            return (
-              <div key={step.label}>
-                Hello
-                {index}
-              </div>
-            );
+          {this.steps.map((step) => {
+            return step.component;
           })}
         </SwipeableViews>
         <MobileStepper
@@ -113,6 +120,7 @@ export default class SelectDeviceSwipeableSteps extends React.Component {
           activeStep={activeStep}
           nextButton={(
             <StepperNextButton
+              disabled={this.disableNext}
               isLast={activeStep === maxSteps - 1}
               handleClose={handleClose}
               handleNext={this.handleNext}
