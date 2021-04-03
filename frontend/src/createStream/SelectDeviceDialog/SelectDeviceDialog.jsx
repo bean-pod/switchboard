@@ -1,11 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useTheme } from "@material-ui/core/styles";
 
 import Dialog from "@material-ui/core/Dialog/Dialog";
-import SwipeableViews from "react-swipeable-views";
-import { KeyboardArrowLeft, KeyboardArrowRight } from "@material-ui/icons";
-import { Button, MobileStepper } from "@material-ui/core";
 import SelectDeviceSwipeableSteps from "./SwipeableSteps/SelectDeviceSwipeableSteps";
 
 export default class SelectDeviceDialog extends React.Component {

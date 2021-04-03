@@ -21,6 +21,7 @@ export default class SelectTable extends React.Component {
           return (
             <ListItem
               button
+              key={item}
               selected={selectedIndex === index}
               onClick={() => this.handleListItemClick(index)}
             >
@@ -33,7 +34,7 @@ export default class SelectTable extends React.Component {
   }
 }
 
-SelectDeviceSwipeableSteps.propTypes = {
+SelectTable.propTypes = {
   selectedIndex: PropTypes.number.isRequired,
   setIndex: PropTypes.func.isRequired,
   items: PropTypes.arrayOf(PropTypes.string).isRequired
