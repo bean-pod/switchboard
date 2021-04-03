@@ -4,7 +4,7 @@ import Adapter from "enzyme-adapter-react-16";
 import { describe } from "@jest/globals";
 
 import { Grid } from "@material-ui/core";
-import StreamDeviceDetailsCard from "../StreamDeviceDetailsCard";
+import StreamDetailsDeviceCard from "../StreamDetailsDeviceCard";
 import DashboardCard from "../../general/dashboard/DashboardCard";
 import SimpleTable from "../../general/simpleTable/SimpleTable";
 
@@ -13,7 +13,7 @@ import ButtonInfo from "../../general/dashboard/ButtonInfo";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe("<StreamDeviceDetailsCard/> functional component", () => {
+describe("<StreamDetailsDeviceCard/> functional component", () => {
   let wrapper;
 
   describe("returns a component that", () => {
@@ -42,7 +42,7 @@ describe("<StreamDeviceDetailsCard/> functional component", () => {
 
     beforeEach(() => {
       wrapper = Enzyme.shallow(
-        <StreamDeviceDetailsCard
+        <StreamDetailsDeviceCard
           cardTitle={dummyTitle}
           device={dummyDevice}
           channel={dummyChannel}

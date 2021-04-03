@@ -7,7 +7,7 @@ import DashboardCard from "../general/dashboard/DashboardCard";
 import SimpleTable from "../general/simpleTable/SimpleTable";
 import ButtonInfo from "../general/dashboard/ButtonInfo";
 
-export default function StreamDeviceDetailsCard(props) {
+export default function StreamDetailsDeviceCard(props) {
   const { cardTitle, device, channel } = props;
   const button = new ButtonInfo(
     `/Devices/Details/${device.serialNumber}`,
@@ -31,7 +31,7 @@ export default function StreamDeviceDetailsCard(props) {
   );
 }
 
-StreamDeviceDetailsCard.propTypes = {
+StreamDetailsDeviceCard.propTypes = {
   cardTitle: PropTypes.string.isRequired,
   device: PropTypes.instanceOf(DeviceInfo).isRequired,
   channel: PropTypes.number.isRequired
