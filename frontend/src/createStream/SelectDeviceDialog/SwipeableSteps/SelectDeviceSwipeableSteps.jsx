@@ -103,12 +103,9 @@ export default class SelectDeviceSwipeableSteps extends React.Component {
 
 SelectDeviceSwipeableSteps.propTypes = {
   handleClose: PropTypes.func.isRequired,
-    deviceList: Proptypes.arrayOf(
-        PropTypes.instanceOf(DeviceInfo)
-    ).isRequired,
-    deviceIndex: PropTypes.number.isRequired,
-    setDeviceIndex: PropTypes.func.isRequired,
-    channelIndex: PropTypes.number.isRequired,
-    setChannelIndex: PropTypes.func.isRequired,
-  };
-  
+  deviceList: Proptypes.arrayOf(PropTypes.instanceOf(DeviceInfo)).isRequired,
+  deviceIndex: PropTypes.number.isRequired,
+  setDeviceIndex: PropTypes.func.isRequired,
+  channelIndex: PropTypes.number.isRequired,
+  setChannelIndex: PropTypes.func.isRequired
+};
