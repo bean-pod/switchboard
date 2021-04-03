@@ -9,6 +9,7 @@ import SelectChannelTable from "../SelectChannelTable";
 import StreamDeviceCard from "../../../general/StreamDeviceCard";
 
 import StepperNextButton from "./StepperNextButton";
+import DeviceInfo from "../../../model/DeviceInfo";
 
 export default class SelectDeviceSwipeableSteps extends React.Component {
   constructor(props) {

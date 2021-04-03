@@ -26,7 +26,7 @@ export default function StreamDeviceCard(props) {
   );
 }
 
-StreamDetailsDeviceCard.propTypes = {
+StreamDeviceCard.propTypes = {
   cardTitle: PropTypes.string.isRequired,
   button: PropTypes.instanceOf(ButtonInfo).isRequired,
   device: PropTypes.instanceOf(DeviceInfo).isRequired,
