@@ -13,10 +13,18 @@ Enzyme.configure({ adapter: new Adapter() });
 
 describe("<DeleteDeviceDialogOpener/> class", () => {
   const dummyDevice = new DeviceInfo();
+  const dummyHistory = {
+    push: () => {}
+  };
   let wrapper;
 
   describe("render() function", () => {
-    wrapper = Enzyme.shallow(<DeleteDeviceDialogOpener device={dummyDevice} />);
+    wrapper = Enzyme.shallow(
+      <DeleteDeviceDialogOpener.WrappedComponent
+        device={dummyDevice}
+        history={dummyHistory}
+      />
+    );
     it("renders the correct components, with expected props where appropriate", () => {
       expect(wrapper.find(DeleteDeviceDialog)).toHaveLength(1);
 
@@ -42,7 +50,12 @@ describe("<DeleteDeviceDialogOpener/> class", () => {
       return mockRefElement;
     });
 
-    wrapper = Enzyme.shallow(<DeleteDeviceDialogOpener device={dummyDevice} />);
+    wrapper = Enzyme.shallow(
+      <DeleteDeviceDialogOpener.WrappedComponent
+        device={dummyDevice}
+        history={dummyHistory}
+      />
+    );
     it("calls dialogElement.current.openDialog()", () => {
       wrapper.instance().openDialog();
       expect(mockOpenDialog).toBeCalledTimes(1);

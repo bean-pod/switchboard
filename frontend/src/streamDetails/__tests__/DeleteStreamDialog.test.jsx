@@ -15,7 +15,10 @@ const flushPromises = () => new Promise(setImmediate);
 
 describe("<DeleteStreamDialog/> class", () => {
   let wrapper;
-
+  const mockPush = jest.fn();
+  const dummyHistory = {
+    push: mockPush
+  };
   const mockOpenDialog = jest.fn();
   const mockCloseDialog = jest.fn();
   const mockRefElement = {
@@ -32,7 +35,9 @@ describe("<DeleteStreamDialog/> class", () => {
     jest.spyOn(StreamApi, "deleteStream").mockImplementation(() => {
       return Promise.resolve();
     });
-    wrapper = Enzyme.shallow(<DeleteStreamDialog deleteId={dummyId} />);
+    wrapper = Enzyme.shallow(
+      <DeleteStreamDialog deleteId={dummyId} history={dummyHistory} />
+    );
   });
   afterEach(() => {
     jest.clearAllMocks();
@@ -57,6 +62,8 @@ describe("<DeleteStreamDialog/> class", () => {
     });
     describe("if stream", () => {
       it("is deleted successfully, it closes the dialog and displays a success snackbar", async () => {
+        const expectedPushArg = "/Streams";
+
         StreamApi.deleteStream.mockResolvedValueOnce();
 
         wrapper.instance().confirmDelete();
@@ -65,11 +72,12 @@ describe("<DeleteStreamDialog/> class", () => {
 
         await flushPromises();
 
+        expect(mockPush).toBeCalledTimes(1);
+        expect(mockPush).toBeCalledWith(expectedPushArg);
         expect(snackbarSpy).toHaveBeenCalledTimes(1);
         expect(snackbarSpy).toHaveBeenCalledWith(
           "success",
-          `Stream successfully deleted!`,
-          "Streams"
+          `Stream successfully deleted!`
         );
       });
       it("fails to delete, it closes the dialog and displays an error snackbar", async () => {
@@ -81,6 +89,7 @@ describe("<DeleteStreamDialog/> class", () => {
 
         await flushPromises();
 
+        expect(mockPush).not.toBeCalled();
         expect(snackbarSpy).toHaveBeenCalledTimes(1);
         expect(snackbarSpy).toHaveBeenCalledWith(
           "error",

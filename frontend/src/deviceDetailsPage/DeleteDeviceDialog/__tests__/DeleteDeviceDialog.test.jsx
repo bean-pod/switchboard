@@ -17,7 +17,10 @@ const flushPromises = () => new Promise(setImmediate);
 
 describe("<DeleteDeviceDialog/> class", () => {
   let wrapper;
-
+  const mockPush = jest.fn();
+  const dummyHistory = {
+    push: mockPush
+  };
   const mockOpenDialog = jest.fn();
   const mockCloseDialog = jest.fn();
   const mockRefElement = {
@@ -34,7 +37,9 @@ describe("<DeleteDeviceDialog/> class", () => {
     jest.spyOn(DeviceApi, "deleteDevice").mockImplementation(() => {
       return Promise.resolve();
     });
-    wrapper = Enzyme.shallow(<DeleteDeviceDialog device={device} />);
+    wrapper = Enzyme.shallow(
+      <DeleteDeviceDialog device={device} history={dummyHistory} />
+    );
   });
   afterEach(() => {
     jest.clearAllMocks();
@@ -54,6 +59,8 @@ describe("<DeleteDeviceDialog/> class", () => {
   describe("confirmDelete() function", () => {
     describe("calls DeviceApi with the device's serial number", () => {
       it("and delete is successful, it closes the dialog and displays a success snackbar", async () => {
+        const expectedPushArg = "/Devices";
+
         DeviceApi.deleteDevice.mockResolvedValueOnce();
 
         wrapper.instance().confirmDelete();
@@ -62,11 +69,12 @@ describe("<DeleteDeviceDialog/> class", () => {
 
         await flushPromises();
 
+        expect(mockPush).toBeCalledTimes(1);
+        expect(mockPush).toBeCalledWith(expectedPushArg);
         expect(snackbarSpy).toHaveBeenCalledTimes(1);
         expect(snackbarSpy).toHaveBeenCalledWith(
           "success",
-          `Device deleted! (Serial Number: ${device.serialNumber})`,
-          "Devices"
+          `Device deleted! (Serial Number: ${device.serialNumber})`
         );
       });
       it("and delete fails, it closes the dialog and displays an error snackbar", async () => {
@@ -78,6 +86,7 @@ describe("<DeleteDeviceDialog/> class", () => {
 
         await flushPromises();
 
+        expect(mockPush).not.toBeCalled();
         expect(snackbarSpy).toHaveBeenCalledTimes(1);
         expect(snackbarSpy).toHaveBeenCalledWith(
           "error",

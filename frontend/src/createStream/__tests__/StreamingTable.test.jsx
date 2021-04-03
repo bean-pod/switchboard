@@ -203,7 +203,7 @@ describe("<StreamingTable/> class component", () => {
           expect(snackbarSpy).toHaveBeenCalledTimes(1);
           expect(snackbarSpy).toHaveBeenCalledWith(
             "success",
-            `Stream successful!`
+            "Successfully created stream!"
           );
         });
         it("and the post rejects, an error snackbar should appear", async () => {
@@ -225,7 +225,10 @@ describe("<StreamingTable/> class component", () => {
           await flushPromises();
 
           expect(snackbarSpy).toHaveBeenCalledTimes(1);
-          expect(snackbarSpy).toHaveBeenCalledWith("error", `Stream failed`);
+          expect(snackbarSpy).toHaveBeenCalledWith(
+            "error",
+            "Failed to create stream"
+          );
         });
       });
     });

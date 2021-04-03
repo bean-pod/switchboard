@@ -45,7 +45,7 @@ export default function DeleteDeviceButton(props) {
   const cancelDelete = () => {
     return setOpen(false);
   };
- 
+
   const confirmDelete = () => {
     DeviceApi.deleteDevice(deleteId)
       .then(() => {
