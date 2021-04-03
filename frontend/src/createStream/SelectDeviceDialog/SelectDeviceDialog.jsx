@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 import Dialog from "@material-ui/core/Dialog/Dialog";
 import SelectDeviceSwipeableSteps from "./SwipeableSteps/SelectDeviceSwipeableSteps";
+import DeviceInfo from "../../model/DeviceInfo";
 
 export default class SelectDeviceDialog extends React.Component {
   constructor(props) {
@@ -54,7 +55,7 @@ export default class SelectDeviceDialog extends React.Component {
 }
 
 SelectDeviceDialog.propTypes = {
-  deviceList: Proptypes.arrayOf(PropTypes.instanceOf(DeviceInfo)).isRequired,
+  deviceList: PropTypes.arrayOf(PropTypes.instanceOf(DeviceInfo)).isRequired,
   deviceIndex: PropTypes.number.isRequired,
   setDeviceIndex: PropTypes.func.isRequired,
   channelIndex: PropTypes.number.isRequired,
