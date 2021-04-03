@@ -20,36 +20,30 @@ describe("<AdminPanelCard/> functional component", () => {
 
       expect(dashboardCard.props().title).toBe("Admin Panel");
     });
-    it("Contains 3 <Grid/> components", () => {
-      expect(wrapper.find(Grid)).toHaveLength(3);
+    it("Contains 2 <Grid/> components", () => {
+      expect(wrapper.find(Grid)).toHaveLength(2);
     });
-    it("First <Grid/> has expected props", () => {
-      const outerGrid = wrapper.find(Grid).first();
-      const expectedJustify = "center";
-      const expectedDirection = "row";
-      const expectedSpacing = 3;
-
-      expect(outerGrid.props().container).toBe(true);
-      expect(outerGrid.props().justify).toBe(expectedJustify);
-      expect(outerGrid.props().direction).toBe(expectedDirection);
-      expect(outerGrid.props().spacing).toBe(expectedSpacing);
+    it("<Grid/> 0 has expected props", () => {
+      const props = wrapper.find(Grid).at(0).props();
+      const expected = {
+        item: true,
+        xs: 4,
+        childType: "DashboardButton"
+      };
+      expect(props.item).toBe(expected.item);
+      expect(props.xs).toBe(expected.xs);
+      expect(props.children.type.name).toBe(expected.childType);
     });
-    it("Second <Grid/>  has expected props", () => {
-      const secondGrid = wrapper.find(Grid).at(1);
-      const expectedXs = 4;
-
-      expect(secondGrid.props().item).toBe(true);
-      expect(secondGrid.props().xs).toBe(expectedXs);
-      expect(secondGrid.props().children.type.name).toBe("DashboardButton");
-    });
-    it("Third <Grid/> has expected props", () => {
-      const thirdGrid = wrapper.find(Grid).at(2);
-      const expectedXs = 4;
-
-      expect(thirdGrid.props().item).toBe(true);
-      expect(thirdGrid.props().xs).toBe(expectedXs);
-
-      expect(thirdGrid.props().children.type.name).toBe("DashboardButton");
+    it("<Grid/> 1 has expected props", () => {
+      const props = wrapper.find(Grid).at(1).props();
+      const expected = {
+        item: true,
+        xs: 4,
+        childType: "DashboardButton"
+      };
+      expect(props.item).toBe(expected.item);
+      expect(props.xs).toBe(expected.xs);
+      expect(props.children.type.name).toBe(expected.childType);
     });
     describe("Contains 2 <DashboardButton/> components", () => {
       expect(wrapper.find(DashboardButton)).toHaveLength(2);
@@ -60,7 +54,7 @@ describe("<AdminPanelCard/> functional component", () => {
       });
       describe("Second <DashboardButton/> has expected props", () => {
         const secondButton = wrapper.find(DashboardButton).at(1);
-        expect(secondButton.props().href).toBe("/Admin");
+        expect(secondButton.props().href).toBe("/Admin/New");
         expect(secondButton.props().children).toBe("Create a User");
       });
     });

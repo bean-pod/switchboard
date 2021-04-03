@@ -5,7 +5,7 @@ import { beforeEach, describe, expect } from "@jest/globals";
 
 import DeviceListPage from "../DeviceListPage";
 import Page from "../../general/Page";
-import DeviceListTabTable from "../DeviceListTabTable";
+import DeviceListPageContents from "../DeviceListPageContents";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -30,8 +30,8 @@ describe("<DeviceListPage/> functional component", () => {
       expect(page.props().breadcrumbs).toStrictEqual(expectedBreadcumbs);
       expect(page.props().deviceList).toBe(true);
     });
-    it("Contains 1 <DeviceListTabTable/> component", () => {
-      expect(wrapper.find(DeviceListTabTable)).toHaveLength(1);
+    it("Contains 1 <DeviceListPageContents/> component", () => {
+      expect(wrapper.find(DeviceListPageContents)).toHaveLength(1);
     });
   });
 });

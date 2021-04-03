@@ -13,10 +13,8 @@ export default function DeviceChannelCard(props) {
 
   return (
     <DashboardCard title="Channels">
-      <Grid container justify="center" direction="row" spacing={3}>
-        <Grid item xs={12}>
-          <ChannelDetailsTable channels={channels} />
-        </Grid>
+      <Grid item xs={12}>
+        <ChannelDetailsTable channels={channels} />
       </Grid>
     </DashboardCard>
   );
