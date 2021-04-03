@@ -58,11 +58,9 @@ export default class SelectDeviceDialog extends React.Component {
 }
 
 SelectDeviceDialog.propTypes = {
-  deviceList: Proptypes.arrayOf(
-      PropTypes.instanceOf(DeviceInfo)
-  ).isRequired,
+  deviceList: Proptypes.arrayOf(PropTypes.instanceOf(DeviceInfo)).isRequired,
   deviceIndex: PropTypes.number.isRequired,
   setDeviceIndex: PropTypes.func.isRequired,
   channelIndex: PropTypes.number.isRequired,
-  setChannelIndex: PropTypes.func.isRequired,
+  setChannelIndex: PropTypes.func.isRequired
 };
