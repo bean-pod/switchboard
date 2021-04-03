@@ -28,6 +28,14 @@ export default class SelectDeviceDialog extends React.Component {
 
   render() {
     const { open } = this.state;
+    const {
+      deviceList,
+      deviceIndex,
+      setDeviceIndex,
+      channelIndex,
+      setChannelIndex
+    } = this.props;
+
     return (
       <Dialog
         open={open}
@@ -37,9 +45,24 @@ export default class SelectDeviceDialog extends React.Component {
         id="dialog"
       >
         <SelectDeviceSwipeableSteps
-          handleClose = {this.closeDialog}
+          handleClose={this.closeDialog}
+          deviceList={deviceList}
+          deviceIndex={deviceIndex}
+          setDeviceIndex={setDeviceIndex}
+          channelIndex={channelIndex}
+          setChannelIndex={setChannelIndex}
         />
       </Dialog>
     );
   }
 }
+
+SelectDeviceDialog.propTypes = {
+  deviceList: Proptypes.arrayOf(
+      PropTypes.instanceOf(DeviceInfo)
+  ).isRequired,
+  deviceIndex: PropTypes.number.isRequired,
+  setDeviceIndex: PropTypes.func.isRequired,
+  channelIndex: PropTypes.number.isRequired,
+  setChannelIndex: PropTypes.func.isRequired,
+};

@@ -4,7 +4,12 @@ import { useTheme } from "@material-ui/core/styles";
 
 import SwipeableViews from "react-swipeable-views";
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@material-ui/icons";
-import { Button, DialogTitle, MobileStepper, Typography } from "@material-ui/core";
+import {
+  Button,
+  DialogTitle,
+  MobileStepper,
+  Typography
+} from "@material-ui/core";
 import StepperNextButton from "./StepperNextButton";
 
 export default class SelectDeviceSwipeableSteps extends React.Component {
@@ -101,5 +106,13 @@ export default class SelectDeviceSwipeableSteps extends React.Component {
 }
 
 SelectDeviceSwipeableSteps.propTypes = {
-  handleClose: PropTypes.func.isRequired
-};
+  handleClose: PropTypes.func.isRequired,
+    deviceList: Proptypes.arrayOf(
+        PropTypes.instanceOf(DeviceInfo)
+    ).isRequired,
+    deviceIndex: PropTypes.number.isRequired,
+    setDeviceIndex: PropTypes.func.isRequired,
+    channelIndex: PropTypes.number.isRequired,
+    setChannelIndex: PropTypes.func.isRequired,
+  };
+  
