@@ -111,7 +111,7 @@ describe("<SnackbarMessage /> Class Component", () => {
       status: "error",
       message: "test"
     };
-    it("success snackbar with no pathname passed", () => {
+    it("success snackbar if state status is success", () => {
       wrapper
         .instance()
         .openSnackbar(dummySuccessValues.status, dummySuccessValues.message);
@@ -120,7 +120,7 @@ describe("<SnackbarMessage /> Class Component", () => {
       expect(wrapper.state().message).toEqual(dummySuccessValues.message);
       expect(wrapper.state().open).toBe(true);
     });
-    it("error snackbar with no pathname passed", () => {
+    it("error snackbar if state status is not success/is error", () => {
       wrapper
         .instance()
         .openSnackbar(dummyErrorValues.status, dummyErrorValues.message);

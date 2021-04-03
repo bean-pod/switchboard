@@ -90,7 +90,7 @@ describe("<CreateUserPageContents/> class component", () => {
     const somePassword = "password";
 
     describe("when createUser() resolves", () => {
-      it("Calls createUser() and redirects to Home", async () => {
+      it("Calls createUser() and displays a success snackbar", async () => {
         UserManagementApi.createUser.mockResolvedValue();
 
         wrapper.instance().handleSubmit(someUsername, somePassword);

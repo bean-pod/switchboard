@@ -110,7 +110,7 @@ describe("<DeviceName/> component", () => {
     });
 
     describe("When updating name succeeds", () => {
-      it("Calls updateDeviceName and contains <StaticName/> with the new name", async () => {
+      it("Calls updateDeviceName, contains <StaticName/> with the new name and displays a success snackbar", async () => {
         const newName = "New Name";
         wrapper.instance().setName(newName);
 
@@ -141,7 +141,7 @@ describe("<DeviceName/> component", () => {
     });
 
     describe("When updating name fails", () => {
-      it("Calls updateDeviceName and contains <StaticName/> with the old name", async () => {
+      it("Calls updateDeviceName, contains <StaticName/> with the old name and displays an error snackbar", async () => {
         const newName = "New Name";
         wrapper.instance().setName(newName);
 

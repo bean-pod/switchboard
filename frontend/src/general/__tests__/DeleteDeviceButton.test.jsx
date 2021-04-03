@@ -95,7 +95,7 @@ describe("DeleteButton", () => {
 
     describe("ConfirmButton", () => {
       describe("If on devices table page", () => {
-        it("Should call axios.delete, close the dialog and display a success snackbar", async () => {
+        it("Should call axios.delete, close the dialog and refresh the page", async () => {
           mockHistory.location.pathname = "/Devices";
 
           wrapper.find("#deleteBtn").simulate("click");
@@ -112,15 +112,10 @@ describe("DeleteButton", () => {
           await flushPromises();
 
           expect(mockHistoryGo).toHaveBeenCalledTimes(1);
-          expect(snackbarSpy).toHaveBeenCalledTimes(1);
-          expect(snackbarSpy).toHaveBeenCalledWith(
-            "success",
-            `Device deleted! (Serial Number: ${testId})`
-          );
         });
       });
       describe("If on device details page", () => {
-        it("Should call axios.delete, close the dialog and display a success snackbar", async () => {
+        it("Should call axios.delete, close the dialog and redirect to /Devices", async () => {
           mockHistory.location.pathname = "Devices/Details/sample_sender";
 
           wrapper.find("#deleteBtn").simulate("click");
@@ -137,11 +132,6 @@ describe("DeleteButton", () => {
           await flushPromises();
 
           expect(mockHistoryPush).toHaveBeenCalledWith("/Devices");
-          expect(snackbarSpy).toHaveBeenCalledTimes(1);
-          expect(snackbarSpy).toHaveBeenCalledWith(
-            "success",
-            `Device deleted! (Serial Number: ${testId})`
-          );
         });
       });
       it("If the axios.delete is rejected, it should close the dialog and display an error snackbar", async () => {

@@ -58,7 +58,7 @@ describe("<DeleteDeviceDialog/> class", () => {
   });
   describe("confirmDelete() function", () => {
     describe("calls DeviceApi with the device's serial number", () => {
-      it("and delete is successful, it closes the dialog and displays a success snackbar", async () => {
+      it("and delete is successful, it closes the dialog, redirects to /Devices and displays a success snackbar", async () => {
         const expectedPushArg = "/Devices";
 
         DeviceApi.deleteDevice.mockResolvedValueOnce();
