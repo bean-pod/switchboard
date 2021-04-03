@@ -76,7 +76,14 @@ export default class CreateStreamPageContents extends React.Component {
         spacing={3}
       >
         <Grid item xs={5}>
-          senderCard
+          <CreateStreamDeviceCardWrapper
+            title="Sender"
+            deviceList={senders}
+            deviceIndex={senderDeviceIndex}
+            setDeviceIndex={this.setSenderDeviceIndex}
+            channelIndex={senderChannelIndex}
+            setChannelIndex={this.setSenderChannelIndex}
+          />
         </Grid>
         <Grid item xs={2}>
           {"=>"}
