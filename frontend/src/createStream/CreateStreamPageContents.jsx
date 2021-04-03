@@ -1,64 +1,72 @@
 import React from "react";
 import { Button, Grid } from "@material-ui/core";
-import {getSenders, getReceivers} from "../api/DeviceApi";
+import { getSenders, getReceivers } from "../api/DeviceApi";
+import DashboardCard from "../general/dashboard/DashboardCard";
+import CreateStreamDeviceCardWrapper from "./CreateStreamDeviceCardWrapper";
 
 export default class CreateStreamPageContents extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
 
-    this.state= {
+    this.state = {
       senders: [],
       receivers: [],
-      senderDeviceId: -1,
-      senderChannelId: -1,
-      receiverDeviceId: -1,
-      receiverChannelId: -1      
-    }
+      senderDeviceIndex: -1,
+      senderChannelIndex: -1,
+      receiverDeviceIndex: -1,
+      receiverChannelIndex: -1
+    };
+
     this.setSenders = this.setSenders.bind(this);
     this.setReceivers = this.setReceivers.bind(this);
-    this.setSenderDeviceId = this.setSenderDeviceId.bind(this);
-    this.setReceiverDeviceId = this.setReceiverDeviceId.bind(this);
-    this.setSenderChannelId = this.setSenderChannelId.bind(this);
-    this.setReceiverChannelId = this.setReceiverChannelId.bind(this);
-
+    this.setSenderDeviceIndex = this.setSenderDeviceIndex.bind(this);
+    this.setReceiverDeviceIndex = this.setReceiverDeviceIndex.bind(this);
+    this.setSenderChannelIndex = this.setSenderChannelIndex.bind(this);
+    this.setReceiverChannelIndex = this.setReceiverChannelIndex.bind(this);
   }
 
-  componentDidMount(){
+  componentDidMount() {
     getSenders(this.setSenders);
     getReceivers(this.setReceivers);
   }
-  setSenders(value){
+
+  setSenders(value) {
     this.setState({
       senders: value
-    })
-  }
-  setReceivers(value){
-    this.setState({
-      receivers: value
-    })
-  }
-  setSenderDeviceId(value){
-    this.setState({
-      senderDeviceId: value
-    })
-  }
-  setReceiverDeviceId(value){
-    this.setState({
-      receiverDeviceId: value
-    })
-  }
-  setSenderChannelId(value){
-    this.setState({
-      senderChannelId: value
-    })
-  }
-  setReceiverChannelId(value){
-    this.setState({
-      receiverChannelId: value
-    })
+    });
   }
 
-  render(){
+  setReceivers(value) {
+    this.setState({
+      receivers: value
+    });
+  }
+
+  setSenderDeviceIndex(value) {
+    this.setState({
+      senderDeviceIndex: value
+    });
+  }
+
+  setReceiverDeviceIndex(value) {
+    this.setState({
+      receiverDeviceIndex: value
+    });
+  }
+
+  setSenderChannelIndex(value) {
+    this.setState({
+      senderChannelIndex: value
+    });
+  }
+
+  setReceiverChannelIndex(value) {
+    this.setState({
+      receiverChannelIndex: value
+    });
+  }
+
+  render() {
     return (
       <Grid
         container
