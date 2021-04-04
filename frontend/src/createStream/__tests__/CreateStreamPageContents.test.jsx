@@ -11,6 +11,8 @@ import DeviceInfo from "../../model/DeviceInfo";
 import CreateStreamDeviceCardWrapper from "../CreateStreamDeviceCardWrapper";
 
 import * as DeviceApi from "../../api/DeviceApi";
+import * as StreamApi from "../../api/StreamApi";
+import InputChannelInfo from "../../model/InputChannelInfo";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -284,5 +286,76 @@ describe("<CreateStreamPageContents/> class component", () => {
       expect(wrapper.state()).toMatchObject(expectedState);
     });
   });
-  describe("createStream() function", () => {});
+  describe("createStream() function", () => {
+    const device = (num) =>
+      new DeviceInfo("", "", "", "", `hello${num}`, "Online", [
+        new InputChannelInfo("", "", num)
+      ]);
+    const senders = [device(0), device(1), device(2)];
+    const receivers = [device(3), device(4), device(5)];
+
+    beforeEach(() => {
+      jest.spyOn(StreamApi, "createStream");
+      wrapper = Enzyme.shallow(<CreateStreamPageContents />);
+    });
+
+    describe("when reciver and sender are valid devices", () => {
+      describe("when receiverChannel and senderChannel are valid channels", () => {
+        it("calls StreamApi.createStream with expected arguments", () => {
+          wrapper.setState({
+            senders,
+            receivers,
+            senderDeviceIndex: 1, // device(1)
+            senderChannelIndex: 0,
+            receiverDeviceIndex: 2, // device(4)
+            receiverChannelIndex: 0
+          });
+          wrapper.instance().createStream();
+
+          const expected = {
+            receiver: {
+              chId: receivers[2].channels[0].id
+            },
+            sender: {
+              chId: senders[1].channels[0].id
+            }
+          };
+          expect(StreamApi.createStream).toBeCalledWith(
+            expected.receiver.chId,
+            expected.sender.chId
+          );
+        });
+      });
+      describe("when receiverChannel and senderChannel are NOT valid channels", () => {
+        it("does not call StreamApi.createStream", () => {
+          wrapper.setState({
+            senders,
+            receivers,
+            senderDeviceIndex: 1, // device(1)
+            senderChannelIndex: 4,
+            receiverDeviceIndex: 2, // device(4)
+            receiverChannelIndex: 1
+          });
+          wrapper.instance().createStream();
+
+          expect(StreamApi.createStream).not.toBeCalled();
+        });
+      });
+    });
+    describe("when reciver and sender are not valid devices", () => {
+      it("does not call StreamApi.createStream", () => {
+        wrapper.setState({
+          senders,
+          receivers,
+          senderDeviceIndex: 44,
+          senderChannelIndex: 4,
+          receiverDeviceIndex: 10,
+          receiverChannelIndex: 1
+        });
+        wrapper.instance().createStream();
+
+        expect(StreamApi.createStream).not.toBeCalled();
+      });
+    });
+  });
 });
