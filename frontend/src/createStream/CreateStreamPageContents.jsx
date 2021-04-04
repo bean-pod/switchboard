@@ -69,8 +69,7 @@ export default class CreateStreamPageContents extends React.Component {
     });
   }
 
-  createStream(event) {
-    event.preventDefault();
+  createStream() {
     const {
       senders,
       receivers,
@@ -82,7 +81,8 @@ export default class CreateStreamPageContents extends React.Component {
 
     const receiver = receivers[receiverDeviceIndex];
     const sender = senders[senderDeviceIndex];
-    if ( receiver && sender) {
+
+    if (receiver && sender) {
       const recieverChannel = receiver.channels[receiverChannelIndex];
       const senderChannel = sender.channels[senderChannelIndex];
       if (recieverChannel && senderChannel)
