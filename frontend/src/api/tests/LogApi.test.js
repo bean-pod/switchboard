@@ -92,7 +92,7 @@ describe("Log Api", () => {
         .mockReturnValue(authorizationHeader);
       const result = await LogApi.getStreamLogs(123);
       expect(axios.get).toHaveBeenCalledWith(
-        "http://localhost:8080/streamlogs/123",
+        "http://localhost:8080/log/stream/123",
         authorizationHeader
       );
       expect(result).toEqual(expectedLogsResponse);
