@@ -87,7 +87,7 @@ class StreamControllerTest {
     // given
     StreamDto streamDto = StreamFixture.getStreamDto();
     when(streamDao.getStreamById(StreamFixture.ID)).thenReturn(streamDto);
-    when(streamMapper.toModel(streamDto)).thenReturn(StreamFixture.getStreamModel());
+    when(streamMapper.toStreamModel(streamDto)).thenReturn(StreamFixture.getStreamModel());
 
     // when
     ResponseEntity<StreamModel> result = streamController.getStreamById(StreamFixture.ID);
@@ -123,7 +123,7 @@ class StreamControllerTest {
     var streamModel = StreamFixture.getStreamModel();
 
     when(streamService.createStream(createStreamRequest)).thenReturn(streamDto);
-    when(streamMapper.toModel(streamDto)).thenReturn(streamModel);
+    when(streamMapper.toStreamModel(streamDto)).thenReturn(streamModel);
 
     // when
     ResponseEntity<StreamModel> result = streamController.createStream(createStreamRequest);
@@ -148,9 +148,9 @@ class StreamControllerTest {
     // given
     StreamModel streamModel = StreamFixture.getStreamModel();
     StreamDto streamDto = StreamFixture.getStreamDto();
-    when(streamMapper.toDto(streamModel)).thenReturn(streamDto);
+    when(streamMapper.toStreamDto(streamModel)).thenReturn(streamDto);
     when(streamService.updateStream(streamDto)).thenReturn(streamDto);
-    when(streamMapper.toModel(streamDto)).thenReturn(streamModel);
+    when(streamMapper.toStreamModel(streamDto)).thenReturn(streamModel);
 
     // when
     ResponseEntity<StreamModel> result = streamController.updateStream(streamModel);

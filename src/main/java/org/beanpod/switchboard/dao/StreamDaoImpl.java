@@ -31,7 +31,7 @@ public class StreamDaoImpl {
     if (!streamRepository.existsById(streamDto.getId())) {
       throw new StreamDoesNotExistException(streamDto.getId());
     }
-    StreamEntity streamEntity = mapper.toEntity(streamDto);
+    StreamEntity streamEntity = mapper.toStreamEntity(streamDto);
     return streamRepository.save(streamEntity);
   }
 
@@ -48,7 +48,7 @@ public class StreamDaoImpl {
 
   public StreamDto getStreamById(Long id) {
     StreamEntity streamEntity = streamRepository.getOne(id);
-    return mapper.toDto(streamEntity);
+    return mapper.toStreamDto(streamEntity);
   }
 
   public void deleteStream(Long id) {
@@ -68,14 +68,14 @@ public class StreamDaoImpl {
     List<StreamEntity> streamEntities =
         streamRepository.findAllByOutputChannelEncoderDeviceUserAndOutputChannelEncoderSerialNumber(
             user, encoderSerialNumber);
-    return mapper.toDtoList(streamEntities);
+    return mapper.toStreamDtos(streamEntities);
   }
 
   public List<StreamDto> getDecoderStreams(UserEntity user, String decoderSerialNumber) {
     List<StreamEntity> streamEntities =
         streamRepository.findAllByInputChannelDecoderDeviceUserAndInputChannelDecoderSerialNumber(
             user, decoderSerialNumber);
-    return mapper.toDtoList(streamEntities);
+    return mapper.toStreamDtos(streamEntities);
   }
 
   public List<Long> getStreams() {
@@ -89,13 +89,13 @@ public class StreamDaoImpl {
       throw new StreamAlreadyExistsException(inputChannelId, outputChannelId);
     }
 
-    StreamEntity streamEntity = mapper.toEntity(streamDto);
-    StreamDto streamDto1 = mapper.toDto(streamRepository.save(streamEntity));
+    StreamEntity streamEntity = mapper.toStreamEntity(streamDto);
+    StreamDto streamDto1 = mapper.toStreamDto(streamRepository.save(streamEntity));
 
     // Save an empty stream stat when saving a stream
     if (streamDto.getStreamStat() == null) {
       StreamStatEntity streamStatBuild =
-          StreamStatEntity.builder().stream(mapper.toEntity(streamDto1))
+          StreamStatEntity.builder().stream(mapper.toStreamEntity(streamDto1))
               .id(streamDto1.getId())
               .build();
       streamStatRepository.save(streamStatBuild);

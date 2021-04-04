@@ -8,18 +8,18 @@ import org.openapitools.model.StreamModel;
 
 @Mapper(
     componentModel = "spring",
-    uses = {InputChannelMapper.class, OutputChannelMapper.class, StreamStatMapper.class})
+    uses = {InputChannelMapper.class, OutputChannelMapper.class, StreamStatMapper.class, UserMapper.class})
 public interface StreamMapper {
 
-  StreamDto toDto(StreamModel streamModel);
+  StreamDto toStreamDto(StreamModel streamModel);
 
-  StreamDto toDto(StreamEntity streamEntity);
+  StreamDto toStreamDto(StreamEntity streamEntity);
 
-  List<StreamDto> toDtoList(List<StreamEntity> streamEntityList);
+  List<StreamDto> toStreamDtos(List<StreamEntity> streamEntityList);
 
-  StreamEntity toEntity(StreamDto streamDto);
+  StreamEntity toStreamEntity(StreamDto streamDto);
 
-  StreamModel toModel(StreamDto streamDto);
+  StreamModel toStreamModel(StreamDto streamDto);
 
-  List<StreamModel> toModelList(List<StreamDto> streamDtoList);
+  List<StreamModel> toStreamModelList(List<StreamDto> streamDtoList);
 }

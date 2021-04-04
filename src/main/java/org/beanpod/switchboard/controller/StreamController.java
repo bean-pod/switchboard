@@ -46,7 +46,7 @@ public class StreamController implements StreamApi {
     streamDto.ifPresent(maintainDeviceStatus::maintainStatusField);
 
     return streamDto
-        .map(mapper::toModel)
+        .map(mapper::toStreamModel)
         .map(ResponseEntity::ok)
         .orElseThrow(() -> new UnknownException(CONTROLLER_NAME));
   }
@@ -65,7 +65,7 @@ public class StreamController implements StreamApi {
   public ResponseEntity<StreamModel> createStream(@Valid CreateStreamRequest createStreamRequest) {
     return Optional.of(createStreamRequest)
         .map(streamService::createStream)
-        .map(mapper::toModel)
+        .map(mapper::toStreamModel)
         .map(ResponseEntity::ok)
         .orElseThrow(() -> new ExceptionType.UnknownException(CONTROLLER_NAME));
   }
@@ -84,9 +84,9 @@ public class StreamController implements StreamApi {
   @Override
   public ResponseEntity<StreamModel> updateStream(@Valid StreamModel streamModel) {
     return Optional.of(streamModel)
-        .map(mapper::toDto)
+        .map(mapper::toStreamDto)
         .map(streamService::updateStream)
-        .map(mapper::toModel)
+        .map(mapper::toStreamModel)
         .map(ResponseEntity::ok)
         .orElseThrow(() -> new UnknownException(CONTROLLER_NAME));
   }

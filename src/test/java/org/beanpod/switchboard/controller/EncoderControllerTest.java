@@ -188,13 +188,13 @@ class EncoderControllerTest {
   final void testGetEncoderStreams() {
     when(encoderService.getEncoderStreams(eq(user), any(String.class)))
         .thenReturn(List.of(StreamFixture.getStreamDto()));
-    when(streamMapper.toModelList(anyList())).thenReturn(StreamFixture.getStreamModelList());
+    when(streamMapper.toStreamModelList(anyList())).thenReturn(StreamFixture.getStreamModelList());
 
     ResponseEntity<List<StreamModel>> response =
         encoderController.getEncoderStreams(EncoderFixture.SERIAL_NUMBER);
 
     verify(encoderService).getEncoderStreams(user, EncoderFixture.SERIAL_NUMBER);
-    verify(streamMapper).toModelList(List.of(StreamFixture.getStreamDto()));
+    verify(streamMapper).toStreamModelList(List.of(StreamFixture.getStreamDto()));
 
     assertEquals(200, response.getStatusCodeValue());
     assertIterableEquals(List.of(StreamFixture.getStreamModel()), response.getBody());

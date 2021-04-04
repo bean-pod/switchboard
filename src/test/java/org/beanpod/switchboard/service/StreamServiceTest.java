@@ -137,7 +137,7 @@ class StreamServiceTest {
     StreamEntity streamEntity = StreamFixture.getStreamEntity();
 
     when(streamDao.updateStream(streamDto)).thenReturn(streamEntity);
-    when(mapper.toDto(streamEntity)).thenReturn(streamDto);
+    when(mapper.toStreamDto(streamEntity)).thenReturn(streamDto);
 
     // when
     var result = streamService.updateStream(streamDto);

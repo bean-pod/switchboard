@@ -60,7 +60,7 @@ class StreamDaoImplTest {
     StreamDto streamDto = StreamFixture.getStreamDto();
 
     when(streamRepository.getOne(streamId)).thenReturn(streamEntity);
-    when(streamMapper.toDto(streamEntity)).thenReturn(streamDto);
+    when(streamMapper.toStreamDto(streamEntity)).thenReturn(streamDto);
 
     // when
     StreamDto result = streamDaoImpl.getStreamById(streamId);
@@ -81,12 +81,12 @@ class StreamDaoImplTest {
     StreamStatEntity streamStatEntity = StreamStatFixture.getStreamStatEntity();
     StreamStatDto streamStatDto = StreamStatFixture.getStreamStatDto();
 
-    when(streamMapper.toEntity(any())).thenReturn(streamEntity);
+    when(streamMapper.toStreamEntity(any())).thenReturn(streamEntity);
     when(streamRepository.existsDuplicate(inputChannelId, outputChannelId)).thenReturn(false);
     when(streamStatRepository.save(any())).thenReturn(streamStatEntity);
     when(streamStatMapper.toDto(any(StreamStatEntity.class))).thenReturn(streamStatDto);
     when(streamRepository.save(any())).thenReturn(streamEntity);
-    when(streamMapper.toDto(any(StreamEntity.class))).thenReturn(streamDto);
+    when(streamMapper.toStreamDto(any(StreamEntity.class))).thenReturn(streamDto);
     // when
     streamDaoImpl.saveStream(streamDto);
 
@@ -128,7 +128,7 @@ class StreamDaoImplTest {
     StreamEntity streamEntity = StreamFixture.getStreamEntity();
 
     when(streamRepository.existsById(StreamFixture.ID)).thenReturn(true);
-    when(streamMapper.toEntity(streamDto)).thenReturn(streamEntity);
+    when(streamMapper.toStreamEntity(streamDto)).thenReturn(streamEntity);
 
     // when
     streamDaoImpl.updateStream(streamDto);

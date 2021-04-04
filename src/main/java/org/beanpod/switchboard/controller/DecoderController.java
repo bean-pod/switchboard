@@ -126,7 +126,7 @@ public class DecoderController {
 
     return Optional.of(serialNumber)
         .map(sn -> decoderService.getDecoderStreams(user, sn))
-        .map(streamMapper::toModelList)
+        .map(streamMapper::toStreamModelList)
         .map(ResponseEntity::ok)
         .orElseThrow(this::getUnknownException);
   }

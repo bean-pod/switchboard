@@ -127,7 +127,7 @@ public class EncoderController {
 
     return Optional.of(serialNumber)
         .map(sn -> encoderService.getEncoderStreams(user, sn))
-        .map(streamMapper::toModelList)
+        .map(streamMapper::toStreamModelList)
         .map(ResponseEntity::ok)
         .orElseThrow(this::getUnknownException);
   }
