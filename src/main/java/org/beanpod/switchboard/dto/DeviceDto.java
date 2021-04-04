@@ -17,4 +17,5 @@ public class DeviceDto {
   @NotNull private String privateIpAddress;
   @NotNull private String displayName;
   private String status;
+  private UserDto user;
 }

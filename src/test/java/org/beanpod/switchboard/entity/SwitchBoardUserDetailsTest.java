@@ -1,11 +1,9 @@
-package org.beanpod.switchboard.Entity;
+package org.beanpod.switchboard.entity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Collections;
-import org.beanpod.switchboard.entity.SwitchBoardUserDetails;
-import org.beanpod.switchboard.entity.UserEntity;
 import org.beanpod.switchboard.fixture.UserFixture;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,10 +13,11 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 class SwitchBoardUserDetailsTest {
 
-  private static UserEntity userEntity = UserFixture.getUserEntity();
+  private static final UserEntity userEntity = UserFixture.getUserEntity();
 
   @InjectMocks
-  private SwitchBoardUserDetails switchBoardUserDetails = new SwitchBoardUserDetails(userEntity);
+  private final SwitchBoardUserDetails switchBoardUserDetails =
+      new SwitchBoardUserDetails(userEntity);
 
   @BeforeEach
   void setup() {

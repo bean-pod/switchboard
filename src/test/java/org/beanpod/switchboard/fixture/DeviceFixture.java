@@ -24,6 +24,7 @@ public class DeviceFixture {
         .publicIpAddress(PUBLIC_IP_ADDRESS)
         .displayName(DISPLAY_NAME)
         .status(STATUS)
+        .user(UserFixture.getUserEntity())
         .build();
   }
 
@@ -34,6 +35,7 @@ public class DeviceFixture {
         .publicIpAddress(PUBLIC_IP_ADDRESS)
         .displayName(DISPLAY_NAME2)
         .status(STATUS)
+        .user(UserFixture.getUserEntity())
         .build();
   }
 
