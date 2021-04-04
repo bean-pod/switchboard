@@ -73,13 +73,13 @@ class DeviceControllerTest {
   @Test
   final void testUploadConfiguration() {
 
-    when(deviceService.findDevice(any())).thenReturn(Optional.of(deviceDTO));
+    when(deviceDao.findDevice(any(), any())).thenReturn(Optional.of(deviceDTO));
     when(deviceMapper.toDeviceDto((DeviceModel) any())).thenReturn(deviceDTO);
-    when(deviceService.save(any())).thenReturn(deviceDTO);
+    when(deviceDao.save(any(), any())).thenReturn(deviceDTO);
     when(deviceMapper.toDeviceModel(any())).thenReturn(deviceModel);
 
     String s1 = deviceController.uploadConfiguration(DeviceFixture.SERIAL_NUMBER, file).getBody();
-    verify(deviceService).save(deviceDTO);
+    verify(deviceDao).save(user, deviceDTO);
 
     assertEquals("Configuration uploaded.", s1);
   }
