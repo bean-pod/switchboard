@@ -108,7 +108,6 @@ export default class SelectDeviceSwipeableSteps extends React.Component {
           ) : (
             <StreamDeviceCard
               title="Preview"
-              button={null}
               device={deviceList[deviceIndex]}
               channel={deviceList[deviceIndex].channels[channelIndex].port}
             />
