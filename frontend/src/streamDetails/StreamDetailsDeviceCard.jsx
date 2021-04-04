@@ -15,7 +15,7 @@ export default function StreamDetailsDeviceCard(props) {
 
   return (
     <StreamDeviceCard
-      cardTitle={cardTitle}
+      title={cardTitle}
       button={button}
       device={device}
       channel={channel}
