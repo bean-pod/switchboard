@@ -65,11 +65,7 @@ export default class SelectDeviceSwipeableSteps extends React.Component {
     return (
       <>
         <DialogTitle>{this.steps[activeStep]}</DialogTitle>
-        <SwipeableViews
-          axis="x"
-          index={activeStep}
-          enableMouseEvents
-        >
+        <SwipeableViews axis="x" index={activeStep} enableMouseEvents>
           <SelectDeviceTable
             selectedIndex={deviceIndex}
             setIndex={setDeviceIndex}
@@ -81,8 +77,8 @@ export default class SelectDeviceSwipeableSteps extends React.Component {
             <SelectChannelTable
               selectedIndex={channelIndex}
               setIndex={setChannelIndex}
-              deviceList={deviceList}
               deviceIndex={deviceIndex}
+              deviceList={deviceList}
             />
           )}
           {deviceIndex === -1 || channelIndex === -1 ? (

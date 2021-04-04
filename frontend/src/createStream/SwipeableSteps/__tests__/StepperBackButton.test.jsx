@@ -33,10 +33,11 @@ describe("<StepperBackButton/> functional component", () => {
       expect(buttons).toHaveLength(1);
 
       const props = buttons.at(0).props();
+      const icon = <Close />;
       const expected = {
         size: "small",
         onClick: mockClose,
-        children: [<Close />, "Cancel"]
+        children: [icon, "Cancel"]
       };
       expect(props.size).toBe(expected.size);
       expect(props.onClick).toStrictEqual(expected.onClick);
@@ -60,10 +61,11 @@ describe("<StepperBackButton/> functional component", () => {
       expect(buttons).toHaveLength(1);
 
       const props = buttons.at(0).props();
+      const icon = <KeyboardArrowLeft />;
       const expected = {
         size: "small",
         onClick: mockBack,
-        children: [<KeyboardArrowLeft />, "Back"]
+        children: [icon, "Back"]
       };
       expect(props.size).toBe(expected.size);
       expect(props.onClick).toStrictEqual(expected.onClick);
