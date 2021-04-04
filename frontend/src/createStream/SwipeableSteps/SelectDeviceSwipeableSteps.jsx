@@ -21,7 +21,6 @@ export default class SelectDeviceSwipeableSteps extends React.Component {
     this.steps = [`Select a Device`, `Select a Channel`, `Confirm Device`];
     this.handleNext = this.handleNext.bind(this);
     this.handleBack = this.handleBack.bind(this);
-    this.handleStepChange = this.handleStepChange.bind(this);
   }
 
   handleNext() {
@@ -35,12 +34,6 @@ export default class SelectDeviceSwipeableSteps extends React.Component {
     const { activeStep: previousStep } = this.state;
     this.setState({
       activeStep: previousStep - 1
-    });
-  }
-
-  handleStepChange(step) {
-    this.setState({
-      activeStep: step
     });
   }
 
@@ -75,7 +68,6 @@ export default class SelectDeviceSwipeableSteps extends React.Component {
         <SwipeableViews
           axis="x"
           index={activeStep}
-          onChangeIndex={this.handleStepChange}
           enableMouseEvents
         >
           <SelectDeviceTable
