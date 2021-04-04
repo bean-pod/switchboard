@@ -18,17 +18,7 @@ export default class SelectDeviceSwipeableSteps extends React.Component {
       activeStep: 0
     };
 
-    this.steps = [
-      {
-        label: "Select a Device"
-      },
-      {
-        label: "Select a Channel"
-      },
-      {
-        label: `Confirm Device`
-      }
-    ];
+    this.steps = [`Select a Device`, `Select a Channel`, `Confirm Device`];
     this.handleNext = this.handleNext.bind(this);
     this.handleBack = this.handleBack.bind(this);
     this.handleStepChange = this.handleStepChange.bind(this);
@@ -81,7 +71,7 @@ export default class SelectDeviceSwipeableSteps extends React.Component {
 
     return (
       <>
-        <DialogTitle>{this.steps[activeStep].label}</DialogTitle>
+        <DialogTitle>{this.steps[activeStep]}</DialogTitle>
         <SwipeableViews
           axis="x"
           index={activeStep}
