@@ -2,8 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import Dialog from "@material-ui/core/Dialog/Dialog";
-import SelectDeviceSwipeableSteps from "./SwipeableSteps/SelectDeviceSwipeableSteps";
 import DeviceInfo from "../../model/DeviceInfo";
+import SelectDeviceSwipeableSteps from "../SwipeableSteps/SelectDeviceSwipeableSteps";
 
 export default class SelectDeviceDialog extends React.Component {
   constructor(props) {

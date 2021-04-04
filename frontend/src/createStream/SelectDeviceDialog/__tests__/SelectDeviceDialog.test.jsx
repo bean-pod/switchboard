@@ -9,7 +9,7 @@ import SelectDeviceDialog from "../SelectDeviceDialog";
 import DeviceInfo from "../../../model/DeviceInfo";
 import InputChannelInfo from "../../../model/InputChannelInfo";
 import OutputChannelInfo from "../../../model/OutputChannelInfo";
-import SelectDeviceSwipeableSteps from "../SwipeableSteps/SelectDeviceSwipeableSteps";
+import SelectDeviceSwipeableSteps from "../../SwipeableSteps/SelectDeviceSwipeableSteps";
 
 Enzyme.configure({ adapter: new Adapter() });
 
