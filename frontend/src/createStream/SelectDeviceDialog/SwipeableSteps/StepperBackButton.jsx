@@ -10,10 +10,10 @@ export default function StepperBackButton(props) {
   let icon = <KeyboardArrowLeft />;
   let buttonText = "Back";
 
-  if (isFirst){
+  if (isFirst) {
     handleClick = handleClose;
-    buttonText = "Cancel" ;
-    icon = <Close/>;
+    buttonText = "Cancel";
+    icon = <Close />;
   }
 
   return (

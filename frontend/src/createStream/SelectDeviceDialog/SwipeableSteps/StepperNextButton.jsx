@@ -13,7 +13,7 @@ export default function StepperNextButton(props) {
   return (
     <Button size="small" onClick={handleClick} disabled={disabled}>
       {buttonText}
-      <KeyboardArrowRight/>
+      <KeyboardArrowRight />
     </Button>
   );
 }
