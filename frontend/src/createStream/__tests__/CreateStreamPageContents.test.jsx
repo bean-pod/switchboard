@@ -12,9 +12,9 @@ describe("<CreateStreamPageContents/> class component", () => {
   describe("render() function", () => {});
   describe("componentDidMount() function", () => {});
   describe("State setting functions", () => {
-      beforeEach(()=>{
-          wrapper = Enzyme.shallow(<CreateStreamPageContents/>)
-      })
+    beforeEach(() => {
+      wrapper = Enzyme.shallow(<CreateStreamPageContents />);
+    });
     it("setSenders() function should set the state", () => {
       const startingState = {
         senders: [],
@@ -93,40 +93,40 @@ describe("<CreateStreamPageContents/> class component", () => {
     });
     it("setSenderChannelIndex() function should set the state", () => {
       const startingState = {
-          senders: [],
-          receivers: [],
-          senderDeviceIndex: -1,
-          senderChannelIndex: -1,
-          receiverDeviceIndex: -1,
-          receiverChannelIndex: -1
+        senders: [],
+        receivers: [],
+        senderDeviceIndex: -1,
+        senderChannelIndex: -1,
+        receiverDeviceIndex: -1,
+        receiverChannelIndex: -1
       };
       const someIndex = 88;
       const expectedState = {
         senderChannelIndex: someIndex
       };
-  
+
       wrapper.setState(startingState);
       wrapper.instance().setSenderChannelIndex(someIndex);
-  
+
       expect(wrapper.state()).toMatchObject(expectedState);
     });
     it("setReceiverChannelIndex() function should set the state", () => {
       const startingState = {
-          senders: [],
-          receivers: [],
-          senderDeviceIndex: -1,
-          senderChannelIndex: -1,
-          receiverDeviceIndex: -1,
-          receiverChannelIndex: -1
+        senders: [],
+        receivers: [],
+        senderDeviceIndex: -1,
+        senderChannelIndex: -1,
+        receiverDeviceIndex: -1,
+        receiverChannelIndex: -1
       };
       const someIndex = 88;
       const expectedState = {
         receiverChannelIndex: someIndex
       };
-  
+
       wrapper.setState(startingState);
       wrapper.instance().setReceiverChannelIndex(someIndex);
-  
+
       expect(wrapper.state()).toMatchObject(expectedState);
     });
   });
