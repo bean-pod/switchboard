@@ -7,7 +7,7 @@ import DeviceInfo from "../../model/DeviceInfo";
 
 export default function SelectedDeviceCard(props) {
   const { title, openDialog, device, channelId } = props;
-  const button = new ButtonInfo("", { device }, "Edit", openDialog);
+  const button = new ButtonInfo("", device, "Edit", openDialog);
 
   return (
     <StreamDeviceCard
