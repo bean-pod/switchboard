@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Button } from "@material-ui/core";
+import { KeyboardArrowRight } from "@material-ui/icons";
 
 export default function StepperNextButton(props) {
   const { disabled, isLast, handleNext, handleClose } = props;
@@ -12,6 +13,7 @@ export default function StepperNextButton(props) {
   return (
     <Button size="small" onClick={handleClick} disabled={disabled}>
       {buttonText}
+      <KeyboardArrowRight/>
     </Button>
   );
 }

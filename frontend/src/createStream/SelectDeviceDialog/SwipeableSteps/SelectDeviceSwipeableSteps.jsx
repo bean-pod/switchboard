@@ -10,6 +10,7 @@ import StreamDeviceCard from "../../../general/StreamDeviceCard";
 
 import StepperNextButton from "./StepperNextButton";
 import DeviceInfo from "../../../model/DeviceInfo";
+import StepperBackButton from "./StepperBackButton";
 
 export default class SelectDeviceSwipeableSteps extends React.Component {
   constructor(props) {
@@ -17,45 +18,16 @@ export default class SelectDeviceSwipeableSteps extends React.Component {
     this.state = {
       activeStep: 0
     };
-    const {
-      deviceList,
-      deviceIndex,
-      setDeviceIndex,
-      channelIndex,
-      setChannelIndex
-    } = this.props;
 
     this.steps = [
       {
-        label: "Select a Device",
-        component: (
-          <SelectDeviceTable
-            selectedIndex={deviceIndex}
-            setIndex={setDeviceIndex}
-            deviceList={deviceList}
-          />
-        )
+        label: "Select a Device"
       },
       {
-        label: "Select a Channel",
-        component: (
-          <SelectChannelTable
-            selectedIndex={channelIndex}
-            setIndex={setChannelIndex}
-            device={deviceList[deviceIndex]}
-          />
-        )
+        label: "Select a Channel"
       },
       {
-        label: `Confirm Device`,
-        component: (
-          <StreamDeviceCard
-            cardTitle="Device"
-            button={null}
-            device={deviceList[deviceIndex]}
-            channel={deviceList[deviceIndex].channels[channelIndex]}
-          />
-        )
+        label: `Confirm Device`
       }
     ];
     this.handleNext = this.handleNext.bind(this);
@@ -85,6 +57,7 @@ export default class SelectDeviceSwipeableSteps extends React.Component {
 
   disableNext() {
     const { activeStep } = this.state;
+    const { deviceIndex, channelIndex } = this.props;
     switch (activeStep) {
       case 0:
         return deviceIndex === -1;
@@ -96,7 +69,14 @@ export default class SelectDeviceSwipeableSteps extends React.Component {
   }
 
   render() {
-    const { handleClose } = this.props;
+    const {
+      handleClose,
+      deviceList,
+      deviceIndex,
+      setDeviceIndex,
+      channelIndex,
+      setChannelIndex
+    } = this.props;
     const { activeStep } = this.state;
     const maxSteps = this.steps.length;
 
@@ -109,9 +89,31 @@ export default class SelectDeviceSwipeableSteps extends React.Component {
           onChangeIndex={this.handleStepChange}
           enableMouseEvents
         >
-          {this.steps.map((step) => {
-            return step.component;
-          })}
+          <SelectDeviceTable
+            selectedIndex={deviceIndex}
+            setIndex={setDeviceIndex}
+            deviceList={deviceList}
+          />
+          {deviceIndex === -1 ? (
+            <></>
+          ) : (
+            <SelectChannelTable
+              selectedIndex={channelIndex}
+              setIndex={setChannelIndex}
+              deviceList={deviceList}
+              deviceIndex={deviceIndex}
+            />
+          )}
+          {deviceIndex === -1 || channelIndex === -1 ? (
+            <></>
+          ) : (
+            <StreamDeviceCard
+              cardTitle="Device"
+              button={null}
+              device={deviceList[deviceIndex]}
+              channel={deviceList[deviceIndex].channels[channelIndex].port}
+            />
+          )}
         </SwipeableViews>
         <MobileStepper
           steps={maxSteps}
@@ -120,21 +122,18 @@ export default class SelectDeviceSwipeableSteps extends React.Component {
           activeStep={activeStep}
           nextButton={(
             <StepperNextButton
-              disabled={this.disableNext}
+              disabled={this.disableNext()}
               isLast={activeStep === maxSteps - 1}
               handleClose={handleClose}
               handleNext={this.handleNext}
             />
           )}
           backButton={(
-            <Button
-              size="small"
-              onClick={this.handleBack}
-              disabled={activeStep === 0}
-            >
-              <KeyboardArrowLeft />
-              Back
-            </Button>
+            <StepperBackButton
+              isFirst={activeStep === 0}
+              handleClose={handleClose}
+              handleBack={this.handleBack}
+            />
           )}
         />
       </>
