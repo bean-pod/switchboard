@@ -80,19 +80,13 @@ export default class CreateStreamPageContents extends React.Component {
       receiverChannelIndex
     } = this.state;
 
-    if (senderDeviceIndex !== -1 && receiverDeviceIndex !== -1) {
-      const receiver = receivers[receiverDeviceIndex];
-      const sender = senders[senderDeviceIndex];
-      if (
-        receiver &&
-        sender &&
-        senderChannelIndex !== -1 &&
-        receiverChannelIndex !== -1
-      ) {
-        const recieverChannelID = receiver.channels[receiverChannelIndex].id;
-        const senderChannelID = sender.channels[senderChannelIndex].id;
-        createStream(recieverChannelID, senderChannelID);
-      }
+    const receiver = receivers[receiverDeviceIndex];
+    const sender = senders[senderDeviceIndex];
+    if ( receiver && sender) {
+      const recieverChannel = receiver.channels[receiverChannelIndex];
+      const senderChannel = sender.channels[senderChannelIndex];
+      if (recieverChannel && senderChannel)
+        createStream(recieverChannel.id, senderChannel.id);
     }
   }
 
