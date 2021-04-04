@@ -1,11 +1,13 @@
 package org.beanpod.switchboard.controller;
 
+import static org.beanpod.switchboard.fixture.DeviceFixture.file;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.nio.file.attribute.UserPrincipal;
@@ -13,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
+import lombok.SneakyThrows;
 import org.beanpod.switchboard.dao.DeviceDaoImpl;
 import org.beanpod.switchboard.dao.UserDaoImpl;
 import org.beanpod.switchboard.dto.DeviceDto;
@@ -64,6 +67,21 @@ class DeviceControllerTest {
     createDeviceRequest = DeviceFixture.getCreateDeviceRequest();
     deviceModel = DeviceFixture.getDeviceModel();
     user = UserFixture.getUserEntity();
+  }
+
+  @SneakyThrows
+  @Test
+  final void testUploadConfiguration() {
+
+    when(deviceDao.findDevice(any(), any())).thenReturn(Optional.of(deviceDTO));
+    when(deviceMapper.toDeviceDto((DeviceModel) any())).thenReturn(deviceDTO);
+    when(deviceDao.save(any(), any())).thenReturn(deviceDTO);
+    when(deviceMapper.toDeviceModel(any())).thenReturn(deviceModel);
+
+    String s1 = deviceController.uploadConfiguration(DeviceFixture.SERIAL_NUMBER, file).getBody();
+    verify(deviceDao).save(user, deviceDTO);
+
+    assertEquals("Configuration uploaded.", s1);
   }
 
   @Test

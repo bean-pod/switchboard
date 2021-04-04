@@ -165,6 +165,31 @@ paths:
                 type: string
                 example: 'Device with serial number BtmC8ckj deleted'
 
+  /device/config/{serialNumber}:
+    put:
+      operationId: upload configuration
+      description: uploads a configuration file
+      parameters:
+        - $ref: '#/components/parameters/DeviceSerialNumber'
+      tags:
+        - Devices
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              properties:
+                configuration:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: successful upload of config file
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: config file successfully uploaded
+
   /encoder:
     get:
       operationId: retrieveAllEncoders
@@ -596,6 +621,12 @@ components:
         status:
           type: string
           example: 'running'
+        configurationInstance:
+          type: string
+          format: byte
+        configurationLastModified:
+          type: string
+          format: date-time
 
     CreateDeviceRequest:
       description: A request to create a new device

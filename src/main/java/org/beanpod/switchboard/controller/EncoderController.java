@@ -74,7 +74,6 @@ public class EncoderController {
       // update the retrieved decoder object
       encoder.get().getDevice().setStatus(updatedDevice.getStatus());
     }
-
     // return encoder
     return encoder
         .map(ResponseEntity::ok)
