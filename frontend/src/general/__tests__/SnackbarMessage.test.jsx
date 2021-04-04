@@ -28,8 +28,8 @@ describe("<SnackbarMessage /> Class Component", () => {
   });
 
   describe("render() function", () => {
-    describe("returns a component that", () => {
-      it("Contains 1 <Snackbar/> component with the expected props and 1 <SnackbarContent/> component", () => {
+    describe("Returns a component that", () => {
+      it("Contains 1 <Snackbar/> component with the expected props ", () => {
         const snackbarComponent = wrapper.find(Snackbar);
         expect(snackbarComponent).toHaveLength(1);
 
@@ -50,21 +50,24 @@ describe("<SnackbarMessage /> Class Component", () => {
         expect(wrapper.find(SnackbarContent)).toHaveLength(1);
       });
 
-      describe("The <SnackbarContent/> component", () => {
-        describe("has a style prop", () => {
-          const statusColors = {
-            green: "#4caf50",
-            red: "#f44336"
-          };
-          describe("where if status", () => {
-            it("is success, the backgroundColor should be green", () => {
+      describe("Contains 1 <SnackbarContent/> component where", () => {
+        const statusColors = {
+          green: "#4caf50",
+          red: "#f44336"
+        };
+        describe("If status is success,", () => {
+          describe("the snackbar has a green background and the correct props", () => {
+            it("and contains one <CheckCircle/> component", () => {
               wrapper.setState({ status: "success" });
               expect(wrapper.find(SnackbarContent).props().style).toEqual({
                 backgroundColor: statusColors.green
               });
             });
-
-            it("is anything else, the backgroundColor should be red", () => {
+          });
+        });
+        describe("If status is not success,", () => {
+          describe("the snackbar has a red background and the correct props", () => {
+            it("and contains one <Error/> component", () => {
               wrapper.setState({ status: "error" });
               expect(wrapper.find(SnackbarContent).props().style).toEqual({
                 backgroundColor: statusColors.red
@@ -72,9 +75,9 @@ describe("<SnackbarMessage /> Class Component", () => {
             });
           });
         });
-        describe("and has a  message prop", () => {
-          describe("where if status", () => {
-            it("is success, it should have a <CheckCircle/> icon component", () => {
+        describe("The component has a message prop", () => {
+          describe("where if status is success,", () => {
+            it("it should have a <CheckCircle/> icon component", () => {
               wrapper.setState({ status: "success" });
               expect(wrapper.find(SnackbarContent).props().message).toEqual(
                 <Box id="message-id" className="snackMessage">
@@ -83,8 +86,9 @@ describe("<SnackbarMessage /> Class Component", () => {
                 </Box>
               );
             });
-
-            it("is anything else, it should have an <Error/> icon component", () => {
+          });
+          describe("where if status is not success,", () => {
+            it("it should have an <Error/> icon component", () => {
               wrapper.setState({ status: "error" });
               expect(wrapper.find(SnackbarContent).props().message).toEqual(
                 <Box id="message-id" className="snackMessage">
@@ -120,7 +124,7 @@ describe("<SnackbarMessage /> Class Component", () => {
       expect(wrapper.state().message).toEqual(dummySuccessValues.message);
       expect(wrapper.state().open).toBe(true);
     });
-    it("error snackbar if state status is not success/is error", () => {
+    it("error snackbar if state status is not success", () => {
       wrapper
         .instance()
         .openSnackbar(dummyErrorValues.status, dummyErrorValues.message);
@@ -140,7 +144,7 @@ describe("<SnackbarMessage /> Class Component", () => {
 
       expect(wrapper.state().open).toBe(true);
     });
-    it("else, state open should be set to false", () => {
+    it("If reason is not clickaway, state open should be set to false", () => {
       wrapper.setState({ open: true });
       expect(wrapper.state().open).toBe(true);
 
