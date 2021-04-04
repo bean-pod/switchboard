@@ -63,8 +63,7 @@ public class DeviceController implements DeviceApi {
     UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
     String publicIpAddress = request.getRemoteAddr();
 
-    Optional<DeviceDto> deviceLookup =
-        deviceDao.findDevice(createDeviceRequest.getSerialNumber());
+    Optional<DeviceDto> deviceLookup = deviceDao.findDevice(createDeviceRequest.getSerialNumber());
     if (deviceLookup.isPresent()) {
       throw new ExceptionType.DeviceAlreadyExistsException(createDeviceRequest.getSerialNumber());
     }
