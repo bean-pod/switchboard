@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.beanpod.switchboard.dao.ChannelDaoImpl;
 import org.beanpod.switchboard.dao.DecoderDaoImpl;
 import org.beanpod.switchboard.dao.EncoderDaoImpl;
+import org.beanpod.switchboard.dao.InputChannelDaoImpl;
+import org.beanpod.switchboard.dao.OutputChannelDaoImpl;
 import org.beanpod.switchboard.dao.UserDaoImpl;
 import org.beanpod.switchboard.dto.ChannelDto;
 import org.beanpod.switchboard.dto.DecoderDto;
@@ -45,9 +47,11 @@ class ChannelControllerTest {
   public static OutputChannelDto outputChannelDto;
   public static UserEntity user;
   @InjectMocks ChannelController channelController;
-  @Mock ChannelDaoImpl channelService;
-  @Mock DecoderDaoImpl decoderService;
-  @Mock EncoderDaoImpl encoderService;
+  @Mock ChannelDaoImpl channelDao;
+  @Mock InputChannelDaoImpl inputChannelDao;
+  @Mock OutputChannelDaoImpl outputChannelDao;
+  @Mock DecoderDaoImpl decoderDao;
+  @Mock EncoderDaoImpl encoderDao;
   @Mock ChannelMapper channelMapper;
   @Mock HttpServletRequest httpServletRequest;
   @Mock UserPrincipal userPrincipal;
@@ -75,7 +79,7 @@ class ChannelControllerTest {
 
   @Test
   void testRetrieveAllChannels() {
-    when(channelService.getChannels()).thenReturn(channelEntityList);
+    when(channelDao.getChannels()).thenReturn(channelEntityList);
     when(channelMapper.toChannelDtos(any())).thenReturn(channelDtoList);
     List<ChannelDto> channelDtos = channelController.retrieveAllChannels();
     assertEquals(channelDtoList, channelDtos);
@@ -83,7 +87,7 @@ class ChannelControllerTest {
 
   @Test
   void testRetrieveChannel() {
-    when(channelService.findChannel(ChannelFixture.CHANNEL_ID)).thenReturn(Optional.of(channelDto));
+    when(channelDao.findChannel(ChannelFixture.CHANNEL_ID)).thenReturn(Optional.of(channelDto));
     ResponseEntity<ChannelDto> channelDTOResponseEntity =
         channelController.retrieveChannel(ChannelFixture.CHANNEL_ID);
     assertEquals(channelDto, channelDTOResponseEntity.getBody());
@@ -98,14 +102,14 @@ class ChannelControllerTest {
 
   @Test
   void createChannel() {
-    when(channelService.findChannel(ChannelFixture.CHANNEL_ID)).thenReturn(Optional.empty());
+    when(channelDao.findChannel(ChannelFixture.CHANNEL_ID)).thenReturn(Optional.empty());
     ResponseEntity<ChannelDto> channel = channelController.createChannel(channelDto);
     assertEquals(200, channel.getStatusCodeValue());
   }
 
   @Test
   void createExistingChannel() {
-    when(channelService.findChannel(ChannelFixture.CHANNEL_ID)).thenReturn(Optional.of(channelDto));
+    when(channelDao.findChannel(ChannelFixture.CHANNEL_ID)).thenReturn(Optional.of(channelDto));
     assertThrows(
         ExceptionType.DeviceAlreadyExistsException.class,
         () -> channelController.createChannel(channelDto));
@@ -113,9 +117,9 @@ class ChannelControllerTest {
 
   @Test
   void createInputChannel() {
-    when(channelService.saveInputChannel(any())).thenReturn(inputChannelDto);
-    when(channelService.findChannel(ChannelFixture.CHANNEL_ID)).thenReturn(Optional.of(channelDto));
-    when(decoderService.findDecoder(user, "1")).thenReturn(Optional.of(decoderDto));
+    when(inputChannelDao.saveInputChannel(any())).thenReturn(inputChannelDto);
+    when(channelDao.findChannel(ChannelFixture.CHANNEL_ID)).thenReturn(Optional.of(channelDto));
+    when(decoderDao.findDecoder(user, "1")).thenReturn(Optional.of(decoderDto));
     ResponseEntity<InputChannelDto> inputChannel =
         channelController.createInputChannel(ChannelFixture.CHANNEL_ID, "1");
     assertEquals(inputChannelDto, inputChannel.getBody());
@@ -123,9 +127,9 @@ class ChannelControllerTest {
 
   @Test
   void createOutputChannel() {
-    when(channelService.saveOutputChannel(any())).thenReturn(outputChannelDto);
-    when(channelService.findChannel(ChannelFixture.CHANNEL_ID)).thenReturn(Optional.of(channelDto));
-    when(encoderService.findEncoder(user, "1")).thenReturn(Optional.of(encoderDto));
+    when(outputChannelDao.saveOutputChannel(any())).thenReturn(outputChannelDto);
+    when(channelDao.findChannel(ChannelFixture.CHANNEL_ID)).thenReturn(Optional.of(channelDto));
+    when(encoderDao.findEncoder(user, "1")).thenReturn(Optional.of(encoderDto));
     ResponseEntity<OutputChannelDto> outputChannel =
         channelController.createOutputChannel(ChannelFixture.CHANNEL_ID, "1");
     assertEquals(outputChannelDto, outputChannel.getBody());
@@ -133,7 +137,7 @@ class ChannelControllerTest {
 
   @Test
   void deleteOutputChannel() {
-    when(channelService.deleteOutputChannelById(user, ChannelFixture.CHANNEL_ID)).thenReturn(1L);
+    when(outputChannelDao.deleteOutputChannelById(user, ChannelFixture.CHANNEL_ID)).thenReturn(1L);
     ResponseEntity<String> stringResponseEntity =
         channelController.deleteOutputChannel(ChannelFixture.CHANNEL_ID);
     assertEquals(200, stringResponseEntity.getStatusCodeValue());
@@ -141,7 +145,7 @@ class ChannelControllerTest {
 
   @Test
   void deleteNonExistingOutputChannel() {
-    when(channelService.deleteOutputChannelById(user, ChannelFixture.CHANNEL_ID)).thenReturn(0L);
+    when(outputChannelDao.deleteOutputChannelById(user, ChannelFixture.CHANNEL_ID)).thenReturn(0L);
     assertThrows(
         ExceptionType.DeviceNotFoundException.class,
         () -> channelController.deleteOutputChannel(1L));
@@ -149,7 +153,7 @@ class ChannelControllerTest {
 
   @Test
   void deleteInputChannel() {
-    when(channelService.deleteInputChannelById(user, ChannelFixture.CHANNEL_ID)).thenReturn(1L);
+    when(inputChannelDao.deleteInputChannelById(user, ChannelFixture.CHANNEL_ID)).thenReturn(1L);
     ResponseEntity<String> stringResponseEntity =
         channelController.deleteInputChannel(ChannelFixture.CHANNEL_ID);
     assertEquals(200, stringResponseEntity.getStatusCodeValue());
@@ -157,7 +161,7 @@ class ChannelControllerTest {
 
   @Test
   void deleteNonExistingInputChannel() {
-    when(channelService.deleteInputChannelById(user, ChannelFixture.CHANNEL_ID)).thenReturn(0L);
+    when(inputChannelDao.deleteInputChannelById(user, ChannelFixture.CHANNEL_ID)).thenReturn(0L);
     assertThrows(
         ExceptionType.DeviceNotFoundException.class,
         () -> channelController.deleteInputChannel(ChannelFixture.CHANNEL_ID));
@@ -165,7 +169,7 @@ class ChannelControllerTest {
 
   @Test
   void deleteChannel() {
-    when(channelService.deleteChannel(ChannelFixture.CHANNEL_ID)).thenReturn(1L);
+    when(channelDao.deleteChannel(ChannelFixture.CHANNEL_ID)).thenReturn(1L);
     ResponseEntity<String> stringResponseEntity =
         channelController.deleteChannel(ChannelFixture.CHANNEL_ID);
     assertEquals(200, stringResponseEntity.getStatusCodeValue());
@@ -173,7 +177,7 @@ class ChannelControllerTest {
 
   @Test
   void deleteNonExistingChannel() {
-    when(channelService.deleteChannel(ChannelFixture.CHANNEL_ID)).thenReturn(0L);
+    when(channelDao.deleteChannel(ChannelFixture.CHANNEL_ID)).thenReturn(0L);
     assertThrows(
         ExceptionType.DeviceNotFoundException.class,
         () -> channelController.deleteChannel(ChannelFixture.CHANNEL_ID));

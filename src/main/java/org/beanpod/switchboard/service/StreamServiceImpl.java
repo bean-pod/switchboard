@@ -3,7 +3,8 @@ package org.beanpod.switchboard.service;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.beanpod.switchboard.dao.ChannelDaoImpl;
+import org.beanpod.switchboard.dao.InputChannelDaoImpl;
+import org.beanpod.switchboard.dao.OutputChannelDaoImpl;
 import org.beanpod.switchboard.dao.StreamDaoImpl;
 import org.beanpod.switchboard.dto.DeviceDto;
 import org.beanpod.switchboard.dto.InputChannelDto;
@@ -11,7 +12,6 @@ import org.beanpod.switchboard.dto.OutputChannelDto;
 import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.dto.StreamStatDto;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
-import org.beanpod.switchboard.dto.mapper.StreamStatMapper;
 import org.beanpod.switchboard.entity.StreamEntity;
 import org.beanpod.switchboard.util.NetworkingUtil;
 import org.openapitools.model.CreateStreamRequest;
@@ -24,8 +24,8 @@ public class StreamServiceImpl implements StreamService {
 
   private final StreamDaoImpl streamDao;
   private final StreamMapper mapper;
-  private final StreamStatMapper statMapper;
-  private final ChannelDaoImpl channelDao;
+  private final InputChannelDaoImpl inputChannelDao;
+  private final OutputChannelDaoImpl outputChannelDao;
   private final NetworkingUtil networkingUtil;
 
   @Override
@@ -37,9 +37,9 @@ public class StreamServiceImpl implements StreamService {
         createStreamRequest.getOutputChannelId());
 
     InputChannelDto inputChannelDto =
-        channelDao.getInputChannelById(createStreamRequest.getInputChannelId());
+        inputChannelDao.getInputChannelById(createStreamRequest.getInputChannelId());
     OutputChannelDto outputChannelDto =
-        channelDao.getOutputChannelById(createStreamRequest.getOutputChannelId());
+        outputChannelDao.getOutputChannelById(createStreamRequest.getOutputChannelId());
 
     StreamDto streamDto =
         StreamDto.builder()

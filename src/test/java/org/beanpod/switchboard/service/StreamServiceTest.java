@@ -6,7 +6,8 @@ import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 import java.util.List;
-import org.beanpod.switchboard.dao.ChannelDaoImpl;
+import org.beanpod.switchboard.dao.InputChannelDaoImpl;
+import org.beanpod.switchboard.dao.OutputChannelDaoImpl;
 import org.beanpod.switchboard.dao.StreamDaoImpl;
 import org.beanpod.switchboard.dto.DeviceDto;
 import org.beanpod.switchboard.dto.InputChannelDto;
@@ -14,7 +15,6 @@ import org.beanpod.switchboard.dto.OutputChannelDto;
 import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.dto.StreamStatDto;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
-import org.beanpod.switchboard.dto.mapper.StreamStatMapper;
 import org.beanpod.switchboard.entity.StreamEntity;
 import org.beanpod.switchboard.fixture.ChannelFixture;
 import org.beanpod.switchboard.fixture.StreamFixture;
@@ -31,15 +31,15 @@ class StreamServiceTest {
   @InjectMocks private StreamServiceImpl streamService;
   @Mock private StreamDaoImpl streamDao;
   @Mock private StreamMapper mapper;
-  @Mock private StreamStatMapper streamStatMapper;
-  @Mock private ChannelDaoImpl channelDao;
+  @Mock InputChannelDaoImpl inputChannelDao;
+  @Mock OutputChannelDaoImpl outputChannelDao;
   @Mock private NetworkingUtil networkingUtil;
 
   @BeforeEach
   public void setup() {
     initMocks(this);
     streamService =
-        new StreamServiceImpl(streamDao, mapper, streamStatMapper, channelDao, networkingUtil);
+        new StreamServiceImpl(streamDao, mapper, inputChannelDao, outputChannelDao, networkingUtil);
   }
 
   @Test
@@ -51,9 +51,9 @@ class StreamServiceTest {
     DeviceDto decoderDevice = inputChannelDto.getDecoder().getDevice();
     DeviceDto encoderDevice = outputChannelDto.getEncoder().getDevice();
 
-    when(channelDao.getInputChannelById(createStreamRequest.getInputChannelId()))
+    when(inputChannelDao.getInputChannelById(createStreamRequest.getInputChannelId()))
         .thenReturn(inputChannelDto);
-    when(channelDao.getOutputChannelById(createStreamRequest.getOutputChannelId()))
+    when(outputChannelDao.getOutputChannelById(createStreamRequest.getOutputChannelId()))
         .thenReturn(outputChannelDto);
     when(streamDao.saveStream(any())).thenReturn(streamDto);
     when(networkingUtil.areDevicesOnSameLocalNetworkAsService(decoderDevice, encoderDevice))
@@ -75,9 +75,9 @@ class StreamServiceTest {
     DeviceDto decoderDevice = inputChannelDto.getDecoder().getDevice();
     DeviceDto encoderDevice = outputChannelDto.getEncoder().getDevice();
 
-    when(channelDao.getInputChannelById(createStreamRequest.getInputChannelId()))
+    when(inputChannelDao.getInputChannelById(createStreamRequest.getInputChannelId()))
         .thenReturn(inputChannelDto);
-    when(channelDao.getOutputChannelById(createStreamRequest.getOutputChannelId()))
+    when(outputChannelDao.getOutputChannelById(createStreamRequest.getOutputChannelId()))
         .thenReturn(outputChannelDto);
     when(streamDao.saveStream(any())).thenReturn(streamDto);
     when(networkingUtil.areDevicesOnSameLocalNetworkAsService(decoderDevice, encoderDevice))
@@ -99,9 +99,9 @@ class StreamServiceTest {
     DeviceDto decoderDevice = inputChannelDto.getDecoder().getDevice();
     DeviceDto encoderDevice = outputChannelDto.getEncoder().getDevice();
 
-    when(channelDao.getInputChannelById(createStreamRequest.getInputChannelId()))
+    when(inputChannelDao.getInputChannelById(createStreamRequest.getInputChannelId()))
         .thenReturn(inputChannelDto);
-    when(channelDao.getOutputChannelById(createStreamRequest.getOutputChannelId()))
+    when(outputChannelDao.getOutputChannelById(createStreamRequest.getOutputChannelId()))
         .thenReturn(outputChannelDto);
     when(streamDao.saveStream(any())).thenReturn(streamDto);
     when(networkingUtil.areDevicesOnSameLocalNetworkAsService(decoderDevice, encoderDevice))
