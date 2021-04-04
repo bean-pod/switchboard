@@ -38,7 +38,7 @@ export default class SelectDeviceDialog extends React.Component {
         open={open}
         fullWidth
         maxWidth="sm"
-        onClose={() => this.closeDialog}
+        onClose={this.closeDialog}
         aria-labelledby="dialog-title"
         aria-describedby="dialog-description"
         id="dialog"
