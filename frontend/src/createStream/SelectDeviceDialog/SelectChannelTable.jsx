@@ -4,13 +4,12 @@ import SelectTable from "./SelectTable";
 import DeviceInfo from "../../model/DeviceInfo";
 
 export default function SelectChannelTable(props) {
-  const {
-    selectedIndex,
-    setIndex,
-    device: { channels }
-  } = props;
+  const { selectedIndex, setIndex, deviceList, deviceIndex } = props;
 
-  const channelNames = channels.map((channel) => channel.name);
+  console.log(`selectCahnelTable ${deviceIndex}`);
+  const channelNames = deviceList[deviceIndex].channels.map(
+    (channel) => channel.name
+  );
   return (
     <SelectTable
       selectedIndex={selectedIndex}
@@ -23,5 +22,6 @@ export default function SelectChannelTable(props) {
 SelectChannelTable.propTypes = {
   selectedIndex: PropTypes.number.isRequired,
   setIndex: PropTypes.func.isRequired,
-  device: PropTypes.instanceOf(DeviceInfo).isRequired
+  deviceIndex: PropTypes.number.isRequired,
+  deviceList: PropTypes.arrayOf(PropTypes.instanceOf(DeviceInfo)).isRequired
 };

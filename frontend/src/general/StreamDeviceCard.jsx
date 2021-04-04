@@ -8,7 +8,7 @@ import SimpleTable from "./simpleTable/SimpleTable";
 import ButtonInfo from "./dashboard/ButtonInfo";
 
 export default function StreamDeviceCard(props) {
-  const { cardTitle, button, device, channel } = props;
+  const { title, button, device, channel } = props;
   const properties = {
     Name: device.name,
     "Serial Number": device.serialNumber,
@@ -16,7 +16,7 @@ export default function StreamDeviceCard(props) {
   };
 
   return (
-    <DashboardCard title={cardTitle} button={button}>
+    <DashboardCard title={title} button={button}>
       <Grid container>
         <Grid item xs={12}>
           <SimpleTable properties={properties} />
@@ -27,7 +27,7 @@ export default function StreamDeviceCard(props) {
 }
 
 StreamDeviceCard.propTypes = {
-  cardTitle: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
   button: PropTypes.instanceOf(ButtonInfo).isRequired,
   device: PropTypes.instanceOf(DeviceInfo).isRequired,
   channel: PropTypes.number.isRequired

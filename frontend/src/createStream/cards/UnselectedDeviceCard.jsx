@@ -10,7 +10,9 @@ export default function UnselectedDeviceCard(props) {
   return (
     <DashboardCard title={title}>
       <Grid item xs={4}>
-        <Button onClick={onClick}>{`Select ${title}`}</Button>
+        <Button variant="contained" color="primary" onClick={onClick}>
+          {`Select ${title}`}
+        </Button>
       </Grid>
     </DashboardCard>
   );

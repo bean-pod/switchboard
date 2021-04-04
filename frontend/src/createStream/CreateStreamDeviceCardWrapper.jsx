@@ -32,6 +32,7 @@ export default class CreateStreamDeviceCardWrapper extends React.Component {
         <CreateStreamCardToggler
           title={title}
           openDialog={this.openDialog}
+          deviceIndex={deviceIndex}
           device={deviceList[deviceIndex]}
           channelIndex={channelIndex}
         />

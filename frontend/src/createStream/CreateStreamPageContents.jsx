@@ -1,7 +1,8 @@
 import React from "react";
 import { Button, Grid } from "@material-ui/core";
+import { Forward } from "@material-ui/icons";
+
 import { getSenders, getReceivers } from "../api/DeviceApi";
-import DashboardCard from "../general/dashboard/DashboardCard";
 import CreateStreamDeviceCardWrapper from "./CreateStreamDeviceCardWrapper";
 
 export default class CreateStreamPageContents extends React.Component {
@@ -43,6 +44,7 @@ export default class CreateStreamPageContents extends React.Component {
   }
 
   setSenderDeviceIndex(value) {
+    console.log(`Setting to ${value}`);
     this.setState({
       senderDeviceIndex: value
     });
@@ -67,6 +69,16 @@ export default class CreateStreamPageContents extends React.Component {
   }
 
   render() {
+    const {
+      senders,
+      receivers,
+      senderDeviceIndex,
+      senderChannelIndex,
+      receiverDeviceIndex,
+      receiverChannelIndex
+    } = this.state;
+
+    console.log(this.state);
     return (
       <Grid
         container
@@ -75,7 +87,7 @@ export default class CreateStreamPageContents extends React.Component {
         direction="row"
         spacing={3}
       >
-        <Grid item xs={5}>
+        <Grid item xs={5} style={{ margin:"auto"}}>
           <CreateStreamDeviceCardWrapper
             title="Sender"
             deviceList={senders}
@@ -85,10 +97,10 @@ export default class CreateStreamPageContents extends React.Component {
             setChannelIndex={this.setSenderChannelIndex}
           />
         </Grid>
-        <Grid item xs={2}>
-          {"=>"}
+        <Grid item xs={2} style={{ margin:"auto", textAlign:"center"}}>
+          <Forward style={{ fontSize: 100 }} />
         </Grid>
-        <Grid item xs={5}>
+        <Grid item xs={5} style={{ margin:"auto"}}>
           <CreateStreamDeviceCardWrapper
             title="Receiver"
             deviceList={receivers}
@@ -99,7 +111,9 @@ export default class CreateStreamPageContents extends React.Component {
           />
         </Grid>
         <Grid item xs={2}>
-          <Button />
+          <Button variant="contained" color="primary" onClick={() => {}}>
+            Create Stream
+          </Button>
         </Grid>
       </Grid>
     );
