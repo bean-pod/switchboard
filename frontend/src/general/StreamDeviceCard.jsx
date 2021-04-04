@@ -17,10 +17,8 @@ export default function StreamDeviceCard(props) {
 
   return (
     <DashboardCard title={title} button={button}>
-      <Grid container>
-        <Grid item xs={12}>
-          <SimpleTable properties={properties} />
-        </Grid>
+      <Grid item xs={12}>
+        <SimpleTable properties={properties} />
       </Grid>
     </DashboardCard>
   );
