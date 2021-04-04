@@ -6,14 +6,14 @@ import UnselectedDeviceCard from "./UnselectedDeviceCard";
 import DeviceInfo from "../../model/DeviceInfo";
 
 export default function CreateStreamCardToggler(props) {
-  const { title, openDialog, deviceIndex, device, channelIndex } = props;
+  const { title, openDialog, deviceIndex, deviceList, channelIndex } = props;
   if (deviceIndex !== -1 && channelIndex !== -1) {
     return (
       <SelectedDeviceCard
         title={title}
         openDialog={openDialog}
-        device={device}
-        channelId={device.channels[channelIndex].port}
+        device={deviceList[deviceIndex]}
+        channelId={deviceList[deviceIndex].channels[channelIndex].port}
       />
     );
   }
@@ -24,6 +24,6 @@ CreateStreamCardToggler.propTypes = {
   title: PropTypes.string.isRequired,
   openDialog: PropTypes.func.isRequired,
   deviceIndex: PropTypes.number.isRequired,
-  device: PropTypes.instanceOf(DeviceInfo).isRequired,
+  deviceList: PropTypes.arrayOf(PropTypes.instanceOf(DeviceInfo)).isRequired,
   channelIndex: PropTypes.number.isRequired
 };

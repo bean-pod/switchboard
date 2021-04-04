@@ -33,7 +33,7 @@ export default class CreateStreamDeviceCardWrapper extends React.Component {
           title={title}
           openDialog={this.openDialog}
           deviceIndex={deviceIndex}
-          device={deviceList[deviceIndex]}
+          deviceList={deviceList}
           channelIndex={channelIndex}
         />
         <SelectDeviceDialog
