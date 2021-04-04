@@ -2,8 +2,9 @@ import React from "react";
 import { Button, Grid } from "@material-ui/core";
 import { Forward } from "@material-ui/icons";
 
-import { getSenders, getReceivers } from "../api/DeviceApi";
 import CreateStreamDeviceCardWrapper from "./CreateStreamDeviceCardWrapper";
+import { getSenders, getReceivers } from "../api/DeviceApi";
+import { createStream } from "../api/StreamApi";
 
 export default class CreateStreamPageContents extends React.Component {
   constructor(props) {
@@ -18,6 +19,7 @@ export default class CreateStreamPageContents extends React.Component {
       receiverChannelIndex: -1
     };
 
+    this.createStream = this.createStream.bind(this);
     this.setSenders = this.setSenders.bind(this);
     this.setReceivers = this.setReceivers.bind(this);
     this.setSenderDeviceIndex = this.setSenderDeviceIndex.bind(this);
@@ -67,6 +69,33 @@ export default class CreateStreamPageContents extends React.Component {
     });
   }
 
+  createStream(event) {
+    event.preventDefault();
+    const {
+      senders,
+      receivers,
+      senderDeviceIndex,
+      senderChannelIndex,
+      receiverDeviceIndex,
+      receiverChannelIndex
+    } = this.state;
+
+    if (senderDeviceIndex !== -1 && receiverDeviceIndex !== -1) {
+      const receiver = receivers[receiverDeviceIndex];
+      const sender = senders[senderDeviceIndex];
+      if (
+        receiver &&
+        sender &&
+        senderChannelIndex !== -1 &&
+        receiverChannelIndex !== -1
+      ) {
+        const recieverChannelID = receiver.channels[receiverChannelIndex].id;
+        const senderChannelID = sender.channels[senderChannelIndex].id;
+        createStream(recieverChannelID, senderChannelID);
+      }
+    }
+  }
+
   render() {
     const {
       senders,
@@ -109,7 +138,11 @@ export default class CreateStreamPageContents extends React.Component {
           />
         </Grid>
         <Grid item xs={2}>
-          <Button variant="contained" color="primary" onClick={() => {}}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={this.createStream}
+          >
             Create Stream
           </Button>
         </Grid>
