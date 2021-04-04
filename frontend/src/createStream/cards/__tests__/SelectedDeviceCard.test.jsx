@@ -29,12 +29,7 @@ describe("<SelectedDeviceCard/> functional component", () => {
     const dummyChannel = 10;
     const mockOpenDialog = jest.fn();
 
-    const dummyButton = new ButtonInfo(
-     "",
-     dummyDevice,
-     "Edit",
-     mockOpenDialog
-    );
+    const dummyButton = new ButtonInfo("", dummyDevice, "Edit", mockOpenDialog);
 
     beforeEach(() => {
       wrapper = Enzyme.shallow(
