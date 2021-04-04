@@ -35,7 +35,7 @@ describe("<SmallCardButton/> functional Component", () => {
           className: "hideLinkStyle",
           to: {
             pathname: dummyPath,
-            state: {device: dummyObj}
+            state: { device: dummyObj }
           }
         };
 
