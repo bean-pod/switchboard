@@ -44,7 +44,6 @@ export default class CreateStreamPageContents extends React.Component {
   }
 
   setSenderDeviceIndex(value) {
-    console.log(`Setting to ${value}`);
     this.setState({
       senderDeviceIndex: value
     });
@@ -78,7 +77,6 @@ export default class CreateStreamPageContents extends React.Component {
       receiverChannelIndex
     } = this.state;
 
-    console.log(this.state);
     return (
       <Grid
         container

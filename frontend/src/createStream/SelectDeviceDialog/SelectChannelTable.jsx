@@ -6,7 +6,6 @@ import DeviceInfo from "../../model/DeviceInfo";
 export default function SelectChannelTable(props) {
   const { selectedIndex, setIndex, deviceList, deviceIndex } = props;
 
-  console.log(`selectCahnelTable ${deviceIndex}`);
   const channelNames = deviceList[deviceIndex].channels.map(
     (channel) => channel.name
   );

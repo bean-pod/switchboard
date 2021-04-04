@@ -2,8 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import SwipeableViews from "react-swipeable-views";
-import { KeyboardArrowLeft } from "@material-ui/icons";
-import { Button, DialogTitle, MobileStepper } from "@material-ui/core";
+import { DialogTitle, MobileStepper } from "@material-ui/core";
 import SelectDeviceTable from "../SelectDeviceTable";
 import SelectChannelTable from "../SelectChannelTable";
 import StreamDeviceCard from "../../../general/StreamDeviceCard";
