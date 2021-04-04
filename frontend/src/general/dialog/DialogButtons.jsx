@@ -11,9 +11,11 @@ export default function DialogButtons(props) {
       <Button onClick={button1.onClick} color="primary">
         {button1.name}
       </Button>
-      <Button onClick={button2.onClick} color="secondary" autoFocus>
-        {button2.name}
-      </Button>
+      {button2 ? (
+        <Button onClick={button2.onClick} color="secondary" autoFocus>
+          {button2.name}
+        </Button>
+      ) : undefined}
     </MuiDialogActions>
   );
 }
@@ -26,5 +28,9 @@ DialogButtons.propTypes = {
   button2: PropTypes.shape({
     name: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired
-  }).isRequired
+  })
+};
+
+DialogButtons.defaultProps = {
+  button2: undefined
 };

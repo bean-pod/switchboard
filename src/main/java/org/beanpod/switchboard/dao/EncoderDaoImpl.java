@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.dto.EncoderDto;
 import org.beanpod.switchboard.dto.mapper.EncoderMapper;
 import org.beanpod.switchboard.entity.EncoderEntity;
+import org.beanpod.switchboard.entity.UserEntity;
 import org.beanpod.switchboard.repository.EncoderRepository;
 import org.springframework.stereotype.Component;
 
@@ -16,27 +17,27 @@ public class EncoderDaoImpl {
   private final EncoderRepository encoderRepository;
   private final EncoderMapper encoderMapper;
 
-  public EncoderDto save(EncoderDto encoder) {
-    Optional<EncoderDto> encoderDto = findEncoder(encoder.getSerialNumber());
+  public EncoderDto save(UserEntity user, EncoderDto encoder) {
+    Optional<EncoderDto> encoderDto = findEncoder(user, encoder.getSerialNumber());
 
-    if (!encoderDto.isEmpty()) {
+    if (encoderDto.isPresent()) {
       encoderMapper.updateEncoderFromDto(encoder, encoderDto.orElse(encoder));
     }
     return encoderMapper.toEncoderDto(
         encoderRepository.save(encoderMapper.toEncoderEntity(encoderDto.orElse(encoder))));
   }
 
-  public Optional<EncoderDto> findEncoder(String serialNumber) {
+  public List<EncoderEntity> getEncoders(UserEntity user) {
+    return encoderRepository.findEncoderEntitiesByDeviceUser(user);
+  }
+
+  public Optional<EncoderDto> findEncoder(UserEntity user, String serialNumber) {
     return encoderRepository
-        .findEncoderBySerialNumber(serialNumber)
+        .findEncoderByDeviceUserAndSerialNumber(user, serialNumber)
         .map(encoderMapper::toEncoderDto);
   }
 
-  public List<EncoderEntity> getEncoders() {
-    return encoderRepository.findAll();
-  }
-
-  public long deleteEncoder(String serialNumber) {
-    return encoderRepository.deleteEncoderEntityBySerialNumber(serialNumber);
+  public long deleteEncoder(UserEntity user, String serialNumber) {
+    return encoderRepository.deleteEncoderEntityByDeviceUserAndSerialNumber(user, serialNumber);
   }
 }

@@ -7,9 +7,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ChannelRepository extends JpaRepository<ChannelEntity, Long> {
 
-  List<ChannelEntity> findAll();
-
   ChannelEntity save(ChannelEntity channel);
+
+  List<ChannelEntity> findAll();
 
   Optional<ChannelEntity> findChannelEntitiesById(Long id);
 
