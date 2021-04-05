@@ -16,7 +16,7 @@ export default function DeviceDetailsPage(props) {
   const breadcrumbs = [
     ["Home", "/Home"],
     ["My Devices", "/Devices"],
-    ["Device Details", `/Devices/Details/${device.serialNumber}`, {device}]
+    ["Device Details", `/Devices/Details/${device.serialNumber}`, { device }]
   ];
 
   return (
