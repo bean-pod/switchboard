@@ -2,13 +2,15 @@ import React from "react";
 import { Box, Breadcrumbs, Typography } from "@material-ui/core";
 import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
+import { NavigateNext } from "@material-ui/icons";
 import DeviceInfo from "../model/DeviceInfo";
+import StreamInfo from "../model/StreamInfo";
 
 export default function DynamicBreadcrumb(props) {
   const { breadcrumbs } = props;
   return (
-    <Box padding="2em 0em 0em 1em">
-      <Breadcrumbs aria-label="breadcrumb" id="breadcrumbParent">
+    <Box padding="2em 0em 0em">
+      <Breadcrumbs separator={<NavigateNext fontSize="medium" />}>
         {breadcrumbs.map((crumb) => {
           return (
             <NavLink
