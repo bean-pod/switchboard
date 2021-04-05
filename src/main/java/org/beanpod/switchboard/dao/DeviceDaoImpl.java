@@ -45,11 +45,11 @@ public class DeviceDaoImpl {
 
   public Optional<DeviceDto> findDevice(UserEntity user, String serialNumber) {
     return deviceRepository
-        .findDeviceByUserAndSerialNumber(user, serialNumber)
+        .findDeviceEntityByUserAndSerialNumber(user, serialNumber)
         .map(deviceMapper::toDeviceDto);
   }
 
   public Long deleteDevice(UserEntity user, String serialNumber) {
-    return deviceRepository.deleteDeviceEntitiesByUserAndSerialNumber(user, serialNumber);
+    return deviceRepository.deleteDeviceEntityByUserAndSerialNumber(user, serialNumber);
   }
 }

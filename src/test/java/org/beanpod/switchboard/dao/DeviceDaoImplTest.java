@@ -63,7 +63,7 @@ class DeviceDaoImplTest {
   final void testSave() {
     when(deviceMapper.toDeviceDto(any(DeviceEntity.class))).thenReturn(deviceDto);
     when(deviceMapper.toDeviceEntity(any())).thenReturn(device);
-    when(deviceRepository.findDeviceByUserAndSerialNumber(user, DecoderFixture.SERIAL_NUMBER))
+    when(deviceRepository.findDeviceEntityByUserAndSerialNumber(user, DecoderFixture.SERIAL_NUMBER))
         .thenReturn(java.util.Optional.of(device));
     when(deviceMapper.toDeviceDto(any(DeviceEntity.class))).thenReturn(deviceDto);
     when(deviceMapper.toDeviceEntity(any())).thenReturn(device);
@@ -76,7 +76,7 @@ class DeviceDaoImplTest {
   final void testFindDevice() {
     when(deviceMapper.toDeviceDto(any(DeviceEntity.class))).thenReturn(deviceDto);
     when(deviceMapper.toDeviceEntity(any())).thenReturn(device);
-    when(deviceRepository.findDeviceByUserAndSerialNumber(user, DecoderFixture.SERIAL_NUMBER))
+    when(deviceRepository.findDeviceEntityByUserAndSerialNumber(user, DecoderFixture.SERIAL_NUMBER))
         .thenReturn(java.util.Optional.of(device));
     Optional<DeviceDto> deviceDTO = deviceDaoImpl.findDevice(user, DecoderFixture.SERIAL_NUMBER);
     assertEquals(deviceDTO.get(), deviceDto);
@@ -91,7 +91,7 @@ class DeviceDaoImplTest {
 
   @Test
   final void testDeleteDevice() {
-    when(deviceRepository.deleteDeviceEntitiesByUserAndSerialNumber(
+    when(deviceRepository.deleteDeviceEntityByUserAndSerialNumber(
             user, DecoderFixture.SERIAL_NUMBER))
         .thenReturn((long) 1);
     Long response = deviceDaoImpl.deleteDevice(user, DecoderFixture.SERIAL_NUMBER);

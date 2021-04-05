@@ -2,13 +2,16 @@ package org.beanpod.switchboard.controller;
 
 import java.util.List;
 import java.util.Optional;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.dao.StreamDaoImpl;
+import org.beanpod.switchboard.dao.UserDaoImpl;
 import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.dto.StreamStatDto;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
 import org.beanpod.switchboard.dto.mapper.StreamStatMapper;
+import org.beanpod.switchboard.entity.UserEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.exceptions.ExceptionType.UnknownException;
 import org.beanpod.switchboard.service.StreamService;
@@ -25,22 +28,29 @@ import org.springframework.web.bind.annotation.RestController;
 public class StreamController implements StreamApi {
 
   public static final String CONTROLLER_NAME = "Stream";
+  private final UserDaoImpl userDao;
   private final StreamDaoImpl streamDao;
   private final StreamService streamService;
   private final StreamMapper mapper;
   private final StreamStatMapper statMapper;
   private final MaintainDeviceStatus maintainDeviceStatus;
+  private final HttpServletRequest request;
 
   @Override
   public ResponseEntity<List<Long>> getStreams() {
-    return Optional.ofNullable(streamDao.getStreams())
+    UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
+
+    return Optional.ofNullable(streamDao.getStreams(user))
         .map(ResponseEntity::ok)
         .orElseThrow(() -> new UnknownException(CONTROLLER_NAME));
   }
 
   @Override
   public ResponseEntity<StreamModel> getStreamById(Long id) {
-    Optional<StreamDto> streamDto = Optional.of(id).map(streamDao::getStreamById);
+    UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
+
+    Optional<StreamDto> streamDto =
+        Optional.of(id).map(streamId -> streamDao.getStreamById(user, streamId));
 
     // maintain status field and create a log
     streamDto.ifPresent(maintainDeviceStatus::maintainStatusField);
@@ -53,18 +63,22 @@ public class StreamController implements StreamApi {
 
   @Override
   public ResponseEntity<StreamStatModel> getStreamStatById(Long id) {
-    Optional<StreamStatDto> streamStatDto = streamDao.getStreamStat(id);
+    UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
+
+    Optional<StreamStatDto> streamStatDto = streamDao.getStreamStat(user, id);
 
     return streamStatDto
-        .map(statMapper::toModel)
+        .map(statMapper::toStreamStatModel)
         .map(ResponseEntity::ok)
         .orElseThrow(() -> new UnknownException(CONTROLLER_NAME));
   }
 
   @Override
   public ResponseEntity<StreamModel> createStream(@Valid CreateStreamRequest createStreamRequest) {
+    UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
+
     return Optional.of(createStreamRequest)
-        .map(streamService::createStream)
+        .map(createStreamReq -> streamService.createStream(user, createStreamReq))
         .map(mapper::toStreamModel)
         .map(ResponseEntity::ok)
         .orElseThrow(() -> new ExceptionType.UnknownException(CONTROLLER_NAME));
@@ -72,9 +86,11 @@ public class StreamController implements StreamApi {
 
   @Override
   public ResponseEntity<Void> deleteStream(Long id) {
+    UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
+
     Optional.of(id)
         .ifPresentOrElse(
-            streamDao::deleteStream,
+            streamId -> streamDao.deleteStream(user, streamId),
             () -> {
               throw new UnknownException(CONTROLLER_NAME);
             });
@@ -83,9 +99,11 @@ public class StreamController implements StreamApi {
 
   @Override
   public ResponseEntity<StreamModel> updateStream(@Valid StreamModel streamModel) {
+    UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
+
     return Optional.of(streamModel)
         .map(mapper::toStreamDto)
-        .map(streamService::updateStream)
+        .map(streamDto -> streamService.updateStream(user, streamDto))
         .map(mapper::toStreamModel)
         .map(ResponseEntity::ok)
         .orElseThrow(() -> new UnknownException(CONTROLLER_NAME));
@@ -93,18 +111,22 @@ public class StreamController implements StreamApi {
 
   @Override
   public ResponseEntity<StreamStatModel> updateStreamStat(@Valid StreamStatModel streamStatModel) {
+    UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
+
     return Optional.of(streamStatModel)
-        .map(statMapper::toDto)
-        .map(streamService::updateStreamStat)
-        .map(statMapper::toModel)
+        .map(statMapper::toStreamStatDto)
+        .map(streamStatDto -> streamService.updateStreamStat(user, streamStatDto))
+        .map(statMapper::toStreamStatModel)
         .map(ResponseEntity::ok)
         .orElseThrow(() -> new UnknownException(CONTROLLER_NAME));
   }
 
   @Override
   public ResponseEntity<List<StreamStatModel>> retrieveStreamStats() {
-    return Optional.of(streamService.getStreamStats())
-        .map(statMapper::toModelList)
+    UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
+
+    return Optional.of(streamService.getStreamStats(user))
+        .map(statMapper::toStreamStatModelList)
         .map(ResponseEntity::ok)
         .orElseThrow(() -> new ExceptionType.UnknownException(CONTROLLER_NAME));
   }

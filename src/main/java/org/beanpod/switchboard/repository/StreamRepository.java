@@ -2,28 +2,39 @@ package org.beanpod.switchboard.repository;
 
 import java.util.List;
 import org.beanpod.switchboard.entity.StreamEntity;
+import org.beanpod.switchboard.entity.StreamEntity.StreamIdProjection;
 import org.beanpod.switchboard.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface StreamRepository extends JpaRepository<StreamEntity, Long> {
 
-  List<StreamEntity> findAllByOutputChannelEncoderDeviceUserAndOutputChannelEncoderSerialNumber(
-      UserEntity user, String encoderSerial);
+  StreamEntity save(StreamEntity stream);
 
-  List<StreamEntity> findAllByInputChannelDecoderDeviceUserAndInputChannelDecoderSerialNumber(
-      UserEntity user, String decoderSerial);
+  List<StreamEntity>
+      findStreamEntitiesByOutputChannelEncoderDeviceUserAndOutputChannelEncoderSerialNumber(
+          UserEntity user, String encoderSerial);
 
-  @Query("SELECT id FROM Stream")
-  List<Long> getAllId();
+  List<StreamEntity>
+      findStreamEntitiesByInputChannelDecoderDeviceUserAndInputChannelDecoderSerialNumber(
+          UserEntity user, String decoderSerial);
 
-  @Query(
-      "SELECT count(id) > 0 FROM Stream where input_channel_id = :inputChannelId AND "
-          + "output_channel_id = :outputChannelId")
-  boolean existsDuplicate(
-      @Param(value = "inputChannelId") long inputChannelId,
-      @Param(value = "outputChannelId") long outputChannelId);
+  List<StreamIdProjection>
+      findStreamIdsByInputChannelDecoderDeviceUserOrOutputChannelEncoderDeviceUser(
+          UserEntity inputUser, UserEntity outputUser);
+
+  StreamEntity
+      findStreamEntityByInputChannelDecoderDeviceUserAndIdOrOutputChannelEncoderDeviceUserAndId(
+          UserEntity inputUser, Long inputStreamId, UserEntity outputUser, Long outputStreamId);
+
+  boolean
+      existsStreamEntityByInputChannelDecoderDeviceUserAndIdOrOutputChannelEncoderDeviceUserAndId(
+          UserEntity inputUser, Long inputStreamId, UserEntity outputUser, Long outputStreamId);
+
+  boolean existsStreamEntityByInputChannelIdAndOutputChannelId(
+      long inputChannelId, long outputChannelId);
+
+  long deleteStreamEntityByInputChannelDecoderDeviceUserAndIdOrOutputChannelEncoderDeviceUserAndId(
+      UserEntity inputUser, Long inputStreamId, UserEntity outputUser, Long outputStreamId);
 }

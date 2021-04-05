@@ -2,6 +2,7 @@ package org.beanpod.switchboard.dao;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.beanpod.switchboard.dto.StreamDto;
@@ -9,6 +10,7 @@ import org.beanpod.switchboard.dto.StreamStatDto;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
 import org.beanpod.switchboard.dto.mapper.StreamStatMapper;
 import org.beanpod.switchboard.entity.StreamEntity;
+import org.beanpod.switchboard.entity.StreamEntity.StreamIdProjection;
 import org.beanpod.switchboard.entity.StreamStatEntity;
 import org.beanpod.switchboard.entity.UserEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType.StreamAlreadyExistsException;
@@ -24,82 +26,104 @@ public class StreamDaoImpl {
 
   private final StreamRepository streamRepository;
   private final StreamStatRepository streamStatRepository;
-  private final StreamMapper mapper;
-  private final StreamStatMapper statMapper;
+  private final StreamMapper streamMapper;
+  private final StreamStatMapper streamStatMapper;
 
-  public StreamEntity updateStream(StreamDto streamDto) {
-    if (!streamRepository.existsById(streamDto.getId())) {
+  public StreamEntity updateStream(UserEntity user, StreamDto streamDto) {
+    if (!streamRepository
+        .existsStreamEntityByInputChannelDecoderDeviceUserAndIdOrOutputChannelEncoderDeviceUserAndId(
+            user, streamDto.getId(), user, streamDto.getId())) {
       throw new StreamDoesNotExistException(streamDto.getId());
     }
-    StreamEntity streamEntity = mapper.toStreamEntity(streamDto);
+    StreamEntity streamEntity = streamMapper.toStreamEntity(streamDto);
     return streamRepository.save(streamEntity);
   }
 
-  public StreamStatDto updateStreamStat(StreamStatDto streamStatDto) {
-    if (!streamRepository.existsById(streamStatDto.getId())) {
+  public StreamStatDto updateStreamStat(UserEntity user, StreamStatDto streamStatDto) {
+    if (!streamRepository
+        .existsStreamEntityByInputChannelDecoderDeviceUserAndIdOrOutputChannelEncoderDeviceUserAndId(
+            user, streamStatDto.getId(), user, streamStatDto.getId())) {
       throw new StreamDoesNotExistException(streamStatDto.getId());
     }
-    Optional<StreamStatDto> streamStat = getStreamStat(streamStatDto.getId());
-    statMapper.updateStreamStatFromDto(streamStatDto, streamStat.orElse(null));
+    Optional<StreamStatDto> streamStat = getStreamStat(user, streamStatDto.getId());
+    streamStatMapper.updateStreamStatFromDto(streamStatDto, streamStat.orElse(null));
 
-    return statMapper.toDto(
-        streamStatRepository.save(statMapper.toEntity(streamStat.orElse(null))));
+    return streamStatMapper.toStreamStatDto(
+        streamStatRepository.save(streamStatMapper.toStreamStatEntity(streamStat.orElse(null))));
   }
 
-  public StreamDto getStreamById(Long id) {
-    StreamEntity streamEntity = streamRepository.getOne(id);
-    return mapper.toStreamDto(streamEntity);
+  public StreamDto getStreamById(UserEntity user, Long id) {
+    StreamEntity streamEntity =
+        streamRepository
+            .findStreamEntityByInputChannelDecoderDeviceUserAndIdOrOutputChannelEncoderDeviceUserAndId(
+                user, id, user, id);
+    return streamMapper.toStreamDto(streamEntity);
   }
 
-  public void deleteStream(Long id) {
-    streamRepository.deleteById(id);
+  public Long deleteStream(UserEntity user, Long id) {
+    return streamRepository
+        .deleteStreamEntityByInputChannelDecoderDeviceUserAndIdOrOutputChannelEncoderDeviceUserAndId(
+            user, id, user, id);
   }
 
-  public Optional<StreamStatDto> getStreamStat(Long id) {
-    return streamStatRepository.findStreamStatEntityById(id).map(statMapper::toDto);
+  public Optional<StreamStatDto> getStreamStat(UserEntity user, Long id) {
+    return streamStatRepository
+        .findStreamStatEntityByStreamInputChannelDecoderDeviceUserAndIdOrStreamOutputChannelEncoderDeviceUserAndId(
+            user, id, user, id)
+        .map(streamStatMapper::toStreamStatDto);
   }
 
-  public List<StreamStatDto> getStreamStats() {
-    List<StreamStatEntity> streamStats = streamStatRepository.findAll();
-    return statMapper.toDtoList(streamStats);
+  public List<StreamStatDto> getStreamStats(UserEntity user) {
+    List<StreamStatEntity> streamStats =
+        streamStatRepository
+            .findStreamStatEntitiesByStreamInputChannelDecoderDeviceUserOrStreamOutputChannelEncoderDeviceUser(
+                user, user);
+    return streamStatMapper.toStreamStatDtoList(streamStats);
   }
 
   public List<StreamDto> getEncoderStreams(UserEntity user, String encoderSerialNumber) {
     List<StreamEntity> streamEntities =
-        streamRepository.findAllByOutputChannelEncoderDeviceUserAndOutputChannelEncoderSerialNumber(
-            user, encoderSerialNumber);
-    return mapper.toStreamDtos(streamEntities);
+        streamRepository
+            .findStreamEntitiesByOutputChannelEncoderDeviceUserAndOutputChannelEncoderSerialNumber(
+                user, encoderSerialNumber);
+    return streamMapper.toStreamDtos(streamEntities);
   }
 
   public List<StreamDto> getDecoderStreams(UserEntity user, String decoderSerialNumber) {
     List<StreamEntity> streamEntities =
-        streamRepository.findAllByInputChannelDecoderDeviceUserAndInputChannelDecoderSerialNumber(
-            user, decoderSerialNumber);
-    return mapper.toStreamDtos(streamEntities);
+        streamRepository
+            .findStreamEntitiesByInputChannelDecoderDeviceUserAndInputChannelDecoderSerialNumber(
+                user, decoderSerialNumber);
+    return streamMapper.toStreamDtos(streamEntities);
   }
 
-  public List<Long> getStreams() {
-    return streamRepository.getAllId();
+  public List<Long> getStreams(UserEntity user) {
+    return streamRepository
+        .findStreamIdsByInputChannelDecoderDeviceUserOrOutputChannelEncoderDeviceUser(user, user)
+        .stream()
+        .map(StreamIdProjection::getId)
+        .collect(Collectors.toList());
   }
 
-  public StreamDto saveStream(StreamDto streamDto) {
+  public StreamDto saveCreateStream(StreamDto streamDto) {
     long inputChannelId = streamDto.getInputChannel().getId();
     long outputChannelId = streamDto.getOutputChannel().getId();
-    if (streamRepository.existsDuplicate(inputChannelId, outputChannelId)) {
+    if (streamRepository.existsStreamEntityByInputChannelIdAndOutputChannelId(
+        inputChannelId, outputChannelId)) {
       throw new StreamAlreadyExistsException(inputChannelId, outputChannelId);
     }
 
-    StreamEntity streamEntity = mapper.toStreamEntity(streamDto);
-    StreamDto streamDto1 = mapper.toStreamDto(streamRepository.save(streamEntity));
+    StreamEntity streamEntity = streamMapper.toStreamEntity(streamDto);
+    StreamDto streamDto1 = streamMapper.toStreamDto(streamRepository.save(streamEntity));
 
     // Save an empty stream stat when saving a stream
     if (streamDto.getStreamStat() == null) {
       StreamStatEntity streamStatBuild =
-          StreamStatEntity.builder().stream(mapper.toStreamEntity(streamDto1))
+          StreamStatEntity.builder().stream(streamMapper.toStreamEntity(streamDto1))
               .id(streamDto1.getId())
               .build();
       streamStatRepository.save(streamStatBuild);
-      streamDto1.setStreamStat(statMapper.toDto(streamStatBuild));
+      streamDto1.setStreamStat(streamStatMapper.toStreamStatDto(streamStatBuild));
     }
 
     return streamDto1;

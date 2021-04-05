@@ -36,13 +36,13 @@ public interface StreamStatMapper {
   @Mapping(source = "recv.bytesLost", target = "recvBytesLost")
   @Mapping(source = "recv.bytesDropped", target = "recvBytesDropped")
   @Mapping(source = "recv.mbitRate", target = "recvMbitRate")
-  StreamStatDto toDto(StreamStatModel streamModel);
+  StreamStatDto toStreamStatDto(StreamStatModel streamModel);
 
-  StreamStatDto toDto(StreamStatEntity streamStatEntity);
+  StreamStatDto toStreamStatDto(StreamStatEntity streamStatEntity);
 
-  List<StreamStatDto> toDtoList(List<StreamStatEntity> streamStatEntityList);
+  List<StreamStatDto> toStreamStatDtoList(List<StreamStatEntity> streamStatEntityList);
 
-  StreamStatEntity toEntity(StreamStatDto streamStatDto);
+  StreamStatEntity toStreamStatEntity(StreamStatDto streamStatDto);
 
   @Mapping(target = "window.flow", source = "flow")
   @Mapping(target = "window.congestion", source = "congestion")
@@ -66,9 +66,9 @@ public interface StreamStatMapper {
   @Mapping(target = "recv.bytesLost", source = "recvBytesLost")
   @Mapping(target = "recv.bytesDropped", source = "recvBytesDropped")
   @Mapping(target = "recv.mbitRate", source = "recvMbitRate")
-  StreamStatModel toModel(StreamStatDto streamStatDto);
+  StreamStatModel toStreamStatModel(StreamStatDto streamStatDto);
 
-  List<StreamStatModel> toModelList(List<StreamStatDto> streamDtoList);
+  List<StreamStatModel> toStreamStatModelList(List<StreamStatDto> streamDtoList);
 
   void updateStreamStatFromDto(StreamStatDto dto, @MappingTarget StreamStatDto target);
 }

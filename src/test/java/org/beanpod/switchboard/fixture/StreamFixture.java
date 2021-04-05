@@ -3,6 +3,7 @@ package org.beanpod.switchboard.fixture;
 import java.util.List;
 import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.entity.StreamEntity;
+import org.beanpod.switchboard.entity.StreamEntity.StreamIdProjection;
 import org.openapitools.model.CreateStreamRequest;
 import org.openapitools.model.StreamModel;
 
@@ -10,8 +11,12 @@ public class StreamFixture {
 
   public static final long ID = 2429L;
 
-  public static List<Long> getIdList() {
+  public static List<Long> getStreamIdList() {
     return List.of(ID);
+  }
+
+  public static List<StreamIdProjection> getStreamIdProjectionList() {
+    return List.of((StreamIdProjection) getStreamEntity());
   }
 
   public static StreamEntity getStreamEntity() {
