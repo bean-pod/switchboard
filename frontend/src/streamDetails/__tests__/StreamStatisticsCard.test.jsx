@@ -26,7 +26,7 @@ describe("<StreamStatisticsCard/> class component", () => {
 
   const expectedState = {
     stats: dummyStats
-  }
+  };
 
   const expectedButton = new ButtonInfo(
     `/Streams/Details/${dummyStats.id}/Statistics`,
@@ -75,10 +75,10 @@ describe("<StreamStatisticsCard/> class component", () => {
     });
     it("should render 1 Grid component with expected props", () => {
       expect(wrapper.find(Grid)).toHaveLength(1);
-      
+
       const expectedProps = { item: true, xs: 12 };
       const gridProps = wrapper.find(Grid).at(0).props();
-      
+
       expect(gridProps.item).toBe(expectedProps.item);
       expect(gridProps.xs).toBe(expectedProps.xs);
     });

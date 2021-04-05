@@ -22,13 +22,11 @@ export default function StatisticsOverviewCard(props) {
   };
 
   return (
-    <>
-      <DashboardCard title="Overview">
-        <Grid item xs={12}>
-          <SimpleTable properties={properties} />
-        </Grid>
-      </DashboardCard>
-    </>
+    <DashboardCard title="Overview">
+      <Grid item xs={12}>
+        <SimpleTable properties={properties} />
+      </Grid>
+    </DashboardCard>
   );
 }
 
