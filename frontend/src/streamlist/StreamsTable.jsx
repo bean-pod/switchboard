@@ -11,65 +11,12 @@ import {
 } from "@material-ui/icons";
 
 import MaterialTable from "material-table";
-
-import StatusIndicator from "../general/StatusIndicator";
-import StreamDetailsButton from "./StreamDetailsButton";
 import StreamInfo from "../model/StreamInfo";
 
 export default class StreamsTable extends React.Component {
   constructor(props) {
     super(props);
 
-    this.columnInfo = [
-      {
-        title: "ID",
-        field: "id"
-      },
-      {
-        title: "Date",
-        field: "date"
-      },
-      {
-        title: "Sender",
-        field: "sender.name"
-      },
-      {
-        title: "Receiver",
-        field: "receiver.name"
-      },
-      {
-        title: "Status",
-        field: "status",
-        render: function Status(rowData) {
-          return <StatusIndicator status={rowData.status} />;
-        }
-      },
-      {
-        title: "Type",
-        field: "type"
-      },
-      {
-        title: "Time Elapsed",
-        field: "time"
-      },
-      {
-        title: "Actions",
-        field: "action",
-        filtering: false,
-        sorting: false,
-        render: function Actions(rowData) {
-          return <StreamDetailsButton streamInfo={rowData} />;
-        },
-        align: "center",
-        export: false
-      }
-    ];
-    this.simpleColumnInfo = [
-      this.columnInfo[2],
-      this.columnInfo[3],
-      this.columnInfo[4],
-      this.columnInfo[7]
-    ];
     this.options = {
       toolbar: false,
       headerStyle: {
@@ -79,6 +26,7 @@ export default class StreamsTable extends React.Component {
       filtering: false,
       draggable: false
     };
+
     this.icons = {
       SortArrow: ArrowDownward,
       FirstPage,
@@ -86,14 +34,6 @@ export default class StreamsTable extends React.Component {
       NextPage: ChevronRight,
       PreviousPage: ChevronLeft
     };
-  }
-
-  getColumnInfo() {
-    const { isSimple } = this.props;
-    if (isSimple) {
-      return this.simpleColumnInfo;
-    }
-    return this.columnInfo;
   }
 
   getOptions() {
@@ -105,13 +45,13 @@ export default class StreamsTable extends React.Component {
   }
 
   render() {
-    const { streams } = this.props;
+    const { streams, columns } = this.props;
     return (
       <>
         <Box>
           <TableContainer>
             <MaterialTable
-              columns={this.getColumnInfo()}
+              columns={columns}
               data={streams}
               options={this.getOptions()}
               icons={this.getIcons()}
@@ -130,9 +70,15 @@ export default class StreamsTable extends React.Component {
 
 StreamsTable.propTypes = {
   streams: PropTypes.arrayOf(PropTypes.instanceOf(StreamInfo)).isRequired,
-  isSimple: PropTypes.bool
-};
-
-StreamsTable.defaultProps = {
-  isSimple: false
+  columns: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      field: PropTypes.string.isRequired,
+      filtering: PropTypes.bool,
+      sorting: PropTypes.bool,
+      render: PropTypes.func,
+      align: PropTypes.string,
+      export: PropTypes.bool
+    })
+  ).isRequired
 };
