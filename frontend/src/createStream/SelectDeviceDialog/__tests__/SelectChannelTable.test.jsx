@@ -12,7 +12,7 @@ import OutputChannelInfo from "../../../model/OutputChannelInfo";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe("<SelectDeviceTable/> functional component", () => {
+describe("<SelectChannelTable/> functional component", () => {
   let wrapper;
 
   describe("returns a component that", () => {
