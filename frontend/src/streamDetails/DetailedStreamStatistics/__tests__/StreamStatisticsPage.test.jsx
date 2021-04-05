@@ -19,12 +19,12 @@ Enzyme.configure({ adapter: new Adapter() });
 describe("<StreamStatisticsPage/> functional component", () => {
   let wrapper;
   const dummyStreamStats = new StreamStatisticsInfo(
-    10,
-    10,
-    new StreamStatsWindowInfo(10, 10, 10),
-    new StreamStatsLinkInfo(10, 10, 10),
-    new StreamStatsSendInfo(10, 10, 10, 10, 10, 10, 10),
-    new StreamStatsReceiveInfo(10, 10, 10, 10, 10, 10, 10, 10, 10)
+    101,
+    102,
+    new StreamStatsWindowInfo(21, 22, 23),
+    new StreamStatsLinkInfo(31, 32, 33),
+    new StreamStatsSendInfo(41, 42, 43, 44, 45, 46, 47),
+    new StreamStatsReceiveInfo(51, 52, 53, 54, 55, 56, 57, 58, 59)
   );
 
   describe("when passed a location prop", () => {
