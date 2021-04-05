@@ -42,15 +42,15 @@ describe("<StatisticsReceivingCard/> functional component", () => {
     });
     it("has 1 SimpleTable component with expected props", () => {
       const expectedProperties = {
-        Packets: 61,
-        "Packets Lost": 62,
-        "Packets Dropped": 63,
-        "Packets Retransmitted": 64,
-        "Packets Belated": 65,
-        Bytes: 66,
-        "Bytes Lost": 67,
-        "Bytes Dropped": 68,
-        "Bitrate (Mbps)": 69
+        Packets: dummyStats.receive.packets,
+        "Packets Lost": dummyStats.receive.packetsLost,
+        "Packets Dropped": dummyStats.receive.packetsDropped,
+        "Packets Retransmitted": dummyStats.receive.packetsRetransmitted,
+        "Packets Belated": dummyStats.receive.packetsBelated,
+        Bytes: dummyStats.receive.bytes,
+        "Bytes Lost": dummyStats.receive.bytesLost,
+        "Bytes Dropped": dummyStats.receive.bytesDropped,
+        "Bitrate (Mbps)": dummyStats.receive.mbitRate
       };
       const table = wrapper.find(SimpleTable);
       expect(table).toHaveLength(1);
