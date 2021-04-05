@@ -118,17 +118,14 @@ export async function updateDeviceName(deviceId, updatedName) {
 }
 
 // https://programmingwithmosh.com/javascript/react-file-upload-proper-server-side-nodejs-easy/
-export async function uploadConfiguration() {
-  // deviceId, configFile) {
-  // const data = new FormData()
-  // data.append('file', configFile)
-  // return axios.put(
-  //   `${process.env.REACT_APP_DEVICE}`,
-  //   {
-  //     serialNumber: deviceId,
-  //     configuration: configFile
-  //   },
-  //   getAuthorizationHeader()
-  // );
-  return Promise.resolve(true);
+export async function uploadConfiguration(deviceId, configFile) {
+  const data = new FormData();
+  data.append("file", configFile);
+  return axios.put(
+    `${process.env.REACT_APP_DEVICE}/config/${deviceId}`,
+    {
+      configuration: configFile
+    },
+    getAuthorizationHeader()
+  );
 }
