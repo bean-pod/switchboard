@@ -16,7 +16,7 @@ import {
 import MaterialTable from "material-table";
 import LogInfo from "../model/LogInfo";
 
-function getColumnInfo() {
+function getLogColumnInfo() {
   return [
     {
       title: "ID",
@@ -31,6 +31,36 @@ function getColumnInfo() {
     {
       title: "Level",
       field: "level",
+      cellStyle: { width: "10%" }
+    },
+    {
+      title: "Message",
+      field: "message",
+      sorting: false
+    }
+  ];
+}
+
+function getStreamLogColumnInfo() {
+  return [
+    {
+      title: "Date",
+      field: "dateTime",
+      cellStyle: { width: "15%" }
+    },
+    {
+      title: "Level",
+      field: "level",
+      cellStyle: { width: "10%" }
+    },
+    {
+      title: "Sender",
+      field: "encoderSerial",
+      cellStyle: { width: "10%" }
+    },
+    {
+      title: "Receiver",
+      field: "decoderSerial",
       cellStyle: { width: "10%" }
     },
     {
@@ -72,14 +102,14 @@ function getIcons() {
 }
 
 export default function LogsTable(props) {
-  const { logs, bodyHeight, title } = props;
+  const { isStreamLog, logs, bodyHeight, title } = props;
   return (
     <>
       <Box>
         <TableContainer>
           <MaterialTable
             title={title}
-            columns={getColumnInfo()}
+            columns={ isStreamLog ? getStreamLogColumnInfo() : getLogColumnInfo()}
             data={logs}
             options={getOptions(bodyHeight)}
             icons={getIcons()}
@@ -98,10 +128,12 @@ export default function LogsTable(props) {
 LogsTable.propTypes = {
   logs: PropTypes.arrayOf(PropTypes.instanceOf(LogInfo)).isRequired,
   bodyHeight: PropTypes.string,
-  title: PropTypes.string
+  title: PropTypes.string,
+  isStreamLog: PropTypes.bool
 };
 
 LogsTable.defaultProps = {
   bodyHeight: "auto",
-  title: "Logs"
+  title: "Logs",
+  isStreamLog: false
 };
