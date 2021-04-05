@@ -431,9 +431,9 @@ export function getSampleStream() {
 
 export function getAllLogs(callback) {
   const dates = [
-    new Date("2020-10-31T15:53:23"),
-    new Date("2020-11-13T12:36:30"),
-    new Date("2020-11-13T08:24:30")
+    "2020-10-31T15:53:23",
+    "2020-11-13T12:36:30",
+    "2020-11-13T08:24:30"
   ];
 
   const sampleLogs = [
