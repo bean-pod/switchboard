@@ -56,47 +56,37 @@ describe("<SnackbarMessage /> Class Component", () => {
           red: "#f44336"
         };
         describe("If status is success,", () => {
-          describe("the snackbar has a green background and the correct props", () => {
-            it("and contains one <CheckCircle/> component", () => {
-              wrapper.setState({ status: "success" });
-              expect(wrapper.find(SnackbarContent).props().style).toEqual({
-                backgroundColor: statusColors.green
-              });
+          it("the snackbar has a green background", () => {
+            wrapper.setState({ status: "success" });
+            expect(wrapper.find(SnackbarContent).props().style).toEqual({
+              backgroundColor: statusColors.green
             });
+          });
+          it("contains a message prop with a <CheckCircle/> component", () => {
+            wrapper.setState({ status: "success" });
+            expect(wrapper.find(SnackbarContent).props().message).toEqual(
+              <Box id="message-id" className="snackMessage">
+                <CheckCircle className="iconPadding" />
+                {wrapper.state().message}
+              </Box>
+            );
           });
         });
         describe("If status is not success,", () => {
-          describe("the snackbar has a red background and the correct props", () => {
-            it("and contains one <Error/> component", () => {
-              wrapper.setState({ status: "error" });
-              expect(wrapper.find(SnackbarContent).props().style).toEqual({
-                backgroundColor: statusColors.red
-              });
+          it("the snackbar has a red background", () => {
+            wrapper.setState({ status: "error" });
+            expect(wrapper.find(SnackbarContent).props().style).toEqual({
+              backgroundColor: statusColors.red
             });
           });
-        });
-        describe("The component has a message prop", () => {
-          describe("where if status is success,", () => {
-            it("it should have a <CheckCircle/> icon component", () => {
-              wrapper.setState({ status: "success" });
-              expect(wrapper.find(SnackbarContent).props().message).toEqual(
-                <Box id="message-id" className="snackMessage">
-                  <CheckCircle className="iconPadding" />
-                  {wrapper.state().message}
-                </Box>
-              );
-            });
-          });
-          describe("where if status is not success,", () => {
-            it("it should have an <Error/> icon component", () => {
-              wrapper.setState({ status: "error" });
-              expect(wrapper.find(SnackbarContent).props().message).toEqual(
-                <Box id="message-id" className="snackMessage">
-                  <Error className="iconPadding" />
-                  {wrapper.state().message}
-                </Box>
-              );
-            });
+          it("contains a message prop with a <Error/> component", () => {
+            wrapper.setState({ status: "error" });
+            expect(wrapper.find(SnackbarContent).props().message).toEqual(
+              <Box id="message-id" className="snackMessage">
+                <Error className="iconPadding" />
+                {wrapper.state().message}
+              </Box>
+            );
           });
         });
       });
@@ -144,7 +134,7 @@ describe("<SnackbarMessage /> Class Component", () => {
 
       expect(wrapper.state().open).toBe(true);
     });
-    it("If reason is not clickaway, state open should be set to false", () => {
+    it("if reason is not clickaway, state open should be set to false", () => {
       wrapper.setState({ open: true });
       expect(wrapper.state().open).toBe(true);
 
