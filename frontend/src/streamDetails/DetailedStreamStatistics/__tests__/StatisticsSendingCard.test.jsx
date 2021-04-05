@@ -51,7 +51,7 @@ describe("<StatisticsSendingCard/> functional component", () => {
         "Packets Retransmitted": 54,
         Bytes: 55,
         "Bytes Dropped": 56,
-        "MegaBit Rate": 57
+        "Bitrate (Mbps)": 57
       };
       const table = wrapper.find(SimpleTable);
       expect(table).toHaveLength(1);

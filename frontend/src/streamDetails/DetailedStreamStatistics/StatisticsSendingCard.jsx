@@ -17,7 +17,7 @@ export default function StatisticsSendingCard(props) {
     "Packets Retransmitted": stats.send.packetsRetransmitted,
     Bytes: stats.send.bytes,
     "Bytes Dropped": stats.send.bytesDropped,
-    "MegaBit Rate": stats.send.mbitRate
+    "Bitrate (Mbps)": stats.send.mbitRate
   };
 
   return (
