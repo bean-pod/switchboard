@@ -25,10 +25,8 @@ export default function StatisticsReceivingCard(props) {
   return (
     <>
       <DashboardCard title="Receiving Statistics">
-        <Grid container>
-          <Grid item xs={12}>
-            <SimpleTable properties={properties} />
-          </Grid>
+        <Grid item xs={12}>
+          <SimpleTable properties={properties} />
         </Grid>
       </DashboardCard>
     </>

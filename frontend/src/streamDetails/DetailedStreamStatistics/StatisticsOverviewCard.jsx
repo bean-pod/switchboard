@@ -24,10 +24,8 @@ export default function StatisticsOverviewCard(props) {
   return (
     <>
       <DashboardCard title="Overview">
-        <Grid container>
-          <Grid item xs={12}>
-            <SimpleTable properties={properties} />
-          </Grid>
+        <Grid item xs={12}>
+          <SimpleTable properties={properties} />
         </Grid>
       </DashboardCard>
     </>

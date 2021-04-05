@@ -33,15 +33,12 @@ describe("<StatisticsSendingCard/> functional component", () => {
       expect(cardProps.title).toBe(expectedTitle);
     });
     it("has 2 Grid components with expected props", () => {
-      const grids = wrapper.find(Grid);
-      expect(grids).toHaveLength(2);
+      const grid = wrapper.find(Grid);
+      expect(grid).toHaveLength(1);
 
-      const gridOneProps = grids.at(0).props();
-      expect(gridOneProps.container).toBe(true);
-
-      const gridTwoProps = grids.at(1).props();
-      expect(gridTwoProps.item).toBe(true);
-      expect(gridTwoProps.xs).toBe(12);
+      const gridProps = grid.props();
+      expect(gridProps.item).toBe(true);
+      expect(gridProps.xs).toBe(12);
     });
     it("has 1 SimpleTable component with expected props", () => {
       const expectedProperties = {
