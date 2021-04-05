@@ -24,6 +24,10 @@ describe("<StreamStatisticsCard/> class component", () => {
     "Packets Dropped": dummyStats.send.packetsDropped
   };
 
+  const expectedState = {
+    stats: dummyStats
+  }
+
   const expectedButton = new ButtonInfo(
     `/Streams/Details/${dummyStats.id}/Statistics`,
     { statistics: dummyStats },
@@ -41,9 +45,6 @@ describe("<StreamStatisticsCard/> class component", () => {
       const startingState = {
         stats: []
       };
-      const expectedState = {
-        stats: dummyStats
-      };
 
       expect(wrapper.state()).toStrictEqual(startingState);
       wrapper.instance().handleStatsChange(dummyStats);
@@ -52,14 +53,14 @@ describe("<StreamStatisticsCard/> class component", () => {
   });
   describe("getProperties() function", () => {
     it("should return a specific array of properties", () => {
-      wrapper.instance().handleStatsChange(dummyStats);
+      wrapper.instance().setState(expectedState);
       const actualProperties = wrapper.instance().getProperties();
       expect(actualProperties).toStrictEqual(expectedProperties);
     });
   });
   describe("render() function", () => {
     it("should render 1 DashboardCard with expected props", () => {
-      wrapper.instance().handleStatsChange(dummyStats);
+      wrapper.instance().setState(expectedState);
 
       const expectedProps = {
         title: "Statistics",
@@ -82,7 +83,7 @@ describe("<StreamStatisticsCard/> class component", () => {
       expect(gridProps.xs).toBe(expectedProps.xs);
     });
     it("should render 1 SimpleTable component with expected props", () => {
-      wrapper.instance().handleStatsChange(dummyStats);
+      wrapper.instance().setState(expectedState);
 
       const table = wrapper.find(SimpleTable);
       expect(table).toHaveLength(1);
