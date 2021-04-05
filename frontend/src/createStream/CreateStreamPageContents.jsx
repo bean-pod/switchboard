@@ -47,13 +47,15 @@ export default class CreateStreamPageContents extends React.Component {
 
   setSenderDeviceIndex(value) {
     this.setState({
-      senderDeviceIndex: value
+      senderDeviceIndex: value,
+      senderChannelIndex: -1
     });
   }
 
   setReceiverDeviceIndex(value) {
     this.setState({
-      receiverDeviceIndex: value
+      receiverDeviceIndex: value,
+      receiverChannelIndex:-1
     });
   }
 

@@ -214,13 +214,14 @@ describe("<CreateStreamPageContents/> class component", () => {
         senders: [],
         receivers: [],
         senderDeviceIndex: -1,
-        senderChannelIndex: -1,
+        senderChannelIndex: 1, // non-default value
         receiverDeviceIndex: -1,
         receiverChannelIndex: -1
       };
       const someIndex = 88;
       const expectedState = {
-        senderDeviceIndex: someIndex
+        senderDeviceIndex: someIndex,
+        senderChannelIndex: -1
       };
 
       wrapper.setState(startingState);
@@ -235,11 +236,12 @@ describe("<CreateStreamPageContents/> class component", () => {
         senderDeviceIndex: -1,
         senderChannelIndex: -1,
         receiverDeviceIndex: -1,
-        receiverChannelIndex: -1
+        receiverChannelIndex: 1 // non default value
       };
       const someIndex = 88;
       const expectedState = {
-        receiverDeviceIndex: someIndex
+        receiverDeviceIndex: someIndex,
+        receiverChannelIndex: -1
       };
 
       wrapper.setState(startingState);
