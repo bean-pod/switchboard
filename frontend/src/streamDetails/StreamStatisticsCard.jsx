@@ -57,10 +57,8 @@ export default class StreamStatisticsCard extends React.Component {
     return (
       <>
         <DashboardCard title="Statistics" button={button}>
-          <Grid container>
-            <Grid item xs={12}>
-              <SimpleTable properties={properties} />
-            </Grid>
+          <Grid item xs={12}>
+            <SimpleTable properties={properties} />
           </Grid>
         </DashboardCard>
       </>

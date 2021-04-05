@@ -72,17 +72,12 @@ describe("<StreamStatisticsCard/> class component", () => {
       expect(dashCard.props().title).toBe(expectedProps.title);
       expect(dashCard.props().button).toStrictEqual(expectedProps.button);
     });
-    it("should render 2 Grid components", () => {
-      expect(wrapper.find(Grid)).toHaveLength(2);
-    });
-    it("First Grid component should have expected props", () => {
-      const expectedProps = { container: true };
-      const gridProps = wrapper.find(Grid).at(0).props();
-      expect(gridProps.container).toBe(expectedProps.container);
-    });
-    it("Second Grid component should have expected props", () => {
+    it("should render 1 Grid component with expected props", () => {
+      expect(wrapper.find(Grid)).toHaveLength(1);
+      
       const expectedProps = { item: true, xs: 12 };
-      const gridProps = wrapper.find(Grid).at(1).props();
+      const gridProps = wrapper.find(Grid).at(0).props();
+      
       expect(gridProps.item).toBe(expectedProps.item);
       expect(gridProps.xs).toBe(expectedProps.xs);
     });
