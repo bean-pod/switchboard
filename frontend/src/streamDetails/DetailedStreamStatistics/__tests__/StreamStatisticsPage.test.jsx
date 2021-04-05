@@ -40,7 +40,7 @@ describe("<StreamStatisticsPage/> functional component", () => {
       );
     });
     afterEach(() => {
-      // wrapper.unmount();
+      wrapper.unmount();
     });
 
     describe("returns a component that", () => {
