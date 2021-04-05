@@ -14,7 +14,7 @@ export default function DynamicBreadcrumb(props) {
             <NavLink
               to={{
                 pathname: crumb[1],
-                state: crumb[2]
+                state: crumb[2] ? crumb[2] : null
               }}
               key={`breadcrumb ${crumb[0]}`}
             >
@@ -28,9 +28,16 @@ export default function DynamicBreadcrumb(props) {
 }
 DynamicBreadcrumb.propTypes = {
   breadcrumbs: PropTypes.arrayOf(
-    PropTypes.oneOfType([
-      PropTypes.arrayOf(PropTypes.string),
-      PropTypes.instanceOf(DeviceInfo)
-    ])
+    PropTypes.arrayOf(
+      PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.objectOf(
+          PropTypes.oneOfType([
+            PropTypes.instanceOf(DeviceInfo),
+            PropTypes.instanceOf(StreamInfo)
+          ])
+        )
+      ])
+    )
   ).isRequired
 };
