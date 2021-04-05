@@ -106,8 +106,8 @@ describe("<SelectDeviceSwipeableSteps/> class component", () => {
     const invalidDeviceIndex = -1;
     const validDeviceIndex = 0;
 
-    describe("when deviceIndex is -1", () => {
-      describe("when channelIndex is -1", () => {
+    describe("when deviceIndex is not set (index == -1)", () => {
+      describe("when channelIndex is not set (index == -1)", () => {
         beforeEach(() => {
           wrapper = Enzyme.shallow(
             <SelectDeviceSwipeableSteps
@@ -129,7 +129,7 @@ describe("<SelectDeviceSwipeableSteps/> class component", () => {
           expect(components).toHaveLength(0);
         });
       });
-      describe("when channelIndex is not -1", () => {
+      describe("when channelIndex is set (index != -1)", () => {
         beforeEach(() => {
           wrapper = Enzyme.shallow(
             <SelectDeviceSwipeableSteps
@@ -153,8 +153,8 @@ describe("<SelectDeviceSwipeableSteps/> class component", () => {
         });
       });
     });
-    describe("when deviceIndex is not -1", () => {
-      describe("when channelIndex is -1", () => {
+    describe("when deviceIndex is set (index != -1)", () => {
+      describe("when channelIndex is not set (index == -1)", () => {
         beforeEach(() => {
           wrapper = Enzyme.shallow(
             <SelectDeviceSwipeableSteps
@@ -185,7 +185,7 @@ describe("<SelectDeviceSwipeableSteps/> class component", () => {
           expect(components).toHaveLength(0);
         });
       });
-      describe("when channelIndex is not -1", () => {
+      describe("when channelIndex is set (index != -1)", () => {
         beforeEach(() => {
           wrapper = Enzyme.shallow(
             <SelectDeviceSwipeableSteps
@@ -331,7 +331,7 @@ describe("<SelectDeviceSwipeableSteps/> class component", () => {
 
         expect(result).toBe(expected);
       });
-      it("returns false if deviceIndex is not -1", () => {
+      it("returns false if deviceIndex is !== -1", () => {
         wrapper.setState({ activeStep: 0 });
         wrapper.setProps({ deviceIndex: 1 });
         const expected = false;
@@ -349,7 +349,7 @@ describe("<SelectDeviceSwipeableSteps/> class component", () => {
 
         expect(result).toBe(expected);
       });
-      it("returns false if channelIndex is not -1", () => {
+      it("returns false if channelIndex is !== -1", () => {
         wrapper.setState({ activeStep: 1 });
         wrapper.setProps({ channelIndex: 2 });
         const expected = false;
