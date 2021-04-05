@@ -53,7 +53,7 @@ describe("<StatisticsReceivingCard/> functional component", () => {
         Bytes: 66,
         "Bytes Lost": 67,
         "Bytes Dropped": 68,
-        "MegaBit Rate": 69
+        "Bitrate (Mbps)": 69
       };
       const table = wrapper.find(SimpleTable);
       expect(table).toHaveLength(1);

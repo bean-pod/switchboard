@@ -19,7 +19,7 @@ export default function StatisticsReceivingCard(props) {
     Bytes: stats.receive.bytes,
     "Bytes Lost": stats.receive.bytesLost,
     "Bytes Dropped": stats.receive.bytesDropped,
-    "MegaBit Rate": stats.receive.mbitRate
+    "Bitrate (Mbps)": stats.receive.mbitRate
   };
 
   return (
