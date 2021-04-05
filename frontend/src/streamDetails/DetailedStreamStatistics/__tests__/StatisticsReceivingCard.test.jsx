@@ -32,7 +32,7 @@ describe("<StatisticsReceivingCard/> functional component", () => {
       const cardProps = card.props();
       expect(cardProps.title).toBe(expectedTitle);
     });
-    it("has 2 Grid components with expected props", () => {
+    it("has 1 Grid components with expected props", () => {
       const grid = wrapper.find(Grid);
       expect(grid).toHaveLength(1);
 
