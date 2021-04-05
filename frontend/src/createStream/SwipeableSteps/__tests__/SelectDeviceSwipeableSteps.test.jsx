@@ -322,8 +322,8 @@ describe("<SelectDeviceSwipeableSteps/> class component", () => {
         />
       );
     });
-    describe("when state.activeStep is 0", () => {
-      it("returns true if deviceIndex is -1", () => {
+    describe("when state.activeStep is 0 (select Device)", () => {
+      it("returns true if deviceIndex is -1 (if device is not selected, Next should be disabled)", () => {
         wrapper.setState({ activeStep: 0 });
         wrapper.setProps({ deviceIndex: -1 });
         const expected = true;
@@ -331,7 +331,7 @@ describe("<SelectDeviceSwipeableSteps/> class component", () => {
 
         expect(result).toBe(expected);
       });
-      it("returns false if deviceIndex is !== -1", () => {
+      it("returns false if deviceIndex is not -1 (if device is selected, Next should not be disabled)", () => {
         wrapper.setState({ activeStep: 0 });
         wrapper.setProps({ deviceIndex: 1 });
         const expected = false;
@@ -340,8 +340,8 @@ describe("<SelectDeviceSwipeableSteps/> class component", () => {
         expect(result).toBe(expected);
       });
     });
-    describe("when state.activeStep is 1", () => {
-      it("returns true if channelIndex is -1", () => {
+    describe("when state.activeStep is 1 (select Channel)", () => {
+      it("returns true if channelIndex is -1 (if channel is not selected, Next should be disabled)", () => {
         wrapper.setState({ activeStep: 1 });
         wrapper.setProps({ channelIndex: -1 });
         const expected = true;
@@ -349,7 +349,7 @@ describe("<SelectDeviceSwipeableSteps/> class component", () => {
 
         expect(result).toBe(expected);
       });
-      it("returns false if channelIndex is !== -1", () => {
+      it("returns false if channelIndex is not -1 (if channel is selected, Next should not be disabled)", () => {
         wrapper.setState({ activeStep: 1 });
         wrapper.setProps({ channelIndex: 2 });
         const expected = false;
@@ -359,7 +359,7 @@ describe("<SelectDeviceSwipeableSteps/> class component", () => {
       });
     });
     describe("when state.activeStep is not 0 or 1", () => {
-      it("returns false", () => {
+      it("returns false (should not be disabled)", () => {
         wrapper.setState({ activeStep: 69 });
         wrapper.setProps({ channelIndex: 2 });
         const expected = false;
