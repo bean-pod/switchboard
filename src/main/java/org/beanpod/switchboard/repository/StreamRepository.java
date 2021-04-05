@@ -12,29 +12,24 @@ public interface StreamRepository extends JpaRepository<StreamEntity, Long> {
 
   StreamEntity save(StreamEntity stream);
 
-  List<StreamEntity>
-      findStreamEntitiesByOutputChannelEncoderDeviceUserAndOutputChannelEncoderSerialNumber(
-          UserEntity user, String encoderSerial);
+  List<StreamEntity> findByOutputChannelEncoderDeviceUserAndOutputChannelEncoderSerialNumber(
+      UserEntity user, String encoderSerial);
 
-  List<StreamEntity>
-      findStreamEntitiesByInputChannelDecoderDeviceUserAndInputChannelDecoderSerialNumber(
-          UserEntity user, String decoderSerial);
+  List<StreamEntity> findByInputChannelDecoderDeviceUserAndInputChannelDecoderSerialNumber(
+      UserEntity user, String decoderSerial);
 
   List<StreamIdProjection>
       findStreamIdsByInputChannelDecoderDeviceUserOrOutputChannelEncoderDeviceUser(
           UserEntity inputUser, UserEntity outputUser);
 
-  StreamEntity
-      findStreamEntityByInputChannelDecoderDeviceUserAndIdOrOutputChannelEncoderDeviceUserAndId(
-          UserEntity inputUser, Long inputStreamId, UserEntity outputUser, Long outputStreamId);
+  StreamEntity findByInputChannelDecoderDeviceUserAndIdOrOutputChannelEncoderDeviceUserAndId(
+      UserEntity inputUser, Long inputStreamId, UserEntity outputUser, Long outputStreamId);
 
-  boolean
-      existsStreamEntityByInputChannelDecoderDeviceUserAndIdOrOutputChannelEncoderDeviceUserAndId(
-          UserEntity inputUser, Long inputStreamId, UserEntity outputUser, Long outputStreamId);
+  boolean existsByInputChannelDecoderDeviceUserAndIdOrOutputChannelEncoderDeviceUserAndId(
+      UserEntity inputUser, Long inputStreamId, UserEntity outputUser, Long outputStreamId);
 
-  boolean existsStreamEntityByInputChannelIdAndOutputChannelId(
-      long inputChannelId, long outputChannelId);
+  boolean existsByInputChannelIdAndOutputChannelId(long inputChannelId, long outputChannelId);
 
-  long deleteStreamEntityByInputChannelDecoderDeviceUserAndIdOrOutputChannelEncoderDeviceUserAndId(
+  long deleteByInputChannelDecoderDeviceUserAndIdOrOutputChannelEncoderDeviceUserAndId(
       UserEntity inputUser, Long inputStreamId, UserEntity outputUser, Long outputStreamId);
 }

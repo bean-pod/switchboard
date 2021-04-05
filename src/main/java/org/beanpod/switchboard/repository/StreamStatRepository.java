@@ -13,10 +13,10 @@ public interface StreamStatRepository extends JpaRepository<StreamStatEntity, Lo
   StreamStatEntity save(StreamStatEntity streamStatEntity);
 
   Optional<StreamStatEntity>
-      findStreamStatEntityByStreamInputChannelDecoderDeviceUserAndIdOrStreamOutputChannelEncoderDeviceUserAndId(
+      findByStreamInputChannelDecoderDeviceUserAndIdOrStreamOutputChannelEncoderDeviceUserAndId(
           UserEntity inputUser, Long inputId, UserEntity outputUser, Long outputId);
 
   List<StreamStatEntity>
-      findStreamStatEntitiesByStreamInputChannelDecoderDeviceUserOrStreamOutputChannelEncoderDeviceUser(
+      findByStreamInputChannelDecoderDeviceUserOrStreamOutputChannelEncoderDeviceUser(
           UserEntity inputUser, UserEntity outputUser);
 }

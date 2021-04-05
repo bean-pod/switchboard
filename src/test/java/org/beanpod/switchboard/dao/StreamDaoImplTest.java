@@ -77,7 +77,7 @@ class StreamDaoImplTest {
     StreamDto streamDto = StreamFixture.getStreamDto();
 
     when(streamRepository
-            .findStreamEntityByInputChannelDecoderDeviceUserAndIdOrOutputChannelEncoderDeviceUserAndId(
+            .findByInputChannelDecoderDeviceUserAndIdOrOutputChannelEncoderDeviceUserAndId(
                 user, streamId, user, streamId))
         .thenReturn(streamEntity);
     when(streamMapper.toStreamDto(streamEntity)).thenReturn(streamDto);
@@ -103,8 +103,7 @@ class StreamDaoImplTest {
     StreamStatDto streamStatDto = StreamStatFixture.getStreamStatDto();
 
     when(streamMapper.toStreamEntity(any())).thenReturn(streamEntity);
-    when(streamRepository.existsStreamEntityByInputChannelIdAndOutputChannelId(
-            inputChannelId, outputChannelId))
+    when(streamRepository.existsByInputChannelIdAndOutputChannelId(inputChannelId, outputChannelId))
         .thenReturn(false);
     when(streamStatRepository.save(any())).thenReturn(streamStatEntity);
     when(streamStatMapper.toStreamStatDto(any(StreamStatEntity.class))).thenReturn(streamStatDto);
@@ -125,8 +124,7 @@ class StreamDaoImplTest {
     long inputChannelId = streamDto.getInputChannel().getId();
     long outputChannelId = streamDto.getOutputChannel().getId();
 
-    when(streamRepository.existsStreamEntityByInputChannelIdAndOutputChannelId(
-            inputChannelId, outputChannelId))
+    when(streamRepository.existsByInputChannelIdAndOutputChannelId(inputChannelId, outputChannelId))
         .thenReturn(true);
 
     // when & then
@@ -187,7 +185,7 @@ class StreamDaoImplTest {
 
     when(streamRepository.existsById(StreamFixture.ID)).thenReturn(true);
     when(streamStatRepository
-            .findStreamStatEntitiesByStreamInputChannelDecoderDeviceUserOrStreamOutputChannelEncoderDeviceUser(
+            .findByStreamInputChannelDecoderDeviceUserOrStreamOutputChannelEncoderDeviceUser(
                 user, user))
         .thenReturn(streamStatEntityList);
     when(streamStatMapper.toStreamStatDtoList(any())).thenReturn(streamStatDtoList);
@@ -205,7 +203,7 @@ class StreamDaoImplTest {
     List<StreamStatEntity> streamStatEntityList = StreamStatFixture.getStreamStatEntityList();
     List<StreamStatDto> streamStatDtoList = StreamStatFixture.getStreamStatDtoList();
     when(streamStatRepository
-            .findStreamStatEntitiesByStreamInputChannelDecoderDeviceUserOrStreamOutputChannelEncoderDeviceUser(
+            .findByStreamInputChannelDecoderDeviceUserOrStreamOutputChannelEncoderDeviceUser(
                 user, user))
         .thenReturn(streamStatEntityList);
     when(streamStatMapper.toStreamStatDtoList(any())).thenReturn(streamStatDtoList);

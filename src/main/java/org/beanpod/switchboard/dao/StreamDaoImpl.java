@@ -31,7 +31,7 @@ public class StreamDaoImpl {
 
   public StreamEntity updateStream(UserEntity user, StreamDto streamDto) {
     if (!streamRepository
-        .existsStreamEntityByInputChannelDecoderDeviceUserAndIdOrOutputChannelEncoderDeviceUserAndId(
+        .existsByInputChannelDecoderDeviceUserAndIdOrOutputChannelEncoderDeviceUserAndId(
             user, streamDto.getId(), user, streamDto.getId())) {
       throw new StreamDoesNotExistException(streamDto.getId());
     }
@@ -41,7 +41,7 @@ public class StreamDaoImpl {
 
   public StreamStatDto updateStreamStat(UserEntity user, StreamStatDto streamStatDto) {
     if (!streamRepository
-        .existsStreamEntityByInputChannelDecoderDeviceUserAndIdOrOutputChannelEncoderDeviceUserAndId(
+        .existsByInputChannelDecoderDeviceUserAndIdOrOutputChannelEncoderDeviceUserAndId(
             user, streamStatDto.getId(), user, streamStatDto.getId())) {
       throw new StreamDoesNotExistException(streamStatDto.getId());
     }
@@ -55,20 +55,20 @@ public class StreamDaoImpl {
   public StreamDto getStreamById(UserEntity user, Long id) {
     StreamEntity streamEntity =
         streamRepository
-            .findStreamEntityByInputChannelDecoderDeviceUserAndIdOrOutputChannelEncoderDeviceUserAndId(
+            .findByInputChannelDecoderDeviceUserAndIdOrOutputChannelEncoderDeviceUserAndId(
                 user, id, user, id);
     return streamMapper.toStreamDto(streamEntity);
   }
 
   public Long deleteStream(UserEntity user, Long id) {
     return streamRepository
-        .deleteStreamEntityByInputChannelDecoderDeviceUserAndIdOrOutputChannelEncoderDeviceUserAndId(
+        .deleteByInputChannelDecoderDeviceUserAndIdOrOutputChannelEncoderDeviceUserAndId(
             user, id, user, id);
   }
 
   public Optional<StreamStatDto> getStreamStat(UserEntity user, Long id) {
     return streamStatRepository
-        .findStreamStatEntityByStreamInputChannelDecoderDeviceUserAndIdOrStreamOutputChannelEncoderDeviceUserAndId(
+        .findByStreamInputChannelDecoderDeviceUserAndIdOrStreamOutputChannelEncoderDeviceUserAndId(
             user, id, user, id)
         .map(streamStatMapper::toStreamStatDto);
   }
@@ -76,24 +76,22 @@ public class StreamDaoImpl {
   public List<StreamStatDto> getStreamStats(UserEntity user) {
     List<StreamStatEntity> streamStats =
         streamStatRepository
-            .findStreamStatEntitiesByStreamInputChannelDecoderDeviceUserOrStreamOutputChannelEncoderDeviceUser(
+            .findByStreamInputChannelDecoderDeviceUserOrStreamOutputChannelEncoderDeviceUser(
                 user, user);
     return streamStatMapper.toStreamStatDtoList(streamStats);
   }
 
   public List<StreamDto> getEncoderStreams(UserEntity user, String encoderSerialNumber) {
     List<StreamEntity> streamEntities =
-        streamRepository
-            .findStreamEntitiesByOutputChannelEncoderDeviceUserAndOutputChannelEncoderSerialNumber(
-                user, encoderSerialNumber);
+        streamRepository.findByOutputChannelEncoderDeviceUserAndOutputChannelEncoderSerialNumber(
+            user, encoderSerialNumber);
     return streamMapper.toStreamDtos(streamEntities);
   }
 
   public List<StreamDto> getDecoderStreams(UserEntity user, String decoderSerialNumber) {
     List<StreamEntity> streamEntities =
-        streamRepository
-            .findStreamEntitiesByInputChannelDecoderDeviceUserAndInputChannelDecoderSerialNumber(
-                user, decoderSerialNumber);
+        streamRepository.findByInputChannelDecoderDeviceUserAndInputChannelDecoderSerialNumber(
+            user, decoderSerialNumber);
     return streamMapper.toStreamDtos(streamEntities);
   }
 
@@ -108,7 +106,7 @@ public class StreamDaoImpl {
   public StreamDto saveCreateStream(StreamDto streamDto) {
     long inputChannelId = streamDto.getInputChannel().getId();
     long outputChannelId = streamDto.getOutputChannel().getId();
-    if (streamRepository.existsStreamEntityByInputChannelIdAndOutputChannelId(
+    if (streamRepository.existsByInputChannelIdAndOutputChannelId(
         inputChannelId, outputChannelId)) {
       throw new StreamAlreadyExistsException(inputChannelId, outputChannelId);
     }
