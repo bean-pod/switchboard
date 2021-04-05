@@ -51,14 +51,11 @@ export default class StreamStatisticsCard extends React.Component {
   }
 
   render() {
-    const properties = this.getProperties();
-    const button = this.getButton();
-
     return (
       <>
-        <DashboardCard title="Statistics" button={button}>
+        <DashboardCard title="Statistics" button={this.getButton()}>
           <Grid item xs={12}>
-            <SimpleTable properties={properties} />
+            <SimpleTable properties={this.getProperties()} />
           </Grid>
         </DashboardCard>
       </>
