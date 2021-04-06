@@ -91,11 +91,21 @@ describe("<StreamLogTableWrapper/> Class Component", () => {
   describe("render() function", () => {
     describe("returns a component that", () => {
       it("Contains 1 <LogsTable/> component with expected props", () => {
-        expect(wrapper.find(LogsTable)).toHaveLength(1);
-        const props = wrapper.find(LogsTable).props();
-        expect(props.title).toEqual(`${dummyId} Logs`);
-        expect(props.logs).toBe(wrapper.state().logs);
-        expect(props.columns).toEqual(wrapper.instance().getColumnInfo());
+        const logsTable = wrapper.find(LogsTable);
+        expect(logsTable).toHaveLength(1);
+
+        const wrapperState = wrapper.state();
+        const shallowWrapper = wrapper.instance();
+        const expected = {
+          title: `${dummyId} Logs`,
+          logs: wrapperState.logs,
+          columns: shallowWrapper.getColumnInfo()
+        };
+
+        const logsTableProps = logsTable.props();
+        expect(logsTableProps.title).toEqual(expected.title);
+        expect(logsTableProps.logs).toBe(expected.logs);
+        expect(logsTableProps.columns).toEqual(expected.columns);
       });
     });
   });

@@ -23,39 +23,52 @@ describe("<StreamLogCard/> functional component", () => {
   });
 
   describe("returns a component that", () => {
-    it("Contains 1 <DashboardCard/> component that has expected props", () => {
-      expect(wrapper.find(DashboardCard)).toHaveLength(1);
+    it("contains 1 <DashboardCard/> component that has expected props", () => {
       const dashboardCard = wrapper.find(DashboardCard);
+      expect(dashboardCard).toHaveLength(1);
 
-      expect(dashboardCard.props().title).toBe("Logs");
+      const dashboardCardProps = dashboardCard.props();
+      expect(dashboardCardProps.title).toBe("Logs");
     });
-    it("Contains 2 <Grid/> components", () => {
-      expect(wrapper.find(Grid)).toHaveLength(2);
+    it("contains 2 <Grid/> components", () => {
+      const grids = wrapper.find(Grid);
+      expect(grids).toHaveLength(2);
     });
-    it("First <Grid/> has expected props", () => {
+    it("first <Grid/> has expected props", () => {
       const outerGrid = wrapper.find(Grid).first();
-      const expectedJustify = "center";
-      const expectedDirection = "row";
-      const expectedSpacing = 3;
 
-      expect(outerGrid.props().container).toBe(true);
-      expect(outerGrid.props().justify).toBe(expectedJustify);
-      expect(outerGrid.props().direction).toBe(expectedDirection);
-      expect(outerGrid.props().spacing).toBe(expectedSpacing);
+      const expected = {
+        container: true,
+        justify: "center",
+        direction: "row",
+        spacing: 3
+      };
+
+      const outerGridProps = outerGrid.props();
+      expect(outerGridProps.container).toBe(expected.container);
+      expect(outerGridProps.justify).toBe(expected.justify);
+      expect(outerGridProps.direction).toBe(expected.direction);
+      expect(outerGridProps.spacing).toBe(expected.spacing);
     });
-    it("Second <Grid/>  has expected props", () => {
+    it("second <Grid/> has expected props", () => {
       const secondGrid = wrapper.find(Grid).at(1);
-      const expectedXs = 12;
 
-      expect(secondGrid.props().item).toBe(true);
-      expect(secondGrid.props().xs).toBe(expectedXs);
-      expect(secondGrid.props().children.type.name).toBe(
-        "StreamLogTableWrapper"
-      );
+      const expected = {
+        item: true,
+        xs: 12,
+        childTypeName: "StreamLogTableWrapper"
+      };
+
+      const secondGridProps = secondGrid.props();
+      expect(secondGridProps.item).toBe(expected.item);
+      expect(secondGridProps.xs).toBe(expected.xs);
+      expect(secondGridProps.children.type.name).toBe(expected.childTypeName);
     });
-    it("Contains 1 <StreamLogTableWrapper/> component with expected props", () => {
-      expect(wrapper.find(StreamLogTableWrapper)).toHaveLength(1);
-      const props = wrapper.find(StreamLogTableWrapper).props();
+    it("contains 1 <StreamLogTableWrapper/> component with expected props", () => {
+      const logTableWrapper = wrapper.find(StreamLogTableWrapper);
+      expect(logTableWrapper).toHaveLength(1);
+
+      const props = logTableWrapper.props();
       expect(props.streamId).toStrictEqual(dummyId);
     });
   });

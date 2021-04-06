@@ -28,10 +28,12 @@ describe("<LogsTableWrapper/> Class Component", () => {
   describe("render() function", () => {
     describe("returns a component that", () => {
       it("Contains 1 <LogsTable/> component with expected props", () => {
-        expect(wrapper.find(LogsTable)).toHaveLength(1);
-        expect(wrapper.find(LogsTable).props().columns).toEqual(
-          wrapper.instance().getColumnInfo()
-        );
+        const logsTable = wrapper.find(LogsTable);
+        expect(logsTable).toHaveLength(1);
+
+        const logsTableProps = logsTable.props();
+        const expected = wrapper.instance().getColumnInfo();
+        expect(logsTableProps.columns).toEqual(expected);
       });
     });
   });
