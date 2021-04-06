@@ -78,7 +78,7 @@ describe("<SimpleStreamsTableWrapper/> Component", () => {
       ];
       expect(result).toMatchObject(expected);
     });
-    it(`should have a render() function that returns a <StatusIndicator/> component in Status column`, () => {
+    it(`Column 5 (status) has a render property that returns 1 <StatusIndicator/> with expected props`, () => {
       const dummyData = {
         status: "Online"
       };
@@ -90,7 +90,7 @@ describe("<SimpleStreamsTableWrapper/> Component", () => {
       const expectedRenderResult = expectedRenderFunction(dummyData);
       expect(result[4].render(dummyData)).toMatchObject(expectedRenderResult);
     });
-    it(`should have a render() function that returns a <StreamDetailsButton/> component in Actions column`, () => {
+    it(`Column 8 (Actions) has a render property that returns 1 <StreamDetailsButton/> with expected props`, () => {
       const sampleStream = SampleData.getSampleStream();
 
       const expectedRenderFunction = function Actions(rowData) {

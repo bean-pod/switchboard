@@ -8,7 +8,7 @@ import StreamInfo from "../../model/StreamInfo";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe("<StreamsTableWrapper/> Component", () => {
+describe("<StreamsTableWrapper/> component", () => {
   let wrapper;
   const dummySource = {
     getAllStreams() {
@@ -37,20 +37,20 @@ describe("<StreamsTableWrapper/> Component", () => {
   });
 
   describe("Should contain the following component", () => {
-    it("Contains 1 <StreamsTable/> component", () => {
-      expect(wrapper.find(StreamsTable)).toHaveLength(1);
-    });
-    describe("<StreamsTable/> props", () => {
-      it("Columns should passed <StreamsTableWrapper/>'s columns prop", () => {
-        expect(wrapper.find(StreamsTable).props().columns).toBe(
-          wrapper.props().columns
-        );
-      });
-      it("Streams should passed <StreamsTableWrapper/>'s state streams", () => {
-        expect(wrapper.find(StreamsTable).props().streams).toBe(
-          wrapper.state().streams
-        );
-      });
+    it("contains 1 <StreamsTable/> component with expected props", () => {
+      const table = wrapper.find(StreamsTable);
+      expect(table).toHaveLength(1);
+
+      const wrapperProps = wrapper.props();
+      const wrapperState = wrapper.state();
+      const expected = {
+        columns: wrapperProps.columns,
+        streams: wrapperState.streams
+      };
+
+      const tableProps = table.props();
+      expect(tableProps.columns).toBe(expected.columns);
+      expect(tableProps.streams).toBe(expected.streams);
     });
   });
 

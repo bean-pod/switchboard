@@ -49,23 +49,32 @@ describe("<StreamsTable/> component", () => {
   });
 
   describe("has the correct components", () => {
-    it("contains one Box component", () => {
+    it("contains 1 <Box/> component", () => {
       expect(wrapper.find(Box)).toHaveLength(1);
     });
-    it("contains one TableContainer component", () => {
+    it("contains 1 <TableContainer/> component", () => {
       expect(wrapper.find(TableContainer)).toHaveLength(1);
     });
-    describe("contains MaterialTable component", () => {
-      it("that has length of 1 with expected prop values", () => {
-        expect(wrapper.find(MaterialTable)).toHaveLength(1);
-        const tableProps = wrapper.find(MaterialTable).props();
-        expect(tableProps.columns).toBe(wrapper.instance().props.columns);
-        expect(tableProps.data).toBe(wrapper.instance().props.streams);
-        expect(tableProps.options).toEqual(wrapper.instance().getOptions());
-        expect(tableProps.icons).toEqual(wrapper.instance().getIcons());
-      });
+    it("contains 1 <MaterialTable/> component with expected props", () => {
+      const table = wrapper.find(MaterialTable);
+      expect(table).toHaveLength(1);
+
+      const wrapperProps = wrapper.instance().props;
+      const shallowWrapper = wrapper.instance();
+      const expected = {
+        columns: wrapperProps.columns,
+        data: wrapperProps.streams,
+        options: shallowWrapper.getOptions(),
+        icons: shallowWrapper.getIcons()
+      };
+
+      const tableProps = table.props();
+      expect(tableProps.columns).toBe(expected.columns);
+      expect(tableProps.data).toBe(expected.data);
+      expect(tableProps.options).toEqual(expected.options);
+      expect(tableProps.icons).toEqual(expected.icons);
     });
-    it("contains one Time zone indicator text box", () => {
+    it("contains 1 Time zone indicator text box", () => {
       expect(
         wrapper
           .text()
@@ -79,7 +88,7 @@ describe("<StreamsTable/> component", () => {
   });
 
   describe("getOptions() function", () => {
-    it("should return the expected options to be used in the MaterialTable component", () => {
+    it("should return the expected options to be used in the <MaterialTable/> component", () => {
       const expected = {
         toolbar: false,
         headerStyle: {
@@ -95,7 +104,7 @@ describe("<StreamsTable/> component", () => {
   });
 
   describe("getIcons() function", () => {
-    it("should return the expected icons to be used in the MaterialTable component", () => {
+    it("should return the expected icons to be used in the <MaterialTable/> component", () => {
       const expected = {
         SortArrow: ArrowDownward,
         FirstPage,
