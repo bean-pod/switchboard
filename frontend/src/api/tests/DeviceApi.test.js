@@ -95,7 +95,6 @@ describe("DeviceApi", () => {
   });
   describe("uploadConfiguration() function", () => {
     it("Should call axios.put with expected url, data and headers", async () => {
-
       axios.put.mockResolvedValue();
 
       authenticationUtil.getAuthorizationHeader = jest
@@ -109,12 +108,17 @@ describe("DeviceApi", () => {
       data.append("configuration", dummyConfigFile);
 
       const headers = authorizationHeader;
-      headers.headers["Content-Type"] = `multipart/form-data; boundary=${data["_boundary"]}`;
-      
+      // eslint-disable-next-line
+      const dataBoundary = data._boundary;
+
+      headers.headers[
+        "Content-Type"
+      ] = `multipart/form-data; boundary=${dataBoundary}`;
+
       const expected = {
         data,
         headers
-      }
+      };
       await DeviceApi.uploadConfiguration(dummySerial, dummyConfigFile);
 
       expect(axios.put).toHaveBeenCalledWith(
