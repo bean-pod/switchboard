@@ -322,7 +322,7 @@ describe("<CreateStreamPageContents/> class component", () => {
               chId: senders[1].channels[0].id
             }
           };
-          
+
           expect(StreamApi.createStream).toBeCalledWith(
             expected.receiver.chId,
             expected.sender.chId
@@ -338,15 +338,17 @@ describe("<CreateStreamPageContents/> class component", () => {
             receiverChannelIndex: 0
           });
           jest.spyOn(SnackbarHandler, "snackbar").mockImplementation();
-          jest.spyOn(StreamApi, "createStream").mockImplementation(()=>
-          Promise.resolve())
+          jest
+            .spyOn(StreamApi, "createStream")
+            .mockImplementation(() => Promise.resolve());
           wrapper.instance().createStream();
 
           await flushPromises();
 
-          const expected = ["success", "Successfully created stream!"]
+          const expected = ["success", "Successfully created stream!"];
           expect(SnackbarHandler.snackbar).toBeCalledWith(
-            expected[0], expected[1]
+            expected[0],
+            expected[1]
           );
         });
         it("when StreamApi.createStream rejects, calls snackbar() with expected args", async () => {
@@ -360,14 +362,16 @@ describe("<CreateStreamPageContents/> class component", () => {
           });
           jest.spyOn(SnackbarHandler, "snackbar").mockImplementation();
 
-          jest.spyOn(StreamApi, "createStream").mockImplementation(()=>
-          Promise.reject())
+          jest
+            .spyOn(StreamApi, "createStream")
+            .mockImplementation(() => Promise.reject());
           wrapper.instance().createStream();
-          
+
           await flushPromises();
-          const expected = ["error", `Failed to create stream`]
+          const expected = ["error", `Failed to create stream`];
           expect(SnackbarHandler.snackbar).toBeCalledWith(
-            expected[0], expected[1]
+            expected[0],
+            expected[1]
           );
         });
       });
