@@ -6,6 +6,7 @@ import { AccountCircle, Home } from "@material-ui/icons/";
 
 import { logOut } from "../api/AuthenticationApi";
 import { isAuthenticated } from "../api/AuthenticationUtil";
+import LogoutMenu from "./LogoutMenu";
 
 class HeaderBar extends React.Component {
   constructor(props) {
@@ -42,14 +43,10 @@ class HeaderBar extends React.Component {
               </NavLink>
               Switchboard
             </div>
-            <IconButton
-              id="acctBtn"
-              color="inherit"
+            <LogoutMenu
               disabled={!isAuthenticated()}
-              onClick={this.handleLogout}
-            >
-              <AccountCircle />
-            </IconButton>
+              handleLogout={this.handleLogout}
+            />
           </Toolbar>
         </AppBar>
       </div>
