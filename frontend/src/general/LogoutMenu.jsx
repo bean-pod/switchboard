@@ -1,67 +1,44 @@
 import React from "react";
+import {
+  ClickAwayListener,
+  Grow,
+  MenuItem,
+  MenuList,
+  Paper,
+  Popper,
+  Typography
+} from "@material-ui/core";
 import { NavLink } from "react-router-dom";
-import { IconButton, Link, Menu, MenuItem, Popper, Typography } from "@material-ui/core";
-import PropTypes from "prop-types";
 
-import { AccountCircle, MoreVert } from "@material-ui/icons/";
-import DeviceInfo from "../model/DeviceInfo";
-import DeleteDeviceButton from "./Buttons/DeleteDeviceButton";
+export default function LogoutMenu(props) {
+  const { anchor, open, handleClose, handleLogout } = props;
 
-export default class LogoutMenu extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      open: false
-    };
-
-    this.anchorElement = React.createRef();
-    this.handleClose = this.handleClose.bind(this);
-    this.handleOpen = this.handleOpen.bind(this);
-  }
-
-  handleOpen(event) {
-    this.setState({
-      open: true
-    })
-  }
-
-  handleClose() {
-    this.setState({
-      open: false
-    })
-  }
-
-  render() {
-    const { open } = this.state;
-    const { disabled, handleLogout } = this.props;
-    return (
-      <>
-        <IconButton
-          ref={this.anchorElement}
-          id="acctBtn"
-          color="inherit"
-          disabled={disabled}
-          onClick={this.handleOpen}
-        >
-          <AccountCircle />
-        </IconButton>
-        <Menu
-          id="simple-menu"
-          anchorEl={this.anchorElement.current}
-          keepMounted
-          open={open}
-          onClose={this.handleClose}          
-        >
-          <MenuItem >
-            <Typography color="textSecondary">Action Menu</Typography>
-          </MenuItem>
-          <MenuItem onClick={handleLogout}>
-            <Typography color="error">Logout</Typography>
-          </MenuItem>
-        </Menu>
-      </>
-    );
-  }
+  return (
+    <Popper open={open} anchorEl={anchor} transition disablePortal>
+      <Grow in={open} style={{ transformOrigin: "center top" }}>
+        <Paper>
+          <ClickAwayListener onClickAway={handleClose}>
+            <MenuList autoFocusItem={open} id="menu-list-grow">
+              <MenuItem disabled>
+                <Typography color="textSecondary">Quick Actions</Typography>
+              </MenuItem>
+              <NavLink to="/Home" className="hideLinkStyle">
+                <MenuItem>
+                  <Typography color="textPrimary">Dashboard</Typography>
+                </MenuItem>
+              </NavLink>
+              <NavLink to="/Devices" className="hideLinkStyle">
+                <MenuItem>
+                  <Typography color="textPrimary">My Devices</Typography>
+                </MenuItem>
+              </NavLink>
+              <MenuItem onClick={handleLogout}>
+                <Typography color="error">Logout</Typography>
+              </MenuItem>
+            </MenuList>
+          </ClickAwayListener>
+        </Paper>
+      </Grow>
+    </Popper>
+  );
 }
-
-

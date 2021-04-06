@@ -2,11 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withRouter, NavLink } from "react-router-dom";
 import { AppBar, IconButton, makeStyles, Toolbar } from "@material-ui/core";
-import { AccountCircle, Home } from "@material-ui/icons/";
+import { Home } from "@material-ui/icons/";
 
 import { logOut } from "../api/AuthenticationApi";
 import { isAuthenticated } from "../api/AuthenticationUtil";
-import LogoutMenu from "./LogoutMenu";
+import LogoutMenuOpener from "./logoutMenu/LogoutMenuOpener";
 
 class HeaderBar extends React.Component {
   constructor(props) {
@@ -43,7 +43,7 @@ class HeaderBar extends React.Component {
               </NavLink>
               Switchboard
             </div>
-            <LogoutMenu
+            <LogoutMenuOpener
               disabled={!isAuthenticated()}
               handleLogout={this.handleLogout}
             />
