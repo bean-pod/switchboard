@@ -52,6 +52,7 @@ describe("DeviceApi", () => {
       authenticationUtil.getAuthorizationHeader = jest
         .fn()
         .mockReturnValue(authorizationHeader);
+
       jest
         .spyOn(global.Date, "now")
         .mockImplementationOnce(
