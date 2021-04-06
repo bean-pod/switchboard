@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.beanpod.switchboard.dto.StreamLogDto;
 import org.beanpod.switchboard.entity.StreamLog;
+import org.openapitools.model.CreateStreamLogRequest;
 import org.openapitools.model.StreamLogModel;
 
 public class StreamLogFixture {
@@ -29,8 +30,17 @@ public class StreamLogFixture {
     return new StreamLogModel()
         .id(LogFixture.id)
         .serialNumber(DeviceFixture.SERIAL_NUMBER2)
-        .streamId((int) (long) StreamFixture.ID)
+        .streamId((int) StreamFixture.ID)
         .logEntity(LogFixture.getLogModel());
+  }
+
+  public static CreateStreamLogRequest getCreateStreamLogRequest() {
+    return new CreateStreamLogRequest()
+        .streamId((int) StreamFixture.ID)
+        .message(LogFixture.message)
+        .dateTime(LogFixture.dateTime.toString())
+        .decoderSerial(DeviceFixture.SERIAL_NUMBER)
+        .encoderSerial(DeviceFixture.SERIAL_NUMBER2);
   }
 
   public static List<StreamLogModel> getListOfStreamLogsModel() {
