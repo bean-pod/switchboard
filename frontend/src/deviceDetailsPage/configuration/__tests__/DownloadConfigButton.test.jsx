@@ -45,8 +45,8 @@ describe("<DownloadConfigButton/> class", () => {
         color: "primary",
         onClick: wrapper.instance().handleDownload,
         startIcon: <GetApp />,
-        disabled: (!dummyDevice.extras)
-      }
+        disabled: !dummyDevice.extras
+      };
       expect(props.variant).toBe(expected.variant);
       expect(props.color).toBe(expected.color);
       expect(props.onClick).toBe(expected.onClick);
@@ -54,7 +54,7 @@ describe("<DownloadConfigButton/> class", () => {
       expect(props.disabled).toBe(expected.disabled);
     });
   });
-  describe("handleDownload() function", ()=>{
+  describe("handleDownload() function", () => {
     it("when device.configuration is set, calls expected functions", () => {
       const mockSetAttribute = jest.fn();
       const mockClick = jest.fn();
@@ -70,7 +70,7 @@ describe("<DownloadConfigButton/> class", () => {
       });
       jest.spyOn(document.body, "appendChild").mockImplementation();
       jest.spyOn(document.body, "removeChild").mockImplementation();
-  
+
       const expected = {
         createElement: "a",
         setAttribute: [
@@ -79,9 +79,9 @@ describe("<DownloadConfigButton/> class", () => {
         ],
         styleDisplay: "none"
       };
-  
+
       wrapper.instance().handleDownload();
-  
+
       expect(document.createElement).toBeCalledWith(expected.createElement);
       expect(mockSetAttribute).toBeCalledTimes(2);
       expect(mockSetAttribute.mock.calls[0]).toMatchObject(
@@ -96,8 +96,10 @@ describe("<DownloadConfigButton/> class", () => {
       expect(document.body.removeChild).toBeCalledWith(dummyElement);
     });
     it("when device.configuration is not set, calls nothing", () => {
-      wrapper = Enzyme.shallow(<DownloadConfigButton device={new DeviceInfo()} />);
-      
+      wrapper = Enzyme.shallow(
+        <DownloadConfigButton device={new DeviceInfo()} />
+      );
+
       const mockSetAttribute = jest.fn();
       const mockClick = jest.fn();
       const dummyElement = {
@@ -112,19 +114,19 @@ describe("<DownloadConfigButton/> class", () => {
       });
       jest.spyOn(document.body, "appendChild").mockImplementation();
       jest.spyOn(document.body, "removeChild").mockImplementation();
-  
+
       const expected = {
         styleDisplay: "yes"
       };
-  
+
       wrapper.instance().handleDownload();
-  
-      expect(document.createElement).not.toBeCalled()
-      expect(mockSetAttribute).not.toBeCalled()
+
+      expect(document.createElement).not.toBeCalled();
+      expect(mockSetAttribute).not.toBeCalled();
       expect(dummyElement.style.display).toBe(expected.styleDisplay);
-      expect(document.body.appendChild).not.toBeCalled()
-      expect(dummyElement.click).not.toBeCalled()
-      expect(document.body.removeChild).not.toBeCalled()
+      expect(document.body.appendChild).not.toBeCalled();
+      expect(dummyElement.click).not.toBeCalled();
+      expect(document.body.removeChild).not.toBeCalled();
     });
-  })
+  });
 });
