@@ -3,6 +3,7 @@ import OutChannelInfo from "../model/OutputChannelInfo";
 import InChannelInfo from "../model/InputChannelInfo";
 import StreamInfo from "../model/StreamInfo";
 import LogInfo from "../model/LogInfo";
+import StreamLogInfo from "../model/StreamLogInfo";
 
 const extras = ["Additional Device details go here"];
 const sampleInputChannels = [
@@ -443,4 +444,40 @@ export function getAllLogs(callback) {
   ];
 
   callback(sampleLogs);
+}
+
+export function getAllStreamLogs(callback) {
+  const dates = [
+    "2020-10-31T15:53:23",
+    "2020-11-13T12:36:30",
+    "2020-11-13T08:24:30"
+  ];
+
+  const sampleDevices = ["1:10:111:999", "1:22:333:989"];
+
+  const sampleStreamLogs = [
+    new StreamLogInfo(
+      dates[0],
+      "Info",
+      sampleDevices[0],
+      sampleDevices[1],
+      "Log 1 info"
+    ),
+    new StreamLogInfo(
+      dates[1],
+      "Info",
+      sampleDevices[0],
+      sampleDevices[1],
+      "Log 2 info"
+    ),
+    new StreamLogInfo(
+      dates[2],
+      "Info",
+      sampleDevices[0],
+      sampleDevices[1],
+      "Log 3 info"
+    )
+  ];
+
+  callback(sampleStreamLogs);
 }

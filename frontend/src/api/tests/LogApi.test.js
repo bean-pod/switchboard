@@ -26,7 +26,6 @@ const mockLogs = [
     message: "Log test 2"
   }
 ];
-
 const expectedLogsResponse = [
   {
     id: 1,
@@ -42,9 +41,57 @@ const expectedLogsResponse = [
   }
 ];
 
+const mockStreamLogs = [
+  {
+    id: 70,
+    serialNumber: "felix",
+    streamId: 14,
+    logEntity: {
+      id: 70,
+      dateTime: "2021-03-31T15:33:26.525202-04:00",
+      message: "test1",
+      level: "info",
+      serialNumber: "I_am_the_human"
+    }
+  },
+  {
+    id: 73,
+    serialNumber: "felix",
+    streamId: 14,
+    logEntity: {
+      id: 73,
+      dateTime: "2021-03-31T15:38:27.407298-04:00",
+      message: "test2",
+      level: "info",
+      serialNumber: "I_am_the_human"
+    }
+  }
+];
+const expectedStreamLogsResponse = [
+  {
+    dateTime: "2021-03-31T15:33:26.525202-04:00",
+    level: "info",
+    encoderSerial: "felix",
+    decoderSerial: "I_am_the_human",
+    message: "test1"
+  },
+  {
+    dateTime: "2021-03-31T15:38:27.407298-04:00",
+    level: "info",
+    encoderSerial: "felix",
+    decoderSerial: "I_am_the_human",
+    message: "test2"
+  }
+];
+
 let sampleLogs;
 SampleData.getAllLogs((result) => {
   sampleLogs = result;
+});
+
+let sampleStreamLogs;
+SampleData.getAllStreamLogs((result) => {
+  sampleStreamLogs = result;
 });
 
 const authorizationHeader = {
@@ -86,7 +133,7 @@ describe("Log Api", () => {
 
   describe("getStreamLogs", () => {
     it("should call axios.get and return stream logs from a stream id", async () => {
-      axios.get.mockResolvedValue({ data: mockLogs });
+      axios.get.mockResolvedValue({ data: mockStreamLogs });
       AuthenticationUtil.getAuthorizationHeader = jest
         .fn()
         .mockReturnValue(authorizationHeader);
@@ -95,14 +142,14 @@ describe("Log Api", () => {
         "http://localhost:8080/log/stream/123",
         authorizationHeader
       );
-      expect(result).toEqual(expectedLogsResponse);
+      expect(result).toEqual(expectedStreamLogsResponse);
     });
     it("If there is no response from the backend, it should return sample data", async () => {
       axios.get.mockRejectedValue();
 
       const result = await LogApi.getStreamLogs();
 
-      expect(result).toEqual(sampleLogs);
+      expect(result).toEqual(sampleStreamLogs);
     });
   });
 

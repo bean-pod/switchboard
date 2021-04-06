@@ -54,6 +54,40 @@ describe("<StreamLogTableWrapper/> Class Component", () => {
     });
   });
 
+  describe("getColumnInfo()", () => {
+    it("should return the expected column to be passed to <LogsTable/> component", () => {
+      const expectedValue = [
+        {
+          title: "Date",
+          field: "dateTime",
+          cellStyle: { width: "15%" }
+        },
+        {
+          title: "Level",
+          field: "level",
+          cellStyle: { width: "10%" }
+        },
+        {
+          title: "Sender",
+          field: "encoderSerial",
+          cellStyle: { width: "10%" }
+        },
+        {
+          title: "Receiver",
+          field: "decoderSerial",
+          cellStyle: { width: "10%" }
+        },
+        {
+          title: "Message",
+          field: "message",
+          sorting: false
+        }
+      ];
+      const result = wrapper.instance().getColumnInfo();
+      expect(result).toStrictEqual(expectedValue);
+    });
+  });
+
   describe("render() function", () => {
     describe("returns a component that", () => {
       it("Contains 1 <LogsTable/> component with expected props", () => {
@@ -61,6 +95,7 @@ describe("<StreamLogTableWrapper/> Class Component", () => {
         const props = wrapper.find(LogsTable).props();
         expect(props.title).toEqual(`${dummyId} Logs`);
         expect(props.logs).toBe(wrapper.state().logs);
+        expect(props.columns).toEqual(wrapper.instance().getColumnInfo());
       });
     });
   });

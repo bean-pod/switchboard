@@ -9,6 +9,33 @@ export default class StreamLogTableWrapper extends React.Component {
     this.state = {
       logs: []
     };
+    this.columns = [
+      {
+        title: "Date",
+        field: "dateTime",
+        cellStyle: { width: "15%" }
+      },
+      {
+        title: "Level",
+        field: "level",
+        cellStyle: { width: "10%" }
+      },
+      {
+        title: "Sender",
+        field: "encoderSerial",
+        cellStyle: { width: "10%" }
+      },
+      {
+        title: "Receiver",
+        field: "decoderSerial",
+        cellStyle: { width: "10%" }
+      },
+      {
+        title: "Message",
+        field: "message",
+        sorting: false
+      }
+    ];
     this.handleStreamLogsChange = this.handleStreamLogsChange.bind(this);
   }
 
@@ -25,10 +52,20 @@ export default class StreamLogTableWrapper extends React.Component {
     });
   }
 
+  getColumnInfo() {
+    return this.columns;
+  }
+
   render() {
     const { logs } = this.state;
     const { streamId } = this.props;
-    return <LogsTable title={`${streamId} Logs`} logs={logs} />;
+    return (
+      <LogsTable
+        title={`${streamId} Logs`}
+        logs={logs}
+        columns={this.getColumnInfo()}
+      />
+    );
   }
 }
 

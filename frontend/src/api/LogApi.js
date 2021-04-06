@@ -27,9 +27,14 @@ async function getLogsOfStream(endpoint) {
     .then((response) => {
       return Promise.resolve(
         response.data.map((log) => {
-          const logEntity = log.logEntity;
-          // log.serialNumber = sender, logEntity.serialNumber = receiver
-          return new StreamLogInfo(logEntity.dateTime, logEntity.level, log.serialNumber, logEntity.serialNumber, logEntity.message);
+          // log.serialNumber = sender, log.logEntity.serialNumber = receiver
+          return new StreamLogInfo(
+            log.logEntity.dateTime,
+            log.logEntity.level,
+            log.serialNumber,
+            log.logEntity.serialNumber,
+            log.logEntity.message
+          );
         })
       );
     })
