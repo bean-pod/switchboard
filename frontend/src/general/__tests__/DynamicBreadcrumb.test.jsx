@@ -88,7 +88,7 @@ describe("<DynamicBreadcrumb/> functional component", () => {
       const components = wrapper.find(Typography);
       expect(components).toHaveLength(breadcrumbs.length);
     });
-    it("<Typography/> 1 components has expected props", () => {
+    it("<Typography/> 0 components has expected props", () => {
       const components = wrapper.find(Typography);
       const props = components.at(0).props();
 
