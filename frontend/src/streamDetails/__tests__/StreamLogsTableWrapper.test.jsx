@@ -10,36 +10,46 @@ import {
   jest
 } from "@jest/globals";
 
-import StreamLogTableWrapper from "../StreamLogTableWrapper";
-import LogInfo from "../../model/LogInfo";
+import StreamLogsTableWrapper from "../StreamLogsTableWrapper";
+import StreamLogInfo from "../../model/StreamLogInfo";
 import LogsTable from "../../loglist/LogsTable";
-
-import * as LogApi from "../../api/LogApi";
 
 Enzyme.configure({ adapter: new Adapter() });
 jest.mock("../../api/LogApi");
 
-describe("<StreamLogTableWrapper/> Class Component", () => {
+describe("<StreamLogsTableWrapper/> Class Component", () => {
   let wrapper;
   const dummyId = 1;
-  const expectedLogs = [new LogInfo(5)];
+  const dummyLog = [
+    new StreamLogInfo(
+      "2020-10-31T15:53:23",
+      "Info",
+      "1:10:111:999",
+      "1:22:333:989",
+      "Log 1 info"
+    )
+  ];
+  const dummySource = {
+    getStreamLogs() {
+      return new Promise((resolve) => resolve(dummyLog));
+    }
+  };
 
-  beforeEach(async () => {
-    LogApi.getStreamLogs.mockResolvedValue(expectedLogs);
-    wrapper = Enzyme.shallow(<StreamLogTableWrapper streamId={dummyId} />);
-
-    expect(LogApi.getStreamLogs).toBeCalledWith(dummyId);
-    await new Promise(setImmediate);
+  beforeEach(() => {
+    wrapper = Enzyme.shallow(
+      <StreamLogsTableWrapper dataSource={dummySource} streamId={dummyId} />
+    );
   });
 
   afterEach(() => {
     wrapper.unmount();
-    jest.clearAllMocks();
   });
 
   describe("handleLogsChange()", () => {
     it("should set the state", () => {
-      const expectedValue = [new LogInfo(1, null, "Info", "Log 1 info")];
+      const expectedValue = [
+        new StreamLogInfo(null, "Info", null, null, "Test info")
+      ];
 
       wrapper.instance().handleStreamLogsChange(expectedValue);
       expect(wrapper.state().logs).toStrictEqual(expectedValue);
@@ -49,7 +59,7 @@ describe("<StreamLogTableWrapper/> Class Component", () => {
   describe("componentDidMount() function", () => {
     describe("calls LogApi getStreamLogs() with the expected arguments", () => {
       it("then sets the state to resolved value", () => {
-        expect(wrapper.state().logs).toEqual(expectedLogs);
+        expect(wrapper.state().logs).toEqual(dummyLog);
       });
     });
   });

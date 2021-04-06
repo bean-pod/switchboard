@@ -5,12 +5,15 @@ import { afterEach, describe, expect, it, jest } from "@jest/globals";
 import * as LogApi from "../LogApi";
 import * as SampleData from "../SampleData";
 import * as AuthenticationUtil from "../AuthenticationUtil";
+import * as SnackbarMessage from "../../general/SnackbarMessage";
 
 Enzyme.configure({ adapter: new Adapter() });
 
 jest.mock("axios");
 jest.mock("../AuthenticationUtil");
 jest.spyOn(AuthenticationUtil, "getAuthorizationHeader");
+
+const snackbarSpy = jest.spyOn(SnackbarMessage, "snackbar");
 
 const mockLogs = [
   {
@@ -89,11 +92,6 @@ SampleData.getAllLogs((result) => {
   sampleLogs = result;
 });
 
-let sampleStreamLogs;
-SampleData.getAllStreamLogs((result) => {
-  sampleStreamLogs = result;
-});
-
 const authorizationHeader = {
   headers: {
     Authorization: "Bearer the_token"
@@ -144,12 +142,15 @@ describe("Log Api", () => {
       );
       expect(result).toEqual(expectedStreamLogsResponse);
     });
-    it("If there is no response from the backend, it should return sample data", async () => {
+    it("If there is no response from the backend, it should display an error snackbar", async () => {
       axios.get.mockRejectedValue();
 
-      const result = await LogApi.getStreamLogs();
+      await LogApi.getStreamLogs();
 
-      expect(result).toEqual(sampleStreamLogs);
+      expect(snackbarSpy).toHaveBeenCalledWith(
+        "error",
+        "Failed to fetch stream logs"
+      );
     });
   });
 

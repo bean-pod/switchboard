@@ -10,10 +10,10 @@ Enzyme.configure({ adapter: new Adapter() });
 
 describe("<LogsTableWrapper/> Class Component", () => {
   let wrapper;
-  const dummyValue = [new LogInfo(1, null, "Info", "Log 1 info")];
+  const dummyLog = [new LogInfo(1, null, "Info", "Log 1 info")];
   const dummySource = {
     getAllLogs() {
-      return new Promise((resolve) => resolve(dummyValue));
+      return new Promise((resolve) => resolve(dummyLog));
     }
   };
 
@@ -38,10 +38,18 @@ describe("<LogsTableWrapper/> Class Component", () => {
     });
   });
 
+  describe("componentDidMount() function", () => {
+    describe("calls LogApi getAllLogs() with the expected arguments", () => {
+      it("then sets the state to resolved value", () => {
+        expect(wrapper.state().logs).toEqual(dummyLog);
+      });
+    });
+  });
+
   describe("handleLogsChange()", () => {
     it("should set the state", () => {
       const startingState = {
-        logs: dummyValue
+        logs: dummyLog
       };
       const expectedValue = [new LogInfo(1, null, "Info", "Log 1 info")];
       const expectedState = {

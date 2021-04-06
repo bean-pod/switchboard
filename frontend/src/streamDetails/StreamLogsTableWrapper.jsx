@@ -1,9 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import LogsTable from "../loglist/LogsTable";
-import * as LogApi from "../api/LogApi";
 
-export default class StreamLogTableWrapper extends React.Component {
+export default class StreamLogsTableWrapper extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -36,14 +35,15 @@ export default class StreamLogTableWrapper extends React.Component {
         sorting: false
       }
     ];
+    this.dataSource = props.dataSource;
     this.handleStreamLogsChange = this.handleStreamLogsChange.bind(this);
   }
 
   componentDidMount() {
     const { streamId } = this.props;
-    LogApi.getStreamLogs(streamId).then((logs) =>
-      this.handleStreamLogsChange(logs)
-    );
+    this.dataSource
+      .getStreamLogs(streamId)
+      .then((logs) => this.handleStreamLogsChange(logs));
   }
 
   handleStreamLogsChange(logs) {
@@ -69,6 +69,7 @@ export default class StreamLogTableWrapper extends React.Component {
   }
 }
 
-StreamLogTableWrapper.propTypes = {
-  streamId: PropTypes.number.isRequired
+StreamLogsTableWrapper.propTypes = {
+  streamId: PropTypes.number.isRequired,
+  dataSource: PropTypes.objectOf(PropTypes.func).isRequired
 };

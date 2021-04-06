@@ -10,6 +10,28 @@ export default class DeviceLogTableWrapper extends React.Component {
     this.state = {
       logs: []
     };
+    this.columns = [
+      {
+        title: "ID",
+        field: "id",
+        cellStyle: { width: "10%" }
+      },
+      {
+        title: "Date",
+        field: "dateTime",
+        cellStyle: { width: "15%" }
+      },
+      {
+        title: "Level",
+        field: "level",
+        cellStyle: { width: "10%" }
+      },
+      {
+        title: "Message",
+        field: "message",
+        sorting: false
+      }
+    ];
     this.device = props.device;
     this.handleLogsChange = this.handleLogsChange.bind(this);
   }
@@ -26,9 +48,19 @@ export default class DeviceLogTableWrapper extends React.Component {
     });
   }
 
+  getColumnInfo() {
+    return this.columns;
+  }
+
   render() {
     const { logs } = this.state;
-    return <LogsTable title={`${this.device.name} Logs`} logs={logs} />;
+    return (
+      <LogsTable
+        title={`${this.device.name} Logs`}
+        logs={logs}
+        columns={this.getColumnInfo()}
+      />
+    );
   }
 }
 

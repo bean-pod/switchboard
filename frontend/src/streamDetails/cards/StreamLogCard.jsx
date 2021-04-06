@@ -3,7 +3,8 @@ import PropTypes from "prop-types";
 import { Grid } from "@material-ui/core";
 
 import DashboardCard from "../../general/dashboard/DashboardCard";
-import StreamLogTableWrapper from "../StreamLogTableWrapper";
+import StreamLogsTableWrapper from "../StreamLogsTableWrapper";
+import * as streamLogsDataSource from "../../api/LogApi";
 
 export default function StreamLogCard(props) {
   const { streamId } = props;
@@ -12,7 +13,10 @@ export default function StreamLogCard(props) {
     <DashboardCard title="Logs">
       <Grid container justify="center" direction="row" spacing={3}>
         <Grid item xs={12}>
-          <StreamLogTableWrapper streamId={streamId} />
+          <StreamLogsTableWrapper
+            dataSource={streamLogsDataSource}
+            streamId={streamId}
+          />
         </Grid>
       </Grid>
     </DashboardCard>

@@ -75,7 +75,7 @@ describe("<LogsTable/> component", () => {
       const tableProps = wrapper.find(MaterialTable).props();
       expect(tableProps.title).toBe(expected.title);
       expect(tableProps.columns).toBe(expected.columns);
-      expect(tableProps.data).toBe(expected.logs);
+      expect(tableProps.data).toBe(expected.data);
       expect(tableProps.options).toEqual(expected.options);
       expect(tableProps.icons).toEqual(expected.icons);
     });

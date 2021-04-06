@@ -13,6 +13,7 @@ import {
 } from "@material-ui/icons";
 import MaterialTable from "material-table";
 import LogInfo from "../model/LogInfo";
+import StreamLogInfo from "../model/StreamLogInfo";
 
 export default class LogsTable extends React.Component {
   constructor(props) {
@@ -77,7 +78,10 @@ export default class LogsTable extends React.Component {
 }
 
 LogsTable.propTypes = {
-  logs: PropTypes.arrayOf(PropTypes.instanceOf(LogInfo)).isRequired,
+  logs: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.instanceOf(LogInfo)),
+    PropTypes.arrayOf(PropTypes.instanceOf(StreamLogInfo))
+  ]).isRequired,
   title: PropTypes.string,
   columns: PropTypes.arrayOf(
     PropTypes.shape({

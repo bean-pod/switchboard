@@ -99,4 +99,33 @@ describe("<DeviceLogTableWrapper/> Class Component", () => {
       });
     });
   });
+
+  describe("getColumnInfo()", () => {
+    it("should return the expected column to be passed to <LogsTable/> component", () => {
+      const expectedValue = [
+        {
+          title: "ID",
+          field: "id",
+          cellStyle: { width: "10%" }
+        },
+        {
+          title: "Date",
+          field: "dateTime",
+          cellStyle: { width: "15%" }
+        },
+        {
+          title: "Level",
+          field: "level",
+          cellStyle: { width: "10%" }
+        },
+        {
+          title: "Message",
+          field: "message",
+          sorting: false
+        }
+      ];
+      const result = wrapper.instance().getColumnInfo();
+      expect(result).toStrictEqual(expectedValue);
+    });
+  });
 });
