@@ -49,7 +49,7 @@ export function getSenders(callback) {
             getStatus(sender.lastCommunication),
             channels,
             "encoder",
-            ["Additional Device details go here"]
+            sender.device.configurationInstance
           );
         })
       );
@@ -89,7 +89,7 @@ export function getReceivers(callback) {
             getStatus(receiver.lastCommunication),
             channels,
             "decoder",
-            ["Additional Device details go here"]
+            receiver.device.configurationInstance
           );
         })
       );
