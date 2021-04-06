@@ -9,7 +9,7 @@ export default function ActiveStreamCard() {
   return (
     <DashboardCard title="Active Streams" style={{ height: "100%" }}>
       <Grid item xs={12}>
-          <SimpleStreamsTableWrapper />
+        <SimpleStreamsTableWrapper />
       </Grid>
       <Grid item xs={4}>
         <DashBoardButton href="/Streams">See more</DashBoardButton>

@@ -4,7 +4,7 @@ import StatusIndicator from "../general/StatusIndicator";
 import StreamDetailsButton from "./StreamDetailsButton";
 import * as streamDataSource from "../api/StreamApi";
 
-export default class StreamsTable extends React.Component {
+export default class SimpleStreamsTableWrapper extends React.Component {
   constructor(props) {
     super(props);
     this.simpleColumns = [
