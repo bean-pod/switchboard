@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 import java.time.OffsetDateTime;
 import org.beanpod.switchboard.dao.StreamLogDaoImpl;
 import org.beanpod.switchboard.dto.StreamLogDto;
+import org.beanpod.switchboard.dto.mapper.LogMapper;
 import org.beanpod.switchboard.dto.mapper.LogStreamMapper;
 import org.beanpod.switchboard.fixture.DeviceFixture;
 import org.beanpod.switchboard.fixture.LogFixture;
@@ -17,19 +18,23 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.openapitools.model.CreateStreamLogRequest;
 
 public class StreamLogServiceTest {
   @InjectMocks StreamLogService streamLogService;
   @Mock StreamLogDaoImpl streamLogDao;
   @Mock LogStreamMapper logStreamMapper;
+  @Mock LogMapper logMapper;
 
   private StreamLogDto streamLogDto;
+  private CreateStreamLogRequest createStreamLogRequest;
 
   @BeforeEach
   void setup() {
     MockitoAnnotations.initMocks(this);
 
     streamLogDto = StreamLogFixture.getStreamLogDto();
+    createStreamLogRequest = StreamLogFixture.getCreateStreamLogRequest();
   }
 
   @Test
@@ -44,6 +49,17 @@ public class StreamLogServiceTest {
             DeviceFixture.SERIAL_NUMBER,
             DeviceFixture.SERIAL_NUMBER2,
             String.valueOf(StreamFixture.ID));
+
+    assertEquals(streamLogDto, actualStreamLogDto);
+  }
+
+  @Test
+  final void CreateStreamLogCreateStreamLogRequestTest() {
+    when(logStreamMapper.toLogStreamDto(any())).thenReturn(streamLogDto);
+    when(logMapper.map(any())).thenReturn(LogFixture.dateTime);
+    when(streamLogDao.createStreamLog(any())).thenReturn(streamLogDto);
+
+    StreamLogDto actualStreamLogDto = streamLogService.createLog(createStreamLogRequest);
 
     assertEquals(streamLogDto, actualStreamLogDto);
   }
