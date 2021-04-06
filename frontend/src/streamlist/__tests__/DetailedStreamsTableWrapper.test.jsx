@@ -10,7 +10,7 @@ import * as SampleData from "../../api/SampleData";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe("<SimpleStreamsTableWrapper/> Component", () => {
+describe("<DetailedStreamsTableWrapper/> Component", () => {
   let wrapper;
 
   beforeEach(() => {
