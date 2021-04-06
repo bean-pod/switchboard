@@ -52,7 +52,7 @@ export default class LogsTable extends React.Component {
   }
 
   render() {
-    const { columns, logs, bodyHeight, title } = this.props;
+    const { columns, logs, title } = this.props;
     return (
       <>
         <Box>
@@ -61,7 +61,7 @@ export default class LogsTable extends React.Component {
               title={title}
               columns={columns}
               data={logs}
-              options={this.getOptions(bodyHeight)}
+              options={this.getOptions()}
               icons={this.getIcons()}
             />
           </TableContainer>
@@ -78,7 +78,6 @@ export default class LogsTable extends React.Component {
 
 LogsTable.propTypes = {
   logs: PropTypes.arrayOf(PropTypes.instanceOf(LogInfo)).isRequired,
-  bodyHeight: PropTypes.string,
   title: PropTypes.string,
   columns: PropTypes.arrayOf(
     PropTypes.shape({
@@ -93,6 +92,5 @@ LogsTable.propTypes = {
 };
 
 LogsTable.defaultProps = {
-  bodyHeight: "auto",
   title: "Logs"
 };

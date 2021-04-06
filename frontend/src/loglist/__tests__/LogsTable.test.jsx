@@ -84,7 +84,6 @@ describe("<LogsTable/> component", () => {
 
   describe("getOptions() function", () => {
     it("should return the expected options to be used in the MaterialTable component", () => {
-      const dummyBodyHeight = "auto";
       const expected = {
         toolbar: true,
         showTitle: false,
@@ -96,10 +95,10 @@ describe("<LogsTable/> component", () => {
         },
         filtering: false,
         draggable: false,
-        maxBodyHeight: dummyBodyHeight,
-        minBodyHeight: dummyBodyHeight
+        maxBodyHeight: "auto",
+        minBodyHeight: "auto"
       };
-      const result = wrapper.instance().getOptions(dummyBodyHeight);
+      const result = wrapper.instance().getOptions();
       expect(result).toStrictEqual(expected);
     });
   });
