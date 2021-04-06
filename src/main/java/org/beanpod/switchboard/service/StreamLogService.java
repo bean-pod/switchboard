@@ -4,9 +4,11 @@ import java.time.OffsetDateTime;
 import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.dao.StreamLogDaoImpl;
 import org.beanpod.switchboard.dto.StreamLogDto;
+import org.beanpod.switchboard.dto.mapper.LogMapper;
 import org.beanpod.switchboard.dto.mapper.LogStreamMapper;
 import org.beanpod.switchboard.entity.LogEntity;
 import org.beanpod.switchboard.entity.StreamLog;
+import org.openapitools.model.CreateStreamLogRequest;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Component;
 public class StreamLogService {
   private final LogStreamMapper logStreamMapper;
   private final StreamLogDaoImpl streamLogDao;
+  private final LogMapper logMapper;
 
   // used in StreamAspect class to create stream-related logs
   public StreamLogDto createLog(
@@ -30,5 +33,14 @@ public class StreamLogService {
     StreamLogDto streamLogDto = logStreamMapper.toLogStreamDto(streamLog);
 
     return streamLogDao.createStreamLog(streamLogDto);
+  }
+
+  public StreamLogDto createLog(CreateStreamLogRequest createStreamLogRequest) {
+    return createLog(
+        logMapper.map(createStreamLogRequest.getDateTime()),
+        createStreamLogRequest.getMessage(),
+        createStreamLogRequest.getDecoderSerial(),
+        createStreamLogRequest.getEncoderSerial(),
+        createStreamLogRequest.getStreamId().toString());
   }
 }
