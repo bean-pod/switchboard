@@ -45,7 +45,7 @@ describe("<LogsTable/> component", () => {
       <LogsTable logs={dummyLogs} columns={dummyColumns} />
     );
   });
-
+  // update
   afterEach(() => {
     jest.clearAllMocks();
     wrapper.unmount();
