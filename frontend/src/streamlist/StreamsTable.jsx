@@ -16,7 +16,6 @@ import StreamInfo from "../model/StreamInfo";
 export default class StreamsTable extends React.Component {
   constructor(props) {
     super(props);
-
     this.options = {
       toolbar: false,
       headerStyle: {
@@ -26,7 +25,6 @@ export default class StreamsTable extends React.Component {
       filtering: false,
       draggable: false
     };
-
     this.icons = {
       SortArrow: ArrowDownward,
       FirstPage,

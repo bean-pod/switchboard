@@ -15,40 +15,47 @@ describe("<StreamsTableWrapper/> Component", () => {
       return Promise.resolve([]);
     }
   };
+  const dummyColumns = [
+    {
+      title: "ID",
+      field: "id"
+    },
+    {
+      title: "Date",
+      field: "date"
+    }
+  ];
+
+  beforeEach(() => {
+    wrapper = Enzyme.shallow(
+      <StreamsTableWrapper dataSource={dummySource} columns={dummyColumns} />
+    );
+  });
 
   afterEach(() => {
     wrapper.unmount();
   });
 
-  describe("Should contain the following components", () => {
-    it("if isSimple prop defaults to false, it contains 1 <StreamsTable/> component with isSimple prop as false", () => {
-      wrapper = Enzyme.shallow(
-        <StreamsTableWrapper dataSource={dummySource} />
-      );
+  describe("Should contain the following component", () => {
+    it("Contains 1 <StreamsTable/> component", () => {
       expect(wrapper.find(StreamsTable)).toHaveLength(1);
-      expect(wrapper.find(StreamsTable).props().isSimple).toBe(false);
     });
-    it("if isSimple prop is true, it contains 1 <StreamsTable/> component with isSimple prop as true", () => {
-      wrapper = Enzyme.shallow(
-        <StreamsTableWrapper dataSource={dummySource} isSimple />
-      );
-      expect(wrapper.find(StreamsTable)).toHaveLength(1);
-      expect(wrapper.find(StreamsTable).props().isSimple).toBe(true);
+    describe("<StreamsTable/> props", () => {
+      it("Columns should passed <StreamsTableWrapper/>'s columns prop", () => {
+        expect(wrapper.find(StreamsTable).props().columns).toBe(
+          wrapper.props().columns
+        );
+      });
+      it("Streams should passed <StreamsTableWrapper/>'s state streams", () => {
+        expect(wrapper.find(StreamsTable).props().streams).toBe(
+          wrapper.state().streams
+        );
+      });
     });
   });
 
   describe("handleStreamsChange()", () => {
-    beforeEach(() => {
-      wrapper = Enzyme.shallow(
-        <StreamsTableWrapper dataSource={dummySource} />
-      );
-    });
-
-    afterEach(() => {
-      jest.clearAllMocks();
-    });
-
-    it("should set the state", () => {
+    it("should set the state streams", () => {
       const testValue = [new StreamInfo()];
 
       const defaultState = {

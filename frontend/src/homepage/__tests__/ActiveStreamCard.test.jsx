@@ -6,7 +6,7 @@ import { Grid } from "@material-ui/core";
 import ActiveStreamCard from "../ActiveStreamCard";
 
 import DashboardCard from "../../general/dashboard/DashboardCard";
-import StreamsTableWrapper from "../../streamlist/StreamsTableWrapper";
+import SimpleStreamsTableWrapper from "../../streamlist/SimpleStreamsTableWrapper";
 import DashboardButton from "../../general/dashboard/DashboardButton";
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -44,7 +44,9 @@ describe("<ActiveStreamCard/> functional Component", () => {
       const expectedXs = 12;
       expect(secondGrid.props().item).toBe(true);
       expect(secondGrid.props().xs).toBe(expectedXs);
-      expect(secondGrid.props().children.type.name).toBe("StreamsTableWrapper");
+      expect(secondGrid.props().children.type.name).toBe(
+        "SimpleStreamsTableWrapper"
+      );
     });
     it("Third <Grid/> has expected props", () => {
       const thirdGrid = wrapper.find(Grid).at(2);
@@ -61,9 +63,8 @@ describe("<ActiveStreamCard/> functional Component", () => {
 
       expect(fourthGrid.props().children.type.name).toBe("DashboardButton");
     });
-    it("Contains 1 <StreamTableWrapper/> component with isSimple props passed true", () => {
-      expect(wrapper.find(StreamsTableWrapper)).toHaveLength(1);
-      expect(wrapper.find(StreamsTableWrapper).props().isSimple).toBe(true);
+    it("Contains 1 <SimpleStreamsTableWrapper/> component", () => {
+      expect(wrapper.find(SimpleStreamsTableWrapper)).toHaveLength(1);
     });
     it("Contains 2 <DashboardButton/> components", () => {
       expect(wrapper.find(DashboardButton)).toHaveLength(2);
