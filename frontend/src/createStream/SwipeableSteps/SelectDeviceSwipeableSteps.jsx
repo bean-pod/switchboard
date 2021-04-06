@@ -21,6 +21,8 @@ export default class SelectDeviceSwipeableSteps extends React.Component {
     this.steps = [`Select a Device`, `Select a Channel`, `Confirm Device`];
     this.handleNext = this.handleNext.bind(this);
     this.handleBack = this.handleBack.bind(this);
+    this.getNextButton = this.getNextButton.bind(this);
+    this.getBackButton = this.getBackButton.bind(this);
   }
 
   handleNext() {
@@ -35,6 +37,34 @@ export default class SelectDeviceSwipeableSteps extends React.Component {
     this.setState({
       activeStep: previousStep - 1
     });
+  }
+
+  getNextButton() {
+    const { handleClose } = this.props;
+    const { activeStep } = this.state;
+    const maxSteps = this.steps.length;
+
+    return (
+      <StepperNextButton
+        disabled={this.disableNext()}
+        isLast={activeStep === maxSteps - 1}
+        handleClose={handleClose}
+        handleNext={this.handleNext}
+      />
+    );
+  }
+
+  getBackButton() {
+    const { handleClose } = this.props;
+    const { activeStep } = this.state;
+
+    return (
+      <StepperBackButton
+        isFirst={activeStep === 0}
+        handleClose={handleClose}
+        handleBack={this.handleBack}
+      />
+    );
   }
 
   disableNext() {
@@ -52,7 +82,6 @@ export default class SelectDeviceSwipeableSteps extends React.Component {
 
   render() {
     const {
-      handleClose,
       deviceList,
       deviceIndex,
       setDeviceIndex,
@@ -96,21 +125,8 @@ export default class SelectDeviceSwipeableSteps extends React.Component {
           position="static"
           variant="text"
           activeStep={activeStep}
-          nextButton={(
-            <StepperNextButton
-              disabled={this.disableNext()}
-              isLast={activeStep === maxSteps - 1}
-              handleClose={handleClose}
-              handleNext={this.handleNext}
-            />
-          )}
-          backButton={(
-            <StepperBackButton
-              isFirst={activeStep === 0}
-              handleClose={handleClose}
-              handleBack={this.handleBack}
-            />
-          )}
+          nextButton={this.getNextButton()}
+          backButton={this.getBackButton()}
         />
       </>
     );
