@@ -79,8 +79,7 @@ class StreamControllerTest {
     when(streamDao.getStreams()).thenThrow(new RuntimeException());
 
     // when & then
-    RuntimeException exception =
-        assertThrows(RuntimeException.class, () -> streamController.getStreams());
+    assertThrows(RuntimeException.class, () -> streamController.getStreams());
   }
 
   @Test
@@ -169,6 +168,7 @@ class StreamControllerTest {
     when(streamService.updateStreamStat(any())).thenReturn(streamStatDto);
 
     ResponseEntity<StreamStatModel> result = streamController.updateStreamStat(streamStatModel);
+    assertNotNull(result.getBody());
     assertEquals(StreamFixture.ID, result.getBody().getId());
   }
 
@@ -181,6 +181,7 @@ class StreamControllerTest {
     when(streamService.getStreamStats()).thenReturn(streamStatDto);
 
     ResponseEntity<List<StreamStatModel>> result = streamController.retrieveStreamStats();
+    assertNotNull(result.getBody());
     assertEquals(streamStatDto.get(0).getId(), result.getBody().get(0).getId());
   }
 }

@@ -5,6 +5,7 @@ import StreamButton from "../general/Buttons/StreamButton";
 
 import * as DeviceApi from "../api/DeviceApi";
 import { createStream } from "../api/StreamApi";
+import { snackbar } from "../general/SnackbarMessage";
 
 export default class StreamingTable extends React.Component {
   constructor(props) {
@@ -46,7 +47,13 @@ export default class StreamingTable extends React.Component {
     event.preventDefault();
     const { selectedReceiverID, selectedSenderID } = this.state;
     if (selectedReceiverID !== "" && selectedSenderID !== "") {
-      createStream(selectedReceiverID, selectedSenderID);
+      createStream(selectedReceiverID, selectedSenderID)
+        .then(() => {
+          snackbar("success", `Successfully created stream!`);
+        })
+        .catch(() => {
+          snackbar("error", `Failed to create stream`);
+        });
     }
   }
 

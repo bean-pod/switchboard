@@ -4,28 +4,34 @@ import PropTypes from "prop-types";
 import Dialog from "../../general/dialog/Dialog";
 import { deleteDevice } from "../../api/DeviceApi";
 import DeviceInfo from "../../model/DeviceInfo";
+import { snackbar } from "../../general/SnackbarMessage";
 
 export default class DeleteDeviceDialog extends React.Component {
   constructor(props) {
     super(props);
 
     this.dialogElement = React.createRef();
-    this.afterDelete = this.afterDelete.bind(this);
     this.confirmDelete = this.confirmDelete.bind(this);
     this.openDialog = this.openDialog.bind(this);
   }
 
-  afterDelete() {
-    const { history } = this.props;
-    this.dialogElement.current.closeDialog();
-    history.push("/Devices");
-  }
-
   confirmDelete() {
     const {
-      device: { serialNumber }
+      device: { serialNumber },
+      history
     } = this.props;
-    deleteDevice(serialNumber).then(this.afterDelete);
+    this.dialogElement.current.closeDialog();
+    deleteDevice(serialNumber)
+      .then(() => {
+        history.push("/Devices");
+        snackbar("success", `Device deleted! (Serial Number: ${serialNumber})`);
+      })
+      .catch(() => {
+        snackbar(
+          "error",
+          `Could not delete device (Serial Number: ${serialNumber})`
+        );
+      });
   }
 
   // used by Summoner to summon
@@ -56,8 +62,8 @@ export default class DeleteDeviceDialog extends React.Component {
 }
 
 DeleteDeviceDialog.propTypes = {
-  device: PropTypes.instanceOf(DeviceInfo).isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired
-  }).isRequired
+  }).isRequired,
+  device: PropTypes.instanceOf(DeviceInfo).isRequired
 };

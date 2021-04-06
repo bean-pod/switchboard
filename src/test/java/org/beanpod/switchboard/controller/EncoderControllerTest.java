@@ -7,27 +7,33 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.text.ParseException;
+import java.nio.file.attribute.UserPrincipal;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import javax.servlet.http.HttpServletRequest;
 import org.beanpod.switchboard.dao.DeviceDaoImpl;
 import org.beanpod.switchboard.dao.EncoderDaoImpl;
+import org.beanpod.switchboard.dao.UserDaoImpl;
 import org.beanpod.switchboard.dto.DeviceDto;
 import org.beanpod.switchboard.dto.EncoderDto;
 import org.beanpod.switchboard.dto.mapper.EncoderMapper;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
 import org.beanpod.switchboard.entity.DeviceEntity;
 import org.beanpod.switchboard.entity.EncoderEntity;
+import org.beanpod.switchboard.entity.UserEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.fixture.DeviceFixture;
 import org.beanpod.switchboard.fixture.EncoderFixture;
 import org.beanpod.switchboard.fixture.StreamFixture;
+import org.beanpod.switchboard.fixture.UserFixture;
 import org.beanpod.switchboard.service.EncoderService;
 import org.beanpod.switchboard.util.MaintainDeviceStatus;
+import org.beanpod.switchboard.util.UserMockUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -40,11 +46,11 @@ class EncoderControllerTest {
 
   // stubbed Objects
   private static List<DeviceEntity> listOfDevices;
-  private static DeviceEntity device;
   private static DeviceDto deviceDto;
   private static EncoderEntity encoder;
   private static EncoderDto encoderDTO;
   private static List<EncoderEntity> listOfEncoders;
+  private static UserEntity user;
   @InjectMocks private EncoderController encoderController;
   @Mock private EncoderDaoImpl encoderDao;
   @Mock private DeviceDaoImpl deviceService;
@@ -52,25 +58,31 @@ class EncoderControllerTest {
   @Mock private EncoderMapper encoderMapper;
   @Mock private StreamMapper streamMapper;
   @Mock private MaintainDeviceStatus maintainDeviceStatus;
+  @Mock private HttpServletRequest httpServletRequest;
+  @Mock private UserPrincipal userPrincipal;
+  @Mock private UserDaoImpl userDao;
 
   @BeforeEach
-  void setupEncoderFixture() throws ParseException {
+  void setup() {
+    setupEncoderFixture();
+
+    MockitoAnnotations.initMocks(this);
+
+    UserMockUtil.mockUser(user, httpServletRequest, userPrincipal, userDao);
+  }
+
+  private void setupEncoderFixture() {
     listOfDevices = DeviceFixture.getListOfDevices();
-    device = DeviceFixture.getDevice1();
     deviceDto = DeviceFixture.getDeviceDto();
     encoder = EncoderFixture.getEncoderEntity1();
     encoderDTO = EncoderFixture.getEncoderDto();
     listOfEncoders = EncoderFixture.getListOfEncoder();
-  }
-
-  @BeforeEach
-  void setup() {
-    MockitoAnnotations.initMocks(this);
+    user = UserFixture.getUserEntity();
   }
 
   @Test
   final void testRetrieveAllEncoders() {
-    when(encoderDao.getEncoders()).thenReturn(listOfEncoders);
+    when(encoderDao.getEncoders(user)).thenReturn(listOfEncoders);
     when(encoderMapper.toEncoderDtos(any())).thenReturn(EncoderFixture.getEncoderDtos());
 
     List<EncoderDto> allEncoders = encoderController.retrieveAllEncoders();
@@ -83,7 +95,8 @@ class EncoderControllerTest {
   // When a encoder is available in the DB
   @Test
   final void testRetrieveEncoder() {
-    when(encoderDao.findEncoder(EncoderFixture.SERIAL_NUMBER)).thenReturn(Optional.of(encoderDTO));
+    when(encoderDao.findEncoder(user, EncoderFixture.SERIAL_NUMBER))
+        .thenReturn(Optional.of(encoderDTO));
     when(maintainDeviceStatus.maintainStatusField(anyList())).thenReturn(listOfDevices);
 
     ResponseEntity<EncoderDto> actualEncoder =
@@ -91,6 +104,7 @@ class EncoderControllerTest {
 
     assertNotNull(actualEncoder);
     assertEquals(200, actualEncoder.getStatusCodeValue());
+    assertNotNull(actualEncoder.getBody());
     assertEquals(encoder.getSerialNumber(), actualEncoder.getBody().getSerialNumber());
   }
 
@@ -99,17 +113,16 @@ class EncoderControllerTest {
   final void testRetrieveEncoderEmpty() {
     assertThrows(
         ExceptionType.DeviceNotFoundException.class,
-        () -> {
-          encoderController.retrieveEncoder("NotAvailable");
-        });
+        () -> encoderController.retrieveEncoder("NotAvailable"));
   }
 
   // When a device is available in the DB
   @Test
   final void testCreateEncoder() {
-    when(deviceService.findDevice(EncoderFixture.SERIAL_NUMBER)).thenReturn(Optional.of(deviceDto));
-    when(encoderDao.save(encoderDTO)).thenReturn(encoderDTO);
-    ResponseEntity response = encoderController.createEncoder(encoderDTO);
+    when(deviceService.findDevice(user, EncoderFixture.SERIAL_NUMBER))
+        .thenReturn(Optional.of(deviceDto));
+    when(encoderDao.save(user, encoderDTO)).thenReturn(encoderDTO);
+    ResponseEntity<EncoderDto> response = encoderController.createEncoder(encoderDTO);
     assertEquals(200, response.getStatusCodeValue());
   }
 
@@ -118,9 +131,7 @@ class EncoderControllerTest {
     encoderDTO.setOutput(Collections.emptySet());
     assertThrows(
         ExceptionType.MissingChannelsException.class,
-        () -> {
-          encoderController.createEncoder(encoderDTO);
-        });
+        () -> encoderController.createEncoder(encoderDTO));
   }
 
   // When a device is unavailable in the DB
@@ -128,15 +139,13 @@ class EncoderControllerTest {
   final void testCreateEncoderAlreadyExists() {
     assertThrows(
         ExceptionType.DeviceNotFoundException.class,
-        () -> {
-          encoderController.createEncoder(encoderDTO);
-        });
+        () -> encoderController.createEncoder(encoderDTO));
   }
 
   // When an encoder is available in the DB
   @Test
   final void testDeleteEncoder() {
-    when(encoderDao.deleteEncoder(EncoderFixture.SERIAL_NUMBER)).thenReturn(Long.valueOf(1));
+    when(encoderDao.deleteEncoder(user, EncoderFixture.SERIAL_NUMBER)).thenReturn(Long.valueOf(1));
     ResponseEntity<String> response = encoderController.deleteEncoder(EncoderFixture.SERIAL_NUMBER);
     assertEquals(200, response.getStatusCodeValue(), "The status code is not 200.");
     assertEquals("Encoder with serial number 1 Deleted", response.getBody());
@@ -147,18 +156,17 @@ class EncoderControllerTest {
   final void testDeleteEncoderNotExisting() {
     assertThrows(
         ExceptionType.DeviceNotFoundException.class,
-        () -> {
-          encoderController.deleteEncoder("Not Available encoder");
-        });
+        () -> encoderController.deleteEncoder("Not Available encoder"));
   }
 
   // When a encoder is available in the DB
   @Test
   final void testUpdateEncoder() {
     EncoderDto encoderDto = EncoderFixture.getEncoderDto();
-    when(encoderDao.findEncoder(EncoderFixture.SERIAL_NUMBER)).thenReturn(Optional.of(encoderDto));
+    when(encoderDao.findEncoder(user, EncoderFixture.SERIAL_NUMBER))
+        .thenReturn(Optional.of(encoderDto));
 
-    when(encoderDao.save(encoderDto)).thenReturn(encoderDto);
+    when(encoderDao.save(user, encoderDto)).thenReturn(encoderDto);
 
     ResponseEntity<EncoderDto> response = encoderController.updateEncoder(encoderDto);
 
@@ -169,25 +177,23 @@ class EncoderControllerTest {
   @Test
   final void testUpdateEncoderExceptions() {
     EncoderDto encoderDto = EncoderFixture.getEncoderDto();
-    when(encoderDao.findEncoder(encoderDto.getSerialNumber())).thenReturn(Optional.empty());
+    when(encoderDao.findEncoder(user, encoderDto.getSerialNumber())).thenReturn(Optional.empty());
 
     assertThrows(
         ExceptionType.DeviceNotFoundException.class,
-        () -> {
-          encoderController.updateEncoder(encoderDto);
-        });
+        () -> encoderController.updateEncoder(encoderDto));
   }
 
   @Test
   final void testGetEncoderStreams() {
-    when(encoderService.getEncoderStreams(any(String.class)))
+    when(encoderService.getEncoderStreams(eq(user), any(String.class)))
         .thenReturn(List.of(StreamFixture.getStreamDto()));
     when(streamMapper.toModelList(anyList())).thenReturn(StreamFixture.getStreamModelList());
 
     ResponseEntity<List<StreamModel>> response =
         encoderController.getEncoderStreams(EncoderFixture.SERIAL_NUMBER);
 
-    verify(encoderService).getEncoderStreams(EncoderFixture.SERIAL_NUMBER);
+    verify(encoderService).getEncoderStreams(user, EncoderFixture.SERIAL_NUMBER);
     verify(streamMapper).toModelList(List.of(StreamFixture.getStreamDto()));
 
     assertEquals(200, response.getStatusCodeValue());

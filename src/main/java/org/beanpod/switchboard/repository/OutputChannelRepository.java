@@ -1,6 +1,7 @@
 package org.beanpod.switchboard.repository;
 
 import org.beanpod.switchboard.entity.OutputChannelEntity;
+import org.beanpod.switchboard.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,5 +10,5 @@ public interface OutputChannelRepository extends JpaRepository<OutputChannelEnti
 
   OutputChannelEntity save(OutputChannelEntity outputChannelEntity);
 
-  Long deleteOutputChannelEntitiesById(Long id);
+  Long deleteOutputChannelEntitiesByEncoderDeviceUserAndId(UserEntity user, Long id);
 }

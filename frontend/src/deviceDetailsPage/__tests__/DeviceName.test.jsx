@@ -12,11 +12,16 @@ import {
 import DeviceName from "../DeviceName";
 import EditableName from "../EditableName";
 import StaticName from "../StaticName";
+
 import * as DeviceApi from "../../api/DeviceApi";
+import * as SnackbarMessage from "../../general/SnackbarMessage";
 
 Enzyme.configure({ adapter: new Adapter() });
 jest.mock("../../api/DeviceApi");
 jest.spyOn(DeviceApi, "updateDeviceName");
+
+const snackbarSpy = jest.spyOn(SnackbarMessage, "snackbar");
+const flushPromises = () => new Promise(setImmediate);
 
 describe("<DeviceName/> component", () => {
   let wrapper;
@@ -41,6 +46,7 @@ describe("<DeviceName/> component", () => {
 
   afterEach(() => {
     jest.clearAllMocks();
+    wrapper.unmount();
   });
 
   describe("render() function returns a component that ", () => {
@@ -104,7 +110,7 @@ describe("<DeviceName/> component", () => {
     });
 
     describe("When updating name succeeds", () => {
-      it("Calls updateDeviceName and contains <StaticName/> with the new name", () => {
+      it("Calls updateDeviceName, contains <StaticName/> with the new name and displays a success snackbar", async () => {
         const newName = "New Name";
         wrapper.instance().setName(newName);
 
@@ -114,21 +120,28 @@ describe("<DeviceName/> component", () => {
           preventDefault: jest.fn()
         };
         wrapper.instance().confirmEditing(editEvent);
-
         expect(DeviceApi.updateDeviceName).toHaveBeenCalledWith(
           mockDevice.id,
           newName
         );
 
+        await flushPromises();
+
         const staticName = wrapper.find(StaticName);
         expect(staticName).toHaveLength(1);
         const props = staticName.first().props();
         expect(props.deviceName).toEqual(newName);
+
+        expect(snackbarSpy).toHaveBeenCalledTimes(1);
+        expect(snackbarSpy).toHaveBeenCalledWith(
+          "success",
+          `Device successfully renamed to ${newName}`
+        );
       });
     });
 
     describe("When updating name fails", () => {
-      it("Calls updateDeviceName and contains <StaticName/> with the old name", async () => {
+      it("Calls updateDeviceName, contains <StaticName/> with the old name and displays an error snackbar", async () => {
         const newName = "New Name";
         wrapper.instance().setName(newName);
 
@@ -138,18 +151,23 @@ describe("<DeviceName/> component", () => {
           preventDefault: jest.fn()
         };
         wrapper.instance().confirmEditing(editEvent);
-        const flushPromises = () => new Promise(setImmediate);
-        await flushPromises();
-
         expect(DeviceApi.updateDeviceName).toHaveBeenCalledWith(
           mockDevice.id,
           newName
         );
 
+        await flushPromises();
+
         const staticName = wrapper.find(StaticName);
         expect(staticName).toHaveLength(1);
         const props = staticName.first().props();
         expect(props.deviceName).toEqual(mockDevice.name);
+
+        expect(snackbarSpy).toHaveBeenCalledTimes(1);
+        expect(snackbarSpy).toHaveBeenCalledWith(
+          "error",
+          `Failed to rename device`
+        );
       });
     });
   });

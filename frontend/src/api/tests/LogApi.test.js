@@ -30,13 +30,13 @@ const mockLogs = [
 const expectedLogsResponse = [
   {
     id: 1,
-    dateTime: "Sat Oct 31 2020 15:53:23",
+    dateTime: "2020-10-31T15:53:23",
     level: "info",
     message: "Log test 1"
   },
   {
     id: 2,
-    dateTime: "Fri Nov 13 2020 12:36:30",
+    dateTime: "2020-11-13T12:36:30",
     level: "info",
     message: "Log test 2"
   }
