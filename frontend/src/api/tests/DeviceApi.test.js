@@ -94,10 +94,34 @@ describe("DeviceApi", () => {
     });
   });
   describe("uploadConfiguration() function", () => {
-    it("Should return a promise that resolves to true", async () => {
-      const result = await DeviceApi.uploadConfiguration();
+    it("Should call axios.put with expected url, data and headers", async () => {
 
-      expect(result).toBe(true);
+      axios.put.mockResolvedValue();
+
+      authenticationUtil.getAuthorizationHeader = jest
+        .fn()
+        .mockReturnValue(authorizationHeader);
+
+      const dummySerial = "someDeviceId";
+      const dummyConfigFile = new File([], "someFileName");
+
+      const data = new FormData();
+      data.append("configuration", dummyConfigFile);
+
+      const headers = authorizationHeader;
+      headers.headers["Content-Type"] = `multipart/form-data; boundary=${data["_boundary"]}`;
+      
+      const expected = {
+        data,
+        headers
+      }
+      await DeviceApi.uploadConfiguration(dummySerial, dummyConfigFile);
+
+      expect(axios.put).toHaveBeenCalledWith(
+        `${process.env.REACT_APP_DEVICE}/config/${dummySerial}`,
+        expected.data,
+        expected.headers
+      );
     });
   });
 });
