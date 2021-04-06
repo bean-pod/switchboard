@@ -42,7 +42,7 @@ export default class LogsTable extends React.Component {
       PreviousPage: ChevronLeft
     };
   }
-   //update
+
   getOptions() {
     return this.options;
   }
