@@ -309,6 +309,57 @@ describe("<SelectDeviceSwipeableSteps/> class component", () => {
       expect(wrapper.state()).toEqual(expectedState);
     });
   });
+  describe("getBackButton() function", () => {
+    beforeEach(() => {
+      wrapper = Enzyme.shallow(
+        <SelectDeviceSwipeableSteps
+          handleClose={mockHandleClose}
+          deviceList={dummyDeviceList}
+          deviceIndex={dummyDeviceIndex}
+          setDeviceIndex={mockSetDeviceIndex}
+          channelIndex={dummyChannelIndex}
+          setChannelIndex={mockSetChannelIndex}
+        />
+      );
+    });
+    it("returns a <StepperBacktButton/> component with expected props", () => {
+      const result = wrapper.instance().getBackButton();
+      const expected = (
+        <StepperBackButton
+          isFirst={wrapper.state().activeStep === 0}
+          handleClose={mockHandleClose}
+          handleBack={wrapper.instance().handleBack}
+        />
+      );
+      expect(result).toStrictEqual(expected);
+    });
+  });
+  describe("getNextButton() function", () => {
+    beforeEach(() => {
+      wrapper = Enzyme.shallow(
+        <SelectDeviceSwipeableSteps
+          handleClose={mockHandleClose}
+          deviceList={dummyDeviceList}
+          deviceIndex={dummyDeviceIndex}
+          setDeviceIndex={mockSetDeviceIndex}
+          channelIndex={dummyChannelIndex}
+          setChannelIndex={mockSetChannelIndex}
+        />
+      );
+    });
+    it("returns a <StepperNextButton/> component with expected props", () => {
+      const result = wrapper.instance().getNextButton();
+      const expected = (
+        <StepperNextButton
+          disabled={wrapper.instance().disableNext()}
+          isLast={wrapper.state().activeStep === 2}
+          handleClose={mockHandleClose}
+          handleNext={wrapper.instance().handleNext}
+        />
+      );
+      expect(result).toStrictEqual(expected);
+    });
+  });
   describe("disableNext() function", () => {
     beforeEach(() => {
       wrapper = Enzyme.shallow(
