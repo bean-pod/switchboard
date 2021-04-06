@@ -87,7 +87,7 @@ public class StreamServiceImpl implements StreamService {
 
     DeviceDto decoderDevice = inputChannelDto.getDecoder().getDevice();
     DeviceDto encoderDevice = outputChannelDto.getEncoder().getDevice();
-    Boolean rendezVousAllowed =
+    boolean rendezVousAllowed =
         !(networkingUtil.areDevicesOnSameLocalNetworkAsService(decoderDevice, encoderDevice)
             || networkingUtil.areDevicesOnSamePrivateNetwork(decoderDevice, encoderDevice));
     log.debug(

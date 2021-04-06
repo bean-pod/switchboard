@@ -25,41 +25,41 @@ describe("<ActiveStreamCard/> functional Component", () => {
       expect(styleProperty.height).toBe("100%");
     });
 
-    it("Contains 4 <Grid/> components", () => {
-      expect(wrapper.find(Grid)).toHaveLength(4);
+    it("Contains 3 <Grid/> components", () => {
+      expect(wrapper.find(Grid)).toHaveLength(3);
     });
-    it("First <Grid/> has expected props", () => {
-      const outerGrid = wrapper.find(Grid).first();
-      const expectedJustify = "center";
-      const expectedDirection = "row";
-      const expectedSpacing = 3;
-
-      expect(outerGrid.props().container).toBe(true);
-      expect(outerGrid.props().justify).toBe(expectedJustify);
-      expect(outerGrid.props().direction).toBe(expectedDirection);
-      expect(outerGrid.props().spacing).toBe(expectedSpacing);
+    it("<Grid/> 0 has expected props", () => {
+      const props = wrapper.find(Grid).at(0).props();
+      const expected = {
+        item: true,
+        xs: 12,
+        childType: "SimpleStreamsTableWrapper"
+      };
+      expect(props.item).toBe(expected.item);
+      expect(props.xs).toBe(expected.xs);
+      expect(props.children.type.name).toBe(expected.childType);
     });
-    it("Second <Grid/> has expected props", () => {
-      const secondGrid = wrapper.find(Grid).at(1);
-      const expectedXs = 12;
-      expect(secondGrid.props().item).toBe(true);
-      expect(secondGrid.props().xs).toBe(expectedXs);
-      expect(secondGrid.props().children.type.name).toBe("StreamsTable");
+    it("<Grid/> 1 has expected props", () => {
+      const props = wrapper.find(Grid).at(1).props();
+      const expected = {
+        item: true,
+        xs: 4,
+        childType: "DashboardButton"
+      };
+      expect(props.item).toBe(expected.item);
+      expect(props.xs).toBe(expected.xs);
+      expect(props.children.type.name).toBe(expected.childType);
     });
-    it("Third <Grid/> has expected props", () => {
-      const thirdGrid = wrapper.find(Grid).at(2);
-      const expectedXs = 4;
-      expect(thirdGrid.props().item).toBe(true);
-      expect(thirdGrid.props().xs).toBe(expectedXs);
-      expect(thirdGrid.props().children.type.name).toBe("DashboardButton");
-    });
-    it("Fourth <Grid/> has expected props", () => {
-      const fourthGrid = wrapper.find(Grid).at(3);
-      const expectedXs = 4;
-      expect(fourthGrid.props().item).toBe(true);
-      expect(fourthGrid.props().xs).toBe(expectedXs);
-
-      expect(fourthGrid.props().children.type.name).toBe("DashboardButton");
+    it("<Grid/> 2 has expected props", () => {
+      const props = wrapper.find(Grid).at(2).props();
+      const expected = {
+        item: true,
+        xs: 4,
+        childType: "DashboardButton"
+      };
+      expect(props.item).toBe(expected.item);
+      expect(props.xs).toBe(expected.xs);
+      expect(props.children.type.name).toBe(expected.childType);
     });
     it("Contains 1 <SimpleStreamsTableWrapper/> component", () => {
       expect(wrapper.find(SimpleStreamsTableWrapper)).toHaveLength(1);

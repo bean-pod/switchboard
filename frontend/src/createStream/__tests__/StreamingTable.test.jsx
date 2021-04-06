@@ -16,8 +16,12 @@ import SelectDevicesTable from "../SelectDevicesTable";
 import StreamButton from "../../general/Buttons/StreamButton";
 
 import * as StreamApi from "../../api/StreamApi";
+import * as SnackbarMessage from "../../general/SnackbarMessage";
 
 Enzyme.configure({ adapter: new Adapter() });
+
+const snackbarSpy = jest.spyOn(SnackbarMessage, "snackbar");
+const flushPromises = () => new Promise(setImmediate);
 
 describe("<StreamingTable/> class component", () => {
   let wrapper;
@@ -28,6 +32,7 @@ describe("<StreamingTable/> class component", () => {
 
   afterEach(() => {
     jest.clearAllMocks();
+    wrapper.unmount();
   });
   describe("render() function returns a component that", () => {
     it("contains 4 <Grid/> components", () => {
@@ -176,17 +181,55 @@ describe("<StreamingTable/> class component", () => {
       });
     });
     describe("should call StreamApi.createStream", () => {
-      it("if selectedReceiverID & selectedSenderID are both set", () => {
-        const state = {
-          selectedSenderID: "someID",
-          selectedReceiverID: "someOtherId"
-        };
-        wrapper.setState(state);
-        wrapper.instance().handleSubmit(mockEvent);
-        expect(StreamApi.createStream).toBeCalledWith(
-          state.selectedReceiverID,
-          state.selectedSenderID
-        );
+      describe("if selectedReceiverID & selectedSenderID are both set", () => {
+        it("and the post resolves, a success snackbar should appear", async () => {
+          const state = {
+            selectedSenderID: "someID",
+            selectedReceiverID: "someOtherId"
+          };
+          wrapper.setState(state);
+
+          StreamApi.createStream.mockResolvedValueOnce();
+
+          wrapper.instance().handleSubmit(mockEvent);
+          expect(StreamApi.createStream).toBeCalledWith(
+            state.selectedReceiverID,
+            state.selectedSenderID
+          );
+
+          // Wait for axios promise to finish
+          await flushPromises();
+
+          expect(snackbarSpy).toHaveBeenCalledTimes(1);
+          expect(snackbarSpy).toHaveBeenCalledWith(
+            "success",
+            "Successfully created stream!"
+          );
+        });
+        it("and the post rejects, an error snackbar should appear", async () => {
+          const state = {
+            selectedSenderID: "someID",
+            selectedReceiverID: "someOtherId"
+          };
+          wrapper.setState(state);
+
+          StreamApi.createStream.mockRejectedValueOnce();
+
+          wrapper.instance().handleSubmit(mockEvent);
+          expect(StreamApi.createStream).toBeCalledWith(
+            state.selectedReceiverID,
+            state.selectedSenderID
+          );
+
+          // Wait for axios promise to finish
+          await flushPromises();
+
+          expect(snackbarSpy).toHaveBeenCalledTimes(1);
+          expect(snackbarSpy).toHaveBeenCalledWith(
+            "error",
+            "Failed to create stream"
+          );
+        });
       });
     });
   });

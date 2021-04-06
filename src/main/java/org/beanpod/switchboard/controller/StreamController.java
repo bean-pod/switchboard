@@ -43,9 +43,7 @@ public class StreamController implements StreamApi {
     Optional<StreamDto> streamDto = Optional.of(id).map(streamDao::getStreamById);
 
     // maintain status field and create a log
-    if (streamDto.isPresent()) {
-      maintainDeviceStatus.maintainStatusField(streamDto.get());
-    }
+    streamDto.ifPresent(maintainDeviceStatus::maintainStatusField);
 
     return streamDto
         .map(mapper::toModel)

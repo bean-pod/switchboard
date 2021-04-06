@@ -7,7 +7,6 @@ import org.beanpod.switchboard.dto.LogDto;
 import org.beanpod.switchboard.dto.mapper.LogMapper;
 import org.beanpod.switchboard.entity.LogEntity;
 import org.beanpod.switchboard.repository.LogRepository;
-import org.beanpod.switchboard.util.DateUtil;
 import org.openapitools.model.LogModel;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class LogService {
 
-  private final DateUtil dateUtil;
   private final LogRepository logRepository;
   private final LogDaoImpl logDao;
   private final LogMapper logMapper;

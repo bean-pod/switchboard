@@ -8,16 +8,14 @@ import SimpleStreamsTableWrapper from "../streamlist/SimpleStreamsTableWrapper";
 export default function ActiveStreamCard() {
   return (
     <DashboardCard title="Active Streams" style={{ height: "100%" }}>
-      <Grid container justify="center" direction="row" spacing={3}>
-        <Grid item xs={12}>
+      <Grid item xs={12}>
           <SimpleStreamsTableWrapper />
-        </Grid>
-        <Grid item xs={4}>
-          <DashBoardButton href="/Streams">See More</DashBoardButton>
-        </Grid>
-        <Grid item xs={4}>
-          <DashBoardButton href="/Streams/New">Start Stream</DashBoardButton>
-        </Grid>
+      </Grid>
+      <Grid item xs={4}>
+        <DashBoardButton href="/Streams">See more</DashBoardButton>
+      </Grid>
+      <Grid item xs={4}>
+        <DashBoardButton href="/Streams/New">Start Stream</DashBoardButton>
       </Grid>
     </DashboardCard>
   );

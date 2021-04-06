@@ -85,3 +85,38 @@ export const secondStreamResponse = {
   },
   isRendezvous: false
 };
+
+export const streamStatResponse = {
+  id: 1,
+  time: 200,
+  window: {
+    flow: 31,
+    congestion: 32,
+    flight: 33
+  },
+  link: {
+    rtt: 41,
+    bandwidth: 42,
+    maxBandwidth: 43
+  },
+  send: {
+    packets: 51,
+    packetsLost: 52,
+    packetsDropped: 53,
+    packetsRetransmitted: 54,
+    bytes: 55,
+    bytesDropped: 56,
+    mbitRate: 57
+  },
+  recv: {
+    packets: 61,
+    packetsLost: 62,
+    packetsDropped: 63,
+    packetsRetransmitted: 64,
+    packetsBelated: 65,
+    bytes: 66,
+    bytesLost: 67,
+    bytesDropped: 68,
+    mbitRate: 69
+  }
+};
