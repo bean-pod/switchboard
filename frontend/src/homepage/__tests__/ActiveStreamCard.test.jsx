@@ -44,9 +44,7 @@ describe("<ActiveStreamCard/> functional Component", () => {
       const expectedXs = 12;
       expect(secondGrid.props().item).toBe(true);
       expect(secondGrid.props().xs).toBe(expectedXs);
-      expect(secondGrid.props().children.type.name).toBe(
-        "SimpleStreamsTableWrapper"
-      );
+      expect(secondGrid.props().children.type.name).toBe("StreamsTable");
     });
     it("Third <Grid/> has expected props", () => {
       const thirdGrid = wrapper.find(Grid).at(2);
