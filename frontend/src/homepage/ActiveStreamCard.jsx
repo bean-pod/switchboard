@@ -12,7 +12,7 @@ export default function ActiveStreamCard() {
         <SimpleStreamsTableWrapper />
       </Grid>
       <Grid item xs={4}>
-        <DashBoardButton href="/Streams">See more</DashBoardButton>
+        <DashBoardButton href="/Streams">See More</DashBoardButton>
       </Grid>
       <Grid item xs={4}>
         <DashBoardButton href="/Streams/New">Start Stream</DashBoardButton>
