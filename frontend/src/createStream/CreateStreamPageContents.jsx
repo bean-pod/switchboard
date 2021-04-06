@@ -5,6 +5,7 @@ import { Forward } from "@material-ui/icons";
 import CreateStreamDeviceCardWrapper from "./CreateStreamDeviceCardWrapper";
 import { getSenders, getReceivers } from "../api/DeviceApi";
 import { createStream } from "../api/StreamApi";
+import { snackbar } from "../general/SnackbarMessage";
 
 export default class CreateStreamPageContents extends React.Component {
   constructor(props) {
@@ -88,7 +89,13 @@ export default class CreateStreamPageContents extends React.Component {
       const recieverChannel = receiver.channels[receiverChannelIndex];
       const senderChannel = sender.channels[senderChannelIndex];
       if (recieverChannel && senderChannel)
-        createStream(recieverChannel.id, senderChannel.id);
+        createStream(recieverChannel.id, senderChannel.id)
+          .then(() => {
+            snackbar("success", `Successfully created stream!`);
+          })
+          .catch(() => {
+            snackbar("error", `Failed to create stream`);
+          });
     }
   }
 

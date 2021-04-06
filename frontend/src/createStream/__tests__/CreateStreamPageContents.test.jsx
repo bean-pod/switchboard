@@ -13,12 +13,13 @@ import CreateStreamDeviceCardWrapper from "../CreateStreamDeviceCardWrapper";
 import * as DeviceApi from "../../api/DeviceApi";
 import * as StreamApi from "../../api/StreamApi";
 import InputChannelInfo from "../../model/InputChannelInfo";
+import * as SnackbarHandler from "../../general/SnackbarMessage";
 
 Enzyme.configure({ adapter: new Adapter() });
 
 describe("<CreateStreamPageContents/> class component", () => {
   let wrapper;
-
+  const flushPromises = () => new Promise(setImmediate);
   afterEach(() => {
     jest.clearAllMocks();
     wrapper.unmount();
@@ -313,7 +314,6 @@ describe("<CreateStreamPageContents/> class component", () => {
             receiverChannelIndex: 0
           });
           wrapper.instance().createStream();
-
           const expected = {
             receiver: {
               chId: receivers[2].channels[0].id
@@ -322,9 +322,52 @@ describe("<CreateStreamPageContents/> class component", () => {
               chId: senders[1].channels[0].id
             }
           };
+          
           expect(StreamApi.createStream).toBeCalledWith(
             expected.receiver.chId,
             expected.sender.chId
+          );
+        });
+        it("when StreamApi.createStream resolves, calls snackbar() wiht expected args", async () => {
+          wrapper.setState({
+            senders,
+            receivers,
+            senderDeviceIndex: 1, // device(1)
+            senderChannelIndex: 0,
+            receiverDeviceIndex: 2, // device(4)
+            receiverChannelIndex: 0
+          });
+          jest.spyOn(SnackbarHandler, "snackbar").mockImplementation();
+          jest.spyOn(StreamApi, "createStream").mockImplementation(()=>
+          Promise.resolve())
+          wrapper.instance().createStream();
+
+          await flushPromises();
+
+          const expected = ["success", "Successfully created stream!"]
+          expect(SnackbarHandler.snackbar).toBeCalledWith(
+            expected[0], expected[1]
+          );
+        });
+        it("when StreamApi.createStream rejects, calls snackbar() with expected args", async () => {
+          wrapper.setState({
+            senders,
+            receivers,
+            senderDeviceIndex: 1, // device(1)
+            senderChannelIndex: 0,
+            receiverDeviceIndex: 2, // device(4)
+            receiverChannelIndex: 0
+          });
+          jest.spyOn(SnackbarHandler, "snackbar").mockImplementation();
+
+          jest.spyOn(StreamApi, "createStream").mockImplementation(()=>
+          Promise.reject())
+          wrapper.instance().createStream();
+          
+          await flushPromises();
+          const expected = ["error", `Failed to create stream`]
+          expect(SnackbarHandler.snackbar).toBeCalledWith(
+            expected[0], expected[1]
           );
         });
       });
