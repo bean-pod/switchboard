@@ -1934,7 +1934,6 @@ vars.put(&quot;encoderSerial&quot;,String.valueOf(encoderSerial));</stringProp>
                   <stringProp name="parameters"></stringProp>
                   <boolProp name="resetInterpreter">false</boolProp>
                   <stringProp name="script">long decoderSerial = Long.parseLong(vars.get(&quot;decoderSerial&quot;))+10;
-decoderSerial++;
 vars.put(&quot;decoderSerial&quot;,String.valueOf(decoderSerial));</stringProp>
                 </BeanShellPostProcessor>
                 <hashTree/>
