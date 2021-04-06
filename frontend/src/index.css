@@ -167,6 +167,11 @@ select {
   text-decoration: none;
 }
 
+.snackMessage {
+  display: flex;
+  align-items: center;
+}
+
 .statusIndicatorBody {
   margin: auto;
   padding: 0.3em;
@@ -202,6 +207,10 @@ select {
 
 .warningText {
   color: #ea5757;
+}
+
+.iconPadding {
+  margin: 0.6rem;
 }
 
 #editDeviceNameField {

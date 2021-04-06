@@ -3,26 +3,28 @@ import PropTypes from "prop-types";
 
 import Dialog from "../general/dialog/Dialog";
 import { deleteStream } from "../api/StreamApi";
+import { snackbar } from "../general/SnackbarMessage";
 
 export default class DeleteStreamDialog extends React.Component {
   constructor(props) {
     super(props);
 
     this.dialogElement = React.createRef();
-    this.afterDelete = this.afterDelete.bind(this);
     this.confirmDelete = this.confirmDelete.bind(this);
     this.openDialog = this.openDialog.bind(this);
   }
 
-  afterDelete() {
-    const { history } = this.props;
-    this.dialogElement.current.closeDialog();
-    history.push("/Streams");
-  }
-
   confirmDelete() {
-    const { deleteId } = this.props;
-    deleteStream(deleteId).then(this.afterDelete);
+    const { deleteId, history } = this.props;
+    this.dialogElement.current.closeDialog();
+    deleteStream(deleteId)
+      .then(() => {
+        history.push("/Streams");
+        snackbar("success", `Stream successfully deleted!`);
+      })
+      .catch(() => {
+        snackbar("error", `Failed to delete stream`);
+      });
   }
 
   // used by Summoner to summon

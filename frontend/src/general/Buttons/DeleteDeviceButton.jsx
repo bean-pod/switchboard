@@ -1,14 +1,17 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
+
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import PropTypes from "prop-types";
 import { MenuItem } from "@material-ui/core";
+
 import * as DeviceApi from "../../api/DeviceApi";
+import { snackbar } from "../SnackbarMessage";
 
 function renderDeleteButton(openDeleteDialog) {
   return (
@@ -42,14 +45,22 @@ export default function DeleteDeviceButton(props) {
   const cancelDelete = () => {
     return setOpen(false);
   };
+
   const confirmDelete = () => {
-    DeviceApi.deleteDevice(deleteId).then(() => {
-      if (history.location.pathname.endsWith("Devices")) {
-        history.go(0);
-      } else {
-        history.push("/Devices");
-      }
-    });
+    DeviceApi.deleteDevice(deleteId)
+      .then(() => {
+        if (history.location.pathname.endsWith("Devices")) {
+          history.go(0);
+        } else {
+          history.push("/Devices");
+        }
+      })
+      .catch(() => {
+        snackbar(
+          "error",
+          `Could not delete device (Serial Number: ${deleteId})`
+        );
+      });
     return setOpen(false);
   };
 

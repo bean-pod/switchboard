@@ -8,12 +8,15 @@ import Dialog from "../../../general/dialog/Dialog";
 
 import * as DeviceApi from "../../../api/DeviceApi";
 import DeviceInfo from "../../../model/DeviceInfo";
+import * as SnackbarMessage from "../../../general/SnackbarMessage";
 
 Enzyme.configure({ adapter: new Adapter() });
 
+const snackbarSpy = jest.spyOn(SnackbarMessage, "snackbar");
+const flushPromises = () => new Promise(setImmediate);
+
 describe("<DeleteDeviceDialog/> class", () => {
   let wrapper;
-
   const mockPush = jest.fn();
   const dummyHistory = {
     push: mockPush
@@ -54,21 +57,42 @@ describe("<DeleteDeviceDialog/> class", () => {
     });
   });
   describe("confirmDelete() function", () => {
-    it("calls DeviceApi with the device's serial number", () => {
-      wrapper.instance().confirmDelete();
-      expect(DeviceApi.deleteDevice).toBeCalledWith(device.serialNumber);
-    });
-  });
-  describe("afterDelete() function", () => {
-    it("closes the dialog and redirects to the Devices page", () => {
-      const expectedPushArg = "/Devices";
+    describe("calls DeviceApi with the device's serial number", () => {
+      it("and delete is successful, it closes the dialog, redirects to /Devices and displays a success snackbar", async () => {
+        const expectedPushArg = "/Devices";
 
-      wrapper.instance().afterDelete();
-      wrapper.instance().forceUpdate();
+        DeviceApi.deleteDevice.mockResolvedValueOnce();
 
-      expect(mockCloseDialog).toBeCalledTimes(1);
-      expect(mockPush).toBeCalledTimes(1);
-      expect(mockPush).toBeCalledWith(expectedPushArg);
+        wrapper.instance().confirmDelete();
+        expect(mockCloseDialog).toBeCalledTimes(1);
+        expect(DeviceApi.deleteDevice).toBeCalledWith(device.serialNumber);
+
+        await flushPromises();
+
+        expect(mockPush).toBeCalledTimes(1);
+        expect(mockPush).toBeCalledWith(expectedPushArg);
+        expect(snackbarSpy).toHaveBeenCalledTimes(1);
+        expect(snackbarSpy).toHaveBeenCalledWith(
+          "success",
+          `Device deleted! (Serial Number: ${device.serialNumber})`
+        );
+      });
+      it("and delete fails, it closes the dialog and displays an error snackbar", async () => {
+        DeviceApi.deleteDevice.mockRejectedValueOnce();
+
+        wrapper.instance().confirmDelete();
+        expect(mockCloseDialog).toBeCalledTimes(1);
+        expect(DeviceApi.deleteDevice).toBeCalledWith(device.serialNumber);
+
+        await flushPromises();
+
+        expect(mockPush).not.toBeCalled();
+        expect(snackbarSpy).toHaveBeenCalledTimes(1);
+        expect(snackbarSpy).toHaveBeenCalledWith(
+          "error",
+          `Could not delete device (Serial Number: ${device.serialNumber})`
+        );
+      });
     });
   });
 });
