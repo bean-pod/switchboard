@@ -13,4 +13,6 @@ public interface LogStreamMapper {
   StreamLog toStreamLog(StreamLogDto streamLogDto);
 
   List<StreamLogModel> toStreamLogModels(List<StreamLog> streamLogEntityList);
+
+  StreamLogModel toStreamLogModel(StreamLogDto streamLogDto);
 }
