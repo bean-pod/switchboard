@@ -49,7 +49,7 @@ export function getSenders(callback) {
             getStatus(sender.lastCommunication),
             channels,
             "encoder",
-            ["Additional Device details go here"]
+            sender.device.configurationInstance
           );
         })
       );
@@ -89,7 +89,7 @@ export function getReceivers(callback) {
             getStatus(receiver.lastCommunication),
             channels,
             "decoder",
-            ["Additional Device details go here"]
+            receiver.device.configurationInstance
           );
         })
       );
@@ -118,17 +118,15 @@ export async function updateDeviceName(deviceId, updatedName) {
 }
 
 // https://programmingwithmosh.com/javascript/react-file-upload-proper-server-side-nodejs-easy/
-export async function uploadConfiguration() {
-  // deviceId, configFile) {
-  // const data = new FormData()
-  // data.append('file', configFile)
-  // return axios.put(
-  //   `${process.env.REACT_APP_DEVICE}`,
-  //   {
-  //     serialNumber: deviceId,
-  //     configuration: configFile
-  //   },
-  //   getAuthorizationHeader()
-  // );
-  return Promise.resolve(true);
+export async function uploadConfiguration(deviceId, configFile) {
+  const data = new FormData();
+  data.append("configuration", configFile);
+  const headers = getAuthorizationHeader();
+  // eslint-disable-next-line
+  headers.headers["Content-Type"] = `multipart/form-data; boundary=${data["_boundary"]}` ;
+  return axios.put(
+    `${process.env.REACT_APP_DEVICE}/config/${deviceId}`,
+    data,
+    headers
+  );
 }
