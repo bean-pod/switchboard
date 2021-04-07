@@ -3,7 +3,7 @@ import { IconButton } from "@material-ui/core";
 import PropTypes from "prop-types";
 
 import { AccountCircle } from "@material-ui/icons/";
-import LogoutMenu from "../LogoutMenu";
+import LogoutMenu from "./LogoutMenu";
 
 export default class LogoutMenuOpener extends React.Component {
   constructor(props) {
