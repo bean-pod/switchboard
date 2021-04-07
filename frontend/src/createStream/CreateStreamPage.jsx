@@ -1,6 +1,6 @@
 import React from "react";
 import Page from "../general/Page";
-import StreamingTable from "./StreamingTable";
+import CreateStreamPageContents from "./CreateStreamPageContents";
 
 export default function CreateStreamPage() {
   const breadcrumbs = [
@@ -10,7 +10,7 @@ export default function CreateStreamPage() {
   ];
   return (
     <Page title="Create a Stream" breadcrumbs={breadcrumbs}>
-      <StreamingTable />
+      <CreateStreamPageContents />
     </Page>
   );
 }

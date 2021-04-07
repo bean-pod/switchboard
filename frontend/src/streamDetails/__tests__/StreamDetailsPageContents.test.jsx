@@ -6,8 +6,8 @@ import { beforeEach, describe, expect, it } from "@jest/globals";
 
 import StreamDetailsPageContents from "../StreamDetailsPageContents";
 import DashboardCard from "../../general/dashboard/DashboardCard";
-import StreamDeviceDetailsCard from "../StreamDeviceDetailsCard";
 import StreamStatisticsCard from "../StreamStatisticsCard";
+import StreamDetailsDeviceCard from "../StreamDetailsDeviceCard";
 import DeleteStreamDialogOpener from "../DeleteStreamDialogOpener";
 
 import DeviceInfo from "../../model/DeviceInfo";
@@ -61,8 +61,8 @@ describe("<StreamDetailsPageContents/> functional component", () => {
       const logsCardProps = wrapper.find(DashboardCard).at(0).props();
       expect(logsCardProps.title).toBe("Logs");
     });
-    it("Contains 2 StreamDeviceDetailsCard components with expected props", () => {
-      const streamDeviceDetails = wrapper.find(StreamDeviceDetailsCard);
+    it("Contains 2 StreamDetailsDeviceCard components with expected props", () => {
+      const streamDeviceDetails = wrapper.find(StreamDetailsDeviceCard);
       expect(streamDeviceDetails).toHaveLength(2);
 
       const senderDetailsProps = streamDeviceDetails.at(0).props();

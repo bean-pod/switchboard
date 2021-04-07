@@ -12,7 +12,9 @@ export function getSampleSendersResponse() {
         publicIpAddress: "189.167.89.9",
         privateIpAddress: "127.0.0.1",
         displayName: "sample_sender",
-        status: "Running"
+        status: "Running",
+        configurationInstance: "dGhpcyBpcyBhIHRlc3Qgc3RyaW5n", // base 64 encoded string
+        configurationLastModified: null
       },
       output: [
         {
@@ -34,7 +36,9 @@ export function getSampleSendersResponse() {
         publicIpAddress: "189.167.89.14",
         privateIpAddress: "255.255.255.255",
         displayName: "cool_sender",
-        status: "Running"
+        status: "Running",
+        configurationInstance: "dGhpcyBpcyBhIHRlc3Qgc3RyaW5n", // base 64 encoded string
+        configurationLastModified: null
       },
       output: [
         {
@@ -70,7 +74,7 @@ export function getExpectedSendersResponse() {
         )
       ],
       "encoder",
-      ["Additional Device details go here"]
+      "dGhpcyBpcyBhIHRlc3Qgc3RyaW5n"
     ),
     new DeviceInfo(
       sampleSendersResponse[1].serialNumber,
@@ -88,7 +92,7 @@ export function getExpectedSendersResponse() {
         )
       ],
       "encoder",
-      ["Additional Device details go here"]
+      "dGhpcyBpcyBhIHRlc3Qgc3RyaW5n"
     )
   ];
 }
@@ -103,7 +107,9 @@ export function getSampleReceiversResponse() {
         publicIpAddress: "189.167.89.9",
         privateIpAddress: "127.0.0.1",
         displayName: "sample_receiver",
-        status: "Running"
+        status: "Running",
+        configurationInstance: "dGhpcyBpcyBhIHRlc3Qgc3RyaW5n", // base 64 encoded string
+        configurationLastModified: null
       },
       input: [
         {
@@ -139,7 +145,7 @@ export function getExpectedReceiversResponse() {
         )
       ],
       "decoder",
-      ["Additional Device details go here"]
+      "dGhpcyBpcyBhIHRlc3Qgc3RyaW5n"
     )
   ];
 }

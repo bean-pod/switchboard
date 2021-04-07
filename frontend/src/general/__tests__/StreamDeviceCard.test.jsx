@@ -1,19 +1,20 @@
 import React from "react";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import { describe } from "@jest/globals";
+import { afterEach, beforeEach, describe, it } from "@jest/globals";
 
 import { Grid } from "@material-ui/core";
-import StreamDeviceDetailsCard from "../StreamDeviceDetailsCard";
-import DashboardCard from "../../general/dashboard/DashboardCard";
-import SimpleTable from "../../general/simpleTable/SimpleTable";
+import StreamDeviceCard from "../StreamDeviceCard";
 
+import DashboardCard from "../dashboard/DashboardCard";
+import SimpleTable from "../simpleTable/SimpleTable";
+
+import ButtonInfo from "../dashboard/ButtonInfo";
 import DeviceInfo from "../../model/DeviceInfo";
-import ButtonInfo from "../../general/dashboard/ButtonInfo";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe("<StreamDeviceDetailsCard/> functional component", () => {
+describe("<StreamDeviceCard/> functional component", () => {
   let wrapper;
 
   describe("returns a component that", () => {
@@ -29,25 +30,26 @@ describe("<StreamDeviceDetailsCard/> functional component", () => {
     );
     const dummyChannel = 10;
     const dummyTitle = "Device Card";
-    const expectedProperties = {
-      Name: dummyDevice.name,
-      "Serial Number": dummyDevice.serialNumber,
-      Channel: dummyChannel
-    };
+
     const dummyButton = new ButtonInfo(
-      `/Devices/Details/${dummyDevice.serialNumber}`,
-      { device: dummyDevice },
+      `somePathname`,
+      dummyDevice,
       "View Device"
     );
 
     beforeEach(() => {
       wrapper = Enzyme.shallow(
-        <StreamDeviceDetailsCard
-          cardTitle={dummyTitle}
+        <StreamDeviceCard
+          title={dummyTitle}
+          button={dummyButton}
           device={dummyDevice}
           channel={dummyChannel}
         />
       );
+    });
+
+    afterEach(() => {
+      wrapper.unmount();
     });
     it("contains 1 DashboardCard component with expected props", () => {
       const dashCard = wrapper.find(DashboardCard);
@@ -55,29 +57,32 @@ describe("<StreamDeviceDetailsCard/> functional component", () => {
 
       const dashCardProps = dashCard.props();
       const expectedProps = {
-        title: "Device Card",
+        title: dummyTitle,
         button: dummyButton
       };
       expect(dashCardProps.title).toBe(expectedProps.title);
       expect(dashCardProps.button).toStrictEqual(expectedProps.button);
     });
-    it("contains 2 Grid components with expected props", () => {
+    it("contains 1 <Grid/> component with expected props", () => {
       const grids = wrapper.find(Grid);
-      expect(grids).toHaveLength(2);
+      expect(grids).toHaveLength(1);
 
-      const firstGridProps = grids.at(0).props();
-      expect(firstGridProps.container).toBe(true);
-
-      const secondGridProps = grids.at(1).props();
-      expect(secondGridProps.item).toBe(true);
-      expect(secondGridProps.xs).toBe(12);
+      const props = grids.at(0).props();
+      expect(props.item).toBe(true);
+      expect(props.xs).toBe(12);
     });
     it("contains 1 SimpleTable component with expected props", () => {
       const simpleTable = wrapper.find(SimpleTable);
       expect(simpleTable).toHaveLength(1);
 
-      const simpleTableProps = simpleTable.props();
-      expect(simpleTableProps.properties).toStrictEqual(expectedProperties);
+      const expected = {
+        Name: dummyDevice.name,
+        "Serial Number": dummyDevice.serialNumber,
+        Channel: dummyChannel
+      };
+
+      const props = simpleTable.props();
+      expect(props.properties).toStrictEqual(expected);
     });
   });
 });
