@@ -44,7 +44,9 @@ public class StreamLogService {
         Optional.of(Long.valueOf(createStreamLogRequest.getStreamId()))
             .map(streamDao::getStreamById);
 
-    if (!streamDto.isPresent()) return null;
+    if (!streamDto.isPresent()) {
+      return null;
+    }
 
     return createLog(
         logMapper.map(createStreamLogRequest.getDateTime()),
