@@ -14,6 +14,7 @@ import CreateUserPage from "../admin/createUser/CreateUserPage";
 import StreamDetailsPage from "../streamDetails/StreamDetailsPage";
 import PathNotFoundPage from "../general/PathNotFoundPage";
 import StreamStatisticsPage from "../streamDetails/DetailedStreamStatistics/StreamStatisticsPage";
+import SnackbarMessage from "../general/SnackbarMessage";
 
 export default function AppRouter() {
   return (
@@ -87,6 +88,7 @@ export default function AppRouter() {
           <PathNotFoundPage />
         </Route>
       </Switch>
+      <SnackbarMessage />
     </BrowserRouter>
   );
 }

@@ -18,6 +18,7 @@ import DeviceInfo from "../../model/DeviceInfo";
 import StreamDetailsPage from "../../streamDetails/StreamDetailsPage";
 import StreamInfo from "../../model/StreamInfo";
 import StreamStatisticsPage from "../../streamDetails/DetailedStreamStatistics/StreamStatisticsPage";
+import SnackbarMessage from "../../general/SnackbarMessage";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -117,5 +118,8 @@ describe("<AppRouter/> functional component", () => {
     expect(pathNotFoundRoute.props().path).toEqual("/");
     const pathNotFoundPage = pathNotFoundRoute.find(PathNotFoundPage);
     expect(pathNotFoundPage).toHaveLength(1);
+
+    const snackbar = wrapper.find(SnackbarMessage);
+    expect(snackbar).toHaveLength(1);
   });
 });
