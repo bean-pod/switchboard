@@ -1,6 +1,7 @@
 package org.beanpod.switchboard.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -69,5 +70,18 @@ public class StreamLogServiceTest {
     StreamLogDto actualStreamLogDto = streamLogService.createLog(createStreamLogRequest);
 
     assertEquals(streamLogDto, actualStreamLogDto);
+  }
+
+  @Test
+  final void createStreamLogForRequestObjectNullTest() {
+    when(streamLogMapper.toLogStreamDto(any())).thenReturn(streamLogDto);
+    when(logMapper.map(any())).thenReturn(LogFixture.dateTime);
+    when(streamLogDao.createStreamLog(any())).thenReturn(streamLogDto);
+    when(streamDao.getStreamById(Long.valueOf(createStreamLogRequest.getStreamId())))
+        .thenReturn(null);
+
+    StreamLogDto actualStreamLogDto = streamLogService.createLog(createStreamLogRequest);
+
+    assertNull(actualStreamLogDto);
   }
 }
