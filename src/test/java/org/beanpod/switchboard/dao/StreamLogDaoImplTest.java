@@ -20,8 +20,7 @@ import org.openapitools.model.StreamLogModel;
 public class StreamLogDaoImplTest {
   @InjectMocks StreamLogDaoImpl streamLogDao;
   @Mock LogStreamRepository logStreamRepository;
-  @Mock
-  StreamLogMapper streamLogMapper;
+  @Mock StreamLogMapper streamLogMapper;
 
   private StreamLog streamLog;
   private StreamLogDto streamLogDto;

@@ -40,7 +40,9 @@ public class StreamLogService {
   }
 
   public StreamLogDto createLog(CreateStreamLogRequest createStreamLogRequest) {
-    Optional<StreamDto> streamDto = Optional.of(Long.valueOf(createStreamLogRequest.getStreamId())).map(streamDao::getStreamById);
+    Optional<StreamDto> streamDto =
+        Optional.of(Long.valueOf(createStreamLogRequest.getStreamId()))
+            .map(streamDao::getStreamById);
 
     return createLog(
         logMapper.map(createStreamLogRequest.getDateTime()),

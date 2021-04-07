@@ -25,8 +25,7 @@ import org.openapitools.model.CreateStreamLogRequest;
 public class StreamLogServiceTest {
   @InjectMocks StreamLogService streamLogService;
   @Mock StreamLogDaoImpl streamLogDao;
-  @Mock
-  StreamLogMapper streamLogMapper;
+  @Mock StreamLogMapper streamLogMapper;
   @Mock LogMapper logMapper;
   @Mock StreamDaoImpl streamDao;
 
@@ -64,7 +63,8 @@ public class StreamLogServiceTest {
     when(streamLogMapper.toLogStreamDto(any())).thenReturn(streamLogDto);
     when(logMapper.map(any())).thenReturn(LogFixture.dateTime);
     when(streamLogDao.createStreamLog(any())).thenReturn(streamLogDto);
-    when(streamDao.getStreamById(Long.valueOf(createStreamLogRequest.getStreamId()))).thenReturn(streamDto);
+    when(streamDao.getStreamById(Long.valueOf(createStreamLogRequest.getStreamId())))
+        .thenReturn(streamDto);
 
     StreamLogDto actualStreamLogDto = streamLogService.createLog(createStreamLogRequest);
 
