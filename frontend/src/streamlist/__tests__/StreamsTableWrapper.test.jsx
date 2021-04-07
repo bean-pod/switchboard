@@ -1,44 +1,61 @@
 import React from "react";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import { beforeEach, describe, expect, it } from "@jest/globals";
+import { afterEach, beforeEach, describe, expect, it } from "@jest/globals";
 import StreamsTableWrapper from "../StreamsTableWrapper";
 import StreamsTable from "../StreamsTable";
 import StreamInfo from "../../model/StreamInfo";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe("<StreamsTableWrapper/> Component", () => {
+describe("<StreamsTableWrapper/> component", () => {
   let wrapper;
   const dummySource = {
     getAllStreams() {
       return Promise.resolve([]);
     }
   };
+  const dummyColumns = [
+    {
+      title: "ID",
+      field: "id"
+    },
+    {
+      title: "Date",
+      field: "date"
+    }
+  ];
 
-  describe("Should contain the following components", () => {
-    beforeEach(() => {
-      wrapper = Enzyme.shallow(
-        <StreamsTableWrapper dataSource={dummySource} />
-      );
-    });
-    it("Contains 1 <StreamsTable/> component", () => {
-      expect(wrapper.find(StreamsTable)).toHaveLength(1);
+  beforeEach(() => {
+    wrapper = Enzyme.shallow(
+      <StreamsTableWrapper dataSource={dummySource} columns={dummyColumns} />
+    );
+  });
+
+  afterEach(() => {
+    wrapper.unmount();
+  });
+
+  describe("Should contain the following component", () => {
+    it("contains 1 <StreamsTable/> component with expected props", () => {
+      const table = wrapper.find(StreamsTable);
+      expect(table).toHaveLength(1);
+
+      const wrapperProps = wrapper.props();
+      const wrapperState = wrapper.state();
+      const expected = {
+        columns: wrapperProps.columns,
+        streams: wrapperState.streams
+      };
+
+      const tableProps = table.props();
+      expect(tableProps.columns).toBe(expected.columns);
+      expect(tableProps.streams).toBe(expected.streams);
     });
   });
 
   describe("handleStreamsChange()", () => {
-    beforeEach(() => {
-      wrapper = Enzyme.shallow(
-        <StreamsTableWrapper dataSource={dummySource} />
-      );
-    });
-
-    afterEach(() => {
-      jest.clearAllMocks();
-    });
-
-    it("should set the state", () => {
+    it("should set the state streams", () => {
       const testValue = [new StreamInfo()];
 
       const defaultState = {

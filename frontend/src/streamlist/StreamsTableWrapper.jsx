@@ -30,10 +30,22 @@ export default class StreamsTableWrapper extends React.Component {
 
   render() {
     const { streams } = this.state;
-    return <StreamsTable streams={streams} />;
+    const { columns } = this.props;
+    return <StreamsTable streams={streams} columns={columns} />;
   }
 }
 
 StreamsTableWrapper.propTypes = {
-  dataSource: PropTypes.objectOf(PropTypes.func).isRequired
+  dataSource: PropTypes.objectOf(PropTypes.func).isRequired,
+  columns: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      field: PropTypes.string.isRequired,
+      filtering: PropTypes.bool,
+      sorting: PropTypes.bool,
+      render: PropTypes.func,
+      align: PropTypes.string,
+      export: PropTypes.bool
+    })
+  ).isRequired
 };
