@@ -31,11 +31,11 @@ describe("<StreamLogCard/> functional component", () => {
       expect(dashboardCardProps.title).toBe("Logs");
     });
     it("contains 1 <Grid/> component", () => {
-      const grids = wrapper.find(Grid);
-      expect(grids).toHaveLength(1);
+      const grid = wrapper.find(Grid);
+      expect(grid).toHaveLength(1);
     });
     it("<Grid/> has expected props", () => {
-      const secondGrid = wrapper.find(Grid);
+      const grid = wrapper.find(Grid);
 
       const expected = {
         item: true,
@@ -43,10 +43,10 @@ describe("<StreamLogCard/> functional component", () => {
         childTypeName: "StreamLogsTableWrapper"
       };
 
-      const secondGridProps = secondGrid.props();
-      expect(secondGridProps.item).toBe(expected.item);
-      expect(secondGridProps.xs).toBe(expected.xs);
-      expect(secondGridProps.children.type.name).toBe(expected.childTypeName);
+      const gridProps = grid.props();
+      expect(gridProps.item).toBe(expected.item);
+      expect(gridProps.xs).toBe(expected.xs);
+      expect(gridProps.children.type.name).toBe(expected.childTypeName);
     });
     it("contains 1 <StreamLogsTableWrapper/> component with expected props", () => {
       const logTableWrapper = wrapper.find(StreamLogsTableWrapper);
