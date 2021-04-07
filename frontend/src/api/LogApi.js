@@ -42,8 +42,6 @@ export async function getStreamLogs(streamId) {
           return new StreamLogInfo(
             log.logEntity.dateTime,
             log.logEntity.level,
-            log.serialNumber,
-            log.logEntity.serialNumber,
             log.logEntity.message
           );
         })

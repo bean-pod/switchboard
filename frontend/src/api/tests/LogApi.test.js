@@ -71,15 +71,11 @@ const expectedStreamLogsResponse = [
   {
     dateTime: "2021-03-31T15:33:26.525202-04:00",
     level: "info",
-    encoderSerial: "felix",
-    decoderSerial: "I_am_the_human",
     message: "test1"
   },
   {
     dateTime: "2021-03-31T15:38:27.407298-04:00",
     level: "info",
-    encoderSerial: "felix",
-    decoderSerial: "I_am_the_human",
     message: "test2"
   }
 ];

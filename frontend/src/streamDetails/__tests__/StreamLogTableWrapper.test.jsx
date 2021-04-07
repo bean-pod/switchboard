@@ -27,8 +27,6 @@ describe("<StreamLogsTableWrapper/> Class Component", () => {
     new StreamLogInfo(
       "2020-10-31T15:53:23",
       "Info",
-      "1:10:111:999",
-      "1:22:333:989",
       "Log 1 info"
     )
   ];
@@ -58,7 +56,7 @@ describe("<StreamLogsTableWrapper/> Class Component", () => {
       });
 
       const expectedValue = [
-        new StreamLogInfo(null, "Info", null, null, "Test info")
+        new StreamLogInfo(null, "Info", "Test info")
       ];
 
       wrapper.instance().handleStreamLogsChange(expectedValue);
@@ -124,21 +122,11 @@ describe("<StreamLogsTableWrapper/> Class Component", () => {
         {
           title: "Date",
           field: "dateTime",
-          cellStyle: { width: "10%" }
+          cellStyle: { width: "15%" }
         },
         {
           title: "Level",
           field: "level",
-          cellStyle: { width: "10%" }
-        },
-        {
-          title: "Sender",
-          field: "encoderSerial",
-          cellStyle: { width: "10%" }
-        },
-        {
-          title: "Receiver",
-          field: "decoderSerial",
           cellStyle: { width: "10%" }
         },
         {

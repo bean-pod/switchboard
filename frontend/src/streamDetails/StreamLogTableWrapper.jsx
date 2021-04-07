@@ -13,21 +13,11 @@ export default class StreamLogTableWrapper extends React.Component {
       {
         title: "Date",
         field: "dateTime",
-        cellStyle: { width: "10%" }
+        cellStyle: { width: "15%" }
       },
       {
         title: "Level",
         field: "level",
-        cellStyle: { width: "10%" }
-      },
-      {
-        title: "Sender",
-        field: "encoderSerial",
-        cellStyle: { width: "10%" }
-      },
-      {
-        title: "Receiver",
-        field: "decoderSerial",
         cellStyle: { width: "10%" }
       },
       {
