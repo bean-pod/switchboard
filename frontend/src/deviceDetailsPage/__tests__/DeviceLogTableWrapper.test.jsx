@@ -29,16 +29,8 @@ describe("<DeviceLogTableWrapper/> Class Component", () => {
   );
   const dummyLog = [new LogInfo(5)];
   const dummySource = {
-    getDeviceLogs() {
-      return new Promise((resolve) => resolve(dummyLog));
-    }
+    getDeviceLogs: jest.fn()
   };
-
-  beforeEach(() => {
-    wrapper = Enzyme.shallow(
-      <DeviceLogTableWrapper dataSource={dummySource} device={dummyDevice} />
-    );
-  });
 
   afterEach(() => {
     wrapper.unmount();
@@ -46,6 +38,12 @@ describe("<DeviceLogTableWrapper/> Class Component", () => {
   });
 
   describe("handleLogsChange()", () => {
+    beforeEach(() => {
+      dummySource.getDeviceLogs.mockResolvedValue(dummyLog);
+      wrapper = Enzyme.shallow(
+        <DeviceLogTableWrapper dataSource={dummySource} device={dummyDevice} />
+      );
+    });
     it("should set the state", () => {
       const startingState = {
         logs: []
@@ -61,15 +59,10 @@ describe("<DeviceLogTableWrapper/> Class Component", () => {
 
   describe("componentDidMount() function", () => {
     describe("calls the passed dataSource's getDeviceLogs() with device serial number", () => {
-      let wrapperDidMount;
-      const mockGetDeviceLogs = jest.fn();
-      const mockLogApi = {
-        getDeviceLogs: mockGetDeviceLogs
-      };
       beforeEach(() => {
-        wrapperDidMount = Enzyme.shallow(
+        wrapper = Enzyme.shallow(
           <DeviceLogTableWrapper
-            dataSource={mockLogApi}
+            dataSource={dummySource}
             device={dummyDevice}
           />,
           {
@@ -77,20 +70,16 @@ describe("<DeviceLogTableWrapper/> Class Component", () => {
           }
         );
       });
-      afterEach(() => {
-        wrapperDidMount.unmount();
-        jest.clearAllMocks();
-      });
       it("if it resolves, it passes the resolved logs to handleStreamsLogChange()", async () => {
-        mockLogApi.getDeviceLogs.mockResolvedValue(dummyLog);
+        dummySource.getDeviceLogs.mockResolvedValue(dummyLog);
 
         const handleDeviceLogsSpy = jest.spyOn(
-          wrapperDidMount.instance(),
+          wrapper.instance(),
           "handleDeviceLogsChange"
         );
 
-        wrapperDidMount.instance().componentDidMount();
-        expect(mockLogApi.getDeviceLogs).toHaveBeenCalledWith(
+        wrapper.instance().componentDidMount();
+        expect(dummySource.getDeviceLogs).toHaveBeenCalledWith(
           dummyDevice.serialNumber
         );
 
@@ -102,9 +91,9 @@ describe("<DeviceLogTableWrapper/> Class Component", () => {
         const returnedError = {
           message: "test"
         };
-        mockLogApi.getDeviceLogs.mockRejectedValue(returnedError);
+        dummySource.getDeviceLogs.mockRejectedValue(returnedError);
 
-        wrapperDidMount.instance().componentDidMount();
+        wrapper.instance().componentDidMount();
 
         await new Promise(setImmediate);
 
@@ -117,6 +106,12 @@ describe("<DeviceLogTableWrapper/> Class Component", () => {
   });
 
   describe("render() function", () => {
+    beforeEach(() => {
+      dummySource.getDeviceLogs.mockResolvedValue(dummyLog);
+      wrapper = Enzyme.shallow(
+        <DeviceLogTableWrapper dataSource={dummySource} device={dummyDevice} />
+      );
+    });
     describe("returns a component that", () => {
       it("Contains 1 <LogsTable/> component with expected components", () => {
         const logsTable = wrapper.find(LogsTable);
@@ -137,6 +132,12 @@ describe("<DeviceLogTableWrapper/> Class Component", () => {
   });
 
   describe("getColumnInfo()", () => {
+    beforeEach(() => {
+      dummySource.getDeviceLogs.mockResolvedValue(dummyLog);
+      wrapper = Enzyme.shallow(
+        <DeviceLogTableWrapper dataSource={dummySource} device={dummyDevice} />
+      );
+    });
     it("should return the expected column to be passed to <LogsTable/> component", () => {
       const expectedValue = [
         {

@@ -27,16 +27,8 @@ describe("<StreamLogsTableWrapper/> Class Component", () => {
     new StreamLogInfo("2020-10-31T15:53:23", "Info", "Log 1 info")
   ];
   const dummySource = {
-    getStreamLogs() {
-      return new Promise((resolve) => resolve(dummyLog));
-    }
+    getStreamLogs: jest.fn()
   };
-
-  beforeEach(() => {
-    wrapper = Enzyme.shallow(
-      <StreamLogTableWrapper dataSource={dummySource} streamId={dummyId} />
-    );
-  });
 
   afterEach(() => {
     jest.clearAllMocks();
@@ -44,6 +36,12 @@ describe("<StreamLogsTableWrapper/> Class Component", () => {
   });
 
   describe("handleLogsChange()", () => {
+    beforeEach(() => {
+      dummySource.getStreamLogs.mockResolvedValue(dummyLog);
+      wrapper = Enzyme.shallow(
+        <StreamLogTableWrapper dataSource={dummySource} streamId={dummyId} />
+      );
+    });
     it("should set the state log", () => {
       const initialValue = [];
 
@@ -60,33 +58,24 @@ describe("<StreamLogsTableWrapper/> Class Component", () => {
 
   describe("componentDidMount() function", () => {
     describe("calls the passed dataSource's getStreamLogs() with stream ID", () => {
-      let wrapperDidMount;
-      const mockGetStreamLogs = jest.fn();
-      const mockLogApi = {
-        getStreamLogs: mockGetStreamLogs
-      };
       beforeEach(() => {
-        wrapperDidMount = Enzyme.shallow(
-          <StreamLogTableWrapper dataSource={mockLogApi} streamId={dummyId} />,
+        wrapper = Enzyme.shallow(
+          <StreamLogTableWrapper dataSource={dummySource} streamId={dummyId} />,
           {
             disableLifecycleMethods: true
           }
         );
       });
-      afterEach(() => {
-        wrapperDidMount.unmount();
-        jest.clearAllMocks();
-      });
       it("if it resolves, it passes the resolved logs to handleStreamsLogChange()", async () => {
-        mockLogApi.getStreamLogs.mockResolvedValue(dummyLog);
+        dummySource.getStreamLogs.mockResolvedValue(dummyLog);
 
         const handleStreamsSpy = jest.spyOn(
-          wrapperDidMount.instance(),
+          wrapper.instance(),
           "handleStreamLogsChange"
         );
 
-        wrapperDidMount.instance().componentDidMount();
-        expect(mockLogApi.getStreamLogs).toHaveBeenCalledWith(dummyId);
+        wrapper.instance().componentDidMount();
+        expect(dummySource.getStreamLogs).toHaveBeenCalledWith(dummyId);
 
         await new Promise(setImmediate);
 
@@ -96,9 +85,9 @@ describe("<StreamLogsTableWrapper/> Class Component", () => {
         const returnedError = {
           message: "test"
         };
-        mockLogApi.getStreamLogs.mockRejectedValue(returnedError);
+        dummySource.getStreamLogs.mockRejectedValue(returnedError);
 
-        wrapperDidMount.instance().componentDidMount();
+        wrapper.instance().componentDidMount();
 
         await new Promise(setImmediate);
 
@@ -111,6 +100,12 @@ describe("<StreamLogsTableWrapper/> Class Component", () => {
   });
 
   describe("getColumnInfo()", () => {
+    beforeEach(() => {
+      dummySource.getStreamLogs.mockResolvedValue(dummyLog);
+      wrapper = Enzyme.shallow(
+        <StreamLogTableWrapper dataSource={dummySource} streamId={dummyId} />
+      );
+    });
     it("should return the expected column to be passed to <LogsTable/> component", () => {
       const expectedValue = [
         {
@@ -135,6 +130,12 @@ describe("<StreamLogsTableWrapper/> Class Component", () => {
   });
 
   describe("render() function", () => {
+    beforeEach(() => {
+      dummySource.getStreamLogs.mockResolvedValue(dummyLog);
+      wrapper = Enzyme.shallow(
+        <StreamLogTableWrapper dataSource={dummySource} streamId={dummyId} />
+      );
+    });
     describe("returns a component that", () => {
       it("Contains 1 <LogsTable/> component with expected props", () => {
         const logsTable = wrapper.find(LogsTable);
