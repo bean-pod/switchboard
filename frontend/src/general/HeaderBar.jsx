@@ -36,7 +36,7 @@ class HeaderBar extends React.Component {
                   edge="start"
                   className={this.classes.menuButton}
                   color="inherit"
-                  aria-label="menu"
+                  aria-label="home"
                 >
                   <Home />
                 </IconButton>

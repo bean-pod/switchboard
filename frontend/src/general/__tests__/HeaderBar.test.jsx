@@ -4,24 +4,25 @@ import Adapter from "enzyme-adapter-react-16";
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { AppBar, Toolbar, IconButton } from "@material-ui/core";
-import { AccountCircle, Home } from "@material-ui/icons/";
+import { Home } from "@material-ui/icons/";
 import { NavLink } from "react-router-dom";
 import HeaderBar from "../HeaderBar";
 
 import * as AuthApi from "../../api/AuthenticationApi";
+import * as AuthUtil from "../../api/AuthenticationUtil"
+import LogoutMenuOpener from "../logoutMenu/LogoutMenuOpener";
 
 Enzyme.configure({ adapter: new Adapter() });
 describe("<HeaderBar/> functional Component", () => {
   let wrapper;
 
   const mockPush = jest.fn();
-  const mockGo = jest.fn();
   const mockHistory = {
-    push: mockPush,
-    go: mockGo
+    push: mockPush
   };
 
   beforeEach(() => {
+    jest.spyOn(AuthUtil, "isAuthenticated").mockImplementation(()=> true);
     wrapper = Enzyme.shallow(
       <HeaderBar.WrappedComponent history={mockHistory} />
     );
@@ -46,25 +47,27 @@ describe("<HeaderBar/> functional Component", () => {
       expect(wrapper.find(".headerTitle")).toHaveLength(2);
       expect(wrapper.find(".headerTitle").first().text()).toBe("Switchboard");
     });
-    it("Contains two <IconButton/> components", () => {
-      expect(wrapper.find(IconButton)).toHaveLength(2);
-    });
-    it("<IconButton/> 1 has expected props", () => {
+    it("Contains 1 <IconButton/> component with expected props", () => {
+      expect(wrapper.find(IconButton)).toHaveLength(1);
+
       const buttonProps = wrapper.find(IconButton).at(0).props();
       expect(buttonProps.edge).toBe("start");
       expect(buttonProps.color).toBe("inherit");
-      expect(buttonProps["aria-label"]).toBe("menu");
-    });
-    it("<IconButton/> 2 has expected props", () => {
-      const buttonProps = wrapper.find(IconButton).at(1).props();
-      expect(buttonProps.id).toBe("acctBtn");
-      expect(buttonProps.color).toBe("inherit");
+      expect(buttonProps["aria-label"]).toBe("home");
     });
     it("Contains <Home/> icon component", () => {
       expect(wrapper.find(Home)).toHaveLength(1);
     });
-    it("Contains <AccountCircle/> icon component", () => {
-      expect(wrapper.find(AccountCircle)).toHaveLength(1);
+    it("Contains 1 <LogoutMenuOpener/> component with expected props", () => {
+      const components= wrapper.find(LogoutMenuOpener);
+      expect(components).toHaveLength(1);
+
+      const props = components.at(0).props();
+      const expected = {
+        disabled: !AuthUtil.isAuthenticated(),
+        handleLogout: wrapper.instance().handleLogout
+      }
+      expect(props).toStrictEqual(expected);
     });
   });
   describe("handleLogout() function", () => {
