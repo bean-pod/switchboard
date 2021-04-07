@@ -7,13 +7,14 @@ import { NavLink } from "react-router-dom";
 import DeviceInfo from "../model/DeviceInfo";
 
 export default function DeviceDetailsButton(props) {
-  const { device } = props;
+  const { deviceInfo } = props;
 
   return (
     <>
       <NavLink
         to={{
-          pathname: `/Devices/Details/${device.serialNumber}`
+          pathname: `/Devices/Details/${deviceInfo.serialNumber}`,
+          state: { device: deviceInfo }
         }}
       >
         <Tooltip title="View Device Details">
@@ -27,5 +28,5 @@ export default function DeviceDetailsButton(props) {
 }
 
 DeviceDetailsButton.propTypes = {
-  device: PropTypes.instanceOf(DeviceInfo).isRequired
+  deviceInfo: PropTypes.instanceOf(DeviceInfo).isRequired
 };

@@ -73,7 +73,7 @@ function getColumnInfo() {
       filtering: false,
       sorting: false,
       render: function Actions(rowData) {
-        return <DeviceDetailsButton device={rowData} />;
+        return <DeviceDetailsButton deviceInfo={rowData} />;
       },
       align: "center",
       export: false
