@@ -83,7 +83,7 @@ describe("<SelectDeviceSwipeableSteps/> class component", () => {
       const props = components.at(0).props();
 
       const expected = {
-        className:"halfScreenVertically",
+        className: "halfScreenVertically",
         axis: "x",
         index: wrapper.state().activeStep,
         enableMouseEvents: true
