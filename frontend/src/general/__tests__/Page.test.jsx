@@ -52,7 +52,7 @@ describe("<Page/> functional Component", () => {
 
         const expected = {
           title: dummyTitle,
-          hasStreamButton
+          hasStreamButton: false
         };
 
         const titleProps = wrapper.find(Title).props();
@@ -63,11 +63,7 @@ describe("<Page/> functional Component", () => {
     describe("if props contain hasStreamButton", () => {
       beforeEach(() => {
         wrapper = Enzyme.shallow(
-          <Page
-            title={dummyTitle}
-            breadcrumbs={dummyCrumb}
-            hasStreamButton={true}
-          >
+          <Page title={dummyTitle} breadcrumbs={dummyCrumb} hasStreamButton>
             {dummyChild}
           </Page>
         );
@@ -78,7 +74,7 @@ describe("<Page/> functional Component", () => {
 
         const expected = {
           title: dummyTitle,
-          hasStreamButton
+          hasStreamButton: true
         };
 
         const titleProps = title.props();
