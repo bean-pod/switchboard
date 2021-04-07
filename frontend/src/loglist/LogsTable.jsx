@@ -20,7 +20,7 @@ export default class LogsTable extends React.Component {
     super(props);
     this.options = {
       toolbar: true,
-      showTitle: true,
+      showTitle: false,
       search: true,
       exportButton: true,
       headerStyle: {
@@ -53,13 +53,12 @@ export default class LogsTable extends React.Component {
   }
 
   render() {
-    const { columns, logs, title } = this.props;
+    const { columns, logs } = this.props;
     return (
       <>
         <Box>
           <TableContainer>
             <MaterialTable
-              title={title}
               columns={columns}
               data={logs}
               options={this.getOptions()}
@@ -82,7 +81,6 @@ LogsTable.propTypes = {
     PropTypes.arrayOf(PropTypes.instanceOf(LogInfo)),
     PropTypes.arrayOf(PropTypes.instanceOf(StreamLogInfo))
   ]).isRequired,
-  title: PropTypes.string,
   columns: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string.isRequired,
@@ -93,8 +91,4 @@ LogsTable.propTypes = {
       })
     })
   ).isRequired
-};
-
-LogsTable.defaultProps = {
-  title: "Logs"
 };

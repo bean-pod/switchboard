@@ -94,7 +94,6 @@ describe("<DeviceLogTableWrapper/> Class Component", () => {
         wrapper.setState({ logs: expectedLogs });
 
         const props = wrapper.find(LogsTable).first().props();
-        expect(props.title).toBe(`${dummyDevice.name} Logs`);
         expect(props.logs).toBe(expectedLogs);
       });
     });

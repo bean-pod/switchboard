@@ -143,13 +143,11 @@ describe("<StreamLogsTableWrapper/> Class Component", () => {
         const wrapperState = wrapper.state();
         const shallowWrapper = wrapper.instance();
         const expected = {
-          title: `${dummyId} Logs`,
           logs: wrapperState.logs,
           columns: shallowWrapper.getColumnInfo()
         };
 
         const logsTableProps = logsTable.props();
-        expect(logsTableProps.title).toEqual(expected.title);
         expect(logsTableProps.logs).toBe(expected.logs);
         expect(logsTableProps.columns).toEqual(expected.columns);
       });

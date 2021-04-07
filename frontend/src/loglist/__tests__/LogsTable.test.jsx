@@ -65,7 +65,6 @@ describe("<LogsTable/> component", () => {
       const wrapperProps = wrapper.instance().props;
       const shallowWrapper = wrapper.instance();
       const expected = {
-        title: wrapperProps.title,
         columns: wrapperProps.columns,
         data: wrapperProps.logs,
         options: shallowWrapper.getOptions(),
@@ -73,7 +72,6 @@ describe("<LogsTable/> component", () => {
       };
 
       const tableProps = wrapper.find(MaterialTable).props();
-      expect(tableProps.title).toBe(expected.title);
       expect(tableProps.columns).toBe(expected.columns);
       expect(tableProps.data).toBe(expected.data);
       expect(tableProps.options).toEqual(expected.options);
@@ -96,7 +94,7 @@ describe("<LogsTable/> component", () => {
     it("should return the expected options to be used in the <MaterialTable/> component", () => {
       const expected = {
         toolbar: true,
-        showTitle: true,
+        showTitle: false,
         search: true,
         exportButton: true,
         headerStyle: {

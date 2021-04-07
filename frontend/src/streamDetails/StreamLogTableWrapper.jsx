@@ -52,14 +52,7 @@ export default class StreamLogTableWrapper extends React.Component {
 
   render() {
     const { logs } = this.state;
-    const { streamId } = this.props;
-    return (
-      <LogsTable
-        title={`${streamId} Logs`}
-        logs={logs}
-        columns={this.getColumnInfo()}
-      />
-    );
+    return <LogsTable logs={logs} columns={this.getColumnInfo()} />;
   }
 }
 
