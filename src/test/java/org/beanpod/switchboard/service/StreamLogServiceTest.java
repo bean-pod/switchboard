@@ -54,7 +54,7 @@ public class StreamLogServiceTest {
   }
 
   @Test
-  final void CreateStreamLogCreateStreamLogRequestTest() {
+  final void createStreamLogForRequestObjectTest() {
     when(logStreamMapper.toLogStreamDto(any())).thenReturn(streamLogDto);
     when(logMapper.map(any())).thenReturn(LogFixture.dateTime);
     when(streamLogDao.createStreamLog(any())).thenReturn(streamLogDto);
