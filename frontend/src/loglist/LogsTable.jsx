@@ -1,7 +1,6 @@
 import React from "react";
 import { Box, TableContainer } from "@material-ui/core";
 import PropTypes from "prop-types";
-
 import {
   Search,
   ArrowDownward,
@@ -12,96 +11,84 @@ import {
   ChevronRight,
   ChevronLeft
 } from "@material-ui/icons";
-
 import MaterialTable from "material-table";
 import LogInfo from "../model/LogInfo";
+import StreamLogInfo from "../model/StreamLogInfo";
 
-function getColumnInfo() {
-  return [
-    {
-      title: "ID",
-      field: "id",
-      cellStyle: { width: "10%" }
-    },
-    {
-      title: "Date",
-      field: "dateTime",
-      cellStyle: { width: "15%" }
-    },
-    {
-      title: "Level",
-      field: "level",
-      cellStyle: { width: "10%" }
-    },
-    {
-      title: "Message",
-      field: "message",
-      sorting: false
-    }
-  ];
-}
+export default class LogsTable extends React.Component {
+  constructor(props) {
+    super(props);
+    this.options = {
+      toolbar: true,
+      showTitle: false,
+      search: true,
+      exportButton: true,
+      headerStyle: {
+        backgroundColor: "#f1f1f1",
+        fontWeight: "bold"
+      },
+      filtering: false,
+      draggable: false,
+      maxBodyHeight: "auto",
+      minBodyHeight: "auto"
+    };
+    this.icons = {
+      Search,
+      ResetSearch: Clear,
+      SortArrow: ArrowDownward,
+      Export: SaveAlt,
+      FirstPage,
+      LastPage,
+      NextPage: ChevronRight,
+      PreviousPage: ChevronLeft
+    };
+  }
 
-function getOptions(bodyHeight) {
-  return {
-    toolbar: true,
-    showTitle: false,
-    search: true,
-    exportButton: true,
-    headerStyle: {
-      backgroundColor: "#f1f1f1",
-      fontWeight: "bold"
-    },
-    filtering: false,
-    draggable: false,
-    maxBodyHeight: bodyHeight,
-    minBodyHeight: bodyHeight
-  };
-}
+  getOptions() {
+    return this.options;
+  }
 
-function getIcons() {
-  return {
-    Search,
-    ResetSearch: Clear,
-    SortArrow: ArrowDownward,
-    Export: SaveAlt,
-    FirstPage,
-    LastPage,
-    NextPage: ChevronRight,
-    PreviousPage: ChevronLeft
-  };
-}
+  getIcons() {
+    return this.icons;
+  }
 
-export default function LogsTable(props) {
-  const { logs, bodyHeight, title } = props;
-  return (
-    <>
-      <Box>
-        <TableContainer>
-          <MaterialTable
-            title={title}
-            columns={getColumnInfo()}
-            data={logs}
-            options={getOptions(bodyHeight)}
-            icons={getIcons()}
-          />
-        </TableContainer>
-        <div className="textAlignRightPadded">
-          {"Time Zone: ".concat(
-            Intl.DateTimeFormat().resolvedOptions().timeZone
-          )}
-        </div>
-      </Box>
-    </>
-  );
+  render() {
+    const { columns, logs } = this.props;
+    return (
+      <>
+        <Box>
+          <TableContainer>
+            <MaterialTable
+              columns={columns}
+              data={logs}
+              options={this.getOptions()}
+              icons={this.getIcons()}
+            />
+          </TableContainer>
+          <div className="textAlignRightPadded">
+            {"Time Zone: ".concat(
+              Intl.DateTimeFormat().resolvedOptions().timeZone
+            )}
+          </div>
+        </Box>
+      </>
+    );
+  }
 }
 
 LogsTable.propTypes = {
-  logs: PropTypes.arrayOf(PropTypes.instanceOf(LogInfo)).isRequired,
-  bodyHeight: PropTypes.string,
-  title: PropTypes.string
-};
-
-LogsTable.defaultProps = {
-  bodyHeight: "auto",
-  title: "Logs"
+  logs: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.instanceOf(LogInfo)),
+    PropTypes.arrayOf(PropTypes.instanceOf(StreamLogInfo))
+  ]).isRequired,
+  columns: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      field: PropTypes.string.isRequired,
+      sorting: PropTypes.bool,
+      cellStyle: PropTypes.shape({
+        width: PropTypes.string
+      })
+    })
+  ).isRequired
 };

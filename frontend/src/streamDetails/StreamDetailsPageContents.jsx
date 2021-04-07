@@ -6,6 +6,7 @@ import StreamInfo from "../model/StreamInfo";
 import DashboardCard from "../general/dashboard/DashboardCard";
 import StreamDetailsDeviceCard from "./StreamDetailsDeviceCard";
 import DeleteStreamDialogOpener from "./DeleteStreamDialogOpener";
+import StreamLogCard from "./cards/StreamLogCard";
 
 export default function StreamDetailsPageContents(props) {
   const { stream } = props;
@@ -28,7 +29,7 @@ export default function StreamDetailsPageContents(props) {
           />
         </Grid>
         <Grid item xs={7}>
-          <DashboardCard title="Logs" />
+          <StreamLogCard streamId={stream.id} />
         </Grid>
         <Grid item xs={5}>
           <DashboardCard title="Statistics" />

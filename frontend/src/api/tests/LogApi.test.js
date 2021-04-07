@@ -3,7 +3,6 @@ import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import { afterEach, describe, expect, it, jest } from "@jest/globals";
 import * as LogApi from "../LogApi";
-import * as SampleData from "../SampleData";
 import * as AuthenticationUtil from "../AuthenticationUtil";
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -26,7 +25,6 @@ const mockLogs = [
     message: "Log test 2"
   }
 ];
-
 const expectedLogsResponse = [
   {
     id: 1,
@@ -42,10 +40,44 @@ const expectedLogsResponse = [
   }
 ];
 
-let sampleLogs;
-SampleData.getAllLogs((result) => {
-  sampleLogs = result;
-});
+const mockStreamLogs = [
+  {
+    id: 70,
+    serialNumber: "felix",
+    streamId: 14,
+    logEntity: {
+      id: 70,
+      dateTime: "2021-03-31T15:33:26.525202-04:00",
+      message: "test1",
+      level: "info",
+      serialNumber: "I_am_the_human"
+    }
+  },
+  {
+    id: 73,
+    serialNumber: "felix",
+    streamId: 14,
+    logEntity: {
+      id: 73,
+      dateTime: "2021-03-31T15:38:27.407298-04:00",
+      message: "test2",
+      level: "info",
+      serialNumber: "I_am_the_human"
+    }
+  }
+];
+const expectedStreamLogsResponse = [
+  {
+    dateTime: "2021-03-31T15:33:26.525202-04:00",
+    level: "info",
+    message: "test1"
+  },
+  {
+    dateTime: "2021-03-31T15:38:27.407298-04:00",
+    level: "info",
+    message: "test2"
+  }
+];
 
 const authorizationHeader = {
   headers: {
@@ -76,11 +108,20 @@ describe("Log Api", () => {
       );
       expect(result).toEqual(expectedLogsResponse);
     });
-    it("If there is no response from the backend, it should return sample data", async () => {
-      axios.get.mockRejectedValue();
+  });
 
-      const result = await LogApi.getDeviceLogs();
-      expect(result).toEqual(sampleLogs);
+  describe("getStreamLogs", () => {
+    it("should call axios.get and return stream logs from a stream id", async () => {
+      axios.get.mockResolvedValue({ data: mockStreamLogs });
+      AuthenticationUtil.getAuthorizationHeader = jest
+        .fn()
+        .mockReturnValue(authorizationHeader);
+      const result = await LogApi.getStreamLogs(123);
+      expect(axios.get).toHaveBeenCalledWith(
+        "http://localhost:8080/log/stream/123",
+        authorizationHeader
+      );
+      expect(result).toEqual(expectedStreamLogsResponse);
     });
   });
 
@@ -96,12 +137,6 @@ describe("Log Api", () => {
         authorizationHeader
       );
       expect(result).toEqual(expectedLogsResponse);
-    });
-    it("If there is no response from the backend, it should return sample data", async () => {
-      axios.get.mockRejectedValue();
-
-      const result = await LogApi.getAllLogs();
-      expect(result).toEqual(sampleLogs);
     });
   });
 });
