@@ -56,7 +56,9 @@ public class EncoderController implements EncoderApi {
 
     List<EncoderEntity> encoderEntities = encoderDao.getEncoders(user);
     maintainDeviceStatus.maintainStatusField(encoderEntities);
-    return encoderMapper.toDtos(encoderEntities);
+    List<EncoderDto> encoderDtos = encoderMapper.toDtos(encoderEntities);
+    List<EncoderModel> encoderModels = encoderMapper.toEncoderModels(encoderDtos);
+    return ResponseEntity.ok(encoderModels);
   }
 
   @Override
@@ -75,6 +77,7 @@ public class EncoderController implements EncoderApi {
     }
     // return encoder
     return encoder
+        .map(encoderMapper::toEncoderModel)
         .map(ResponseEntity::ok)
         .orElseThrow(() -> new ExceptionType.DeviceNotFoundException(serialNumber));
   }
@@ -92,9 +95,12 @@ public class EncoderController implements EncoderApi {
     if (deviceOptional.isEmpty()) {
       throw new ExceptionType.DeviceNotFoundException(encoderModel.getSerialNumber());
     }
+    EncoderDto encoderDto = encoderMapper.toEncoderDto(encoderModel);
     encoderDto.setDevice(deviceOptional.get());
     encoderDto.setLastCommunication(Date.from(Instant.now()));
-    return ResponseEntity.ok(encoderDao.save(user, encoderDto));
+    EncoderDto savedEncoderDto = encoderDao.save(user, encoderDto);
+    EncoderModel savedEncoderModel = encoderMapper.toEncoderModel(savedEncoderDto);
+    return ResponseEntity.ok(savedEncoderModel);
   }
 
   @Override
