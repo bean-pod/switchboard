@@ -82,6 +82,17 @@ describe("<StreamStatisticsCard/> class component", () => {
       expect(actualProperties).toStrictEqual(expectedProperties);
     });
   });
+  describe("getButton() function", () => {
+    it("if state is null, should return null", () => {
+      const button = wrapper.instance().getButton();
+      expect(button).toBeNull();
+    });
+    it("if state is not null, should return appropriate button", () => {
+      wrapper.setState(expectedState);
+      const actualButton = wrapper.instance().getButton();
+      expect(actualButton).toStrictEqual(expectedButton);
+    });
+  });
   describe("render() function", () => {
     it("should render 1 DashboardCard with expected props", () => {
       wrapper.instance().setState(expectedState);
