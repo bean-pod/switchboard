@@ -10,6 +10,7 @@ import StreamDeviceCard from "../../general/StreamDeviceCard";
 import StepperNextButton from "./StepperNextButton";
 import DeviceInfo from "../../model/DeviceInfo";
 import StepperBackButton from "./StepperBackButton";
+import "./swipeable.css";
 
 export default class SelectDeviceSwipeableSteps extends React.Component {
   constructor(props) {
@@ -94,7 +95,12 @@ export default class SelectDeviceSwipeableSteps extends React.Component {
     return (
       <>
         <DialogTitle>{this.steps[activeStep]}</DialogTitle>
-        <SwipeableViews axis="x" index={activeStep} enableMouseEvents>
+        <SwipeableViews
+          className="halfScreenVertically"
+          axis="x"
+          index={activeStep}
+          enableMouseEvents
+        >
           <SelectDeviceTable
             selectedIndex={deviceIndex}
             setIndex={setDeviceIndex}
