@@ -6,7 +6,7 @@ import { Grid } from "@material-ui/core";
 import ActiveStreamCard from "../ActiveStreamCard";
 
 import DashboardCard from "../../general/dashboard/DashboardCard";
-import StreamsTableWrapper from "../../streamlist/StreamsTableWrapper";
+import SimpleStreamsTableWrapper from "../../streamlist/SimpleStreamsTableWrapper";
 import DashboardButton from "../../general/dashboard/DashboardButton";
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -33,7 +33,7 @@ describe("<ActiveStreamCard/> functional Component", () => {
       const expected = {
         item: true,
         xs: 12,
-        childType: "StreamsTableWrapper"
+        childType: "SimpleStreamsTableWrapper"
       };
       expect(props.item).toBe(expected.item);
       expect(props.xs).toBe(expected.xs);
@@ -61,8 +61,8 @@ describe("<ActiveStreamCard/> functional Component", () => {
       expect(props.xs).toBe(expected.xs);
       expect(props.children.type.name).toBe(expected.childType);
     });
-    it("Contains 1 <StreamTableWrapper/> component", () => {
-      expect(wrapper.find(StreamsTableWrapper)).toHaveLength(1);
+    it("Contains 1 <SimpleStreamsTableWrapper/> component", () => {
+      expect(wrapper.find(SimpleStreamsTableWrapper)).toHaveLength(1);
     });
     it("Contains 2 <DashboardButton/> components", () => {
       expect(wrapper.find(DashboardButton)).toHaveLength(2);
@@ -71,7 +71,7 @@ describe("<ActiveStreamCard/> functional Component", () => {
       const firstButton = wrapper.find(DashboardButton).first();
 
       expect(firstButton.props().href).toBe("/Streams");
-      expect(firstButton.props().children).toBe("See more");
+      expect(firstButton.props().children).toBe("See More");
     });
     it("Second <DashboardButton/> has expected props", () => {
       const firstButton = wrapper.find(DashboardButton).at(1);
