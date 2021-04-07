@@ -142,16 +142,6 @@ describe("Log Api", () => {
       );
       expect(result).toEqual(expectedStreamLogsResponse);
     });
-    it("If there is no response from the backend, it should display an error snackbar", async () => {
-      axios.get.mockRejectedValue();
-
-      await LogApi.getStreamLogs();
-
-      expect(snackbarSpy).toHaveBeenCalledWith(
-        "error",
-        "Failed to fetch stream logs"
-      );
-    });
   });
 
   describe("getAllLogs", () => {

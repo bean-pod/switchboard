@@ -32,7 +32,10 @@ export async function getDeviceLogs(deviceSerialNumber) {
 
 export async function getStreamLogs(streamId) {
   return axios
-    .get(`${process.env.REACT_APP_STREAMLOGS}/${streamId}`, getAuthorizationHeader())
+    .get(
+      `${process.env.REACT_APP_STREAMLOG}/${streamId}`,
+      getAuthorizationHeader()
+    )
     .then((response) => {
       return Promise.resolve(
         response.data.map((log) => {
@@ -46,8 +49,5 @@ export async function getStreamLogs(streamId) {
           );
         })
       );
-    })
-    .catch(() => {
-      snackbar("error", "Failed to fetch stream logs");
     });
 }
