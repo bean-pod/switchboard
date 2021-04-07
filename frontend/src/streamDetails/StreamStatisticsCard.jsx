@@ -11,7 +11,7 @@ export default class StreamStatisticsCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      stats: []
+      stats: null
     };
     this.streamId = props.streamId;
     this.handleStatsChange = this.handleStatsChange.bind(this);
@@ -31,7 +31,7 @@ export default class StreamStatisticsCard extends React.Component {
 
   getProperties() {
     const { stats } = this.state;
-    if (stats.length === 0) return {};
+    if (!stats) return {};
     return {
       Time: stats.time,
       "Round-Trip-Time": stats.link.rtt,
@@ -42,7 +42,7 @@ export default class StreamStatisticsCard extends React.Component {
 
   getButton() {
     const { stats } = this.state;
-    if (stats.length === 0) return null;
+    if (!stats) return null;
     return new ButtonInfo(
       `/Streams/Details/${stats.id}/Statistics`,
       { statistics: stats },
