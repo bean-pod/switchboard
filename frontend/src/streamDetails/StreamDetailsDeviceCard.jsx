@@ -9,7 +9,7 @@ export default function StreamDetailsDeviceCard(props) {
   const { cardTitle, device, channel } = props;
   const button = new ButtonInfo(
     `/Devices/Details/${device.serialNumber}`,
-    device,
+    { device },
     "View Device"
   );
 
