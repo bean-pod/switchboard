@@ -1,7 +1,14 @@
 import React from "react";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals";
+import {
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  jest
+} from "@jest/globals";
 import StreamsTableWrapper from "../StreamsTableWrapper";
 import StreamsTable from "../StreamsTable";
 import StreamInfo from "../../model/StreamInfo";
@@ -79,7 +86,10 @@ describe("<StreamsTableWrapper/> component", () => {
     it("passes the resolved streams to handleStreamsChange()", async () => {
       dummySource.getAllStreams.mockResolvedValue(dummyStream);
 
-      const handleStreamsSpy = jest.spyOn(wrapper.instance(), "handleStreamsChange");
+      const handleStreamsSpy = jest.spyOn(
+        wrapper.instance(),
+        "handleStreamsChange"
+      );
 
       wrapper.instance().componentDidMount();
 
