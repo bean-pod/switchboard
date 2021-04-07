@@ -5,15 +5,12 @@ import { afterEach, describe, expect, it, jest } from "@jest/globals";
 import * as LogApi from "../LogApi";
 import * as SampleData from "../SampleData";
 import * as AuthenticationUtil from "../AuthenticationUtil";
-import * as SnackbarMessage from "../../general/SnackbarMessage";
 
 Enzyme.configure({ adapter: new Adapter() });
 
 jest.mock("axios");
 jest.mock("../AuthenticationUtil");
 jest.spyOn(AuthenticationUtil, "getAuthorizationHeader");
-
-const snackbarSpy = jest.spyOn(SnackbarMessage, "snackbar");
 
 const mockLogs = [
   {
