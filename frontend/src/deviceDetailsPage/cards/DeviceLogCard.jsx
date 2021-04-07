@@ -11,10 +11,8 @@ export default function DeviceLogCard(props) {
 
   return (
     <DashboardCard title="Logs">
-      <Grid container justify="center" direction="row" spacing={3}>
-        <Grid item xs={12}>
-          <DeviceLogTableWrapper device={device} />
-        </Grid>
+      <Grid item xs={12}>
+        <DeviceLogTableWrapper device={device} />
       </Grid>
     </DashboardCard>
   );

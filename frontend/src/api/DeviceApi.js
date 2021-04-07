@@ -49,7 +49,7 @@ export function getSenders(callback) {
             getStatus(sender.lastCommunication),
             channels,
             "encoder",
-            ["Additional Device details go here"]
+            sender.device.configurationInstance
           );
         })
       );
@@ -89,7 +89,7 @@ export function getReceivers(callback) {
             getStatus(receiver.lastCommunication),
             channels,
             "decoder",
-            ["Additional Device details go here"]
+            receiver.device.configurationInstance
           );
         })
       );
@@ -100,12 +100,10 @@ export function getReceivers(callback) {
 }
 
 export function deleteDevice(deviceId) {
-  return axios
-    .delete(
-      `${process.env.REACT_APP_DEVICE}/${deviceId}`,
-      getAuthorizationHeader()
-    )
-    .catch(() => {});
+  return axios.delete(
+    `${process.env.REACT_APP_DEVICE}/${deviceId}`,
+    getAuthorizationHeader()
+  );
 }
 
 export async function updateDeviceName(deviceId, updatedName) {
@@ -116,5 +114,19 @@ export async function updateDeviceName(deviceId, updatedName) {
       displayName: updatedName
     },
     getAuthorizationHeader()
+  );
+}
+
+// https://programmingwithmosh.com/javascript/react-file-upload-proper-server-side-nodejs-easy/
+export async function uploadConfiguration(deviceId, configFile) {
+  const data = new FormData();
+  data.append("configuration", configFile);
+  const headers = getAuthorizationHeader();
+  // eslint-disable-next-line
+  headers.headers["Content-Type"] = `multipart/form-data; boundary=${data["_boundary"]}` ;
+  return axios.put(
+    `${process.env.REACT_APP_DEVICE}/config/${deviceId}`,
+    data,
+    headers
   );
 }

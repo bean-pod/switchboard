@@ -6,7 +6,7 @@ import { beforeEach, describe, expect, it } from "@jest/globals";
 
 import StreamDetailsPageContents from "../StreamDetailsPageContents";
 import DashboardCard from "../../general/dashboard/DashboardCard";
-import StreamDeviceDetails from "../StreamDeviceDetails";
+import StreamDetailsDeviceCard from "../StreamDetailsDeviceCard";
 import DeleteStreamDialogOpener from "../DeleteStreamDialogOpener";
 
 import DeviceInfo from "../../model/DeviceInfo";
@@ -56,22 +56,16 @@ describe("<StreamDetailsPageContents/> functional component", () => {
       expect(itemGridProps.xs).toBe(5);
     });
     it("Contains 4 DashboardCard components with expected props", () => {
-      expect(wrapper.find(DashboardCard)).toHaveLength(4);
+      expect(wrapper.find(DashboardCard)).toHaveLength(2);
 
-      const senderCardProps = wrapper.find(DashboardCard).at(0).props();
-      expect(senderCardProps.title).toBe("Sender Details");
-
-      const receiverCardProps = wrapper.find(DashboardCard).at(1).props();
-      expect(receiverCardProps.title).toBe("Receiver Details");
-
-      const logsCardProps = wrapper.find(DashboardCard).at(2).props();
+      const logsCardProps = wrapper.find(DashboardCard).at(0).props();
       expect(logsCardProps.title).toBe("Logs");
 
-      const statisticsCardProps = wrapper.find(DashboardCard).at(3).props();
+      const statisticsCardProps = wrapper.find(DashboardCard).at(1).props();
       expect(statisticsCardProps.title).toBe("Statistics");
     });
-    it("Contains 2 StreamDeviceDetails components with expected props", () => {
-      const streamDeviceDetails = wrapper.find(StreamDeviceDetails);
+    it("Contains 2 StreamDetailsDeviceCard components with expected props", () => {
+      const streamDeviceDetails = wrapper.find(StreamDetailsDeviceCard);
       expect(streamDeviceDetails).toHaveLength(2);
 
       const senderDetailsProps = streamDeviceDetails.at(0).props();

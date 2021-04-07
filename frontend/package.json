@@ -21,6 +21,7 @@
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.0",
+    "react-swipeable-views": "^0.13.9",
     "typescript": "^2.8.0"
   },
   "scripts": {
