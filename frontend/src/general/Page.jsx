@@ -8,13 +8,13 @@ import DeviceInfo from "../model/DeviceInfo";
 import StreamInfo from "../model/StreamInfo";
 
 export default function Page(props) {
-  const { breadcrumbs, title, buttonType, children } = props;
+  const { breadcrumbs, title, hasStreamButton, children } = props;
   return (
     <>
       <HeaderBar />
       <Container>
         <DynamicBreadcrumb breadcrumbs={breadcrumbs} />
-        <Title title={title} buttonType={buttonType} />
+        <Title title={title} hasStreamButton={hasStreamButton} />
         {children}
       </Container>
     </>
@@ -36,12 +36,12 @@ Page.propTypes = {
     )
   ).isRequired,
   title: PropTypes.string.isRequired,
-  buttonType: PropTypes.string,
+  hasStreamButton: PropTypes.bool,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
   ]).isRequired
 };
 Page.defaultProps = {
-  buttonType: undefined
+  hasStreamButton: false
 };

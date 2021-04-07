@@ -48,6 +48,6 @@ describe("<StreamDetailsButton/> functional component", () => {
       const tooltip = wrapper.find(Tooltip);
       expect(tooltip).toHaveLength(1);
       expect(tooltip.props().title).toEqual("View Stream Details");
-    })
+    });
   });
 });

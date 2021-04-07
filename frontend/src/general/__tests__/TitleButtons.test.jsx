@@ -6,6 +6,8 @@ import { NavLink } from "react-router-dom";
 import TitleButtons from "../TitleButtons";
 import StreamButton from "../Buttons/StreamButton";
 
+// comment
+
 Enzyme.configure({ adapter: new Adapter() });
 
 describe("<TitleButtons/> functional component", () => {
