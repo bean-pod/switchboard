@@ -38,9 +38,7 @@ public class StreamLogFixture {
     return new CreateStreamLogRequest()
         .streamId((int) StreamFixture.ID)
         .message(LogFixture.message)
-        .dateTime(LogFixture.dateTime.toString())
-        .decoderSerial(DeviceFixture.SERIAL_NUMBER)
-        .encoderSerial(DeviceFixture.SERIAL_NUMBER2);
+        .dateTime(LogFixture.dateTime.toString());
   }
 
   public static List<StreamLogModel> getListOfStreamLogsModel() {

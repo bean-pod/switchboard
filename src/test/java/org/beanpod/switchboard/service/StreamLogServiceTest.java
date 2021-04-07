@@ -5,7 +5,9 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import java.time.OffsetDateTime;
+import org.beanpod.switchboard.dao.StreamDaoImpl;
 import org.beanpod.switchboard.dao.StreamLogDaoImpl;
+import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.dto.StreamLogDto;
 import org.beanpod.switchboard.dto.mapper.LogMapper;
 import org.beanpod.switchboard.dto.mapper.StreamLogMapper;
@@ -26,9 +28,11 @@ public class StreamLogServiceTest {
   @Mock
   StreamLogMapper streamLogMapper;
   @Mock LogMapper logMapper;
+  @Mock StreamDaoImpl streamDao;
 
   private StreamLogDto streamLogDto;
   private CreateStreamLogRequest createStreamLogRequest;
+  private StreamDto streamDto;
 
   @BeforeEach
   void setup() {
@@ -36,6 +40,7 @@ public class StreamLogServiceTest {
 
     streamLogDto = StreamLogFixture.getStreamLogDto();
     createStreamLogRequest = StreamLogFixture.getCreateStreamLogRequest();
+    streamDto = StreamFixture.getStreamDto();
   }
 
   @Test
@@ -59,6 +64,7 @@ public class StreamLogServiceTest {
     when(streamLogMapper.toLogStreamDto(any())).thenReturn(streamLogDto);
     when(logMapper.map(any())).thenReturn(LogFixture.dateTime);
     when(streamLogDao.createStreamLog(any())).thenReturn(streamLogDto);
+    when(streamDao.getStreamById(Long.valueOf(createStreamLogRequest.getStreamId()))).thenReturn(streamDto);
 
     StreamLogDto actualStreamLogDto = streamLogService.createLog(createStreamLogRequest);
 
