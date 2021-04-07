@@ -23,13 +23,12 @@ describe("<Page/> functional Component", () => {
 
   describe("returns a component that", () => {
     describe("if props do not contain deviceList", () => {
-      const hasStreamButton = false;
       beforeEach(() => {
         wrapper = Enzyme.shallow(
           <Page
             title={dummyTitle}
             breadcrumbs={dummyCrumb}
-            hasStreamButton={hasStreamButton}
+            hasStreamButton={false}
           >
             {dummyChild}
           </Page>
@@ -62,13 +61,12 @@ describe("<Page/> functional Component", () => {
       });
     });
     describe("if props contain hasStreamButton", () => {
-      const hasStreamButton = true;
       beforeEach(() => {
         wrapper = Enzyme.shallow(
           <Page
             title={dummyTitle}
             breadcrumbs={dummyCrumb}
-            hasStreamButton={hasStreamButton}
+            hasStreamButton={true}
           >
             {dummyChild}
           </Page>
