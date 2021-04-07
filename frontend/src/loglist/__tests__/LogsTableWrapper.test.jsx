@@ -33,7 +33,9 @@ describe("<LogsTableWrapper/> Class Component", () => {
   describe("render() function", () => {
     beforeEach(() => {
       dummySource.getAllLogs.mockResolvedValue(dummyLog);
-      wrapper = Enzyme.shallow(<LogsTableWrapper logsDataSource={dummySource} />);
+      wrapper = Enzyme.shallow(
+        <LogsTableWrapper logsDataSource={dummySource} />
+      );
     });
     describe("returns a component that", () => {
       it("Contains 1 <LogsTable/> component with expected props", () => {
@@ -101,7 +103,9 @@ describe("<LogsTableWrapper/> Class Component", () => {
   describe("handleLogsChange()", () => {
     beforeEach(() => {
       dummySource.getAllLogs.mockResolvedValue(dummyLog);
-      wrapper = Enzyme.shallow(<LogsTableWrapper logsDataSource={dummySource} />);
+      wrapper = Enzyme.shallow(
+        <LogsTableWrapper logsDataSource={dummySource} />
+      );
     });
     it("should set the state", () => {
       const startingState = {
@@ -121,7 +125,9 @@ describe("<LogsTableWrapper/> Class Component", () => {
   describe("getColumnInfo()", () => {
     beforeEach(() => {
       dummySource.getAllLogs.mockResolvedValue(dummyLog);
-      wrapper = Enzyme.shallow(<LogsTableWrapper logsDataSource={dummySource} />);
+      wrapper = Enzyme.shallow(
+        <LogsTableWrapper logsDataSource={dummySource} />
+      );
     });
     it("should return the expected column to be passed to <LogsTable/> component", () => {
       const expectedValue = [
