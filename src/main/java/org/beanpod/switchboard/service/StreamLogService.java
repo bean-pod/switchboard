@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.dao.StreamLogDaoImpl;
 import org.beanpod.switchboard.dto.StreamLogDto;
 import org.beanpod.switchboard.dto.mapper.LogMapper;
-import org.beanpod.switchboard.dto.mapper.LogStreamMapper;
+import org.beanpod.switchboard.dto.mapper.StreamLogMapper;
 import org.beanpod.switchboard.entity.LogEntity;
 import org.beanpod.switchboard.entity.StreamLog;
 import org.openapitools.model.CreateStreamLogRequest;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class StreamLogService {
-  private final LogStreamMapper logStreamMapper;
+  private final StreamLogMapper streamLogMapper;
   private final StreamLogDaoImpl streamLogDao;
   private final LogMapper logMapper;
 
@@ -30,7 +30,7 @@ public class StreamLogService {
 
     streamLog.setLogEntity(logEntity);
 
-    StreamLogDto streamLogDto = logStreamMapper.toLogStreamDto(streamLog);
+    StreamLogDto streamLogDto = streamLogMapper.toLogStreamDto(streamLog);
 
     return streamLogDao.createStreamLog(streamLogDto);
   }

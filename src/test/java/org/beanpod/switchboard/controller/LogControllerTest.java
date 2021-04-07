@@ -11,7 +11,7 @@ import org.beanpod.switchboard.dao.StreamLogDaoImpl;
 import org.beanpod.switchboard.dto.LogDto;
 import org.beanpod.switchboard.dto.StreamLogDto;
 import org.beanpod.switchboard.dto.mapper.LogMapper;
-import org.beanpod.switchboard.dto.mapper.LogStreamMapper;
+import org.beanpod.switchboard.dto.mapper.StreamLogMapper;
 import org.beanpod.switchboard.fixture.LogFixture;
 import org.beanpod.switchboard.fixture.StreamLogFixture;
 import org.beanpod.switchboard.service.LogService;
@@ -42,7 +42,7 @@ class LogControllerTest {
   @Mock private LogService logService;
   @Mock private StreamLogDaoImpl streamLogDao;
   @Mock private StreamLogService streamLogService;
-  @Mock private LogStreamMapper logStreamMapper;
+  @Mock private StreamLogMapper streamLogMapper;
 
   @BeforeEach
   void setupLogFixture() {
@@ -100,7 +100,7 @@ class LogControllerTest {
   @Test
   final void testCreateStreamLog() {
     when(streamLogService.createLog(createStreamLogRequest)).thenReturn(streamLogDto);
-    when(logStreamMapper.toStreamLogModel(streamLogDto)).thenReturn(streamLogModel);
+    when(streamLogMapper.toStreamLogModel(streamLogDto)).thenReturn(streamLogModel);
     ResponseEntity<StreamLogModel> response = logController.createStreamLog(createStreamLogRequest);
 
     assertEquals(HttpStatus.OK, response.getStatusCode());

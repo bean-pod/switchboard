@@ -6,7 +6,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.List;
 import org.beanpod.switchboard.dto.StreamLogDto;
-import org.beanpod.switchboard.dto.mapper.LogStreamMapper;
+import org.beanpod.switchboard.dto.mapper.StreamLogMapper;
 import org.beanpod.switchboard.entity.StreamLog;
 import org.beanpod.switchboard.fixture.StreamLogFixture;
 import org.beanpod.switchboard.repository.LogStreamRepository;
@@ -20,7 +20,8 @@ import org.openapitools.model.StreamLogModel;
 public class StreamLogDaoImplTest {
   @InjectMocks StreamLogDaoImpl streamLogDao;
   @Mock LogStreamRepository logStreamRepository;
-  @Mock LogStreamMapper logStreamMapper;
+  @Mock
+  StreamLogMapper streamLogMapper;
 
   private StreamLog streamLog;
   private StreamLogDto streamLogDto;
@@ -39,8 +40,8 @@ public class StreamLogDaoImplTest {
 
   @Test
   final void createStreamLogTest() {
-    when(logStreamMapper.toLogStreamDto(any())).thenReturn(streamLogDto);
-    when(logStreamMapper.toStreamLog(any())).thenReturn(streamLog);
+    when(streamLogMapper.toLogStreamDto(any())).thenReturn(streamLogDto);
+    when(streamLogMapper.toStreamLog(any())).thenReturn(streamLog);
     when(logStreamRepository.save(any())).thenReturn(streamLog);
 
     StreamLogDto actualStreamLog = streamLogDao.createStreamLog(streamLogDto);
@@ -50,7 +51,7 @@ public class StreamLogDaoImplTest {
 
   @Test
   final void getStreamLogsTest() {
-    when(logStreamMapper.toStreamLogModels(any())).thenReturn(streamLogModelList);
+    when(streamLogMapper.toStreamLogModels(any())).thenReturn(streamLogModelList);
     when(logStreamRepository.findByStreamId("1")).thenReturn(streamLogList);
 
     List<StreamLogModel> listOfStreamLogModels_actual = streamLogDao.getStreamLogs(1L);

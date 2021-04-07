@@ -8,7 +8,7 @@ import java.time.OffsetDateTime;
 import org.beanpod.switchboard.dao.StreamLogDaoImpl;
 import org.beanpod.switchboard.dto.StreamLogDto;
 import org.beanpod.switchboard.dto.mapper.LogMapper;
-import org.beanpod.switchboard.dto.mapper.LogStreamMapper;
+import org.beanpod.switchboard.dto.mapper.StreamLogMapper;
 import org.beanpod.switchboard.fixture.DeviceFixture;
 import org.beanpod.switchboard.fixture.LogFixture;
 import org.beanpod.switchboard.fixture.StreamFixture;
@@ -23,7 +23,8 @@ import org.openapitools.model.CreateStreamLogRequest;
 public class StreamLogServiceTest {
   @InjectMocks StreamLogService streamLogService;
   @Mock StreamLogDaoImpl streamLogDao;
-  @Mock LogStreamMapper logStreamMapper;
+  @Mock
+  StreamLogMapper streamLogMapper;
   @Mock LogMapper logMapper;
 
   private StreamLogDto streamLogDto;
@@ -39,7 +40,7 @@ public class StreamLogServiceTest {
 
   @Test
   final void createStreamLogTest() {
-    when(logStreamMapper.toLogStreamDto(any())).thenReturn(streamLogDto);
+    when(streamLogMapper.toLogStreamDto(any())).thenReturn(streamLogDto);
     when(streamLogDao.createStreamLog(any())).thenReturn(streamLogDto);
 
     StreamLogDto actualStreamLogDto =
@@ -55,7 +56,7 @@ public class StreamLogServiceTest {
 
   @Test
   final void createStreamLogForRequestObjectTest() {
-    when(logStreamMapper.toLogStreamDto(any())).thenReturn(streamLogDto);
+    when(streamLogMapper.toLogStreamDto(any())).thenReturn(streamLogDto);
     when(logMapper.map(any())).thenReturn(LogFixture.dateTime);
     when(streamLogDao.createStreamLog(any())).thenReturn(streamLogDto);
 

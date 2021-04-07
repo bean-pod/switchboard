@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.dao.LogDaoImpl;
 import org.beanpod.switchboard.dao.StreamLogDaoImpl;
 import org.beanpod.switchboard.dto.mapper.LogMapper;
-import org.beanpod.switchboard.dto.mapper.LogStreamMapper;
+import org.beanpod.switchboard.dto.mapper.StreamLogMapper;
 import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.service.LogService;
 import org.beanpod.switchboard.service.StreamLogService;
@@ -30,7 +30,7 @@ public class LogController implements LogApi {
   private final LogService logService;
   private final StreamLogDaoImpl streamLogDao;
   private final StreamLogService streamLogService;
-  private final LogStreamMapper logStreamMapper;
+  private final StreamLogMapper streamLogMapper;
 
   @Override
   public ResponseEntity<List<StreamLogModel>> retrieveStreamLogs(@PathVariable Long streamId) {
@@ -62,7 +62,7 @@ public class LogController implements LogApi {
       CreateStreamLogRequest createStreamLogRequest) {
     return Optional.of(createStreamLogRequest)
         .map(streamLogService::createLog)
-        .map(logStreamMapper::toStreamLogModel)
+        .map(streamLogMapper::toStreamLogModel)
         .map(ResponseEntity::ok)
         .orElseThrow(() -> new ExceptionType.UnknownException(CONTROLLER_NAME));
   }
