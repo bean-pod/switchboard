@@ -22,9 +22,17 @@ async function getLogs(endpoint) {
     });
 }
 
-async function getLogsOfStream(endpoint) {
+export async function getAllLogs() {
+  return getLogs(process.env.REACT_APP_LOG);
+}
+
+export async function getDeviceLogs(deviceSerialNumber) {
+  return getLogs(`${process.env.REACT_APP_LOG}/${deviceSerialNumber}`);
+}
+
+export async function getStreamLogs(streamId) {
   return axios
-    .get(endpoint, getAuthorizationHeader())
+    .get(`${process.env.REACT_APP_STREAMLOGS}/${streamId}`, getAuthorizationHeader())
     .then((response) => {
       return Promise.resolve(
         response.data.map((log) => {
@@ -42,16 +50,4 @@ async function getLogsOfStream(endpoint) {
     .catch(() => {
       snackbar("error", "Failed to fetch stream logs");
     });
-}
-
-export async function getAllLogs() {
-  return getLogs(process.env.REACT_APP_LOG);
-}
-
-export async function getDeviceLogs(deviceSerialNumber) {
-  return getLogs(`${process.env.REACT_APP_LOG}/${deviceSerialNumber}`);
-}
-
-export async function getStreamLogs(streamId) {
-  return getLogsOfStream(`${process.env.REACT_APP_STREAMLOGS}/${streamId}`);
 }
