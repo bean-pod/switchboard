@@ -2,7 +2,7 @@ import React from "react";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import { beforeAll, describe, expect, it } from "@jest/globals";
-import { Box, Container } from "@material-ui/core";
+import { Container } from "@material-ui/core";
 import Page from "../Page";
 
 import Title from "../Title";
