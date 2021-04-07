@@ -38,7 +38,6 @@ export async function getStreamLogs(streamId) {
     .then((response) => {
       return Promise.resolve(
         response.data.map((log) => {
-          // log.serialNumber = sender, log.logEntity.serialNumber = receiver
           return new StreamLogInfo(
             log.logEntity.dateTime,
             log.logEntity.level,
