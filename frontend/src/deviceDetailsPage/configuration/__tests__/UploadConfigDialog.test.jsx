@@ -143,6 +143,12 @@ describe("<UploadConfigDialog/> class", () => {
           expectedArgs[1]
         );
       });
+      it("calls the child's closeDialog() function", async () => {
+        wrapper.instance().handleUpload();
+        await flushPromises();
+
+        expect(mockCloseDialog).toBeCalledTimes(1);
+      });
     });
   });
 

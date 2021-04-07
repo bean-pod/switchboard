@@ -32,11 +32,13 @@ export default class UploadConfigDialog extends React.Component {
     const { file } = this.state;
     uploadConfiguration(deviceId, file)
       .then(() => {
-        this.dialogElement.current.closeDialog();
         snackbar("success", "Successfully uploaded configuration");
       })
       .catch(() => {
         snackbar("error", "Upload failed");
+      })
+      .finally(()=>{
+        this.dialogElement.current.closeDialog();
       });
   }
 
