@@ -283,7 +283,8 @@ public class SystemTests {
       builder.moveToElement(element, 0, 0).perform();
     }
     {
-      WebElement element = driver.findElement(By.cssSelector(".MuiButton-containedSecondary > .MuiButton-label"));
+      WebElement element =
+          driver.findElement(By.cssSelector(".MuiButton-containedSecondary > .MuiButton-label"));
       Actions builder = new Actions(driver);
       builder.moveToElement(element).perform();
     }
