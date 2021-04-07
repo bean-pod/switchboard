@@ -55,11 +55,6 @@ export default class StreamsTable extends React.Component {
               icons={this.getIcons()}
             />
           </TableContainer>
-          <div className="textAlignRightPadded">
-            {"Time Zone: ".concat(
-              Intl.DateTimeFormat().resolvedOptions().timeZone
-            )}
-          </div>
         </Box>
       </>
     );

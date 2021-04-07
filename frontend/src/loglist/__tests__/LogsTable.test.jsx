@@ -77,17 +77,6 @@ describe("<LogsTable/> component", () => {
       expect(tableProps.options).toEqual(expected.options);
       expect(tableProps.icons).toEqual(expected.icons);
     });
-    it("contains 1 Time zone indicator text box", () => {
-      expect(
-        wrapper
-          .text()
-          .includes(
-            "Time Zone: ".concat(
-              Intl.DateTimeFormat().resolvedOptions().timeZone
-            )
-          )
-      ).toBe(true);
-    });
   });
 
   describe("getOptions() function", () => {
