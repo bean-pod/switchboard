@@ -57,7 +57,6 @@ export default withRouter(HeaderBar);
 
 HeaderBar.propTypes = {
   history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-    go: PropTypes.func.isRequired
+    push: PropTypes.func.isRequired
   }).isRequired
 };
