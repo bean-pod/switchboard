@@ -8,11 +8,13 @@ import UploadConfigDialog from "../UploadConfigDialog";
 
 import Dialog from "../../../general/dialog/Dialog";
 import * as DeviceApi from "../../../api/DeviceApi";
+import * as SnackbarHandler from "../../../general/SnackbarMessage";
 
 Enzyme.configure({ adapter: new Adapter() });
 
 describe("<UploadConfigDialog/> class", () => {
   let wrapper;
+  const flushPromises = () => new Promise(setImmediate);
 
   const mockOpenDialog = jest.fn();
   const mockCloseDialog = jest.fn();
@@ -86,10 +88,11 @@ describe("<UploadConfigDialog/> class", () => {
   });
 
   describe("handleUpload() function", () => {
-    it("calls DeviceAPI.upload with the passed ID", () => {
-      jest.spyOn(DeviceApi, "uploadConfiguration").mockImplementation(() => {
-        return Promise.resolve();
-      });
+    beforeEach(() => {
+      jest.spyOn(DeviceApi, "uploadConfiguration");
+      jest.spyOn(SnackbarHandler, "snackbar").mockImplementation();
+    });
+    it("calls DeviceAPI.uploadConfiguration with the passed ID", () => {
       const expectedFile = new File([], "testFile");
       const state = {
         file: expectedFile
@@ -101,14 +104,45 @@ describe("<UploadConfigDialog/> class", () => {
         expectedFile
       );
     });
-  });
+    describe("when DeviceAPI.uploadConfiguration resolves", () => {
+      beforeEach(() => {
+        jest.spyOn(DeviceApi, "uploadConfiguration").mockImplementation(() => {
+          return Promise.resolve();
+        });
+      });
+      it("calls snackbar() with expected arguments", async () => {
+        wrapper.instance().handleUpload();
+        await flushPromises();
 
-  describe("afterUpload() function", () => {
-    it("closes the dialog", () => {
-      wrapper.instance().afterUpload();
-      wrapper.instance().forceUpdate();
+        const expectedArgs = ["success", "Successfully uploaded configuration"];
+        expect(SnackbarHandler.snackbar).toHaveBeenCalledWith(
+          expectedArgs[0],
+          expectedArgs[1]
+        );
+      });
+      it("calls the child's closeDialog() function", async () => {
+        wrapper.instance().handleUpload();
+        await flushPromises();
 
-      expect(mockCloseDialog).toBeCalledTimes(1);
+        expect(mockCloseDialog).toBeCalledTimes(1);
+      });
+    });
+    describe("when DeviceAPI.uploadConfiguration rejects", () => {
+      beforeEach(() => {
+        jest.spyOn(DeviceApi, "uploadConfiguration").mockImplementation(() => {
+          return Promise.reject();
+        });
+      });
+      it("calls snackbar() with expected arguments", async () => {
+        wrapper.instance().handleUpload();
+        await flushPromises();
+
+        const expectedArgs = ["error", "Upload failed"];
+        expect(SnackbarHandler.snackbar).toHaveBeenCalledWith(
+          expectedArgs[0],
+          expectedArgs[1]
+        );
+      });
     });
   });
 

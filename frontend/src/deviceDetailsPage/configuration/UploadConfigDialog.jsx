@@ -5,6 +5,7 @@ import { Input } from "@material-ui/core";
 import Dialog from "../../general/dialog/Dialog";
 
 import { uploadConfiguration } from "../../api/DeviceApi";
+import { snackbar } from "../../general/SnackbarMessage";
 
 export default class UploadConfigDialog extends React.Component {
   constructor(props) {
@@ -17,7 +18,6 @@ export default class UploadConfigDialog extends React.Component {
     this.openDialog = this.openDialog.bind(this);
     this.handleChange = this.handleChange.bind(this);
 
-    this.afterUpload = this.afterUpload.bind(this);
     this.handleUpload = this.handleUpload.bind(this);
   }
 
@@ -30,13 +30,14 @@ export default class UploadConfigDialog extends React.Component {
   handleUpload() {
     const { deviceId } = this.props;
     const { file } = this.state;
-    uploadConfiguration(deviceId, file).then(() => {
-      this.afterUpload();
-    });
-  }
-
-  afterUpload() {
-    this.dialogElement.current.closeDialog();
+    uploadConfiguration(deviceId, file)
+      .then(() => {
+        this.dialogElement.current.closeDialog();
+        snackbar("success", "Successfully uploaded configuration");
+      })
+      .catch(() => {
+        snackbar("error", "Upload failed");
+      });
   }
 
   // used by Summoner to summon
