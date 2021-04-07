@@ -30,28 +30,12 @@ describe("<StreamLogCard/> functional component", () => {
       const dashboardCardProps = dashboardCard.props();
       expect(dashboardCardProps.title).toBe("Logs");
     });
-    it("contains 2 <Grid/> components", () => {
+    it("contains 1 <Grid/> component", () => {
       const grids = wrapper.find(Grid);
-      expect(grids).toHaveLength(2);
+      expect(grids).toHaveLength(1);
     });
-    it("first <Grid/> has expected props", () => {
-      const outerGrid = wrapper.find(Grid).first();
-
-      const expected = {
-        container: true,
-        justify: "center",
-        direction: "row",
-        spacing: 3
-      };
-
-      const outerGridProps = outerGrid.props();
-      expect(outerGridProps.container).toBe(expected.container);
-      expect(outerGridProps.justify).toBe(expected.justify);
-      expect(outerGridProps.direction).toBe(expected.direction);
-      expect(outerGridProps.spacing).toBe(expected.spacing);
-    });
-    it("second <Grid/> has expected props", () => {
-      const secondGrid = wrapper.find(Grid).at(1);
+    it("<Grid/> has expected props", () => {
+      const secondGrid = wrapper.find(Grid);
 
       const expected = {
         item: true,

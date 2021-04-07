@@ -11,13 +11,11 @@ export default function StreamLogCard(props) {
 
   return (
     <DashboardCard title="Logs">
-      <Grid container justify="center" direction="row" spacing={3}>
-        <Grid item xs={12}>
-          <StreamLogsTableWrapper
-            dataSource={streamLogsDataSource}
-            streamId={streamId}
-          />
-        </Grid>
+      <Grid item xs={12}>
+        <StreamLogsTableWrapper
+          dataSource={streamLogsDataSource}
+          streamId={streamId}
+        />
       </Grid>
     </DashboardCard>
   );
