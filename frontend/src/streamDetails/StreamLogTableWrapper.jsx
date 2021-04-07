@@ -34,7 +34,7 @@ export default class StreamLogTableWrapper extends React.Component {
     const { streamId } = this.props;
     this.dataSource
       .getStreamLogs(streamId)
-      .then((logs) => this.handleStreamLogsChange(logs))
+      .then(this.handleStreamLogsChange)
       .catch((error) => {
         snackbar("error", `Failed to fetch stream logs: ${error.message}`);
       });

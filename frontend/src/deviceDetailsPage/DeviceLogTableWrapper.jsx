@@ -40,7 +40,7 @@ export default class DeviceLogTableWrapper extends React.Component {
     const { device } = this.props;
     this.dataSource
       .getDeviceLogs(device.serialNumber)
-      .then((logs) => this.handleDeviceLogsChange(logs))
+      .then(this.handleDeviceLogsChange)
       .catch((error) => {
         snackbar("error", `Failed to fetch device logs: ${error.message}`);
       });
