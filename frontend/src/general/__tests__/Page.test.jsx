@@ -39,10 +39,6 @@ describe("<Page/> functional Component", () => {
         expect(crumb.props().breadcrumbs[0][0]).toBe(dummyCrumb[0][0]);
         expect(crumb.props().breadcrumbs[0][1]).toBe(dummyCrumb[0][1]);
       });
-      it("Contains 1 <Box/> component with areaUnderBreacrumbs styling", () => {
-        expect(wrapper.find(Box)).toHaveLength(1);
-        expect(wrapper.find(Box).hasClass("areaUnderBreadcrumbs")).toBe(true);
-      });
       it("Contains 1 <Title/> component with expected props", () => {
         expect(wrapper.find(Title)).toHaveLength(1);
         const title = wrapper.find(Title).first();
