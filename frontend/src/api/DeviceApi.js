@@ -1,6 +1,5 @@
 import axios from "axios";
 import DeviceInfo from "../model/DeviceInfo";
-import * as SampleData from "./SampleData";
 import OutputChannelInfo from "../model/OutputChannelInfo";
 import InputChannelInfo from "../model/InputChannelInfo";
 import { getAuthorizationHeader } from "./AuthenticationUtil";
@@ -53,9 +52,6 @@ export function getSenders(callback) {
           );
         })
       );
-    })
-    .catch(() => {
-      SampleData.getSenders(callback);
     });
 }
 
@@ -93,9 +89,6 @@ export function getReceivers(callback) {
           );
         })
       );
-    })
-    .catch(() => {
-      SampleData.getReceivers(callback);
     });
 }
 
