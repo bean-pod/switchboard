@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import StreamsTable from "./StreamsTable";
-import { getAllStreams } from "../api/SampleData";
+import { snackbar } from "../general/SnackbarMessage";
 
 export default class StreamsTableWrapper extends React.Component {
   constructor(props) {
@@ -17,8 +17,8 @@ export default class StreamsTableWrapper extends React.Component {
     this.dataSource
       .getAllStreams()
       .then(this.handleStreamsChange)
-      .catch(() => {
-        this.handleStreamsChange(getAllStreams());
+      .catch((error) => {
+        snackbar("error", `Failed to fetch stream data: ${error.message}`);
       });
   }
 
