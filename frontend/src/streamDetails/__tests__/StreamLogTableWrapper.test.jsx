@@ -57,45 +57,49 @@ describe("<StreamLogsTableWrapper/> Class Component", () => {
   });
 
   describe("componentDidMount() function", () => {
-    describe("calls the passed dataSource's getStreamLogs() with stream ID", () => {
-      beforeEach(() => {
-        wrapper = Enzyme.shallow(
-          <StreamLogTableWrapper dataSource={dummySource} streamId={dummyId} />,
-          {
-            disableLifecycleMethods: true
-          }
-        );
-      });
-      it("if it resolves, it passes the resolved logs to handleStreamsLogChange()", async () => {
-        dummySource.getStreamLogs.mockResolvedValue(dummyLog);
+    beforeEach(() => {
+      wrapper = Enzyme.shallow(
+        <StreamLogTableWrapper dataSource={dummySource} streamId={dummyId} />,
+        {
+          disableLifecycleMethods: true
+        }
+      );
+    });
+    it("Calls the data source's getStreamLogs with the stream ID", async () => {
+      dummySource.getStreamLogs.mockResolvedValue(dummyLog);
 
-        const handleStreamsSpy = jest.spyOn(
-          wrapper.instance(),
-          "handleStreamLogsChange"
-        );
+      wrapper.instance().componentDidMount();
 
-        wrapper.instance().componentDidMount();
-        expect(dummySource.getStreamLogs).toHaveBeenCalledWith(dummyId);
+      expect(dummySource.getStreamLogs).toHaveBeenCalledWith(dummyId);
+    });
+    it("if it resolves, it passes the resolved logs to handleStreamsLogChange()", async () => {
+      dummySource.getStreamLogs.mockResolvedValue(dummyLog);
 
-        await new Promise(setImmediate);
+      const handleStreamsSpy = jest.spyOn(
+        wrapper.instance(),
+        "handleStreamLogsChange"
+      );
 
-        expect(handleStreamsSpy).toHaveBeenCalledWith(dummyLog);
-      });
-      it("if it rejects, an error snackbar with the caught error message is displayed", async () => {
-        const returnedError = {
-          message: "test"
-        };
-        dummySource.getStreamLogs.mockRejectedValue(returnedError);
+      wrapper.instance().componentDidMount();
 
-        wrapper.instance().componentDidMount();
+      await new Promise(setImmediate);
 
-        await new Promise(setImmediate);
+      expect(handleStreamsSpy).toHaveBeenCalledWith(dummyLog);
+    });
+    it("if it rejects, an error snackbar with the caught error message is displayed", async () => {
+      const returnedError = {
+        message: "test"
+      };
+      dummySource.getStreamLogs.mockRejectedValue(returnedError);
 
-        expect(snackbarSpy).toHaveBeenCalledWith(
-          "error",
-          `Failed to fetch stream logs: ${returnedError.message}`
-        );
-      });
+      wrapper.instance().componentDidMount();
+
+      await new Promise(setImmediate);
+
+      expect(snackbarSpy).toHaveBeenCalledWith(
+        "error",
+        `Failed to fetch stream logs: ${returnedError.message}`
+      );
     });
   });
 

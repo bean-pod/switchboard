@@ -58,50 +58,51 @@ describe("<DeviceLogTableWrapper/> Class Component", () => {
   });
 
   describe("componentDidMount() function", () => {
-    describe("calls the passed dataSource's getDeviceLogs() with device serial number", () => {
-      beforeEach(() => {
-        wrapper = Enzyme.shallow(
-          <DeviceLogTableWrapper
-            dataSource={dummySource}
-            device={dummyDevice}
-          />,
-          {
-            disableLifecycleMethods: true
-          }
-        );
-      });
-      it("if it resolves, it passes the resolved logs to handleStreamsLogChange()", async () => {
-        dummySource.getDeviceLogs.mockResolvedValue(dummyLog);
+    beforeEach(() => {
+      wrapper = Enzyme.shallow(
+        <DeviceLogTableWrapper dataSource={dummySource} device={dummyDevice} />,
+        {
+          disableLifecycleMethods: true
+        }
+      );
+    });
+    it("Calls the passed data source's getDeviceLogs with the serial number", async () => {
+      dummySource.getDeviceLogs.mockResolvedValue(dummyLog);
 
-        const handleDeviceLogsSpy = jest.spyOn(
-          wrapper.instance(),
-          "handleDeviceLogsChange"
-        );
+      wrapper.instance().componentDidMount();
 
-        wrapper.instance().componentDidMount();
-        expect(dummySource.getDeviceLogs).toHaveBeenCalledWith(
-          dummyDevice.serialNumber
-        );
+      expect(dummySource.getDeviceLogs).toHaveBeenCalledWith(
+        dummyDevice.serialNumber
+      );
+    });
+    it("if it resolves, it passes the resolved logs to handleStreamsLogChange()", async () => {
+      dummySource.getDeviceLogs.mockResolvedValue(dummyLog);
 
-        await new Promise(setImmediate);
+      const handleDeviceLogsSpy = jest.spyOn(
+        wrapper.instance(),
+        "handleDeviceLogsChange"
+      );
 
-        expect(handleDeviceLogsSpy).toHaveBeenCalledWith(dummyLog);
-      });
-      it("if it rejects, an error snackbar with the caught error message is displayed", async () => {
-        const returnedError = {
-          message: "test"
-        };
-        dummySource.getDeviceLogs.mockRejectedValue(returnedError);
+      wrapper.instance().componentDidMount();
 
-        wrapper.instance().componentDidMount();
+      await new Promise(setImmediate);
 
-        await new Promise(setImmediate);
+      expect(handleDeviceLogsSpy).toHaveBeenCalledWith(dummyLog);
+    });
+    it("if it rejects, an error snackbar with the caught error message is displayed", async () => {
+      const returnedError = {
+        message: "test"
+      };
+      dummySource.getDeviceLogs.mockRejectedValue(returnedError);
 
-        expect(snackbarSpy).toHaveBeenCalledWith(
-          "error",
-          `Failed to fetch device logs: ${returnedError.message}`
-        );
-      });
+      wrapper.instance().componentDidMount();
+
+      await new Promise(setImmediate);
+
+      expect(snackbarSpy).toHaveBeenCalledWith(
+        "error",
+        `Failed to fetch device logs: ${returnedError.message}`
+      );
     });
   });
 

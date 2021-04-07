@@ -57,46 +57,47 @@ describe("<LogsTableWrapper/> Class Component", () => {
   });
 
   describe("componentDidMount() function", () => {
-    describe("calls the passed dataSource's getAllLogs()", () => {
-      beforeEach(() => {
-        wrapper = Enzyme.shallow(
-          <LogsTableWrapper logsDataSource={dummySource} />,
-          {
-            disableLifecycleMethods: true
-          }
-        );
-      });
+    beforeEach(() => {
+      wrapper = Enzyme.shallow(
+        <LogsTableWrapper logsDataSource={dummySource} />,
+        {
+          disableLifecycleMethods: true
+        }
+      );
+    });
 
-      it("passes the resolved logs to handleLogChange()", async () => {
-        dummySource.getAllLogs.mockResolvedValue(dummyLog);
+    it("calls the passed dataSource's getAllLogs()", () => {
+      dummySource.getAllLogs.mockResolvedValue(dummyLog);
 
-        const handleLogsSpy = jest.spyOn(
-          wrapper.instance(),
-          "handleLogsChange"
-        );
+      wrapper.instance().componentDidMount();
 
-        wrapper.instance().componentDidMount();
-        expect(dummySource.getAllLogs).toHaveBeenCalledTimes(1);
+      expect(dummySource.getAllLogs).toHaveBeenCalledTimes(1);
+    });
+    it("passes the resolved logs to handleLogChange()", async () => {
+      dummySource.getAllLogs.mockResolvedValue(dummyLog);
 
-        await new Promise(setImmediate);
+      const handleLogsSpy = jest.spyOn(wrapper.instance(), "handleLogsChange");
 
-        expect(handleLogsSpy).toHaveBeenCalledWith(dummyLog);
-      });
-      it("if it rejects, an error snackbar with the caught error message is displayed", async () => {
-        const returnedError = {
-          message: "test"
-        };
-        dummySource.getAllLogs.mockRejectedValue(returnedError);
+      wrapper.instance().componentDidMount();
 
-        wrapper.instance().componentDidMount();
+      await new Promise(setImmediate);
 
-        await new Promise(setImmediate);
+      expect(handleLogsSpy).toHaveBeenCalledWith(dummyLog);
+    });
+    it("if it rejects, an error snackbar with the caught error message is displayed", async () => {
+      const returnedError = {
+        message: "test"
+      };
+      dummySource.getAllLogs.mockRejectedValue(returnedError);
 
-        expect(snackbarSpy).toHaveBeenCalledWith(
-          "error",
-          `Failed to fetch logs: ${returnedError.message}`
-        );
-      });
+      wrapper.instance().componentDidMount();
+
+      await new Promise(setImmediate);
+
+      expect(snackbarSpy).toHaveBeenCalledWith(
+        "error",
+        `Failed to fetch logs: ${returnedError.message}`
+      );
     });
   });
 
