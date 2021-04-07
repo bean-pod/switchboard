@@ -24,11 +24,7 @@ describe("<StreamLogsTableWrapper/> Class Component", () => {
   let wrapper;
   const dummyId = 1;
   const dummyLog = [
-    new StreamLogInfo(
-      "2020-10-31T15:53:23",
-      "Info",
-      "Log 1 info"
-    )
+    new StreamLogInfo("2020-10-31T15:53:23", "Info", "Log 1 info")
   ];
   const dummySource = {
     getStreamLogs() {
@@ -55,9 +51,7 @@ describe("<StreamLogsTableWrapper/> Class Component", () => {
         logs: initialValue
       });
 
-      const expectedValue = [
-        new StreamLogInfo(null, "Info", "Test info")
-      ];
+      const expectedValue = [new StreamLogInfo(null, "Info", "Test info")];
 
       wrapper.instance().handleStreamLogsChange(expectedValue);
       expect(wrapper.state().logs).toStrictEqual(expectedValue);
