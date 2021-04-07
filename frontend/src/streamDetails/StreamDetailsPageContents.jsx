@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 import { Box, Container, Grid } from "@material-ui/core";
 
 import StreamInfo from "../model/StreamInfo";
-import DashboardCard from "../general/dashboard/DashboardCard";
 import StreamDetailsDeviceCard from "./StreamDetailsDeviceCard";
 import DeleteStreamDialogOpener from "./DeleteStreamDialogOpener";
 import StreamStatisticsCard from "./StreamStatisticsCard";
+import StreamLogCard from "./cards/StreamLogCard";
 
 export default function StreamDetailsPageContents(props) {
   const { stream } = props;
@@ -29,7 +29,7 @@ export default function StreamDetailsPageContents(props) {
           />
         </Grid>
         <Grid item xs={7}>
-          <DashboardCard title="Logs" />
+          <StreamLogCard streamId={stream.id} />
         </Grid>
         <Grid item xs={5}>
           <StreamStatisticsCard streamId={stream.id} />

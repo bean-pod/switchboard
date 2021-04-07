@@ -1,21 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
-import DeviceInfo from "../model/DeviceInfo";
 import LogsTable from "../loglist/LogsTable";
 import { snackbar } from "../general/SnackbarMessage";
 
-export default class DeviceLogTableWrapper extends React.Component {
+export default class StreamLogTableWrapper extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       logs: []
     };
     this.columns = [
-      {
-        title: "ID",
-        field: "id",
-        cellStyle: { width: "10%" }
-      },
       {
         title: "Date",
         field: "dateTime",
@@ -33,20 +27,20 @@ export default class DeviceLogTableWrapper extends React.Component {
       }
     ];
     this.dataSource = props.dataSource;
-    this.handleDeviceLogsChange = this.handleDeviceLogsChange.bind(this);
+    this.handleStreamLogsChange = this.handleStreamLogsChange.bind(this);
   }
 
   componentDidMount() {
-    const { device } = this.props;
+    const { streamId } = this.props;
     this.dataSource
-      .getDeviceLogs(device.serialNumber)
-      .then(this.handleDeviceLogsChange)
+      .getStreamLogs(streamId)
+      .then(this.handleStreamLogsChange)
       .catch((error) => {
-        snackbar("error", `Failed to fetch device logs: ${error.message}`);
+        snackbar("error", `Failed to fetch stream logs: ${error.message}`);
       });
   }
 
-  handleDeviceLogsChange(logs) {
+  handleStreamLogsChange(logs) {
     this.setState({
       logs
     });
@@ -62,7 +56,7 @@ export default class DeviceLogTableWrapper extends React.Component {
   }
 }
 
-DeviceLogTableWrapper.propTypes = {
-  device: PropTypes.instanceOf(DeviceInfo).isRequired,
+StreamLogTableWrapper.propTypes = {
+  streamId: PropTypes.number.isRequired,
   dataSource: PropTypes.objectOf(PropTypes.func).isRequired
 };

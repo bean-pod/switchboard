@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import LogsTable from "./LogsTable";
+import { snackbar } from "../general/SnackbarMessage";
 
 export default class LogsTableWrapper extends React.Component {
   constructor(props) {
@@ -8,12 +9,39 @@ export default class LogsTableWrapper extends React.Component {
     this.state = {
       logs: []
     };
+    this.columns = [
+      {
+        title: "ID",
+        field: "id",
+        cellStyle: { width: "10%" }
+      },
+      {
+        title: "Date",
+        field: "dateTime",
+        cellStyle: { width: "15%" }
+      },
+      {
+        title: "Level",
+        field: "level",
+        cellStyle: { width: "10%" }
+      },
+      {
+        title: "Message",
+        field: "message",
+        sorting: false
+      }
+    ];
     this.logsDataSource = props.logsDataSource;
     this.handleLogsChange = this.handleLogsChange.bind(this);
   }
 
   componentDidMount() {
-    this.logsDataSource.getAllLogs().then(this.handleLogsChange);
+    this.logsDataSource
+      .getAllLogs()
+      .then(this.handleLogsChange)
+      .catch((error) => {
+        snackbar("error", `Failed to fetch logs: ${error.message}`);
+      });
   }
 
   handleLogsChange(logs) {
@@ -22,9 +50,13 @@ export default class LogsTableWrapper extends React.Component {
     });
   }
 
+  getColumnInfo() {
+    return this.columns;
+  }
+
   render() {
     const { logs } = this.state;
-    return <LogsTable logs={logs} />;
+    return <LogsTable logs={logs} columns={this.getColumnInfo()} />;
   }
 }
 
