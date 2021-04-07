@@ -96,7 +96,7 @@ describe("<LogsTable/> component", () => {
     it("should return the expected options to be used in the <MaterialTable/> component", () => {
       const expected = {
         toolbar: true,
-        showTitle: false,
+        showTitle: true,
         search: true,
         exportButton: true,
         headerStyle: {

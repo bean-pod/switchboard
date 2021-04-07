@@ -20,7 +20,7 @@ export default class LogsTable extends React.Component {
     super(props);
     this.options = {
       toolbar: true,
-      showTitle: false,
+      showTitle: true,
       search: true,
       exportButton: true,
       headerStyle: {
