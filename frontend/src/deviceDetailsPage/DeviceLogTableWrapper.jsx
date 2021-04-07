@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import DeviceInfo from "../model/DeviceInfo";
 import LogsTable from "../loglist/LogsTable";
-import * as LogApi from "../api/LogApi";
+import { snackbar } from "../general/SnackbarMessage";
 
 export default class DeviceLogTableWrapper extends React.Component {
   constructor(props) {
@@ -32,17 +32,21 @@ export default class DeviceLogTableWrapper extends React.Component {
         sorting: false
       }
     ];
-    this.device = props.device;
-    this.handleLogsChange = this.handleLogsChange.bind(this);
+    this.dataSource = props.dataSource;
+    this.handleDeviceLogsChange = this.handleDeviceLogsChange.bind(this);
   }
 
   componentDidMount() {
-    LogApi.getDeviceLogs(this.device.serialNumber).then((logs) =>
-      this.handleLogsChange(logs)
-    );
+    const { device } = this.props;
+    this.dataSource
+      .getDeviceLogs(device.serialNumber)
+      .then((logs) => this.handleDeviceLogsChange(logs))
+      .catch((error) => {
+        snackbar("error", `Failed to fetch device logs: ${error.message}`);
+      });
   }
 
-  handleLogsChange(logs) {
+  handleDeviceLogsChange(logs) {
     this.setState({
       logs
     });
@@ -59,5 +63,6 @@ export default class DeviceLogTableWrapper extends React.Component {
 }
 
 DeviceLogTableWrapper.propTypes = {
-  device: PropTypes.instanceOf(DeviceInfo).isRequired
+  device: PropTypes.instanceOf(DeviceInfo).isRequired,
+  dataSource: PropTypes.objectOf(PropTypes.func).isRequired
 };

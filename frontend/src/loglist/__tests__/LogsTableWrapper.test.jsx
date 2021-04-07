@@ -12,8 +12,11 @@ import {
 import LogsTableWrapper from "../LogsTableWrapper";
 import LogsTable from "../LogsTable";
 import LogInfo from "../../model/LogInfo";
+import * as SnackbarMessage from "../../general/SnackbarMessage";
 
 Enzyme.configure({ adapter: new Adapter() });
+
+const snackbarSpy = jest.spyOn(SnackbarMessage, "snackbar");
 
 describe("<LogsTableWrapper/> Class Component", () => {
   let wrapper;
@@ -39,28 +42,44 @@ describe("<LogsTableWrapper/> Class Component", () => {
         const logsTable = wrapper.find(LogsTable);
         expect(logsTable).toHaveLength(1);
 
+        const wrapperState = wrapper.state();
+        const shallowWrapper = wrapper.instance();
+        const expected = {
+          logs: wrapperState.logs,
+          columns: shallowWrapper.getColumnInfo()
+        };
+
         const logsTableProps = logsTable.props();
-        const expected = wrapper.instance().getColumnInfo();
-        expect(logsTableProps.columns).toEqual(expected);
+        expect(logsTableProps.logs).toBe(expected.logs);
+        expect(logsTableProps.columns).toEqual(expected.columns);
       });
     });
   });
 
   describe("componentDidMount() function", () => {
     describe("calls the passed dataSource's getAllLogs()", () => {
+      let wrapperDidMount;
       const mockGetAllLogs = jest.fn();
       const mockLogApi = {
         getAllLogs: mockGetAllLogs
       };
-      it("passes the resolved logs to handleLogChange()", async () => {
-        mockLogApi.getAllLogs.mockResolvedValue(dummyLog);
 
-        const wrapperDidMount = Enzyme.shallow(
+      beforeEach(() => {
+        wrapperDidMount = Enzyme.shallow(
           <LogsTableWrapper logsDataSource={mockLogApi} />,
           {
             disableLifecycleMethods: true
           }
         );
+      });
+
+      afterEach(() => {
+        wrapperDidMount.unmount();
+        jest.clearAllMocks();
+      });
+
+      it("passes the resolved logs to handleLogChange()", async () => {
+        mockLogApi.getAllLogs.mockResolvedValue(dummyLog);
 
         const handleLogsSpy = jest.spyOn(
           wrapperDidMount.instance(),
@@ -73,8 +92,21 @@ describe("<LogsTableWrapper/> Class Component", () => {
         await new Promise(setImmediate);
 
         expect(handleLogsSpy).toHaveBeenCalledWith(dummyLog);
+      });
+      it("if it rejects, an error snackbar with the caught error message is displayed", async () => {
+        const returnedError = {
+          message: "test"
+        };
+        mockLogApi.getAllLogs.mockRejectedValue(returnedError);
 
-        wrapperDidMount.unmount();
+        wrapperDidMount.instance().componentDidMount();
+
+        await new Promise(setImmediate);
+
+        expect(snackbarSpy).toHaveBeenCalledWith(
+          "error",
+          `Failed to fetch logs: ${returnedError.message}`
+        );
       });
     });
   });

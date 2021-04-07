@@ -3,7 +3,6 @@ import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import { afterEach, describe, expect, it, jest } from "@jest/globals";
 import * as LogApi from "../LogApi";
-import * as SampleData from "../SampleData";
 import * as AuthenticationUtil from "../AuthenticationUtil";
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -80,11 +79,6 @@ const expectedStreamLogsResponse = [
   }
 ];
 
-let sampleLogs;
-SampleData.getAllLogs((result) => {
-  sampleLogs = result;
-});
-
 const authorizationHeader = {
   headers: {
     Authorization: "Bearer the_token"
@@ -113,12 +107,6 @@ describe("Log Api", () => {
         authorizationHeader
       );
       expect(result).toEqual(expectedLogsResponse);
-    });
-    it("If there is no response from the backend, it should return sample data", async () => {
-      axios.get.mockRejectedValue();
-
-      const result = await LogApi.getDeviceLogs();
-      expect(result).toEqual(sampleLogs);
     });
   });
 
@@ -149,12 +137,6 @@ describe("Log Api", () => {
         authorizationHeader
       );
       expect(result).toEqual(expectedLogsResponse);
-    });
-    it("If there is no response from the backend, it should return sample data", async () => {
-      axios.get.mockRejectedValue();
-
-      const result = await LogApi.getAllLogs();
-      expect(result).toEqual(sampleLogs);
     });
   });
 });

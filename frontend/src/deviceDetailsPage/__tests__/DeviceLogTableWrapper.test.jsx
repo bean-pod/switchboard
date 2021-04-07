@@ -1,17 +1,18 @@
 import React from "react";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import { describe, expect, it, jest } from "@jest/globals";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import DeviceLogTableWrapper from "../DeviceLogTableWrapper";
 import LogInfo from "../../model/LogInfo";
 import LogsTable from "../../loglist/LogsTable";
 import DeviceInfo from "../../model/DeviceInfo";
-
-import * as LogApi from "../../api/LogApi";
+import * as SnackbarMessage from "../../general/SnackbarMessage";
 
 Enzyme.configure({ adapter: new Adapter() });
 jest.mock("../../api/LogApi");
+
+const snackbarSpy = jest.spyOn(SnackbarMessage, "snackbar");
 
 describe("<DeviceLogTableWrapper/> Class Component", () => {
   let wrapper;
@@ -26,15 +27,25 @@ describe("<DeviceLogTableWrapper/> Class Component", () => {
     "deviceType",
     "extras"
   );
+  const dummyLog = [new LogInfo(5)];
+  const dummySource = {
+    getDeviceLogs() {
+      return new Promise((resolve) => resolve(dummyLog));
+    }
+  };
+
+  beforeEach(() => {
+    wrapper = Enzyme.shallow(
+      <DeviceLogTableWrapper dataSource={dummySource} device={dummyDevice} />
+    );
+  });
+
   afterEach(() => {
+    wrapper.unmount();
     jest.clearAllMocks();
   });
 
   describe("handleLogsChange()", () => {
-    const expectedLogs = [new LogInfo(5)];
-
-    LogApi.getDeviceLogs.mockReturnValue(Promise.resolve(expectedLogs));
-    wrapper = Enzyme.shallow(<DeviceLogTableWrapper device={dummyDevice} />);
     it("should set the state", () => {
       const startingState = {
         logs: []
@@ -43,58 +54,84 @@ describe("<DeviceLogTableWrapper/> Class Component", () => {
 
       wrapper.setState(startingState);
 
-      wrapper.instance().handleLogsChange(expectedValue);
+      wrapper.instance().handleDeviceLogsChange(expectedValue);
       expect(wrapper.state().logs).toStrictEqual(expectedValue);
     });
   });
 
   describe("componentDidMount() function", () => {
-    describe("calls LogApi getDeviceLogs() with the expected arguments", () => {
-      it("that resolves, then sets the state to resolved value", async () => {
-        const expectedLogs = [new LogInfo(5)];
+    describe("calls the passed dataSource's getDeviceLogs() with device serial number", () => {
+      let wrapperDidMount;
+      const mockGetDeviceLogs = jest.fn();
+      const mockLogApi = {
+        getDeviceLogs: mockGetDeviceLogs
+      };
+      beforeEach(() => {
+        wrapperDidMount = Enzyme.shallow(
+          <DeviceLogTableWrapper
+            dataSource={mockLogApi}
+            device={dummyDevice}
+          />,
+          {
+            disableLifecycleMethods: true
+          }
+        );
+      });
+      afterEach(() => {
+        wrapperDidMount.unmount();
+        jest.clearAllMocks();
+      });
+      it("if it resolves, it passes the resolved logs to handleStreamsLogChange()", async () => {
+        mockLogApi.getDeviceLogs.mockResolvedValue(dummyLog);
 
-        LogApi.getDeviceLogs.mockReturnValue(Promise.resolve(expectedLogs));
-
-        wrapper = Enzyme.shallow(
-          <DeviceLogTableWrapper device={dummyDevice} />
+        const handleDeviceLogsSpy = jest.spyOn(
+          wrapperDidMount.instance(),
+          "handleDeviceLogsChange"
         );
 
-        expect(LogApi.getDeviceLogs).toBeCalledWith(dummyDevice.serialNumber);
-        wrapper.instance().componentDidMount();
+        wrapperDidMount.instance().componentDidMount();
+        expect(mockLogApi.getDeviceLogs).toHaveBeenCalledWith(
+          dummyDevice.serialNumber
+        );
+
         await new Promise(setImmediate);
 
-        expect(wrapper.state().logs).toStrictEqual(expectedLogs);
+        expect(handleDeviceLogsSpy).toHaveBeenCalledWith(dummyLog);
       });
+      it("if it rejects, an error snackbar with the caught error message is displayed", async () => {
+        const returnedError = {
+          message: "test"
+        };
+        mockLogApi.getDeviceLogs.mockRejectedValue(returnedError);
 
-      it("that rejects and does nothing", () => {
-        LogApi.getDeviceLogs.mockReturnValue(Promise.reject());
+        wrapperDidMount.instance().componentDidMount();
 
-        wrapper = Enzyme.shallow(
-          <DeviceLogTableWrapper device={dummyDevice} />
+        await new Promise(setImmediate);
+
+        expect(snackbarSpy).toHaveBeenCalledWith(
+          "error",
+          `Failed to fetch device logs: ${returnedError.message}`
         );
-
-        wrapper.setState({ logs: "dummyValue" });
-        wrapper.instance().componentDidMount();
-        expect(LogApi.getDeviceLogs).toBeCalledWith(dummyDevice.serialNumber);
-        expect(wrapper.state().logs).toBe("dummyValue");
       });
     });
   });
 
   describe("render() function", () => {
-    const resolveLogs = [new LogInfo(5)];
-
-    LogApi.getDeviceLogs.mockReturnValue(Promise.resolve(resolveLogs));
-    wrapper = Enzyme.shallow(<DeviceLogTableWrapper device={dummyDevice} />);
     describe("returns a component that", () => {
       it("Contains 1 <LogsTable/> component with expected components", () => {
-        expect(wrapper.find(LogsTable)).toHaveLength(1);
+        const logsTable = wrapper.find(LogsTable);
+        expect(logsTable).toHaveLength(1);
 
-        const expectedLogs = [new LogInfo(1, null, "Info", "Log 1 info")];
-        wrapper.setState({ logs: expectedLogs });
+        const wrapperState = wrapper.state();
+        const shallowWrapper = wrapper.instance();
+        const expected = {
+          logs: wrapperState.logs,
+          columns: shallowWrapper.getColumnInfo()
+        };
 
-        const props = wrapper.find(LogsTable).first().props();
-        expect(props.logs).toBe(expectedLogs);
+        const logsTableProps = logsTable.props();
+        expect(logsTableProps.logs).toBe(expected.logs);
+        expect(logsTableProps.columns).toEqual(expected.columns);
       });
     });
   });

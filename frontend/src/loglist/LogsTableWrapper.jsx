@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import LogsTable from "./LogsTable";
+import { snackbar } from "../general/SnackbarMessage";
 
 export default class LogsTableWrapper extends React.Component {
   constructor(props) {
@@ -35,7 +36,12 @@ export default class LogsTableWrapper extends React.Component {
   }
 
   componentDidMount() {
-    this.logsDataSource.getAllLogs().then(this.handleLogsChange);
+    this.logsDataSource
+      .getAllLogs()
+      .then(this.handleLogsChange)
+      .catch((error) => {
+        snackbar("error", `Failed to fetch logs: ${error.message}`);
+      });
   }
 
   handleLogsChange(logs) {
