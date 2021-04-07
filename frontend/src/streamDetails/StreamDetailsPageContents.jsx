@@ -4,32 +4,32 @@ import { Box, Container, Grid } from "@material-ui/core";
 
 import StreamInfo from "../model/StreamInfo";
 import DashboardCard from "../general/dashboard/DashboardCard";
-import StreamDeviceDetails from "./StreamDeviceDetails";
+import StreamDetailsDeviceCard from "./StreamDetailsDeviceCard";
 import DeleteStreamDialogOpener from "./DeleteStreamDialogOpener";
+import StreamLogCard from "./cards/StreamLogCard";
 
 export default function StreamDetailsPageContents(props) {
   const { stream } = props;
+
   return (
     <Container>
       <Grid container spacing={3}>
         <Grid item xs={6}>
-          <DashboardCard title="Sender Details">
-            <StreamDeviceDetails
-              device={stream.sender}
-              channel={stream.outputChannel}
-            />
-          </DashboardCard>
+          <StreamDetailsDeviceCard
+            cardTitle="Sender Details"
+            device={stream.sender}
+            channel={stream.outputChannel}
+          />
         </Grid>
         <Grid item xs={6}>
-          <DashboardCard title="Receiver Details">
-            <StreamDeviceDetails
-              device={stream.receiver}
-              channel={stream.inputChannel}
-            />
-          </DashboardCard>
+          <StreamDetailsDeviceCard
+            cardTitle="Receiver Details"
+            device={stream.receiver}
+            channel={stream.inputChannel}
+          />
         </Grid>
         <Grid item xs={7}>
-          <DashboardCard title="Logs" />
+          <StreamLogCard streamId={stream.id} />
         </Grid>
         <Grid item xs={5}>
           <DashboardCard title="Statistics" />

@@ -3,7 +3,7 @@ import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import StreamListPage from "../StreamListPage";
-import StreamsTableWrapper from "../StreamsTableWrapper";
+import DetailedStreamsTableWrapper from "../DetailedStreamsTableWrapper";
 import Page from "../../general/Page";
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -28,8 +28,8 @@ describe("<StreamListPage/> Component", () => {
 
       expect(page.props().breadcrumbs).toStrictEqual(expectedBreadcrumb);
     });
-    it("Contains 1 <StreamsTableWrapper/> component", () => {
-      expect(wrapper.find(StreamsTableWrapper)).toHaveLength(1);
+    it("Contains 1 <DetailedStreamsTableWrapper/> component", () => {
+      expect(wrapper.find(DetailedStreamsTableWrapper)).toHaveLength(1);
     });
   });
 });

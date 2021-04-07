@@ -4,7 +4,7 @@ import Adapter from "enzyme-adapter-react-16";
 import { describe, expect, it } from "@jest/globals";
 import CreateStreamPage from "../CreateStreamPage";
 import Page from "../../general/Page";
-import StreamingTable from "../StreamingTable";
+import CreateStreamPageContents from "../CreateStreamPageContents";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -26,8 +26,8 @@ describe("<CreateStreamPage/> functional Component", () => {
       expect(page.props().title).toBe(expectedTitle);
       expect(page.props().breadcrumbs).toStrictEqual(expectedCrumb);
     });
-    it("Contains 1 <StreamingTable/> component", () => {
-      expect(wrapper.find(StreamingTable)).toHaveLength(1);
+    it("Contains 1 <CreateStreamPageContents/> component with expected props", () => {
+      expect(wrapper.find(CreateStreamPageContents)).toHaveLength(1);
     });
   });
 });

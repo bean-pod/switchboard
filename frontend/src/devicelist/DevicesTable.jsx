@@ -149,6 +149,6 @@ export default function DevicesTable(props) {
 }
 
 DevicesTable.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.node.isRequired,
   devices: PropTypes.arrayOf(PropTypes.instanceOf(DeviceInfo)).isRequired
 };

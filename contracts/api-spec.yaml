@@ -24,6 +24,20 @@ paths:
               schema:
                 $ref: '#/components/schemas/LogsModel'
 
+  /log/stream/{streamId}:
+    get:
+      operationId: retrieveStreamLogs
+      description: Get a list of logs for a specific stream
+      parameters:
+        - $ref: '#/components/parameters/StreamId'
+      responses:
+        '200':
+          description: Succesful retrieval of the stream logs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StreamLogsModel'
+
   /user/sign-up:
     post:
       operationId: sign-up
@@ -150,6 +164,31 @@ paths:
               schema:
                 type: string
                 example: 'Device with serial number BtmC8ckj deleted'
+
+  /device/config/{serialNumber}:
+    put:
+      operationId: upload configuration
+      description: uploads a configuration file
+      parameters:
+        - $ref: '#/components/parameters/DeviceSerialNumber'
+      tags:
+        - Devices
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              properties:
+                configuration:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: successful upload of config file
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: config file successfully uploaded
 
   /encoder:
     get:
@@ -534,7 +573,29 @@ components:
           example: 'info'
         serialNumber:
           type: string
-          example: '1,2'
+          example: '1xw1'
+
+    StreamLogModel:
+      description: stream log object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: '123'
+        serialNumber:
+          type: string
+          example: '1rw1'
+        streamId:
+          type: integer
+          example: '123'
+        logEntity:
+          $ref: '#/components/schemas/LogModel'
+
+    StreamLogsModel:
+      description: A list of SteamLog objects
+      type: array
+      items:
+        $ref: '#/components/schemas/StreamLogModel'
 
     DevicesModel:
       description: A list of device serial numbers
@@ -560,6 +621,12 @@ components:
         status:
           type: string
           example: 'running'
+        configurationInstance:
+          type: string
+          format: byte
+        configurationLastModified:
+          type: string
+          format: date-time
 
     CreateDeviceRequest:
       description: A request to create a new device

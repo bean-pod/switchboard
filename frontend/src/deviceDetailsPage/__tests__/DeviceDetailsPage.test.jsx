@@ -38,7 +38,11 @@ describe("<DeviceDetailsPage/> functional Component", () => {
         const expectedBreadcumbs = [
           ["Home", "/Home"],
           ["My Devices", "/Devices"],
-          ["Device Details", `/Devices/Details/${dummyDevice.serialNumber}`]
+          [
+            "Device Details",
+            `/Devices/Details/${dummyDevice.serialNumber}`,
+            { device: dummyDevice }
+          ]
         ];
 
         expect(wrapper.find(Page)).toHaveLength(1);
@@ -69,7 +73,8 @@ describe("<DeviceDetailsPage/> functional Component", () => {
           ["My Devices", "/Devices"],
           [
             "Device Details",
-            `/Devices/Details/${expectedDefaultDevice.serialNumber}`
+            `/Devices/Details/${expectedDefaultDevice.serialNumber}`,
+            { device: expectedDefaultDevice }
           ]
         ];
 

@@ -11,11 +11,9 @@ export default function DeviceStreamCard(props) {
 
   return (
     <DashboardCard title="Streams">
-      <Grid container justify="center" direction="row" spacing={3}>
-        <Grid item xs={12}>
-          Awaiting stream info for
-          {device.name}
-        </Grid>
+      <Grid item xs={12}>
+        Awaiting stream info for
+        {device.name}
       </Grid>
     </DashboardCard>
   );

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import DeviceInfo from "../model/DeviceInfo";
 import LogsTable from "../loglist/LogsTable";
-import * as LogApi from "../api/LogApi";
+import { snackbar } from "../general/SnackbarMessage";
 
 export default class DeviceLogTableWrapper extends React.Component {
   constructor(props) {
@@ -10,28 +10,59 @@ export default class DeviceLogTableWrapper extends React.Component {
     this.state = {
       logs: []
     };
-    this.device = props.device;
-    this.handleLogsChange = this.handleLogsChange.bind(this);
+    this.columns = [
+      {
+        title: "ID",
+        field: "id",
+        cellStyle: { width: "10%" }
+      },
+      {
+        title: "Date",
+        field: "dateTime",
+        cellStyle: { width: "15%" }
+      },
+      {
+        title: "Level",
+        field: "level",
+        cellStyle: { width: "10%" }
+      },
+      {
+        title: "Message",
+        field: "message",
+        sorting: false
+      }
+    ];
+    this.dataSource = props.dataSource;
+    this.handleDeviceLogsChange = this.handleDeviceLogsChange.bind(this);
   }
 
   componentDidMount() {
-    LogApi.getDeviceLogs(this.device.serialNumber).then((logs) =>
-      this.handleLogsChange(logs)
-    );
+    const { device } = this.props;
+    this.dataSource
+      .getDeviceLogs(device.serialNumber)
+      .then(this.handleDeviceLogsChange)
+      .catch((error) => {
+        snackbar("error", `Failed to fetch device logs: ${error.message}`);
+      });
   }
 
-  handleLogsChange(logs) {
+  handleDeviceLogsChange(logs) {
     this.setState({
       logs
     });
   }
 
+  getColumnInfo() {
+    return this.columns;
+  }
+
   render() {
     const { logs } = this.state;
-    return <LogsTable title={`${this.device.name} Logs`} logs={logs} />;
+    return <LogsTable logs={logs} columns={this.getColumnInfo()} />;
   }
 }
 
 DeviceLogTableWrapper.propTypes = {
-  device: PropTypes.instanceOf(DeviceInfo).isRequired
+  device: PropTypes.instanceOf(DeviceInfo).isRequired,
+  dataSource: PropTypes.objectOf(PropTypes.func).isRequired
 };

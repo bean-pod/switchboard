@@ -52,6 +52,7 @@ describe("DeviceApi", () => {
       authenticationUtil.getAuthorizationHeader = jest
         .fn()
         .mockReturnValue(authorizationHeader);
+
       jest
         .spyOn(global.Date, "now")
         .mockImplementationOnce(
@@ -90,6 +91,41 @@ describe("DeviceApi", () => {
         process.env.REACT_APP_DEVICE,
         { serialNumber: dummySerial, displayName: dummyName },
         authorizationHeader
+      );
+    });
+  });
+  describe("uploadConfiguration() function", () => {
+    it("Should call axios.put with expected url, data and headers", async () => {
+      axios.put.mockResolvedValue();
+
+      authenticationUtil.getAuthorizationHeader = jest
+        .fn()
+        .mockReturnValue(authorizationHeader);
+
+      const dummySerial = "someDeviceId";
+      const dummyConfigFile = new File([], "someFileName");
+
+      const data = new FormData();
+      data.append("configuration", dummyConfigFile);
+
+      const headers = authorizationHeader;
+      // eslint-disable-next-line
+      const dataBoundary = data._boundary;
+
+      headers.headers[
+        "Content-Type"
+      ] = `multipart/form-data; boundary=${dataBoundary}`;
+
+      const expected = {
+        data,
+        headers
+      };
+      await DeviceApi.uploadConfiguration(dummySerial, dummyConfigFile);
+
+      expect(axios.put).toHaveBeenCalledWith(
+        `${process.env.REACT_APP_DEVICE}/config/${dummySerial}`,
+        expected.data,
+        expected.headers
       );
     });
   });

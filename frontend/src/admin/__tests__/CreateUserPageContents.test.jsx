@@ -14,16 +14,16 @@ import CreateUserPageContents from "../createUser/CreateUserPageContents";
 import CreateUserFormConsole from "../createUser/CreateUserFormConsole";
 import FormFailedDialog from "../../general/userForm/FormFailedDialog";
 import * as UserManagementApi from "../../api/UserManagementApi";
+import * as SnackbarMessage from "../../general/SnackbarMessage";
 
 Enzyme.configure({ adapter: new Adapter() });
 jest.mock("../../api/UserManagementApi");
 jest.spyOn(UserManagementApi, "createUser");
 
+const snackbarSpy = jest.spyOn(SnackbarMessage, "snackbar");
+
 describe("<CreateUserPageContents/> class component", () => {
   let wrapper;
-  const mockHistory = {
-    push: jest.fn()
-  };
   const mockOpenDialog = jest.fn();
 
   beforeEach(() => {
@@ -35,7 +35,7 @@ describe("<CreateUserPageContents/> class component", () => {
     jest.spyOn(React, "createRef").mockImplementation(() => {
       return mockRefElement;
     });
-    wrapper = Enzyme.shallow(<CreateUserPageContents history={mockHistory} />);
+    wrapper = Enzyme.shallow(<CreateUserPageContents />);
   });
 
   afterEach(() => {
@@ -90,7 +90,7 @@ describe("<CreateUserPageContents/> class component", () => {
     const somePassword = "password";
 
     describe("when createUser() resolves", () => {
-      it("Calls createUser() and redirects to Home", async () => {
+      it("Calls createUser() and displays a success snackbar", async () => {
         UserManagementApi.createUser.mockResolvedValue();
 
         wrapper.instance().handleSubmit(someUsername, somePassword);
@@ -101,7 +101,13 @@ describe("<CreateUserPageContents/> class component", () => {
           username: someUsername,
           password: somePassword
         });
-        expect(mockHistory.push).toHaveBeenCalledWith("/Home");
+
+        // snackbar should be displayed
+        expect(snackbarSpy).toHaveBeenCalledTimes(1);
+        expect(snackbarSpy).toHaveBeenCalledWith(
+          "success",
+          `User ${someUsername} successfully created!`
+        );
       });
     });
 
