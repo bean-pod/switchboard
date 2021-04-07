@@ -9,6 +9,11 @@ import DashboardCard from "../../general/dashboard/DashboardCard";
 import SimpleTable from "../../general/simpleTable/SimpleTable";
 import { getSampleStreamStats } from "../../api/SampleData";
 import ButtonInfo from "../../general/dashboard/ButtonInfo";
+import StreamStatisticsInfo from "../../model/StreamStatistics/StreamStatisticsInfo";
+import StreamStatsWindowInfo from "../../model/StreamStatistics/StreamStatsWindowInfo";
+import StreamStatsLinkInfo from "../../model/StreamStatistics/StreamStatsLinkInfo";
+import StreamStatsSendInfo from "../../model/StreamStatistics/StreamStatsSendInfo";
+import StreamStatsReceiveInfo from "../../model/StreamStatistics/StreamStatsReceiveInfo";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -40,19 +45,38 @@ describe("<StreamStatisticsCard/> class component", () => {
   afterEach(() => {
     wrapper.unmount();
   });
+
+  it("should have an empty default state", () => {
+    const startingState = {
+      stats: null
+    };
+    expect(wrapper.state()).toStrictEqual(startingState);
+  });
+
   describe("handleStatsChange() function", () => {
     it("should set the stats state", () => {
-      const startingState = {
-        stats: []
+      const randomPreviousState = {
+        stats: new StreamStatisticsInfo(
+          1000,
+          2000,
+          new StreamStatsWindowInfo(12, 13, 14),
+          new StreamStatsLinkInfo(15, 16, 17),
+          new StreamStatsSendInfo(21, 22, 23, 24, 25, 26, 27),
+          new StreamStatsReceiveInfo(31, 32, 33, 34, 35, 36, 37, 38, 39)
+        )
       };
-
-      expect(wrapper.state()).toStrictEqual(startingState);
+      wrapper.instance().setState(randomPreviousState);
       wrapper.instance().handleStatsChange(dummyStats);
       expect(wrapper.state()).toStrictEqual(expectedState);
     });
   });
   describe("getProperties() function", () => {
-    it("should return a specific array of properties", () => {
+    it("if state is null, should return an empty object", () => {
+      const emptyObject = {};
+      const properties = wrapper.instance().getProperties();
+      expect(properties).toStrictEqual(emptyObject);
+    });
+    it("if state is not null, should return a specific array of properties", () => {
       wrapper.instance().setState(expectedState);
       const actualProperties = wrapper.instance().getProperties();
       expect(actualProperties).toStrictEqual(expectedProperties);
