@@ -273,6 +273,23 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/EncoderModel'
+
+
+  /encoder/{serialNumber}:
+    get:
+      operationId: retrieveDecoder
+      description: Retrieve a specific encoder
+      tags:
+        - Encoders
+      parameters:
+        - $ref: '#/components/parameters/EncoderSerialNumber'
+      responses:
+        '200':
+          description: Successful retrieval of the encoder
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EncoderModel'
     delete:
       operationId: deleteEncoder
       description: Delete a encoder
