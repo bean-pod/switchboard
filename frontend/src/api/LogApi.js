@@ -3,7 +3,6 @@ import LogInfo from "../model/LogInfo";
 import StreamLogInfo from "../model/StreamLogInfo";
 import { getAuthorizationHeader } from "./AuthenticationUtil";
 import * as SampleData from "./SampleData";
-import { snackbar } from "../general/SnackbarMessage";
 
 async function getLogs(endpoint) {
   return axios
