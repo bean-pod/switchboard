@@ -14,6 +14,8 @@ export default class DeviceListPageContents extends React.Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.getDevices = this.getDevices.bind(this);
+    this.getTitle = this.getTitle.bind(this);
     this.handleSendersChange = this.handleSendersChange.bind(this);
     this.handleReceiversChange = this.handleReceiversChange.bind(this);
   }

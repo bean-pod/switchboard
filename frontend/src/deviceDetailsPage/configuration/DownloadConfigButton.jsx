@@ -15,16 +15,32 @@ export default class DownloadConfigButton extends React.Component {
 
   handleDownload() {
     const { device } = this.props;
-    return device.configuration;
+    if (!device.extras) return;
+    const filename = `${device.serialNumber}.config`;
+    const element = document.createElement("a");
+    element.setAttribute(
+      "href",
+      `data:text/plain;charset=utf-8,${atob(device.extras)}`
+    );
+    element.setAttribute("download", filename);
+
+    element.style.display = "none";
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
   }
 
   render() {
+    const { device } = this.props;
     return (
       <Button
         variant="contained"
         color="primary"
         onClick={this.handleDownload}
         startIcon={<GetApp />}
+        disabled={!device.extras}
       >
         Download
       </Button>

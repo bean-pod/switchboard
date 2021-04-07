@@ -32,6 +32,6 @@ SimpleTable.defaultProps = {
   alignment: "left"
 };
 SimpleTable.propTypes = {
-  properties: PropTypes.arrayOf(PropTypes.node).isRequired,
+  properties: PropTypes.objectOf(PropTypes.node).isRequired,
   alignment: PropTypes.string
 };
