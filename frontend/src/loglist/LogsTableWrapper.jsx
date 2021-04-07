@@ -13,12 +13,12 @@ export default class LogsTableWrapper extends React.Component {
       {
         title: "ID",
         field: "id",
-        cellStyle: { width: "10%" }
+        cellStyle: { width: "5%" }
       },
       {
         title: "Date",
         field: "dateTime",
-        cellStyle: { width: "15%" }
+        cellStyle: { width: "10%" }
       },
       {
         title: "Level",
