@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import LogsTable from "../loglist/LogsTable";
+import { snackbar } from "../general/SnackbarMessage";
 
-export default class StreamLogsTableWrapper extends React.Component {
+export default class StreamLogTableWrapper extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,7 +13,7 @@ export default class StreamLogsTableWrapper extends React.Component {
       {
         title: "Date",
         field: "dateTime",
-        cellStyle: { width: "15%" }
+        cellStyle: { width: "10%" }
       },
       {
         title: "Level",
@@ -43,7 +44,10 @@ export default class StreamLogsTableWrapper extends React.Component {
     const { streamId } = this.props;
     this.dataSource
       .getStreamLogs(streamId)
-      .then((logs) => this.handleStreamLogsChange(logs));
+      .then((logs) => this.handleStreamLogsChange(logs))
+      .catch((error) => {
+        snackbar("error", `Failed to fetch stream logs: ${error.message}`);
+      });
   }
 
   handleStreamLogsChange(logs) {
@@ -69,7 +73,7 @@ export default class StreamLogsTableWrapper extends React.Component {
   }
 }
 
-StreamLogsTableWrapper.propTypes = {
+StreamLogTableWrapper.propTypes = {
   streamId: PropTypes.number.isRequired,
   dataSource: PropTypes.objectOf(PropTypes.func).isRequired
 };

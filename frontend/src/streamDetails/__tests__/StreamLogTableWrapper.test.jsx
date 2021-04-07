@@ -10,12 +10,15 @@ import {
   jest
 } from "@jest/globals";
 
-import StreamLogsTableWrapper from "../StreamLogsTableWrapper";
+import StreamLogTableWrapper from "../StreamLogTableWrapper";
 import StreamLogInfo from "../../model/StreamLogInfo";
 import LogsTable from "../../loglist/LogsTable";
+import * as SnackbarMessage from "../../general/SnackbarMessage";
 
 Enzyme.configure({ adapter: new Adapter() });
 jest.mock("../../api/LogApi");
+
+const snackbarSpy = jest.spyOn(SnackbarMessage, "snackbar");
 
 describe("<StreamLogsTableWrapper/> Class Component", () => {
   let wrapper;
@@ -37,16 +40,23 @@ describe("<StreamLogsTableWrapper/> Class Component", () => {
 
   beforeEach(() => {
     wrapper = Enzyme.shallow(
-      <StreamLogsTableWrapper dataSource={dummySource} streamId={dummyId} />
+      <StreamLogTableWrapper dataSource={dummySource} streamId={dummyId} />
     );
   });
 
   afterEach(() => {
+    jest.clearAllMocks();
     wrapper.unmount();
   });
 
   describe("handleLogsChange()", () => {
-    it("should set the state", () => {
+    it("should set the state log", () => {
+      const initialValue = [];
+
+      wrapper.setState({
+        logs: initialValue
+      });
+
       const expectedValue = [
         new StreamLogInfo(null, "Info", null, null, "Test info")
       ];
@@ -57,9 +67,53 @@ describe("<StreamLogsTableWrapper/> Class Component", () => {
   });
 
   describe("componentDidMount() function", () => {
-    describe("calls LogApi getStreamLogs() with the expected arguments", () => {
-      it("then sets the state to resolved value", () => {
-        expect(wrapper.state().logs).toEqual(dummyLog);
+    describe("calls the passed dataSource's getStreamLogs() with stream ID", () => {
+      let wrapperDidMount;
+      const mockGetStreamLogs = jest.fn();
+      const mockLogApi = {
+        getStreamLogs: mockGetStreamLogs
+      };
+      beforeEach(() => {
+        wrapperDidMount = Enzyme.shallow(
+          <StreamLogTableWrapper dataSource={mockLogApi} streamId={dummyId} />,
+          {
+            disableLifecycleMethods: true
+          }
+        );
+      });
+      afterEach(() => {
+        wrapperDidMount.unmount();
+        jest.clearAllMocks();
+      });
+      it("if it resolves, it passes the resolved logs to handleStreamsLogChange()", async () => {
+        mockLogApi.getStreamLogs.mockResolvedValue(dummyLog);
+
+        const handleStreamsSpy = jest.spyOn(
+          wrapperDidMount.instance(),
+          "handleStreamLogsChange"
+        );
+
+        wrapperDidMount.instance().componentDidMount();
+        expect(mockLogApi.getStreamLogs).toHaveBeenCalledWith(dummyId);
+
+        await new Promise(setImmediate);
+
+        expect(handleStreamsSpy).toHaveBeenCalledWith(dummyLog);
+      });
+      it("if it rejects, an error snackbar with the caught error message is displayed", async () => {
+        const returnedError = {
+          message: "test"
+        };
+        mockLogApi.getStreamLogs.mockRejectedValue(returnedError);
+
+        wrapperDidMount.instance().componentDidMount();
+
+        await new Promise(setImmediate);
+
+        expect(snackbarSpy).toHaveBeenCalledWith(
+          "error",
+          `Failed to fetch stream logs: ${returnedError.message}`
+        );
       });
     });
   });
@@ -70,7 +124,7 @@ describe("<StreamLogsTableWrapper/> Class Component", () => {
         {
           title: "Date",
           field: "dateTime",
-          cellStyle: { width: "15%" }
+          cellStyle: { width: "10%" }
         },
         {
           title: "Level",

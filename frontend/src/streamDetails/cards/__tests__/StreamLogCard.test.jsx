@@ -6,7 +6,7 @@ import { Grid } from "@material-ui/core";
 import StreamLogCard from "../StreamLogCard";
 
 import DashboardCard from "../../../general/dashboard/DashboardCard";
-import StreamLogsTableWrapper from "../../StreamLogsTableWrapper";
+import StreamLogTableWrapper from "../../StreamLogTableWrapper";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -40,7 +40,7 @@ describe("<StreamLogCard/> functional component", () => {
       const expected = {
         item: true,
         xs: 12,
-        childTypeName: "StreamLogsTableWrapper"
+        childTypeName: "StreamLogTableWrapper"
       };
 
       const gridProps = grid.props();
@@ -49,7 +49,7 @@ describe("<StreamLogCard/> functional component", () => {
       expect(gridProps.children.type.name).toBe(expected.childTypeName);
     });
     it("contains 1 <StreamLogsTableWrapper/> component with expected props", () => {
-      const logTableWrapper = wrapper.find(StreamLogsTableWrapper);
+      const logTableWrapper = wrapper.find(StreamLogTableWrapper);
       expect(logTableWrapper).toHaveLength(1);
 
       const props = logTableWrapper.props();

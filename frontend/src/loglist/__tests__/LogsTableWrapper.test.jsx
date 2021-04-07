@@ -1,7 +1,14 @@
 import React from "react";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import { afterEach, beforeEach, describe, expect, it } from "@jest/globals";
+import {
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  jest
+} from "@jest/globals";
 import LogsTableWrapper from "../LogsTableWrapper";
 import LogsTable from "../LogsTable";
 import LogInfo from "../../model/LogInfo";
@@ -23,6 +30,7 @@ describe("<LogsTableWrapper/> Class Component", () => {
 
   afterEach(() => {
     wrapper.unmount();
+    jest.clearAllMocks();
   });
 
   describe("render() function", () => {
@@ -39,9 +47,34 @@ describe("<LogsTableWrapper/> Class Component", () => {
   });
 
   describe("componentDidMount() function", () => {
-    describe("calls LogApi getAllLogs() with the expected arguments", () => {
-      it("then sets the state to resolved value", () => {
-        expect(wrapper.state().logs).toEqual(dummyLog);
+    describe("calls the passed dataSource's getAllLogs()", () => {
+      const mockGetAllLogs = jest.fn();
+      const mockLogApi = {
+        getAllLogs: mockGetAllLogs
+      };
+      it("passes the resolved logs to handleLogChange()", async () => {
+        mockLogApi.getAllLogs.mockResolvedValue(dummyLog);
+
+        const wrapperDidMount = Enzyme.shallow(
+          <LogsTableWrapper logsDataSource={mockLogApi} />,
+          {
+            disableLifecycleMethods: true
+          }
+        );
+
+        const handleLogsSpy = jest.spyOn(
+          wrapperDidMount.instance(),
+          "handleLogsChange"
+        );
+
+        wrapperDidMount.instance().componentDidMount();
+        expect(mockLogApi.getAllLogs).toHaveBeenCalledTimes(1);
+
+        await new Promise(setImmediate);
+
+        expect(handleLogsSpy).toHaveBeenCalledWith(dummyLog);
+
+        wrapperDidMount.unmount();
       });
     });
   });
