@@ -1,7 +1,6 @@
 import React from "react";
-
+import FormConsole from "../../general/userForm/FormConsole";
 import { createUser } from "../../api/UserManagementApi";
-import CreateUserFormConsole from "./CreateUserFormConsole";
 import { snackbar } from "../../general/SnackbarMessage";
 
 export default class CreateUserPageContents extends React.Component {
@@ -21,6 +20,17 @@ export default class CreateUserPageContents extends React.Component {
   }
 
   render() {
-    return <CreateUserFormConsole handleSubmit={this.handleSubmit} />;
+    return (
+      <>
+        <FormConsole
+          handleSubmit={this.handleSubmit}
+          buttonName="Create"
+          isValidate
+          passwordError={{ upperbound: 5, lowerbound: 0 }}
+          passwordInputProps={{ maxLength: 20, minLength: 5 }}
+          passwordHelperText="Password must be between 5 to 20 characters"
+        />
+      </>
+    );
   }
 }

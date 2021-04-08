@@ -11,9 +11,9 @@ import {
 } from "@jest/globals";
 
 import CreateUserPageContents from "../createUser/CreateUserPageContents";
-import CreateUserFormConsole from "../createUser/CreateUserFormConsole";
 import * as UserManagementApi from "../../api/UserManagementApi";
 import * as SnackbarMessage from "../../general/SnackbarMessage";
+import FormConsole from "../../general/userForm/FormConsole";
 
 Enzyme.configure({ adapter: new Adapter() });
 jest.mock("../../api/UserManagementApi");
@@ -35,12 +35,29 @@ describe("<CreateUserPageContents/> class component", () => {
 
   describe("render() returns a component that", () => {
     it("contains one <CreateUserFormConsole/> component with handleSubmit passed as prop", () => {
-      expect(wrapper.find(CreateUserFormConsole)).toHaveLength(1);
+      const form = wrapper.find(FormConsole);
+      expect(form).toHaveLength(1);
 
-      const formConsoleProps = wrapper.find(CreateUserFormConsole).props();
+      const expected = {
+        handleSubmit: wrapper.instance().handleSubmit,
+        buttonName: "Create",
+        isValidate: true,
+        passwordError: { upperbound: 5, lowerbound: 0 },
+        passwordInputProps: { maxLength: 20, minLength: 5 },
+        passwordHelperText: "Password must be between 5 to 20 characters"
+      };
 
-      expect(formConsoleProps.handleSubmit).toBe(
-        wrapper.instance().handleSubmit
+      const formConsoleProps = form.props();
+
+      expect(formConsoleProps.handleSubmit).toBe(expected.handleSubmit);
+      expect(formConsoleProps.buttonName).toEqual(expected.buttonName);
+      expect(formConsoleProps.isValidate).toBe(expected.isValidate);
+      expect(formConsoleProps.passwordError).toEqual(expected.passwordError);
+      expect(formConsoleProps.passwordInputProps).toEqual(
+        expected.passwordInputProps
+      );
+      expect(formConsoleProps.passwordHelperText).toEqual(
+        expected.passwordHelperText
       );
     });
   });
