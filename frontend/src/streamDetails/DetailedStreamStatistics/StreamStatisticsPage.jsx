@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import StreamStatisticsInfo from "../../model/StreamStatistics/StreamStatisticsInfo";
 import Page from "../../general/Page";
 import StreamStatisticsPageContents from "./StreamStatisticsPageContents";
+import StreamInfo from "../../model/StreamInfo";
 
 export default function StreamStatisticsPage(props) {
   const {
@@ -32,7 +33,8 @@ export default function StreamStatisticsPage(props) {
 StreamStatisticsPage.propTypes = {
   location: PropTypes.shape({
     state: PropTypes.shape({
-      statistics: PropTypes.instanceOf(StreamStatisticsInfo)
+      statistics: PropTypes.instanceOf(StreamStatisticsInfo),
+      stream: PropTypes.instanceOf(StreamInfo).isRequired
     })
   }).isRequired
 };
