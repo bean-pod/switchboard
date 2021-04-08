@@ -18,7 +18,7 @@ public interface StreamRepository extends JpaRepository<StreamEntity, Long> {
   List<StreamEntity> findByInputChannelDecoderDeviceUserAndInputChannelDecoderSerialNumber(
       UserEntity user, String decoderSerial);
 
-  List<StreamIdProjection>
+  List<StreamEntity>
       findStreamIdsByInputChannelDecoderDeviceUserOrOutputChannelEncoderDeviceUser(
           UserEntity inputUser, UserEntity outputUser);
 

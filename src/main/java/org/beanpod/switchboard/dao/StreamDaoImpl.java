@@ -99,7 +99,7 @@ public class StreamDaoImpl {
     return streamRepository
         .findStreamIdsByInputChannelDecoderDeviceUserOrOutputChannelEncoderDeviceUser(user, user)
         .stream()
-        .map(StreamIdProjection::getId)
+        .map(StreamEntity::getId)
         .collect(Collectors.toList());
   }
 

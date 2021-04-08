@@ -34,7 +34,7 @@ import org.mockito.Mock;
 class StreamDaoImplTest {
 
   private static UserEntity user;
-  @Mock private StreamDaoImpl streamDaoImpl;
+  private StreamDaoImpl streamDaoImpl;
   @Mock private StreamRepository streamRepository;
   @Mock private StreamStatRepository streamStatRepository;
   @Mock private StreamMapper streamMapper;
@@ -49,28 +49,30 @@ class StreamDaoImplTest {
 
     initMocks(this);
 
+    streamDaoImpl = new StreamDaoImpl(streamRepository, streamStatRepository, streamMapper, streamStatMapper);
+
     UserMockUtil.mockUser(user, request, userPrincipal, userDao);
   }
 
   @Test
-  @Disabled
   void testGetStreams() {
     // given
-    List<StreamIdProjection> streamIdList = StreamFixture.getStreamIdProjectionList();
+    List<StreamEntity> streamIdList = List.of(StreamFixture.getStreamEntity());
     when(streamRepository
             .findStreamIdsByInputChannelDecoderDeviceUserOrOutputChannelEncoderDeviceUser(
-                user, user))
+                any(), any()))
         .thenReturn(streamIdList);
 
     // when
     List<Long> result = streamDaoImpl.getStreams(user);
 
+    verify(streamRepository).findStreamIdsByInputChannelDecoderDeviceUserOrOutputChannelEncoderDeviceUser(user, user);
+
     // then
-    assertEquals(result, StreamFixture.getStreamIdList());
+    assertEquals(StreamFixture.getStreamIdList(), result);
   }
 
   @Test
-  @Disabled
   void testGetStreamById() {
     long streamId = StreamFixture.ID;
     StreamEntity streamEntity = StreamFixture.getStreamEntity();
@@ -92,7 +94,6 @@ class StreamDaoImplTest {
   }
 
   @Test
-  @Disabled
   void testCreateStream() {
     // given
     StreamDto streamDto = StreamFixture.getStreamDto();
@@ -117,7 +118,6 @@ class StreamDaoImplTest {
   }
 
   @Test
-  @Disabled
   void testCreateStreamAlreadyExists() {
     // given
     StreamDto streamDto = StreamFixture.getStreamDto();
@@ -134,37 +134,36 @@ class StreamDaoImplTest {
   }
 
   @Test
-  @Disabled
   void testDeleteStream() {
     // given
-    long channelId = StreamFixture.ID;
+    long streamId = StreamFixture.ID;
 
     // when
-    streamDaoImpl.deleteStream(user, channelId);
+    streamDaoImpl.deleteStream(user, streamId);
 
     // then
-    verify(streamRepository).deleteById(channelId);
+    verify(streamRepository).deleteByInputChannelDecoderDeviceUserAndIdOrOutputChannelEncoderDeviceUserAndId(user, streamId, user, streamId);
   }
 
   @Test
-  @Disabled
   void testUpdateStream() {
     // given
     StreamDto streamDto = StreamFixture.getStreamDto();
     StreamEntity streamEntity = StreamFixture.getStreamEntity();
 
-    when(streamRepository.existsById(StreamFixture.ID)).thenReturn(true);
-    when(streamMapper.toStreamEntity(streamDto)).thenReturn(streamEntity);
+    when(streamRepository.existsByInputChannelDecoderDeviceUserAndIdOrOutputChannelEncoderDeviceUserAndId(any(), any(), any(), any())).thenReturn(true);
+    when(streamMapper.toStreamEntity(any())).thenReturn(streamEntity);
 
     // when
     streamDaoImpl.updateStream(user, streamDto);
 
     // verify
+    verify(streamRepository).existsByInputChannelDecoderDeviceUserAndIdOrOutputChannelEncoderDeviceUserAndId(user, StreamFixture.ID, user, StreamFixture.ID);
+    verify(streamMapper).toStreamEntity(streamDto);
     verify(streamRepository).save(streamEntity);
   }
 
   @Test
-  @Disabled
   void testUpdateNonExistingStreamStat() {
 
     StreamStatDto streamStatDto = StreamStatFixture.getStreamStatDto();
@@ -176,14 +175,13 @@ class StreamDaoImplTest {
   }
 
   @Test
-  @Disabled
   void testUpdateStreamStat() {
     List<StreamStatEntity> streamStatEntityList = StreamStatFixture.getStreamStatEntityList();
     List<StreamStatDto> streamStatDtoList = StreamStatFixture.getStreamStatDtoList();
     StreamStatEntity streamStatEntity = StreamStatFixture.getStreamStatEntity();
     StreamStatDto streamStatDto = StreamStatFixture.getStreamStatDto();
 
-    when(streamRepository.existsById(StreamFixture.ID)).thenReturn(true);
+    when(streamRepository.existsByInputChannelDecoderDeviceUserAndIdOrOutputChannelEncoderDeviceUserAndId(any(), any(), any(), any())).thenReturn(true);
     when(streamStatRepository
             .findByStreamInputChannelDecoderDeviceUserOrStreamOutputChannelEncoderDeviceUser(
                 user, user))
@@ -194,11 +192,13 @@ class StreamDaoImplTest {
     when(streamStatMapper.toStreamStatEntity(any())).thenReturn(streamStatEntity);
 
     StreamStatDto streamStatDto1 = streamDaoImpl.updateStreamStat(user, streamStatDto);
+
+    verify(streamRepository).existsByInputChannelDecoderDeviceUserAndIdOrOutputChannelEncoderDeviceUserAndId(user, StreamFixture.ID, user, StreamFixture.ID);
+
     assertEquals(StreamFixture.ID, streamStatDto1.getId());
   }
 
   @Test
-  @Disabled
   void testFindStreamStat() {
     List<StreamStatEntity> streamStatEntityList = StreamStatFixture.getStreamStatEntityList();
     List<StreamStatDto> streamStatDtoList = StreamStatFixture.getStreamStatDtoList();
