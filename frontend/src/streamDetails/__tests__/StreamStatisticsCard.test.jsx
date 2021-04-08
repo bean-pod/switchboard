@@ -14,12 +14,13 @@ import StreamStatsWindowInfo from "../../model/StreamStatistics/StreamStatsWindo
 import StreamStatsLinkInfo from "../../model/StreamStatistics/StreamStatsLinkInfo";
 import StreamStatsSendInfo from "../../model/StreamStatistics/StreamStatsSendInfo";
 import StreamStatsReceiveInfo from "../../model/StreamStatistics/StreamStatsReceiveInfo";
+import { firstStreamResponse } from "../../api/tests/StreamFixture";
 
 Enzyme.configure({ adapter: new Adapter() });
 
 describe("<StreamStatisticsCard/> class component", () => {
   let wrapper;
-  const dummyStreamId = 1;
+  const dummyStream = firstStreamResponse;
   const dummyStats = getSampleStreamStats();
 
   const expectedProperties = {
@@ -34,13 +35,13 @@ describe("<StreamStatisticsCard/> class component", () => {
   };
 
   const expectedButton = new ButtonInfo(
-    `/Streams/Details/${dummyStats.id}/Statistics`,
-    { statistics: dummyStats },
+    `/Streams/Details/${dummyStream.id}/Statistics`,
+    { statistics: dummyStats, stream: dummyStream },
     "More Statistics"
   );
 
   beforeEach(() => {
-    wrapper = Enzyme.shallow(<StreamStatisticsCard streamId={dummyStreamId} />);
+    wrapper = Enzyme.shallow(<StreamStatisticsCard stream={dummyStream} />);
   });
   afterEach(() => {
     wrapper.unmount();
