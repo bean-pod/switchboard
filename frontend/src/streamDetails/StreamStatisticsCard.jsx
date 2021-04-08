@@ -6,6 +6,7 @@ import DashboardCard from "../general/dashboard/DashboardCard";
 import SimpleTable from "../general/simpleTable/SimpleTable";
 import { getStreamStatistics } from "../api/StreamApi";
 import ButtonInfo from "../general/dashboard/ButtonInfo";
+import StreamInfo from "../model/StreamInfo";
 
 export default class StreamStatisticsCard extends React.Component {
   constructor(props) {
@@ -13,14 +14,14 @@ export default class StreamStatisticsCard extends React.Component {
     this.state = {
       stats: null
     };
-    this.streamId = props.streamId;
+    this.stream = props.stream;
     this.handleStatsChange = this.handleStatsChange.bind(this);
     this.getProperties = this.getProperties.bind(this);
     this.getButton = this.getButton.bind(this);
   }
 
   componentDidMount() {
-    getStreamStatistics(this.streamId).then(this.handleStatsChange);
+    getStreamStatistics(this.stream.id).then(this.handleStatsChange);
   }
 
   handleStatsChange(stats) {
@@ -42,10 +43,11 @@ export default class StreamStatisticsCard extends React.Component {
 
   getButton() {
     const { stats } = this.state;
+    const { stream } = this;
     if (!stats) return null;
     return new ButtonInfo(
-      `/Streams/Details/${stats.id}/Statistics`,
-      { statistics: stats },
+      `/Streams/Details/${stream.id}/Statistics`,
+      { statistics: stats, stream },
       "More Statistics"
     );
   }
@@ -62,5 +64,5 @@ export default class StreamStatisticsCard extends React.Component {
 }
 
 StreamStatisticsCard.propTypes = {
-  streamId: PropTypes.number.isRequired
+  stream: PropTypes.instanceOf(StreamInfo).isRequired
 };
