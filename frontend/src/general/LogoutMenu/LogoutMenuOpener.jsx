@@ -1,6 +1,6 @@
 import React from "react";
-import { IconButton } from "@material-ui/core";
 import PropTypes from "prop-types";
+import { IconButton } from "@material-ui/core";
 
 import { AccountCircle } from "@material-ui/icons/";
 import LogoutMenu from "./LogoutMenu";
@@ -13,8 +13,8 @@ export default class LogoutMenuOpener extends React.Component {
     };
 
     this.anchorElement = React.createRef();
-    this.handleClose = this.handleClose.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
   handleOpen() {
