@@ -5,7 +5,7 @@ import { Box, Container, Grid } from "@material-ui/core";
 import { beforeEach, describe, expect, it } from "@jest/globals";
 
 import StreamDetailsPageContents from "../StreamDetailsPageContents";
-import DashboardCard from "../../general/dashboard/DashboardCard";
+import StreamStatisticsCard from "../StreamStatisticsCard";
 import StreamDetailsDeviceCard from "../StreamDetailsDeviceCard";
 import DeleteStreamDialogOpener from "../DeleteStreamDialogOpener";
 import StreamLogCard from "../cards/StreamLogCard";
@@ -34,7 +34,6 @@ describe("<StreamDetailsPageContents/> functional component", () => {
       const gridComponents = wrapper.find(Grid);
 
       expect(gridComponents).toHaveLength(5);
-      // iterate through grid components to test each
 
       const containerGridProps = gridComponents.at(0).props();
       expect(containerGridProps.container).toBe(true);
@@ -56,12 +55,6 @@ describe("<StreamDetailsPageContents/> functional component", () => {
       expect(itemGridProps.item).toBe(true);
       expect(itemGridProps.xs).toBe(5);
     });
-    it("Contains 1 DashboardCard component with expected props", () => {
-      expect(wrapper.find(DashboardCard)).toHaveLength(1);
-
-      const statisticsCardProps = wrapper.find(DashboardCard).props();
-      expect(statisticsCardProps.title).toBe("Statistics");
-    });
     it("Contains 1 StreamLogCard component with expected props", () => {
       const streamLogCard = wrapper.find(StreamLogCard);
       expect(streamLogCard).toHaveLength(1);
@@ -80,6 +73,13 @@ describe("<StreamDetailsPageContents/> functional component", () => {
       const receiverDetailsProps = streamDeviceDetails.at(1).props();
       expect(receiverDetailsProps.device).toStrictEqual(dummyReceiver);
       expect(receiverDetailsProps.channel).toBe(3);
+    });
+    it("Contains 1 StreamStatisticsCard component with expected props", () => {
+      const statsCard = wrapper.find(StreamStatisticsCard);
+      expect(statsCard).toHaveLength(1);
+
+      const statsCardProps = statsCard.props();
+      expect(statsCardProps.stream).toStrictEqual(dummyStream);
     });
     it("Contains 1 Box component with expected props", () => {
       const boxComponent = wrapper.find(Box);

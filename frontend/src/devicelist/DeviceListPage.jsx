@@ -9,7 +9,7 @@ export default function DeviceListPage() {
     ["My Devices", "/Devices"]
   ];
   return (
-    <Page title="My Devices" breadcrumbs={breadcrumb} deviceList>
+    <Page title="My Devices" breadcrumbs={breadcrumb} hasStreamButton>
       <DeviceListPageContents />
     </Page>
   );

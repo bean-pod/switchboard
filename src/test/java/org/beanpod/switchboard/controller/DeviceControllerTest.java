@@ -124,8 +124,7 @@ class DeviceControllerTest {
   // When a device is unavailable in the DB
   @Test
   final void testCreateDeviceAlreadyExists() {
-    when(deviceDao.findDevice(user, DeviceFixture.SERIAL_NUMBER))
-        .thenReturn(Optional.of(deviceDTO));
+    when(deviceDao.findDevice(DeviceFixture.SERIAL_NUMBER)).thenReturn(Optional.of(deviceDTO));
 
     assertThrows(
         ExceptionType.DeviceAlreadyExistsException.class,
