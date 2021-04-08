@@ -13,13 +13,15 @@ import StreamStatsLinkInfo from "../../../model/StreamStatistics/StreamStatsLink
 import StreamStatsWindowInfo from "../../../model/StreamStatistics/StreamStatsWindowInfo";
 
 import { getSampleStreamStats } from "../../../api/SampleData";
+import { firstStreamResponse } from "../../../api/tests/StreamFixture";
 
 Enzyme.configure({ adapter: new Adapter() });
 
 describe("<StreamStatisticsPage/> functional component", () => {
   let wrapper;
+  const dummyStream = firstStreamResponse;
   const dummyStreamStats = new StreamStatisticsInfo(
-    101,
+    1,
     102,
     new StreamStatsWindowInfo(21, 22, 23),
     new StreamStatsLinkInfo(31, 32, 33),
@@ -30,7 +32,8 @@ describe("<StreamStatisticsPage/> functional component", () => {
   describe("when passed a location prop", () => {
     const dummyStatsLocation = {
       state: {
-        statistics: dummyStreamStats
+        statistics: dummyStreamStats,
+        stream: dummyStream
       }
     };
 
@@ -50,46 +53,15 @@ describe("<StreamStatisticsPage/> functional component", () => {
           breadcrumbs: [
             ["Home", "/Home"],
             ["Active Streams", "/Streams"],
-            ["Stream Details"],
-            ["Statistics", `/Streams/Details/${dummyStreamStats.id}/Statistics`]
-          ]
-        };
-
-        const page = wrapper.find(Page);
-        expect(page).toHaveLength(1);
-
-        const pageProps = page.props();
-        expect(pageProps.title).toBe(expectedProps.title);
-        expect(pageProps.breadcrumbs).toStrictEqual(expectedProps.breadcrumbs);
-      });
-      it("contains 1 StreamStatisticsPageContents component with expected props", () => {
-        const contents = wrapper.find(StreamStatisticsPageContents);
-        expect(contents).toHaveLength(1);
-
-        const contentsProps = contents.props();
-        expect(contentsProps.statistics).toStrictEqual(dummyStreamStats);
-      });
-    });
-  });
-  describe("when not passed a location prop", () => {
-    describe("returns a component that", () => {
-      const expectedDefaultStats = getSampleStreamStats();
-      beforeEach(() => {
-        wrapper = Enzyme.shallow(<StreamStatisticsPage />);
-      });
-      afterEach(() => {
-        wrapper.unmount();
-      });
-      it("contains 1 Page component with expected props", () => {
-        const expectedProps = {
-          title: "Stream Statistics",
-          breadcrumbs: [
-            ["Home", "/Home"],
-            ["Active Streams", "/Streams"],
-            ["Stream Details"],
+            [
+              "Stream Details",
+              `/Streams/Details/${dummyStream.id}`,
+              { stream: dummyStream }
+            ],
             [
               "Statistics",
-              `/Streams/Details/${expectedDefaultStats.id}/Statistics`
+              `/Streams/Details/${dummyStream.id}/Statistics`,
+              { statistics: dummyStreamStats, stream: dummyStream }
             ]
           ]
         };
@@ -106,7 +78,7 @@ describe("<StreamStatisticsPage/> functional component", () => {
         expect(contents).toHaveLength(1);
 
         const contentsProps = contents.props();
-        expect(contentsProps.statistics).toStrictEqual(expectedDefaultStats);
+        expect(contentsProps.statistics).toStrictEqual(dummyStreamStats);
       });
     });
   });
