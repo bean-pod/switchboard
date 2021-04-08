@@ -9,7 +9,7 @@ import { NavLink } from "react-router-dom";
 import HeaderBar from "../HeaderBar";
 
 import * as AuthApi from "../../api/AuthenticationApi";
-import * as AuthUtil from "../../api/AuthenticationUtil"
+import * as AuthUtil from "../../api/AuthenticationUtil";
 import LogoutMenuOpener from "../logoutMenu/LogoutMenuOpener";
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -22,7 +22,7 @@ describe("<HeaderBar/> functional Component", () => {
   };
 
   beforeEach(() => {
-    jest.spyOn(AuthUtil, "isAuthenticated").mockImplementation(()=> true);
+    jest.spyOn(AuthUtil, "isAuthenticated").mockImplementation(() => true);
     wrapper = Enzyme.shallow(
       <HeaderBar.WrappedComponent history={mockHistory} />
     );
@@ -59,14 +59,14 @@ describe("<HeaderBar/> functional Component", () => {
       expect(wrapper.find(Home)).toHaveLength(1);
     });
     it("Contains 1 <LogoutMenuOpener/> component with expected props", () => {
-      const components= wrapper.find(LogoutMenuOpener);
+      const components = wrapper.find(LogoutMenuOpener);
       expect(components).toHaveLength(1);
 
       const props = components.at(0).props();
       const expected = {
         disabled: !AuthUtil.isAuthenticated(),
         handleLogout: wrapper.instance().handleLogout
-      }
+      };
       expect(props).toStrictEqual(expected);
     });
   });
