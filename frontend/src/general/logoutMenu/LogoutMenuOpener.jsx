@@ -53,3 +53,8 @@ export default class LogoutMenuOpener extends React.Component {
     );
   }
 }
+
+LogoutMenuOpener.propTypes = {
+  disabled: PropTypes.bool.isRequired,
+  handleLogout: PropTypes.func.isRequired
+};

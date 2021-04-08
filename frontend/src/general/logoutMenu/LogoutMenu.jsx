@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {
   ClickAwayListener,
   Grow,
@@ -42,3 +43,10 @@ export default function LogoutMenu(props) {
     </Popper>
   );
 }
+
+LogoutMenu.propTypes = {
+  anchor: PropTypes.node.isRequired,
+  open: PropTypes.bool.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  handleLogout: PropTypes.func.isRequired
+};
