@@ -37,7 +37,7 @@ export default class UploadConfigDialog extends React.Component {
       .catch(() => {
         snackbar("error", "Upload failed");
       })
-      .finally(()=>{
+      .finally(() => {
         this.dialogElement.current.closeDialog();
       });
   }
