@@ -46,8 +46,4 @@ public class StreamEntity {
   @Column(name = "isRendezvous")
   @NotNull
   private Boolean isRendezvous;
-
-  public interface StreamIdProjection {
-    Long getId();
-  }
 }
