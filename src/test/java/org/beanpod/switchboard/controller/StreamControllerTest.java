@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.nio.file.attribute.UserPrincipal;
@@ -24,9 +25,9 @@ import org.beanpod.switchboard.fixture.StreamFixture;
 import org.beanpod.switchboard.fixture.StreamStatFixture;
 import org.beanpod.switchboard.fixture.UserFixture;
 import org.beanpod.switchboard.service.StreamService;
+import org.beanpod.switchboard.util.MaintainDeviceStatus;
 import org.beanpod.switchboard.util.UserMockUtil;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -47,6 +48,7 @@ class StreamControllerTest {
   @Mock private HttpServletRequest request;
   @Mock private UserPrincipal userPrincipal;
   @Mock private UserDaoImpl userDao;
+  @Mock private MaintainDeviceStatus maintainDeviceStatus;
 
   @BeforeEach
   public void setup() {
@@ -94,7 +96,6 @@ class StreamControllerTest {
   }
 
   @Test
-  @Disabled
   void testGetStreamById() {
     // given
     StreamDto streamDto = StreamFixture.getStreamDto();
@@ -105,6 +106,8 @@ class StreamControllerTest {
     ResponseEntity<StreamModel> result = streamController.getStreamById(StreamFixture.ID);
 
     // then
+    verify(maintainDeviceStatus).maintainStatusField(streamDto);
+
     assertEquals(HttpStatus.OK, result.getStatusCode());
     assertNotNull(result);
     assertNotNull(result.getBody());
