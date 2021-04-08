@@ -179,3 +179,11 @@ describe("convertStatsToDataObject function", () => {
     expect(dbStatsToLocal).toStrictEqual(sampleLocalStats);
   });
 });
+
+test("convertStatsToDataObject returns StreamStatisticsInfo object with correct data", () => {
+  const dbStatsToLocal = JSON.stringify(
+    convertStatsToDataObject(sampleDBStats)
+  );
+
+  expect(dbStatsToLocal).toStrictEqual(JSON.stringify(sampleLocalStats));
+});
