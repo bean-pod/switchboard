@@ -11,6 +11,7 @@ import org.beanpod.switchboard.dto.mapper.LogMapper;
 import org.beanpod.switchboard.dto.mapper.StreamLogMapper;
 import org.beanpod.switchboard.entity.LogEntity;
 import org.beanpod.switchboard.entity.StreamLog;
+import org.beanpod.switchboard.entity.UserEntity;
 import org.openapitools.model.CreateStreamLogRequest;
 import org.springframework.stereotype.Component;
 
@@ -39,10 +40,10 @@ public class StreamLogService {
     return streamLogDao.createStreamLog(streamLogDto);
   }
 
-  public StreamLogDto createLog(CreateStreamLogRequest createStreamLogRequest) {
+  public StreamLogDto createLog(UserEntity user, CreateStreamLogRequest createStreamLogRequest) {
     Optional<StreamDto> streamDto =
         Optional.of(Long.valueOf(createStreamLogRequest.getStreamId()))
-            .map(streamDao::getStreamById);
+            .map(streamId -> streamDao.getStreamById(user, streamId));
 
     if (!streamDto.isPresent()) {
       return null;
