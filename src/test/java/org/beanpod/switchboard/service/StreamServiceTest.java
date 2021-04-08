@@ -8,9 +8,9 @@ import static org.mockito.MockitoAnnotations.initMocks;
 
 import java.nio.file.attribute.UserPrincipal;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import org.beanpod.switchboard.dao.InputChannelDaoImpl;
 import org.beanpod.switchboard.dao.OutputChannelDaoImpl;
-import javax.servlet.http.HttpServletRequest;
 import org.beanpod.switchboard.dao.StreamDaoImpl;
 import org.beanpod.switchboard.dao.UserDaoImpl;
 import org.beanpod.switchboard.dto.DeviceDto;
