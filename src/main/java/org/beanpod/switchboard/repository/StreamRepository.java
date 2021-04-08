@@ -2,7 +2,6 @@ package org.beanpod.switchboard.repository;
 
 import java.util.List;
 import org.beanpod.switchboard.entity.StreamEntity;
-import org.beanpod.switchboard.entity.StreamEntity.StreamIdProjection;
 import org.beanpod.switchboard.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -18,9 +17,8 @@ public interface StreamRepository extends JpaRepository<StreamEntity, Long> {
   List<StreamEntity> findByInputChannelDecoderDeviceUserAndInputChannelDecoderSerialNumber(
       UserEntity user, String decoderSerial);
 
-  List<StreamEntity>
-      findStreamIdsByInputChannelDecoderDeviceUserOrOutputChannelEncoderDeviceUser(
-          UserEntity inputUser, UserEntity outputUser);
+  List<StreamEntity> findStreamIdsByInputChannelDecoderDeviceUserOrOutputChannelEncoderDeviceUser(
+      UserEntity inputUser, UserEntity outputUser);
 
   StreamEntity findByInputChannelDecoderDeviceUserAndIdOrOutputChannelEncoderDeviceUserAndId(
       UserEntity inputUser, Long inputStreamId, UserEntity outputUser, Long outputStreamId);

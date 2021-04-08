@@ -10,7 +10,6 @@ import org.beanpod.switchboard.dto.StreamStatDto;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
 import org.beanpod.switchboard.dto.mapper.StreamStatMapper;
 import org.beanpod.switchboard.entity.StreamEntity;
-import org.beanpod.switchboard.entity.StreamEntity.StreamIdProjection;
 import org.beanpod.switchboard.entity.StreamStatEntity;
 import org.beanpod.switchboard.entity.UserEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType.StreamAlreadyExistsException;

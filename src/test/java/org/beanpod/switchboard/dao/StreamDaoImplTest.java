@@ -15,7 +15,6 @@ import org.beanpod.switchboard.dto.StreamStatDto;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
 import org.beanpod.switchboard.dto.mapper.StreamStatMapper;
 import org.beanpod.switchboard.entity.StreamEntity;
-import org.beanpod.switchboard.entity.StreamEntity.StreamIdProjection;
 import org.beanpod.switchboard.entity.StreamStatEntity;
 import org.beanpod.switchboard.entity.UserEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
@@ -27,7 +26,6 @@ import org.beanpod.switchboard.repository.StreamRepository;
 import org.beanpod.switchboard.repository.StreamStatRepository;
 import org.beanpod.switchboard.util.UserMockUtil;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
@@ -49,7 +47,8 @@ class StreamDaoImplTest {
 
     initMocks(this);
 
-    streamDaoImpl = new StreamDaoImpl(streamRepository, streamStatRepository, streamMapper, streamStatMapper);
+    streamDaoImpl =
+        new StreamDaoImpl(streamRepository, streamStatRepository, streamMapper, streamStatMapper);
 
     UserMockUtil.mockUser(user, request, userPrincipal, userDao);
   }
@@ -66,7 +65,8 @@ class StreamDaoImplTest {
     // when
     List<Long> result = streamDaoImpl.getStreams(user);
 
-    verify(streamRepository).findStreamIdsByInputChannelDecoderDeviceUserOrOutputChannelEncoderDeviceUser(user, user);
+    verify(streamRepository)
+        .findStreamIdsByInputChannelDecoderDeviceUserOrOutputChannelEncoderDeviceUser(user, user);
 
     // then
     assertEquals(StreamFixture.getStreamIdList(), result);
@@ -142,7 +142,9 @@ class StreamDaoImplTest {
     streamDaoImpl.deleteStream(user, streamId);
 
     // then
-    verify(streamRepository).deleteByInputChannelDecoderDeviceUserAndIdOrOutputChannelEncoderDeviceUserAndId(user, streamId, user, streamId);
+    verify(streamRepository)
+        .deleteByInputChannelDecoderDeviceUserAndIdOrOutputChannelEncoderDeviceUserAndId(
+            user, streamId, user, streamId);
   }
 
   @Test
@@ -151,14 +153,19 @@ class StreamDaoImplTest {
     StreamDto streamDto = StreamFixture.getStreamDto();
     StreamEntity streamEntity = StreamFixture.getStreamEntity();
 
-    when(streamRepository.existsByInputChannelDecoderDeviceUserAndIdOrOutputChannelEncoderDeviceUserAndId(any(), any(), any(), any())).thenReturn(true);
+    when(streamRepository
+            .existsByInputChannelDecoderDeviceUserAndIdOrOutputChannelEncoderDeviceUserAndId(
+                any(), any(), any(), any()))
+        .thenReturn(true);
     when(streamMapper.toStreamEntity(any())).thenReturn(streamEntity);
 
     // when
     streamDaoImpl.updateStream(user, streamDto);
 
     // verify
-    verify(streamRepository).existsByInputChannelDecoderDeviceUserAndIdOrOutputChannelEncoderDeviceUserAndId(user, StreamFixture.ID, user, StreamFixture.ID);
+    verify(streamRepository)
+        .existsByInputChannelDecoderDeviceUserAndIdOrOutputChannelEncoderDeviceUserAndId(
+            user, StreamFixture.ID, user, StreamFixture.ID);
     verify(streamMapper).toStreamEntity(streamDto);
     verify(streamRepository).save(streamEntity);
   }
@@ -181,7 +188,10 @@ class StreamDaoImplTest {
     StreamStatEntity streamStatEntity = StreamStatFixture.getStreamStatEntity();
     StreamStatDto streamStatDto = StreamStatFixture.getStreamStatDto();
 
-    when(streamRepository.existsByInputChannelDecoderDeviceUserAndIdOrOutputChannelEncoderDeviceUserAndId(any(), any(), any(), any())).thenReturn(true);
+    when(streamRepository
+            .existsByInputChannelDecoderDeviceUserAndIdOrOutputChannelEncoderDeviceUserAndId(
+                any(), any(), any(), any()))
+        .thenReturn(true);
     when(streamStatRepository
             .findByStreamInputChannelDecoderDeviceUserOrStreamOutputChannelEncoderDeviceUser(
                 user, user))
@@ -193,7 +203,9 @@ class StreamDaoImplTest {
 
     StreamStatDto streamStatDto1 = streamDaoImpl.updateStreamStat(user, streamStatDto);
 
-    verify(streamRepository).existsByInputChannelDecoderDeviceUserAndIdOrOutputChannelEncoderDeviceUserAndId(user, StreamFixture.ID, user, StreamFixture.ID);
+    verify(streamRepository)
+        .existsByInputChannelDecoderDeviceUserAndIdOrOutputChannelEncoderDeviceUserAndId(
+            user, StreamFixture.ID, user, StreamFixture.ID);
 
     assertEquals(StreamFixture.ID, streamStatDto1.getId());
   }
