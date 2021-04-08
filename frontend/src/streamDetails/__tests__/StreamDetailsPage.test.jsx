@@ -8,7 +8,6 @@ import StreamDetailsPage from "../StreamDetailsPage";
 import StreamDetailsPageContents from "../StreamDetailsPageContents";
 import DeviceInfo from "../../model/DeviceInfo";
 import StreamInfo from "../../model/StreamInfo";
-import { getSampleStream } from "../../api/SampleData";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -36,7 +35,7 @@ describe("<StreamDetailsPage/> functional component", () => {
         const expectedBreadcrumbs = [
           ["Home", "/Home"],
           ["Active Streams", "/Streams"],
-          ["Stream Details", `/Streams/Details/${dummyStream.id}`]
+          ["Stream Details", `/Streams/Details/${dummyStream.id}`, { stream: dummyStream }]
         ];
 
         expect(wrapper.find(Page)).toHaveLength(1);
@@ -51,34 +50,6 @@ describe("<StreamDetailsPage/> functional component", () => {
         const props = wrapper.find(StreamDetailsPageContents).first().props();
         expect(props.stream).toBeInstanceOf(StreamInfo);
         expect(props.stream).toStrictEqual(dummyStream);
-      });
-    });
-  });
-  describe("when not passed a location prop", () => {
-    const expectedDefaultStream = getSampleStream();
-    beforeEach(() => {
-      wrapper = Enzyme.shallow(<StreamDetailsPage />);
-    });
-    describe("returns a component that", () => {
-      it("contains one <Page/> component with expected props", () => {
-        const expectedTitle = "Stream Details";
-        const expectedBreadcrumbs = [
-          ["Home", "/Home"],
-          ["Active Streams", "/Streams"],
-          ["Stream Details", `/Streams/Details/${expectedDefaultStream.id}`]
-        ];
-
-        expect(wrapper.find(Page)).toHaveLength(1);
-
-        const props = wrapper.find(Page).first().props();
-        expect(props.title).toBe(expectedTitle);
-        expect(props.breadcrumbs).toStrictEqual(expectedBreadcrumbs);
-      });
-      it("contains one <StreamDetailsPageContents/> component with expected props", () => {
-        expect(wrapper.find(StreamDetailsPageContents)).toHaveLength(1);
-        const props = wrapper.find(StreamDetailsPageContents).first().props();
-        expect(props.stream).toBeInstanceOf(StreamInfo);
-        expect(props.stream).toStrictEqual(expectedDefaultStream);
       });
     });
   });

@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import StreamInfo from "../model/StreamInfo";
-import * as SampleData from "../api/SampleData";
 import StreamDetailsPageContents from "./StreamDetailsPageContents";
 import Page from "../general/Page";
 
@@ -16,7 +15,7 @@ export default function StreamDetailsPage(props) {
   const breadcrumbs = [
     ["Home", "/Home"],
     ["Active Streams", "/Streams"],
-    [`Stream Details`, `/Streams/Details/${stream.id}`]
+    [`Stream Details`, `/Streams/Details/${stream.id}`, { stream }]
   ];
 
   return (
@@ -26,14 +25,10 @@ export default function StreamDetailsPage(props) {
   );
 }
 
-StreamDetailsPage.defaultProps = {
-  location: { state: { stream: SampleData.getSampleStream() } }
-};
-
 StreamDetailsPage.propTypes = {
   location: PropTypes.shape({
     state: PropTypes.shape({
       stream: PropTypes.instanceOf(StreamInfo)
     })
-  })
+  }).isRequired
 };
