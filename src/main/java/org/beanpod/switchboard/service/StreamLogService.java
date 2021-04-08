@@ -5,7 +5,6 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.dao.StreamDaoImpl;
 import org.beanpod.switchboard.dao.StreamLogDaoImpl;
-import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.dto.StreamLogDto;
 import org.beanpod.switchboard.dto.mapper.LogMapper;
 import org.beanpod.switchboard.dto.mapper.StreamLogMapper;
@@ -41,19 +40,16 @@ public class StreamLogService {
   }
 
   public StreamLogDto createLog(UserEntity user, CreateStreamLogRequest createStreamLogRequest) {
-    Optional<StreamDto> streamDto =
-        Optional.of(Long.valueOf(createStreamLogRequest.getStreamId()))
-            .map(streamId -> streamDao.getStreamById(user, streamId));
-
-    if (!streamDto.isPresent()) {
-      return null;
-    }
-
-    return createLog(
-        logMapper.map(createStreamLogRequest.getDateTime()),
-        createStreamLogRequest.getMessage(),
-        streamDto.get().getInputChannel().getDecoder().getSerialNumber(),
-        streamDto.get().getOutputChannel().getEncoder().getSerialNumber(),
-        createStreamLogRequest.getStreamId().toString());
+    return Optional.of(Long.valueOf(createStreamLogRequest.getStreamId()))
+        .map(streamId -> streamDao.getStreamById(user, streamId))
+        .map(
+            dto ->
+                createLog(
+                    logMapper.map(createStreamLogRequest.getDateTime()),
+                    createStreamLogRequest.getMessage(),
+                    dto.getInputChannel().getDecoder().getSerialNumber(),
+                    dto.getOutputChannel().getEncoder().getSerialNumber(),
+                    createStreamLogRequest.getStreamId().toString()))
+        .orElse(null);
   }
 }
