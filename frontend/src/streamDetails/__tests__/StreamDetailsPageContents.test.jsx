@@ -79,7 +79,7 @@ describe("<StreamDetailsPageContents/> functional component", () => {
       expect(statsCard).toHaveLength(1);
 
       const statsCardProps = statsCard.props();
-      expect(statsCardProps.streamId).toBe(1);
+      expect(statsCardProps.stream).toStrictEqual(dummyStream);
     });
     it("Contains 1 Box component with expected props", () => {
       const boxComponent = wrapper.find(Box);
