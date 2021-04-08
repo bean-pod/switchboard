@@ -7,10 +7,12 @@ import org.mapstruct.Mapper;
 import org.openapitools.model.StreamLogModel;
 
 @Mapper(componentModel = "spring")
-public interface LogStreamMapper {
+public interface StreamLogMapper {
   StreamLogDto toLogStreamDto(StreamLog streamLog);
 
   StreamLog toStreamLog(StreamLogDto streamLogDto);
 
   List<StreamLogModel> toStreamLogModels(List<StreamLog> streamLogEntityList);
+
+  StreamLogModel toStreamLogModel(StreamLogDto streamLogDto);
 }

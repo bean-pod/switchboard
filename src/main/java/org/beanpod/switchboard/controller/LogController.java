@@ -7,10 +7,13 @@ import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.dao.LogDaoImpl;
 import org.beanpod.switchboard.dao.StreamLogDaoImpl;
 import org.beanpod.switchboard.dto.mapper.LogMapper;
+import org.beanpod.switchboard.dto.mapper.StreamLogMapper;
 import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.service.LogService;
+import org.beanpod.switchboard.service.StreamLogService;
 import org.openapitools.api.LogApi;
 import org.openapitools.model.CreateLogRequest;
+import org.openapitools.model.CreateStreamLogRequest;
 import org.openapitools.model.LogModel;
 import org.openapitools.model.StreamLogModel;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +29,8 @@ public class LogController implements LogApi {
   private final LogMapper logMapper;
   private final LogService logService;
   private final StreamLogDaoImpl streamLogDao;
+  private final StreamLogService streamLogService;
+  private final StreamLogMapper streamLogMapper;
 
   @Override
   public ResponseEntity<List<StreamLogModel>> retrieveStreamLogs(@PathVariable Long streamId) {
@@ -48,6 +53,16 @@ public class LogController implements LogApi {
         .map(logMapper::createLogRequestToLogModel)
         .map(logService::createLog)
         .map(logMapper::logDtoToLogModel)
+        .map(ResponseEntity::ok)
+        .orElseThrow(() -> new ExceptionType.UnknownException(CONTROLLER_NAME));
+  }
+
+  @Override
+  public ResponseEntity<StreamLogModel> createStreamLog(
+      CreateStreamLogRequest createStreamLogRequest) {
+    return Optional.of(createStreamLogRequest)
+        .map(streamLogService::createLog)
+        .map(streamLogMapper::toStreamLogModel)
         .map(ResponseEntity::ok)
         .orElseThrow(() -> new ExceptionType.UnknownException(CONTROLLER_NAME));
   }
