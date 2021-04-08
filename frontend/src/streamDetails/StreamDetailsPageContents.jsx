@@ -32,7 +32,7 @@ export default function StreamDetailsPageContents(props) {
           <StreamLogCard streamId={stream.id} />
         </Grid>
         <Grid item xs={5}>
-          <StreamStatisticsCard streamId={stream.id} />
+          <StreamStatisticsCard stream={stream} />
         </Grid>
       </Grid>
       <Box className="alignRightFloatPadded">
