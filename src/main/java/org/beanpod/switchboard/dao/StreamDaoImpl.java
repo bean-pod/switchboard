@@ -96,7 +96,7 @@ public class StreamDaoImpl {
 
   public List<Long> getStreams(UserEntity user) {
     return streamRepository
-        .findStreamIdsByInputChannelDecoderDeviceUserOrOutputChannelEncoderDeviceUser(user, user)
+        .findByInputChannelDecoderDeviceUserOrOutputChannelEncoderDeviceUser(user, user)
         .stream()
         .map(StreamEntity::getId)
         .collect(Collectors.toList());

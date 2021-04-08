@@ -58,7 +58,7 @@ class StreamDaoImplTest {
     // given
     List<StreamEntity> streamIdList = List.of(StreamFixture.getStreamEntity());
     when(streamRepository
-            .findStreamIdsByInputChannelDecoderDeviceUserOrOutputChannelEncoderDeviceUser(
+            .findByInputChannelDecoderDeviceUserOrOutputChannelEncoderDeviceUser(
                 any(), any()))
         .thenReturn(streamIdList);
 
@@ -66,7 +66,7 @@ class StreamDaoImplTest {
     List<Long> result = streamDaoImpl.getStreams(user);
 
     verify(streamRepository)
-        .findStreamIdsByInputChannelDecoderDeviceUserOrOutputChannelEncoderDeviceUser(user, user);
+        .findByInputChannelDecoderDeviceUserOrOutputChannelEncoderDeviceUser(user, user);
 
     // then
     assertEquals(StreamFixture.getStreamIdList(), result);
