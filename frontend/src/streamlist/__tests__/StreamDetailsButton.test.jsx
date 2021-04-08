@@ -2,7 +2,7 @@ import React from "react";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 
-import { IconButton } from "@material-ui/core";
+import { IconButton, Tooltip } from "@material-ui/core";
 import { Description } from "@material-ui/icons";
 import { NavLink } from "react-router-dom";
 
@@ -43,6 +43,11 @@ describe("<StreamDetailsButton/> functional component", () => {
     it("contains 1 IconButton and 1 Description component", () => {
       expect(wrapper.find(IconButton)).toHaveLength(1);
       expect(wrapper.find(Description)).toHaveLength(1);
+    });
+    it("contains 1 Tooltip component with expected props", () => {
+      const tooltip = wrapper.find(Tooltip);
+      expect(tooltip).toHaveLength(1);
+      expect(tooltip.props().title).toEqual("View Stream Details");
     });
   });
 });

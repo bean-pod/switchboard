@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { IconButton } from "@material-ui/core";
+import { IconButton, Tooltip } from "@material-ui/core";
 import { Description } from "@material-ui/icons";
 import { NavLink } from "react-router-dom";
 
@@ -17,9 +17,11 @@ export default function StreamDetailsButton(props) {
           state: { stream: streamInfo }
         }}
       >
-        <IconButton>
-          <Description />
-        </IconButton>
+        <Tooltip title="View Stream Details">
+          <IconButton>
+            <Description />
+          </IconButton>
+        </Tooltip>
       </NavLink>
     </>
   );
