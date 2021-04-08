@@ -18,7 +18,7 @@ describe("DeviceApi", () => {
   });
 
   describe("getSenders", () => {
-    it("Should call axios and return the senders", (done) => {
+    it("Should call axios and return the senders", async () => {
       const sampleSendersResponse = DeviceFixture.getSampleSendersResponse();
       axios.get.mockResolvedValue({ data: sampleSendersResponse });
       authenticationUtil.getAuthorizationHeader = jest
@@ -30,23 +30,18 @@ describe("DeviceApi", () => {
           () => new Date(`${sampleSendersResponse[0].lastCommunication}Z`)
         );
 
-      DeviceApi.getSenders((result) => {
-        try {
-          expect(axios.get).toHaveBeenCalledWith(
-            "http://localhost:8080/encoder",
-            authorizationHeader
-          );
-          expect(result).toEqual(DeviceFixture.getExpectedSendersResponse());
-          done();
-        } catch (error) {
-          done(error);
-        }
-      });
+      const result = await DeviceApi.getSenders();
+      expect(axios.get).toHaveBeenCalledWith(
+        "http://localhost:8080/encoder",
+        authorizationHeader
+      );
+
+      expect(result).toEqual(DeviceFixture.getExpectedSendersResponse());
     });
   });
 
   describe("getReceivers", () => {
-    it("Should call axios and return the receivers", (done) => {
+    it("Should call axios and return the receivers", async () => {
       const sampleReceiversResponse = DeviceFixture.getSampleReceiversResponse();
       axios.get.mockResolvedValue({ data: sampleReceiversResponse });
       authenticationUtil.getAuthorizationHeader = jest
@@ -59,18 +54,13 @@ describe("DeviceApi", () => {
           () => new Date(`${sampleReceiversResponse[0].lastCommunication}Z`)
         );
 
-      DeviceApi.getReceivers((result) => {
-        try {
-          expect(axios.get).toHaveBeenCalledWith(
-            "http://localhost:8080/decoder",
-            authorizationHeader
-          );
-          expect(result).toEqual(DeviceFixture.getExpectedReceiversResponse());
-          done();
-        } catch (error) {
-          done(error);
-        }
-      });
+      const result = await DeviceApi.getReceivers();
+      expect(axios.get).toHaveBeenCalledWith(
+        "http://localhost:8080/decoder",
+        authorizationHeader
+      );
+
+      expect(result).toEqual(DeviceFixture.getExpectedReceiversResponse());
     });
   });
 
