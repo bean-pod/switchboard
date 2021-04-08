@@ -9,14 +9,18 @@ import { getSampleStreamStats } from "../../api/SampleData";
 export default function StreamStatisticsPage(props) {
   const {
     location: {
-      state: { statistics }
+      state: { statistics, stream }
     }
   } = props;
   const breadcrumbs = [
     ["Home", "/Home"],
     ["Active Streams", "/Streams"],
-    ["Stream Details"],
-    ["Statistics", `/Streams/Details/${statistics.id}/Statistics`]
+    ["Stream Details", `/Streams/Details/${stream.id}`, { stream }],
+    [
+      "Statistics",
+      `/Streams/Details/${stream.id}/Statistics`,
+      { statistics, stream }
+    ]
   ];
 
   return (
@@ -26,14 +30,10 @@ export default function StreamStatisticsPage(props) {
   );
 }
 
-StreamStatisticsPage.defaultProps = {
-  location: { state: { statistics: getSampleStreamStats() } }
-};
-
 StreamStatisticsPage.propTypes = {
   location: PropTypes.shape({
     state: PropTypes.shape({
       statistics: PropTypes.instanceOf(StreamStatisticsInfo)
     })
-  })
+  }).isRequired
 };
