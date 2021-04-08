@@ -195,5 +195,3 @@ describe("<LogoutMenu/> functional component", () => {
     });
   });
 });
-
-        
