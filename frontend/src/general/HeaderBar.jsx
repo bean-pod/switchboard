@@ -6,7 +6,7 @@ import { Home } from "@material-ui/icons/";
 
 import { logOut } from "../api/AuthenticationApi";
 import { isAuthenticated } from "../api/AuthenticationUtil";
-import LogoutMenuOpener from "./logoutMenu/LogoutMenuOpener";
+import LogoutMenuOpener from "./LogoutMenu/LogoutMenuOpener";
 
 class HeaderBar extends React.Component {
   constructor(props) {

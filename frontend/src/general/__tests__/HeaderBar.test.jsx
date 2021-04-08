@@ -10,7 +10,7 @@ import HeaderBar from "../HeaderBar";
 
 import * as AuthApi from "../../api/AuthenticationApi";
 import * as AuthUtil from "../../api/AuthenticationUtil";
-import LogoutMenuOpener from "../logoutMenu/LogoutMenuOpener";
+import LogoutMenuOpener from "../LogoutMenu/LogoutMenuOpener";
 
 Enzyme.configure({ adapter: new Adapter() });
 describe("<HeaderBar/> functional Component", () => {
