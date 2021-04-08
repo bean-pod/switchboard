@@ -18,7 +18,8 @@ export default class LogsTableWrapper extends React.Component {
       {
         title: "Date",
         field: "dateTime",
-        cellStyle: { width: "10%" }
+        defaultSort: "desc",
+        cellStyle: { width: "15%" }
       },
       {
         title: "Level",

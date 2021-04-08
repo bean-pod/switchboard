@@ -13,12 +13,11 @@ export default class StreamLogTableWrapper extends React.Component {
       {
         title: "Date",
         field: "dateTime",
-        cellStyle: { width: "10%" }
+        defaultSort: "desc"
       },
       {
         title: "Level",
-        field: "level",
-        cellStyle: { width: "10%" }
+        field: "level"
       },
       {
         title: "Message",

@@ -13,18 +13,16 @@ export default class DeviceLogTableWrapper extends React.Component {
     this.columns = [
       {
         title: "ID",
-        field: "id",
-        cellStyle: { width: "5%" }
+        field: "id"
       },
       {
         title: "Date",
         field: "dateTime",
-        cellStyle: { width: "10%" }
+        defaultSort: "desc"
       },
       {
         title: "Level",
-        field: "level",
-        cellStyle: { width: "10%" }
+        field: "level"
       },
       {
         title: "Message",

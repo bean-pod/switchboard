@@ -135,11 +135,12 @@ describe("<LogsTableWrapper/> Class Component", () => {
         {
           title: "ID",
           field: "id",
-          cellStyle: { width: "10%" }
+          cellStyle: { width: "5%" }
         },
         {
           title: "Date",
           field: "dateTime",
+          defaultSort: "desc",
           cellStyle: { width: "15%" }
         },
         {
