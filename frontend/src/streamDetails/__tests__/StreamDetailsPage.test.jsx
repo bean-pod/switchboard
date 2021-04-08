@@ -35,7 +35,11 @@ describe("<StreamDetailsPage/> functional component", () => {
         const expectedBreadcrumbs = [
           ["Home", "/Home"],
           ["Active Streams", "/Streams"],
-          ["Stream Details", `/Streams/Details/${dummyStream.id}`, { stream: dummyStream }]
+          [
+            "Stream Details",
+            `/Streams/Details/${dummyStream.id}`,
+            { stream: dummyStream }
+          ]
         ];
 
         expect(wrapper.find(Page)).toHaveLength(1);
