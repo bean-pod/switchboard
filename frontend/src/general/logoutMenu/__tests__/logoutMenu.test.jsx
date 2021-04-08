@@ -12,6 +12,7 @@ import {
   Popper,
   Typography
 } from "@material-ui/core";
+import { NavLink } from "react-router-dom";
 import LogoutMenu from "../LogoutMenu";
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -126,7 +127,7 @@ describe("<LogoutMenu/> functional component", () => {
     });
     it("Contains 2 <NavLink/> components with expected props", () => {
       const components = wrapper.find(NavLink);
-      expect(components).toHaveLength(4);
+      expect(components).toHaveLength(2);
     });
     it("<NavLink/> 0 has expected props", () => {
       const components = wrapper.find(NavLink);
@@ -145,6 +146,50 @@ describe("<LogoutMenu/> functional component", () => {
       const expected = {
         to: "/Devices",
         className: "hideLinkStyle"
+      };
+      expect(props).toMatchObject(expected);
+    });
+    it("Contains 2 <Typography/> components with expected props", () => {
+      const components = wrapper.find(Typography);
+      expect(components).toHaveLength(4);
+    });
+    it("<Typography/> 0 has expected props", () => {
+      const components = wrapper.find(Typography);
+      const props = components.at(0).props();
+
+      const expected = {
+        color: "textSecondary",
+        children: "Quick Actions"
+      };
+      expect(props).toMatchObject(expected);
+    });
+    it("<Typography/> 1 has expected props", () => {
+      const components = wrapper.find(Typography);
+      const props = components.at(1).props();
+
+      const expected = {
+        color: "textPrimary",
+        children: "Dashboard"
+      };
+      expect(props).toMatchObject(expected);
+    });
+    it("<Typography/> 2 has expected props", () => {
+      const components = wrapper.find(Typography);
+      const props = components.at(2).props();
+
+      const expected = {
+        color: "textPrimary",
+        children: "My Devices"
+      };
+      expect(props).toMatchObject(expected);
+    });
+    it("<Typography/> 3 has expected props", () => {
+      const components = wrapper.find(Typography);
+      const props = components.at(3).props();
+
+      const expected = {
+        color: "error",
+        children: "Logout"
       };
       expect(props).toMatchObject(expected);
     });
