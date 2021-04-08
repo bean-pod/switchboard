@@ -12,7 +12,6 @@ import StreamStatsReceiveInfo from "../../../model/StreamStatistics/StreamStatsR
 import StreamStatsLinkInfo from "../../../model/StreamStatistics/StreamStatsLinkInfo";
 import StreamStatsWindowInfo from "../../../model/StreamStatistics/StreamStatsWindowInfo";
 
-import { getSampleStreamStats } from "../../../api/SampleData";
 import { firstStreamResponse } from "../../../api/tests/StreamFixture";
 
 Enzyme.configure({ adapter: new Adapter() });
