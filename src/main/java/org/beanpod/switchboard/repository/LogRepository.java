@@ -16,17 +16,18 @@ public interface LogRepository extends JpaRepository<LogEntity, Long> {
       value =
           "select lo.id, lo.level, lo.message, lo.serial_number, lo.date_time "
               + "from log_entity lo, user us, device de "
-              + "where us.id = de.user_id and us.id = :id and de.serial_number = lo.serial_number",
+              + "where us.id = de.user_id and us.id = :id "
+              + "and de.serial_number = lo.serial_number",
       nativeQuery = true)
-  List<LogEntity> findAll(@Param("id") Long user_id);
+  List<LogEntity> findAll(@Param("id") Long userId);
 
   @Query(
       value =
           "select lo.id, lo.level, lo.message, lo.serial_number, lo.date_time "
               + "from log_entity lo, user us, device de "
-              + "where us.id = de.user_id and us.id = :id and de.serial_number = lo.serial_number "
-              + "and lo.serial_number= :serial",
+              + "where us.id = de.user_id and us.id = :id "
+              + "and de.serial_number = lo.serial_number and lo.serial_number= :serial",
       nativeQuery = true)
   List<LogEntity> findBySerialNumber(
-      @Param("serial") String serialNumber, @Param("id") Long user_id);
+      @Param("serial") String serialNumber, @Param("id") Long userId);
 }
