@@ -64,7 +64,8 @@ class LogDaoImplTest {
 
   @Test
   final void testGetDeviceLogs() {
-    when(logRepository.findBySerialNumber(DeviceFixture.SERIAL_NUMBER, user.getId())).thenReturn(logEntities);
+    when(logRepository.findBySerialNumber(DeviceFixture.SERIAL_NUMBER, user.getId()))
+        .thenReturn(logEntities);
     when(logMapper.toLogModels(any())).thenReturn(logModels);
     List<LogModel> logs = logDao.getDeviceLogs(DeviceFixture.SERIAL_NUMBER);
     assertIterableEquals(logModels, logs);
