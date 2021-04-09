@@ -65,11 +65,6 @@ export default class LogsTable extends React.Component {
               icons={this.getIcons()}
             />
           </TableContainer>
-          <div className="textAlignRightPadded">
-            {"Time Zone: ".concat(
-              Intl.DateTimeFormat().resolvedOptions().timeZone
-            )}
-          </div>
         </Box>
       </>
     );

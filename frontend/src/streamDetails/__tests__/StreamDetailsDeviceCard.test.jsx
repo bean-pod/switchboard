@@ -30,7 +30,7 @@ describe("<StreamDetailsDeviceCard/> functional component", () => {
 
     const dummyButton = new ButtonInfo(
       `/Devices/Details/${dummyDevice.serialNumber}`,
-      dummyDevice,
+      { device: dummyDevice },
       "View Device"
     );
 

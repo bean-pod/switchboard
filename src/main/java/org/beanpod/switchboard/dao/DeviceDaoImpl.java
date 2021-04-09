@@ -39,6 +39,10 @@ public class DeviceDaoImpl {
     return deviceRepository.findDeviceEntitiesByUser(user);
   }
 
+  public Optional<DeviceDto> findDevice(String serialNumber) {
+    return deviceRepository.findDeviceBySerialNumber(serialNumber).map(deviceMapper::toDeviceDto);
+  }
+
   public Optional<DeviceDto> findDevice(UserEntity user, String serialNumber) {
     return deviceRepository
         .findDeviceByUserAndSerialNumber(user, serialNumber)
