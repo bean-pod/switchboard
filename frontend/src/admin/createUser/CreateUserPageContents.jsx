@@ -3,20 +3,20 @@ import FormConsole from "../../general/userForm/FormConsole";
 import { createUser } from "../../api/UserManagementApi";
 import { snackbar } from "../../general/SnackbarMessage";
 
+function handleSubmit(username, password) {
+  createUser({ username, password })
+    .then(() => {
+      snackbar("success", `User ${username} successfully created!`);
+    })
+    .catch((error) => {
+      snackbar("error", `Failed to create user: ${error.message}`);
+    });
+}
+
 export default class CreateUserPageContents extends React.Component {
   constructor(props) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleSubmit(username, password) {
-    createUser({ username, password })
-      .then(() => {
-        snackbar("success", `User ${username} successfully created!`);
-      })
-      .catch((error) => {
-        snackbar("error", `Failed to create user: ${error.message}`);
-      });
+    this.handleSubmit = handleSubmit;
   }
 
   render() {

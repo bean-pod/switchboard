@@ -48,17 +48,7 @@ describe("<CreateUserPageContents/> class component", () => {
       };
 
       const formConsoleProps = form.props();
-
-      expect(formConsoleProps.handleSubmit).toBe(expected.handleSubmit);
-      expect(formConsoleProps.buttonName).toEqual(expected.buttonName);
-      expect(formConsoleProps.isValidate).toBe(expected.isValidate);
-      expect(formConsoleProps.passwordError).toEqual(expected.passwordError);
-      expect(formConsoleProps.passwordInputProps).toEqual(
-        expected.passwordInputProps
-      );
-      expect(formConsoleProps.passwordHelperText).toEqual(
-        expected.passwordHelperText
-      );
+      expect(formConsoleProps).toMatchObject(expected);
     });
   });
 
