@@ -6,7 +6,6 @@ import CreateUserPageContents from "./CreateUserPageContents";
 export default function CreateUserPage() {
   const breadcrumbs = [
     ["Home", "/Home"],
-    ["Admin", "/Admin"],
     ["Create a User", "/Admin/New"]
   ];
 
