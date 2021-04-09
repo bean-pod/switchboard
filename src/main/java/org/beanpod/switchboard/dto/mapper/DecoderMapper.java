@@ -8,12 +8,19 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
 import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.openapitools.model.DecoderModel;
 
 @Mapper(
     componentModel = "spring",
-    uses = {DeviceMapper.class, InputChannelMapper.class},
+    uses = {DeviceMapper.class, InputChannelMapper.class, DateMapper.class},
     nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface DecoderMapper {
+
+  DecoderModel toDecoderModel(DecoderDto decoderDto);
+
+  List<DecoderModel> toDecoderModels(List<DecoderDto> decoderDtos);
+
+  DecoderDto toDecoderDto(DecoderModel decoderModel);
 
   DecoderDto toDecoderDto(DecoderEntity decoderEntity);
 

@@ -1,12 +1,12 @@
 package org.beanpod.switchboard.controller;
 
 import java.time.Instant;
+import java.util.Base64.Decoder;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.dao.DecoderDaoImpl;
@@ -20,23 +20,21 @@ import org.beanpod.switchboard.entity.DecoderEntity;
 import org.beanpod.switchboard.entity.DeviceEntity;
 import org.beanpod.switchboard.entity.UserEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
+import org.beanpod.switchboard.exceptions.ExceptionType.UnknownException;
 import org.beanpod.switchboard.service.DecoderService;
 import org.beanpod.switchboard.util.MaintainDeviceStatus;
+import org.openapitools.api.DecoderApi;
+import org.openapitools.model.CreateDecoderRequest;
+import org.openapitools.model.DecoderModel;
 import org.openapitools.model.StreamModel;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/decoder")
 @RequiredArgsConstructor
-public class DecoderController {
+public class DecoderController implements DecoderApi {
 
   public static final String UNKNOWN_ERROR_MESSAGE = "Unknown error in DecoderController";
 
@@ -49,17 +47,19 @@ public class DecoderController {
   private final MaintainDeviceStatus maintainDeviceStatus;
   private final HttpServletRequest request;
 
-  @GetMapping
-  public List<DecoderDto> retrieveAllDecoders() {
+  @Override
+  public ResponseEntity<List<DecoderModel>> retrieveAllDecoders() {
     UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
 
     List<DecoderEntity> decoderEntity = decoderDao.getDecoders(user);
     maintainDeviceStatus.maintainStatusField(decoderEntity);
-    return decoderMapper.toDecoderDtos(decoderEntity);
+    List<DecoderDto> decoderDtos = decoderMapper.toDecoderDtos(decoderEntity);
+    List<DecoderModel> decoderModels = decoderMapper.toDecoderModels(decoderDtos);
+    return ResponseEntity.ok(decoderModels);
   }
 
-  @GetMapping("/{serialNumber}")
-  public ResponseEntity<DecoderDto> retrieveDecoder(@PathVariable @Valid String serialNumber) {
+  @Override
+  public ResponseEntity<DecoderModel> retrieveDecoder(@PathVariable @Valid String serialNumber) {
     UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
 
     // maintain status field and create a log if status changed
@@ -75,30 +75,34 @@ public class DecoderController {
 
     // return decoder
     return decoder
+        .map(decoderMapper::toDecoderModel)
         .map(ResponseEntity::ok)
         .orElseThrow(() -> new ExceptionType.DeviceNotFoundException(serialNumber));
   }
 
-  @PostMapping
-  public ResponseEntity<DecoderDto> createDecoder(@RequestBody @Valid DecoderDto decoderDto) {
-    if (decoderDto.getInput().isEmpty()) {
-      throw new ExceptionType.MissingChannelsException(decoderDto.getSerialNumber());
+  @Override
+  public ResponseEntity<DecoderModel> createDecoder(@Valid DecoderModel decoderModel) {
+    if (decoderModel.getInput().isEmpty()) {
+      throw new ExceptionType.MissingChannelsException(decoderModel.getSerialNumber());
     }
 
     UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
 
     Optional<DeviceDto> deviceOptional =
-        deviceService.findDevice(user, decoderDto.getSerialNumber());
+        deviceService.findDevice(user, decoderModel.getSerialNumber());
     if (deviceOptional.isEmpty()) {
-      throw new ExceptionType.DeviceNotFoundException(decoderDto.getSerialNumber());
+      throw new ExceptionType.DeviceNotFoundException(decoderModel.getSerialNumber());
     }
+
+    DecoderDto decoderDto = decoderMapper.toDecoderDto(decoderModel);
     decoderDto.setDevice(deviceOptional.get());
     decoderDto.setLastCommunication(Date.from(Instant.now()));
-    return ResponseEntity.ok(decoderDao.save(user, decoderDto));
+    DecoderDto savedDecoderDto = decoderDao.save(user, decoderDto);
+    DecoderModel savedDecoderModel = decoderMapper.toDecoderModel(savedDecoderDto);
+    return ResponseEntity.ok(savedDecoderModel);
   }
 
-  @DeleteMapping("/{serialNumber}")
-  @Transactional
+  @Override
   public ResponseEntity<String> deleteDecoder(@PathVariable String serialNumber) {
     UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
 
@@ -109,18 +113,23 @@ public class DecoderController {
     return ResponseEntity.ok("Decoder with serial number " + serialNumber + " Deleted");
   }
 
-  @PutMapping
-  public ResponseEntity<DecoderDto> updateDecoder(@RequestBody DecoderDto decoderDto) {
+  @Override
+  public ResponseEntity<DecoderModel> updateDecoder(String serialNumber,
+      @Valid DecoderModel decoderModel) {
     UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
 
-    Optional<DecoderDto> decoder = decoderDao.findDecoder(user, decoderDto.getSerialNumber());
+    Optional<DecoderDto> decoder = decoderDao.findDecoder(user, decoderModel.getSerialNumber());
     if (decoder.isEmpty()) {
-      throw new ExceptionType.DeviceNotFoundException(decoderDto.getSerialNumber());
+      throw new ExceptionType.DeviceNotFoundException(decoderModel.getSerialNumber());
     }
-    return ResponseEntity.ok(decoderDao.save(user, decoderDto));
+
+    DecoderDto decoderDto = decoderMapper.toDecoderDto(decoderModel);
+    DecoderDto savedDecoderDto = decoderDao.save(user, decoderDto);
+    DecoderModel savedDecoderModel = decoderMapper.toDecoderModel(savedDecoderDto);
+    return ResponseEntity.ok(savedDecoderModel);
   }
 
-  @GetMapping("/{serialNumber}/streams")
+  @Override
   public ResponseEntity<List<StreamModel>> getDecoderStreams(@PathVariable String serialNumber) {
     UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
 
@@ -132,6 +141,6 @@ public class DecoderController {
   }
 
   private RuntimeException getUnknownException() {
-    return new RuntimeException(UNKNOWN_ERROR_MESSAGE);
+    return new UnknownException(UNKNOWN_ERROR_MESSAGE);
   }
 }

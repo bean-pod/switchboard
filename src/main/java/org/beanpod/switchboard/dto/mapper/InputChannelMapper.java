@@ -1,5 +1,6 @@
 package org.beanpod.switchboard.dto.mapper;
 
+import java.util.Date;
 import java.util.Set;
 import org.beanpod.switchboard.dto.InputChannelDto;
 import org.beanpod.switchboard.entity.InputChannelEntity;
@@ -9,7 +10,7 @@ import org.openapitools.model.InputChannelModel;
 
 @Mapper(
     componentModel = "spring",
-    uses = {DecoderMapper.class, ChannelMapper.class})
+    uses = {DecoderMapper.class, ChannelMapper.class, DateMapper.class})
 public interface InputChannelMapper {
 
   @Mapping(target = "decoder", qualifiedByName = "toDecoderDtoShallow")
