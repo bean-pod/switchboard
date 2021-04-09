@@ -23,18 +23,12 @@ describe("LoginConsole", () => {
   });
 
   describe("return()", () => {
-    it("should return one <FormConsole/> component", () => {
-      expect(wrapper.find(FormConsole)).toHaveLength(1);
-    });
-
-    describe("the <FormConsole/> handleSubmit", () => {
-      it("to be equal to the <CreateUserFormConsole/>'s handleSubmit prop", () => {
-        const loginFormConsole = wrapper.find(FormConsole);
-
-        expect(loginFormConsole.props().handleSubmit).toBe(
-          wrapper.props().handleSubmit
-        );
-      });
+    it("should return one <FormConsole/> component with the expected prop", () => {
+      const loginFormConsole = wrapper.find(FormConsole);
+      expect(loginFormConsole).toHaveLength(1);
+      expect(loginFormConsole.props().handleSubmit).toBe(
+        wrapper.props().handleSubmit
+      );
     });
   });
 });
