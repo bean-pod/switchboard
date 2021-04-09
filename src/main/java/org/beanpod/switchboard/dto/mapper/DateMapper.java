@@ -12,7 +12,7 @@ public interface DateMapper {
       return null;
     }
 
-    return new Date(offsetDateTime.toInstant().toEpochMilli());
+    return Date.from(offsetDateTime.toInstant());
   }
 
   default OffsetDateTime toOffsetDateTime(Date date) {
