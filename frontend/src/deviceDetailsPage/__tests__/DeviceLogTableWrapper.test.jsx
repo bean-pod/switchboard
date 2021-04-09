@@ -143,18 +143,16 @@ describe("<DeviceLogTableWrapper/> Class Component", () => {
       const expectedValue = [
         {
           title: "ID",
-          field: "id",
-          cellStyle: { width: "10%" }
+          field: "id"
         },
         {
           title: "Date",
           field: "dateTime",
-          cellStyle: { width: "15%" }
+          defaultSort: "desc"
         },
         {
           title: "Level",
-          field: "level",
-          cellStyle: { width: "10%" }
+          field: "level"
         },
         {
           title: "Message",
