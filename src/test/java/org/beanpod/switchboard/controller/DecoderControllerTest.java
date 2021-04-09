@@ -88,6 +88,7 @@ class DecoderControllerTest {
   final void testRetrieveAllDecoders() {
     when(decoderDao.getDecoders(user)).thenReturn(listOfDecoders);
     when(decoderMapper.toDecoderDtos(any())).thenReturn(DecoderFixture.getDecoderDtos());
+    when(decoderMapper.toDecoderModels(any())).thenReturn(DecoderFixture.getDecoderModels());
 
     ResponseEntity<List<DecoderModel>> response = decoderController.retrieveAllDecoders();
 
@@ -104,12 +105,13 @@ class DecoderControllerTest {
     when(decoderDao.findDecoder(user, DecoderFixture.SERIAL_NUMBER))
         .thenReturn(Optional.of(decoderDto));
     when(maintainDeviceStatus.maintainStatusField(anyList())).thenReturn(listOfDevices);
+    when(decoderMapper.toDecoderModel(decoderDto)).thenReturn(decoderModel);
 
     ResponseEntity<DecoderModel> actualDecoder = decoderController.retrieveDecoder("1");
 
     assertNotNull(actualDecoder);
     assertEquals(200, actualDecoder.getStatusCodeValue());
-    assertEquals(decoderDto, actualDecoder.getBody());
+    assertEquals(decoderModel, actualDecoder.getBody());
   }
 
   // When a decoder is unavailable in the DB
@@ -125,14 +127,18 @@ class DecoderControllerTest {
   final void testCreateDecoder() {
     when(deviceService.findDevice(user, DecoderFixture.SERIAL_NUMBER))
         .thenReturn(Optional.of(deviceDto));
+    when(decoderMapper.toDecoderDto(any(DecoderModel.class))).thenReturn(decoderDto);
     when(decoderDao.save(user, decoderDto)).thenReturn(decoderDto);
+    when(decoderMapper.toDecoderModel(any())).thenReturn(decoderModel);
+
     ResponseEntity<DecoderModel> response = decoderController.createDecoder(decoderModel);
+
     assertEquals(200, response.getStatusCodeValue());
   }
 
   @Test
   final void testCreateDecoderWithoutChannels() {
-    decoderDto.setInput(Collections.emptySet());
+    decoderModel.setInput(Collections.emptyList());
     assertThrows(
         ExceptionType.MissingChannelsException.class,
         () -> decoderController.createDecoder(decoderModel));
