@@ -62,7 +62,7 @@ public class EncoderController implements EncoderApi {
   }
 
   @Override
-  public ResponseEntity<EncoderModel> retrieveDecoder(@PathVariable @Valid String serialNumber) {
+  public ResponseEntity<EncoderModel> retrieveEncoder(@PathVariable @Valid String serialNumber) {
     UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
 
     // maintain status field and create a log if status changed
@@ -137,6 +137,6 @@ public class EncoderController implements EncoderApi {
   }
 
   private RuntimeException getUnknownException() {
-    return new RuntimeException(UNKNOWN_ERROR_MESSAGE);
+    return new UnknownException(UNKNOWN_ERROR_MESSAGE);
   }
 }

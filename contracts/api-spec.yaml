@@ -244,7 +244,7 @@ paths:
 
   /encoder/{serialNumber}:
     get:
-      operationId: retrieveDecoder
+      operationId: retrieveEncoder
       description: Retrieve a specific encoder
       tags:
         - Encoders
@@ -659,6 +659,10 @@ components:
         serialNumber:
           type: string
           example: 'BtmC8ckj'
+        lastCommunication:
+          type: string
+          format: date-time
+          example: "2017-07-21T17:32:28Z"
         device:
           $ref: '#/components/schemas/DeviceModel'
         output:
