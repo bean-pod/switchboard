@@ -10,19 +10,6 @@ import {
   it
 } from "@jest/globals";
 import { Box, TableContainer, Typography } from "@material-ui/core";
-import {
-  FilterList,
-  Search,
-  ExpandLess,
-  ExpandMore,
-  ArrowDownward,
-  Clear,
-  SaveAlt,
-  FirstPage,
-  LastPage,
-  ChevronRight,
-  ChevronLeft
-} from "@material-ui/icons";
 import MaterialTable, { MTableToolbar } from "material-table";
 import DevicesTable from "../DevicesTable";
 import ChannelDetailsTable from "../ChannelDetailsTable";
@@ -35,6 +22,7 @@ jest.spyOn(global.console, "error");
 
 describe("<DevicesTable/> component", () => {
   let wrapper;
+  let wrapperInstance;
   const dummyTitle = "test";
   const dummyDevices = [];
 
@@ -42,6 +30,7 @@ describe("<DevicesTable/> component", () => {
     wrapper = Enzyme.shallow(
       <DevicesTable title={dummyTitle} devices={dummyDevices} />
     );
+    wrapperInstance = wrapper.instance();
   });
 
   afterEach(() => {
@@ -62,185 +51,76 @@ describe("<DevicesTable/> component", () => {
       const shallowWrapper = wrapper.instance();
       const expected = {
         title: dummyTitle,
-        components: shallowWrapper.getComponents(),
-        columns: shallowWrapper.getColumnInfo(),
+        components: shallowWrapper.components,
+        columns: shallowWrapper.columns,
         data: dummyDevices,
-        detailPanel: shallowWrapper.getDetailPanel(),
-        options: shallowWrapper.getOptions(),
-        icons: shallowWrapper.getIcons()
+        detailPanel: shallowWrapper.detailPanel,
+        options: shallowWrapper.options,
+        icons: shallowWrapper.icons
       };
 
       const tableProps = wrapper.find(MaterialTable).props();
-      expect(tableProps.title).toEqual(expected.title);
-      expect(tableProps.components).toEqual(expected.components);
-      expect(tableProps.columns).toEqual(expected.columns);
-      expect(tableProps.data).toBe(expected.data);
-      expect(tableProps.detailPanel).toEqual(expected.detailPanel);
-      expect(tableProps.options).toEqual(expected.options);
-      expect(tableProps.icons).toEqual(expected.icons);
+      expect(tableProps).toEqual(expected);
     });
   });
 
-  describe("getComponents() function", () => {
+  describe("components variable", () => {
     it(`should have a render() function that returns a <MTableToolbar/> component`, () => {
-      const result = wrapper.instance().getComponents();
-      const props = wrapper.props();
-
+      const wrapperProps = wrapper.props();
       /*  eslint-disable react/jsx-props-no-spreading */
-      const expectedRenderFunction = function Components(passedProps) {
-        return (
-          <div className="lightestGrey">
-            <MTableToolbar {...passedProps} />
-          </div>
-        );
-      };
+      const expectedRenderedComponent = (
+        <div className="lightestGrey">
+          <MTableToolbar {...wrapperProps} />
+        </div>
+      );
 
-      const expectedRenderResult = expectedRenderFunction(props);
-      expect(result.Toolbar(props)).toMatchObject(expectedRenderResult);
+      expect(wrapperInstance.components.Toolbar(wrapperProps)).toEqual(
+        expectedRenderedComponent
+      );
     });
   });
 
-  describe("getColumnInfo() function", () => {
-    let result;
-
-    beforeEach(() => {
-      result = wrapper.instance().getColumnInfo();
-    });
-
-    it("should return the expected column info to be used in the <MaterialTable/> component", () => {
-      const expected = [
-        {
-          title: "Name",
-          field: "name"
-        },
-        {
-          title: "Serial Number",
-          field: "serialNumber"
-        },
-        {
-          title: "Status",
-          field: "status",
-          lookup: {
-            Online: "Online",
-            Pending: "Pending",
-            Error: "Error",
-            Offline: "Offline"
-          }
-        },
-        {
-          title: "Private IP Address",
-          field: "privateIp"
-        },
-        {
-          title: "Public IP Address",
-          field: "publicIp"
-        },
-        {
-          title: "Actions",
-          field: "action",
-          filtering: false,
-          sorting: false,
-          align: "center",
-          export: false
-        }
-      ];
-      expect(result).toMatchObject(expected);
-    });
+  describe("columns variable", () => {
     it(`should have a render() function that returns a <StatusIndicator/> component in Status column`, () => {
       const dummyData = {
         status: "Online"
       };
 
-      const expectedRenderFunction = function Status(rowData) {
-        return <StatusIndicator status={rowData.status} />;
-      };
+      const expectedRenderedComponent = (
+        <StatusIndicator status={dummyData.status} />
+      );
 
-      const expectedRenderResult = expectedRenderFunction(dummyData);
-      expect(result[2].render(dummyData)).toMatchObject(expectedRenderResult);
+      expect(wrapperInstance.columns[2].render(dummyData)).toEqual(
+        expectedRenderedComponent
+      );
     });
     it(`should have a render() function that returns a <DeviceDetailsButton/> component in Actions column`, () => {
       const sampleDevice = SampleData.getSampleSender();
 
-      const expectedRenderFunction = function Actions(rowData) {
-        return <DeviceDetailsButton deviceInfo={rowData} />;
-      };
+      const expectedRenderedComponent = (
+        <DeviceDetailsButton deviceInfo={sampleDevice} />
+      );
 
-      const expectedRenderResult = expectedRenderFunction(sampleDevice);
-      expect(result[5].render(sampleDevice)).toMatchObject(
-        expectedRenderResult
+      expect(wrapperInstance.columns[5].render(sampleDevice)).toEqual(
+        expectedRenderedComponent
       );
     });
   });
 
-  describe("getDetailPanel() function", () => {
-    let result;
-
-    beforeEach(() => {
-      result = wrapper.instance().getDetailPanel();
-    });
-
-    it("should return the expected detail panel to be used in the <MaterialTable/> component", () => {
-      const expected = [
-        {
-          icon: ExpandMore,
-          openIcon: ExpandLess,
-          tooltip: "Show Channels"
-        }
-      ];
-      expect(result).toMatchObject(expected);
-    });
+  describe("detailPanel variable", () => {
     it(`should have a render() function that returns <Typography/> and <ChannelDetailsTable/> components`, () => {
       const sampleDevice = SampleData.getSampleSender();
 
-      const expectedRenderFunction = function DetailPanel(rowData) {
-        return (
-          <div className="lightestGrey" style={{ padding: "1.5em" }}>
-            <Typography variant="h6">Channels</Typography>
-            <ChannelDetailsTable channels={rowData.channels} />
-          </div>
-        );
-      };
-
-      const expectedRenderResult = expectedRenderFunction(sampleDevice);
-      expect(result[0].render(sampleDevice)).toMatchObject(
-        expectedRenderResult
+      const expectedRenderedComponent = (
+        <div className="lightestGrey" style={{ padding: "1.5em" }}>
+          <Typography variant="h6">Channels</Typography>
+          <ChannelDetailsTable channels={sampleDevice.channels} />
+        </div>
       );
-    });
-  });
 
-  describe("getOptions() function", () => {
-    it("should return the expected options to be used in the <MaterialTable/> component", () => {
-      const expected = {
-        toolbar: true,
-        search: true,
-        exportButton: true,
-        headerStyle: {
-          backgroundColor: "#f1f1f1",
-          fontWeight: "bold"
-        },
-        filtering: true,
-        draggable: false
-      };
-      const result = wrapper.instance().getOptions();
-      expect(result).toStrictEqual(expected);
-    });
-  });
-
-  describe("getIcons() function", () => {
-    it("should return the expected icons to be used in the <MaterialTable/> component", () => {
-      const expected = {
-        Filter: FilterList,
-        Search,
-        ResetSearch: Clear,
-        SortArrow: ArrowDownward,
-        Export: SaveAlt,
-        FirstPage,
-        LastPage,
-        NextPage: ChevronRight,
-        PreviousPage: ChevronLeft
-      };
-      const result = wrapper.instance().getIcons();
-      expect(result).toStrictEqual(expected);
+      expect(wrapperInstance.detailPanel[0].render(sampleDevice)).toEqual(
+        expectedRenderedComponent
+      );
     });
   });
 });

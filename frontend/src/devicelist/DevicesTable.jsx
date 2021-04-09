@@ -117,26 +117,6 @@ export default class DevicesTable extends React.Component {
     };
   }
 
-  getComponents() {
-    return this.components;
-  }
-
-  getColumnInfo() {
-    return this.columns;
-  }
-
-  getDetailPanel() {
-    return this.detailPanel;
-  }
-
-  getOptions() {
-    return this.options;
-  }
-
-  getIcons() {
-    return this.icons;
-  }
-
   render() {
     const { title, devices } = this.props;
     return (
@@ -145,12 +125,12 @@ export default class DevicesTable extends React.Component {
           <TableContainer style={{ maxHeight: 570 }}>
             <MaterialTable
               title={title}
-              components={this.getComponents()}
-              columns={this.getColumnInfo()}
+              components={this.components}
+              columns={this.columns}
               data={devices}
-              detailPanel={this.getDetailPanel()}
-              options={this.getOptions()}
-              icons={this.getIcons()}
+              detailPanel={this.detailPanel}
+              options={this.options}
+              icons={this.icons}
             />
           </TableContainer>
         </Box>
