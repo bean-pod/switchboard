@@ -25,7 +25,8 @@ public class LogDaoImpl {
   }
 
   public List<LogModel> getDeviceLogs(String serialNumber) {
-    return logMapper.toLogModels(logRepository.findBySerialNumber(serialNumber));
+    UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
+    return logMapper.toLogModels(logRepository.findBySerialNumber(serialNumber, user.getId()));
   }
 
   public LogDto createLog(LogDto logDto) {
