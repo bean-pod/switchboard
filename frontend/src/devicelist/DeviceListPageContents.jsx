@@ -2,7 +2,7 @@ import React from "react";
 
 import { getSenders, getReceivers } from "../api/DeviceApi";
 import DeviceTableTitle from "./DeviceTableTitle";
-import DevicesTable from "./DevicesTable";
+import DeviceTable from "./DeviceTable";
 
 export default class DeviceListPageContents extends React.Component {
   constructor(props) {
@@ -63,6 +63,6 @@ export default class DeviceListPageContents extends React.Component {
   }
 
   render() {
-    return <DevicesTable devices={this.getDevices()} title={this.getTitle()} />;
+    return <DeviceTable devices={this.getDevices()} title={this.getTitle()} />;
   }
 }

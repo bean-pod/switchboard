@@ -12,7 +12,7 @@ import {
 
 import DeviceListPageContents from "../DeviceListPageContents";
 import DeviceTableTitle from "../DeviceTableTitle";
-import DevicesTable from "../DevicesTable";
+import DeviceTable from "../DeviceTable";
 
 import * as DeviceApi from "../../api/DeviceApi";
 import DeviceInfo from "../../model/DeviceInfo";
@@ -169,7 +169,7 @@ describe("<DeviceListPageContents/> class component", () => {
       wrapper = Enzyme.shallow(<DeviceListPageContents />);
     });
     describe("returns a component that", () => {
-      it("Contains 1 <DevicesTable/> component with expected props", () => {
+      it("Contains 1 <DeviceTable/> component with expected props", () => {
         const someState = {
           selected: 0,
           senders: dummySenders,
@@ -177,7 +177,7 @@ describe("<DeviceListPageContents/> class component", () => {
         };
         wrapper.setState(someState);
 
-        const component = wrapper.find(DevicesTable);
+        const component = wrapper.find(DeviceTable);
         expect(component).toHaveLength(1);
         const expected = {
           devices: dummySenders.concat(dummyReceivers),

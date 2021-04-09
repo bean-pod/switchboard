@@ -6,9 +6,9 @@ import { beforeEach, describe, expect, it } from "@jest/globals";
 import { Grid } from "@material-ui/core";
 
 import StreamStatisticsPageContents from "../StreamStatisticsPageContents";
-import StatisticsOverviewCard from "../StatisticsOverviewCard";
-import StatisticsSendingCard from "../StatisticsSendingCard";
-import StatisticsReceivingCard from "../StatisticsReceivingCard";
+import StatisticsOverviewCard from "../cards/StatisticsOverviewCard";
+import StatisticsSendingCard from "../cards/StatisticsSendingCard";
+import StatisticsReceivingCard from "../cards/StatisticsReceivingCard";
 
 import { getSampleStreamStats } from "../../../api/SampleData";
 
