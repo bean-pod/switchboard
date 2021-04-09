@@ -27,11 +27,11 @@ DetailsButton.propTypes = {
     pathname: PropTypes.string.isRequired,
     state: PropTypes.oneOfType([
       PropTypes.shape({
-        device: PropTypes.instanceOf(DeviceInfo),
+        device: PropTypes.instanceOf(DeviceInfo)
       }),
       PropTypes.shape({
         stream: PropTypes.instanceOf(StreamInfo)
-      }),
+      })
     ])
   }).isRequired,
   tooltipTitle: PropTypes.string.isRequired
