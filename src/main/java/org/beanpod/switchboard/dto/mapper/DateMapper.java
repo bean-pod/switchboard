@@ -8,7 +8,7 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface DateMapper {
   default Date toDate(OffsetDateTime offsetDateTime) {
-    if(offsetDateTime == null){
+    if (offsetDateTime == null) {
       return null;
     }
 
