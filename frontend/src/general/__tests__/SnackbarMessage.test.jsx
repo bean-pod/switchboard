@@ -38,8 +38,8 @@ describe("<SnackbarMessage /> Class Component", () => {
           "aria-describedby": "message-id"
         });
         expect(snackbarComponentProps.anchorOrigin).toEqual({
-          vertical: "top",
-          horizontal: "right"
+          vertical: "bottom",
+          horizontal: "left"
         });
         expect(snackbarComponentProps.open).toBe(wrapper.state().open);
         expect(snackbarComponentProps.autoHideDuration).toEqual(3000);
