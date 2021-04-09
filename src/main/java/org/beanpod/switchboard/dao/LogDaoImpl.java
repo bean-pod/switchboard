@@ -1,11 +1,9 @@
 package org.beanpod.switchboard.dao;
 
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.dto.LogDto;
 import org.beanpod.switchboard.dto.mapper.LogMapper;
-import org.beanpod.switchboard.entity.UserEntity;
 import org.beanpod.switchboard.repository.LogRepository;
 import org.openapitools.model.LogModel;
 import org.springframework.stereotype.Component;
