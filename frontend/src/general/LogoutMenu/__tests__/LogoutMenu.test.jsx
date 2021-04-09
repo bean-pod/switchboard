@@ -1,7 +1,7 @@
 import React from "react";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import {
   ClickAwayListener,
@@ -23,6 +23,11 @@ describe("<LogoutMenu/> functional component", () => {
   const dummyOpen = true;
   let mockHandleClose;
   let mockHandleLogout;
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    wrapper.unmount();
+  });
 
   describe("returns a component that", () => {
     beforeEach(() => {

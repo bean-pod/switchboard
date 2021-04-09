@@ -1,7 +1,7 @@
 import React from "react";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { IconButton } from "@material-ui/core";
 
@@ -18,6 +18,11 @@ describe("<LogoutMenuOpener/> class component", () => {
   const mockRefElement = {
     current: { thing: "thing" }
   };
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    wrapper.unmount();
+  });
 
   beforeEach(() => {
     jest.spyOn(React, "createRef").mockImplementation(() => {
