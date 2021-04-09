@@ -12,11 +12,11 @@ public class DateFixture {
   private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 
   @SneakyThrows
-  public static Date getDate(){
+  public static Date getDate() {
     return simpleDateFormat.parse(DATE);
   }
 
-  public static OffsetDateTime getOffsetDateTime(){
+  public static OffsetDateTime getOffsetDateTime() {
     return OffsetDateTime.parse(OFFSET_DATE_TIME);
   }
 }
