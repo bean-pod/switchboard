@@ -1,6 +1,7 @@
 package org.beanpod.switchboard.fixture;
 
 import java.text.SimpleDateFormat;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -64,13 +65,23 @@ public class EncoderFixture {
   }
 
   public static EncoderModel getEncoderModel() {
-    return new EncoderModel().serialNumber(SERIAL_NUMBER).device(DeviceFixture.getDeviceModel());
+    return new EncoderModel()
+        .serialNumber(SERIAL_NUMBER)
+        .lastCommunication(OffsetDateTime.parse("2020-10-31T05:05:05Z"))
+        .device(DeviceFixture.getDeviceModel());
   }
 
   public static EncoderModel getEncoderModelWithOutputChannel() {
     return new EncoderModel()
         .serialNumber(SERIAL_NUMBER)
+        .lastCommunication(OffsetDateTime.parse("2020-10-31T05:05:05Z"))
         .device(DeviceFixture.getDeviceModel())
         .output(List.of(ChannelFixture.getOutputChannelModel()));
+  }
+
+  public static List<EncoderModel> getEncoderModels(){
+    return List.of(
+        getEncoderModelWithOutputChannel()
+    );
   }
 }
