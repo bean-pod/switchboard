@@ -60,13 +60,23 @@ public class DecoderFixture {
   }
 
   public static DecoderModel getDecoderModel() {
-    return new DecoderModel().serialNumber(SERIAL_NUMBER).device(DeviceFixture.getDeviceModel());
+    return new DecoderModel()
+        .serialNumber(SERIAL_NUMBER)
+        .lastCommunication(DateFixture.getOffsetDateTime())
+        .device(DeviceFixture.getDeviceModel());
   }
 
   public static DecoderModel getDecoderModelWithInputChannel() {
     return new DecoderModel()
         .serialNumber(SERIAL_NUMBER)
+        .lastCommunication(DateFixture.getOffsetDateTime())
         .device(DeviceFixture.getDeviceModel())
         .input(List.of(ChannelFixture.getInputChannelModel()));
+  }
+
+  public static List<DecoderModel> getDecoderModels(){
+    return List.of(
+        getDecoderModelWithInputChannel()
+    );
   }
 }
