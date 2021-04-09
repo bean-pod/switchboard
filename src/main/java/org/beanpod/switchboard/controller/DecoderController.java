@@ -1,7 +1,6 @@
 package org.beanpod.switchboard.controller;
 
 import java.time.Instant;
-import java.util.Base64.Decoder;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,12 +23,10 @@ import org.beanpod.switchboard.exceptions.ExceptionType.UnknownException;
 import org.beanpod.switchboard.service.DecoderService;
 import org.beanpod.switchboard.util.MaintainDeviceStatus;
 import org.openapitools.api.DecoderApi;
-import org.openapitools.model.CreateDecoderRequest;
 import org.openapitools.model.DecoderModel;
 import org.openapitools.model.StreamModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController

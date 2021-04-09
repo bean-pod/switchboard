@@ -74,9 +74,7 @@ public class DecoderFixture {
         .input(List.of(ChannelFixture.getInputChannelModel()));
   }
 
-  public static List<DecoderModel> getDecoderModels(){
-    return List.of(
-        getDecoderModelWithInputChannel()
-    );
+  public static List<DecoderModel> getDecoderModels() {
+    return List.of(getDecoderModelWithInputChannel());
   }
 }

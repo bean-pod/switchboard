@@ -33,7 +33,7 @@ public interface DeviceMapper {
       UserEntity user, CreateDeviceRequest createDeviceRequest, String publicIpAddress);
 
   DeviceEntity toDeviceEntity(DeviceDto deviceDto);
-  
+
   DeviceModel toDeviceModel(DeviceDto deviceDto);
 
   List<DeviceModel> toDeviceModelList(List<DeviceDto> deviceDtos);

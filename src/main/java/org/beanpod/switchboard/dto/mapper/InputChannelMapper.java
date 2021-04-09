@@ -1,6 +1,5 @@
 package org.beanpod.switchboard.dto.mapper;
 
-import java.util.Date;
 import java.util.Set;
 import org.beanpod.switchboard.dto.InputChannelDto;
 import org.beanpod.switchboard.entity.InputChannelEntity;
