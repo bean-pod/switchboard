@@ -2,12 +2,15 @@ package org.beanpod.switchboard.controller;
 
 import java.util.List;
 import java.util.Optional;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.dao.LogDaoImpl;
 import org.beanpod.switchboard.dao.StreamLogDaoImpl;
+import org.beanpod.switchboard.dao.UserDaoImpl;
 import org.beanpod.switchboard.dto.mapper.LogMapper;
 import org.beanpod.switchboard.dto.mapper.StreamLogMapper;
+import org.beanpod.switchboard.entity.UserEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.service.LogService;
 import org.beanpod.switchboard.service.StreamLogService;
@@ -31,10 +34,13 @@ public class LogController implements LogApi {
   private final StreamLogDaoImpl streamLogDao;
   private final StreamLogService streamLogService;
   private final StreamLogMapper streamLogMapper;
+  private final HttpServletRequest request;
+  private final UserDaoImpl userDao;
 
   @Override
   public ResponseEntity<List<StreamLogModel>> retrieveStreamLogs(@PathVariable Long streamId) {
-    return ResponseEntity.ok(streamLogDao.getStreamLogs(streamId));
+    UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
+    return ResponseEntity.ok(streamLogDao.getStreamLogs(streamId, user.getId()));
   }
 
   @Override
