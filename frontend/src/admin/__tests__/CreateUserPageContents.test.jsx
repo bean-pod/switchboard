@@ -34,7 +34,7 @@ describe("<CreateUserPageContents/> class component", () => {
   });
 
   describe("render() returns a component that", () => {
-    it("contains one <CreateUserFormConsole/> component with handleSubmit passed as prop", () => {
+    it("contains one <FormConsole/> component with handleSubmit passed as prop", () => {
       const form = wrapper.find(FormConsole);
       expect(form).toHaveLength(1);
 
@@ -48,7 +48,7 @@ describe("<CreateUserPageContents/> class component", () => {
       };
 
       const formConsoleProps = form.props();
-      expect(formConsoleProps).toMatchObject(expected);
+      expect(formConsoleProps).toEqual(expected);
     });
   });
 
