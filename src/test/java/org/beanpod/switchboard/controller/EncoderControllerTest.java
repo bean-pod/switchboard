@@ -192,8 +192,7 @@ class EncoderControllerTest {
     when(encoderDao.findEncoder(user, encoderDto.getSerialNumber())).thenReturn(Optional.empty());
 
     assertThrows(
-        ExceptionType.UnknownException.class,
-        () -> encoderController.updateEncoder(encoderModel));
+        ExceptionType.UnknownException.class, () -> encoderController.updateEncoder(encoderModel));
   }
 
   @Test

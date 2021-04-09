@@ -79,9 +79,7 @@ public class EncoderFixture {
         .output(List.of(ChannelFixture.getOutputChannelModel()));
   }
 
-  public static List<EncoderModel> getEncoderModels(){
-    return List.of(
-        getEncoderModelWithOutputChannel()
-    );
+  public static List<EncoderModel> getEncoderModels() {
+    return List.of(getEncoderModelWithOutputChannel());
   }
 }

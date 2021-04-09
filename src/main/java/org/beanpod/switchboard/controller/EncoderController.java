@@ -29,7 +29,6 @@ import org.openapitools.model.StreamModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
@@ -116,7 +115,8 @@ public class EncoderController implements EncoderApi {
   public ResponseEntity<EncoderModel> updateEncoder(@Valid EncoderModel encoderModel) {
     UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
 
-    return encoderDao.findEncoder(user, encoderModel.getSerialNumber())
+    return encoderDao
+        .findEncoder(user, encoderModel.getSerialNumber())
         .map((encoderDto) -> encoderDao.save(user, encoderDto))
         .map(encoderMapper::toEncoderModel)
         .map(ResponseEntity::ok)
