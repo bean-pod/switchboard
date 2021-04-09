@@ -9,7 +9,7 @@ export default function DeviceDetailsButton(props) {
 
   const navLinkInfo = {
     pathname: `/Devices/Details/${deviceInfo.serialNumber}`,
-    state: { object: deviceInfo }
+    state: { device: deviceInfo }
   };
 
   return (

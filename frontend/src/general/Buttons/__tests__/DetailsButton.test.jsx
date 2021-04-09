@@ -28,7 +28,7 @@ describe("<DeviceDetailsButton/> functional component", () => {
         const navLinkInfoProp = {
           pathname: `/Devices/Details/${dummyDevice.serialNumber}`,
           state: {
-            object: dummyDevice
+            device: dummyDevice
           }
         };
         const tooltipTitleProp = "View Device Details";
@@ -64,7 +64,7 @@ describe("<DeviceDetailsButton/> functional component", () => {
         const navLinkInfoProp = {
           pathname: `/Streams/Details/${dummyStream.id}`,
           state: {
-            object: dummyStream
+            stream: dummyStream
           }
         };
         const tooltipTitleProp = "View Stream Details";

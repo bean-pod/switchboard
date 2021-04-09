@@ -28,7 +28,7 @@ describe("<StreamDetailsButton/> functional component", () => {
     it("contains 1 DetailsButton component with expected props", () => {
       const expectedPath = `/Streams/Details/${dummyStream.id}`;
       const expectedState = {
-        object: dummyStream
+        stream: dummyStream
       };
       const expectedToProp = {
         pathname: expectedPath,

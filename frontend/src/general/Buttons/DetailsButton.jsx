@@ -25,12 +25,14 @@ export default function DetailsButton(props) {
 DetailsButton.propTypes = {
   navLinkInfo: PropTypes.shape({
     pathname: PropTypes.string.isRequired,
-    state: {
-      object: PropTypes.oneOfType([
-        PropTypes.instanceOf(DeviceInfo),
-        PropTypes.instanceOf(StreamInfo)
-      ])
-    }.isRequired
+    state: PropTypes.oneOfType([
+      PropTypes.shape({
+        device: PropTypes.instanceOf(DeviceInfo),
+      }),
+      PropTypes.shape({
+        stream: PropTypes.instanceOf(StreamInfo)
+      }),
+    ])
   }).isRequired,
   tooltipTitle: PropTypes.string.isRequired
 };

@@ -9,7 +9,7 @@ export default function StreamDetailsButton(props) {
 
   const navLinkInfo = {
     pathname: `/Streams/Details/${streamInfo.id}`,
-    state: { object: streamInfo }
+    state: { stream: streamInfo }
   };
 
   return (

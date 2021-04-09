@@ -25,7 +25,7 @@ describe("<DeviceDetailsButton/> functional component", () => {
     it("contains 1 DetailsButton component with expected props", () => {
       const expectedPath = `/Devices/Details/${dummyDevice.serialNumber}`;
       const expectedState = {
-        object: dummyDevice
+        device: dummyDevice
       };
       const expectedToProp = {
         pathname: expectedPath,
