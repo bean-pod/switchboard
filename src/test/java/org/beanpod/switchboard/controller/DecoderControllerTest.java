@@ -29,7 +29,6 @@ import org.beanpod.switchboard.entity.UserEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.fixture.DecoderFixture;
 import org.beanpod.switchboard.fixture.DeviceFixture;
-import org.beanpod.switchboard.fixture.EncoderFixture;
 import org.beanpod.switchboard.fixture.StreamFixture;
 import org.beanpod.switchboard.fixture.UserFixture;
 import org.beanpod.switchboard.service.DecoderService;
@@ -41,7 +40,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.openapitools.model.DecoderModel;
-import org.openapitools.model.EncoderModel;
 import org.openapitools.model.StreamModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -96,7 +94,8 @@ class DecoderControllerTest {
     List<DecoderModel> allEncoders = response.getBody();
     assertNotNull(allEncoders);
     assertFalse(allEncoders.isEmpty()); // check if an empty list was returned
-    assertIterableEquals(DecoderFixture.getDecoderModels(), allEncoders); // check both lists contents
+    assertIterableEquals(
+        DecoderFixture.getDecoderModels(), allEncoders); // check both lists contents
   }
 
   // When a decoder is available in the DB
