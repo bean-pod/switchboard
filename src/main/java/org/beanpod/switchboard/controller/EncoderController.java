@@ -24,7 +24,6 @@ import org.beanpod.switchboard.exceptions.ExceptionType.UnknownException;
 import org.beanpod.switchboard.service.EncoderService;
 import org.beanpod.switchboard.util.MaintainDeviceStatus;
 import org.openapitools.api.EncoderApi;
-import org.openapitools.model.CreateEncoderRequest;
 import org.openapitools.model.EncoderModel;
 import org.openapitools.model.StreamModel;
 import org.springframework.http.ResponseEntity;
