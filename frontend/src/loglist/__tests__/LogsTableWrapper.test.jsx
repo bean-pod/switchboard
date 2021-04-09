@@ -46,12 +46,11 @@ describe("<LogsTableWrapper/> Class Component", () => {
         const shallowWrapper = wrapper.instance();
         const expected = {
           logs: wrapperState.logs,
-          columns: shallowWrapper.getColumnInfo()
+          columns: shallowWrapper.columns
         };
 
         const logsTableProps = logsTable.props();
-        expect(logsTableProps.logs).toBe(expected.logs);
-        expect(logsTableProps.columns).toEqual(expected.columns);
+        expect(logsTableProps).toEqual(expected);
       });
     });
   });
@@ -120,42 +119,6 @@ describe("<LogsTableWrapper/> Class Component", () => {
       expect(wrapper.state()).toStrictEqual(startingState);
       wrapper.instance().handleLogsChange(expectedValue);
       expect(wrapper.state()).toStrictEqual(expectedState);
-    });
-  });
-
-  describe("getColumnInfo()", () => {
-    beforeEach(() => {
-      dummySource.getAllLogs.mockResolvedValue(dummyLog);
-      wrapper = Enzyme.shallow(
-        <LogsTableWrapper logsDataSource={dummySource} />
-      );
-    });
-    it("should return the expected column to be passed to <LogsTable/> component", () => {
-      const expectedValue = [
-        {
-          title: "ID",
-          field: "id",
-          cellStyle: { width: "5%" }
-        },
-        {
-          title: "Date",
-          field: "dateTime",
-          defaultSort: "desc",
-          cellStyle: { width: "15%" }
-        },
-        {
-          title: "Level",
-          field: "level",
-          cellStyle: { width: "10%" }
-        },
-        {
-          title: "Message",
-          field: "message",
-          sorting: false
-        }
-      ];
-      const result = wrapper.instance().getColumnInfo();
-      expect(result).toStrictEqual(expectedValue);
     });
   });
 });

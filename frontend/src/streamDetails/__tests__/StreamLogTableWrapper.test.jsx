@@ -103,35 +103,6 @@ describe("<StreamLogsTableWrapper/> Class Component", () => {
     });
   });
 
-  describe("getColumnInfo()", () => {
-    beforeEach(() => {
-      dummySource.getStreamLogs.mockResolvedValue(dummyLog);
-      wrapper = Enzyme.shallow(
-        <StreamLogTableWrapper dataSource={dummySource} streamId={dummyId} />
-      );
-    });
-    it("should return the expected column to be passed to <LogsTable/> component", () => {
-      const expectedValue = [
-        {
-          title: "Date",
-          field: "dateTime",
-          defaultSort: "desc"
-        },
-        {
-          title: "Level",
-          field: "level"
-        },
-        {
-          title: "Message",
-          field: "message",
-          sorting: false
-        }
-      ];
-      const result = wrapper.instance().getColumnInfo();
-      expect(result).toStrictEqual(expectedValue);
-    });
-  });
-
   describe("render() function", () => {
     beforeEach(() => {
       dummySource.getStreamLogs.mockResolvedValue(dummyLog);
@@ -148,12 +119,11 @@ describe("<StreamLogsTableWrapper/> Class Component", () => {
         const shallowWrapper = wrapper.instance();
         const expected = {
           logs: wrapperState.logs,
-          columns: shallowWrapper.getColumnInfo()
+          columns: shallowWrapper.columns
         };
 
         const logsTableProps = logsTable.props();
-        expect(logsTableProps.logs).toBe(expected.logs);
-        expect(logsTableProps.columns).toEqual(expected.columns);
+        expect(logsTableProps).toEqual(expected);
       });
     });
   });
