@@ -74,7 +74,7 @@ class LogControllerTest {
 
   @Test
   final void testRetrieveAllLogs() {
-    when(logDao.getLogs()).thenReturn(logModels);
+    when(logDao.getLogs(user.getId())).thenReturn(logModels);
     ResponseEntity<List<LogModel>> response = logController.retrieveAllLogs();
     assertEquals(HttpStatus.OK, response.getStatusCode());
     assertIterableEquals(logModels, response.getBody());
@@ -82,7 +82,7 @@ class LogControllerTest {
 
   @Test
   final void testRetrieveDeviceLogs() {
-    when(logDao.getDeviceLogs("1")).thenReturn(logModels);
+    when(logDao.getDeviceLogs("1", user.getId())).thenReturn(logModels);
     ResponseEntity<List<LogModel>> response = logController.retrieveDeviceLogs("1");
     assertEquals(HttpStatus.OK, response.getStatusCode());
     assertIterableEquals(logModels, response.getBody());
