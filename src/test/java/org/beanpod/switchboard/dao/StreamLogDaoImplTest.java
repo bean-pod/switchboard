@@ -8,7 +8,9 @@ import java.util.List;
 import org.beanpod.switchboard.dto.StreamLogDto;
 import org.beanpod.switchboard.dto.mapper.StreamLogMapper;
 import org.beanpod.switchboard.entity.StreamLog;
+import org.beanpod.switchboard.entity.UserEntity;
 import org.beanpod.switchboard.fixture.StreamLogFixture;
+import org.beanpod.switchboard.fixture.UserFixture;
 import org.beanpod.switchboard.repository.LogStreamRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,6 +28,7 @@ public class StreamLogDaoImplTest {
   private StreamLogDto streamLogDto;
   private List<StreamLogModel> streamLogModelList;
   private List<StreamLog> streamLogList;
+  private UserEntity user;
 
   @BeforeEach
   void setup() {
@@ -35,6 +38,7 @@ public class StreamLogDaoImplTest {
     streamLogDto = StreamLogFixture.getStreamLogDto();
     streamLogModelList = StreamLogFixture.getListOfStreamLogsModel();
     streamLogList = StreamLogFixture.getListOfStreamLogs();
+    user = UserFixture.getUserEntity();
   }
 
   @Test
@@ -51,9 +55,10 @@ public class StreamLogDaoImplTest {
   @Test
   final void getStreamLogsTest() {
     when(streamLogMapper.toStreamLogModels(any())).thenReturn(streamLogModelList);
-    when(logStreamRepository.findByStreamId("1")).thenReturn(streamLogList);
+    when(logStreamRepository.findByStreamId("1", user.getId())).thenReturn(streamLogList);
 
-    List<StreamLogModel> listOfStreamLogModels_actual = streamLogDao.getStreamLogs(1L);
+    List<StreamLogModel> listOfStreamLogModels_actual =
+        streamLogDao.getStreamLogs(1L, user.getId());
 
     assertEquals(listOfStreamLogModels_actual, streamLogModelList);
   }
