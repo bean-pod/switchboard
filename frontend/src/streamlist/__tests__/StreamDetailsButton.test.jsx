@@ -42,10 +42,5 @@ describe("<StreamDetailsButton/> functional component", () => {
       expect(detailsButtonProps.navLinkInfo).toStrictEqual(expectedToProp);
       expect(detailsButtonProps.tooltipTitle).toEqual("View Stream Details");
     });
-    it("contains 1 Tooltip component with expected props", () => {
-      const tooltip = wrapper.find(Tooltip);
-      expect(tooltip).toHaveLength(1);
-      expect(tooltip.props().title).toEqual("View Stream Details");
-    });
   });
 });
