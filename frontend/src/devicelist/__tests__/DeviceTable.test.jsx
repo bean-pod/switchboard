@@ -16,7 +16,7 @@ import DeviceTable from "../DeviceTable";
 Enzyme.configure({ adapter: new Adapter() });
 jest.spyOn(global.console, "error");
 
-describe("<DevicesTable/> component", () => {
+describe("<DeviceTable/> component", () => {
   let wrapper;
 
   afterEach(() => {

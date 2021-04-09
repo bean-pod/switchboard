@@ -9,8 +9,8 @@ import {
   it,
   jest
 } from "@jest/globals";
-import LogsTableWrapper from "../LogsTableWrapper";
-import LogsTable from "../LogsTable";
+import LogTableWrapper from "../LogTableWrapper";
+import LogTable from "../LogTable";
 import LogInfo from "../../model/LogInfo";
 import * as SnackbarMessage from "../../general/SnackbarMessage";
 
@@ -18,7 +18,7 @@ Enzyme.configure({ adapter: new Adapter() });
 
 const snackbarSpy = jest.spyOn(SnackbarMessage, "snackbar");
 
-describe("<LogsTableWrapper/> Class Component", () => {
+describe("<LogTableWrapper/> Class Component", () => {
   let wrapper;
   const dummyLog = [new LogInfo(1, null, "Info", "Log 1 info")];
   const dummySource = {
@@ -34,13 +34,13 @@ describe("<LogsTableWrapper/> Class Component", () => {
     beforeEach(() => {
       dummySource.getAllLogs.mockResolvedValue(dummyLog);
       wrapper = Enzyme.shallow(
-        <LogsTableWrapper logsDataSource={dummySource} />
+        <LogTableWrapper logsDataSource={dummySource} />
       );
     });
     describe("returns a component that", () => {
-      it("Contains 1 <LogsTable/> component with expected props", () => {
-        const logsTable = wrapper.find(LogsTable);
-        expect(logsTable).toHaveLength(1);
+      it("Contains 1 <LogTable/> component with expected props", () => {
+        const logTable = wrapper.find(LogTable);
+        expect(logTable).toHaveLength(1);
 
         const wrapperState = wrapper.state();
         const shallowWrapper = wrapper.instance();
@@ -49,9 +49,9 @@ describe("<LogsTableWrapper/> Class Component", () => {
           columns: shallowWrapper.getColumnInfo()
         };
 
-        const logsTableProps = logsTable.props();
-        expect(logsTableProps.logs).toBe(expected.logs);
-        expect(logsTableProps.columns).toEqual(expected.columns);
+        const logTableProps = logTable.props();
+        expect(logTableProps.logs).toBe(expected.logs);
+        expect(logTableProps.columns).toEqual(expected.columns);
       });
     });
   });
@@ -59,7 +59,7 @@ describe("<LogsTableWrapper/> Class Component", () => {
   describe("componentDidMount() function", () => {
     beforeEach(() => {
       wrapper = Enzyme.shallow(
-        <LogsTableWrapper logsDataSource={dummySource} />,
+        <LogTableWrapper logsDataSource={dummySource} />,
         {
           disableLifecycleMethods: true
         }
@@ -105,7 +105,7 @@ describe("<LogsTableWrapper/> Class Component", () => {
     beforeEach(() => {
       dummySource.getAllLogs.mockResolvedValue(dummyLog);
       wrapper = Enzyme.shallow(
-        <LogsTableWrapper logsDataSource={dummySource} />
+        <LogTableWrapper logsDataSource={dummySource} />
       );
     });
     it("should set the state", () => {
@@ -127,10 +127,10 @@ describe("<LogsTableWrapper/> Class Component", () => {
     beforeEach(() => {
       dummySource.getAllLogs.mockResolvedValue(dummyLog);
       wrapper = Enzyme.shallow(
-        <LogsTableWrapper logsDataSource={dummySource} />
+        <LogTableWrapper logsDataSource={dummySource} />
       );
     });
-    it("should return the expected column to be passed to <LogsTable/> component", () => {
+    it("should return the expected column to be passed to <LogTable/> component", () => {
       const expectedValue = [
         {
           title: "ID",

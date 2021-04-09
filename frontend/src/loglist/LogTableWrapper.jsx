@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import LogsTable from "./LogsTable";
+import LogTable from "./LogTable";
 import { snackbar } from "../general/SnackbarMessage";
 
-export default class LogsTableWrapper extends React.Component {
+export default class LogTableWrapper extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -56,10 +56,10 @@ export default class LogsTableWrapper extends React.Component {
 
   render() {
     const { logs } = this.state;
-    return <LogsTable logs={logs} columns={this.getColumnInfo()} />;
+    return <LogTable logs={logs} columns={this.getColumnInfo()} />;
   }
 }
 
-LogsTableWrapper.propTypes = {
+LogTableWrapper.propTypes = {
   logsDataSource: PropTypes.objectOf(PropTypes.func).isRequired
 };

@@ -37,7 +37,7 @@ describe("<SimpleStreamTableWrapper/> Component", () => {
       result = wrapper.instance().getSimpleColumns();
     });
 
-    it("should return the expected column info to be passed as a prop to <StreamsTableWrapper/>", () => {
+    it("should return the expected column info to be passed as a prop to <StreamTableWrapper/>", () => {
       const expected = [
         {
           title: "Sender",

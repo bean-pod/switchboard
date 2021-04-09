@@ -15,7 +15,7 @@ import MaterialTable from "material-table";
 import LogInfo from "../model/LogInfo";
 import StreamLogInfo from "../model/StreamLogInfo";
 
-export default class LogsTable extends React.Component {
+export default class LogTable extends React.Component {
   constructor(props) {
     super(props);
     this.options = {
@@ -71,7 +71,7 @@ export default class LogsTable extends React.Component {
   }
 }
 
-LogsTable.propTypes = {
+LogTable.propTypes = {
   logs: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.instanceOf(LogInfo)),
     PropTypes.arrayOf(PropTypes.instanceOf(StreamLogInfo))

@@ -10,7 +10,7 @@ import * as SampleData from "../../api/SampleData";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe("<DetailedStreamsTableWrapper/> Component", () => {
+describe("<DetailedStreamTableWrapper/> Component", () => {
   let wrapper;
 
   beforeEach(() => {
@@ -24,8 +24,8 @@ describe("<DetailedStreamsTableWrapper/> Component", () => {
   it("Contains 1 <StreamTableWrapper/> component with expected prop values", () => {
     expect(wrapper.find(StreamTableWrapper)).toHaveLength(1);
 
-    const streamsTableProps = wrapper.find(StreamTableWrapper).props();
-    expect(streamsTableProps.columns).toEqual(
+    const streamTableProps = wrapper.find(StreamTableWrapper).props();
+    expect(streamTableProps.columns).toEqual(
       wrapper.instance().getDetailedColumns()
     );
   });
@@ -37,7 +37,7 @@ describe("<DetailedStreamsTableWrapper/> Component", () => {
       result = wrapper.instance().getDetailedColumns();
     });
 
-    it("should return the expected column info to be passed as a prop to <StreamsTableWrapper/>", () => {
+    it("should return the expected column info to be passed as a prop to <StreamTableWrapper/>", () => {
       const expected = [
         {
           title: "ID",

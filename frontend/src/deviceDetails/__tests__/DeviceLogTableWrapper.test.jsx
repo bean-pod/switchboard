@@ -5,7 +5,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import DeviceLogTableWrapper from "../DeviceLogTableWrapper";
 import LogInfo from "../../model/LogInfo";
-import LogsTable from "../../loglist/LogsTable";
+import LogTable from "../../loglist/LogTable";
 import DeviceInfo from "../../model/DeviceInfo";
 import * as SnackbarMessage from "../../general/SnackbarMessage";
 
@@ -114,9 +114,9 @@ describe("<DeviceLogTableWrapper/> Class Component", () => {
       );
     });
     describe("returns a component that", () => {
-      it("Contains 1 <LogsTable/> component with expected components", () => {
-        const logsTable = wrapper.find(LogsTable);
-        expect(logsTable).toHaveLength(1);
+      it("Contains 1 <LogTable/> component with expected components", () => {
+        const logTable = wrapper.find(LogTable);
+        expect(logTable).toHaveLength(1);
 
         const wrapperState = wrapper.state();
         const shallowWrapper = wrapper.instance();
@@ -125,9 +125,9 @@ describe("<DeviceLogTableWrapper/> Class Component", () => {
           columns: shallowWrapper.getColumnInfo()
         };
 
-        const logsTableProps = logsTable.props();
-        expect(logsTableProps.logs).toBe(expected.logs);
-        expect(logsTableProps.columns).toEqual(expected.columns);
+        const logTableProps = logTable.props();
+        expect(logTableProps.logs).toBe(expected.logs);
+        expect(logTableProps.columns).toEqual(expected.columns);
       });
     });
   });
@@ -139,7 +139,7 @@ describe("<DeviceLogTableWrapper/> Class Component", () => {
         <DeviceLogTableWrapper dataSource={dummySource} device={dummyDevice} />
       );
     });
-    it("should return the expected column to be passed to <LogsTable/> component", () => {
+    it("should return the expected column to be passed to <LogTable/> component", () => {
       const expectedValue = [
         {
           title: "ID",

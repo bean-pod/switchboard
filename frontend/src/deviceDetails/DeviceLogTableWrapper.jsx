@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import DeviceInfo from "../model/DeviceInfo";
-import LogsTable from "../loglist/LogsTable";
+import LogTable from "../loglist/LogTable";
 import { snackbar } from "../general/SnackbarMessage";
 
 export default class DeviceLogTableWrapper extends React.Component {
@@ -58,7 +58,7 @@ export default class DeviceLogTableWrapper extends React.Component {
 
   render() {
     const { logs } = this.state;
-    return <LogsTable logs={logs} columns={this.getColumnInfo()} />;
+    return <LogTable logs={logs} columns={this.getColumnInfo()} />;
   }
 }
 

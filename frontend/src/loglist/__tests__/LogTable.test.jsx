@@ -21,12 +21,12 @@ import {
   ChevronLeft
 } from "@material-ui/icons";
 import MaterialTable from "material-table";
-import LogsTable from "../LogsTable";
+import LogTable from "../LogTable";
 
 Enzyme.configure({ adapter: new Adapter() });
 jest.spyOn(global.console, "error");
 
-describe("<LogsTable/> component", () => {
+describe("<LogTable/> component", () => {
   let wrapper;
   const dummyLogs = [];
   const dummyColumns = [
@@ -42,7 +42,7 @@ describe("<LogsTable/> component", () => {
 
   beforeEach(() => {
     wrapper = Enzyme.shallow(
-      <LogsTable logs={dummyLogs} columns={dummyColumns} />
+      <LogTable logs={dummyLogs} columns={dummyColumns} />
     );
   });
 

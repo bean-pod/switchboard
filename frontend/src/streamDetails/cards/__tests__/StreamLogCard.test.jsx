@@ -48,7 +48,7 @@ describe("<StreamLogCard/> functional component", () => {
       expect(gridProps.xs).toBe(expected.xs);
       expect(gridProps.children.type.name).toBe(expected.childTypeName);
     });
-    it("contains 1 <StreamLogsTableWrapper/> component with expected props", () => {
+    it("contains 1 <StreamLogTableWrapper/> component with expected props", () => {
       const logTableWrapper = wrapper.find(StreamLogTableWrapper);
       expect(logTableWrapper).toHaveLength(1);
 

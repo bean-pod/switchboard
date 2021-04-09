@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import LogsTable from "../loglist/LogsTable";
+import LogTable from "../loglist/LogTable";
 import { snackbar } from "../general/SnackbarMessage";
 
 export default class StreamLogTableWrapper extends React.Component {
@@ -52,7 +52,7 @@ export default class StreamLogTableWrapper extends React.Component {
 
   render() {
     const { logs } = this.state;
-    return <LogsTable logs={logs} columns={this.getColumnInfo()} />;
+    return <LogTable logs={logs} columns={this.getColumnInfo()} />;
   }
 }
 
