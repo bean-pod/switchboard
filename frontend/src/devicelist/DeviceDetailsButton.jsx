@@ -1,28 +1,23 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { IconButton, Tooltip } from "@material-ui/core";
-import { Description } from "@material-ui/icons";
-import { NavLink } from "react-router-dom";
 
 import DeviceInfo from "../model/DeviceInfo";
+import DetailsButton from "../general/Buttons/DetailsButton";
 
 export default function DeviceDetailsButton(props) {
   const { deviceInfo } = props;
 
+  const navLinkInfo = {
+    pathname: `/Devices/Details/${deviceInfo.serialNumber}`,
+    state: { object: deviceInfo }
+  };
+
   return (
     <>
-      <NavLink
-        to={{
-          pathname: `/Devices/Details/${deviceInfo.serialNumber}`,
-          state: { device: deviceInfo }
-        }}
-      >
-        <Tooltip title="View Device Details">
-          <IconButton>
-            <Description />
-          </IconButton>
-        </Tooltip>
-      </NavLink>
+      <DetailsButton
+        navLinkInfo={navLinkInfo}
+        tooltipTitle="View Device Details"
+      />
     </>
   );
 }
