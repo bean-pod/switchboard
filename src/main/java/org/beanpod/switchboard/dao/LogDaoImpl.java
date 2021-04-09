@@ -16,17 +16,13 @@ public class LogDaoImpl {
 
   private final LogRepository logRepository;
   private final LogMapper logMapper;
-  private final HttpServletRequest request;
-  private final UserDaoImpl userDao;
 
-  public List<LogModel> getLogs() {
-    UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
-    return logMapper.toLogModels(logRepository.findAll(user.getId()));
+  public List<LogModel> getLogs(Long userId) {
+    return logMapper.toLogModels(logRepository.findAll(userId));
   }
 
-  public List<LogModel> getDeviceLogs(String serialNumber) {
-    UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
-    return logMapper.toLogModels(logRepository.findBySerialNumber(serialNumber, user.getId()));
+  public List<LogModel> getDeviceLogs(String serialNumber, Long userId) {
+    return logMapper.toLogModels(logRepository.findBySerialNumber(serialNumber, userId));
   }
 
   public LogDto createLog(LogDto logDto) {
