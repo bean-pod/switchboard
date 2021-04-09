@@ -114,8 +114,7 @@ public class DecoderController implements DecoderApi {
   }
 
   @Override
-  public ResponseEntity<DecoderModel> updateDecoder(String serialNumber,
-      @Valid DecoderModel decoderModel) {
+  public ResponseEntity<DecoderModel> updateDecoder(@Valid DecoderModel decoderModel) {
     UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
 
     Optional<DecoderDto> decoder = decoderDao.findDecoder(user, decoderModel.getSerialNumber());

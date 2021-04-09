@@ -323,6 +323,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DecoderModel'
+    put:
+      operationId: updateDecoder
+      description: Update a decoder's definition
+      tags:
+        - Decoders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DecoderModel'
+      responses:
+        '200':
+          description: Successful update of the decoder
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DecoderModel'
 
   /decoder/{serialNumber}:
     get:
@@ -335,26 +353,6 @@ paths:
       responses:
         '200':
           description: Successful retrieval of the decoder
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DecoderModel'
-    put:
-      operationId: updateDecoder
-      description: Update a decoder's definition
-      tags:
-        - Decoders
-      parameters:
-        - $ref: '#/components/parameters/DecoderSerialNumber'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/DecoderModel'
-      responses:
-        '200':
-          description: Successful update of the decoder
           content:
             application/json:
               schema:
