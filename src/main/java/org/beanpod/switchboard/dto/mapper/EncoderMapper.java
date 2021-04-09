@@ -12,7 +12,7 @@ import org.openapitools.model.EncoderModel;
 
 @Mapper(
     componentModel = "spring",
-    uses = {DeviceMapper.class, OutputChannelMapper.class},
+    uses = {DeviceMapper.class, OutputChannelMapper.class, DateMapper.class},
     nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface EncoderMapper {
 
