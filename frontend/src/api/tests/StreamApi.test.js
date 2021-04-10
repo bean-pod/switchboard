@@ -26,7 +26,7 @@ const {
 
 const expectedFirstStreamRespone = new StreamInfo(
   1,
-    "2020-10-31T08:15:30",
+  "2020-10-31T08:15:30",
   convertDeviceToDataObject(firstStreamResponse.outputChannel.encoder),
   convertDeviceToDataObject(firstStreamResponse.inputChannel.decoder),
   20001,
@@ -34,7 +34,7 @@ const expectedFirstStreamRespone = new StreamInfo(
 );
 const expectedSecondStreamResponse = new StreamInfo(
   2,
-    "2020-10-31T08:15:30",
+  "2020-10-31T08:15:30",
   convertDeviceToDataObject(secondStreamResponse.outputChannel.encoder),
   convertDeviceToDataObject(secondStreamResponse.inputChannel.decoder),
   20000,
