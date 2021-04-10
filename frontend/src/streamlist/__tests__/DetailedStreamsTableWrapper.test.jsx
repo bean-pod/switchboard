@@ -60,14 +60,6 @@ describe("<DetailedStreamsTableWrapper/> Component", () => {
           field: "status"
         },
         {
-          title: "Type",
-          field: "type"
-        },
-        {
-          title: "Time Elapsed",
-          field: "time"
-        },
-        {
           title: "Actions",
           field: "action",
           filtering: false,
@@ -98,7 +90,7 @@ describe("<DetailedStreamsTableWrapper/> Component", () => {
       };
 
       const expectedRenderResult = expectedRenderFunction(sampleStream);
-      expect(result[7].render(sampleStream)).toMatchObject(
+      expect(result[5].render(sampleStream)).toMatchObject(
         expectedRenderResult
       );
     });
