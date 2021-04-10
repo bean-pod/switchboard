@@ -117,7 +117,7 @@ public class EncoderController implements EncoderApi {
 
     return encoderDao
         .findEncoder(user, encoderModel.getSerialNumber())
-        .map((encoderDto) -> encoderDao.save(user, encoderDto))
+        .map(encoderDto -> encoderDao.save(user, encoderDto))
         .map(encoderMapper::toEncoderModel)
         .map(ResponseEntity::ok)
         .orElseThrow(this::getUnknownException);
