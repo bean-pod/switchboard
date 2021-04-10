@@ -27,7 +27,7 @@ describe("<StreamDetailsPageContents/> functional component", () => {
         <StreamDetailsPageContents stream={dummyStream} />
       );
     });
-    it("Contains 1 Container component with expected props", (  ) => {
+    it("Contains 1 Container component with expected props", () => {
       expect(wrapper.find(Container)).toHaveLength(1);
     });
     it("Contains 5 Grid components with expected props", () => {
