@@ -21,13 +21,13 @@ describe("<StreamDetailsPageContents/> functional component", () => {
   describe("returns a component that", () => {
     const dummySender = new DeviceInfo(1, 1, 1, 1, 1, 1, [1, 2]);
     const dummyReceiver = new DeviceInfo(2, 2, 2, 2, 2, 2, [3, 4]);
-    const dummyStream = new StreamInfo(1, dummySender, dummyReceiver, 2, 3);
+    const dummyStream = new StreamInfo(1, "2020-10-31T08:15:30", dummySender, dummyReceiver, 2, 3);
     beforeEach(() => {
       wrapper = Enzyme.shallow(
         <StreamDetailsPageContents stream={dummyStream} />
       );
     });
-    it("Contains 1 Container component with expected props", () => {
+    it("Contains 1 Container component with expected props", (  ) => {
       expect(wrapper.find(Container)).toHaveLength(1);
     });
     it("Contains 5 Grid components with expected props", () => {
