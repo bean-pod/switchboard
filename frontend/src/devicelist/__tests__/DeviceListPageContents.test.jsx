@@ -39,12 +39,8 @@ describe("<DeviceListPageContents/> class component", () => {
       });
     });
     it("calls DeviceApi.getSenders() and getReceivers()", () => {
-      jest.spyOn(DeviceApi, "getSenders").mockImplementation(() => {
-        return Promise.resolve(dummySenders);
-      });
-      jest.spyOn(DeviceApi, "getReceivers").mockImplementation(() => {
-        return Promise.resolve(dummyReceivers);
-      });
+      jest.spyOn(DeviceApi, "getSenders").mockResolvedValue(dummySenders);
+      jest.spyOn(DeviceApi, "getReceivers").mockResolvedValue(dummyReceivers);
 
       wrapper.instance().componentDidMount();
 
@@ -56,9 +52,7 @@ describe("<DeviceListPageContents/> class component", () => {
         message: "test"
       };
       jest.spyOn(DeviceApi, "getSenders").mockRejectedValue(returnedError);
-      jest.spyOn(DeviceApi, "getReceivers").mockImplementation(() => {
-        return Promise.resolve(dummyReceivers);
-      });
+      jest.spyOn(DeviceApi, "getReceivers").mockResolvedValue(dummyReceivers);
 
       wrapper.instance().componentDidMount();
 
@@ -75,9 +69,7 @@ describe("<DeviceListPageContents/> class component", () => {
       const returnedError = {
         message: "test"
       };
-      jest.spyOn(DeviceApi, "getSenders").mockImplementation(() => {
-        return Promise.resolve(dummySenders);
-      });
+      jest.spyOn(DeviceApi, "getSenders").mockResolvedValue(dummySenders);
       jest.spyOn(DeviceApi, "getReceivers").mockRejectedValue(returnedError);
 
       wrapper.instance().componentDidMount();
@@ -117,12 +109,8 @@ describe("<DeviceListPageContents/> class component", () => {
 
   describe("<DeviceListPageContents/> class functions", () => {
     beforeEach(() => {
-      jest.spyOn(DeviceApi, "getSenders").mockImplementation(() => {
-        return Promise.resolve(dummySenders);
-      });
-      jest.spyOn(DeviceApi, "getReceivers").mockImplementation(() => {
-        return Promise.resolve(dummyReceivers);
-      });
+      jest.spyOn(DeviceApi, "getSenders").mockResolvedValue(dummySenders);
+      jest.spyOn(DeviceApi, "getReceivers").mockResolvedValue(dummyReceivers);
       wrapper = Enzyme.shallow(<DeviceListPageContents />);
     });
 

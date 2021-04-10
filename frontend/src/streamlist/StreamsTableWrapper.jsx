@@ -18,7 +18,7 @@ export default class StreamsTableWrapper extends React.Component {
       .getAllStreams()
       .then(this.handleStreamsChange)
       .catch((error) => {
-        snackbar("error", `Failed to fetch stream data: ${error.message}`);
+        snackbar("error", `Failed to fetch streams: ${error.message}`);
       });
   }
 
