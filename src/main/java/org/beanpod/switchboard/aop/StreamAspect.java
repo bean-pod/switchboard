@@ -68,8 +68,7 @@ public class StreamAspect {
 
     String message =
         String.format(
-            "A stream started from %s of encoder %s"
-                + " to %s of decoder %s",
+            "A stream started from %s of encoder %s" + " to %s of decoder %s",
             outputChannelName, encoderSerial, inputChannelName, decoderSerial);
 
     Long streamId =
