@@ -30,16 +30,16 @@ public class DecoderDaoImpl {
   }
 
   public List<DecoderEntity> getDecoders(UserEntity user) {
-    return decoderRepository.findDecoderEntitiesByDeviceUser(user);
+    return decoderRepository.findByDeviceUser(user);
   }
 
   public Optional<DecoderDto> findDecoder(UserEntity user, String serialNumber) {
     return decoderRepository
-        .findDecoderByDeviceUserAndSerialNumber(user, serialNumber)
+        .findByDeviceUserAndSerialNumber(user, serialNumber)
         .map(decoderMapper::toDecoderDto);
   }
 
   public Long deleteDecoder(UserEntity user, String serialNumber) {
-    return decoderRepository.deleteDecoderEntityByDeviceUserAndSerialNumber(user, serialNumber);
+    return decoderRepository.deleteByDeviceUserAndSerialNumber(user, serialNumber);
   }
 }

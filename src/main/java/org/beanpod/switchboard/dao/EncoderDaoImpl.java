@@ -28,16 +28,16 @@ public class EncoderDaoImpl {
   }
 
   public List<EncoderEntity> getEncoders(UserEntity user) {
-    return encoderRepository.findEncoderEntitiesByDeviceUser(user);
+    return encoderRepository.findByDeviceUser(user);
   }
 
   public Optional<EncoderDto> findEncoder(UserEntity user, String serialNumber) {
     return encoderRepository
-        .findEncoderByDeviceUserAndSerialNumber(user, serialNumber)
+        .findByDeviceUserAndSerialNumber(user, serialNumber)
         .map(encoderMapper::toEncoderDto);
   }
 
   public long deleteEncoder(UserEntity user, String serialNumber) {
-    return encoderRepository.deleteEncoderEntityByDeviceUserAndSerialNumber(user, serialNumber);
+    return encoderRepository.deleteByDeviceUserAndSerialNumber(user, serialNumber);
   }
 }

@@ -26,10 +26,10 @@ public class ChannelDaoImpl {
   }
 
   public Optional<ChannelDto> findChannel(Long id) {
-    return channelRepository.findChannelEntitiesById(id).map(channelMapper::toChannelDto);
+    return channelRepository.findChannelEntityById(id).map(channelMapper::toChannelDto);
   }
 
   public Long deleteChannel(Long id) {
-    return channelRepository.deleteChannelEntitiesById(id);
+    return channelRepository.deleteChannelEntityById(id);
   }
 }

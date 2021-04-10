@@ -81,8 +81,7 @@ class DecoderDaoImplTest {
   final void testFindDecoder() {
     when(decoderMapper.toDecoderDto(any())).thenReturn(decoderDto);
     when(decoderMapper.toDecoderEntity(any())).thenReturn(decoder);
-    when(decoderRepository.findDecoderByDeviceUserAndSerialNumber(
-            user, DecoderFixture.SERIAL_NUMBER))
+    when(decoderRepository.findByDeviceUserAndSerialNumber(user, DecoderFixture.SERIAL_NUMBER))
         .thenReturn(java.util.Optional.of(decoder));
     Optional<DecoderDto> decoderDTO =
         decoderDaoImpl.findDecoder(user, DecoderFixture.SERIAL_NUMBER);
@@ -91,15 +90,14 @@ class DecoderDaoImplTest {
 
   @Test
   final void testGetDecoders() {
-    when(decoderRepository.findDecoderEntitiesByDeviceUser(user)).thenReturn(listOfdecoders);
+    when(decoderRepository.findByDeviceUser(user)).thenReturn(listOfdecoders);
     List<DecoderEntity> deviceEntities = decoderDaoImpl.getDecoders(user);
     assertIterableEquals(deviceEntities, listOfdecoders);
   }
 
   @Test
   final void testDeleteDecoder() {
-    when(decoderRepository.deleteDecoderEntityByDeviceUserAndSerialNumber(
-            user, DecoderFixture.SERIAL_NUMBER))
+    when(decoderRepository.deleteByDeviceUserAndSerialNumber(user, DecoderFixture.SERIAL_NUMBER))
         .thenReturn((long) 1);
     Long response = decoderDaoImpl.deleteDecoder(user, DecoderFixture.SERIAL_NUMBER);
     assertEquals(1L, response);

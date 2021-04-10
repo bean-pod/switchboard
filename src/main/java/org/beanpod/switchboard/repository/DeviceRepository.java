@@ -12,14 +12,11 @@ public interface DeviceRepository extends JpaRepository<DeviceEntity, String> {
 
   DeviceEntity save(DeviceEntity device);
 
-  List<DeviceEntity> findDeviceEntitiesByUser(UserEntity user);
+  List<DeviceEntity> findByUser(UserEntity user);
 
-  Optional<DeviceEntity> findDeviceBySerialNumber(String serialNumber);
+  Optional<DeviceEntity> findBySerialNumber(String serialNumber);
 
-  Optional<DeviceEntity> findDeviceByUserAndSerialNumber(UserEntity user, String serialNumber);
+  Optional<DeviceEntity> findByUserAndSerialNumber(UserEntity user, String serialNumber);
 
-  Optional<DeviceEntity> findDeviceEntityByUserAndSerialNumber(
-      UserEntity user, String serialNumber);
-
-  Long deleteDeviceEntityByUserAndSerialNumber(UserEntity user, String serialNumber);
+  Long deleteByUserAndSerialNumber(UserEntity user, String serialNumber);
 }

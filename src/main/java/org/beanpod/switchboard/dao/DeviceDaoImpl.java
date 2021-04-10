@@ -36,20 +36,20 @@ public class DeviceDaoImpl {
   }
 
   public List<DeviceEntity> getDevices(UserEntity user) {
-    return deviceRepository.findDeviceEntitiesByUser(user);
+    return deviceRepository.findByUser(user);
   }
 
   public Optional<DeviceDto> findDevice(String serialNumber) {
-    return deviceRepository.findDeviceBySerialNumber(serialNumber).map(deviceMapper::toDeviceDto);
+    return deviceRepository.findBySerialNumber(serialNumber).map(deviceMapper::toDeviceDto);
   }
 
   public Optional<DeviceDto> findDevice(UserEntity user, String serialNumber) {
     return deviceRepository
-        .findDeviceEntityByUserAndSerialNumber(user, serialNumber)
+        .findByUserAndSerialNumber(user, serialNumber)
         .map(deviceMapper::toDeviceDto);
   }
 
   public Long deleteDevice(UserEntity user, String serialNumber) {
-    return deviceRepository.deleteDeviceEntityByUserAndSerialNumber(user, serialNumber);
+    return deviceRepository.deleteByUserAndSerialNumber(user, serialNumber);
   }
 }

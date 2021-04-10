@@ -81,8 +81,7 @@ class EncoderDaoImplTest {
   final void testFindEncoder() {
     when(encoderMapper.toEncoderDto(any())).thenReturn(encoderDto);
     when(encoderMapper.toEncoderEntity(any())).thenReturn(encoder);
-    when(encoderRepository.findEncoderByDeviceUserAndSerialNumber(
-            user, EncoderFixture.SERIAL_NUMBER))
+    when(encoderRepository.findByDeviceUserAndSerialNumber(user, EncoderFixture.SERIAL_NUMBER))
         .thenReturn(java.util.Optional.of(encoder));
     Optional<EncoderDto> encoderDTO =
         encoderDaoImpl.findEncoder(user, EncoderFixture.SERIAL_NUMBER);
@@ -91,15 +90,14 @@ class EncoderDaoImplTest {
 
   @Test
   final void testGetEncoders() {
-    when(encoderRepository.findEncoderEntitiesByDeviceUser(user)).thenReturn(listOfEncoders);
+    when(encoderRepository.findByDeviceUser(user)).thenReturn(listOfEncoders);
     List<EncoderEntity> deviceEntities = encoderDaoImpl.getEncoders(user);
     assertIterableEquals(deviceEntities, listOfEncoders);
   }
 
   @Test
   final void testDeleteEncoder() {
-    when(encoderRepository.deleteEncoderEntityByDeviceUserAndSerialNumber(
-            user, EncoderFixture.SERIAL_NUMBER))
+    when(encoderRepository.deleteByDeviceUserAndSerialNumber(user, EncoderFixture.SERIAL_NUMBER))
         .thenReturn((long) 1);
     Long response = encoderDaoImpl.deleteEncoder(user, EncoderFixture.SERIAL_NUMBER);
     assertEquals(1, response);
