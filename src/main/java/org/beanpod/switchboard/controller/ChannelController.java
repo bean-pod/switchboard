@@ -47,7 +47,7 @@ public class ChannelController {
   @GetMapping
   public List<ChannelDto> retrieveAllChannels() {
     List<ChannelEntity> channelEntities = channelDao.getChannels();
-    return channelMapper.toChannelDtos(channelEntities);
+    return channelMapper.toDtos(channelEntities);
   }
 
   @GetMapping("/{id}")

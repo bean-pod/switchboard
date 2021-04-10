@@ -53,7 +53,7 @@ class LogServiceTest {
   @Test
   final void testCreateLog() {
     when(logRepository.save(any())).thenReturn(logEntity);
-    when(logMapper.logModelToLogDto(any())).thenReturn(logDto);
+    when(logMapper.toDto((LogModel) any())).thenReturn(logDto);
     when(logService.createLog(logModel)).thenReturn(logDto);
 
     LogDto actualLodModel = logService.createLog(logModel);

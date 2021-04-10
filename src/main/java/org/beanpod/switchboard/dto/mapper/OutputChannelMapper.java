@@ -13,12 +13,12 @@ import org.openapitools.model.OutputChannelModel;
 public interface OutputChannelMapper {
 
   @Mapping(target = "encoder", qualifiedByName = "toEncoderDtoShallow")
-  OutputChannelDto toOutputChannelDto(OutputChannelEntity outputChannelEntity);
+  OutputChannelDto toDto(OutputChannelEntity outputChannelEntity);
 
   @Mapping(target = "encoder", ignore = true)
-  Set<OutputChannelDto> toOutputChannelDtos(Set<OutputChannelEntity> outputChannelEntities);
+  Set<OutputChannelDto> toDtos(Set<OutputChannelEntity> outputChannelEntities);
 
-  OutputChannelEntity toOutputChannelEntity(OutputChannelDto outputChannelDto);
+  OutputChannelEntity toEntity(OutputChannelDto outputChannelDto);
 
-  OutputChannelModel outputChannelDtoToOutputChannelModel(OutputChannelDto outputChannelDto);
+  OutputChannelModel toModel(OutputChannelDto outputChannelDto);
 }

@@ -46,8 +46,8 @@ class UserDaoImplTest {
 
   @Test
   final void testSave() {
-    when(userMapper.toUserEntity(any(UserModel.class))).thenReturn(userEntity);
-    when(userMapper.toUserDto(any(UserEntity.class))).thenReturn(userDto);
+    when(userMapper.toEntity(any(UserModel.class))).thenReturn(userEntity);
+    when(userMapper.toDto(any(UserEntity.class))).thenReturn(userDto);
     when(userRepository.save(any())).thenReturn(userEntity);
 
     UserDto response = userDaoImpl.save(userModel);

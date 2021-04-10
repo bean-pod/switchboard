@@ -22,7 +22,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class StreamLog {
+public class StreamLogEntity {
 
   @Id
   @Column(name = "log_id")

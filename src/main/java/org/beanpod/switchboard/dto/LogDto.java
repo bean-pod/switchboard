@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.beanpod.switchboard.entity.StreamLog;
+import org.beanpod.switchboard.entity.StreamLogEntity;
 
 @Setter
 @Getter
@@ -30,5 +30,5 @@ public class LogDto {
 
   @NonNull private String serialNumber;
 
-  private StreamLog streamLog;
+  private StreamLogEntity streamLogEntity;
 }

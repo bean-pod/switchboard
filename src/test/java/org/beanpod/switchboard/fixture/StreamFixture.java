@@ -10,7 +10,7 @@ public class StreamFixture {
 
   public static final long ID = 2429L;
 
-  public static List<Long> getIdList() {
+  public static List<Long> getStreamIdList() {
     return List.of(ID);
   }
 

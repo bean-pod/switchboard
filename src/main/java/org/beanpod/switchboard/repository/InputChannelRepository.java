@@ -10,5 +10,7 @@ public interface InputChannelRepository extends JpaRepository<InputChannelEntity
 
   InputChannelEntity save(InputChannelEntity inputChannelEntity);
 
-  Long deleteInputChannelEntityByDecoderDeviceUserAndId(UserEntity user, Long id);
+  InputChannelEntity findByDecoderDeviceUserAndId(UserEntity user, Long id);
+
+  Long deleteByDecoderDeviceUserAndId(UserEntity user, Long id);
 }
