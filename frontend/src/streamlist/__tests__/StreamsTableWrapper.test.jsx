@@ -106,9 +106,9 @@ describe("<StreamsTableWrapper/> component", () => {
           streams: testValue
         };
 
-        expect(wrapper.state()).toEqual(defaultState);
+        expect(wrapper.state()).toStrictEqual(defaultState);
         wrapper.instance().handleStreamsChange(testValue);
-        expect(wrapper.state()).toEqual(expectedState);
+        expect(wrapper.state()).toStrictEqual(expectedState);
       });
     });
 
@@ -126,8 +126,7 @@ describe("<StreamsTableWrapper/> component", () => {
           };
 
           const tableProps = table.props();
-          expect(tableProps.columns).toBe(expected.columns);
-          expect(tableProps.streams).toBe(expected.streams);
+          expect(tableProps).toStrictEqual(expected);
         });
       });
     });
