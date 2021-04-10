@@ -124,7 +124,7 @@ public class EncoderController implements EncoderApi {
 
     return Optional.of(encoderModel)
         .map(encoderMapper::toEncoderDto)
-        .map((encoderDto) -> encoderDao.save(user, encoderDto))
+        .map(encoderDto -> encoderDao.save(user, encoderDto))
         .map(encoderMapper::toEncoderModel)
         .map(ResponseEntity::ok)
         .orElseThrow(this::getUnknownException);
