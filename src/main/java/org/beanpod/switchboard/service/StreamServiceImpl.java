@@ -1,5 +1,6 @@
 package org.beanpod.switchboard.service;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -47,6 +48,7 @@ public class StreamServiceImpl implements StreamService {
             .inputChannel(inputChannelDto)
             .outputChannel(outputChannelDto)
             .isRendezvous(shouldUseRendezvousMode(inputChannelDto, outputChannelDto))
+            .startDate(OffsetDateTime.now())
             .build();
 
     StreamDto streamDto1 = streamDao.saveCreateStream(streamDto);

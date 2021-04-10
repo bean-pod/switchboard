@@ -32,14 +32,6 @@ export default class DetailedStreamsTableWrapper extends React.Component {
         }
       },
       {
-        title: "Type",
-        field: "type"
-      },
-      {
-        title: "Time Elapsed",
-        field: "time"
-      },
-      {
         title: "Actions",
         field: "action",
         filtering: false,

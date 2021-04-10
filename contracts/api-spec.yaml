@@ -779,6 +779,9 @@ components:
           description: Flag that indicates that the clients should use SRT's Rendezvous mode
           type: boolean
           example: true
+        startDate:
+          type: string
+          format: date-time
 
     StreamsModel:
       description: A list of stream IDs

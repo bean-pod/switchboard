@@ -57,7 +57,7 @@ describe("<DetailedStreamsTableWrapper/> Class Component", () => {
       );
 
       expect(
-        wrapperInstance.detailedColumns[7].render(sampleStream)
+        wrapperInstance.detailedColumns[5].render(sampleStream)
       ).toStrictEqual(expectedRenderedComponent);
     });
   });
