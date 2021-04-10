@@ -11,10 +11,9 @@ import {
 } from "@jest/globals";
 
 import CreateUserPageContents from "../createUser/CreateUserPageContents";
-import CreateUserFormConsole from "../createUser/CreateUserFormConsole";
-import FormFailedDialog from "../../general/userForm/FormFailedDialog";
 import * as UserManagementApi from "../../api/UserManagementApi";
 import * as SnackbarMessage from "../../general/SnackbarMessage";
+import FormConsole from "../../general/userForm/FormConsole";
 
 Enzyme.configure({ adapter: new Adapter() });
 jest.mock("../../api/UserManagementApi");
@@ -24,17 +23,8 @@ const snackbarSpy = jest.spyOn(SnackbarMessage, "snackbar");
 
 describe("<CreateUserPageContents/> class component", () => {
   let wrapper;
-  const mockOpenDialog = jest.fn();
 
   beforeEach(() => {
-    const mockRefElement = {
-      current: {
-        openDialog: mockOpenDialog
-      }
-    };
-    jest.spyOn(React, "createRef").mockImplementation(() => {
-      return mockRefElement;
-    });
     wrapper = Enzyme.shallow(<CreateUserPageContents />);
   });
 
@@ -43,45 +33,24 @@ describe("<CreateUserPageContents/> class component", () => {
     jest.clearAllMocks();
   });
 
-  describe("render() returns a component that", () => {
-    it("contains one <CreateUserFormConsole/> component with handleSubmit passed as prop", () => {
-      expect(wrapper.find(CreateUserFormConsole)).toHaveLength(1);
+  describe("render() function", () => {
+    describe("returns a component that", () => {
+      it("contains one <FormConsole/> component with handleSubmit passed as prop", () => {
+        const form = wrapper.find(FormConsole);
+        expect(form).toHaveLength(1);
 
-      const formConsoleProps = wrapper.find(CreateUserFormConsole).props();
+        const expected = {
+          handleSubmit: wrapper.instance().handleSubmit,
+          buttonName: "Create",
+          isValidate: true,
+          passwordError: { upperbound: 5, lowerbound: 0 },
+          passwordInputProps: { maxLength: 20, minLength: 5 },
+          passwordHelperText: "Password must be between 5 to 20 characters"
+        };
 
-      expect(formConsoleProps.handleSubmit).toBe(
-        wrapper.instance().handleSubmit
-      );
-    });
-
-    it("contains one <FormFailedDialog/> component with the expected props", () => {
-      expect(wrapper.find(FormFailedDialog)).toHaveLength(1);
-
-      const FormFailedDialogProps = wrapper.find(FormFailedDialog).props();
-
-      expect(FormFailedDialogProps.title).toEqual("Failed to create user");
-      expect(FormFailedDialogProps.errorMessage).toBe(
-        wrapper.state().dialogMessage
-      );
-    });
-  });
-
-  describe("setDialogMessage() function", () => {
-    it("sets the state of dialogMessage", () => {
-      const startState = "initialMessage";
-      wrapper.setState({ dialogMessage: startState });
-
-      const changedState = "test";
-      wrapper.instance().setDialogMessage(changedState);
-
-      expect(wrapper.state().dialogMessage).toEqual(changedState);
-    });
-  });
-
-  describe("openDialog() function", () => {
-    it("calls dialogElement.current.openDialog()", () => {
-      wrapper.instance().openDialog();
-      expect(mockOpenDialog).toBeCalledTimes(1);
+        const formConsoleProps = form.props();
+        expect(formConsoleProps).toStrictEqual(expected);
+      });
     });
   });
 
@@ -112,7 +81,7 @@ describe("<CreateUserPageContents/> class component", () => {
     });
 
     describe("when createUser() rejects", () => {
-      it("Calls openDialog() and changes the state dialogMessage to the error message", async () => {
+      it("Displays an error snackbar with the error message", async () => {
         const someErrorMessage = "errorMessage";
         UserManagementApi.createUser.mockRejectedValue({
           message: someErrorMessage
@@ -123,11 +92,11 @@ describe("<CreateUserPageContents/> class component", () => {
         const flushPromises = () => new Promise(setImmediate);
         await flushPromises();
 
-        expect(mockOpenDialog).toHaveBeenCalled();
-
-        expect(wrapper.state()).toEqual({
-          dialogMessage: someErrorMessage
-        });
+        expect(snackbarSpy).toHaveBeenCalledTimes(1);
+        expect(snackbarSpy).toHaveBeenCalledWith(
+          "error",
+          `Failed to create user: ${someErrorMessage}`
+        );
       });
     });
   });
