@@ -176,6 +176,8 @@ class EncoderControllerTest {
     when(encoderDao.findEncoder(user, EncoderFixture.SERIAL_NUMBER))
         .thenReturn(Optional.of(encoderDto));
 
+    when(encoderMapper.toEncoderDto(any(EncoderModel.class))).thenReturn(EncoderFixture.getEncoderDto());
+
     when(encoderDao.save(user, encoderDto)).thenReturn(encoderDto);
 
     when(encoderMapper.toEncoderModel(any())).thenReturn(EncoderFixture.getEncoderModel());
@@ -192,7 +194,8 @@ class EncoderControllerTest {
     when(encoderDao.findEncoder(user, encoderDto.getSerialNumber())).thenReturn(Optional.empty());
 
     assertThrows(
-        ExceptionType.UnknownException.class, () -> encoderController.updateEncoder(encoderModel));
+        ExceptionType.DeviceNotFoundException.class,
+        () -> encoderController.updateEncoder(encoderModel));
   }
 
   @Test

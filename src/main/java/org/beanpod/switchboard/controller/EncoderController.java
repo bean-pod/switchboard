@@ -115,9 +115,14 @@ public class EncoderController implements EncoderApi {
   public ResponseEntity<EncoderModel> updateEncoder(@Valid EncoderModel encoderModel) {
     UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
 
-    return encoderDao
-        .findEncoder(user, encoderModel.getSerialNumber())
-        .map(encoderDto -> encoderDao.save(user, encoderDto))
+    Optional<EncoderDto> encoder = encoderDao.findEncoder(user, encoderModel.getSerialNumber());
+    if (encoder.isEmpty()) {
+      throw new ExceptionType.DeviceNotFoundException(encoderModel.getSerialNumber());
+    }
+
+    return Optional.of(encoderModel)
+        .map(encoderMapper::toEncoderDto)
+        .map((encoderDto) -> encoderDao.save(user, encoderDto))
         .map(encoderMapper::toEncoderModel)
         .map(ResponseEntity::ok)
         .orElseThrow(this::getUnknownException);
