@@ -16,6 +16,7 @@ import org.openapitools.model.EncoderModel;
     nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface EncoderMapper {
 
+  @Mapping(target = "output", qualifiedByName = "outputChannelDtosToOutputChannelModelsShallow")
   EncoderModel toModel(EncoderDto encoderDto);
 
   List<EncoderModel> toModels(List<EncoderDto> encoderDtos);
