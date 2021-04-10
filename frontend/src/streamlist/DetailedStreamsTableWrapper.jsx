@@ -45,15 +45,11 @@ export default class DetailedStreamsTableWrapper extends React.Component {
     ];
   }
 
-  getDetailedColumns() {
-    return this.detailedColumns;
-  }
-
   render() {
     return (
       <StreamsTableWrapper
         dataSource={streamDataSource}
-        columns={this.getDetailedColumns()}
+        columns={this.detailedColumns}
       />
     );
   }

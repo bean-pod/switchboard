@@ -4,31 +4,27 @@ import Adapter from "enzyme-adapter-react-16";
 
 import { afterEach } from "@jest/globals";
 import DeviceInfo from "../../model/DeviceInfo";
-import StreamInfo from "../../model/StreamInfo";
-import StreamDetailsButton from "../StreamDetailsButton";
+import DeviceDetailsButton from "../DeviceDetailsButton";
 import DetailsButton from "../../general/Buttons/DetailsButton";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe("<StreamDetailsButton/> functional component", () => {
+describe("<DeviceDetailsButton/> functional component", () => {
   let wrapper;
-  const dummySender = new DeviceInfo(1, 1, 1, 1, 1, 1, [1, 2]);
-  const dummyReceiver = new DeviceInfo(2, 2, 2, 2, 2, 2, [3, 4]);
-  const dummyStream = new StreamInfo(1, dummySender, dummyReceiver, 2, 3);
+  const dummyDevice = new DeviceInfo(1, 1, 1, 1, 1, 1, [1, 2]);
+
+  beforeEach(() => {
+    wrapper = Enzyme.shallow(<DeviceDetailsButton deviceInfo={dummyDevice} />);
+  });
+  afterEach(() => {
+    wrapper.unmount();
+  });
 
   describe("returns a component that", () => {
-    beforeEach(() => {
-      wrapper = Enzyme.shallow(
-        <StreamDetailsButton streamInfo={dummyStream} />
-      );
-    });
-    afterEach(() => {
-      wrapper.unmount();
-    });
     it("contains 1 DetailsButton component with expected props", () => {
-      const expectedPath = `/Streams/Details/${dummyStream.id}`;
+      const expectedPath = `/Devices/Details/${dummyDevice.serialNumber}`;
       const expectedState = {
-        stream: dummyStream
+        device: dummyDevice
       };
       const expectedToProp = {
         pathname: expectedPath,
@@ -40,7 +36,7 @@ describe("<StreamDetailsButton/> functional component", () => {
 
       const detailsButtonProps = detailsButton.props();
       expect(detailsButtonProps.navLinkInfo).toStrictEqual(expectedToProp);
-      expect(detailsButtonProps.tooltipTitle).toEqual("View Stream Details");
+      expect(detailsButtonProps.tooltipTitle).toEqual("View Device Details");
     });
   });
 });

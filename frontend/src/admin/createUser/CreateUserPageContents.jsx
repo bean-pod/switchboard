@@ -1,52 +1,34 @@
 import React from "react";
-
-import FormFailedDialog from "../../general/userForm/FormFailedDialog";
+import FormConsole from "../../general/userForm/FormConsole";
 import { createUser } from "../../api/UserManagementApi";
-import CreateUserFormConsole from "./CreateUserFormConsole";
 import { snackbar } from "../../general/SnackbarMessage";
+
+function handleSubmit(username, password) {
+  createUser({ username, password })
+    .then(() => {
+      snackbar("success", `User ${username} successfully created!`);
+    })
+    .catch((error) => {
+      snackbar("error", `Failed to create user: ${error.message}`);
+    });
+}
 
 export default class CreateUserPageContents extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      dialogMessage: ""
-    };
-    this.dialogElement = React.createRef();
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.openDialog = this.openDialog.bind(this);
-    this.setDialogMessage = this.setDialogMessage.bind(this);
-  }
-
-  handleSubmit(username, password) {
-    createUser({ username, password })
-      .then(() => {
-        snackbar("success", `User ${username} successfully created!`);
-      })
-      .catch((error) => {
-        this.openDialog();
-        this.setDialogMessage(error.message);
-      });
-  }
-
-  setDialogMessage(message) {
-    this.setState({
-      dialogMessage: message
-    });
-  }
-
-  openDialog() {
-    this.dialogElement.current.openDialog();
+    this.handleSubmit = handleSubmit;
   }
 
   render() {
-    const { dialogMessage } = this.state;
     return (
       <>
-        <CreateUserFormConsole handleSubmit={this.handleSubmit} />
-        <FormFailedDialog
-          ref={this.dialogElement}
-          title="Failed to create user"
-          errorMessage={dialogMessage}
+        <FormConsole
+          handleSubmit={this.handleSubmit}
+          buttonName="Create"
+          isValidate
+          passwordError={{ upperbound: 5, lowerbound: 0 }}
+          passwordInputProps={{ maxLength: 20, minLength: 5 }}
+          passwordHelperText="Password must be between 5 to 20 characters"
         />
       </>
     );
