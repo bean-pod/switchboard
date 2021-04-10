@@ -58,17 +58,17 @@ public class InputChannelDaoImplTest {
 
   @Test
   void testGetInputChannelById() {
-    when(inputChannelRepository.getOne(ChannelFixture.CHANNEL_ID)).thenReturn(input);
+    when(inputChannelRepository.findByDecoderDeviceUserAndId(user, ChannelFixture.CHANNEL_ID))
+        .thenReturn(input);
     when(inputChannelMapper.toInputChannelDto(input)).thenReturn(inputDto);
     InputChannelDto inputChannelDTO =
-        inputChannelDao.getInputChannelById(ChannelFixture.CHANNEL_ID);
+        inputChannelDao.getInputChannelById(user, ChannelFixture.CHANNEL_ID);
     assertEquals(inputDto, inputChannelDTO);
   }
 
   @Test
   void deleteInputChannelById() {
-    when(inputChannelRepository.deleteInputChannelEntityByDecoderDeviceUserAndId(
-            user, ChannelFixture.CHANNEL_ID))
+    when(inputChannelRepository.deleteByDecoderDeviceUserAndId(user, ChannelFixture.CHANNEL_ID))
         .thenReturn(1L);
     Long response = inputChannelDao.deleteInputChannelById(user, ChannelFixture.CHANNEL_ID);
     assertEquals(1L, response);

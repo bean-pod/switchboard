@@ -64,9 +64,9 @@ class StreamServiceTest {
     DeviceDto decoderDevice = inputChannelDto.getDecoder().getDevice();
     DeviceDto encoderDevice = outputChannelDto.getEncoder().getDevice();
 
-    when(inputChannelDao.getInputChannelById(createStreamRequest.getInputChannelId()))
+    when(inputChannelDao.getInputChannelById(user, createStreamRequest.getInputChannelId()))
         .thenReturn(inputChannelDto);
-    when(outputChannelDao.getOutputChannelById(createStreamRequest.getOutputChannelId()))
+    when(outputChannelDao.getOutputChannelById(user, createStreamRequest.getOutputChannelId()))
         .thenReturn(outputChannelDto);
     when(streamDao.saveCreateStream(any())).thenReturn(streamDto);
     when(networkingUtil.areDevicesOnSameLocalNetworkAsService(decoderDevice, encoderDevice))
@@ -88,9 +88,9 @@ class StreamServiceTest {
     DeviceDto decoderDevice = inputChannelDto.getDecoder().getDevice();
     DeviceDto encoderDevice = outputChannelDto.getEncoder().getDevice();
 
-    when(inputChannelDao.getInputChannelById(createStreamRequest.getInputChannelId()))
+    when(inputChannelDao.getInputChannelById(user, createStreamRequest.getInputChannelId()))
         .thenReturn(inputChannelDto);
-    when(outputChannelDao.getOutputChannelById(createStreamRequest.getOutputChannelId()))
+    when(outputChannelDao.getOutputChannelById(user, createStreamRequest.getOutputChannelId()))
         .thenReturn(outputChannelDto);
     when(streamDao.saveCreateStream(any())).thenReturn(streamDto);
     when(networkingUtil.areDevicesOnSameLocalNetworkAsService(decoderDevice, encoderDevice))
@@ -112,9 +112,9 @@ class StreamServiceTest {
     DeviceDto decoderDevice = inputChannelDto.getDecoder().getDevice();
     DeviceDto encoderDevice = outputChannelDto.getEncoder().getDevice();
 
-    when(inputChannelDao.getInputChannelById(createStreamRequest.getInputChannelId()))
+    when(inputChannelDao.getInputChannelById(user, createStreamRequest.getInputChannelId()))
         .thenReturn(inputChannelDto);
-    when(outputChannelDao.getOutputChannelById(createStreamRequest.getOutputChannelId()))
+    when(outputChannelDao.getOutputChannelById(user, createStreamRequest.getOutputChannelId()))
         .thenReturn(outputChannelDto);
     when(streamDao.saveCreateStream(any())).thenReturn(streamDto);
     when(networkingUtil.areDevicesOnSameLocalNetworkAsService(decoderDevice, encoderDevice))

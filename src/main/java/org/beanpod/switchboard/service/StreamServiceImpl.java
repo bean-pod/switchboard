@@ -38,9 +38,9 @@ public class StreamServiceImpl implements StreamService {
         createStreamRequest.getOutputChannelId());
 
     InputChannelDto inputChannelDto =
-        inputChannelDao.getInputChannelById(createStreamRequest.getInputChannelId());
+        inputChannelDao.getInputChannelById(user, createStreamRequest.getInputChannelId());
     OutputChannelDto outputChannelDto =
-        outputChannelDao.getOutputChannelById(createStreamRequest.getOutputChannelId());
+        outputChannelDao.getOutputChannelById(user, createStreamRequest.getOutputChannelId());
 
     StreamDto streamDto =
         StreamDto.builder()

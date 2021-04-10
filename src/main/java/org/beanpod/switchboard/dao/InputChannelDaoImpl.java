@@ -19,12 +19,13 @@ public class InputChannelDaoImpl {
         inputChannelRepository.save(inputChannelMapper.toInputChannelEntity(inputChannelDto)));
   }
 
-  public InputChannelDto getInputChannelById(Long id) {
-    InputChannelEntity inputChannelEntity = inputChannelRepository.getOne(id);
+  public InputChannelDto getInputChannelById(UserEntity user, Long id) {
+    InputChannelEntity inputChannelEntity =
+        inputChannelRepository.findByDecoderDeviceUserAndId(user, id);
     return inputChannelMapper.toInputChannelDto(inputChannelEntity);
   }
 
   public Long deleteInputChannelById(UserEntity user, Long id) {
-    return inputChannelRepository.deleteInputChannelEntityByDecoderDeviceUserAndId(user, id);
+    return inputChannelRepository.deleteByDecoderDeviceUserAndId(user, id);
   }
 }
