@@ -20,7 +20,7 @@ import * as SampleData from "../../api/SampleData";
 Enzyme.configure({ adapter: new Adapter() });
 jest.spyOn(global.console, "error");
 
-describe("<DevicesTable/> component", () => {
+describe("<DevicesTable/> class component", () => {
   let wrapper;
   let wrapperInstance;
   const dummyTitle = "test";
@@ -37,30 +37,32 @@ describe("<DevicesTable/> component", () => {
     wrapper.unmount();
   });
 
-  describe("has the correct components", () => {
-    it("contains 1 <Box/> component", () => {
-      expect(wrapper.find(Box)).toHaveLength(1);
-    });
-    it("contains 1 <TableContainer/> component", () => {
-      expect(wrapper.find(TableContainer)).toHaveLength(1);
-    });
-    it("contains 1 <MaterialTable/> component with expected props", () => {
-      const table = wrapper.find(MaterialTable);
-      expect(table).toHaveLength(1);
+  describe("render() function", () => {
+    describe("returns a component that", () => {
+      it("contains 1 <Box/> component", () => {
+        expect(wrapper.find(Box)).toHaveLength(1);
+      });
+      it("contains 1 <TableContainer/> component", () => {
+        expect(wrapper.find(TableContainer)).toHaveLength(1);
+      });
+      it("contains 1 <MaterialTable/> component with expected props", () => {
+        const table = wrapper.find(MaterialTable);
+        expect(table).toHaveLength(1);
 
-      const shallowWrapper = wrapper.instance();
-      const expected = {
-        title: dummyTitle,
-        components: shallowWrapper.components,
-        columns: shallowWrapper.columns,
-        data: dummyDevices,
-        detailPanel: shallowWrapper.detailPanel,
-        options: shallowWrapper.options,
-        icons: shallowWrapper.icons
-      };
+        const shallowWrapper = wrapper.instance();
+        const expected = {
+          title: dummyTitle,
+          components: shallowWrapper.components,
+          columns: shallowWrapper.columns,
+          data: dummyDevices,
+          detailPanel: shallowWrapper.detailPanel,
+          options: shallowWrapper.options,
+          icons: shallowWrapper.icons
+        };
 
-      const tableProps = wrapper.find(MaterialTable).props();
-      expect(tableProps).toEqual(expected);
+        const tableProps = wrapper.find(MaterialTable).props();
+        expect(tableProps).toStrictEqual(expected);
+      });
     });
   });
 

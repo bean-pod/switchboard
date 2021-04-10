@@ -8,7 +8,7 @@ import StreamInfo from "../../model/StreamInfo";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe("<StreamsTableWrapper/> component", () => {
+describe("<StreamsTableWrapper/> Class Component", () => {
   let wrapper;
   const dummySource = {
     getAllStreams() {
@@ -36,21 +36,23 @@ describe("<StreamsTableWrapper/> component", () => {
     wrapper.unmount();
   });
 
-  describe("Should contain the following component", () => {
-    it("contains 1 <StreamsTable/> component with expected props", () => {
-      const table = wrapper.find(StreamsTable);
-      expect(table).toHaveLength(1);
+  describe("render() function", () => {
+    describe("returns a component that", () => {
+      it("contains 1 <StreamsTable/> component with expected props", () => {
+        const table = wrapper.find(StreamsTable);
+        expect(table).toHaveLength(1);
 
-      const wrapperProps = wrapper.props();
-      const wrapperState = wrapper.state();
-      const expected = {
-        columns: wrapperProps.columns,
-        streams: wrapperState.streams
-      };
+        const wrapperProps = wrapper.props();
+        const wrapperState = wrapper.state();
+        const expected = {
+          columns: wrapperProps.columns,
+          streams: wrapperState.streams
+        };
 
-      const tableProps = table.props();
-      expect(tableProps.columns).toBe(expected.columns);
-      expect(tableProps.streams).toBe(expected.streams);
+        const tableProps = table.props();
+        expect(tableProps.columns).toBe(expected.columns);
+        expect(tableProps.streams).toBe(expected.streams);
+      });
     });
   });
 

@@ -13,15 +13,14 @@ describe("<DeviceDetailsButton/> functional component", () => {
   let wrapper;
   const dummyDevice = new DeviceInfo(1, 1, 1, 1, 1, 1, [1, 2]);
 
+  beforeEach(() => {
+    wrapper = Enzyme.shallow(<DeviceDetailsButton deviceInfo={dummyDevice} />);
+  });
+  afterEach(() => {
+    wrapper.unmount();
+  });
+
   describe("returns a component that", () => {
-    beforeEach(() => {
-      wrapper = Enzyme.shallow(
-        <DeviceDetailsButton deviceInfo={dummyDevice} />
-      );
-    });
-    afterEach(() => {
-      wrapper.unmount();
-    });
     it("contains 1 DetailsButton component with expected props", () => {
       const expectedPath = `/Devices/Details/${dummyDevice.serialNumber}`;
       const expectedState = {

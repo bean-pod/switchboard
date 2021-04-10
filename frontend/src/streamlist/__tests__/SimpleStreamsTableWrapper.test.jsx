@@ -10,7 +10,7 @@ import * as SampleData from "../../api/SampleData";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe("<SimpleStreamsTableWrapper/> Component", () => {
+describe("<SimpleStreamsTableWrapper/> Class Component", () => {
   let wrapper;
   let wrapperInstance;
 
@@ -23,11 +23,17 @@ describe("<SimpleStreamsTableWrapper/> Component", () => {
     wrapper.unmount();
   });
 
-  it("Contains 1 <StreamsTableWrapper/> component with expected prop values", () => {
-    expect(wrapper.find(StreamsTableWrapper)).toHaveLength(1);
+  describe("render() function", () => {
+    describe("returns a component that", () => {
+      it("Contains 1 <StreamsTableWrapper/> component with expected prop values", () => {
+        expect(wrapper.find(StreamsTableWrapper)).toHaveLength(1);
 
-    const streamsTableProps = wrapper.find(StreamsTableWrapper).props();
-    expect(streamsTableProps.columns).toEqual(wrapper.instance().simpleColumns);
+        const streamsTableProps = wrapper.find(StreamsTableWrapper).props();
+        expect(streamsTableProps.columns).toStrictEqual(
+          wrapper.instance().simpleColumns
+        );
+      });
+    });
   });
 
   describe("simpleColumns variable", () => {
