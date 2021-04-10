@@ -176,7 +176,8 @@ class EncoderControllerTest {
     when(encoderDao.findEncoder(user, EncoderFixture.SERIAL_NUMBER))
         .thenReturn(Optional.of(encoderDto));
 
-    when(encoderMapper.toEncoderDto(any(EncoderModel.class))).thenReturn(EncoderFixture.getEncoderDto());
+    when(encoderMapper.toEncoderDto(any(EncoderModel.class)))
+        .thenReturn(EncoderFixture.getEncoderDto());
 
     when(encoderDao.save(user, encoderDto)).thenReturn(encoderDto);
 
