@@ -1,10 +1,13 @@
 package org.beanpod.switchboard.dto.mapper;
 
+import java.util.List;
 import java.util.Set;
 import org.beanpod.switchboard.dto.InputChannelDto;
 import org.beanpod.switchboard.entity.InputChannelEntity;
+import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 import org.openapitools.model.InputChannelModel;
 
 @Mapper(
@@ -21,4 +24,12 @@ public interface InputChannelMapper {
   InputChannelEntity toEntity(InputChannelDto inputChannelDto);
 
   InputChannelModel toModel(InputChannelDto inputChannelDto);
+
+  @Named("inputChannelDtoToInputChannelModelShallow")
+  @Mapping(target = "decoder", ignore = true)
+  InputChannelModel inputChannelDtoToInputChannelModelShallow(InputChannelDto inputChannelDto);
+
+  @Named("inputChannelDtoSetToInputChannelModelListShallow")
+  @IterableMapping(qualifiedByName = "inputChannelDtoToInputChannelModelShallow")
+  List<InputChannelModel> inputChannelDtoSetToInputChannelModelListShallow(Set<InputChannelDto> value);
 }

@@ -16,6 +16,7 @@ import org.openapitools.model.DecoderModel;
     nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface DecoderMapper {
 
+  @Mapping(target = "input", qualifiedByName = "inputChannelDtoSetToInputChannelModelListShallow")
   DecoderModel toDecoderModel(DecoderDto decoderDto);
 
   List<DecoderModel> toDecoderModels(List<DecoderDto> decoderDtos);
