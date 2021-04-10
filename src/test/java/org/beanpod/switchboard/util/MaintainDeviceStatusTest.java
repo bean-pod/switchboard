@@ -69,7 +69,7 @@ class MaintainDeviceStatusTest {
 
     encoderEntity.setLastCommunication(date);
 
-    DeviceDto deviceDto = deviceMapper.toDeviceDto(encoderEntity.getDevice());
+    DeviceDto deviceDto = deviceMapper.toDto(encoderEntity.getDevice());
     when(deviceService.save(user, deviceDto)).thenReturn(deviceDto);
     when(logRepository.save(any())).thenReturn(LogFixture.getLogEntity());
 

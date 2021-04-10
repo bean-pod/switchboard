@@ -10,19 +10,20 @@ import org.openapitools.model.LogModel;
 
 @Mapper(componentModel = "spring")
 public interface LogMapper {
-  List<LogModel> toLogModels(List<LogEntity> logEntityList);
 
-  LogModel toLogModel(LogEntity logEntity);
+  LogDto toDto(LogEntity entity);
 
-  LogEntity toLogEntity(LogDto logDto);
+  LogDto toDto(LogModel logModel);
 
-  LogModel logDtoToLogModel(LogDto logDto);
+  LogEntity toEntity(LogDto logDto);
 
-  LogDto logModelToLogDto(LogModel logModel);
+  LogModel toModel(LogEntity logEntity);
 
-  LogModel createLogRequestToLogModel(CreateLogRequest createLogRequest);
+  LogModel toModel(LogDto logDto);
 
-  LogDto logEntityToLogDto(LogEntity logEntity);
+  LogModel toModel(CreateLogRequest createLogRequest);
+
+  List<LogModel> toModels(List<LogEntity> logEntityList);
 
   /* to convert string to OffsetDateTime
    * value must be of YYYY-MM-DDTHH:mm:ss+00:00

@@ -23,21 +23,21 @@ public class EncoderDaoImpl {
     if (encoderDto.isPresent()) {
       encoderMapper.updateEncoderFromDto(encoder, encoderDto.orElse(encoder));
     }
-    return encoderMapper.toEncoderDto(
-        encoderRepository.save(encoderMapper.toEncoderEntity(encoderDto.orElse(encoder))));
+    return encoderMapper.toDto(
+        encoderRepository.save(encoderMapper.toEntity(encoderDto.orElse(encoder))));
   }
 
   public List<EncoderEntity> getEncoders(UserEntity user) {
-    return encoderRepository.findEncoderEntitiesByDeviceUser(user);
+    return encoderRepository.findByDeviceUser(user);
   }
 
   public Optional<EncoderDto> findEncoder(UserEntity user, String serialNumber) {
     return encoderRepository
-        .findEncoderByDeviceUserAndSerialNumber(user, serialNumber)
-        .map(encoderMapper::toEncoderDto);
+        .findByDeviceUserAndSerialNumber(user, serialNumber)
+        .map(encoderMapper::toDto);
   }
 
   public long deleteEncoder(UserEntity user, String serialNumber) {
-    return encoderRepository.deleteEncoderEntityByDeviceUserAndSerialNumber(user, serialNumber);
+    return encoderRepository.deleteByDeviceUserAndSerialNumber(user, serialNumber);
   }
 }

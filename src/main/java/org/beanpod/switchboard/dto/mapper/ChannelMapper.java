@@ -8,9 +8,9 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface ChannelMapper {
 
-  ChannelDto toChannelDto(ChannelEntity channelEntity);
+  ChannelDto toDto(ChannelEntity channelEntity);
 
-  List<ChannelDto> toChannelDtos(List<ChannelEntity> channelEntities);
+  List<ChannelDto> toDtos(List<ChannelEntity> channelEntities);
 
-  ChannelEntity toChannelEntity(ChannelDto channelDto);
+  ChannelEntity toEntity(ChannelDto channelDto);
 }
