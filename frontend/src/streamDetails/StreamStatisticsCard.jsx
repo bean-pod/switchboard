@@ -51,7 +51,7 @@ export default class StreamStatisticsCard extends React.Component {
 
   getButton() {
     const { stats } = this.state;
-    const { stream } = this;
+    const { stream } = this.props;
     if (!stats) return null;
     return new ButtonInfo(
       `/Streams/Details/${stream.id}/Statistics`,
