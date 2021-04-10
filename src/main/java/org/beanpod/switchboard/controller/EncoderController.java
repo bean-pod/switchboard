@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -101,6 +102,7 @@ public class EncoderController implements EncoderApi {
   }
 
   @Override
+  @Transactional
   public ResponseEntity<String> deleteEncoder(@PathVariable String serialNumber) {
     UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
 
