@@ -24,6 +24,7 @@ describe("<CreateUserPage/> class component", () => {
     const expectedTitle = "Create a User";
     const expectedBreadcrumb = [
       ["Home", "/Home"],
+      ["Admin"],
       ["Create a User", "/Admin/New"]
     ];
 
