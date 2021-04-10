@@ -19,7 +19,7 @@ Enzyme.configure({ adapter: new Adapter() });
 jest.mock("../../api/AuthenticationApi");
 jest.spyOn(AuthenticationApi, "logIn");
 
-describe("<LoginPageContents/> class component", () => {
+describe("<LoginPageContents/> Class Component", () => {
   let wrapper;
   const mockOpenDialog = jest.fn();
   const mockHistory = {
@@ -46,28 +46,30 @@ describe("<LoginPageContents/> class component", () => {
     jest.clearAllMocks();
   });
 
-  describe("render() returns a component that", () => {
-    it("Contains one <LoginConsole/> component", () => {
-      const loginConsole = wrapper.find(LoginConsole);
-      expect(loginConsole).toHaveLength(1);
+  describe("render() function", () => {
+    describe("returns a component that", () => {
+      it("Contains 1 <LoginConsole/> component with the expected props", () => {
+        const loginConsole = wrapper.find(LoginConsole);
+        expect(loginConsole).toHaveLength(1);
 
-      const loginConsoleProps = loginConsole.props();
-      expect(loginConsoleProps.handleSubmit).toEqual(
-        wrapper.instance().handleSubmit
-      );
-    });
-    it("Contains one <FormFailedDialog/> component", () => {
-      const formFailedDialog = wrapper.find(FormFailedDialog);
-      expect(formFailedDialog).toHaveLength(1);
+        const loginConsoleProps = loginConsole.props();
+        expect(loginConsoleProps.handleSubmit).toEqual(
+          wrapper.instance().handleSubmit
+        );
+      });
+      it("Contains 1 <FormFailedDialog/> component with the expected props", () => {
+        const formFailedDialog = wrapper.find(FormFailedDialog);
+        expect(formFailedDialog).toHaveLength(1);
 
-      const expected = {
-        title: "Login failed",
-        errorMessage: wrapper.state().dialogMessage
-      };
+        const expected = {
+          title: "Login failed",
+          errorMessage: wrapper.state().dialogMessage
+        };
 
-      const formFailedDialogProps = formFailedDialog.props();
-      expect(formFailedDialogProps.title).toEqual(expected.title);
-      expect(formFailedDialogProps.errorMessage).toBe(expected.errorMessage);
+        const formFailedDialogProps = formFailedDialog.props();
+        expect(formFailedDialogProps.title).toEqual(expected.title);
+        expect(formFailedDialogProps.errorMessage).toBe(expected.errorMessage);
+      });
     });
   });
   describe("setDialogMessage() function", () => {
@@ -88,40 +90,43 @@ describe("<LoginPageContents/> class component", () => {
       expect(mockOpenDialog).toBeCalledTimes(1);
     });
   });
+
   describe("handleSubmit()", () => {
     const someUsername = "username";
     const somePassword = "password";
-    describe("when logIn resolves", () => {
-      it("Calls login and redirects to home", async () => {
-        AuthenticationApi.logIn.mockResolvedValue();
+    describe("it calls logIn()", () => {
+      describe("if it resolves", () => {
+        it("it redirects to home", async () => {
+          AuthenticationApi.logIn.mockResolvedValue();
 
-        wrapper.instance().handleSubmit(someUsername, somePassword);
+          wrapper.instance().handleSubmit(someUsername, somePassword);
 
-        await new Promise(setImmediate);
+          await new Promise(setImmediate);
 
-        expect(AuthenticationApi.logIn).toHaveBeenCalledWith({
-          username: someUsername,
-          password: somePassword
+          expect(AuthenticationApi.logIn).toHaveBeenCalledWith({
+            username: someUsername,
+            password: somePassword
+          });
+          expect(mockHistory.push).toHaveBeenCalledWith("/Home");
         });
-        expect(mockHistory.push).toHaveBeenCalledWith("/Home");
       });
-    });
-    describe("when logIn rejects", () => {
-      it("Changes state to dialog open", async () => {
-        const someErrorMessage = "errorMessage";
-        AuthenticationApi.logIn.mockRejectedValue({
-          message: someErrorMessage
-        });
+      describe("if it rejects", () => {
+        it("it opens an error dialog with the returned error message", async () => {
+          const someErrorMessage = "errorMessage";
+          AuthenticationApi.logIn.mockRejectedValue({
+            message: someErrorMessage
+          });
 
-        wrapper.instance().handleSubmit(someUsername, somePassword);
+          wrapper.instance().handleSubmit(someUsername, somePassword);
 
-        const flushPromises = () => new Promise(setImmediate);
-        await flushPromises();
+          const flushPromises = () => new Promise(setImmediate);
+          await flushPromises();
 
-        expect(mockOpenDialog).toHaveBeenCalled();
+          expect(mockOpenDialog).toHaveBeenCalled();
 
-        expect(wrapper.state()).toEqual({
-          dialogMessage: someErrorMessage
+          expect(wrapper.state()).toEqual({
+            dialogMessage: someErrorMessage
+          });
         });
       });
     });

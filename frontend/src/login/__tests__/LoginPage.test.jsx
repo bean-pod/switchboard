@@ -9,7 +9,7 @@ import LoginPageContents from "../LoginPageContents";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe("<LoginPage/> class component", () => {
+describe("<LoginPage/> Class Component", () => {
   let wrapper;
 
   beforeEach(() => {
@@ -20,17 +20,21 @@ describe("<LoginPage/> class component", () => {
     wrapper.unmount();
   });
 
-  it("Contains one <Page/> component with correct props", () => {
-    const expectedTitle = "Login";
-    const expectedBreadcrumb = [];
+  describe("render() function", () => {
+    describe("returns a component that", () => {
+      it("Contains 1 <Page/> component with expected props", () => {
+        const expectedTitle = "Login";
+        const expectedBreadcrumb = [];
 
-    expect(wrapper.find(Page)).toHaveLength(1);
+        expect(wrapper.find(Page)).toHaveLength(1);
 
-    const page = wrapper.find(Page).first();
-    expect(page.props().title).toBe(expectedTitle);
-    expect(page.props().breadcrumbs).toStrictEqual(expectedBreadcrumb);
-  });
-  it("Contains one <LoginPageContents/> component", () => {
-    expect(wrapper.find(LoginPageContents)).toHaveLength(1);
+        const page = wrapper.find(Page).first();
+        expect(page.props().title).toBe(expectedTitle);
+        expect(page.props().breadcrumbs).toStrictEqual(expectedBreadcrumb);
+      });
+      it("Contains 1 <LoginPageContents/> component", () => {
+        expect(wrapper.find(LoginPageContents)).toHaveLength(1);
+      });
+    });
   });
 });
