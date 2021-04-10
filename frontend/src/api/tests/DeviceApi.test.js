@@ -60,7 +60,9 @@ describe("DeviceApi", () => {
         authorizationHeader
       );
 
-      expect(result).toStrictEqual(DeviceFixture.getExpectedReceiversResponse());
+      expect(result).toStrictEqual(
+        DeviceFixture.getExpectedReceiversResponse()
+      );
     });
   });
 
