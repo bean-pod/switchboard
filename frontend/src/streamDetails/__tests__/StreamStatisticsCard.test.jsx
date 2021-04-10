@@ -1,7 +1,7 @@
 import React from "react";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import { describe, expect, it } from "@jest/globals";
+import { afterEach, describe, expect, it, jest } from "@jest/globals";
 
 import { Grid } from "@material-ui/core";
 import StreamStatisticsCard from "../StreamStatisticsCard";
@@ -15,6 +15,11 @@ import StreamStatsLinkInfo from "../../model/StreamStatistics/StreamStatsLinkInf
 import StreamStatsSendInfo from "../../model/StreamStatistics/StreamStatsSendInfo";
 import StreamStatsReceiveInfo from "../../model/StreamStatistics/StreamStatsReceiveInfo";
 import { firstStreamResponse } from "../../api/tests/StreamFixture";
+
+import * as StreamApi from "../../api/StreamApi";
+import * as SnackbarMessage from "../../general/SnackbarMessage";
+
+const snackbarSpy = jest.spyOn(SnackbarMessage, "snackbar");
 
 Enzyme.configure({ adapter: new Adapter() });
 

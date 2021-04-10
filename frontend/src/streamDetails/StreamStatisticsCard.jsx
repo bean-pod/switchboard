@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Grid } from "@material-ui/core";
+import { Grid, Snackbar } from "@material-ui/core";
 
 import DashboardCard from "../general/dashboard/DashboardCard";
 import SimpleTable from "../general/simpleTable/SimpleTable";
 import { getStreamStatistics } from "../api/StreamApi";
+import { snackbar } from "../general/SnackbarMessage";
 import ButtonInfo from "../general/dashboard/ButtonInfo";
 import StreamInfo from "../model/StreamInfo";
 
@@ -21,7 +22,14 @@ export default class StreamStatisticsCard extends React.Component {
   }
 
   componentDidMount() {
-    getStreamStatistics(this.stream.id).then(this.handleStatsChange);
+    getStreamStatistics(this.stream.id)
+      .then(this.handleStatsChange)
+      .catch((error) => {
+        snackbar(
+          "error",
+          `Failed to fetch stream statistics: ${error.message}`
+        );
+      });
   }
 
   handleStatsChange(stats) {
