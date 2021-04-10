@@ -1,10 +1,15 @@
 package org.beanpod.switchboard.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.time.OffsetDateTime;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -52,4 +57,15 @@ public class DeviceEntity {
       mappedBy = "device",
       cascade = {CascadeType.REMOVE})
   private EncoderEntity encoderEntity;
+
+  @Lob
+  @Column(name = "configuration_instance")
+  private byte[] configurationInstance;
+
+  @Column(name = "configuration_last_modified")
+  private OffsetDateTime configurationLastModified;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "user_id")
+  private UserEntity user;
 }

@@ -10,7 +10,7 @@ servers:
     description: Local Enviorment
 
 paths:
-  /logs/{serialNumber}:
+  /log/{serialNumber}:
     get:
       operationId: retrieveDeviceLogs
       description: Get a list of logs for a specific device
@@ -23,7 +23,57 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LogsModel'
-  /logs:
+
+  /log/stream/{streamId}:
+    get:
+      operationId: retrieveStreamLogs
+      description: Get a list of logs for a specific stream
+      parameters:
+        - $ref: '#/components/parameters/StreamId'
+      responses:
+        '200':
+          description: Succesful retrieval of the stream logs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StreamLogsModel'
+  /log/stream:
+    post:
+      operationId: createStreamLog
+      description: Create a stream log
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createStreamLogRequest'
+      responses:
+        '200':
+          description: Successful creation of a stream log
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StreamLogModel'
+  /user/sign-up:
+    post:
+      operationId: sign-up
+      description: sign up a user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserModel'
+      responses:
+        '200':
+          description: succesful persistance of user
+          content:
+            application/json:
+              schema:
+                type: string
+                example: 'User moh has been created successfully'
+
+  /log:
     get:
       operationId: retrieveAllLogs
       description: Get a list of logs
@@ -34,6 +84,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LogsModel'
+    post:
+      operationId: createLog
+      description: Create a log
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateLogRequest'
+      responses:
+        '200':
+          description: Successful creation of a log
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogModel'
   /device:
     get:
       operationId: retrieveAllDevices
@@ -114,6 +180,31 @@ paths:
               schema:
                 type: string
                 example: 'Device with serial number BtmC8ckj deleted'
+
+  /device/config/{serialNumber}:
+    put:
+      operationId: upload configuration
+      description: uploads a configuration file
+      parameters:
+        - $ref: '#/components/parameters/DeviceSerialNumber'
+      tags:
+        - Devices
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              properties:
+                configuration:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: successful upload of config file
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: config file successfully uploaded
 
   /encoder:
     get:
@@ -387,8 +478,76 @@ paths:
         '200':
           description: Successful deletion of the stream
 
+  /stream/statistics/{id}:
+    get:
+      operationId: getStreamStatById
+      description: Retrieve a stream stat by id
+      tags:
+        - Streams
+      parameters:
+        - $ref: '#/components/parameters/StreamId'
+      responses:
+        '200':
+          description: Succesful retrievel of a stream stat
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StreamStatModel'
+
+  /stream/statistics:
+    get:
+      operationId: retrieveStreamStats
+      description: Retrieve all the existing stream statistics
+      tags:
+        - Streams
+      responses:
+        '200':
+          description: Successful retrieval of stream statistics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StreamStatsModel'
+    put:
+      operationId: updateStreamStat
+      description: update a stream's stat
+      tags:
+        - Streams
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StreamStatModel'
+      responses:
+        '200':
+          description: successful update of a stream stat
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StreamStatModel'
 components:
   schemas:
+    UserModel:
+      description: A user object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: '123'
+        username:
+          type: string
+          example: 'moh@gmail.com'
+        password:
+          type: string
+          example: '123#rt.'
+        userRole:
+          type: string
+          enum:
+            - ADMIN
+            - USER
+            - SUPERUSER
+          example: 'ADMIN'
+
     LogsModel:
       description: A list of all logs
       type: array
@@ -411,6 +570,62 @@ components:
         level:
           type: string
           example: 'info'
+        serialNumber:
+          type: string
+          example: '1,2'
+
+    CreateLogRequest:
+      description: A request to create a new log
+      properties:
+        dateTime:
+          type: string
+          pattern: '^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T(0[0-9]|1[0-9]|2[0-4])(\+00:00)$'
+          example: '2021-02-04T08:21:23+00:00'
+        message:
+          type: string
+          example: 'A log message'
+        level:
+          type: string
+          example: 'info'
+        serialNumber:
+          type: string
+          example: '1xw1'
+
+    createStreamLogRequest:
+      description: A request to create a new stream log
+      properties:
+        streamId:
+          type: integer
+          example: '123'
+        message:
+          type: string
+          example: 'A log message'
+        dateTime:
+          type: string
+          pattern: '^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T(0[0-9]|1[0-9]|2[0-4])(\+00:00)$'
+          example: '2021-02-04T08:21:23+00:00'
+
+    StreamLogModel:
+      description: stream log object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: '123'
+        serialNumber:
+          type: string
+          example: '1rw1'
+        streamId:
+          type: integer
+          example: '123'
+        logEntity:
+          $ref: '#/components/schemas/LogModel'
+
+    StreamLogsModel:
+      description: A list of SteamLog objects
+      type: array
+      items:
+        $ref: '#/components/schemas/StreamLogModel'
 
     DevicesModel:
       description: A list of device serial numbers
@@ -436,6 +651,12 @@ components:
         status:
           type: string
           example: 'running'
+        configurationInstance:
+          type: string
+          format: byte
+        configurationLastModified:
+          type: string
+          format: date-time
 
     CreateDeviceRequest:
       description: A request to create a new device
@@ -565,7 +786,13 @@ components:
       items:
         type: integer
         format: int64
-      example: ['1234']
+      example: [ '1234' ]
+
+    StreamStatsModel:
+      description: A list of stream stats
+      type: array
+      items:
+        $ref: '#/components/schemas/StreamStatModel'
 
     CreateStreamRequest:
       description: An object to request the creation of a stream between an input and output channel
@@ -578,6 +805,102 @@ components:
           type: integer
           format: int64
           example: '2'
+
+    StreamStatModel:
+      description: A stat that is related to a specific stream
+      properties:
+        id:
+          type: integer
+          format: int64
+        time:
+          type: integer
+          format: int64
+        window:
+          $ref: '#/components/schemas/WindowStatModel'
+        link:
+          $ref: '#/components/schemas/LinkStatModel'
+        send:
+          $ref: '#/components/schemas/SendStatModel'
+        recv:
+          $ref: '#/components/schemas/RecvStatModel'
+
+    WindowStatModel:
+      description: A statistic related to a stream
+      properties:
+        flow:
+          type: integer
+          format: int64
+        congestion:
+          type: integer
+          format: int64
+        flight:
+          type: integer
+          format: int64
+
+    LinkStatModel:
+      description: A statistic related to a stream
+      properties:
+        rtt:
+          type: number
+        bandwidth:
+          type: number
+        maxBandwidth:
+          type: integer
+          format: int64
+
+    SendStatModel:
+      description: A statistic related to a stream
+      properties:
+        packets:
+          type: integer
+          format: int64
+        packetsLost:
+          type: integer
+          format: int64
+        packetsDropped:
+          type: integer
+          format: int64
+        packetsRetransmitted:
+          type: integer
+          format: int64
+        bytes:
+          type: integer
+          format: int64
+        bytesDropped:
+          type: integer
+          format: int64
+        mbitRate:
+          type: number
+
+    RecvStatModel:
+      description: A statistic related to a stream
+      properties:
+        packets:
+          type: integer
+          format: int64
+        packetsLost:
+          type: integer
+          format: int64
+        packetsDropped:
+          type: integer
+          format: int64
+        packetsRetransmitted:
+          type: integer
+          format: int64
+        packetsBelated:
+          type: integer
+          format: int64
+        bytes:
+          type: integer
+          format: int64
+        bytesLost:
+          type: integer
+          format: int64
+        bytesDropped:
+          type: integer
+          format: int64
+        mbitRate:
+          type: number
 
   parameters:
     DeviceSerialNumber:

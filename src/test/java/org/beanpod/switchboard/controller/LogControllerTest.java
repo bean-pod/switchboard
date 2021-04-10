@@ -2,29 +2,57 @@ package org.beanpod.switchboard.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
 import org.beanpod.switchboard.dao.LogDaoImpl;
+import org.beanpod.switchboard.dao.StreamLogDaoImpl;
+import org.beanpod.switchboard.dto.LogDto;
+import org.beanpod.switchboard.dto.StreamLogDto;
+import org.beanpod.switchboard.dto.mapper.LogMapper;
+import org.beanpod.switchboard.dto.mapper.StreamLogMapper;
 import org.beanpod.switchboard.fixture.LogFixture;
+import org.beanpod.switchboard.fixture.StreamLogFixture;
+import org.beanpod.switchboard.service.LogService;
+import org.beanpod.switchboard.service.StreamLogService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.openapitools.model.CreateStreamLogRequest;
 import org.openapitools.model.LogModel;
+import org.openapitools.model.StreamLogModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 class LogControllerTest {
 
   private static List<LogModel> logModels;
+  private static LogModel logModel;
+  private static LogDto logDto;
+  private static List<StreamLogModel> streamLogModels;
+  private static CreateStreamLogRequest createStreamLogRequest;
+  private static StreamLogDto streamLogDto;
+  private static StreamLogModel streamLogModel;
   @InjectMocks private LogController logController;
   @Mock private LogDaoImpl logDao;
+  @Mock private LogMapper logMapper;
+  @Mock private LogService logService;
+  @Mock private StreamLogDaoImpl streamLogDao;
+  @Mock private StreamLogService streamLogService;
+  @Mock private StreamLogMapper streamLogMapper;
 
   @BeforeEach
   void setupLogFixture() {
     logModels = LogFixture.getListOfLogs();
+    logModel = LogFixture.getLogModel();
+    logDto = LogFixture.getLogDto();
+    streamLogModels = StreamLogFixture.getListOfStreamLogsModel();
+    createStreamLogRequest = StreamLogFixture.getCreateStreamLogRequest();
+    streamLogDto = StreamLogFixture.getStreamLogDto();
+    streamLogModel = StreamLogFixture.getStreamLogModel();
   }
 
   @BeforeEach
@@ -46,5 +74,36 @@ class LogControllerTest {
     ResponseEntity<List<LogModel>> response = logController.retrieveDeviceLogs("1");
     assertEquals(HttpStatus.OK, response.getStatusCode());
     assertIterableEquals(logModels, response.getBody());
+  }
+
+  @Test
+  final void testCreateLog() {
+    when(logService.createLog(any())).thenReturn(logDto);
+    when(logMapper.createLogRequestToLogModel(any())).thenReturn(logModel);
+    when(logMapper.logDtoToLogModel(any())).thenReturn(logModel);
+
+    ResponseEntity<LogModel> responseEntity =
+        logController.createLog(LogFixture.getCreateLogRequest());
+
+    assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+    assertEquals(logModel, responseEntity.getBody());
+  }
+
+  @Test
+  final void testRetrieveStreamLogs() {
+    when(streamLogDao.getStreamLogs(1L)).thenReturn(streamLogModels);
+    ResponseEntity<List<StreamLogModel>> response = logController.retrieveStreamLogs(1L);
+    assertEquals(HttpStatus.OK, response.getStatusCode());
+    assertIterableEquals(streamLogModels, response.getBody());
+  }
+
+  @Test
+  final void testCreateStreamLog() {
+    when(streamLogService.createLog(createStreamLogRequest)).thenReturn(streamLogDto);
+    when(streamLogMapper.toStreamLogModel(streamLogDto)).thenReturn(streamLogModel);
+    ResponseEntity<StreamLogModel> response = logController.createStreamLog(createStreamLogRequest);
+
+    assertEquals(HttpStatus.OK, response.getStatusCode());
+    assertEquals(streamLogModel, response.getBody());
   }
 }

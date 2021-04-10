@@ -1,13 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Box, Button, Container, Grid } from "@material-ui/core";
-import EditIcon from "@material-ui/icons/Edit";
 
-import DynamicBreadcrumb from "../general/DynamicBreadcrumb";
-import DeviceDetailsTabTable from "./DeviceDetailsTabTable";
+import Page from "../general/Page";
+import DeviceDetailsPageContents from "./DeviceDetailsPageContents";
 import DeviceInfo from "../model/DeviceInfo";
 import { getSampleSender } from "../api/SampleData";
-import DeleteDeviceButton from "../general/Buttons/DeleteDeviceButton";
 
 export default function DeviceDetailsPage(props) {
   const {
@@ -15,45 +12,20 @@ export default function DeviceDetailsPage(props) {
       state: { device }
     }
   } = props;
-  const tabs = ["Activity Log", "Notes"];
+
+  const breadcrumbs = [
+    ["Home", "/Home"],
+    ["My Devices", "/Devices"],
+    ["Device Details", `/Devices/Details/${device.serialNumber}`, { device }]
+  ];
 
   return (
-    <Container>
-      <DynamicBreadcrumb
-        breadcrumbs={[
-          ["Home", "/"],
-          ["My Devices", "/Devices"],
-          [device.name, device.id]
-        ]}
-      />
-      <Box className="areaUnderBreadcrumbs">
-        <Box className="flexContents headerAreaUnderline">
-          <Box className="flexContents">
-            <div className="title">{device.name}</div>
-            <Box padding={4} paddingLeft={1} paddingBottom={0}>
-              <Button>
-                <EditIcon color="action" />
-              </Button>
-            </Box>
-          </Box>
-          <div className="alignRightFloat">
-            <Box marginRight={2} marginTop={2}>
-              <DeleteDeviceButton button deleteId={device.serialNumber} />
-            </Box>
-          </div>
-        </Box>
-      </Box>
-      <Grid container>
-        <Grid item xs={6}>
-          <DeviceDetailsTabTable tabs={["Overview"]} device={device} />
-        </Grid>
-        <Grid item xs={6}>
-          <DeviceDetailsTabTable tabs={tabs} device={device} />
-        </Grid>
-      </Grid>
-    </Container>
+    <Page title="Device Details" breadcrumbs={breadcrumbs}>
+      <DeviceDetailsPageContents device={device} />
+    </Page>
   );
 }
+
 DeviceDetailsPage.defaultProps = {
   location: { state: { device: getSampleSender() } }
 };

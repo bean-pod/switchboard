@@ -1,5 +1,4 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
 import { Box, TableContainer, Typography } from "@material-ui/core";
 import PropTypes from "prop-types";
 
@@ -37,25 +36,11 @@ function getComponents() {
   };
 }
 
-function buildNavlink(deviceInfo) {
-  return (
-    <NavLink
-      to={{
-        pathname: `/Devices/Details/${deviceInfo.name}`,
-        state: { device: deviceInfo }
-      }}
-    >
-      {deviceInfo.name}
-    </NavLink>
-  );
-}
-
 function getColumnInfo() {
   return [
     {
       title: "Name",
-      field: "name",
-      render: (rowData) => buildNavlink(rowData)
+      field: "name"
     },
     {
       title: "Serial Number",
@@ -122,11 +107,7 @@ function getOptions() {
     headerStyle: {
       backgroundColor: "#f1f1f1",
       fontWeight: "bold"
-      // position: 'sticky', top: 0
     },
-    // maxBodyHeight: '650px',
-    // above lines commented out b/c scrollbar bug, see: https://github.com/mbrn/material-table/issues/780
-    actionsColumnIndex: -1,
     filtering: true,
     draggable: false
   };
@@ -168,6 +149,6 @@ export default function DevicesTable(props) {
 }
 
 DevicesTable.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.node.isRequired,
   devices: PropTypes.arrayOf(PropTypes.instanceOf(DeviceInfo)).isRequired
 };

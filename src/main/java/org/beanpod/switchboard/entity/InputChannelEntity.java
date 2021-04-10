@@ -25,6 +25,7 @@ import lombok.Setter;
 @Entity(name = "InputChannel")
 @JsonIgnoreProperties({"hibernateLazyIntializer", "handler"})
 public class InputChannelEntity {
+
   @Id
   @NotNull
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,6 +34,11 @@ public class InputChannelEntity {
   @OneToOne(cascade = {CascadeType.MERGE})
   @JoinColumn(name = "channel_id")
   private ChannelEntity channel;
+
+  @OneToOne(
+      mappedBy = "inputChannel",
+      cascade = {CascadeType.REMOVE})
+  private StreamEntity stream;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "decoder_serial")

@@ -6,17 +6,21 @@ import java.util.List;
 import java.util.Set;
 import lombok.SneakyThrows;
 import org.beanpod.switchboard.dto.EncoderDto;
+import org.beanpod.switchboard.dto.OutputChannelDto;
 import org.beanpod.switchboard.entity.EncoderEntity;
 import org.beanpod.switchboard.entity.OutputChannelEntity;
 import org.openapitools.model.EncoderModel;
 
 public class EncoderFixture {
+
   public static final String SERIAL_NUMBER = "1";
   public static final String SERIAL_NUMBER2 = "2";
   private static final String pattern = "yyyy-MM-dd HH:mm:ss";
   private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
   private static final Set<OutputChannelEntity> setOfChannels =
       ChannelFixture.getOutputChannelEntities();
+  private static final Set<OutputChannelDto> setOfDtoChannels =
+      ChannelFixture.getOutputChannelDtos();
 
   @SneakyThrows
   public static EncoderEntity getEncoderEntity1() {
@@ -55,11 +59,18 @@ public class EncoderFixture {
         .serialNumber(SERIAL_NUMBER)
         .lastCommunication(simpleDateFormat.parse("2020-10-31 05:05:05"))
         .device(DeviceFixture.getDeviceDto())
-        .output(null)
+        .output(setOfDtoChannels)
         .build();
   }
 
   public static EncoderModel getEncoderModel() {
     return new EncoderModel().serialNumber(SERIAL_NUMBER).device(DeviceFixture.getDeviceModel());
+  }
+
+  public static EncoderModel getEncoderModelWithOutputChannel() {
+    return new EncoderModel()
+        .serialNumber(SERIAL_NUMBER)
+        .device(DeviceFixture.getDeviceModel())
+        .output(List.of(ChannelFixture.getOutputChannelModel()));
   }
 }

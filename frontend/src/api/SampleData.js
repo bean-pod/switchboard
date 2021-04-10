@@ -2,6 +2,8 @@ import DeviceInfo from "../model/DeviceInfo";
 import OutChannelInfo from "../model/OutputChannelInfo";
 import InChannelInfo from "../model/InputChannelInfo";
 import StreamInfo from "../model/StreamInfo";
+import LogInfo from "../model/LogInfo";
+import { convertStatsToDataObject } from "../model/ConvertDataFormat";
 
 const extras = ["Additional Device details go here"];
 const sampleInputChannels = [
@@ -339,7 +341,7 @@ export function getReceivers(callback) {
   callback(sampleReceivers);
 }
 
-export function getAllStreams(callback) {
+export function getAllStreams() {
   const sampleSenders = [
     new DeviceInfo(
       "1:10:111:999",
@@ -389,17 +391,96 @@ export function getAllStreams(callback) {
     )
   ];
 
-  const sampleStreams = [
-    new StreamInfo(1, sampleSenders[0], sampleReceivers[0], [
-      "Additional Stream Details go here"
-    ]),
-    new StreamInfo(2, sampleSenders[1], sampleReceivers[1], [
-      "Additional Stream Details go here"
-    ]),
-    new StreamInfo(3, sampleSenders[1], sampleReceivers[0], [
-      "Additional Stream Details go here"
-    ])
+  return [
+    new StreamInfo(1, sampleSenders[0], sampleReceivers[0], 1, 2),
+    new StreamInfo(2, sampleSenders[1], sampleReceivers[1], 3, 4),
+    new StreamInfo(3, sampleSenders[1], sampleReceivers[0], 5, 6)
+  ];
+}
+
+export function getSampleStream() {
+  const sampleSender = new DeviceInfo(
+    "1:10:111:999",
+    null,
+    "123:456",
+    "Sender 1",
+    "Online",
+    sampleOutputChannels,
+    "encoder",
+    extras
+  );
+
+  const sampleReceiver = new DeviceInfo(
+    "1:22:333:989",
+    null,
+    "145:396",
+    "Receiver 1",
+    "Online",
+    sampleOutputChannels,
+    "decoder",
+    extras
+  );
+
+  return new StreamInfo(
+    1,
+    sampleSender,
+    sampleReceiver,
+    sampleSender.channels[0].port,
+    sampleReceiver.channels[1].port
+  );
+}
+
+export function getAllLogs(callback) {
+  const dates = [
+    "2020-10-31T15:53:23",
+    "2020-11-13T12:36:30",
+    "2020-11-13T08:24:30"
   ];
 
-  callback(sampleStreams);
+  const sampleLogs = [
+    new LogInfo(1, dates[0], "Info", "Log 1 info"),
+    new LogInfo(2, dates[1], "Info", "Log 2 info"),
+    new LogInfo(3, dates[2], "Info", "Log 3 info")
+  ];
+
+  callback(sampleLogs);
+}
+
+export function getSampleStreamStats() {
+  const sampleDbStreamStats = {
+    id: 1,
+    time: 2,
+    window: {
+      flow: 31,
+      congestion: 32,
+      flight: 33
+    },
+    link: {
+      rtt: 41,
+      bandwidth: 42,
+      maxBandwidth: 43
+    },
+    send: {
+      packets: 51,
+      packetsLost: 52,
+      packetsDropped: 53,
+      packetsRetransmitted: 54,
+      bytes: 55,
+      bytesDropped: 56,
+      mbitRate: 57
+    },
+    recv: {
+      packets: 61,
+      packetsLost: 62,
+      packetsDropped: 63,
+      packetsRetransmitted: 64,
+      packetsBelated: 65,
+      bytes: 66,
+      bytesLost: 67,
+      bytesDropped: 68,
+      mbitRate: 69
+    }
+  };
+
+  return convertStatsToDataObject(sampleDbStreamStats);
 }

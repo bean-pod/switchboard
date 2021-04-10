@@ -58,16 +58,13 @@ export default class ActionMenu extends React.Component {
           <MenuItem onClick={this.handleClose}>
             <NavLink
               to={{
-                pathname: `/Devices/Details/${device.name}`,
+                pathname: `/Devices/Details/${device.serialNumber}`,
                 state: { device }
               }}
-              className="invisibleLink"
+              className="hideLinkStyle"
             >
               View Details
             </NavLink>
-          </MenuItem>
-          <MenuItem onClick={this.handleClose}>
-            Start stream with this as receiver
           </MenuItem>
           <DeleteDeviceButton button={false} deleteId={device.serialNumber} />
         </Menu>

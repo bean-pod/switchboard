@@ -9,44 +9,52 @@ import static org.mockito.MockitoAnnotations.initMocks;
 
 import java.util.List;
 import org.beanpod.switchboard.dto.StreamDto;
+import org.beanpod.switchboard.dto.StreamStatDto;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
+import org.beanpod.switchboard.dto.mapper.StreamStatMapper;
 import org.beanpod.switchboard.entity.StreamEntity;
+import org.beanpod.switchboard.entity.StreamStatEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.fixture.ChannelFixture;
 import org.beanpod.switchboard.fixture.StreamFixture;
+import org.beanpod.switchboard.fixture.StreamStatFixture;
 import org.beanpod.switchboard.repository.StreamRepository;
+import org.beanpod.switchboard.repository.StreamStatRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
-public class StreamDaoImplTest {
-  private StreamDaoImpl streamService;
+class StreamDaoImplTest {
+
+  private StreamDaoImpl streamDaoImpl;
 
   @Mock private StreamRepository streamRepository;
+  @Mock private StreamStatRepository streamStatRepository;
   @Mock private StreamMapper streamMapper;
-  @Mock private ChannelDaoImpl channelService;
+  @Mock private StreamStatMapper streamStatMapper;
 
   @BeforeEach
   public void setup() {
     initMocks(this);
-    streamService = new StreamDaoImpl(streamRepository, streamMapper, channelService);
+    streamDaoImpl =
+        new StreamDaoImpl(streamRepository, streamStatRepository, streamMapper, streamStatMapper);
   }
 
   @Test
-  public void testGetStreams() {
+  void testGetStreams() {
     // given
     List<Long> channelIdList = StreamFixture.getIdList();
     when(streamRepository.getAllId()).thenReturn(channelIdList);
 
     // when
-    List<Long> result = streamService.getStreams();
+    List<Long> result = streamDaoImpl.getStreams();
 
     // then
     assertEquals(result, StreamFixture.getIdList());
   }
 
   @Test
-  public void testGetStreamById() {
+  void testGetStreamById() {
     long streamId = StreamFixture.ID;
     StreamEntity streamEntity = StreamFixture.getStreamEntity();
     StreamDto streamDto = StreamFixture.getStreamDto();
@@ -55,7 +63,7 @@ public class StreamDaoImplTest {
     when(streamMapper.toDto(streamEntity)).thenReturn(streamDto);
 
     // when
-    StreamDto result = streamService.getStreamById(streamId);
+    StreamDto result = streamDaoImpl.getStreamById(streamId);
 
     // then
     assertEquals(result.getId(), streamId);
@@ -64,25 +72,30 @@ public class StreamDaoImplTest {
   }
 
   @Test
-  public void testCreateStream() {
+  void testCreateStream() {
     // given
     StreamDto streamDto = StreamFixture.getStreamDto();
     long inputChannelId = streamDto.getInputChannel().getId();
     long outputChannelId = streamDto.getOutputChannel().getId();
     StreamEntity streamEntity = StreamFixture.getStreamEntity();
+    StreamStatEntity streamStatEntity = StreamStatFixture.getStreamStatEntity();
+    StreamStatDto streamStatDto = StreamStatFixture.getStreamStatDto();
 
     when(streamMapper.toEntity(any())).thenReturn(streamEntity);
     when(streamRepository.existsDuplicate(inputChannelId, outputChannelId)).thenReturn(false);
-
+    when(streamStatRepository.save(any())).thenReturn(streamStatEntity);
+    when(streamStatMapper.toDto(any(StreamStatEntity.class))).thenReturn(streamStatDto);
+    when(streamRepository.save(any())).thenReturn(streamEntity);
+    when(streamMapper.toDto(any(StreamEntity.class))).thenReturn(streamDto);
     // when
-    streamService.saveStream(streamDto);
+    streamDaoImpl.saveStream(streamDto);
 
     // then
     verify(streamRepository).save(streamEntity);
   }
 
   @Test
-  public void testCreateStreamAlreadyExists() {
+  void testCreateStreamAlreadyExists() {
     // given
     StreamDto streamDto = StreamFixture.getStreamDto();
     long inputChannelId = streamDto.getInputChannel().getId();
@@ -93,23 +106,23 @@ public class StreamDaoImplTest {
     // when & then
     assertThrows(
         ExceptionType.StreamAlreadyExistsException.class,
-        () -> streamService.saveStream(streamDto));
+        () -> streamDaoImpl.saveStream(streamDto));
   }
 
   @Test
-  public void testDeleteStream() {
+  void testDeleteStream() {
     // given
     long channelId = StreamFixture.ID;
 
     // when
-    streamService.deleteStream(channelId);
+    streamDaoImpl.deleteStream(channelId);
 
     // then
     verify(streamRepository).deleteById(channelId);
   }
 
   @Test
-  public void testUpdateStream() {
+  void testUpdateStream() {
     // given
     StreamDto streamDto = StreamFixture.getStreamDto();
     StreamEntity streamEntity = StreamFixture.getStreamEntity();
@@ -118,9 +131,49 @@ public class StreamDaoImplTest {
     when(streamMapper.toEntity(streamDto)).thenReturn(streamEntity);
 
     // when
-    streamService.updateStream(streamDto);
+    streamDaoImpl.updateStream(streamDto);
 
     // verify
     verify(streamRepository).save(streamEntity);
+  }
+
+  @Test
+  void testUpdateNonExistingStreamStat() {
+
+    StreamStatDto streamStatDto = StreamStatFixture.getStreamStatDto();
+    when(streamRepository.existsById(StreamFixture.ID)).thenReturn(false);
+
+    assertThrows(
+        ExceptionType.StreamDoesNotExistException.class,
+        () -> streamDaoImpl.updateStreamStat(streamStatDto));
+  }
+
+  @Test
+  void testUpdateStreamStat() {
+    List<StreamStatEntity> streamStatEntityList = StreamStatFixture.getStreamStatEntityList();
+    List<StreamStatDto> streamStatDtoList = StreamStatFixture.getStreamStatDtoList();
+    StreamStatEntity streamStatEntity = StreamStatFixture.getStreamStatEntity();
+    StreamStatDto streamStatDto = StreamStatFixture.getStreamStatDto();
+
+    when(streamRepository.existsById(StreamFixture.ID)).thenReturn(true);
+    when(streamStatRepository.findAll()).thenReturn(streamStatEntityList);
+    when(streamStatMapper.toDtoList(any())).thenReturn(streamStatDtoList);
+    when(streamStatMapper.toDto(any(StreamStatEntity.class))).thenReturn(streamStatDto);
+    when(streamStatRepository.save(any())).thenReturn(streamStatEntity);
+    when(streamStatMapper.toEntity(any())).thenReturn(streamStatEntity);
+
+    StreamStatDto streamStatDto1 = streamDaoImpl.updateStreamStat(streamStatDto);
+    assertEquals(StreamFixture.ID, streamStatDto1.getId());
+  }
+
+  @Test
+  void testFindStreamStat() {
+    List<StreamStatEntity> streamStatEntityList = StreamStatFixture.getStreamStatEntityList();
+    List<StreamStatDto> streamStatDtoList = StreamStatFixture.getStreamStatDtoList();
+    when(streamStatRepository.findAll()).thenReturn(streamStatEntityList);
+    when(streamStatMapper.toDtoList(any())).thenReturn(streamStatDtoList);
+
+    List<StreamStatDto> streamStats = streamDaoImpl.getStreamStats();
+    assertEquals(streamStats.get(0).getId(), streamStatDtoList.get(0).getId());
   }
 }

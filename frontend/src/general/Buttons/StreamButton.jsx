@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { SwapHoriz } from "@material-ui/icons/";
 
 export default function StreamButton(props) {
-  const { id, type } = props;
+  const { type } = props;
   const StyledButton = withStyles({
     root: {
       background: "linear-gradient(45deg, #59bc31 30%, #59bc31 90%)",
@@ -22,7 +22,7 @@ export default function StreamButton(props) {
   })(Button);
 
   return (
-    <StyledButton id={id} type={type}>
+    <StyledButton type={type}>
       <div className="buttonText">
         <SwapHoriz />
         Stream
@@ -32,6 +32,5 @@ export default function StreamButton(props) {
 }
 
 StreamButton.propTypes = {
-  id: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired
 };

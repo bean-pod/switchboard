@@ -1,30 +1,16 @@
 import React from "react";
-import { Box, Container } from "@material-ui/core";
 
-import PropTypes from "prop-types";
-import TitleBox from "./TitleBox";
-import ContentsTable from "./ContentsTable";
-import DynamicBreadcrumb from "../general/DynamicBreadcrumb";
-import * as useStyles from "../DefaultMakeStylesTheme";
+import Page from "../general/Page";
+import DeviceListPageContents from "./DeviceListPageContents";
 
-export default function DeviceListPage(props) {
-  const { dataSource } = props;
+export default function DeviceListPage() {
+  const breadcrumb = [
+    ["Home", "/Home"],
+    ["My Devices", "/Devices"]
+  ];
   return (
-    <Container>
-      <DynamicBreadcrumb
-        breadcrumbs={[
-          ["Home", "/"],
-          ["My Devices", "Devices"]
-        ]}
-      />
-      <Box className="areaUnderBreadcrumbs">
-        <TitleBox />
-        <ContentsTable classes={useStyles} dataSource={dataSource} />
-      </Box>
-    </Container>
+    <Page title="My Devices" breadcrumbs={breadcrumb} hasStreamButton>
+      <DeviceListPageContents />
+    </Page>
   );
 }
-
-DeviceListPage.propTypes = {
-  dataSource: PropTypes.objectOf(PropTypes.func).isRequired
-};

@@ -3,35 +3,47 @@ package org.beanpod.switchboard.controller;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
+import java.util.Optional;
 import org.beanpod.switchboard.dao.StreamDaoImpl;
 import org.beanpod.switchboard.dto.StreamDto;
+import org.beanpod.switchboard.dto.StreamStatDto;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
+import org.beanpod.switchboard.dto.mapper.StreamStatMapper;
 import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.fixture.ChannelFixture;
 import org.beanpod.switchboard.fixture.StreamFixture;
+import org.beanpod.switchboard.fixture.StreamStatFixture;
 import org.beanpod.switchboard.service.StreamService;
+import org.beanpod.switchboard.util.MaintainDeviceStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.openapitools.model.StreamModel;
+import org.openapitools.model.StreamStatModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 class StreamControllerTest {
+
   private StreamController streamController;
 
   @Mock private StreamDaoImpl streamDao;
   @Mock private StreamMapper streamMapper;
+  @Mock private StreamStatMapper streamStatMapper;
   @Mock private StreamService streamService;
+  @Mock private MaintainDeviceStatus maintainDeviceStatus;
 
   @BeforeEach
   public void setup() {
     MockitoAnnotations.initMocks(this);
-    streamController = new StreamController(streamDao, streamService, streamMapper);
+    streamController =
+        new StreamController(
+            streamDao, streamService, streamMapper, streamStatMapper, maintainDeviceStatus);
   }
 
   @Test
@@ -67,8 +79,7 @@ class StreamControllerTest {
     when(streamDao.getStreams()).thenThrow(new RuntimeException());
 
     // when & then
-    RuntimeException exception =
-        assertThrows(RuntimeException.class, () -> streamController.getStreams());
+    assertThrows(RuntimeException.class, () -> streamController.getStreams());
   }
 
   @Test
@@ -89,6 +100,19 @@ class StreamControllerTest {
     assertEquals(StreamFixture.ID, responseBody.getId());
     assertEquals(responseBody.getInputChannel(), ChannelFixture.getInputChannelModel());
     assertEquals(responseBody.getOutputChannel(), ChannelFixture.getOutputChannelModel());
+  }
+
+  @Test
+  void testGetStreamStatById() {
+    StreamStatDto streamStatDto = StreamStatFixture.getStreamStatDto();
+    when(streamDao.getStreamStat(StreamStatFixture.ID)).thenReturn(Optional.of(streamStatDto));
+    when(streamStatMapper.toModel(streamStatDto))
+        .thenReturn(StreamStatFixture.getStreamStatModel());
+
+    ResponseEntity<StreamStatModel> result =
+        streamController.getStreamStatById(StreamStatFixture.ID);
+
+    assertEquals(result.getBody(), StreamStatFixture.getStreamStatModel());
   }
 
   @Test
@@ -133,5 +157,31 @@ class StreamControllerTest {
 
     // then
     assertEquals(HttpStatus.OK, result.getStatusCode());
+  }
+
+  @Test
+  void testUpdateStreamStat() {
+    StreamStatModel streamStatModel = StreamStatFixture.getStreamStatModel();
+    StreamStatDto streamStatDto = StreamStatFixture.getStreamStatDto();
+    when(streamStatMapper.toDto(any(StreamStatModel.class))).thenReturn(streamStatDto);
+    when(streamStatMapper.toModel(any())).thenReturn(streamStatModel);
+    when(streamService.updateStreamStat(any())).thenReturn(streamStatDto);
+
+    ResponseEntity<StreamStatModel> result = streamController.updateStreamStat(streamStatModel);
+    assertNotNull(result.getBody());
+    assertEquals(StreamFixture.ID, result.getBody().getId());
+  }
+
+  @Test
+  void testRetrieveStreamStats() {
+    List<StreamStatModel> streamStatModelList = StreamStatFixture.getStreamStatModelList();
+    List<StreamStatDto> streamStatDto = StreamStatFixture.getStreamStatDtoList();
+
+    when(streamStatMapper.toModelList(any())).thenReturn(streamStatModelList);
+    when(streamService.getStreamStats()).thenReturn(streamStatDto);
+
+    ResponseEntity<List<StreamStatModel>> result = streamController.retrieveStreamStats();
+    assertNotNull(result.getBody());
+    assertEquals(streamStatDto.get(0).getId(), result.getBody().get(0).getId());
   }
 }

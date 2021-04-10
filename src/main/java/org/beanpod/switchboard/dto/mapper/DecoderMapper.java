@@ -5,12 +5,16 @@ import org.beanpod.switchboard.dto.DecoderDto;
 import org.beanpod.switchboard.entity.DecoderEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 
 @Mapper(
     componentModel = "spring",
-    uses = {DeviceMapper.class, InputChannelMapper.class})
+    uses = {DeviceMapper.class, InputChannelMapper.class},
+    nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface DecoderMapper {
+
   DecoderDto toDecoderDto(DecoderEntity decoderEntity);
 
   @Named("toDecoderDtoShallow")
@@ -20,4 +24,6 @@ public interface DecoderMapper {
   List<DecoderDto> toDecoderDtos(List<DecoderEntity> decoderEntities);
 
   DecoderEntity toDecoderEntity(DecoderDto decoderDto);
+
+  void updateDecoderFromDto(DecoderDto dto, @MappingTarget DecoderDto target);
 }

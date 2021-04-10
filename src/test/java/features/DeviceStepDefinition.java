@@ -8,20 +8,21 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import java.net.URI;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.beanpod.switchboard.dto.DeviceDto;
 import org.beanpod.switchboard.fixture.DeviceFixture;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 
+@RequiredArgsConstructor
 public class DeviceStepDefinition extends SpringIntegrationTest {
 
   private final String baseUrl = "http://localhost:8080/device";
-  @Autowired private TestRestTemplate testRestTemplate;
+  private final TestRestTemplate testRestTemplate;
   private ResponseEntity responseEntity;
   private ResponseEntity<List<DeviceDto>> responseEntityDtos;
   private URI uri;
