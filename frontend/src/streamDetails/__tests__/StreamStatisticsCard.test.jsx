@@ -7,14 +7,14 @@ import { Grid } from "@material-ui/core";
 import StreamStatisticsCard from "../StreamStatisticsCard";
 import DashboardCard from "../../general/dashboard/DashboardCard";
 import SimpleTable from "../../general/simpleTable/SimpleTable";
-import { getSampleStreamStats } from "../../api/SampleData";
 import ButtonInfo from "../../general/dashboard/ButtonInfo";
 import StreamStatisticsInfo from "../../model/StreamStatistics/StreamStatisticsInfo";
 import StreamStatsWindowInfo from "../../model/StreamStatistics/StreamStatsWindowInfo";
 import StreamStatsLinkInfo from "../../model/StreamStatistics/StreamStatsLinkInfo";
 import StreamStatsSendInfo from "../../model/StreamStatistics/StreamStatsSendInfo";
 import StreamStatsReceiveInfo from "../../model/StreamStatistics/StreamStatsReceiveInfo";
-import { firstStreamResponse } from "../../api/tests/StreamFixture";
+
+import { getSampleStreamStats, getSampleStream } from "../../api/SampleData";
 
 import * as StreamApi from "../../api/StreamApi";
 import * as SnackbarMessage from "../../general/SnackbarMessage";
@@ -25,7 +25,7 @@ Enzyme.configure({ adapter: new Adapter() });
 
 describe("<StreamStatisticsCard/> class component", () => {
   let wrapper;
-  const dummyStream = firstStreamResponse;
+  const dummyStream = getSampleStream();
   const dummyStats = getSampleStreamStats();
   const expectedProperties = {
     Time: dummyStats.time,
@@ -53,42 +53,44 @@ describe("<StreamStatisticsCard/> class component", () => {
         disableLifecycleMethods: true
       });
     });
-    it("calls StreamApi.getStreamStatistics() and then handleStatsChange()", async () => {
-      jest
-        .spyOn(StreamApi, "getStreamStatistics")
-        .mockResolvedValue(dummyStats);
+    describe("calls StreamApi.getStreamStatistics()", () => {
+      it("if it resolves, it then calls handleStatsChange()", async () => {
+        jest
+          .spyOn(StreamApi, "getStreamStatistics")
+          .mockResolvedValue(dummyStats);
 
-      const handleStatsChangeSpy = jest.spyOn(
-        wrapper.instance(),
-        "handleStatsChange"
-      );
+        const handleStatsChangeSpy = jest.spyOn(
+          wrapper.instance(),
+          "handleStatsChange"
+        );
 
-      wrapper.instance().componentDidMount();
+        wrapper.instance().componentDidMount();
 
-      expect(StreamApi.getStreamStatistics).toHaveBeenCalledWith(
-        dummyStream.id
-      );
+        expect(StreamApi.getStreamStatistics).toHaveBeenCalledWith(
+          dummyStream.id
+        );
 
-      await new Promise(setImmediate);
+        await new Promise(setImmediate);
 
-      expect(handleStatsChangeSpy).toHaveBeenCalled();
-    });
-    it("if it rejects, an error snackbar with the caught error message is displayed", async () => {
-      const returnedError = {
-        message: "test"
-      };
-      jest
-        .spyOn(StreamApi, "getStreamStatistics")
-        .mockRejectedValueOnce(returnedError);
+        expect(handleStatsChangeSpy).toHaveBeenCalled();
+      });
+      it("if it rejects, an error snackbar with the caught error message is displayed", async () => {
+        const returnedError = {
+          message: "test"
+        };
+        jest
+          .spyOn(StreamApi, "getStreamStatistics")
+          .mockRejectedValue(returnedError);
 
-      wrapper.instance().componentDidMount();
+        wrapper.instance().componentDidMount();
 
-      await new Promise(setImmediate);
+        await new Promise(setImmediate);
 
-      expect(snackbarSpy).toHaveBeenCalledWith(
-        "error",
-        `Failed to fetch stream statistics: ${returnedError.message}`
-      );
+        expect(snackbarSpy).toHaveBeenCalledWith(
+          "error",
+          `Failed to fetch stream statistics: ${returnedError.message}`
+        );
+      });
     });
   });
 
