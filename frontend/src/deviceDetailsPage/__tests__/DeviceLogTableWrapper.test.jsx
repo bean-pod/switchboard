@@ -131,7 +131,7 @@ describe("<DeviceLogTableWrapper/> Class Component", () => {
           };
 
           const logsTableProps = logsTable.props();
-          expect(logsTableProps).toEqual(expected);
+          expect(logsTableProps).toStrictEqual(expected);
         });
       });
     });
