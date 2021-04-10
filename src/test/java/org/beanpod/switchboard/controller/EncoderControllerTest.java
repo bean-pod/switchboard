@@ -88,7 +88,7 @@ class EncoderControllerTest {
   final void testRetrieveAllEncoders() {
     when(encoderDao.getEncoders(user)).thenReturn(listOfEncoders);
     when(encoderMapper.toDtos(any())).thenReturn(EncoderFixture.getEncoderDtos());
-    when(encoderMapper.toEncoderModels(any())).thenReturn(EncoderFixture.getEncoderModels());
+    when(encoderMapper.toModels(any())).thenReturn(EncoderFixture.getEncoderModels());
 
     ResponseEntity<List<EncoderModel>> response = encoderController.retrieveAllEncoders();
 
@@ -105,7 +105,7 @@ class EncoderControllerTest {
     when(encoderDao.findEncoder(user, EncoderFixture.SERIAL_NUMBER))
         .thenReturn(Optional.of(encoderDTO));
     when(maintainDeviceStatus.maintainStatusField(anyList())).thenReturn(listOfDevices);
-    when(encoderMapper.toEncoderModel(any())).thenReturn(EncoderFixture.getEncoderModel());
+    when(encoderMapper.toModel(any())).thenReturn(EncoderFixture.getEncoderModel());
 
     ResponseEntity<EncoderModel> actualEncoder =
         encoderController.retrieveEncoder(EncoderFixture.SERIAL_NUMBER);
@@ -129,9 +129,9 @@ class EncoderControllerTest {
   final void testCreateEncoder() {
     when(deviceService.findDevice(user, EncoderFixture.SERIAL_NUMBER))
         .thenReturn(Optional.of(deviceDto));
-    when(encoderMapper.toEncoderDto(encoderModel)).thenReturn(encoderDTO);
+    when(encoderMapper.toDto(encoderModel)).thenReturn(encoderDTO);
     when(encoderDao.save(user, encoderDTO)).thenReturn(encoderDTO);
-    when(encoderMapper.toEncoderModel(encoderDTO)).thenReturn(encoderModel);
+    when(encoderMapper.toModel(encoderDTO)).thenReturn(encoderModel);
     ResponseEntity<EncoderModel> response = encoderController.createEncoder(encoderModel);
     assertEquals(200, response.getStatusCodeValue());
   }
@@ -176,12 +176,11 @@ class EncoderControllerTest {
     when(encoderDao.findEncoder(user, EncoderFixture.SERIAL_NUMBER))
         .thenReturn(Optional.of(encoderDto));
 
-    when(encoderMapper.toEncoderDto(any(EncoderModel.class)))
-        .thenReturn(EncoderFixture.getEncoderDto());
+    when(encoderMapper.toDto(any(EncoderModel.class))).thenReturn(EncoderFixture.getEncoderDto());
 
     when(encoderDao.save(user, encoderDto)).thenReturn(encoderDto);
 
-    when(encoderMapper.toEncoderModel(any())).thenReturn(EncoderFixture.getEncoderModel());
+    when(encoderMapper.toModel(any())).thenReturn(EncoderFixture.getEncoderModel());
 
     ResponseEntity<EncoderModel> response = encoderController.updateEncoder(encoderModel);
 

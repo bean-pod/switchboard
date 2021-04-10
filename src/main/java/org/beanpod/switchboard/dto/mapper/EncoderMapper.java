@@ -16,11 +16,11 @@ import org.openapitools.model.EncoderModel;
     nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface EncoderMapper {
 
-  EncoderModel toEncoderModel(EncoderDto encoderDto);
+  EncoderModel toModel(EncoderDto encoderDto);
 
-  List<EncoderModel> toEncoderModels(List<EncoderDto> encoderDtos);
+  List<EncoderModel> toModels(List<EncoderDto> encoderDtos);
 
-  EncoderDto toEncoderDto(EncoderModel encoderModel);
+  EncoderDto toDto(EncoderModel encoderModel);
 
   EncoderDto toDto(EncoderEntity encoderEntity);
 
