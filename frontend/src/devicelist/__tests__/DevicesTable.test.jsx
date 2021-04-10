@@ -76,7 +76,7 @@ describe("<DevicesTable/> class component", () => {
         </div>
       );
 
-      expect(wrapperInstance.components.Toolbar(wrapperProps)).toEqual(
+      expect(wrapperInstance.components.Toolbar(wrapperProps)).toStrictEqual(
         expectedRenderedComponent
       );
     });
@@ -92,7 +92,7 @@ describe("<DevicesTable/> class component", () => {
         <StatusIndicator status={dummyData.status} />
       );
 
-      expect(wrapperInstance.columns[2].render(dummyData)).toEqual(
+      expect(wrapperInstance.columns[2].render(dummyData)).toStrictEqual(
         expectedRenderedComponent
       );
     });
@@ -103,7 +103,7 @@ describe("<DevicesTable/> class component", () => {
         <DeviceDetailsButton deviceInfo={sampleDevice} />
       );
 
-      expect(wrapperInstance.columns[5].render(sampleDevice)).toEqual(
+      expect(wrapperInstance.columns[5].render(sampleDevice)).toStrictEqual(
         expectedRenderedComponent
       );
     });
@@ -120,7 +120,7 @@ describe("<DevicesTable/> class component", () => {
         </div>
       );
 
-      expect(wrapperInstance.detailPanel[0].render(sampleDevice)).toEqual(
+      expect(wrapperInstance.detailPanel[0].render(sampleDevice)).toStrictEqual(
         expectedRenderedComponent
       );
     });

@@ -45,7 +45,7 @@ describe("<DetailedStreamsTableWrapper/> Class Component", () => {
         <StatusIndicator status={dummyData.status} />
       );
 
-      expect(wrapperInstance.detailedColumns[4].render(dummyData)).toEqual(
+      expect(wrapperInstance.detailedColumns[4].render(dummyData)).toStrictEqual(
         expectedRenderedComponent
       );
     });
@@ -56,7 +56,7 @@ describe("<DetailedStreamsTableWrapper/> Class Component", () => {
         <StreamDetailsButton streamInfo={sampleStream} />
       );
 
-      expect(wrapperInstance.detailedColumns[7].render(sampleStream)).toEqual(
+      expect(wrapperInstance.detailedColumns[7].render(sampleStream)).toStrictEqual(
         expectedRenderedComponent
       );
     });
