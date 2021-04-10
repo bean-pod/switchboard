@@ -15,15 +15,15 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
     nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface EncoderMapper {
 
-  EncoderDto toEncoderDto(EncoderEntity encoderEntity);
+  EncoderDto toDto(EncoderEntity encoderEntity);
 
   @Named("toEncoderDtoShallow")
   @Mapping(target = "output", ignore = true)
-  EncoderDto toEncoderDtoShallow(EncoderEntity encoderEntity);
+  EncoderDto toDtoShallow(EncoderEntity encoderEntity);
 
-  List<EncoderDto> toEncoderDtos(List<EncoderEntity> encoderEntities);
+  List<EncoderDto> toDtos(List<EncoderEntity> encoderEntities);
 
-  EncoderEntity toEncoderEntity(EncoderDto encoderDto);
+  EncoderEntity toEntity(EncoderDto encoderDto);
 
   void updateEncoderFromDto(EncoderDto dto, @MappingTarget EncoderDto target);
 }

@@ -24,7 +24,7 @@ public class UserDaoImpl {
     if (userRepository.findByUsername(userModel.getUsername()).isPresent()) {
       throw new ValidationException("Username exists!");
     }
-    return userMapper.toUserDto(userRepository.save(userMapper.toUserEntity(userModel)));
+    return userMapper.toDto(userRepository.save(userMapper.toEntity(userModel)));
   }
 
   public UserDetails loadUserByUsername(String username) {

@@ -44,7 +44,7 @@ public class LogFixture {
         .message(message)
         .level(level)
         .serialNumber(DeviceFixture.SERIAL_NUMBER)
-        .streamLog(StreamLogFixture.getStreamLog())
+        .streamLogEntity(StreamLogFixture.getStreamLog())
         .build();
   }
 
