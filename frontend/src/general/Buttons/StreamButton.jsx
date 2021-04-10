@@ -14,7 +14,8 @@ export default function StreamButton(props) {
       color: "white",
       height: 40,
       padding: "0 5px",
-      margin: "1em"
+      margin: "1em",
+      zIndex: -1
     },
     label: {
       textTransform: ""
