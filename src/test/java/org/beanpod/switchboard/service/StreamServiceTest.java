@@ -28,11 +28,11 @@ import org.openapitools.model.CreateStreamRequest;
 
 class StreamServiceTest {
 
+  @Mock InputChannelDaoImpl inputChannelDao;
+  @Mock OutputChannelDaoImpl outputChannelDao;
   @InjectMocks private StreamServiceImpl streamService;
   @Mock private StreamDaoImpl streamDao;
   @Mock private StreamMapper mapper;
-  @Mock InputChannelDaoImpl inputChannelDao;
-  @Mock OutputChannelDaoImpl outputChannelDao;
   @Mock private NetworkingUtil networkingUtil;
 
   @BeforeEach

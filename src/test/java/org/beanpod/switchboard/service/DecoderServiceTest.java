@@ -31,16 +31,16 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-public class DecoderServiceTest {
+class DecoderServiceTest {
 
   public static UserEntity user;
+  @Mock HttpServletRequest httpServletRequest;
+  @Mock UserPrincipal userPrincipal;
+  @Mock UserDaoImpl userDao;
   @InjectMocks private DecoderServiceImpl decoderService;
   @Mock private StreamDaoImpl streamDao;
   @Mock private DecoderDaoImpl decoderDao;
   @Mock private DateUtil dateUtil;
-  @Mock HttpServletRequest httpServletRequest;
-  @Mock UserPrincipal userPrincipal;
-  @Mock UserDaoImpl userDao;
 
   @BeforeEach
   void setup() {

@@ -49,5 +49,4 @@ public class StreamEntity {
   private Boolean isRendezvous;
 
   private OffsetDateTime startDate;
-
 }
