@@ -16,14 +16,14 @@ public class OutputChannelDaoImpl {
   private final OutputChannelMapper outputChannelMapper;
 
   public OutputChannelDto saveOutputChannel(OutputChannelDto outputChannelDto) {
-    return outputChannelMapper.toOutputChannelDto(
-        outputChannelRepository.save(outputChannelMapper.toOutputChannelEntity(outputChannelDto)));
+    return outputChannelMapper.toDto(
+        outputChannelRepository.save(outputChannelMapper.toEntity(outputChannelDto)));
   }
 
   public OutputChannelDto getOutputChannelById(UserEntity user, Long id) {
     OutputChannelEntity outputChannelEntity =
         outputChannelRepository.findByEncoderDeviceUserAndId(user, id);
-    return outputChannelMapper.toOutputChannelDto(outputChannelEntity);
+    return outputChannelMapper.toDto(outputChannelEntity);
   }
 
   public Long deleteOutputChannelById(UserEntity user, Long id) {

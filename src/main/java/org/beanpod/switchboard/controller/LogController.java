@@ -55,9 +55,9 @@ public class LogController implements LogApi {
   @Override
   public ResponseEntity<LogModel> createLog(@Valid CreateLogRequest createLogRequest) {
     return Optional.of(createLogRequest)
-        .map(logMapper::createLogRequestToLogModel)
+        .map(logMapper::toModel)
         .map(logService::createLog)
-        .map(logMapper::logDtoToLogModel)
+        .map(logMapper::toModel)
         .map(ResponseEntity::ok)
         .orElseThrow(() -> new ExceptionType.UnknownException(CONTROLLER_NAME));
   }
@@ -68,7 +68,7 @@ public class LogController implements LogApi {
     UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
     return Optional.of(createStreamLogRequest)
         .map(createStreamLogReq -> streamLogService.createLog(user, createStreamLogReq))
-        .map(streamLogMapper::toStreamLogModel)
+        .map(streamLogMapper::toModel)
         .map(ResponseEntity::ok)
         .orElseThrow(() -> new ExceptionType.UnknownException(CONTROLLER_NAME));
   }

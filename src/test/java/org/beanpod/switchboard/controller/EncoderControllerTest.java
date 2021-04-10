@@ -83,7 +83,7 @@ class EncoderControllerTest {
   @Test
   final void testRetrieveAllEncoders() {
     when(encoderDao.getEncoders(user)).thenReturn(listOfEncoders);
-    when(encoderMapper.toEncoderDtos(any())).thenReturn(EncoderFixture.getEncoderDtos());
+    when(encoderMapper.toDtos(any())).thenReturn(EncoderFixture.getEncoderDtos());
 
     List<EncoderDto> allEncoders = encoderController.retrieveAllEncoders();
     List<EncoderDto> listOfExpectDTOEncoders = EncoderFixture.getEncoderDtos();
@@ -188,13 +188,13 @@ class EncoderControllerTest {
   final void testGetEncoderStreams() {
     when(encoderService.getEncoderStreams(eq(user), any(String.class)))
         .thenReturn(List.of(StreamFixture.getStreamDto()));
-    when(streamMapper.toStreamModelList(anyList())).thenReturn(StreamFixture.getStreamModelList());
+    when(streamMapper.toModels(anyList())).thenReturn(StreamFixture.getStreamModelList());
 
     ResponseEntity<List<StreamModel>> response =
         encoderController.getEncoderStreams(EncoderFixture.SERIAL_NUMBER);
 
     verify(encoderService).getEncoderStreams(user, EncoderFixture.SERIAL_NUMBER);
-    verify(streamMapper).toStreamModelList(List.of(StreamFixture.getStreamDto()));
+    verify(streamMapper).toModels(List.of(StreamFixture.getStreamDto()));
 
     assertEquals(200, response.getStatusCodeValue());
     assertIterableEquals(List.of(StreamFixture.getStreamModel()), response.getBody());

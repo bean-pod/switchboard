@@ -58,7 +58,7 @@ public class StreamLogServiceTest {
 
   @Test
   final void createStreamLogTest() {
-    when(streamLogMapper.toLogStreamDto(any())).thenReturn(streamLogDto);
+    when(streamLogMapper.toDto(any())).thenReturn(streamLogDto);
     when(streamLogDao.createStreamLog(any())).thenReturn(streamLogDto);
 
     StreamLogDto actualStreamLogDto =
@@ -74,7 +74,7 @@ public class StreamLogServiceTest {
 
   @Test
   final void createStreamLogForRequestObjectTest() {
-    when(streamLogMapper.toLogStreamDto(any())).thenReturn(streamLogDto);
+    when(streamLogMapper.toDto(any())).thenReturn(streamLogDto);
     when(logMapper.map(any())).thenReturn(LogFixture.dateTime);
     when(streamLogDao.createStreamLog(any())).thenReturn(streamLogDto);
     when(streamDao.getStreamById(user, Long.valueOf(createStreamLogRequest.getStreamId())))
@@ -87,7 +87,7 @@ public class StreamLogServiceTest {
 
   @Test
   final void createStreamLogForRequestObjectNullTest() {
-    when(streamLogMapper.toLogStreamDto(any())).thenReturn(streamLogDto);
+    when(streamLogMapper.toDto(any())).thenReturn(streamLogDto);
     when(logMapper.map(any())).thenReturn(LogFixture.dateTime);
     when(streamLogDao.createStreamLog(any())).thenReturn(streamLogDto);
     when(streamDao.getStreamById(user, Long.valueOf(createStreamLogRequest.getStreamId())))

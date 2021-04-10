@@ -61,8 +61,8 @@ class ChannelDaoImplTest {
 
   @Test
   void testFindChannel() {
-    when(channelMapper.toChannelDto(any())).thenReturn(channelDto);
-    when(channelMapper.toChannelEntity(any())).thenReturn(channel);
+    when(channelMapper.toDto(any())).thenReturn(channelDto);
+    when(channelMapper.toEntity(any())).thenReturn(channel);
     when(channelRepository.findChannelEntityById(ChannelFixture.CHANNEL_ID))
         .thenReturn(java.util.Optional.of(channel));
     Optional<ChannelDto> channelDTO = channelDao.findChannel(ChannelFixture.CHANNEL_ID);
@@ -78,8 +78,8 @@ class ChannelDaoImplTest {
 
   @Test
   void testSaveChannel() {
-    when(channelMapper.toChannelDto(any())).thenReturn(channelDto);
-    when(channelMapper.toChannelEntity(any())).thenReturn(channel);
+    when(channelMapper.toDto(any())).thenReturn(channelDto);
+    when(channelMapper.toEntity(any())).thenReturn(channel);
     when(channelRepository.save(channel)).thenReturn(channel);
     ChannelDto channelDTO = channelDao.save(channelDto);
     assertEquals(channelDto, channelDTO);

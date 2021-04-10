@@ -17,22 +17,21 @@ import org.openapitools.model.DeviceModel;
     uses = {UserMapper.class})
 public interface DeviceMapper {
 
-  DeviceDto toDeviceDto(DeviceEntity deviceEntity);
+  DeviceDto toDto(DeviceEntity deviceEntity);
 
-  List<DeviceDto> toDeviceDtos(List<DeviceEntity> deviceEntities);
-
-  DeviceDto toDeviceDto(DeviceModel deviceModel);
+  DeviceDto toDto(DeviceModel deviceModel);
 
   @Mapping(source = "publicIpAddress", target = "publicIpAddress")
   @Mapping(source = "user", target = "user")
-  DeviceDto toDeviceDto(
-      UserEntity user, CreateDeviceRequest createDeviceRequest, String publicIpAddress);
+  DeviceDto toDto(UserEntity user, CreateDeviceRequest createDeviceRequest, String publicIpAddress);
 
-  DeviceEntity toDeviceEntity(DeviceDto deviceDto);
+  List<DeviceDto> toDtos(List<DeviceEntity> deviceEntities);
 
-  DeviceModel toDeviceModel(DeviceDto deviceDto);
+  DeviceEntity toEntity(DeviceDto deviceDto);
 
-  List<DeviceModel> toDeviceModelList(List<DeviceDto> deviceDtos);
+  DeviceModel toModel(DeviceDto deviceDto);
+
+  List<DeviceModel> toModels(List<DeviceDto> deviceDtos);
 
   void updateDeviceFromDto(DeviceDto dto, @MappingTarget DeviceDto target);
 }

@@ -81,7 +81,7 @@ class DecoderControllerTest {
   @Test
   final void testRetrieveAllDecoders() {
     when(decoderDao.getDecoders(user)).thenReturn(listOfDecoders);
-    when(decoderMapper.toDecoderDtos(any())).thenReturn(DecoderFixture.getDecoderDtos());
+    when(decoderMapper.toDtos(any())).thenReturn(DecoderFixture.getDecoderDtos());
 
     List<DecoderDto> allDecoders = decoderController.retrieveAllDecoders();
     List<DecoderDto> listOfExpectDTODecoders = DecoderFixture.getDecoderDtos();
@@ -181,13 +181,13 @@ class DecoderControllerTest {
   final void testGetDecoderStreams() {
     when(decoderService.getDecoderStreams(eq(user), any(String.class)))
         .thenReturn(List.of(StreamFixture.getStreamDto()));
-    when(streamMapper.toStreamModelList(anyList())).thenReturn(StreamFixture.getStreamModelList());
+    when(streamMapper.toModels(anyList())).thenReturn(StreamFixture.getStreamModelList());
 
     ResponseEntity<List<StreamModel>> response =
         decoderController.getDecoderStreams(DecoderFixture.SERIAL_NUMBER);
 
     verify(decoderService).getDecoderStreams(user, DecoderFixture.SERIAL_NUMBER);
-    verify(streamMapper).toStreamModelList(List.of(StreamFixture.getStreamDto()));
+    verify(streamMapper).toModels(List.of(StreamFixture.getStreamDto()));
 
     assertEquals(200, response.getStatusCodeValue());
     assertIterableEquals(List.of(StreamFixture.getStreamModel()), response.getBody());

@@ -74,9 +74,9 @@ class DeviceControllerTest {
   final void testUploadConfiguration() {
 
     when(deviceDao.findDevice(any(), any())).thenReturn(Optional.of(deviceDTO));
-    when(deviceMapper.toDeviceDto((DeviceModel) any())).thenReturn(deviceDTO);
+    when(deviceMapper.toDto((DeviceModel) any())).thenReturn(deviceDTO);
     when(deviceDao.save(any(), any())).thenReturn(deviceDTO);
-    when(deviceMapper.toDeviceModel(any())).thenReturn(deviceModel);
+    when(deviceMapper.toModel(any())).thenReturn(deviceModel);
 
     String s1 = deviceController.uploadConfiguration(DeviceFixture.SERIAL_NUMBER, file).getBody();
     verify(deviceDao).save(user, deviceDTO);
@@ -87,8 +87,8 @@ class DeviceControllerTest {
   @Test
   final void testRetrieveAllDevices() {
     when(deviceDao.getDevices(user)).thenReturn(List.of(device));
-    when(deviceMapper.toDeviceDtos(any())).thenReturn(List.of(deviceDTO));
-    when(deviceMapper.toDeviceModelList(any())).thenReturn(List.of(deviceModel));
+    when(deviceMapper.toDtos(any())).thenReturn(List.of(deviceDTO));
+    when(deviceMapper.toModels(any())).thenReturn(List.of(deviceModel));
     ResponseEntity<List<DeviceModel>> response = deviceController.retrieveAllDevices();
 
     assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -103,7 +103,7 @@ class DeviceControllerTest {
   final void testRetrieveDevice() {
     when(deviceDao.findDevice(user, DeviceFixture.SERIAL_NUMBER))
         .thenReturn(Optional.of(deviceDTO));
-    when(deviceMapper.toDeviceModel(deviceDTO)).thenReturn(deviceModel);
+    when(deviceMapper.toModel(deviceDTO)).thenReturn(deviceModel);
     ResponseEntity<DeviceModel> response = deviceController.retrieveDevice("1");
 
     assertNotNull(response);
@@ -138,7 +138,7 @@ class DeviceControllerTest {
     when(request.getRemoteAddr()).thenReturn(DeviceFixture.PUBLIC_IP_ADDRESS);
     when(deviceDao.createDevice(user, createDeviceRequest, DeviceFixture.PUBLIC_IP_ADDRESS))
         .thenReturn(deviceDTO);
-    when(deviceMapper.toDeviceModel(deviceDTO)).thenReturn(deviceModel);
+    when(deviceMapper.toModel(deviceDTO)).thenReturn(deviceModel);
 
     ResponseEntity<DeviceModel> response = deviceController.createDevice(createDeviceRequest);
 
@@ -171,9 +171,9 @@ class DeviceControllerTest {
     when(deviceDao.findDevice(user, DeviceFixture.SERIAL_NUMBER))
         .thenReturn(Optional.of(deviceDTO));
     deviceModel.setStatus("Stopped");
-    when(deviceMapper.toDeviceDto(deviceModel)).thenReturn(deviceDTO);
+    when(deviceMapper.toDto(deviceModel)).thenReturn(deviceDTO);
     when(deviceDao.save(user, deviceDTO)).thenReturn(deviceDTO);
-    when(deviceMapper.toDeviceModel(deviceDTO)).thenReturn(deviceModel);
+    when(deviceMapper.toModel(deviceDTO)).thenReturn(deviceModel);
     ResponseEntity<DeviceModel> response = deviceController.updateDevice(deviceModel);
 
     assertEquals(200, response.getStatusCodeValue());

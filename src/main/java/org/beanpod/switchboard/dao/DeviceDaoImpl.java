@@ -22,17 +22,16 @@ public class DeviceDaoImpl {
   public DeviceDto save(UserEntity user, DeviceDto device) {
     Optional<DeviceDto> deviceDto = findDevice(user, device.getSerialNumber());
     deviceMapper.updateDeviceFromDto(device, deviceDto.orElse(null));
-    return deviceMapper.toDeviceDto(
-        deviceRepository.save(deviceMapper.toDeviceEntity(deviceDto.orElse(null))));
+    return deviceMapper.toDto(deviceRepository.save(deviceMapper.toEntity(deviceDto.orElse(null))));
   }
 
   public DeviceDto createDevice(
       UserEntity user, CreateDeviceRequest createDeviceRequest, String publicIpAddress) {
-    DeviceDto deviceDto = deviceMapper.toDeviceDto(user, createDeviceRequest, publicIpAddress);
+    DeviceDto deviceDto = deviceMapper.toDto(user, createDeviceRequest, publicIpAddress);
     deviceDto.setStatus(MaintainDeviceStatus.OFFLINE_STATUS);
-    DeviceEntity deviceEntity = deviceMapper.toDeviceEntity(deviceDto);
+    DeviceEntity deviceEntity = deviceMapper.toEntity(deviceDto);
     DeviceEntity savedDeviceEntity = deviceRepository.save(deviceEntity);
-    return deviceMapper.toDeviceDto(savedDeviceEntity);
+    return deviceMapper.toDto(savedDeviceEntity);
   }
 
   public List<DeviceEntity> getDevices(UserEntity user) {
@@ -40,13 +39,11 @@ public class DeviceDaoImpl {
   }
 
   public Optional<DeviceDto> findDevice(String serialNumber) {
-    return deviceRepository.findBySerialNumber(serialNumber).map(deviceMapper::toDeviceDto);
+    return deviceRepository.findBySerialNumber(serialNumber).map(deviceMapper::toDto);
   }
 
   public Optional<DeviceDto> findDevice(UserEntity user, String serialNumber) {
-    return deviceRepository
-        .findByUserAndSerialNumber(user, serialNumber)
-        .map(deviceMapper::toDeviceDto);
+    return deviceRepository.findByUserAndSerialNumber(user, serialNumber).map(deviceMapper::toDto);
   }
 
   public Long deleteDevice(UserEntity user, String serialNumber) {

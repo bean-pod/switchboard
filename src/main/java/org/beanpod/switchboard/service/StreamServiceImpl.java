@@ -61,7 +61,7 @@ public class StreamServiceImpl implements StreamService {
   public StreamDto updateStream(UserEntity user, StreamDto streamDto) {
     log.info("Updating stream {}", streamDto.getId());
     StreamEntity updatedStreamEntity = streamDao.updateStream(user, streamDto);
-    return mapper.toStreamDto(updatedStreamEntity);
+    return mapper.toDto(updatedStreamEntity);
   }
 
   public StreamStatDto updateStreamStat(UserEntity user, StreamStatDto streamStatDto) {

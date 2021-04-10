@@ -16,15 +16,15 @@ import org.openapitools.model.StreamModel;
     })
 public interface StreamMapper {
 
-  StreamDto toStreamDto(StreamModel streamModel);
+  StreamDto toDto(StreamModel streamModel);
 
-  StreamDto toStreamDto(StreamEntity streamEntity);
+  StreamDto toDto(StreamEntity streamEntity);
 
-  List<StreamDto> toStreamDtos(List<StreamEntity> streamEntityList);
+  List<StreamDto> toDtos(List<StreamEntity> streamEntityList);
 
-  StreamEntity toStreamEntity(StreamDto streamDto);
+  StreamEntity toEntity(StreamDto streamDto);
 
-  StreamModel toStreamModel(StreamDto streamDto);
+  StreamModel toModel(StreamDto streamDto);
 
-  List<StreamModel> toStreamModelList(List<StreamDto> streamDtoList);
+  List<StreamModel> toModels(List<StreamDto> streamDtoList);
 }

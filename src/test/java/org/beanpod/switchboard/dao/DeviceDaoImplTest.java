@@ -61,12 +61,12 @@ class DeviceDaoImplTest {
 
   @Test
   final void testSave() {
-    when(deviceMapper.toDeviceDto(any(DeviceEntity.class))).thenReturn(deviceDto);
-    when(deviceMapper.toDeviceEntity(any())).thenReturn(device);
+    when(deviceMapper.toDto(any(DeviceEntity.class))).thenReturn(deviceDto);
+    when(deviceMapper.toEntity(any())).thenReturn(device);
     when(deviceRepository.findByUserAndSerialNumber(user, DecoderFixture.SERIAL_NUMBER))
         .thenReturn(java.util.Optional.of(device));
-    when(deviceMapper.toDeviceDto(any(DeviceEntity.class))).thenReturn(deviceDto);
-    when(deviceMapper.toDeviceEntity(any())).thenReturn(device);
+    when(deviceMapper.toDto(any(DeviceEntity.class))).thenReturn(deviceDto);
+    when(deviceMapper.toEntity(any())).thenReturn(device);
     when(deviceRepository.save(device)).thenReturn(device);
     DeviceDto deviceDTO = deviceDaoImpl.save(user, deviceDto);
     assertEquals(deviceDto, deviceDTO);
@@ -74,8 +74,8 @@ class DeviceDaoImplTest {
 
   @Test
   final void testFindDevice() {
-    when(deviceMapper.toDeviceDto(any(DeviceEntity.class))).thenReturn(deviceDto);
-    when(deviceMapper.toDeviceEntity(any())).thenReturn(device);
+    when(deviceMapper.toDto(any(DeviceEntity.class))).thenReturn(deviceDto);
+    when(deviceMapper.toEntity(any())).thenReturn(device);
     when(deviceRepository.findByUserAndSerialNumber(user, DecoderFixture.SERIAL_NUMBER))
         .thenReturn(java.util.Optional.of(device));
     Optional<DeviceDto> deviceDTO = deviceDaoImpl.findDevice(user, DecoderFixture.SERIAL_NUMBER);
@@ -100,10 +100,10 @@ class DeviceDaoImplTest {
   @Test
   final void testCreateDevice() {
     String ipAddress = DeviceFixture.PUBLIC_IP_ADDRESS;
-    when(deviceMapper.toDeviceDto(user, createDeviceRequest, ipAddress)).thenReturn(deviceDto);
-    when(deviceMapper.toDeviceEntity(deviceDto)).thenReturn(deviceEntity);
+    when(deviceMapper.toDto(user, createDeviceRequest, ipAddress)).thenReturn(deviceDto);
+    when(deviceMapper.toEntity(deviceDto)).thenReturn(deviceEntity);
     when(deviceRepository.save(deviceEntity)).thenReturn(deviceEntity);
-    when(deviceMapper.toDeviceDto(deviceEntity)).thenReturn(deviceDto);
+    when(deviceMapper.toDto(deviceEntity)).thenReturn(deviceDto);
 
     DeviceDto result = deviceDaoImpl.createDevice(user, createDeviceRequest, ipAddress);
 

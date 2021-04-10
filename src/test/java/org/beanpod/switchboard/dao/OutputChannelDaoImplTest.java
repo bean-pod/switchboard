@@ -49,8 +49,8 @@ public class OutputChannelDaoImplTest {
 
   @Test
   void testSaveOutputChannel() {
-    when(outputChannelMapper.toOutputChannelDto(any())).thenReturn(outputDto);
-    when(outputChannelMapper.toOutputChannelEntity(any())).thenReturn(output);
+    when(outputChannelMapper.toDto(any())).thenReturn(outputDto);
+    when(outputChannelMapper.toEntity(any())).thenReturn(output);
     when(outputChannelRepository.save(output)).thenReturn(output);
     OutputChannelDto outputChannelDTO = outputChannelDao.saveOutputChannel(outputDto);
     assertEquals(outputDto, outputChannelDTO);
@@ -60,7 +60,7 @@ public class OutputChannelDaoImplTest {
   void testGetOutputChannelById() {
     when(outputChannelRepository.findByEncoderDeviceUserAndId(user, ChannelFixture.CHANNEL_ID))
         .thenReturn(output);
-    when(outputChannelMapper.toOutputChannelDto(output)).thenReturn(outputDto);
+    when(outputChannelMapper.toDto(output)).thenReturn(outputDto);
     OutputChannelDto outputChannelDTO =
         outputChannelDao.getOutputChannelById(user, ChannelFixture.CHANNEL_ID);
     assertEquals(outputDto, outputChannelDTO);

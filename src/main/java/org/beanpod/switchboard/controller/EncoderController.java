@@ -57,7 +57,7 @@ public class EncoderController {
 
     List<EncoderEntity> encoderEntities = encoderDao.getEncoders(user);
     maintainDeviceStatus.maintainStatusField(encoderEntities);
-    return encoderMapper.toEncoderDtos(encoderEntities);
+    return encoderMapper.toDtos(encoderEntities);
   }
 
   @GetMapping("/{serialNumber}")
@@ -68,7 +68,7 @@ public class EncoderController {
     Optional<EncoderDto> encoder = encoderDao.findEncoder(user, serialNumber);
     if (encoder.isPresent()) {
       List<EncoderEntity> encodersListTemp = new LinkedList<>();
-      encodersListTemp.add(encoderMapper.toEncoderEntity(encoder.get()));
+      encodersListTemp.add(encoderMapper.toEntity(encoder.get()));
       DeviceEntity updatedDevice =
           maintainDeviceStatus.maintainStatusField(encodersListTemp).get(0);
       // update the retrieved decoder object
@@ -127,7 +127,7 @@ public class EncoderController {
 
     return Optional.of(serialNumber)
         .map(sn -> encoderService.getEncoderStreams(user, sn))
-        .map(streamMapper::toStreamModelList)
+        .map(streamMapper::toModels)
         .map(ResponseEntity::ok)
         .orElseThrow(this::getUnknownException);
   }

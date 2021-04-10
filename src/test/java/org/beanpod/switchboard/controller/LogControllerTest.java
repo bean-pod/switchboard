@@ -27,6 +27,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.openapitools.model.CreateLogRequest;
 import org.openapitools.model.CreateStreamLogRequest;
 import org.openapitools.model.LogModel;
 import org.openapitools.model.StreamLogModel;
@@ -93,8 +94,8 @@ class LogControllerTest {
   @Test
   final void testCreateLog() {
     when(logService.createLog(any())).thenReturn(logDto);
-    when(logMapper.createLogRequestToLogModel(any())).thenReturn(logModel);
-    when(logMapper.logDtoToLogModel(any())).thenReturn(logModel);
+    when(logMapper.toModel((CreateLogRequest) any())).thenReturn(logModel);
+    when(logMapper.toModel((LogDto) any())).thenReturn(logModel);
 
     ResponseEntity<LogModel> responseEntity =
         logController.createLog(LogFixture.getCreateLogRequest());
@@ -114,7 +115,7 @@ class LogControllerTest {
   @Test
   final void testCreateStreamLog() {
     when(streamLogService.createLog(user, createStreamLogRequest)).thenReturn(streamLogDto);
-    when(streamLogMapper.toStreamLogModel(streamLogDto)).thenReturn(streamLogModel);
+    when(streamLogMapper.toModel(streamLogDto)).thenReturn(streamLogModel);
     ResponseEntity<StreamLogModel> response = logController.createStreamLog(createStreamLogRequest);
 
     assertEquals(HttpStatus.OK, response.getStatusCode());
