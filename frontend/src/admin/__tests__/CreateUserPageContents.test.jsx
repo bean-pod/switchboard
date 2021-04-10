@@ -33,22 +33,24 @@ describe("<CreateUserPageContents/> class component", () => {
     jest.clearAllMocks();
   });
 
-  describe("render() returns a component that", () => {
-    it("contains one <FormConsole/> component with handleSubmit passed as prop", () => {
-      const form = wrapper.find(FormConsole);
-      expect(form).toHaveLength(1);
+  describe("render() function", () => {
+    describe("returns a component that", () => {
+      it("contains one <FormConsole/> component with handleSubmit passed as prop", () => {
+        const form = wrapper.find(FormConsole);
+        expect(form).toHaveLength(1);
 
-      const expected = {
-        handleSubmit: wrapper.instance().handleSubmit,
-        buttonName: "Create",
-        isValidate: true,
-        passwordError: { upperbound: 5, lowerbound: 0 },
-        passwordInputProps: { maxLength: 20, minLength: 5 },
-        passwordHelperText: "Password must be between 5 to 20 characters"
-      };
+        const expected = {
+          handleSubmit: wrapper.instance().handleSubmit,
+          buttonName: "Create",
+          isValidate: true,
+          passwordError: { upperbound: 5, lowerbound: 0 },
+          passwordInputProps: { maxLength: 20, minLength: 5 },
+          passwordHelperText: "Password must be between 5 to 20 characters"
+        };
 
-      const formConsoleProps = form.props();
-      expect(formConsoleProps).toEqual(expected);
+        const formConsoleProps = form.props();
+        expect(formConsoleProps).toStrictEqual(expected);
+      });
     });
   });
 
