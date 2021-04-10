@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.dao.DecoderDaoImpl;
@@ -100,6 +101,7 @@ public class DecoderController implements DecoderApi {
   }
 
   @Override
+  @Transactional
   public ResponseEntity<String> deleteDecoder(@PathVariable String serialNumber) {
     UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
 
@@ -119,10 +121,12 @@ public class DecoderController implements DecoderApi {
       throw new ExceptionType.DeviceNotFoundException(decoderModel.getSerialNumber());
     }
 
-    DecoderDto decoderDto = decoderMapper.toDecoderDto(decoderModel);
-    DecoderDto savedDecoderDto = decoderDao.save(user, decoderDto);
-    DecoderModel savedDecoderModel = decoderMapper.toDecoderModel(savedDecoderDto);
-    return ResponseEntity.ok(savedDecoderModel);
+    return Optional.of(decoderModel)
+            .map(decoderMapper::toDecoderDto)
+            .map(decoderDto -> decoderDao.save(user, decoderDto))
+            .map(decoderMapper::toDecoderModel)
+            .map(ResponseEntity::ok)
+            .orElseThrow(this::getUnknownException);
   }
 
   @Override
