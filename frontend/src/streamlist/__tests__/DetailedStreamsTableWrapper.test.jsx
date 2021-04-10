@@ -45,9 +45,9 @@ describe("<DetailedStreamsTableWrapper/> Class Component", () => {
         <StatusIndicator status={dummyData.status} />
       );
 
-      expect(wrapperInstance.detailedColumns[4].render(dummyData)).toStrictEqual(
-        expectedRenderedComponent
-      );
+      expect(
+        wrapperInstance.detailedColumns[4].render(dummyData)
+      ).toStrictEqual(expectedRenderedComponent);
     });
     it(`Column 8 (Actions) has a render property that returns 1 <StreamDetailsButton/> with expected props`, () => {
       const sampleStream = SampleData.getSampleStream();
@@ -56,9 +56,9 @@ describe("<DetailedStreamsTableWrapper/> Class Component", () => {
         <StreamDetailsButton streamInfo={sampleStream} />
       );
 
-      expect(wrapperInstance.detailedColumns[7].render(sampleStream)).toStrictEqual(
-        expectedRenderedComponent
-      );
+      expect(
+        wrapperInstance.detailedColumns[7].render(sampleStream)
+      ).toStrictEqual(expectedRenderedComponent);
     });
   });
 });

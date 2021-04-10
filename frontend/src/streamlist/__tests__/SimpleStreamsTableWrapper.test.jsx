@@ -57,9 +57,9 @@ describe("<SimpleStreamsTableWrapper/> Class Component", () => {
         <StreamDetailsButton streamInfo={sampleStream} />
       );
 
-      expect(wrapperInstance.simpleColumns[3].render(sampleStream)).toStrictEqual(
-        expectedRenderedComponent
-      );
+      expect(
+        wrapperInstance.simpleColumns[3].render(sampleStream)
+      ).toStrictEqual(expectedRenderedComponent);
     });
   });
 });
