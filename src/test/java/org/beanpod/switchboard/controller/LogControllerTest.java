@@ -119,7 +119,7 @@ class LogControllerTest {
     when(logService.createLog(any())).thenReturn(logDto);
     when(logMapper.toModel((CreateLogRequest) any())).thenReturn(logModel);
     when(logMapper.toModel((LogDto) any())).thenReturn(logModel);
-    when(deviceDao.findDevice(DeviceFixture.SERIAL_NUMBER)).thenReturn(Optional.of(null));
+    when(deviceDao.findDevice(DeviceFixture.SERIAL_NUMBER)).thenReturn(Optional.empty());
 
     assertThrows(
         ExceptionType.UnknownException.class,
