@@ -57,8 +57,8 @@ class DecoderDaoImplTest {
 
   @Test
   final void testSave() {
-    when(decoderMapper.toDecoderDto(any())).thenReturn(decoderDto);
-    when(decoderMapper.toDecoderEntity(any())).thenReturn(decoder);
+    when(decoderMapper.toDto(any())).thenReturn(decoderDto);
+    when(decoderMapper.toEntity(any())).thenReturn(decoder);
     when(decoderRepository.save(decoder)).thenReturn(decoder);
     DecoderDto decoderDTO = decoderDaoImpl.save(user, decoderDto);
     assertEquals(decoderDTO, decoderDto);
@@ -70,8 +70,8 @@ class DecoderDaoImplTest {
     DecoderDaoImpl decoderDaoImp1 = Mockito.spy(decoderDaoImp);
     Mockito.doReturn(Optional.of(decoderDto)).when(decoderDaoImp1).findDecoder(eq(user), any());
     when(decoderDaoImp.findDecoder(eq(user), any())).thenReturn(Optional.of(decoderDto));
-    when(decoderMapper.toDecoderDto(any())).thenReturn(decoderDto);
-    when(decoderMapper.toDecoderEntity(any())).thenReturn(decoder);
+    when(decoderMapper.toDto(any())).thenReturn(decoderDto);
+    when(decoderMapper.toEntity(any())).thenReturn(decoder);
     when(decoderRepository.save(decoder)).thenReturn(decoder);
     DecoderDto decoderDTO = decoderDaoImp1.save(user, decoderDto);
     assertEquals(decoderDTO, decoderDto);
@@ -79,10 +79,9 @@ class DecoderDaoImplTest {
 
   @Test
   final void testFindDecoder() {
-    when(decoderMapper.toDecoderDto(any())).thenReturn(decoderDto);
-    when(decoderMapper.toDecoderEntity(any())).thenReturn(decoder);
-    when(decoderRepository.findDecoderByDeviceUserAndSerialNumber(
-            user, DecoderFixture.SERIAL_NUMBER))
+    when(decoderMapper.toDto(any())).thenReturn(decoderDto);
+    when(decoderMapper.toEntity(any())).thenReturn(decoder);
+    when(decoderRepository.findByDeviceUserAndSerialNumber(user, DecoderFixture.SERIAL_NUMBER))
         .thenReturn(java.util.Optional.of(decoder));
     Optional<DecoderDto> decoderDTO =
         decoderDaoImpl.findDecoder(user, DecoderFixture.SERIAL_NUMBER);
@@ -91,15 +90,14 @@ class DecoderDaoImplTest {
 
   @Test
   final void testGetDecoders() {
-    when(decoderRepository.findDecoderEntitiesByDeviceUser(user)).thenReturn(listOfdecoders);
+    when(decoderRepository.findByDeviceUser(user)).thenReturn(listOfdecoders);
     List<DecoderEntity> deviceEntities = decoderDaoImpl.getDecoders(user);
     assertIterableEquals(deviceEntities, listOfdecoders);
   }
 
   @Test
   final void testDeleteDecoder() {
-    when(decoderRepository.deleteDecoderEntityByDeviceUserAndSerialNumber(
-            user, DecoderFixture.SERIAL_NUMBER))
+    when(decoderRepository.deleteByDeviceUserAndSerialNumber(user, DecoderFixture.SERIAL_NUMBER))
         .thenReturn((long) 1);
     Long response = decoderDaoImpl.deleteDecoder(user, DecoderFixture.SERIAL_NUMBER);
     assertEquals(1L, response);

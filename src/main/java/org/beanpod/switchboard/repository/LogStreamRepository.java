@@ -1,16 +1,16 @@
 package org.beanpod.switchboard.repository;
 
 import java.util.List;
-import org.beanpod.switchboard.entity.StreamLog;
+import org.beanpod.switchboard.entity.StreamLogEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface LogStreamRepository extends JpaRepository<StreamLog, Long> {
+public interface LogStreamRepository extends JpaRepository<StreamLogEntity, Long> {
 
-  StreamLog save(StreamLog logEntity);
+  StreamLogEntity save(StreamLogEntity logEntity);
 
   @Query(
       value =
@@ -20,5 +20,5 @@ public interface LogStreamRepository extends JpaRepository<StreamLog, Long> {
               + "where us.id = de.user_id and us.id = :id and de.serial_number = lo.serial_number "
               + "and lo.id = st.log_id and st.stream_id = :streamId",
       nativeQuery = true)
-  List<StreamLog> findByStreamId(@Param("streamId") String streamId, @Param("id") Long userId);
+  List<StreamLogEntity> findByStreamId(@Param("streamId") String streamId, @Param("id") Long userId);
 }

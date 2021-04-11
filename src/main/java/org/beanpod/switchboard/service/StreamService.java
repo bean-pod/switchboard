@@ -3,17 +3,18 @@ package org.beanpod.switchboard.service;
 import java.util.List;
 import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.dto.StreamStatDto;
+import org.beanpod.switchboard.entity.UserEntity;
 import org.openapitools.model.CreateStreamRequest;
 
 public interface StreamService {
 
-  StreamDto createStream(CreateStreamRequest createStreamRequest);
+  StreamDto createStream(UserEntity user, CreateStreamRequest createStreamRequest);
 
-  StreamDto updateStream(StreamDto streamDto);
+  StreamDto updateStream(UserEntity user, StreamDto streamDto);
 
-  StreamStatDto updateStreamStat(StreamStatDto streamStatDto);
+  StreamStatDto updateStreamStat(UserEntity user, StreamStatDto streamStatDto);
 
-  List<StreamStatDto> getStreamStats();
+  List<StreamStatDto> getStreamStats(UserEntity user);
 
-  StreamStatDto getStreamStat(Long id);
+  StreamStatDto getStreamStat(UserEntity user, Long id);
 }

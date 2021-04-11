@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class LogController implements LogApi {
 
   public static final String CONTROLLER_NAME = "Log";
+  private final UserDaoImpl userDao;
   private final LogDaoImpl logDao;
   private final LogMapper logMapper;
   private final LogService logService;
@@ -35,7 +36,6 @@ public class LogController implements LogApi {
   private final StreamLogService streamLogService;
   private final StreamLogMapper streamLogMapper;
   private final HttpServletRequest request;
-  private final UserDaoImpl userDao;
 
   @Override
   public ResponseEntity<List<StreamLogModel>> retrieveStreamLogs(@PathVariable Long streamId) {
@@ -58,9 +58,9 @@ public class LogController implements LogApi {
   @Override
   public ResponseEntity<LogModel> createLog(@Valid CreateLogRequest createLogRequest) {
     return Optional.of(createLogRequest)
-        .map(logMapper::createLogRequestToLogModel)
+        .map(logMapper::toModel)
         .map(logService::createLog)
-        .map(logMapper::logDtoToLogModel)
+        .map(logMapper::toModel)
         .map(ResponseEntity::ok)
         .orElseThrow(() -> new ExceptionType.UnknownException(CONTROLLER_NAME));
   }
@@ -68,9 +68,10 @@ public class LogController implements LogApi {
   @Override
   public ResponseEntity<StreamLogModel> createStreamLog(
       CreateStreamLogRequest createStreamLogRequest) {
+    UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
     return Optional.of(createStreamLogRequest)
-        .map(streamLogService::createLog)
-        .map(streamLogMapper::toStreamLogModel)
+        .map(createStreamLogReq -> streamLogService.createLog(user, createStreamLogReq))
+        .map(streamLogMapper::toModel)
         .map(ResponseEntity::ok)
         .orElseThrow(() -> new ExceptionType.UnknownException(CONTROLLER_NAME));
   }

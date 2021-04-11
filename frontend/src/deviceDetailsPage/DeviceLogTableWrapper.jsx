@@ -13,18 +13,16 @@ export default class DeviceLogTableWrapper extends React.Component {
     this.columns = [
       {
         title: "ID",
-        field: "id",
-        cellStyle: { width: "10%" }
+        field: "id"
       },
       {
         title: "Date",
         field: "dateTime",
-        cellStyle: { width: "15%" }
+        defaultSort: "desc"
       },
       {
         title: "Level",
-        field: "level",
-        cellStyle: { width: "10%" }
+        field: "level"
       },
       {
         title: "Message",
@@ -52,13 +50,9 @@ export default class DeviceLogTableWrapper extends React.Component {
     });
   }
 
-  getColumnInfo() {
-    return this.columns;
-  }
-
   render() {
     const { logs } = this.state;
-    return <LogsTable logs={logs} columns={this.getColumnInfo()} />;
+    return <LogsTable logs={logs} columns={this.columns} />;
   }
 }
 

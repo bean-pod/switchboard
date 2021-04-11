@@ -27,6 +27,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.openapitools.model.CreateLogRequest;
 import org.openapitools.model.CreateStreamLogRequest;
 import org.openapitools.model.LogModel;
 import org.openapitools.model.StreamLogModel;
@@ -55,7 +56,15 @@ class LogControllerTest {
   @Mock private UserDaoImpl userDao;
 
   @BeforeEach
-  void setupLogFixture() {
+  void setup() {
+    setupLogFixture();
+
+    MockitoAnnotations.initMocks(this);
+
+    UserMockUtil.mockUser(user, httpServletRequest, userPrincipal, userDao);
+  }
+
+  private void setupLogFixture() {
     logModels = LogFixture.getListOfLogs();
     logModel = LogFixture.getLogModel();
     logDto = LogFixture.getLogDto();
@@ -64,12 +73,6 @@ class LogControllerTest {
     streamLogDto = StreamLogFixture.getStreamLogDto();
     streamLogModel = StreamLogFixture.getStreamLogModel();
     user = UserFixture.getUserEntity();
-  }
-
-  @BeforeEach
-  void setup() {
-    MockitoAnnotations.initMocks(this);
-    UserMockUtil.mockUser(user, httpServletRequest, userPrincipal, userDao);
   }
 
   @Test
@@ -91,8 +94,8 @@ class LogControllerTest {
   @Test
   final void testCreateLog() {
     when(logService.createLog(any())).thenReturn(logDto);
-    when(logMapper.createLogRequestToLogModel(any())).thenReturn(logModel);
-    when(logMapper.logDtoToLogModel(any())).thenReturn(logModel);
+    when(logMapper.toModel((CreateLogRequest) any())).thenReturn(logModel);
+    when(logMapper.toModel((LogDto) any())).thenReturn(logModel);
 
     ResponseEntity<LogModel> responseEntity =
         logController.createLog(LogFixture.getCreateLogRequest());
@@ -111,8 +114,8 @@ class LogControllerTest {
 
   @Test
   final void testCreateStreamLog() {
-    when(streamLogService.createLog(createStreamLogRequest)).thenReturn(streamLogDto);
-    when(streamLogMapper.toStreamLogModel(streamLogDto)).thenReturn(streamLogModel);
+    when(streamLogService.createLog(user, createStreamLogRequest)).thenReturn(streamLogDto);
+    when(streamLogMapper.toModel(streamLogDto)).thenReturn(streamLogModel);
     ResponseEntity<StreamLogModel> response = logController.createStreamLog(createStreamLogRequest);
 
     assertEquals(HttpStatus.OK, response.getStatusCode());

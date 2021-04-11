@@ -16,14 +16,14 @@ public class LogDaoImpl {
   private final LogMapper logMapper;
 
   public List<LogModel> getLogs(Long userId) {
-    return logMapper.toLogModels(logRepository.findAll(userId));
+    return logMapper.toModels(logRepository.findAll(userId));
   }
 
   public List<LogModel> getDeviceLogs(String serialNumber, Long userId) {
-    return logMapper.toLogModels(logRepository.findBySerialNumber(serialNumber, userId));
+    return logMapper.toModels(logRepository.findBySerialNumber(serialNumber, userId));
   }
 
   public LogDto createLog(LogDto logDto) {
-    return logMapper.logEntityToLogDto(logRepository.save(logMapper.toLogEntity(logDto)));
+    return logMapper.toDto(logRepository.save(logMapper.toEntity(logDto)));
   }
 }

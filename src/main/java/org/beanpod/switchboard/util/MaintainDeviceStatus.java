@@ -47,7 +47,7 @@ public class MaintainDeviceStatus {
         (encoderOrDecoder.getDevice()).setStatus(OFFLINE_STATUS);
         deviceDao.save(
             encoderOrDecoder.getDevice().getUser(),
-            deviceMapper.toDeviceDto(encoderOrDecoder.getDevice()));
+            deviceMapper.toDto(encoderOrDecoder.getDevice()));
 
         updatedDevices.add(encoderOrDecoder.getDevice());
       } else if (((encoderOrDecoder).getDevice().getStatus()).equalsIgnoreCase(OFFLINE_STATUS)
@@ -56,7 +56,7 @@ public class MaintainDeviceStatus {
         (encoderOrDecoder.getDevice()).setStatus(ONLINE_STATUS);
         deviceDao.save(
             encoderOrDecoder.getDevice().getUser(),
-            deviceMapper.toDeviceDto(encoderOrDecoder.getDevice()));
+            deviceMapper.toDto(encoderOrDecoder.getDevice()));
 
         updatedDevices.add(encoderOrDecoder.getDevice());
       } else {
@@ -82,9 +82,9 @@ public class MaintainDeviceStatus {
   private void updateDeviceStatusField(DeviceDto device, List<DeviceEntity> updatedDevices) {
     if ((device.getStatus()).equalsIgnoreCase(OFFLINE_STATUS)) {
       device.setStatus(ONLINE_STATUS);
-      deviceDao.save(userMapper.toUserEntity(device.getUser()), device);
+      deviceDao.save(userMapper.toEntity(device.getUser()), device);
 
-      updatedDevices.add(deviceMapper.toDeviceEntity(device));
+      updatedDevices.add(deviceMapper.toEntity(device));
     }
   }
 

@@ -230,27 +230,10 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateEncoderRequest'
+              $ref: '#/components/schemas/EncoderModel'
       responses:
         '200':
           description: Successful creation the encoder
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EncoderModel'
-
-
-  /encoder/{serialNumber}:
-    get:
-      operationId: getEncoderById
-      description: Retrieve a specific encoder
-      tags:
-        - Encoders
-      parameters:
-        - $ref: '#/components/parameters/EncoderSerialNumber'
-      responses:
-        '200':
-          description: Successful retrieval of the encoder
           content:
             application/json:
               schema:
@@ -260,8 +243,6 @@ paths:
       description: Update a encoder's definition
       tags:
         - Encoders
-      parameters:
-        - $ref: '#/components/parameters/EncoderSerialNumber'
       requestBody:
         required: true
         content:
@@ -271,6 +252,23 @@ paths:
       responses:
         '200':
           description: Successful update of the Encoder
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EncoderModel'
+
+
+  /encoder/{serialNumber}:
+    get:
+      operationId: retrieveEncoder
+      description: Retrieve a specific encoder
+      tags:
+        - Encoders
+      parameters:
+        - $ref: '#/components/parameters/EncoderSerialNumber'
+      responses:
+        '200':
+          description: Successful retrieval of the encoder
           content:
             application/json:
               schema:
@@ -285,6 +283,11 @@ paths:
       responses:
         '200':
           description: Successful deletion of the encoder
+          content:
+            application/json:
+              schema:
+                type: string
+                example: 'Encoder with serial number BtmC8ckj deleted'
 
   /encoder/{serialNumber}/stream:
     get:
@@ -686,19 +689,16 @@ components:
         serialNumber:
           type: string
           example: 'BtmC8ckj'
+        lastCommunication:
+          type: string
+          format: date-time
+          example: "2017-07-21T17:32:28Z"
         device:
           $ref: '#/components/schemas/DeviceModel'
         output:
           type: array
           items:
             $ref: '#/components/schemas/OutputChannelModel'
-
-    CreateEncoderRequest:
-      description: A client that sends a video stream
-      properties:
-        serialNumber:
-          type: string
-          example: 'BtmC8ckj'
 
     DecodersModel:
       description: A list of decoder UUIDs
@@ -779,6 +779,9 @@ components:
           description: Flag that indicates that the clients should use SRT's Rendezvous mode
           type: boolean
           example: true
+        startDate:
+          type: string
+          format: date-time
 
     StreamsModel:
       description: A list of stream IDs
