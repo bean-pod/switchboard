@@ -31,5 +31,6 @@ public interface InputChannelMapper {
 
   @Named("inputChannelDtoSetToInputChannelModelListShallow")
   @IterableMapping(qualifiedByName = "inputChannelDtoToInputChannelModelShallow")
-  List<InputChannelModel> inputChannelDtoSetToInputChannelModelListShallow(Set<InputChannelDto> value);
+  List<InputChannelModel> inputChannelDtoSetToInputChannelModelListShallow(
+      Set<InputChannelDto> value);
 }
