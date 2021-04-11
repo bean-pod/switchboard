@@ -16,7 +16,7 @@ public interface LogStreamRepository extends JpaRepository<StreamLogEntity, Long
       value =
           "select lo.id, lo.level, lo.message, lo.serial_number, "
               + "lo.date_time, st.log_id, st.serial_number, st.stream_id "
-              + "from log_entity lo, user us, device de, stream_log st "
+              + "from log lo, user us, device de, stream_log st "
               + "where us.id = de.user_id and us.id = :id and de.serial_number = lo.serial_number "
               + "and lo.id = st.log_id and st.stream_id = :streamId",
       nativeQuery = true)

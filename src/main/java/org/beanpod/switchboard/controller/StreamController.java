@@ -3,6 +3,7 @@ package org.beanpod.switchboard.controller;
 import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.dao.StreamDaoImpl;
@@ -84,6 +85,7 @@ public class StreamController implements StreamApi {
         .orElseThrow(() -> new ExceptionType.UnknownException(CONTROLLER_NAME));
   }
 
+  @Transactional
   @Override
   public ResponseEntity<Void> deleteStream(Long id) {
     UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
