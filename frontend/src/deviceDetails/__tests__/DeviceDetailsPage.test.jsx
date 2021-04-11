@@ -37,7 +37,7 @@ describe("<DeviceDetailsPage/> functional Component", () => {
         const expectedTitle = "Device Details";
         const expectedBreadcumbs = [
           ["Home", "/Home"],
-          ["My Devices", "/Devices"],
+          ["My Devices", "/Devices", { passedState: 0 }],
           [
             "Device Details",
             `/Devices/Details/${dummyDevice.serialNumber}`,
@@ -70,7 +70,7 @@ describe("<DeviceDetailsPage/> functional Component", () => {
         const expectedTitle = "Device Details";
         const expectedBreadcumbs = [
           ["Home", "/Home"],
-          ["My Devices", "/Devices"],
+          ["My Devices", "/Devices", { passedState: 0 }],
           [
             "Device Details",
             `/Devices/Details/${expectedDefaultDevice.serialNumber}`,

@@ -39,7 +39,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.openapitools.model.DecoderModel;
 import org.openapitools.model.StreamModel;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 class DecoderControllerTest {
@@ -48,6 +50,7 @@ class DecoderControllerTest {
   private static List<DeviceEntity> listOfDevices;
   private static DeviceDto deviceDto;
   private static DecoderDto decoderDto;
+  private static DecoderModel decoderModel;
   private static List<DecoderEntity> listOfDecoders;
   private static UserEntity user;
   @InjectMocks private DecoderController decoderController;
@@ -74,6 +77,7 @@ class DecoderControllerTest {
     listOfDevices = DeviceFixture.getListOfDevices();
     deviceDto = DeviceFixture.getDeviceDto();
     decoderDto = DecoderFixture.getDecoderDto();
+    decoderModel = DecoderFixture.getDecoderModelWithInputChannel();
     listOfDecoders = DecoderFixture.getListOfDecoders();
     user = UserFixture.getUserEntity();
   }
@@ -82,12 +86,16 @@ class DecoderControllerTest {
   final void testRetrieveAllDecoders() {
     when(decoderDao.getDecoders(user)).thenReturn(listOfDecoders);
     when(decoderMapper.toDtos(any())).thenReturn(DecoderFixture.getDecoderDtos());
+    when(decoderMapper.toModels(any())).thenReturn(DecoderFixture.getDecoderModels());
 
-    List<DecoderDto> allDecoders = decoderController.retrieveAllDecoders();
-    List<DecoderDto> listOfExpectDTODecoders = DecoderFixture.getDecoderDtos();
+    ResponseEntity<List<DecoderModel>> response = decoderController.retrieveAllDecoders();
 
-    assertFalse(allDecoders.isEmpty()); // check if an empty list was returned
-    assertIterableEquals(listOfExpectDTODecoders, allDecoders); // check both lists contents
+    assertEquals(HttpStatus.OK, response.getStatusCode());
+    List<DecoderModel> allEncoders = response.getBody();
+    assertNotNull(allEncoders);
+    assertFalse(allEncoders.isEmpty()); // check if an empty list was returned
+    assertIterableEquals(
+        DecoderFixture.getDecoderModels(), allEncoders); // check both lists contents
   }
 
   // When a decoder is available in the DB
@@ -96,11 +104,13 @@ class DecoderControllerTest {
     when(decoderDao.findDecoder(user, DecoderFixture.SERIAL_NUMBER))
         .thenReturn(Optional.of(decoderDto));
     when(maintainDeviceStatus.maintainStatusField(anyList())).thenReturn(listOfDevices);
-    ResponseEntity<DecoderDto> actualDecoder = decoderController.retrieveDecoder("1");
+    when(decoderMapper.toModel(decoderDto)).thenReturn(decoderModel);
+
+    ResponseEntity<DecoderModel> actualDecoder = decoderController.retrieveDecoder("1");
 
     assertNotNull(actualDecoder);
     assertEquals(200, actualDecoder.getStatusCodeValue());
-    assertEquals(decoderDto, actualDecoder.getBody());
+    assertEquals(decoderModel, actualDecoder.getBody());
   }
 
   // When a decoder is unavailable in the DB
@@ -116,17 +126,21 @@ class DecoderControllerTest {
   final void testCreateDecoder() {
     when(deviceService.findDevice(user, DecoderFixture.SERIAL_NUMBER))
         .thenReturn(Optional.of(deviceDto));
+    when(decoderMapper.toDto(any(DecoderModel.class))).thenReturn(decoderDto);
     when(decoderDao.save(user, decoderDto)).thenReturn(decoderDto);
-    ResponseEntity<DecoderDto> response = decoderController.createDecoder(decoderDto);
+    when(decoderMapper.toModel(any())).thenReturn(decoderModel);
+
+    ResponseEntity<DecoderModel> response = decoderController.createDecoder(decoderModel);
+
     assertEquals(200, response.getStatusCodeValue());
   }
 
   @Test
   final void testCreateDecoderWithoutChannels() {
-    decoderDto.setInput(Collections.emptySet());
+    decoderModel.setInput(Collections.emptyList());
     assertThrows(
         ExceptionType.MissingChannelsException.class,
-        () -> decoderController.createDecoder(decoderDto));
+        () -> decoderController.createDecoder(decoderModel));
   }
 
   // When a device is available in the DB
@@ -134,7 +148,7 @@ class DecoderControllerTest {
   final void testCreateDecoderAlreadyExists() {
     assertThrows(
         ExceptionType.DeviceNotFoundException.class,
-        () -> decoderController.createDecoder(decoderDto));
+        () -> decoderController.createDecoder(decoderModel));
   }
 
   // When a decoder is available in the DB
@@ -159,9 +173,11 @@ class DecoderControllerTest {
   final void testUpdateDecoder() {
     when(decoderDao.findDecoder(user, DecoderFixture.SERIAL_NUMBER))
         .thenReturn(Optional.of(decoderDto));
+    when(decoderMapper.toDto(decoderModel)).thenReturn(decoderDto);
     when(decoderDao.save(user, decoderDto)).thenReturn(decoderDto);
+    when(decoderMapper.toModel(decoderDto)).thenReturn(decoderModel);
 
-    ResponseEntity<DecoderDto> response = decoderController.updateDecoder(decoderDto);
+    ResponseEntity<DecoderModel> response = decoderController.updateDecoder(decoderModel);
 
     assertEquals(200, response.getStatusCodeValue());
   }
@@ -174,7 +190,7 @@ class DecoderControllerTest {
 
     assertThrows(
         ExceptionType.DeviceNotFoundException.class,
-        () -> decoderController.updateDecoder(decoderDto));
+        () -> decoderController.updateDecoder(decoderModel));
   }
 
   @Test

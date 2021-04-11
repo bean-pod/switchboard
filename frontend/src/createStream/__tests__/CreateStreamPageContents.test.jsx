@@ -16,6 +16,9 @@ import InputChannelInfo from "../../model/InputChannelInfo";
 import * as SnackbarHandler from "../../general/SnackbarMessage";
 
 Enzyme.configure({ adapter: new Adapter() });
+jest.mock("../../api/DeviceApi");
+jest.spyOn(DeviceApi, "getSenders");
+jest.spyOn(DeviceApi, "getReceivers");
 
 describe("<CreateStreamPageContents/> class component", () => {
   let wrapper;
@@ -26,6 +29,8 @@ describe("<CreateStreamPageContents/> class component", () => {
   });
   describe("render() function returns a component that", () => {
     beforeEach(() => {
+      DeviceApi.getSenders.mockResolvedValue([]);
+      DeviceApi.getReceivers.mockResolvedValue([]);
       wrapper = Enzyme.shallow(<CreateStreamPageContents />);
     });
     it("Contains 5 <Grid/> Components", () => {
@@ -145,31 +150,37 @@ describe("<CreateStreamPageContents/> class component", () => {
     });
   });
   describe("componentDidMount() function", () => {
-    it("calls DeviceApi.getSenders() and getReceivers()", () => {
+    it("calls DeviceApi.getSenders() and getReceivers()", async () => {
       const dummySenders = [new DeviceInfo("Beep")];
       const dummyReceivers = [new DeviceInfo("boop!")];
 
-      jest.spyOn(DeviceApi, "getSenders").mockImplementation(() => {
-        return dummySenders;
-      });
-      jest.spyOn(DeviceApi, "getReceivers").mockImplementation(() => {
-        return dummyReceivers;
-      });
+      DeviceApi.getSenders.mockResolvedValue(dummySenders);
+      DeviceApi.getReceivers.mockResolvedValue(dummyReceivers);
+
       wrapper = Enzyme.shallow(<CreateStreamPageContents />, {
         disableLifecycleMethods: true
       });
+
+      const setSendersSpy = jest.spyOn(wrapper.instance(), "setSenders");
+
+      const setReceiversSpy = jest.spyOn(wrapper.instance(), "setReceivers");
+
       wrapper.instance().componentDidMount();
 
-      expect(DeviceApi.getSenders).toHaveBeenCalledWith(
-        wrapper.instance().setSenders
-      );
-      expect(DeviceApi.getReceivers).toHaveBeenCalledWith(
-        wrapper.instance().setReceivers
-      );
+      expect(DeviceApi.getSenders).toHaveBeenCalled();
+      expect(DeviceApi.getReceivers).toHaveBeenCalled();
+
+      await Promise.resolve(setImmediate);
+
+      expect(setSendersSpy).toHaveBeenCalledWith(dummySenders);
+      expect(setReceiversSpy).toHaveBeenCalledWith(dummyReceivers);
     });
   });
   describe("State setting functions", () => {
     beforeEach(() => {
+      DeviceApi.getSenders.mockResolvedValue([]);
+      DeviceApi.getReceivers.mockResolvedValue([]);
+
       wrapper = Enzyme.shallow(<CreateStreamPageContents />);
     });
     it("setSenders() function should set the state", () => {
@@ -299,6 +310,8 @@ describe("<CreateStreamPageContents/> class component", () => {
 
     beforeEach(() => {
       jest.spyOn(StreamApi, "createStream");
+      DeviceApi.getSenders.mockResolvedValue([]);
+      DeviceApi.getReceivers.mockResolvedValue([]);
       wrapper = Enzyme.shallow(<CreateStreamPageContents />);
     });
 

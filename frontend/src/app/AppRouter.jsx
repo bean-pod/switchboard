@@ -38,8 +38,8 @@ export default function AppRouter() {
         <ProtectedRoute
           path="/Devices"
           authenticationRequired
-          render={() => {
-            return <DeviceListPage />;
+          render={(location) => {
+            return <DeviceListPage location={location} />;
           }}
         />
         <ProtectedRoute
