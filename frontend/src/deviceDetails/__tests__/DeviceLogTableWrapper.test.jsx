@@ -130,7 +130,7 @@ describe("<DeviceLogTableWrapper/> Class Component", () => {
             columns: shallowWrapper.columns
           };
 
-          const logTableProps = LogTable.props();
+          const logTableProps = logTable.props();
           expect(logTableProps).toStrictEqual(expected);
         });
       });
