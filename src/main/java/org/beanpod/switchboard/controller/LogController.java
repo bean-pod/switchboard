@@ -63,7 +63,7 @@ public class LogController implements LogApi {
     Optional<DeviceDto> deviceLookup = deviceDao.findDevice(createLogRequest.getSerialNumber());
 
     if (deviceLookup.isEmpty()) {
-      throw new ExceptionType.UnknownException(CONTROLLER_NAME);
+      throw new ExceptionType.DeviceNotFoundException(CONTROLLER_NAME);
     }
 
     return Optional.of(createLogRequest)

@@ -122,7 +122,7 @@ class LogControllerTest {
     when(deviceDao.findDevice(DeviceFixture.SERIAL_NUMBER)).thenReturn(Optional.empty());
 
     assertThrows(
-        ExceptionType.UnknownException.class,
+        ExceptionType.DeviceNotFoundException.class,
         () -> logController.createLog(LogFixture.getCreateLogRequest()));
   }
 
