@@ -67,7 +67,8 @@ public class StreamLogServiceTest {
             LogFixture.message,
             DeviceFixture.SERIAL_NUMBER,
             DeviceFixture.SERIAL_NUMBER2,
-            String.valueOf(StreamFixture.ID));
+            String.valueOf(StreamFixture.ID),
+            "info");
 
     assertEquals(streamLogDto, actualStreamLogDto);
   }
