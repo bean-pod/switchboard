@@ -15,15 +15,15 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
     nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface DecoderMapper {
 
-  DecoderDto toDecoderDto(DecoderEntity decoderEntity);
+  DecoderDto toDto(DecoderEntity decoderEntity);
 
   @Named("toDecoderDtoShallow")
   @Mapping(target = "input", ignore = true)
-  DecoderDto toDecoderDtoShallow(DecoderEntity decoderEntity);
+  DecoderDto toDtoShallow(DecoderEntity decoderEntity);
 
-  List<DecoderDto> toDecoderDtos(List<DecoderEntity> decoderEntities);
+  List<DecoderDto> toDtos(List<DecoderEntity> decoderEntities);
 
-  DecoderEntity toDecoderEntity(DecoderDto decoderDto);
+  DecoderEntity toEntity(DecoderDto decoderDto);
 
   void updateDecoderFromDto(DecoderDto dto, @MappingTarget DecoderDto target);
 }

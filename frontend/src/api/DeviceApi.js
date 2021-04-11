@@ -1,6 +1,5 @@
 import axios from "axios";
 import DeviceInfo from "../model/DeviceInfo";
-import * as SampleData from "./SampleData";
 import OutputChannelInfo from "../model/OutputChannelInfo";
 import InputChannelInfo from "../model/InputChannelInfo";
 import { getAuthorizationHeader } from "./AuthenticationUtil";
@@ -19,11 +18,11 @@ function getStatus(lastCommunicationString) {
   return "Offline";
 }
 
-export function getSenders(callback) {
-  axios
+export async function getSenders() {
+  return axios
     .get(process.env.REACT_APP_ENCODER, getAuthorizationHeader())
     .then((senders) => {
-      callback(
+      return Promise.resolve(
         senders.data.map((sender) => {
           let channels = [];
           if (sender.output) {
@@ -53,17 +52,14 @@ export function getSenders(callback) {
           );
         })
       );
-    })
-    .catch(() => {
-      SampleData.getSenders(callback);
     });
 }
 
-export function getReceivers(callback) {
-  axios
+export async function getReceivers() {
+  return axios
     .get(process.env.REACT_APP_DECODER, getAuthorizationHeader())
     .then((receivers) => {
-      callback(
+      return Promise.resolve(
         receivers.data.map((receiver) => {
           let channels = [];
           if (receiver.input) {
@@ -93,9 +89,6 @@ export function getReceivers(callback) {
           );
         })
       );
-    })
-    .catch(() => {
-      SampleData.getReceivers(callback);
     });
 }
 

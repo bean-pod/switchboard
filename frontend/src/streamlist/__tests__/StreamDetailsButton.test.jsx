@@ -2,13 +2,11 @@ import React from "react";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 
-import { IconButton, Tooltip } from "@material-ui/core";
-import { Description } from "@material-ui/icons";
-import { NavLink } from "react-router-dom";
-
+import { afterEach } from "@jest/globals";
 import DeviceInfo from "../../model/DeviceInfo";
 import StreamInfo from "../../model/StreamInfo";
 import StreamDetailsButton from "../StreamDetailsButton";
+import DetailsButton from "../../general/Buttons/DetailsButton";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -24,7 +22,10 @@ describe("<StreamDetailsButton/> functional component", () => {
         <StreamDetailsButton streamInfo={dummyStream} />
       );
     });
-    it("contains 1 NavLink component with expected props", () => {
+    afterEach(() => {
+      wrapper.unmount();
+    });
+    it("contains 1 DetailsButton component with expected props", () => {
       const expectedPath = `/Streams/Details/${dummyStream.id}`;
       const expectedState = {
         stream: dummyStream
@@ -34,20 +35,12 @@ describe("<StreamDetailsButton/> functional component", () => {
         state: expectedState
       };
 
-      const navLink = wrapper.find(NavLink);
-      expect(navLink).toHaveLength(1);
+      const detailsButton = wrapper.find(DetailsButton);
+      expect(detailsButton).toHaveLength(1);
 
-      const navLinkProps = navLink.first().props();
-      expect(navLinkProps.to).toStrictEqual(expectedToProp);
-    });
-    it("contains 1 IconButton and 1 Description component", () => {
-      expect(wrapper.find(IconButton)).toHaveLength(1);
-      expect(wrapper.find(Description)).toHaveLength(1);
-    });
-    it("contains 1 Tooltip component with expected props", () => {
-      const tooltip = wrapper.find(Tooltip);
-      expect(tooltip).toHaveLength(1);
-      expect(tooltip.props().title).toEqual("View Stream Details");
+      const detailsButtonProps = detailsButton.props();
+      expect(detailsButtonProps.navLinkInfo).toStrictEqual(expectedToProp);
+      expect(detailsButtonProps.tooltipTitle).toEqual("View Stream Details");
     });
   });
 });

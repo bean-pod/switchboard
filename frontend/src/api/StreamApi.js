@@ -16,6 +16,7 @@ export async function getStream(streamId) {
       const stream = response.data;
       return new StreamInfo(
         stream.id,
+        stream.startDate,
         convertDeviceToDataObject(stream.outputChannel.encoder),
         convertDeviceToDataObject(stream.inputChannel.decoder),
         stream.outputChannel.channel.port,

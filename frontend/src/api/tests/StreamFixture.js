@@ -40,7 +40,8 @@ export const firstStreamResponse = {
       output: null
     }
   },
-  isRendezvous: false
+  isRendezvous: false,
+  startDate: "2020-10-31T08:15:30"
 };
 
 export const secondStreamResponse = {
@@ -83,7 +84,8 @@ export const secondStreamResponse = {
       output: null
     }
   },
-  isRendezvous: false
+  isRendezvous: false,
+  startDate: "2020-10-31T08:15:30"
 };
 
 export const streamStatResponse = {

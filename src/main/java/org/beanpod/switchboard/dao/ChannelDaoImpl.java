@@ -17,8 +17,7 @@ public class ChannelDaoImpl {
   private final ChannelMapper channelMapper;
 
   public ChannelDto save(ChannelDto channelDto) {
-    return channelMapper.toChannelDto(
-        channelRepository.save(channelMapper.toChannelEntity(channelDto)));
+    return channelMapper.toDto(channelRepository.save(channelMapper.toEntity(channelDto)));
   }
 
   public List<ChannelEntity> getChannels() {
@@ -26,10 +25,10 @@ public class ChannelDaoImpl {
   }
 
   public Optional<ChannelDto> findChannel(Long id) {
-    return channelRepository.findChannelEntitiesById(id).map(channelMapper::toChannelDto);
+    return channelRepository.findChannelEntityById(id).map(channelMapper::toDto);
   }
 
   public Long deleteChannel(Long id) {
-    return channelRepository.deleteChannelEntitiesById(id);
+    return channelRepository.deleteChannelEntityById(id);
   }
 }
