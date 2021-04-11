@@ -3,6 +3,7 @@ package org.beanpod.switchboard.controller;
 import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.dao.StreamDaoImpl;
@@ -21,7 +22,6 @@ import org.openapitools.model.CreateStreamRequest;
 import org.openapitools.model.StreamModel;
 import org.openapitools.model.StreamStatModel;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController

@@ -43,7 +43,7 @@ class LogControllerTest {
   private static CreateStreamLogRequest createStreamLogRequest;
   private static StreamLogDto streamLogDto;
   private static StreamLogModel streamLogModel;
-  public static UserEntity user;
+  private static UserEntity user;
   @InjectMocks private LogController logController;
   @Mock private LogDaoImpl logDao;
   @Mock private LogMapper logMapper;
@@ -51,9 +51,9 @@ class LogControllerTest {
   @Mock private StreamLogDaoImpl streamLogDao;
   @Mock private StreamLogService streamLogService;
   @Mock private StreamLogMapper streamLogMapper;
-  @Mock HttpServletRequest httpServletRequest;
-  @Mock UserPrincipal userPrincipal;
-  @Mock UserDaoImpl userDao;
+  @Mock private HttpServletRequest httpServletRequest;
+  @Mock private UserPrincipal userPrincipal;
+  @Mock private UserDaoImpl userDao;
 
   @BeforeEach
   void setup() {
@@ -77,7 +77,7 @@ class LogControllerTest {
 
   @Test
   final void testRetrieveAllLogs() {
-    when(logDao.getLogs()).thenReturn(logModels);
+    when(logDao.getLogs(user.getId())).thenReturn(logModels);
     ResponseEntity<List<LogModel>> response = logController.retrieveAllLogs();
     assertEquals(HttpStatus.OK, response.getStatusCode());
     assertIterableEquals(logModels, response.getBody());
@@ -85,7 +85,7 @@ class LogControllerTest {
 
   @Test
   final void testRetrieveDeviceLogs() {
-    when(logDao.getDeviceLogs("1")).thenReturn(logModels);
+    when(logDao.getDeviceLogs("1", user.getId())).thenReturn(logModels);
     ResponseEntity<List<LogModel>> response = logController.retrieveDeviceLogs("1");
     assertEquals(HttpStatus.OK, response.getStatusCode());
     assertIterableEquals(logModels, response.getBody());
@@ -106,7 +106,7 @@ class LogControllerTest {
 
   @Test
   final void testRetrieveStreamLogs() {
-    when(streamLogDao.getStreamLogs(1L)).thenReturn(streamLogModels);
+    when(streamLogDao.getStreamLogs(1L, user.getId())).thenReturn(streamLogModels);
     ResponseEntity<List<StreamLogModel>> response = logController.retrieveStreamLogs(1L);
     assertEquals(HttpStatus.OK, response.getStatusCode());
     assertIterableEquals(streamLogModels, response.getBody());

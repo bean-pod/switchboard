@@ -39,17 +39,20 @@ public class LogController implements LogApi {
 
   @Override
   public ResponseEntity<List<StreamLogModel>> retrieveStreamLogs(@PathVariable Long streamId) {
-    return ResponseEntity.ok(streamLogDao.getStreamLogs(streamId));
+    UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
+    return ResponseEntity.ok(streamLogDao.getStreamLogs(streamId, user.getId()));
   }
 
   @Override
   public ResponseEntity<List<LogModel>> retrieveAllLogs() {
-    return ResponseEntity.ok(logDao.getLogs());
+    UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
+    return ResponseEntity.ok(logDao.getLogs(user.getId()));
   }
 
   @Override
   public ResponseEntity<List<LogModel>> retrieveDeviceLogs(@PathVariable String serialNumber) {
-    return ResponseEntity.ok(logDao.getDeviceLogs(serialNumber));
+    UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
+    return ResponseEntity.ok(logDao.getDeviceLogs(serialNumber, user.getId()));
   }
 
   @Override

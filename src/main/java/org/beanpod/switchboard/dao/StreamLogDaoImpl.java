@@ -19,7 +19,8 @@ public class StreamLogDaoImpl {
     return streamLogMapper.toDto(logStreamRepository.save(streamLogMapper.toEntity(streamLogDto)));
   }
 
-  public List<StreamLogModel> getStreamLogs(Long streamId) {
-    return streamLogMapper.toModels(logStreamRepository.findByStreamId(streamId.toString()));
+  public List<StreamLogModel> getStreamLogs(Long streamId, Long userId) {
+    return streamLogMapper.toModels(
+        logStreamRepository.findByStreamId(streamId.toString(), userId));
   }
 }
