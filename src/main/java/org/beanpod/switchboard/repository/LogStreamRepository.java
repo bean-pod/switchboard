@@ -20,5 +20,6 @@ public interface LogStreamRepository extends JpaRepository<StreamLogEntity, Long
               + "where us.id = de.user_id and us.id = :id and de.serial_number = lo.serial_number "
               + "and lo.id = st.log_id and st.stream_id = :streamId",
       nativeQuery = true)
-  List<StreamLogEntity> findByStreamId(@Param("streamId") String streamId, @Param("id") Long userId);
+  List<StreamLogEntity> findByStreamId(
+      @Param("streamId") String streamId, @Param("id") Long userId);
 }
