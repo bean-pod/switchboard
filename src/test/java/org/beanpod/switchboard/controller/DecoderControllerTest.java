@@ -173,7 +173,9 @@ class DecoderControllerTest {
   final void testUpdateDecoder() {
     when(decoderDao.findDecoder(user, DecoderFixture.SERIAL_NUMBER))
         .thenReturn(Optional.of(decoderDto));
+    when(decoderMapper.toDecoderDto(decoderModel)).thenReturn(decoderDto);
     when(decoderDao.save(user, decoderDto)).thenReturn(decoderDto);
+    when(decoderMapper.toDecoderModel(decoderDto)).thenReturn(decoderModel);
 
     ResponseEntity<DecoderModel> response = decoderController.updateDecoder(decoderModel);
 
