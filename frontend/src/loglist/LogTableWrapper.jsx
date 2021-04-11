@@ -13,11 +13,12 @@ export default class LogTableWrapper extends React.Component {
       {
         title: "ID",
         field: "id",
-        cellStyle: { width: "10%" }
+        cellStyle: { width: "5%" }
       },
       {
         title: "Date",
         field: "dateTime",
+        defaultSort: "desc",
         cellStyle: { width: "15%" }
       },
       {
@@ -50,13 +51,9 @@ export default class LogTableWrapper extends React.Component {
     });
   }
 
-  getColumnInfo() {
-    return this.columns;
-  }
-
   render() {
     const { logs } = this.state;
-    return <LogTable logs={logs} columns={this.getColumnInfo()} />;
+    return <LogTable logs={logs} columns={this.columns} />;
   }
 }
 

@@ -8,9 +8,6 @@ export default function AdminPanelCard() {
   return (
     <DashboardCard title="Admin Panel">
       <Grid item xs={4}>
-        <DashBoardButton href="/Admin">View Users</DashBoardButton>
-      </Grid>
-      <Grid item xs={4}>
         <DashBoardButton href="/Admin/New">Create a User</DashBoardButton>
       </Grid>
     </DashboardCard>

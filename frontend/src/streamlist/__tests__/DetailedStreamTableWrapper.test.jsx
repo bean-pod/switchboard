@@ -10,97 +10,55 @@ import * as SampleData from "../../api/SampleData";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe("<DetailedStreamTableWrapper/> Component", () => {
+describe("<DetailedStreamTableWrapper/> Class Component", () => {
   let wrapper;
+  let wrapperInstance;
 
   beforeEach(() => {
     wrapper = Enzyme.shallow(<DetailedStreamTableWrapper />);
+    wrapperInstance = wrapper.instance();
   });
 
   afterEach(() => {
     wrapper.unmount();
   });
 
-  it("Contains 1 <StreamTableWrapper/> component with expected prop values", () => {
-    expect(wrapper.find(StreamTableWrapper)).toHaveLength(1);
+  describe("render() function", () => {
+    describe("returns a component that", () => {
+      it("Contains 1 <StreamTableWrapper/> component with expected props", () => {
+        expect(wrapper.find(StreamTableWrapper)).toHaveLength(1);
 
-    const streamTableProps = wrapper.find(StreamTableWrapper).props();
-    expect(streamTableProps.columns).toEqual(
-      wrapper.instance().getDetailedColumns()
-    );
+        const streamsTableProps = wrapper.find(StreamTableWrapper).props();
+        expect(streamsTableProps.columns).toStrictEqual(
+          wrapperInstance.detailedColumns
+        );
+      });
+    });
   });
 
-  describe("getDetailedColumns() function", () => {
-    let result;
-
-    beforeEach(() => {
-      result = wrapper.instance().getDetailedColumns();
-    });
-
-    it("should return the expected column info to be passed as a prop to <StreamTableWrapper/>", () => {
-      const expected = [
-        {
-          title: "ID",
-          field: "id"
-        },
-        {
-          title: "Date",
-          field: "date"
-        },
-        {
-          title: "Sender",
-          field: "sender.name"
-        },
-        {
-          title: "Receiver",
-          field: "receiver.name"
-        },
-        {
-          title: "Status",
-          field: "status"
-        },
-        {
-          title: "Type",
-          field: "type"
-        },
-        {
-          title: "Time Elapsed",
-          field: "time"
-        },
-        {
-          title: "Actions",
-          field: "action",
-          filtering: false,
-          sorting: false,
-          align: "center",
-          export: false
-        }
-      ];
-      expect(result).toMatchObject(expected);
-    });
+  describe("detailedColumns variable", () => {
     it(`Column 5 (status) has a render property that returns 1 <StatusIndicator/> with expected props`, () => {
       const dummyData = {
         status: "Online"
       };
+      const expectedRenderedComponent = (
+        <StatusIndicator status={dummyData.status} />
+      );
 
-      const expectedRenderFunction = function Status(rowData) {
-        return <StatusIndicator status={rowData.status} />;
-      };
-
-      const expectedRenderResult = expectedRenderFunction(dummyData);
-      expect(result[4].render(dummyData)).toMatchObject(expectedRenderResult);
+      expect(
+        wrapperInstance.detailedColumns[4].render(dummyData)
+      ).toStrictEqual(expectedRenderedComponent);
     });
     it(`Column 8 (Actions) has a render property that returns 1 <StreamDetailsButton/> with expected props`, () => {
       const sampleStream = SampleData.getSampleStream();
 
-      const expectedRenderFunction = function Actions(rowData) {
-        return <StreamDetailsButton streamInfo={rowData} />;
-      };
-
-      const expectedRenderResult = expectedRenderFunction(sampleStream);
-      expect(result[7].render(sampleStream)).toMatchObject(
-        expectedRenderResult
+      const expectedRenderedComponent = (
+        <StreamDetailsButton streamInfo={sampleStream} />
       );
+
+      expect(
+        wrapperInstance.detailedColumns[5].render(sampleStream)
+      ).toStrictEqual(expectedRenderedComponent);
     });
   });
 });

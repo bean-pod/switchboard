@@ -1,5 +1,6 @@
 package org.beanpod.switchboard.service;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +14,7 @@ import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.dto.StreamStatDto;
 import org.beanpod.switchboard.dto.mapper.StreamMapper;
 import org.beanpod.switchboard.entity.StreamEntity;
+import org.beanpod.switchboard.entity.UserEntity;
 import org.beanpod.switchboard.util.NetworkingUtil;
 import org.openapitools.model.CreateStreamRequest;
 import org.springframework.stereotype.Component;
@@ -29,7 +31,7 @@ public class StreamServiceImpl implements StreamService {
   private final NetworkingUtil networkingUtil;
 
   @Override
-  public StreamDto createStream(CreateStreamRequest createStreamRequest) {
+  public StreamDto createStream(UserEntity user, CreateStreamRequest createStreamRequest) {
 
     log.info(
         "Creating a stream request between input channel {} and output channel {}",
@@ -37,18 +39,19 @@ public class StreamServiceImpl implements StreamService {
         createStreamRequest.getOutputChannelId());
 
     InputChannelDto inputChannelDto =
-        inputChannelDao.getInputChannelById(createStreamRequest.getInputChannelId());
+        inputChannelDao.getInputChannelById(user, createStreamRequest.getInputChannelId());
     OutputChannelDto outputChannelDto =
-        outputChannelDao.getOutputChannelById(createStreamRequest.getOutputChannelId());
+        outputChannelDao.getOutputChannelById(user, createStreamRequest.getOutputChannelId());
 
     StreamDto streamDto =
         StreamDto.builder()
             .inputChannel(inputChannelDto)
             .outputChannel(outputChannelDto)
             .isRendezvous(shouldUseRendezvousMode(inputChannelDto, outputChannelDto))
+            .startDate(OffsetDateTime.now())
             .build();
 
-    StreamDto streamDto1 = streamDao.saveStream(streamDto);
+    StreamDto streamDto1 = streamDao.saveCreateStream(streamDto);
     log.debug(
         "Stream created between input channel {} and output channel {}",
         createStreamRequest.getInputChannelId(),
@@ -57,25 +60,25 @@ public class StreamServiceImpl implements StreamService {
   }
 
   @Override
-  public StreamDto updateStream(StreamDto streamDto) {
+  public StreamDto updateStream(UserEntity user, StreamDto streamDto) {
     log.info("Updating stream {}", streamDto.getId());
-    StreamEntity updatedStreamEntity = streamDao.updateStream(streamDto);
+    StreamEntity updatedStreamEntity = streamDao.updateStream(user, streamDto);
     return mapper.toDto(updatedStreamEntity);
   }
 
-  public StreamStatDto updateStreamStat(StreamStatDto streamStatDto) {
+  public StreamStatDto updateStreamStat(UserEntity user, StreamStatDto streamStatDto) {
     log.info("Updating stream statistics {}", streamStatDto.getId());
-    return streamDao.updateStreamStat(streamStatDto);
+    return streamDao.updateStreamStat(user, streamStatDto);
   }
 
   @Override
-  public List<StreamStatDto> getStreamStats() {
-    return streamDao.getStreamStats();
+  public List<StreamStatDto> getStreamStats(UserEntity user) {
+    return streamDao.getStreamStats(user);
   }
 
   @Override
-  public StreamStatDto getStreamStat(Long id) {
-    return streamDao.getStreamStat(id).orElse(null);
+  public StreamStatDto getStreamStat(UserEntity user, Long id) {
+    return streamDao.getStreamStat(user, id).orElse(null);
   }
 
   private boolean shouldUseRendezvousMode(

@@ -30,32 +30,6 @@ describe("<LogTableWrapper/> Class Component", () => {
     jest.clearAllMocks();
   });
 
-  describe("render() function", () => {
-    beforeEach(() => {
-      dummySource.getAllLogs.mockResolvedValue(dummyLog);
-      wrapper = Enzyme.shallow(
-        <LogTableWrapper logsDataSource={dummySource} />
-      );
-    });
-    describe("returns a component that", () => {
-      it("Contains 1 <LogTable/> component with expected props", () => {
-        const logTable = wrapper.find(LogTable);
-        expect(logTable).toHaveLength(1);
-
-        const wrapperState = wrapper.state();
-        const shallowWrapper = wrapper.instance();
-        const expected = {
-          logs: wrapperState.logs,
-          columns: shallowWrapper.getColumnInfo()
-        };
-
-        const logTableProps = logTable.props();
-        expect(logTableProps.logs).toBe(expected.logs);
-        expect(logTableProps.columns).toEqual(expected.columns);
-      });
-    });
-  });
-
   describe("componentDidMount() function", () => {
     beforeEach(() => {
       wrapper = Enzyme.shallow(
@@ -101,60 +75,47 @@ describe("<LogTableWrapper/> Class Component", () => {
     });
   });
 
-  describe("handleLogsChange()", () => {
+  describe("<LogTableWrapper/> class functions", () => {
     beforeEach(() => {
       dummySource.getAllLogs.mockResolvedValue(dummyLog);
       wrapper = Enzyme.shallow(
         <LogTableWrapper logsDataSource={dummySource} />
       );
     });
-    it("should set the state", () => {
-      const startingState = {
-        logs: dummyLog
-      };
-      const expectedValue = [new LogInfo(1, null, "Info", "Log 1 info")];
-      const expectedState = {
-        logs: expectedValue
-      };
 
-      expect(wrapper.state()).toStrictEqual(startingState);
-      wrapper.instance().handleLogsChange(expectedValue);
-      expect(wrapper.state()).toStrictEqual(expectedState);
-    });
-  });
+    describe("handleLogsChange()", () => {
+      it("should set the state", () => {
+        const startingState = {
+          logs: dummyLog
+        };
+        const expectedValue = [new LogInfo(1, null, "Info", "Log 1 info")];
+        const expectedState = {
+          logs: expectedValue
+        };
 
-  describe("getColumnInfo()", () => {
-    beforeEach(() => {
-      dummySource.getAllLogs.mockResolvedValue(dummyLog);
-      wrapper = Enzyme.shallow(
-        <LogTableWrapper logsDataSource={dummySource} />
-      );
+        expect(wrapper.state()).toStrictEqual(startingState);
+        wrapper.instance().handleLogsChange(expectedValue);
+        expect(wrapper.state()).toStrictEqual(expectedState);
+      });
     });
-    it("should return the expected column to be passed to <LogTable/> component", () => {
-      const expectedValue = [
-        {
-          title: "ID",
-          field: "id",
-          cellStyle: { width: "10%" }
-        },
-        {
-          title: "Date",
-          field: "dateTime",
-          cellStyle: { width: "15%" }
-        },
-        {
-          title: "Level",
-          field: "level",
-          cellStyle: { width: "10%" }
-        },
-        {
-          title: "Message",
-          field: "message",
-          sorting: false
-        }
-      ];
-      const result = wrapper.instance().getColumnInfo();
-      expect(result).toStrictEqual(expectedValue);
+
+    describe("render() function", () => {
+      describe("returns a component that", () => {
+        it("Contains 1 <LogTable/> component with expected props", () => {
+          const logTable = wrapper.find(LogTable);
+          expect(logTable).toHaveLength(1);
+
+          const wrapperState = wrapper.state();
+          const shallowWrapper = wrapper.instance();
+          const expected = {
+            logs: wrapperState.logs,
+            columns: shallowWrapper.columns
+          };
+
+          const logTableProps = logTable.props();
+          expect(logTableProps).toStrictEqual(expected);
+        });
+      });
     });
   });
 });

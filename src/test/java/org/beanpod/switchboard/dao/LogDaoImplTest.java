@@ -46,7 +46,7 @@ class LogDaoImplTest {
   @Test
   final void getLogs() {
     when(logRepository.findAll()).thenReturn(logEntities);
-    when(logMapper.toLogModels(any())).thenReturn(logModels);
+    when(logMapper.toModels(any())).thenReturn(logModels);
     List<LogModel> logs = logDao.getLogs();
     assertIterableEquals(logModels, logs);
   }
@@ -54,15 +54,15 @@ class LogDaoImplTest {
   @Test
   final void testGetDeviceLogs() {
     when(logRepository.findBySerialNumber(DeviceFixture.SERIAL_NUMBER)).thenReturn(logEntities);
-    when(logMapper.toLogModels(any())).thenReturn(logModels);
+    when(logMapper.toModels(any())).thenReturn(logModels);
     List<LogModel> logs = logDao.getDeviceLogs(DeviceFixture.SERIAL_NUMBER);
     assertIterableEquals(logModels, logs);
   }
 
   @Test
   final void testCreateLog() {
-    when(logMapper.logEntityToLogDto(logEntity)).thenReturn(logDto);
-    when(logMapper.toLogEntity(logDto)).thenReturn(logEntity);
+    when(logMapper.toDto(logEntity)).thenReturn(logDto);
+    when(logMapper.toEntity(logDto)).thenReturn(logEntity);
     when(logRepository.save(logEntity)).thenReturn(logEntity);
 
     LogDto responseLogDto = logDao.createLog(logDto);

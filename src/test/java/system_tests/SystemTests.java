@@ -24,6 +24,7 @@ import org.openapitools.model.DeviceModel;
 import org.openapitools.model.EncoderModel;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -91,7 +92,6 @@ public class SystemTests {
   @Order(2)
   void testAddEncoder() {
     // Mock sender self-registration
-
     testRestTemplate.postForObject(
         "http://localhost:8080/device", DeviceFixture.getDeviceModel(), DeviceModel.class);
     testRestTemplate.postForObject(
@@ -101,6 +101,18 @@ public class SystemTests {
 
     // Go to List of Senders
     driver.get("http://localhost:3000/Devices");
+    {
+      WebElement element = driver.findElement(By.xpath("//div[@id='device-table-title-select']"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).clickAndHold().perform();
+    }
+    {
+      WebElement element = driver.findElement(By.xpath("//div[@id='menu-']/div[3]/ul/li"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).release().perform();
+    }
+    driver.findElement(By.cssSelector("body")).click();
+    driver.findElement(By.xpath("//li[contains(.,'Senders')]")).click();
 
     // Check for encoder
     WebElement encodersTable = driver.findElement(By.tagName("table")); // find encoders table
@@ -117,17 +129,49 @@ public class SystemTests {
             .anyMatch(
                 row ->
                     row.getText()
-                        .contains(EncoderFixture.getEncoderModel().getDevice().getDisplayName()));
+                        .contains(
+                            EncoderFixture.getEncoderModelWithOutputChannel()
+                                .getDevice()
+                                .getDisplayName()));
 
     assertTrue(assertValue);
   }
 
   @Test
   @Order(3)
+  void testDeviceCreatedLog() {
+    // Go to list of logs
+    driver.get("http://localhost:3000/Logs");
+
+    // Check for device created log
+    WebElement logsTable = driver.findElement(By.tagName("table"));
+
+    {
+      WebDriverWait wait = new WebDriverWait(driver, 5);
+      wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName("tr")));
+    }
+
+    List<WebElement> logsRows =
+        logsTable.findElements(By.tagName("tr")); // find all tr elements inside found table
+    boolean assertValue =
+        logsRows.stream()
+            .anyMatch(
+                row ->
+                    row.getText()
+                        .contains(
+                            "Device with serial number "
+                                + EncoderFixture.getEncoderModelWithOutputChannel()
+                                    .getDevice()
+                                    .getSerialNumber()
+                                + " has been created"));
+
+    assertTrue(assertValue);
+  }
+
+  @Test
+  @Order(4)
   void testAddDecoder() {
     // mock receiver self-registration
-    testRestTemplate.postForObject(
-        "http://localhost:8080/device", DeviceFixture.getDeviceModel(), DeviceModel.class);
     testRestTemplate.postForObject(
         "http://localhost:8080/decoder",
         DecoderFixture.getDecoderModelWithInputChannel(),
@@ -135,7 +179,18 @@ public class SystemTests {
 
     // Go to List of Receivers
     driver.get("http://localhost:3000/Devices");
-    driver.findElement(By.xpath("//button[@id='vertical-tab-1']/span")).click();
+    {
+      WebElement element = driver.findElement(By.xpath("//div[@id='device-table-title-select']"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).clickAndHold().perform();
+    }
+    {
+      WebElement element = driver.findElement(By.xpath("//div[@id='menu-']/div[3]/ul/li[2]"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).release().perform();
+    }
+    driver.findElement(By.cssSelector("body")).click();
+    driver.findElement(By.xpath("//li[contains(.,'Receivers')]")).click();
 
     // Check for decoder
     WebElement decodersTable = driver.findElement(By.tagName("table")); // find encoders table
@@ -152,64 +207,128 @@ public class SystemTests {
             .anyMatch(
                 row ->
                     row.getText()
-                        .contains(DecoderFixture.getDecoderModel().getDevice().getDisplayName()));
+                        .contains(
+                            DecoderFixture.getDecoderModelWithInputChannel()
+                                .getDevice()
+                                .getDisplayName()));
 
     assertTrue(assertValue);
   }
 
   @Test
-  @Order(4)
+  @Order(5)
   void testCreateStream() {
+    // Go to create stream page
     driver.get("http://localhost:3000/Streams/New");
-    {
-      WebDriverWait wait = new WebDriverWait(driver, 100);
-      wait.until(
-          ExpectedConditions.elementToBeClickable(
-              By.cssSelector("#SenderTable .MuiList-root .MuiSvgIcon-root")));
-    }
-    driver.findElement(By.cssSelector("#SenderTable .MuiList-root .MuiSvgIcon-root")).click();
-    {
-      WebElement element;
-      WebDriverWait wait = new WebDriverWait(driver, 100);
-      element =
-          wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".MuiInput-input")));
-      Actions builder = new Actions(driver);
-      builder.moveToElement(element).clickAndHold().perform();
-    }
-    {
-      WebElement element;
-      WebDriverWait wait = new WebDriverWait(driver, 100);
-      element =
-          wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".MuiMenuItem-root")));
-      Actions builder = new Actions(driver);
-      builder.moveToElement(element).release().perform();
-    }
-    driver.findElement(By.cssSelector("body")).click();
-    driver.findElement(By.cssSelector(".MuiMenuItem-root")).click();
-    driver.findElement(By.cssSelector("#ReceiverTable .MuiList-root .MuiSvgIcon-root")).click();
-    {
-      WebElement element;
-      WebDriverWait wait = new WebDriverWait(driver, 100);
-      element =
-          wait.until(
-              ExpectedConditions.elementToBeClickable(
-                  By.xpath(
-                      "//div[@id='ReceiverTable']/div[3]/ul/div[2]/div/div/div/li/div[2]/div")));
-      Actions builder = new Actions(driver);
-      builder.moveToElement(element).clickAndHold().perform();
-    }
-    {
-      WebElement element;
-      WebDriverWait wait = new WebDriverWait(driver, 100);
-      element =
-          wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".MuiMenuItem-root")));
-      Actions builder = new Actions(driver);
-      builder.moveToElement(element).release().perform();
-    }
-    driver.findElement(By.cssSelector("body")).click();
-    driver.findElement(By.cssSelector(".MuiMenuItem-root")).click();
-    driver.findElement(By.cssSelector(".buttonText")).click();
 
+    // Create new stream
+    {
+      WebElement element =
+          driver.findElement(
+              By.xpath("//div[@id='root']/div[2]/div[3]/div/div/div/div/button/span"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).perform();
+    }
+    driver
+        .findElement(By.xpath("//div[@id='root']/div[2]/div[3]/div/div/div/div/button/span"))
+        .click();
+    {
+      WebElement element = driver.findElement(By.tagName("body"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element, 0, 0).perform();
+    }
+    driver
+        .findElement(By.xpath("//div[@id='dialog']/div[3]/div/div[2]/div/div/ul/div/div/span"))
+        .click();
+    {
+      WebElement element =
+          driver.findElement(By.xpath("//div[@id='dialog']/div[3]/div/div[3]/button[2]/span"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).perform();
+    }
+    driver.findElement(By.xpath("//div[@id='dialog']/div[3]/div/div[3]/button[2]/span")).click();
+    {
+      WebElement element = driver.findElement(By.tagName("body"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element, 0, 0).perform();
+    }
+    driver
+        .findElement(By.xpath("//div[@id='dialog']/div[3]/div/div[2]/div/div[2]/ul/div/div/span"))
+        .click();
+    {
+      WebElement element =
+          driver.findElement(By.xpath("//div[@id='dialog']/div[3]/div/div[3]/button[2]/span"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).perform();
+    }
+    driver.findElement(By.xpath("//div[@id='dialog']/div[3]/div/div[3]/button[2]/span")).click();
+    {
+      WebElement element = driver.findElement(By.tagName("body"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element, 0, 0).perform();
+    }
+    {
+      WebElement element =
+          driver.findElement(By.xpath("//div[@id='dialog']/div[3]/div/div[3]/button[2]/span"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).perform();
+    }
+    driver.findElement(By.xpath("//div[@id='dialog']/div[3]/div/div[3]/button[2]/span")).click();
+    {
+      WebElement element =
+          driver.findElement(
+              By.xpath("//div[@id='root']/div[2]/div[3]/div[3]/div/div/div/button/span"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).perform();
+    }
+    driver
+        .findElement(By.xpath("//div[@id='root']/div[2]/div[3]/div[3]/div/div/div/button/span"))
+        .click();
+    {
+      WebElement element = driver.findElement(By.tagName("body"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element, 0, 0).perform();
+    }
+    driver
+        .findElement(By.xpath("//div[@id='dialog']/div[3]/div/div[2]/div/div/ul/div/div/span"))
+        .click();
+    {
+      WebElement element =
+          driver.findElement(By.xpath("//div[@id='dialog']/div[3]/div/div[3]/button[2]/span"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).perform();
+    }
+    driver.findElement(By.xpath("//div[@id='dialog']/div[3]/div/div[3]/button[2]/span")).click();
+    {
+      WebElement element = driver.findElement(By.tagName("body"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element, 0, 0).perform();
+    }
+    driver
+        .findElement(By.xpath("//div[@id='dialog']/div[3]/div/div[2]/div/div[2]/ul/div/div/span"))
+        .click();
+    {
+      WebElement element =
+          driver.findElement(By.xpath("//div[@id='dialog']/div[3]/div/div[3]/button[2]/span"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).perform();
+    }
+    driver.findElement(By.xpath("//div[@id='dialog']/div[3]/div/div[3]/button[2]/span")).click();
+    driver.findElement(By.xpath("//div[@id='dialog']/div[3]/div/div[3]/button[2]/span")).click();
+    {
+      WebElement element =
+          driver.findElement(By.xpath("//div[@id='root']/div[2]/div[3]/div[4]/button/span"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).perform();
+    }
+    driver.findElement(By.xpath("//div[@id='root']/div[2]/div[3]/div[4]/button/span")).click();
+    {
+      WebElement element = driver.findElement(By.tagName("body"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element, 0, 0).perform();
+    }
+
+    // Go to view streams page
     driver.get("http://localhost:3000/Streams");
 
     // Check for stream creation
@@ -233,14 +352,91 @@ public class SystemTests {
   }
 
   @Test
-  @Order(5)
+  @Order(6)
+  void testStreamStartedLog() {
+    // Go to list of logs
+    driver.get("http://localhost:3000/Logs");
+
+    // Check for stream started log
+    WebElement logsTable = driver.findElement(By.tagName("table"));
+
+    {
+      WebDriverWait wait = new WebDriverWait(driver, 5);
+      wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName("tr")));
+    }
+
+    List<WebElement> logsRows =
+        logsTable.findElements(By.tagName("tr")); // find all tr elements inside found table
+    boolean assertValue =
+        logsRows.stream()
+            .anyMatch(
+                row ->
+                    row.getText()
+                        .contains(
+                            "A stream started from "
+                                + EncoderFixture.getEncoderModelWithOutputChannel()
+                                    .getOutput()
+                                    .stream()
+                                    .findFirst()
+                                    .get()
+                                    .getChannel()
+                                    .getName()
+                                + " of encoder "
+                                + EncoderFixture.getEncoderModelWithOutputChannel()
+                                    .getSerialNumber()
+                                + " to "
+                                + DecoderFixture.getDecoderModelWithInputChannel()
+                                    .getInput()
+                                    .stream()
+                                    .findFirst()
+                                    .get()
+                                    .getChannel()
+                                    .getName()
+                                + " of decoder "
+                                + DecoderFixture.getDecoderModelWithInputChannel()
+                                    .getSerialNumber()));
+
+    assertTrue(assertValue);
+  }
+
+  @Test
+  @Order(7)
   void testDeleteStream() {
+    // Go to view streams page
     driver.get("http://localhost:3000/Streams");
 
-    driver.findElement(By.cssSelector(".MuiTableRow-root:nth-child(1) a path")).click();
-    driver.findElement(By.cssSelector(".MuiButton-label")).click();
+    // Go to details page of previously created stream to perform delete action
+    {
+      WebElement element = driver.findElement(By.cssSelector(".MuiTableCell-root > a path"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).perform();
+    }
+    driver.findElement(By.cssSelector(".MuiTableCell-root > a path")).click();
+    {
+      WebElement element = driver.findElement(By.cssSelector(".MuiButton-containedSecondary"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).perform();
+    }
+    {
+      WebElement element = driver.findElement(By.tagName("body"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element, 0, 0).perform();
+    }
+    {
+      WebElement element =
+          driver.findElement(By.cssSelector(".MuiButton-containedSecondary > .MuiButton-label"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).perform();
+    }
+    driver.findElement(By.cssSelector(".MuiButton-containedSecondary > .MuiButton-label")).click();
+    {
+      WebElement element = driver.findElement(By.tagName("body"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element, 0, 0).perform();
+    }
     driver.findElement(By.cssSelector(".MuiButton-textSecondary > .MuiButton-label")).click();
 
+    // Go to view streams page
     driver.get("http://localhost:3000/Streams");
 
     // Check for stream deletion
@@ -258,7 +454,7 @@ public class SystemTests {
   }
 
   @Test
-  @Order(6)
+  @Order(8)
   void testRenameDevice() {
     String rename = "Renamed Device";
 
@@ -296,5 +492,124 @@ public class SystemTests {
     boolean assertValue = devicesRows.stream().anyMatch(row -> row.getText().contains(rename));
 
     assertTrue(assertValue);
+  }
+
+  @Test
+  @Order(9)
+  void testCreateUser() {
+    // Go to create user page
+    driver.get("http://localhost:3000/Admin/New");
+
+    // Enter new user credentials
+    driver.findElement(By.id("username")).sendKeys("user1");
+    driver.findElement(By.id("password")).sendKeys("user1");
+    driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
+
+    // Sign out
+    {
+      WebElement element = driver.findElement(By.cssSelector("#acctBtn .MuiSvgIcon-root"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).perform();
+    }
+    driver.findElement(By.cssSelector("#acctBtn .MuiSvgIcon-root")).click();
+    {
+      WebElement element = driver.findElement(By.tagName("body"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element, 0, 0).perform();
+    }
+    driver.findElement(By.cssSelector(".MuiTypography-colorError")).click();
+
+    // Sign in with new user
+    driver.findElement(By.id("username")).sendKeys("user1");
+    driver.findElement(By.id("password")).sendKeys("user1");
+    driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
+
+    // Assert homepage
+    {
+      WebDriverWait wait = new WebDriverWait(driver, 5);
+      wait.until(
+          (ExpectedCondition<Boolean>)
+              d -> d.findElement(By.className("title")).getText().equals("Dashboard"));
+    }
+
+    assertEquals("http://localhost:3000/Home", driver.getCurrentUrl());
+  }
+
+  @Test
+  @Order(10)
+  void testRestrictAccessToDevices() {
+    // Go to List of Senders
+    driver.get("http://localhost:3000/Devices");
+    {
+      WebElement element = driver.findElement(By.xpath("//div[@id='device-table-title-select']"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).clickAndHold().perform();
+    }
+    {
+      WebElement element = driver.findElement(By.xpath("//div[@id='menu-']/div[3]/ul/li"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).release().perform();
+    }
+    driver.findElement(By.cssSelector("body")).click();
+    driver.findElement(By.xpath("//li[contains(.,'Senders')]")).click();
+
+    // Check for admin encoder not to be present
+    WebElement encodersTable = driver.findElement(By.tagName("table")); // find encoders table
+
+    {
+      WebDriverWait wait = new WebDriverWait(driver, 5);
+      wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName("tr")));
+    }
+
+    List<WebElement> encodersRows =
+        encodersTable.findElements(By.tagName("tr")); // find all tr elements inside found table
+    boolean assertEncoderValue =
+        encodersRows.stream()
+            .anyMatch(
+                row ->
+                    row.getText()
+                        .contains(
+                            EncoderFixture.getEncoderModelWithOutputChannel()
+                                .getDevice()
+                                .getDisplayName()));
+
+    assertFalse(assertEncoderValue);
+
+    // Go to List of Receivers
+    driver.get("http://localhost:3000/Devices");
+    {
+      WebElement element = driver.findElement(By.xpath("//div[@id='device-table-title-select']"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).clickAndHold().perform();
+    }
+    {
+      WebElement element = driver.findElement(By.xpath("//div[@id='menu-']/div[3]/ul/li[2]"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).release().perform();
+    }
+    driver.findElement(By.cssSelector("body")).click();
+    driver.findElement(By.xpath("//li[contains(.,'Receivers')]")).click();
+
+    // Check for admin decoder not to be present
+    WebElement decodersTable = driver.findElement(By.tagName("table")); // find encoders table
+
+    {
+      WebDriverWait wait = new WebDriverWait(driver, 5);
+      wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName("tr")));
+    }
+
+    List<WebElement> decodersRows =
+        decodersTable.findElements(By.tagName("tr")); // find all tr elements inside found table
+    boolean assertDecoderValue =
+        decodersRows.stream()
+            .anyMatch(
+                row ->
+                    row.getText()
+                        .contains(
+                            DecoderFixture.getDecoderModelWithInputChannel()
+                                .getDevice()
+                                .getDisplayName()));
+
+    assertFalse(assertDecoderValue);
   }
 }

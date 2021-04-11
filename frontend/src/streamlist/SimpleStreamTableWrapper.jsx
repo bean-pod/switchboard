@@ -37,15 +37,11 @@ export default class SimpleStreamTableWrapper extends React.Component {
     ];
   }
 
-  getSimpleColumns() {
-    return this.simpleColumns;
-  }
-
   render() {
     return (
       <StreamTableWrapper
         dataSource={streamDataSource}
-        columns={this.getSimpleColumns()}
+        columns={this.simpleColumns}
       />
     );
   }

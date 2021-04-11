@@ -3,6 +3,7 @@ import React from "react";
 import { getSenders, getReceivers } from "../api/DeviceApi";
 import DeviceTableTitle from "./DeviceTableTitle";
 import DeviceTable from "./DeviceTable";
+import { snackbar } from "../general/SnackbarMessage";
 
 export default class DeviceListPageContents extends React.Component {
   constructor(props) {
@@ -21,8 +22,16 @@ export default class DeviceListPageContents extends React.Component {
   }
 
   componentDidMount() {
-    getSenders(this.handleSendersChange);
-    getReceivers(this.handleReceiversChange);
+    getSenders()
+      .then(this.handleSendersChange)
+      .catch((error) => {
+        snackbar("error", `Failed to fetch senders: ${error.message}`);
+      });
+    getReceivers()
+      .then(this.handleReceiversChange)
+      .catch((error) => {
+        snackbar("error", `Failed to fetch receivers: ${error.message}`);
+      });
   }
 
   handleChange(value) {

@@ -46,8 +46,8 @@ export default class SnackbarMessage extends React.Component {
             "aria-describedby": "message-id"
           }}
           anchorOrigin={{
-            vertical: "top",
-            horizontal: "right"
+            vertical: "bottom",
+            horizontal: "left"
           }}
           open={open}
           autoHideDuration={3000}

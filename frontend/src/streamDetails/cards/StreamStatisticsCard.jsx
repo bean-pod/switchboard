@@ -7,6 +7,7 @@ import SimpleTable from "../../general/simpleTable/SimpleTable";
 import { getStreamStatistics } from "../../api/StreamApi";
 import ButtonInfo from "../../general/dashboard/ButtonInfo";
 import StreamInfo from "../../model/StreamInfo";
+import { snackbar } from "../general/SnackbarMessage";
 
 export default class StreamStatisticsCard extends React.Component {
   constructor(props) {
@@ -21,7 +22,14 @@ export default class StreamStatisticsCard extends React.Component {
   }
 
   componentDidMount() {
-    getStreamStatistics(this.stream.id).then(this.handleStatsChange);
+    getStreamStatistics(this.stream.id)
+      .then(this.handleStatsChange)
+      .catch((error) => {
+        snackbar(
+          "error",
+          `Failed to fetch stream statistics: ${error.message}`
+        );
+      });
   }
 
   handleStatsChange(stats) {
@@ -43,7 +51,7 @@ export default class StreamStatisticsCard extends React.Component {
 
   getButton() {
     const { stats } = this.state;
-    const { stream } = this;
+    const { stream } = this.props;
     if (!stats) return null;
     return new ButtonInfo(
       `/Streams/Details/${stream.id}/Statistics`,

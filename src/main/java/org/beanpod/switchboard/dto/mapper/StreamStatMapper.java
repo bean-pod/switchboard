@@ -40,7 +40,7 @@ public interface StreamStatMapper {
 
   StreamStatDto toDto(StreamStatEntity streamStatEntity);
 
-  List<StreamStatDto> toDtoList(List<StreamStatEntity> streamStatEntityList);
+  List<StreamStatDto> toDtos(List<StreamStatEntity> streamStatEntityList);
 
   StreamStatEntity toEntity(StreamStatDto streamStatDto);
 
@@ -68,7 +68,7 @@ public interface StreamStatMapper {
   @Mapping(target = "recv.mbitRate", source = "recvMbitRate")
   StreamStatModel toModel(StreamStatDto streamStatDto);
 
-  List<StreamStatModel> toModelList(List<StreamStatDto> streamDtoList);
+  List<StreamStatModel> toModels(List<StreamStatDto> streamDtoList);
 
   void updateStreamStatFromDto(StreamStatDto dto, @MappingTarget StreamStatDto target);
 }
