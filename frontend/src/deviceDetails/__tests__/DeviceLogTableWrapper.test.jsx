@@ -1,18 +1,12 @@
 import React from "react";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import {
-  afterEach,
-  beforeEach,
-  describe,
-  expect,
-  it,
-  jest
-} from "@jest/globals";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import StreamLogTableWrapper from "../StreamLogTableWrapper";
-import StreamLogInfo from "../../model/StreamLogInfo";
+import DeviceLogTableWrapper from "../DeviceLogTableWrapper";
+import LogInfo from "../../model/LogInfo";
 import LogTable from "../../loglist/LogTable";
+import DeviceInfo from "../../model/DeviceInfo";
 import * as SnackbarMessage from "../../general/SnackbarMessage";
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -20,56 +14,66 @@ jest.mock("../../api/LogApi");
 
 const snackbarSpy = jest.spyOn(SnackbarMessage, "snackbar");
 
-describe("<StreamLogTableWrapper/> Class Component", () => {
+describe("<DeviceLogTableWrapper/> Class Component", () => {
   let wrapper;
-  const dummyId = 1;
-  const dummyLog = [
-    new StreamLogInfo("2020-10-31T15:53:23", "Info", "Log 1 info")
-  ];
+  const dummyDevice = new DeviceInfo(
+    "serial",
+    "lastCommunication",
+    "publicIpAddress",
+    "privateIpAddress",
+    "displayName",
+    "status",
+    "channels",
+    "deviceType",
+    "extras"
+  );
+  const dummyLog = [new LogInfo(5)];
   const dummySource = {
-    getStreamLogs: jest.fn()
+    getDeviceLogs: jest.fn()
   };
 
   afterEach(() => {
-    jest.clearAllMocks();
     wrapper.unmount();
+    jest.clearAllMocks();
   });
 
   describe("componentDidMount() function", () => {
     beforeEach(() => {
       wrapper = Enzyme.shallow(
-        <StreamLogTableWrapper dataSource={dummySource} streamId={dummyId} />,
+        <DeviceLogTableWrapper dataSource={dummySource} device={dummyDevice} />,
         {
           disableLifecycleMethods: true
         }
       );
     });
-    it("Calls the data source's getStreamLogs with the stream ID", async () => {
-      dummySource.getStreamLogs.mockResolvedValue(dummyLog);
+    it("Calls the passed data source's getDeviceLogs with the serial number", async () => {
+      dummySource.getDeviceLogs.mockResolvedValue(dummyLog);
 
       wrapper.instance().componentDidMount();
 
-      expect(dummySource.getStreamLogs).toHaveBeenCalledWith(dummyId);
+      expect(dummySource.getDeviceLogs).toHaveBeenCalledWith(
+        dummyDevice.serialNumber
+      );
     });
     it("if it resolves, it passes the resolved logs to handleStreamsLogChange()", async () => {
-      dummySource.getStreamLogs.mockResolvedValue(dummyLog);
+      dummySource.getDeviceLogs.mockResolvedValue(dummyLog);
 
-      const handleStreamsSpy = jest.spyOn(
+      const handleDeviceLogsSpy = jest.spyOn(
         wrapper.instance(),
-        "handleStreamLogsChange"
+        "handleDeviceLogsChange"
       );
 
       wrapper.instance().componentDidMount();
 
       await new Promise(setImmediate);
 
-      expect(handleStreamsSpy).toHaveBeenCalledWith(dummyLog);
+      expect(handleDeviceLogsSpy).toHaveBeenCalledWith(dummyLog);
     });
     it("if it rejects, an error snackbar with the caught error message is displayed", async () => {
       const returnedError = {
         message: "test"
       };
-      dummySource.getStreamLogs.mockRejectedValue(returnedError);
+      dummySource.getDeviceLogs.mockRejectedValue(returnedError);
 
       wrapper.instance().componentDidMount();
 
@@ -77,35 +81,43 @@ describe("<StreamLogTableWrapper/> Class Component", () => {
 
       expect(snackbarSpy).toHaveBeenCalledWith(
         "error",
-        `Failed to fetch stream logs: ${returnedError.message}`
+        `Failed to fetch device logs: ${returnedError.message}`
       );
     });
   });
 
-  describe("<StreamLogTableWrapper/> class functions", () => {
+  describe("<DeviceLogTableWrapper/> class functions", () => {
     beforeEach(() => {
-      dummySource.getStreamLogs.mockResolvedValue(dummyLog);
+      dummySource.getDeviceLogs.mockResolvedValue(dummyLog);
       wrapper = Enzyme.shallow(
-        <StreamLogTableWrapper dataSource={dummySource} streamId={dummyId} />
+        <DeviceLogTableWrapper dataSource={dummySource} device={dummyDevice} />
       );
     });
 
     describe("handleLogsChange()", () => {
-      it("should set the state log", () => {
-        const initialValue = [];
+      it("should set the state", () => {
+        const startingState = {
+          logs: []
+        };
+        const expectedValue = [new LogInfo(1, null, "Info", "Log 1 info")];
 
-        wrapper.setState({
-          logs: initialValue
-        });
+        wrapper.setState(startingState);
 
-        const expectedValue = [new StreamLogInfo(null, "Info", "Test info")];
-
-        wrapper.instance().handleStreamLogsChange(expectedValue);
+        wrapper.instance().handleDeviceLogsChange(expectedValue);
         expect(wrapper.state().logs).toStrictEqual(expectedValue);
       });
     });
 
     describe("render() function", () => {
+      beforeEach(() => {
+        dummySource.getDeviceLogs.mockResolvedValue(dummyLog);
+        wrapper = Enzyme.shallow(
+          <DeviceLogTableWrapper
+            dataSource={dummySource}
+            device={dummyDevice}
+          />
+        );
+      });
       describe("returns a component that", () => {
         it("Contains 1 <LogTable/> component with expected props", () => {
           const logTable = wrapper.find(LogTable);

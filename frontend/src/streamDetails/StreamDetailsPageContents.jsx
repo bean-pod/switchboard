@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import { Box, Container, Grid } from "@material-ui/core";
 
 import StreamInfo from "../model/StreamInfo";
-import StreamDetailsDeviceCard from "./StreamDetailsDeviceCard";
+import StreamDetailsDeviceCard from "./cards/StreamDetailsDeviceCard";
 import DeleteStreamDialogOpener from "./DeleteStreamDialogOpener";
-import StreamStatisticsCard from "./StreamStatisticsCard";
+import StreamStatisticsCard from "./cards/StreamStatisticsCard";
 import StreamLogCard from "./cards/StreamLogCard";
 
 export default function StreamDetailsPageContents(props) {

@@ -6,7 +6,7 @@ import { Grid } from "@material-ui/core";
 import ActiveStreamCard from "../ActiveStreamCard";
 
 import DashboardCard from "../../general/dashboard/DashboardCard";
-import SimpleStreamsTableWrapper from "../../streamlist/SimpleStreamsTableWrapper";
+import SimpleStreamTableWrapper from "../../streamlist/SimpleStreamTableWrapper";
 import DashboardButton from "../../general/dashboard/DashboardButton";
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -33,7 +33,7 @@ describe("<ActiveStreamCard/> functional Component", () => {
       const expected = {
         item: true,
         xs: 12,
-        childType: "SimpleStreamsTableWrapper"
+        childType: "SimpleStreamTableWrapper"
       };
       expect(props.item).toBe(expected.item);
       expect(props.xs).toBe(expected.xs);
@@ -61,8 +61,8 @@ describe("<ActiveStreamCard/> functional Component", () => {
       expect(props.xs).toBe(expected.xs);
       expect(props.children.type.name).toBe(expected.childType);
     });
-    it("Contains 1 <SimpleStreamsTableWrapper/> component", () => {
-      expect(wrapper.find(SimpleStreamsTableWrapper)).toHaveLength(1);
+    it("Contains 1 <SimpleStreamTableWrapper/> component", () => {
+      expect(wrapper.find(SimpleStreamTableWrapper)).toHaveLength(1);
     });
     it("Contains 2 <DashboardButton/> components", () => {
       expect(wrapper.find(DashboardButton)).toHaveLength(2);

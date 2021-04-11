@@ -9,67 +9,60 @@ import {
   it,
   jest
 } from "@jest/globals";
-
-import StreamLogTableWrapper from "../StreamLogTableWrapper";
-import StreamLogInfo from "../../model/StreamLogInfo";
-import LogTable from "../../loglist/LogTable";
+import LogTableWrapper from "../LogTableWrapper";
+import LogTable from "../LogTable";
+import LogInfo from "../../model/LogInfo";
 import * as SnackbarMessage from "../../general/SnackbarMessage";
 
 Enzyme.configure({ adapter: new Adapter() });
-jest.mock("../../api/LogApi");
 
 const snackbarSpy = jest.spyOn(SnackbarMessage, "snackbar");
 
-describe("<StreamLogTableWrapper/> Class Component", () => {
+describe("<LogTableWrapper/> Class Component", () => {
   let wrapper;
-  const dummyId = 1;
-  const dummyLog = [
-    new StreamLogInfo("2020-10-31T15:53:23", "Info", "Log 1 info")
-  ];
+  const dummyLog = [new LogInfo(1, null, "Info", "Log 1 info")];
   const dummySource = {
-    getStreamLogs: jest.fn()
+    getAllLogs: jest.fn()
   };
 
   afterEach(() => {
-    jest.clearAllMocks();
     wrapper.unmount();
+    jest.clearAllMocks();
   });
 
   describe("componentDidMount() function", () => {
     beforeEach(() => {
       wrapper = Enzyme.shallow(
-        <StreamLogTableWrapper dataSource={dummySource} streamId={dummyId} />,
+        <LogTableWrapper logsDataSource={dummySource} />,
         {
           disableLifecycleMethods: true
         }
       );
     });
-    it("Calls the data source's getStreamLogs with the stream ID", async () => {
-      dummySource.getStreamLogs.mockResolvedValue(dummyLog);
+
+    it("calls the passed dataSource's getAllLogs()", () => {
+      dummySource.getAllLogs.mockResolvedValue(dummyLog);
 
       wrapper.instance().componentDidMount();
 
-      expect(dummySource.getStreamLogs).toHaveBeenCalledWith(dummyId);
+      expect(dummySource.getAllLogs).toHaveBeenCalledTimes(1);
     });
-    it("if it resolves, it passes the resolved logs to handleStreamsLogChange()", async () => {
-      dummySource.getStreamLogs.mockResolvedValue(dummyLog);
+    it("passes the resolved logs to handleLogChange()", async () => {
+      dummySource.getAllLogs.mockResolvedValue(dummyLog);
 
-      const handleStreamsSpy = jest.spyOn(
-        wrapper.instance(),
-        "handleStreamLogsChange"
-      );
+      const handleLogsSpy = jest.spyOn(wrapper.instance(), "handleLogsChange");
 
       wrapper.instance().componentDidMount();
 
       await new Promise(setImmediate);
 
-      expect(handleStreamsSpy).toHaveBeenCalledWith(dummyLog);
+      expect(handleLogsSpy).toHaveBeenCalledWith(dummyLog);
     });
     it("if it rejects, an error snackbar with the caught error message is displayed", async () => {
       const returnedError = {
         message: "test"
       };
-      dummySource.getStreamLogs.mockRejectedValue(returnedError);
+      dummySource.getAllLogs.mockRejectedValue(returnedError);
 
       wrapper.instance().componentDidMount();
 
@@ -77,31 +70,32 @@ describe("<StreamLogTableWrapper/> Class Component", () => {
 
       expect(snackbarSpy).toHaveBeenCalledWith(
         "error",
-        `Failed to fetch stream logs: ${returnedError.message}`
+        `Failed to fetch logs: ${returnedError.message}`
       );
     });
   });
 
-  describe("<StreamLogTableWrapper/> class functions", () => {
+  describe("<LogTableWrapper/> class functions", () => {
     beforeEach(() => {
-      dummySource.getStreamLogs.mockResolvedValue(dummyLog);
+      dummySource.getAllLogs.mockResolvedValue(dummyLog);
       wrapper = Enzyme.shallow(
-        <StreamLogTableWrapper dataSource={dummySource} streamId={dummyId} />
+        <LogTableWrapper logsDataSource={dummySource} />
       );
     });
 
     describe("handleLogsChange()", () => {
-      it("should set the state log", () => {
-        const initialValue = [];
+      it("should set the state", () => {
+        const startingState = {
+          logs: dummyLog
+        };
+        const expectedValue = [new LogInfo(1, null, "Info", "Log 1 info")];
+        const expectedState = {
+          logs: expectedValue
+        };
 
-        wrapper.setState({
-          logs: initialValue
-        });
-
-        const expectedValue = [new StreamLogInfo(null, "Info", "Test info")];
-
-        wrapper.instance().handleStreamLogsChange(expectedValue);
-        expect(wrapper.state().logs).toStrictEqual(expectedValue);
+        expect(wrapper.state()).toStrictEqual(startingState);
+        wrapper.instance().handleLogsChange(expectedValue);
+        expect(wrapper.state()).toStrictEqual(expectedState);
       });
     });
 
