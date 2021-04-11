@@ -3,6 +3,7 @@ package org.beanpod.switchboard.fixture;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.SneakyThrows;
+import org.apache.commons.lang3.tuple.Pair;
 import org.beanpod.switchboard.dto.DeviceDto;
 import org.beanpod.switchboard.entity.DeviceEntity;
 import org.openapitools.model.CreateDeviceRequest;
@@ -48,6 +49,12 @@ public class DeviceFixture {
   public static List<DeviceEntity> getListOfDevices() {
     List<DeviceEntity> listOfDevices = new ArrayList<>();
     listOfDevices.add(getDevice1());
+    return listOfDevices;
+  }
+
+  public static List<Pair<DeviceEntity, Boolean>> getListOfDevicePairs() {
+    List<Pair<DeviceEntity, Boolean>> listOfDevices = new ArrayList<>();
+    listOfDevices.add(Pair.of(getDevice1(), true));
     return listOfDevices;
   }
 

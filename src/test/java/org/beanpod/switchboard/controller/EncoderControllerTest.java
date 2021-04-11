@@ -16,6 +16,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
+import org.apache.commons.lang3.tuple.Pair;
 import org.beanpod.switchboard.dao.DeviceDaoImpl;
 import org.beanpod.switchboard.dao.EncoderDaoImpl;
 import org.beanpod.switchboard.dao.UserDaoImpl;
@@ -47,7 +48,7 @@ import org.springframework.http.ResponseEntity;
 class EncoderControllerTest {
 
   // stubbed Objects
-  private static List<DeviceEntity> listOfDevices;
+  private static List<Pair<DeviceEntity, Boolean>> listOfDevicesPairs;
   private static DeviceDto deviceDto;
   private static EncoderEntity encoder;
   private static EncoderDto encoderDTO;
@@ -75,7 +76,7 @@ class EncoderControllerTest {
   }
 
   private void setupEncoderFixture() {
-    listOfDevices = DeviceFixture.getListOfDevices();
+    listOfDevicesPairs = DeviceFixture.getListOfDevicePairs();
     deviceDto = DeviceFixture.getDeviceDto();
     encoder = EncoderFixture.getEncoderEntity1();
     encoderDTO = EncoderFixture.getEncoderDto();
@@ -104,7 +105,7 @@ class EncoderControllerTest {
   final void testRetrieveEncoder() {
     when(encoderDao.findEncoder(user, EncoderFixture.SERIAL_NUMBER))
         .thenReturn(Optional.of(encoderDTO));
-    when(maintainDeviceStatus.maintainStatusField(anyList())).thenReturn(listOfDevices);
+    when(maintainDeviceStatus.maintainStatusField(anyList())).thenReturn(listOfDevicesPairs);
     when(encoderMapper.toModel(any())).thenReturn(EncoderFixture.getEncoderModel());
 
     ResponseEntity<EncoderModel> actualEncoder =

@@ -16,6 +16,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
+import org.apache.commons.lang3.tuple.Pair;
 import org.beanpod.switchboard.dao.DecoderDaoImpl;
 import org.beanpod.switchboard.dao.DeviceDaoImpl;
 import org.beanpod.switchboard.dao.UserDaoImpl;
@@ -47,7 +48,7 @@ import org.springframework.http.ResponseEntity;
 class DecoderControllerTest {
 
   // stubbed Objects
-  private static List<DeviceEntity> listOfDevices;
+  private static List<Pair<DeviceEntity, Boolean>> listOfDevicesPairs;
   private static DeviceDto deviceDto;
   private static DecoderDto decoderDto;
   private static DecoderModel decoderModel;
@@ -74,7 +75,7 @@ class DecoderControllerTest {
   }
 
   private void setupDecoderFixture() {
-    listOfDevices = DeviceFixture.getListOfDevices();
+    listOfDevicesPairs = DeviceFixture.getListOfDevicePairs();
     deviceDto = DeviceFixture.getDeviceDto();
     decoderDto = DecoderFixture.getDecoderDto();
     decoderModel = DecoderFixture.getDecoderModelWithInputChannel();
@@ -103,7 +104,7 @@ class DecoderControllerTest {
   final void testRetrieveDecoder() {
     when(decoderDao.findDecoder(user, DecoderFixture.SERIAL_NUMBER))
         .thenReturn(Optional.of(decoderDto));
-    when(maintainDeviceStatus.maintainStatusField(anyList())).thenReturn(listOfDevices);
+    when(maintainDeviceStatus.maintainStatusField(anyList())).thenReturn(listOfDevicesPairs);
     when(decoderMapper.toModel(decoderDto)).thenReturn(decoderModel);
 
     ResponseEntity<DecoderModel> actualDecoder = decoderController.retrieveDecoder("1");

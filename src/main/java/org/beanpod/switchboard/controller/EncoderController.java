@@ -69,7 +69,7 @@ public class EncoderController implements EncoderApi {
       List<EncoderEntity> encodersListTemp = new LinkedList<>();
       encodersListTemp.add(encoderMapper.toEntity(encoder.get()));
       DeviceEntity updatedDevice =
-          maintainDeviceStatus.maintainStatusField(encodersListTemp).get(0);
+          maintainDeviceStatus.maintainStatusField(encodersListTemp).get(0).getLeft();
       // update the retrieved decoder object
       encoder.get().getDevice().setStatus(updatedDevice.getStatus());
     }

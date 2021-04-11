@@ -66,7 +66,7 @@ public class DecoderController implements DecoderApi {
       List<DecoderEntity> decodersListTemp = new LinkedList<>();
       decodersListTemp.add(decoderMapper.toEntity(decoder.get()));
       DeviceEntity updatedDevice =
-          maintainDeviceStatus.maintainStatusField(decodersListTemp).get(0);
+          maintainDeviceStatus.maintainStatusField(decodersListTemp).get(0).getLeft();
       // update the retrieved decoder object
       decoder.get().getDevice().setStatus(updatedDevice.getStatus());
     }

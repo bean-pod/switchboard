@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.tuple.Pair;
 import org.beanpod.switchboard.dao.DeviceDaoImpl;
 import org.beanpod.switchboard.dto.DecoderDto;
 import org.beanpod.switchboard.dto.DeviceDto;
@@ -30,10 +31,10 @@ public class MaintainDeviceStatus {
    * maintain and create logs when decoders or encoders are retrieved
    * T should be of type DecoderEntity or EncoderEntity
    */
-  public <T extends DecoderEncoderInterface> List<DeviceEntity> maintainStatusField(
+  public <T extends DecoderEncoderInterface> List<Pair<DeviceEntity, Boolean>> maintainStatusField(
       List<T> devices) {
     Date dateToBeCompared = getDateToBeCompared();
-    List<DeviceEntity> updatedDevices = new ArrayList<>();
+    List<Pair<DeviceEntity, Boolean>> updatedDevices = new ArrayList<>();
 
     for (T encoderOrDecoder : devices) {
       if (encoderOrDecoder.getLastCommunication() == null) {
@@ -48,7 +49,7 @@ public class MaintainDeviceStatus {
             encoderOrDecoder.getDevice().getUser(),
             deviceMapper.toDto(encoderOrDecoder.getDevice()));
 
-        updatedDevices.add(encoderOrDecoder.getDevice());
+        updatedDevices.add(Pair.of(encoderOrDecoder.getDevice(), true));
       } else if (((encoderOrDecoder).getDevice().getStatus()).equalsIgnoreCase(OFFLINE_STATUS)
           && dateToBeCompared.before(encoderOrDecoder.getLastCommunication())) {
         // update status to online
@@ -57,9 +58,9 @@ public class MaintainDeviceStatus {
             encoderOrDecoder.getDevice().getUser(),
             deviceMapper.toDto(encoderOrDecoder.getDevice()));
 
-        updatedDevices.add(encoderOrDecoder.getDevice());
+        updatedDevices.add(Pair.of(encoderOrDecoder.getDevice(), true));
       } else {
-        updatedDevices.add(encoderOrDecoder.getDevice());
+        updatedDevices.add(Pair.of(encoderOrDecoder.getDevice(), false));
       }
     }
 
