@@ -28,7 +28,10 @@ export default function LogoutMenu(props) {
                   <Typography color="textPrimary">Dashboard</Typography>
                 </MenuItem>
               </NavLink>
-              <NavLink to={{pathname: "/Devices", state: { selected: 0 } }} className="hideLinkStyle">
+              <NavLink
+                to={{ pathname: "/Devices", state: { selected: 0 } }}
+                className="hideLinkStyle"
+              >
                 <MenuItem>
                   <Typography color="textPrimary">My Devices</Typography>
                 </MenuItem>

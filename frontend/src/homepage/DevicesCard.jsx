@@ -8,10 +8,14 @@ export default function DevicesCard() {
   return (
     <DashboardCard title="Devices">
       <Grid item xs={4}>
-        <DashBoardButton href="/Devices" selected={1}>View Senders</DashBoardButton>
+        <DashBoardButton href="/Devices" selected={1}>
+          View Senders
+        </DashBoardButton>
       </Grid>
       <Grid item xs={4}>
-        <DashBoardButton href="/Devices" selected={2}>View Receivers</DashBoardButton>
+        <DashBoardButton href="/Devices" selected={2}>
+          View Receivers
+        </DashBoardButton>
       </Grid>
     </DashboardCard>
   );

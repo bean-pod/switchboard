@@ -21,7 +21,7 @@ export default function DashboardButton(props) {
     }
   })(Button);
   return (
-    <NavLink 
+    <NavLink
       activeClassName="hideLinkStyle"
       className="hideLinkStyle"
       color="inherit"

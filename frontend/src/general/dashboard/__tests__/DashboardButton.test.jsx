@@ -27,7 +27,7 @@ describe("<DashboardButton/> Component", () => {
           pathname: dummyHref,
           state: { selected: 0 }
         }
-      }
+      };
       const link = wrapper.find(NavLink);
       expect(link).toHaveLength(1);
       const linkProps = link.props();

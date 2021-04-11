@@ -30,10 +30,10 @@ describe("<DeviceListPage/> functional component", () => {
           breadcrumbs: expectedBreadcrumbs,
           hasStreamButton: true
         };
-  
+
         const page = wrapper.find(Page);
         expect(page).toHaveLength(1);
-  
+
         const pageProps = page.props();
         expect(pageProps.title).toBe(expected.title);
         expect(pageProps.breadcrumbs).toStrictEqual(expected.breadcrumbs);
@@ -42,21 +42,20 @@ describe("<DeviceListPage/> functional component", () => {
       it("Contains 1 <DeviceListPageContents/> component with expected props", () => {
         const defaultSelectedState = {
           selected: 0
-        }
-  
+        };
+
         const deviceListContents = wrapper.find(DeviceListPageContents);
         expect(deviceListContents).toHaveLength(1);
-  
+
         const contentsProps = deviceListContents.props();
         expect(contentsProps.selectedState).toStrictEqual(defaultSelectedState);
-  
       });
     });
-  })
+  });
   describe("when passed a location component", () => {
     const dummyLocation = {
       state: { selected: 2 }
-    }
+    };
     beforeEach(() => {
       wrapper = Enzyme.shallow(<DeviceListPage location={dummyLocation} />);
     });
@@ -74,10 +73,10 @@ describe("<DeviceListPage/> functional component", () => {
           breadcrumbs: expectedBreadcrumbs,
           hasStreamButton: true
         };
-  
+
         const page = wrapper.find(Page);
         expect(page).toHaveLength(1);
-  
+
         const pageProps = page.props();
         expect(pageProps.title).toBe(expected.title);
         expect(pageProps.breadcrumbs).toStrictEqual(expected.breadcrumbs);
@@ -86,15 +85,14 @@ describe("<DeviceListPage/> functional component", () => {
       it("Contains 1 <DeviceListPageContents/> component with expected props", () => {
         const selectedState = {
           selected: 2
-        }
-  
+        };
+
         const deviceListContents = wrapper.find(DeviceListPageContents);
         expect(deviceListContents).toHaveLength(1);
-  
+
         const contentsProps = deviceListContents.props();
         expect(contentsProps.selectedState).toStrictEqual(selectedState);
-  
       });
     });
-  })
+  });
 });
