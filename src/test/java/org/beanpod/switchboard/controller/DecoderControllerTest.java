@@ -86,7 +86,7 @@ class DecoderControllerTest {
   final void testRetrieveAllDecoders() {
     when(decoderDao.getDecoders(user)).thenReturn(listOfDecoders);
     when(decoderMapper.toDtos(any())).thenReturn(DecoderFixture.getDecoderDtos());
-    when(decoderMapper.toDecoderModels(any())).thenReturn(DecoderFixture.getDecoderModels());
+    when(decoderMapper.toModels(any())).thenReturn(DecoderFixture.getDecoderModels());
 
     ResponseEntity<List<DecoderModel>> response = decoderController.retrieveAllDecoders();
 
@@ -104,7 +104,7 @@ class DecoderControllerTest {
     when(decoderDao.findDecoder(user, DecoderFixture.SERIAL_NUMBER))
         .thenReturn(Optional.of(decoderDto));
     when(maintainDeviceStatus.maintainStatusField(anyList())).thenReturn(listOfDevices);
-    when(decoderMapper.toDecoderModel(decoderDto)).thenReturn(decoderModel);
+    when(decoderMapper.toModel(decoderDto)).thenReturn(decoderModel);
 
     ResponseEntity<DecoderModel> actualDecoder = decoderController.retrieveDecoder("1");
 
@@ -126,9 +126,9 @@ class DecoderControllerTest {
   final void testCreateDecoder() {
     when(deviceService.findDevice(user, DecoderFixture.SERIAL_NUMBER))
         .thenReturn(Optional.of(deviceDto));
-    when(decoderMapper.toDecoderDto(any(DecoderModel.class))).thenReturn(decoderDto);
+    when(decoderMapper.toDto(any(DecoderModel.class))).thenReturn(decoderDto);
     when(decoderDao.save(user, decoderDto)).thenReturn(decoderDto);
-    when(decoderMapper.toDecoderModel(any())).thenReturn(decoderModel);
+    when(decoderMapper.toModel(any())).thenReturn(decoderModel);
 
     ResponseEntity<DecoderModel> response = decoderController.createDecoder(decoderModel);
 
@@ -173,9 +173,9 @@ class DecoderControllerTest {
   final void testUpdateDecoder() {
     when(decoderDao.findDecoder(user, DecoderFixture.SERIAL_NUMBER))
         .thenReturn(Optional.of(decoderDto));
-    when(decoderMapper.toDecoderDto(decoderModel)).thenReturn(decoderDto);
+    when(decoderMapper.toDto(decoderModel)).thenReturn(decoderDto);
     when(decoderDao.save(user, decoderDto)).thenReturn(decoderDto);
-    when(decoderMapper.toDecoderModel(decoderDto)).thenReturn(decoderModel);
+    when(decoderMapper.toModel(decoderDto)).thenReturn(decoderModel);
 
     ResponseEntity<DecoderModel> response = decoderController.updateDecoder(decoderModel);
 

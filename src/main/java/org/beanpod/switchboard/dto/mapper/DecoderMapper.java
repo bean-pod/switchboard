@@ -17,11 +17,11 @@ import org.openapitools.model.DecoderModel;
 public interface DecoderMapper {
 
   @Mapping(target = "input", qualifiedByName = "inputChannelDtoSetToInputChannelModelListShallow")
-  DecoderModel toDecoderModel(DecoderDto decoderDto);
+  DecoderModel toModel(DecoderDto decoderDto);
 
-  List<DecoderModel> toDecoderModels(List<DecoderDto> decoderDtos);
+  List<DecoderModel> toModels(List<DecoderDto> decoderDtos);
 
-  DecoderDto toDecoderDto(DecoderModel decoderModel);
+  DecoderDto toDto(DecoderModel decoderModel);
 
   DecoderDto toDto(DecoderEntity decoderEntity);
 

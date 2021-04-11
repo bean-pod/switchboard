@@ -52,7 +52,7 @@ public class DecoderController implements DecoderApi {
     List<DecoderEntity> decoderEntity = decoderDao.getDecoders(user);
     maintainDeviceStatus.maintainStatusField(decoderEntity);
     List<DecoderDto> decoderDtos = decoderMapper.toDtos(decoderEntity);
-    List<DecoderModel> decoderModels = decoderMapper.toDecoderModels(decoderDtos);
+    List<DecoderModel> decoderModels = decoderMapper.toModels(decoderDtos);
     return ResponseEntity.ok(decoderModels);
   }
 
@@ -73,7 +73,7 @@ public class DecoderController implements DecoderApi {
 
     // return decoder
     return decoder
-        .map(decoderMapper::toDecoderModel)
+        .map(decoderMapper::toModel)
         .map(ResponseEntity::ok)
         .orElseThrow(() -> new ExceptionType.DeviceNotFoundException(serialNumber));
   }
@@ -92,11 +92,11 @@ public class DecoderController implements DecoderApi {
       throw new ExceptionType.DeviceNotFoundException(decoderModel.getSerialNumber());
     }
 
-    DecoderDto decoderDto = decoderMapper.toDecoderDto(decoderModel);
+    DecoderDto decoderDto = decoderMapper.toDto(decoderModel);
     decoderDto.setDevice(deviceOptional.get());
     decoderDto.setLastCommunication(Date.from(Instant.now()));
     DecoderDto savedDecoderDto = decoderDao.save(user, decoderDto);
-    DecoderModel savedDecoderModel = decoderMapper.toDecoderModel(savedDecoderDto);
+    DecoderModel savedDecoderModel = decoderMapper.toModel(savedDecoderDto);
     return ResponseEntity.ok(savedDecoderModel);
   }
 
@@ -122,11 +122,11 @@ public class DecoderController implements DecoderApi {
     }
 
     return Optional.of(decoderModel)
-            .map(decoderMapper::toDecoderDto)
-            .map(decoderDto -> decoderDao.save(user, decoderDto))
-            .map(decoderMapper::toDecoderModel)
-            .map(ResponseEntity::ok)
-            .orElseThrow(this::getUnknownException);
+        .map(decoderMapper::toDto)
+        .map(decoderDto -> decoderDao.save(user, decoderDto))
+        .map(decoderMapper::toModel)
+        .map(ResponseEntity::ok)
+        .orElseThrow(this::getUnknownException);
   }
 
   @Override
