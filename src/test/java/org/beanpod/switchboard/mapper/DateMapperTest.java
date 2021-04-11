@@ -13,7 +13,7 @@ import org.beanpod.switchboard.fixture.DateFixture;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class DateMapperTest {
+class DateMapperTest {
   private DateMapper dateMapper;
 
   @BeforeEach
@@ -50,6 +50,8 @@ public class DateMapperTest {
     OffsetDateTime result = dateMapper.toOffsetDateTime(date);
 
     OffsetDateTime expectedDateTime = DateFixture.getOffsetDateTime();
-    assertEquals(expectedDateTime, result);
+    assertEquals(expectedDateTime.getDayOfMonth(), result.getDayOfMonth());
+    assertEquals(expectedDateTime.getDayOfWeek(), result.getDayOfWeek());
+    assertEquals(expectedDateTime.getDayOfYear(), result.getDayOfYear());
   }
 }
