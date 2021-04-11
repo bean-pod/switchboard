@@ -6,7 +6,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import LoginPage from "../login/LoginPage";
 import HomePage from "../homepage/HomePage";
 import DeviceListPage from "../devicelist/DeviceListPage";
-import DeviceDetailsPage from "../deviceDetailsPage/DeviceDetailsPage";
+import DeviceDetailsPage from "../deviceDetails/DeviceDetailsPage";
 import StreamListPage from "../streamlist/StreamListPage";
 import CreateStreamPage from "../createStream/CreateStreamPage";
 import LogListPage from "../loglist/LogListPage";

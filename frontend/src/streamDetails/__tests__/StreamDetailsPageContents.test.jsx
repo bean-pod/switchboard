@@ -5,8 +5,8 @@ import { Box, Container, Grid } from "@material-ui/core";
 import { beforeEach, describe, expect, it } from "@jest/globals";
 
 import StreamDetailsPageContents from "../StreamDetailsPageContents";
-import StreamStatisticsCard from "../StreamStatisticsCard";
-import StreamDetailsDeviceCard from "../StreamDetailsDeviceCard";
+import StreamStatisticsCard from "../cards/StreamStatisticsCard";
+import StreamDetailsDeviceCard from "../cards/StreamDetailsDeviceCard";
 import DeleteStreamDialogOpener from "../DeleteStreamDialogOpener";
 import StreamLogCard from "../cards/StreamLogCard";
 

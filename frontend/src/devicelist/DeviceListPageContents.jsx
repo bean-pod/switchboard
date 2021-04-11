@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import { getSenders, getReceivers } from "../api/DeviceApi";
 import DeviceTableTitle from "./DeviceTableTitle";
-import DevicesTable from "./DevicesTable";
+import DeviceTable from "./DeviceTable";
 import { snackbar } from "../general/SnackbarMessage";
 
 export default class DeviceListPageContents extends React.Component {
@@ -75,7 +75,7 @@ export default class DeviceListPageContents extends React.Component {
   }
 
   render() {
-    return <DevicesTable devices={this.getDevices()} title={this.getTitle()} />;
+    return <DeviceTable devices={this.getDevices()} title={this.getTitle()} />;
   }
 }
 

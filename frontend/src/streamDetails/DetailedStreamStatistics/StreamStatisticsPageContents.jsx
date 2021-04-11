@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import { Grid } from "@material-ui/core";
 
 import StreamStatisticsInfo from "../../model/StreamStatistics/StreamStatisticsInfo";
-import StatisticsOverviewCard from "./StatisticsOverviewCard";
-import StatisticsSendingCard from "./StatisticsSendingCard";
-import StatisticsReceivingCard from "./StatisticsReceivingCard";
+import StatisticsOverviewCard from "./cards/StatisticsOverviewCard";
+import StatisticsSendingCard from "./cards/StatisticsSendingCard";
+import StatisticsReceivingCard from "./cards/StatisticsReceivingCard";
 
 export default function StreamStatisticsPageContents(props) {
   const { statistics } = props;
