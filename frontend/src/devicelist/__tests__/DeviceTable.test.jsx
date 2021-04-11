@@ -12,7 +12,7 @@ import {
 import { Box, TableContainer, Typography } from "@material-ui/core";
 import MaterialTable, { MTableToolbar } from "material-table";
 import DeviceTable from "../DeviceTable";
-import ChannelDetailsTable from "../ChannelDetailsTable";
+import ChannelDetailsTable from "../ChannelDetailsTable/ChannelDetailsTable";
 import StatusIndicator from "../../general/StatusIndicator";
 import DeviceDetailsButton from "../DeviceDetailsButton";
 import * as SampleData from "../../api/SampleData";

@@ -7,7 +7,7 @@ import SimpleTable from "../../general/simpleTable/SimpleTable";
 import { getStreamStatistics } from "../../api/StreamApi";
 import ButtonInfo from "../../general/dashboard/ButtonInfo";
 import StreamInfo from "../../model/StreamInfo";
-import { snackbar } from "../general/SnackbarMessage";
+import { snackbar } from "../../general/SnackbarMessage";
 
 export default class StreamStatisticsCard extends React.Component {
   constructor(props) {

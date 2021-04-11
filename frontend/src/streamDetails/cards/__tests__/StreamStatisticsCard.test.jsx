@@ -7,7 +7,6 @@ import { Grid } from "@material-ui/core";
 import StreamStatisticsCard from "../StreamStatisticsCard";
 import DashboardCard from "../../../general/dashboard/DashboardCard";
 import SimpleTable from "../../../general/simpleTable/SimpleTable";
-import { getSampleStreamStats } from "../../../api/SampleData";
 import ButtonInfo from "../../../general/dashboard/ButtonInfo";
 import StreamStatisticsInfo from "../../../model/StreamStatistics/StreamStatisticsInfo";
 import StreamStatsWindowInfo from "../../../model/StreamStatistics/StreamStatsWindowInfo";
@@ -15,10 +14,10 @@ import StreamStatsLinkInfo from "../../../model/StreamStatistics/StreamStatsLink
 import StreamStatsSendInfo from "../../../model/StreamStatistics/StreamStatsSendInfo";
 import StreamStatsReceiveInfo from "../../../model/StreamStatistics/StreamStatsReceiveInfo";
 
-import { getSampleStreamStats, getSampleStream } from "../../api/SampleData";
+import { getSampleStreamStats, getSampleStream } from "../../../api/SampleData";
 
-import * as StreamApi from "../../api/StreamApi";
-import * as SnackbarMessage from "../../general/SnackbarMessage";
+import * as StreamApi from "../../../api/StreamApi";
+import * as SnackbarMessage from "../../../general/SnackbarMessage";
 
 const snackbarSpy = jest.spyOn(SnackbarMessage, "snackbar");
 Enzyme.configure({ adapter: new Adapter() });
