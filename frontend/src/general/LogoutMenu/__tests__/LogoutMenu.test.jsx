@@ -156,7 +156,10 @@ describe("<LogoutMenu/> functional component", () => {
       const props = components.at(1).props();
 
       const expected = {
-        to: "/Devices",
+        to: {
+          pathname: "/Devices",
+          state: { selected: 0 }
+        },
         className: "hideLinkStyle"
       };
       expect(props).toMatchObject(expected);
