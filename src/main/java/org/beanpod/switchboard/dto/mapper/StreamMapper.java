@@ -12,7 +12,8 @@ import org.openapitools.model.StreamModel;
       InputChannelMapper.class,
       OutputChannelMapper.class,
       StreamStatMapper.class,
-      UserMapper.class
+      UserMapper.class,
+      DateMapper.class
     })
 public interface StreamMapper {
 

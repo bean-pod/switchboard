@@ -57,7 +57,7 @@ class EncoderDaoImplTest {
 
   @Test
   final void testSave() {
-    when(encoderMapper.toDto(any())).thenReturn(encoderDto);
+    when(encoderMapper.toDto(any(EncoderEntity.class))).thenReturn(encoderDto);
     when(encoderMapper.toEntity(any())).thenReturn(encoder);
     when(encoderRepository.save(encoder)).thenReturn(encoder);
     EncoderDto encoderDTO = encoderDaoImpl.save(user, encoderDto);
@@ -70,7 +70,7 @@ class EncoderDaoImplTest {
     EncoderDaoImpl encoderDaoImp1 = Mockito.spy(encoderDaoImp);
     Mockito.doReturn(Optional.of(encoderDto)).when(encoderDaoImp1).findEncoder(eq(user), any());
     when(encoderDaoImp.findEncoder(eq(user), any())).thenReturn(Optional.of(encoderDto));
-    when(encoderMapper.toDto(any())).thenReturn(encoderDto);
+    when(encoderMapper.toDto(any(EncoderEntity.class))).thenReturn(encoderDto);
     when(encoderMapper.toEntity(any())).thenReturn(encoder);
     when(encoderRepository.save(encoder)).thenReturn(encoder);
     EncoderDto encoderDTO = encoderDaoImp1.save(user, encoderDto);
@@ -79,7 +79,7 @@ class EncoderDaoImplTest {
 
   @Test
   final void testFindEncoder() {
-    when(encoderMapper.toDto(any())).thenReturn(encoderDto);
+    when(encoderMapper.toDto(any(EncoderEntity.class))).thenReturn(encoderDto);
     when(encoderMapper.toEntity(any())).thenReturn(encoder);
     when(encoderRepository.findByDeviceUserAndSerialNumber(user, EncoderFixture.SERIAL_NUMBER))
         .thenReturn(java.util.Optional.of(encoder));

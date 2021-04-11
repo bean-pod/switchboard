@@ -21,24 +21,21 @@ import org.beanpod.switchboard.entity.DeviceEntity;
 import org.beanpod.switchboard.entity.EncoderEntity;
 import org.beanpod.switchboard.entity.UserEntity;
 import org.beanpod.switchboard.exceptions.ExceptionType;
+import org.beanpod.switchboard.exceptions.ExceptionType.UnknownException;
 import org.beanpod.switchboard.service.EncoderService;
 import org.beanpod.switchboard.util.MaintainDeviceStatus;
+import org.openapitools.api.EncoderApi;
+import org.openapitools.model.EncoderModel;
 import org.openapitools.model.StreamModel;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping("/encoder")
 @RequiredArgsConstructor
-public class EncoderController {
+public class EncoderController implements EncoderApi {
 
   public static final String UNKNOWN_ERROR_MESSAGE = "Unknown error in EncoderController";
 
@@ -51,17 +48,19 @@ public class EncoderController {
   private final MaintainDeviceStatus maintainDeviceStatus;
   private final HttpServletRequest request;
 
-  @GetMapping
-  public List<EncoderDto> retrieveAllEncoders() {
+  @Override
+  public ResponseEntity<List<EncoderModel>> retrieveAllEncoders() {
     UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
 
     List<EncoderEntity> encoderEntities = encoderDao.getEncoders(user);
     maintainDeviceStatus.maintainStatusField(encoderEntities);
-    return encoderMapper.toDtos(encoderEntities);
+    List<EncoderDto> encoderDtos = encoderMapper.toDtos(encoderEntities);
+    List<EncoderModel> encoderModels = encoderMapper.toModels(encoderDtos);
+    return ResponseEntity.ok(encoderModels);
   }
 
-  @GetMapping("/{serialNumber}")
-  public ResponseEntity<EncoderDto> retrieveEncoder(@PathVariable @Valid String serialNumber) {
+  @Override
+  public ResponseEntity<EncoderModel> retrieveEncoder(@PathVariable @Valid String serialNumber) {
     UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
 
     // maintain status field and create a log if status changed
@@ -76,29 +75,33 @@ public class EncoderController {
     }
     // return encoder
     return encoder
+        .map(encoderMapper::toModel)
         .map(ResponseEntity::ok)
         .orElseThrow(() -> new ExceptionType.DeviceNotFoundException(serialNumber));
   }
 
-  @PostMapping
-  public ResponseEntity<EncoderDto> createEncoder(@RequestBody @Valid EncoderDto encoderDto) {
-    if (encoderDto.getOutput().isEmpty()) {
-      throw new ExceptionType.MissingChannelsException(encoderDto.getSerialNumber());
+  @Override
+  public ResponseEntity<EncoderModel> createEncoder(@RequestBody @Valid EncoderModel encoderModel) {
+    if (encoderModel.getOutput().isEmpty()) {
+      throw new ExceptionType.MissingChannelsException(encoderModel.getSerialNumber());
     }
 
     UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
 
     Optional<DeviceDto> deviceOptional =
-        deviceService.findDevice(user, encoderDto.getSerialNumber());
+        deviceService.findDevice(user, encoderModel.getSerialNumber());
     if (deviceOptional.isEmpty()) {
-      throw new ExceptionType.DeviceNotFoundException(encoderDto.getSerialNumber());
+      throw new ExceptionType.DeviceNotFoundException(encoderModel.getSerialNumber());
     }
+    EncoderDto encoderDto = encoderMapper.toDto(encoderModel);
     encoderDto.setDevice(deviceOptional.get());
     encoderDto.setLastCommunication(Date.from(Instant.now()));
-    return ResponseEntity.ok(encoderDao.save(user, encoderDto));
+    EncoderDto savedEncoderDto = encoderDao.save(user, encoderDto);
+    EncoderModel savedEncoderModel = encoderMapper.toModel(savedEncoderDto);
+    return ResponseEntity.ok(savedEncoderModel);
   }
 
-  @DeleteMapping("/{serialNumber}")
+  @Override
   @Transactional
   public ResponseEntity<String> deleteEncoder(@PathVariable String serialNumber) {
     UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
@@ -110,18 +113,24 @@ public class EncoderController {
     return ResponseEntity.ok("Encoder with serial number " + serialNumber + " Deleted");
   }
 
-  @PutMapping
-  public ResponseEntity<EncoderDto> updateEncoder(@RequestBody EncoderDto encoderDto) {
+  @Override
+  public ResponseEntity<EncoderModel> updateEncoder(@Valid EncoderModel encoderModel) {
     UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
 
-    Optional<EncoderDto> encoder = encoderDao.findEncoder(user, encoderDto.getSerialNumber());
+    Optional<EncoderDto> encoder = encoderDao.findEncoder(user, encoderModel.getSerialNumber());
     if (encoder.isEmpty()) {
-      throw new ExceptionType.DeviceNotFoundException(encoderDto.getSerialNumber());
+      throw new ExceptionType.DeviceNotFoundException(encoderModel.getSerialNumber());
     }
-    return ResponseEntity.ok(encoderDao.save(user, encoderDto));
+
+    return Optional.of(encoderModel)
+        .map(encoderMapper::toDto)
+        .map(encoderDto -> encoderDao.save(user, encoderDto))
+        .map(encoderMapper::toModel)
+        .map(ResponseEntity::ok)
+        .orElseThrow(this::getUnknownException);
   }
 
-  @GetMapping("/{serialNumber}/streams")
+  @Override
   public ResponseEntity<List<StreamModel>> getEncoderStreams(@PathVariable String serialNumber) {
     UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
 
@@ -133,6 +142,6 @@ public class EncoderController {
   }
 
   private RuntimeException getUnknownException() {
-    return new RuntimeException(UNKNOWN_ERROR_MESSAGE);
+    return new UnknownException(UNKNOWN_ERROR_MESSAGE);
   }
 }
