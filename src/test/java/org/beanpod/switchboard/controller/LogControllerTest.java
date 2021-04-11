@@ -2,6 +2,7 @@ package org.beanpod.switchboard.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -19,6 +20,7 @@ import org.beanpod.switchboard.dto.StreamLogDto;
 import org.beanpod.switchboard.dto.mapper.LogMapper;
 import org.beanpod.switchboard.dto.mapper.StreamLogMapper;
 import org.beanpod.switchboard.entity.UserEntity;
+import org.beanpod.switchboard.exceptions.ExceptionType;
 import org.beanpod.switchboard.fixture.DeviceFixture;
 import org.beanpod.switchboard.fixture.LogFixture;
 import org.beanpod.switchboard.fixture.StreamLogFixture;
@@ -110,6 +112,18 @@ class LogControllerTest {
 
     assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     assertEquals(logModel, responseEntity.getBody());
+  }
+
+  @Test
+  final void testCreateLogWhenNoDevice() {
+    when(logService.createLog(any())).thenReturn(logDto);
+    when(logMapper.toModel((CreateLogRequest) any())).thenReturn(logModel);
+    when(logMapper.toModel((LogDto) any())).thenReturn(logModel);
+    when(deviceDao.findDevice(DeviceFixture.SERIAL_NUMBER)).thenReturn(Optional.of(null));
+
+    assertThrows(
+        ExceptionType.UnknownException.class,
+        () -> logController.createLog(LogFixture.getCreateLogRequest()));
   }
 
   @Test
