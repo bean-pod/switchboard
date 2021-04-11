@@ -7,15 +7,19 @@ import static org.mockito.Mockito.when;
 
 import java.nio.file.attribute.UserPrincipal;
 import java.util.List;
+import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
+import org.beanpod.switchboard.dao.DeviceDaoImpl;
 import org.beanpod.switchboard.dao.LogDaoImpl;
 import org.beanpod.switchboard.dao.StreamLogDaoImpl;
 import org.beanpod.switchboard.dao.UserDaoImpl;
+import org.beanpod.switchboard.dto.DeviceDto;
 import org.beanpod.switchboard.dto.LogDto;
 import org.beanpod.switchboard.dto.StreamLogDto;
 import org.beanpod.switchboard.dto.mapper.LogMapper;
 import org.beanpod.switchboard.dto.mapper.StreamLogMapper;
 import org.beanpod.switchboard.entity.UserEntity;
+import org.beanpod.switchboard.fixture.DeviceFixture;
 import org.beanpod.switchboard.fixture.LogFixture;
 import org.beanpod.switchboard.fixture.StreamLogFixture;
 import org.beanpod.switchboard.fixture.UserFixture;
@@ -44,6 +48,7 @@ class LogControllerTest {
   private static StreamLogDto streamLogDto;
   private static StreamLogModel streamLogModel;
   private static UserEntity user;
+  private static DeviceDto deviceDTO;
   @InjectMocks private LogController logController;
   @Mock private LogDaoImpl logDao;
   @Mock private LogMapper logMapper;
@@ -54,6 +59,7 @@ class LogControllerTest {
   @Mock private HttpServletRequest httpServletRequest;
   @Mock private UserPrincipal userPrincipal;
   @Mock private UserDaoImpl userDao;
+  @Mock private DeviceDaoImpl deviceDao;
 
   @BeforeEach
   void setup() {
@@ -73,6 +79,7 @@ class LogControllerTest {
     streamLogDto = StreamLogFixture.getStreamLogDto();
     streamLogModel = StreamLogFixture.getStreamLogModel();
     user = UserFixture.getUserEntity();
+    deviceDTO = DeviceFixture.getDeviceDto();
   }
 
   @Test
@@ -96,6 +103,8 @@ class LogControllerTest {
     when(logService.createLog(any())).thenReturn(logDto);
     when(logMapper.toModel((CreateLogRequest) any())).thenReturn(logModel);
     when(logMapper.toModel((LogDto) any())).thenReturn(logModel);
+    when(deviceDao.findDevice(DeviceFixture.SERIAL_NUMBER))
+        .thenReturn(Optional.of(deviceDTO));
 
     ResponseEntity<LogModel> responseEntity =
         logController.createLog(LogFixture.getCreateLogRequest());
