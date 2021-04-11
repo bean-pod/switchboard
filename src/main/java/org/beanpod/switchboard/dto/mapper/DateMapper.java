@@ -16,6 +16,7 @@ public interface DateMapper {
   }
 
   default OffsetDateTime toOffsetDateTime(Date date) {
-    return date.toInstant().atOffset(ZoneOffset.UTC);
+    int hour = -4;
+    return date.toInstant().atOffset(ZoneOffset.ofHours(hour));
   }
 }

@@ -3,7 +3,6 @@ package org.beanpod.switchboard.util;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.dao.DeviceDaoImpl;
 import org.beanpod.switchboard.dto.DecoderDto;
@@ -91,7 +90,6 @@ public class MaintainDeviceStatus {
   private Date getDateToBeCompared() {
     // subtract 10minutes from the current date
     Date dateToBeCompared = date.getCurrentDate();
-    TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
     dateToBeCompared.setTime(System.currentTimeMillis() - 600000);
 
     return dateToBeCompared;
