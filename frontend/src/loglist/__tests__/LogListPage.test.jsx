@@ -5,7 +5,7 @@ import { describe, expect, it } from "@jest/globals";
 
 import LogListPage from "../LogListPage";
 import Page from "../../general/Page";
-import LogsTableWrapper from "../LogsTableWrapper";
+import LogTableWrapper from "../LogTableWrapper";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -23,8 +23,8 @@ describe("<LogListPage/> functional component", () => {
       expect(pageProps.title).toBe(expectedTitle);
       expect(pageProps.breadcrumbs).toStrictEqual(expectedBreadcrumbs);
     });
-    it("one <LogsTableWrapper/> component", () => {
-      expect(wrapper.find(LogsTableWrapper)).toHaveLength(1);
+    it("one <LogTableWrapper/> component", () => {
+      expect(wrapper.find(LogTableWrapper)).toHaveLength(1);
     });
   });
 });

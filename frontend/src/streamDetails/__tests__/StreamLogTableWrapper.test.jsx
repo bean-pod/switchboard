@@ -12,7 +12,7 @@ import {
 
 import StreamLogTableWrapper from "../StreamLogTableWrapper";
 import StreamLogInfo from "../../model/StreamLogInfo";
-import LogsTable from "../../loglist/LogsTable";
+import LogTable from "../../loglist/LogTable";
 import * as SnackbarMessage from "../../general/SnackbarMessage";
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -20,7 +20,7 @@ jest.mock("../../api/LogApi");
 
 const snackbarSpy = jest.spyOn(SnackbarMessage, "snackbar");
 
-describe("<StreamLogsTableWrapper/> Class Component", () => {
+describe("<StreamLogTableWrapper/> Class Component", () => {
   let wrapper;
   const dummyId = 1;
   const dummyLog = [
@@ -107,9 +107,9 @@ describe("<StreamLogsTableWrapper/> Class Component", () => {
 
     describe("render() function", () => {
       describe("returns a component that", () => {
-        it("Contains 1 <LogsTable/> component with expected props", () => {
-          const logsTable = wrapper.find(LogsTable);
-          expect(logsTable).toHaveLength(1);
+        it("Contains 1 <LogTable/> component with expected props", () => {
+          const logTable = wrapper.find(LogTable);
+          expect(logTable).toHaveLength(1);
 
           const wrapperState = wrapper.state();
           const shallowWrapper = wrapper.instance();
@@ -118,8 +118,8 @@ describe("<StreamLogsTableWrapper/> Class Component", () => {
             columns: shallowWrapper.columns
           };
 
-          const logsTableProps = logsTable.props();
-          expect(logsTableProps).toStrictEqual(expected);
+          const logTableProps = logTable.props();
+          expect(logTableProps).toStrictEqual(expected);
         });
       });
     });

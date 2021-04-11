@@ -15,7 +15,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-@Entity
+@Entity(name = "StreamLog")
 @Builder
 @Getter
 @Setter

@@ -2,7 +2,7 @@ import React from "react";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import { describe, expect, it } from "@jest/globals";
-import { Link } from "@material-ui/core";
+import { NavLink } from "react-router-dom";
 
 import DashboardButton from "../DashboardButton";
 
@@ -18,13 +18,23 @@ describe("<DashboardButton/> Component", () => {
       <DashboardButton href={dummyHref}>{dummyBody}</DashboardButton>
     );
 
-    it("Contains 1 <Link/> component", () => {
-      expect(wrapper.find(Link)).toHaveLength(1);
-      const link = wrapper.find(Link).first();
-      expect(link.props().href).toBe(dummyHref);
+    it("Contains 1 <NavLink/> component with expected props", () => {
+      const expected = {
+        activeClassName: "hideLinkStyle",
+        className: "hideLinkStyle",
+        color: "inherit",
+        to: {
+          pathname: dummyHref,
+          state: { passedState: 0 }
+        }
+      };
+      const link = wrapper.find(NavLink);
+      expect(link).toHaveLength(1);
+      const linkProps = link.props();
+      expect(linkProps).toMatchObject(expected);
     });
     it("Contains 1 WithStyles() wrapped Button component", () => {
-      const linkChild = wrapper.find(Link).first().children().first();
+      const linkChild = wrapper.find(NavLink).first().children().first();
 
       expect(linkChild.type().Naked.displayName).toBe(
         "WithStyles(ForwardRef(Button))"

@@ -1,6 +1,6 @@
 import React from "react";
 
-import LogsTableWrapper from "./LogsTableWrapper";
+import LogTableWrapper from "./LogTableWrapper";
 import Page from "../general/Page";
 import * as logsDataSource from "../api/LogApi";
 
@@ -12,7 +12,7 @@ export default function LogListPage() {
 
   return (
     <Page title="Logs" breadcrumbs={breadcrumbs}>
-      <LogsTableWrapper logsDataSource={logsDataSource} />
+      <LogTableWrapper logsDataSource={logsDataSource} />
     </Page>
   );
 }

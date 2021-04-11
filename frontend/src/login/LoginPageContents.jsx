@@ -1,19 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import LoginFailedDialog from "./LoginFailedDialog";
-import LoginConsole from "./LoginConsole";
+import { withRouter } from "react-router-dom";
+import FormFailedDialog from "../general/userForm/FormFailedDialog";
+import LoginFormConsole from "./LoginFormConsole";
 import { logIn } from "../api/AuthenticationApi";
 
-export default class LoginPageContents extends React.Component {
+class LoginPageContents extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dialogOpen: false,
       dialogMessage: ""
     };
+    this.dialogElement = React.createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.setDialogOpen = this.setDialogOpen.bind(this);
+    this.openDialog = this.openDialog.bind(this);
     this.setDialogMessage = this.setDialogMessage.bind(this);
   }
 
@@ -24,17 +25,9 @@ export default class LoginPageContents extends React.Component {
         history.push("/Home");
       })
       .catch((error) => {
-        this.setState({
-          dialogOpen: true,
-          dialogMessage: error.message
-        });
+        this.openDialog();
+        this.setDialogMessage(error.message);
       });
-  }
-
-  setDialogOpen(open) {
-    this.setState({
-      dialogOpen: open
-    });
   }
 
   setDialogMessage(message) {
@@ -43,20 +36,26 @@ export default class LoginPageContents extends React.Component {
     });
   }
 
+  openDialog() {
+    this.dialogElement.current.openDialog();
+  }
+
   render() {
-    const { dialogOpen, dialogMessage } = this.state;
+    const { dialogMessage } = this.state;
     return (
       <>
-        <LoginConsole handleSubmit={this.handleSubmit} />
-        <LoginFailedDialog
-          open={dialogOpen}
-          setOpen={this.setDialogOpen}
-          message={dialogMessage}
+        <LoginFormConsole handleSubmit={this.handleSubmit} />
+        <FormFailedDialog
+          ref={this.dialogElement}
+          title="Login failed"
+          errorMessage={dialogMessage}
         />
       </>
     );
   }
 }
+
+export default withRouter(LoginPageContents);
 
 LoginPageContents.propTypes = {
   history: PropTypes.shape({

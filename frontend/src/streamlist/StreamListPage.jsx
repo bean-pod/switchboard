@@ -1,6 +1,6 @@
 import React from "react";
 import Page from "../general/Page";
-import DetailedStreamsTableWrapper from "./DetailedStreamsTableWrapper";
+import DetailedStreamTableWrapper from "./DetailedStreamTableWrapper";
 
 export default function StreamListPage() {
   const breadcrumbs = [
@@ -9,7 +9,7 @@ export default function StreamListPage() {
   ];
   return (
     <Page title="Active Streams" breadcrumbs={breadcrumbs} hasStreamButton>
-      <DetailedStreamsTableWrapper />
+      <DetailedStreamTableWrapper />
     </Page>
   );
 }

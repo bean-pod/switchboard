@@ -2,16 +2,20 @@ import React from "react";
 import { Grid } from "@material-ui/core";
 
 import DashboardCard from "../general/dashboard/DashboardCard";
-import DashBoardButton from "../general/dashboard/DashboardButton";
+import DashboardButton from "../general/dashboard/DashboardButton";
 
 export default function DevicesCard() {
   return (
     <DashboardCard title="Devices">
       <Grid item xs={4}>
-        <DashBoardButton href="/Devices">View Senders</DashBoardButton>
+        <DashboardButton href="/Devices" passedState={1}>
+          View Senders
+        </DashboardButton>
       </Grid>
       <Grid item xs={4}>
-        <DashBoardButton href="/Devices">View Receivers</DashBoardButton>
+        <DashboardButton href="/Devices" passedState={2}>
+          View Receivers
+        </DashboardButton>
       </Grid>
     </DashboardCard>
   );
