@@ -3,7 +3,7 @@ package org.beanpod.switchboard.fixture;
 import java.util.ArrayList;
 import java.util.List;
 import org.beanpod.switchboard.dto.StreamLogDto;
-import org.beanpod.switchboard.entity.StreamLog;
+import org.beanpod.switchboard.entity.StreamLogEntity;
 import org.openapitools.model.CreateStreamLogRequest;
 import org.openapitools.model.StreamLogModel;
 
@@ -17,8 +17,8 @@ public class StreamLogFixture {
         .build();
   }
 
-  public static StreamLog getStreamLog() {
-    return StreamLog.builder()
+  public static StreamLogEntity getStreamLog() {
+    return StreamLogEntity.builder()
         .id(LogFixture.id)
         .serialNumber(DeviceFixture.SERIAL_NUMBER2)
         .streamId(String.valueOf(StreamFixture.ID))
@@ -47,9 +47,9 @@ public class StreamLogFixture {
     return listOfStreamLogsModel;
   }
 
-  public static List<StreamLog> getListOfStreamLogs() {
-    List<StreamLog> listOfStreamLogs = new ArrayList<>();
-    listOfStreamLogs.add(getStreamLog());
-    return listOfStreamLogs;
+  public static List<StreamLogEntity> getListOfStreamLogs() {
+    List<StreamLogEntity> listOfStreamLogEntities = new ArrayList<>();
+    listOfStreamLogEntities.add(getStreamLog());
+    return listOfStreamLogEntities;
   }
 }

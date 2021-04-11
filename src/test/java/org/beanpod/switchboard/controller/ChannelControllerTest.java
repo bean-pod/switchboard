@@ -80,7 +80,7 @@ class ChannelControllerTest {
   @Test
   void testRetrieveAllChannels() {
     when(channelDao.getChannels()).thenReturn(channelEntityList);
-    when(channelMapper.toChannelDtos(any())).thenReturn(channelDtoList);
+    when(channelMapper.toDtos(any())).thenReturn(channelDtoList);
     List<ChannelDto> channelDtos = channelController.retrieveAllChannels();
     assertEquals(channelDtoList, channelDtos);
   }

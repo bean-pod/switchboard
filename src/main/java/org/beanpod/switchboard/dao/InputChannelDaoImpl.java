@@ -15,16 +15,17 @@ public class InputChannelDaoImpl {
   private final InputChannelMapper inputChannelMapper;
 
   public InputChannelDto saveInputChannel(InputChannelDto inputChannelDto) {
-    return inputChannelMapper.toInputChannelDto(
-        inputChannelRepository.save(inputChannelMapper.toInputChannelEntity(inputChannelDto)));
+    return inputChannelMapper.toDto(
+        inputChannelRepository.save(inputChannelMapper.toEntity(inputChannelDto)));
   }
 
-  public InputChannelDto getInputChannelById(Long id) {
-    InputChannelEntity inputChannelEntity = inputChannelRepository.getOne(id);
-    return inputChannelMapper.toInputChannelDto(inputChannelEntity);
+  public InputChannelDto getInputChannelById(UserEntity user, Long id) {
+    InputChannelEntity inputChannelEntity =
+        inputChannelRepository.findByDecoderDeviceUserAndId(user, id);
+    return inputChannelMapper.toDto(inputChannelEntity);
   }
 
   public Long deleteInputChannelById(UserEntity user, Long id) {
-    return inputChannelRepository.deleteInputChannelEntityByDecoderDeviceUserAndId(user, id);
+    return inputChannelRepository.deleteByDecoderDeviceUserAndId(user, id);
   }
 }

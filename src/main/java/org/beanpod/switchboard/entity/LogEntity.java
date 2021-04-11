@@ -40,5 +40,5 @@ public class LogEntity {
 
   @OneToOne(mappedBy = "logEntity", cascade = CascadeType.ALL)
   @PrimaryKeyJoinColumn
-  private StreamLog streamLog;
+  private StreamLogEntity streamLogEntity;
 }

@@ -3,14 +3,12 @@ package org.beanpod.switchboard.aop;
 import java.time.OffsetDateTime;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.beanpod.switchboard.dao.StreamDaoImpl;
-import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.exceptions.ExceptionType.UnknownException;
 import org.beanpod.switchboard.service.StreamLogService;
+import org.openapitools.model.ChannelModel;
 import org.openapitools.model.DecoderModel;
 import org.openapitools.model.EncoderModel;
 import org.openapitools.model.InputChannelModel;
@@ -51,43 +49,29 @@ public class StreamAspect {
             .map(EncoderModel::getSerialNumber)
             .orElseThrow(() -> new UnknownException(stream));
 
-    Long outputId =
+    String outputChannelName =
         Optional.of(response.getBody())
             .map(StreamModel::getOutputChannel)
-            .map(OutputChannelModel::getId)
+            .map(OutputChannelModel::getChannel)
+            .map(ChannelModel::getName)
             .orElseThrow(() -> new UnknownException(stream));
 
-    Long inputId =
+    String inputChannelName =
         Optional.of(response.getBody())
             .map(StreamModel::getInputChannel)
-            .map(InputChannelModel::getId)
+            .map(InputChannelModel::getChannel)
+            .map(ChannelModel::getName)
             .orElseThrow(() -> new UnknownException(stream));
+
     String message =
         String.format(
-            "A stream started from output channel %d of decoder %s"
-                + " to input channel %d of encoder %s",
-            outputId, decoderSerial, inputId, encoderSerial);
+            "A stream started from %s of encoder %s" + " to %s of decoder %s",
+            outputChannelName, encoderSerial, inputChannelName, decoderSerial);
 
     Long streamId =
         Optional.of(response.getBody())
             .map(StreamModel::getId)
             .orElseThrow(() -> new UnknownException(stream));
-
-    streamLogService.createLog(
-        OffsetDateTime.now(), message, decoderSerial, encoderSerial, streamId.toString());
-  }
-
-  @Before("execution(* org.beanpod.switchboard.controller.StreamController.deleteStream(..))")
-  public void deleteStream(JoinPoint joinPoint) {
-    Object[] args = joinPoint.getArgs();
-    Long streamId = (Long) args[0];
-    StreamDto streamDto = streamDao.getStreamById(streamId);
-    String decoderSerial = streamDto.getInputChannel().getDecoder().getSerialNumber();
-    String encoderSerial = streamDto.getOutputChannel().getEncoder().getSerialNumber();
-    String message =
-        String.format(
-            "Deleted stream of ID %d between decoder %s and encoder %s",
-            streamId, decoderSerial, encoderSerial);
 
     streamLogService.createLog(
         OffsetDateTime.now(), message, decoderSerial, encoderSerial, streamId.toString());

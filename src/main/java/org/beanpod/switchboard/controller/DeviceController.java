@@ -57,8 +57,8 @@ public class DeviceController implements DeviceApi {
     UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
 
     return Optional.of(deviceDao.getDevices(user))
-        .map(deviceMapper::toDeviceDtos)
-        .map(deviceMapper::toDeviceModelList)
+        .map(deviceMapper::toDtos)
+        .map(deviceMapper::toModels)
         .map(ResponseEntity::ok)
         .orElseThrow(() -> new ExceptionType.UnknownException(CONTROLLER_NAME));
   }
@@ -73,7 +73,7 @@ public class DeviceController implements DeviceApi {
             .orElseThrow(() -> new ExceptionType.DeviceNotFoundException(serialNumber));
 
     return Optional.of(deviceDto)
-        .map(deviceMapper::toDeviceModel)
+        .map(deviceMapper::toModel)
         .map(ResponseEntity::ok)
         .orElseThrow(() -> new ExceptionType.UnknownException(CONTROLLER_NAME));
   }
@@ -90,7 +90,7 @@ public class DeviceController implements DeviceApi {
 
     return Optional.of(createDeviceRequest)
         .map(createRequest -> deviceDao.createDevice(user, createRequest, publicIpAddress))
-        .map(deviceMapper::toDeviceModel)
+        .map(deviceMapper::toModel)
         .map(ResponseEntity::ok)
         .orElseThrow(() -> new ExceptionType.UnknownException(CONTROLLER_NAME));
   }
@@ -117,9 +117,9 @@ public class DeviceController implements DeviceApi {
     }
 
     return Optional.of(deviceModel)
-        .map(deviceMapper::toDeviceDto)
+        .map(deviceMapper::toDto)
         .map(deviceDto -> deviceDao.save(user, deviceDto))
-        .map(deviceMapper::toDeviceModel)
+        .map(deviceMapper::toModel)
         .map(ResponseEntity::ok)
         .orElseThrow(() -> new ExceptionType.UnknownException(CONTROLLER_NAME));
   }

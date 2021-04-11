@@ -32,14 +32,6 @@ export default class DetailedStreamsTableWrapper extends React.Component {
         }
       },
       {
-        title: "Type",
-        field: "type"
-      },
-      {
-        title: "Time Elapsed",
-        field: "time"
-      },
-      {
         title: "Actions",
         field: "action",
         filtering: false,
@@ -53,15 +45,11 @@ export default class DetailedStreamsTableWrapper extends React.Component {
     ];
   }
 
-  getDetailedColumns() {
-    return this.detailedColumns;
-  }
-
   render() {
     return (
       <StreamsTableWrapper
         dataSource={streamDataSource}
-        columns={this.getDetailedColumns()}
+        columns={this.detailedColumns}
       />
     );
   }

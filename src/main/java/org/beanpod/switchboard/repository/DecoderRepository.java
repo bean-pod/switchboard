@@ -12,10 +12,9 @@ public interface DecoderRepository extends JpaRepository<DecoderEntity, String> 
 
   DecoderEntity save(DecoderEntity decoderEntity);
 
-  List<DecoderEntity> findDecoderEntitiesByDeviceUser(UserEntity user);
+  List<DecoderEntity> findByDeviceUser(UserEntity user);
 
-  Optional<DecoderEntity> findDecoderByDeviceUserAndSerialNumber(
-      UserEntity user, String serialNumber);
+  Optional<DecoderEntity> findByDeviceUserAndSerialNumber(UserEntity user, String serialNumber);
 
-  Long deleteDecoderEntityByDeviceUserAndSerialNumber(UserEntity user, String serialNumber);
+  Long deleteByDeviceUserAndSerialNumber(UserEntity user, String serialNumber);
 }

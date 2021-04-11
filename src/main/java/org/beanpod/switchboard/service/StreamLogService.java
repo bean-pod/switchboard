@@ -5,12 +5,12 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.dao.StreamDaoImpl;
 import org.beanpod.switchboard.dao.StreamLogDaoImpl;
-import org.beanpod.switchboard.dto.StreamDto;
 import org.beanpod.switchboard.dto.StreamLogDto;
 import org.beanpod.switchboard.dto.mapper.LogMapper;
 import org.beanpod.switchboard.dto.mapper.StreamLogMapper;
 import org.beanpod.switchboard.entity.LogEntity;
-import org.beanpod.switchboard.entity.StreamLog;
+import org.beanpod.switchboard.entity.StreamLogEntity;
+import org.beanpod.switchboard.entity.UserEntity;
 import org.openapitools.model.CreateStreamLogRequest;
 import org.springframework.stereotype.Component;
 
@@ -30,29 +30,26 @@ public class StreamLogService {
       String encoderSerial,
       String streamId) {
     LogEntity logEntity = new LogEntity(dateTime, message, "info", decoderSerial);
-    StreamLog streamLog = new StreamLog(encoderSerial, streamId);
+    StreamLogEntity streamLogEntity = new StreamLogEntity(encoderSerial, streamId);
 
-    streamLog.setLogEntity(logEntity);
+    streamLogEntity.setLogEntity(logEntity);
 
-    StreamLogDto streamLogDto = streamLogMapper.toLogStreamDto(streamLog);
+    StreamLogDto streamLogDto = streamLogMapper.toDto(streamLogEntity);
 
     return streamLogDao.createStreamLog(streamLogDto);
   }
 
-  public StreamLogDto createLog(CreateStreamLogRequest createStreamLogRequest) {
-    Optional<StreamDto> streamDto =
-        Optional.of(Long.valueOf(createStreamLogRequest.getStreamId()))
-            .map(streamDao::getStreamById);
-
-    if (!streamDto.isPresent()) {
-      return null;
-    }
-
-    return createLog(
-        logMapper.map(createStreamLogRequest.getDateTime()),
-        createStreamLogRequest.getMessage(),
-        streamDto.get().getInputChannel().getDecoder().getSerialNumber(),
-        streamDto.get().getOutputChannel().getEncoder().getSerialNumber(),
-        createStreamLogRequest.getStreamId().toString());
+  public StreamLogDto createLog(UserEntity user, CreateStreamLogRequest createStreamLogRequest) {
+    return Optional.of(Long.valueOf(createStreamLogRequest.getStreamId()))
+        .map(streamId -> streamDao.getStreamById(user, streamId))
+        .map(
+            dto ->
+                createLog(
+                    logMapper.map(createStreamLogRequest.getDateTime()),
+                    createStreamLogRequest.getMessage(),
+                    dto.getInputChannel().getDecoder().getSerialNumber(),
+                    dto.getOutputChannel().getEncoder().getSerialNumber(),
+                    createStreamLogRequest.getStreamId().toString()))
+        .orElse(null);
   }
 }

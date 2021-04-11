@@ -1,14 +1,14 @@
 package org.beanpod.switchboard.repository;
 
 import java.util.List;
-import org.beanpod.switchboard.entity.StreamLog;
+import org.beanpod.switchboard.entity.StreamLogEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface LogStreamRepository extends JpaRepository<StreamLog, Long> {
+public interface LogStreamRepository extends JpaRepository<StreamLogEntity, Long> {
 
-  StreamLog save(StreamLog logEntity);
+  StreamLogEntity save(StreamLogEntity logEntity);
 
-  List<StreamLog> findByStreamId(String streamId);
+  List<StreamLogEntity> findByStreamId(String streamId);
 }
