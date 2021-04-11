@@ -411,7 +411,7 @@ public class SystemTests {
     WebElement decodersTable = driver.findElement(By.tagName("table")); // find encoders table
     List<WebElement> decodersRows =
         decodersTable.findElements(By.tagName("tr")); // find all tr elements inside found table
-    boolean assertValue2 =
+    boolean assertValue =
         decodersRows.stream()
             .anyMatch(
                 row ->
@@ -421,6 +421,6 @@ public class SystemTests {
                                 .getDevice()
                                 .getDisplayName()));
 
-    assertFalse(assertValue2);
+    assertFalse(assertValue);
   }
 }
