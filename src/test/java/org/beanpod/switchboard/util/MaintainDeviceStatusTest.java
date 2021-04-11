@@ -28,21 +28,21 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-public class MaintainDeviceStatusTest {
+class MaintainDeviceStatusTest {
 
   public static UserEntity user;
   private static List<EncoderEntity> encodersList;
   private static EncoderEntity encoderEntity;
   private static StreamDto streamDto;
   private final DateUtil dateUtil = new DateUtil();
-  @InjectMocks private MaintainDeviceStatus maintainDeviceStatus;
-  @Mock private DeviceDaoImpl deviceService;
-  @Mock private DeviceMapper deviceMapper;
-  @Mock private LogRepository logRepository;
   @Mock HttpServletRequest httpServletRequest;
   @Mock UserPrincipal userPrincipal;
   @Mock UserDaoImpl userDao;
   @Mock UserMapper userMapper;
+  @InjectMocks private MaintainDeviceStatus maintainDeviceStatus;
+  @Mock private DeviceDaoImpl deviceService;
+  @Mock private DeviceMapper deviceMapper;
+  @Mock private LogRepository logRepository;
 
   @BeforeEach
   public void setup() {

@@ -1,5 +1,6 @@
 package org.beanpod.switchboard.entity;
 
+import java.time.OffsetDateTime;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -46,4 +47,6 @@ public class StreamEntity {
   @Column(name = "isRendezvous")
   @NotNull
   private Boolean isRendezvous;
+
+  private OffsetDateTime startDate;
 }

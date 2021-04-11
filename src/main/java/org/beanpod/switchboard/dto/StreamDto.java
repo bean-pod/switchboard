@@ -1,5 +1,6 @@
 package org.beanpod.switchboard.dto;
 
+import java.time.OffsetDateTime;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,4 +18,5 @@ public class StreamDto {
   private InputChannelDto inputChannel;
   private Boolean isRendezvous;
   @NotNull private StreamStatDto streamStat;
+  private OffsetDateTime startDate;
 }
