@@ -268,7 +268,7 @@ paths:
         - $ref: '#/components/parameters/EncoderSerialNumber'
       responses:
         '200':
-          description: Successful creation the encoder
+          description: Successful retrieval of the encoder
           content:
             application/json:
               schema:
