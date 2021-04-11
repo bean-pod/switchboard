@@ -41,7 +41,7 @@ describe("<DeviceListPage/> functional component", () => {
       });
       it("Contains 1 <DeviceListPageContents/> component with expected props", () => {
         const defaultSelectedState = {
-          selected: 0
+          passedState: 0
         };
 
         const deviceListContents = wrapper.find(DeviceListPageContents);
@@ -54,7 +54,7 @@ describe("<DeviceListPage/> functional component", () => {
   });
   describe("when passed a location component", () => {
     const dummyLocation = {
-      state: { selected: 2 }
+      state: { passedState: 2 }
     };
     beforeEach(() => {
       wrapper = Enzyme.shallow(<DeviceListPage location={dummyLocation} />);
@@ -84,7 +84,7 @@ describe("<DeviceListPage/> functional component", () => {
       });
       it("Contains 1 <DeviceListPageContents/> component with expected props", () => {
         const selectedState = {
-          selected: 2
+          passedState: 2
         };
 
         const deviceListContents = wrapper.find(DeviceListPageContents);
