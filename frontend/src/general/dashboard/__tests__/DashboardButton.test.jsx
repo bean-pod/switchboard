@@ -25,7 +25,7 @@ describe("<DashboardButton/> Component", () => {
         color: "inherit",
         to: {
           pathname: dummyHref,
-          state: { selected: 0 }
+          state: { passedState: 0 }
         }
       };
       const link = wrapper.find(NavLink);

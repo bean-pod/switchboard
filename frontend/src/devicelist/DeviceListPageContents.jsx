@@ -24,7 +24,7 @@ export default class DeviceListPageContents extends React.Component {
 
   componentDidMount() {
     const { selectedState } = this.props;
-    this.handleChange(selectedState.selected);
+    this.handleChange(selectedState.passedState);
     getSenders()
       .then(this.handleSendersChange)
       .catch((error) => {
@@ -80,11 +80,11 @@ export default class DeviceListPageContents extends React.Component {
 }
 
 DeviceListPageContents.defaultProps = {
-  selectedState: { selected: 0 }
+  selectedState: { passedState: 0 }
 };
 
 DeviceListPageContents.propTypes = {
   selectedState: PropTypes.shape({
-    selected: PropTypes.number
+    passedState: PropTypes.number
   })
 };

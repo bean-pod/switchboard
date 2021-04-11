@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 import { Button, withStyles } from "@material-ui/core";
 
 export default function DashboardButton(props) {
-  const { href, children, selected } = props;
+  const { href, children, passedState } = props;
 
   const StyledButton = withStyles({
     root: {
@@ -27,7 +27,7 @@ export default function DashboardButton(props) {
       color="inherit"
       to={{
         pathname: href,
-        state: { selected }
+        state: { passedState }
       }}
     >
       <StyledButton>{children}</StyledButton>
@@ -36,7 +36,7 @@ export default function DashboardButton(props) {
 }
 
 DashboardButton.defaultProps = {
-  selected: 0
+  passedState: 0
 };
 DashboardButton.propTypes = {
   href: PropTypes.string.isRequired,
@@ -45,5 +45,5 @@ DashboardButton.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
   ]).isRequired,
-  selected: PropTypes.number
+  passedState: PropTypes.number
 };

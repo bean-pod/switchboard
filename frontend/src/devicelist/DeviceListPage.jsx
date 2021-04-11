@@ -6,7 +6,7 @@ import DeviceListPageContents from "./DeviceListPageContents";
 
 export default function DeviceListPage(props) {
   const {
-    location: { state: selected }
+    location: { state: passedState }
   } = props;
 
   const breadcrumb = [
@@ -15,19 +15,19 @@ export default function DeviceListPage(props) {
   ];
   return (
     <Page title="My Devices" breadcrumbs={breadcrumb} hasStreamButton>
-      <DeviceListPageContents selectedState={selected} />
+      <DeviceListPageContents selectedState={passedState} />
     </Page>
   );
 }
 
 DeviceListPage.defaultProps = {
-  location: { state: { selected: 0 } }
+  location: { state: { passedState: 0 } }
 };
 
 DeviceListPage.propTypes = {
   location: PropTypes.shape({
     state: PropTypes.shape({
-      selected: PropTypes.number
+      passedState: PropTypes.number
     })
   })
 };
