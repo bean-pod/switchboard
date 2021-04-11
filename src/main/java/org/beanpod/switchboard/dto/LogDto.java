@@ -20,7 +20,7 @@ import org.beanpod.switchboard.entity.StreamLogEntity;
 @RequiredArgsConstructor
 public class LogDto {
 
-  @NonNull private Long id;
+  private Long id;
 
   @NonNull private OffsetDateTime dateTime;
 
