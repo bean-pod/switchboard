@@ -8,6 +8,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.beanpod.switchboard.dao.StreamDaoImpl;
 import org.beanpod.switchboard.exceptions.ExceptionType.UnknownException;
 import org.beanpod.switchboard.service.StreamLogService;
+import org.openapitools.model.ChannelModel;
 import org.openapitools.model.DecoderModel;
 import org.openapitools.model.EncoderModel;
 import org.openapitools.model.InputChannelModel;
@@ -48,22 +49,24 @@ public class StreamAspect {
             .map(EncoderModel::getSerialNumber)
             .orElseThrow(() -> new UnknownException(stream));
 
-    Long outputId =
+    String outputChannelName =
         Optional.of(response.getBody())
             .map(StreamModel::getOutputChannel)
-            .map(OutputChannelModel::getId)
+            .map(OutputChannelModel::getChannel)
+            .map(ChannelModel::getName)
             .orElseThrow(() -> new UnknownException(stream));
 
-    Long inputId =
+    String inputChannelName =
         Optional.of(response.getBody())
             .map(StreamModel::getInputChannel)
-            .map(InputChannelModel::getId)
+            .map(InputChannelModel::getChannel)
+            .map(ChannelModel::getName)
             .orElseThrow(() -> new UnknownException(stream));
+
     String message =
         String.format(
-            "A stream started from output channel %d of decoder %s"
-                + " to input channel %d of encoder %s",
-            outputId, decoderSerial, inputId, encoderSerial);
+            "A stream started from %s of encoder %s" + " to %s of decoder %s",
+            outputChannelName, encoderSerial, inputChannelName, decoderSerial);
 
     Long streamId =
         Optional.of(response.getBody())
