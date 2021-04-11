@@ -74,6 +74,6 @@ public class StreamAspect {
             .orElseThrow(() -> new UnknownException(stream));
 
     streamLogService.createLog(
-        OffsetDateTime.now(), message, decoderSerial, encoderSerial, streamId.toString());
+        OffsetDateTime.now(), message, decoderSerial, encoderSerial, streamId.toString(), "info");
   }
 }

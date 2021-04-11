@@ -28,8 +28,9 @@ public class StreamLogService {
       String message,
       String decoderSerial,
       String encoderSerial,
-      String streamId) {
-    LogEntity logEntity = new LogEntity(dateTime, message, "info", decoderSerial);
+      String streamId,
+      String level) {
+    LogEntity logEntity = new LogEntity(dateTime, message, level, decoderSerial);
     StreamLogEntity streamLogEntity = new StreamLogEntity(encoderSerial, streamId);
 
     streamLogEntity.setLogEntity(logEntity);
@@ -49,7 +50,8 @@ public class StreamLogService {
                     createStreamLogRequest.getMessage(),
                     dto.getInputChannel().getDecoder().getSerialNumber(),
                     dto.getOutputChannel().getEncoder().getSerialNumber(),
-                    createStreamLogRequest.getStreamId().toString()))
+                    createStreamLogRequest.getStreamId().toString(),
+                    createStreamLogRequest.getLevel()))
         .orElse(null);
   }
 }
