@@ -25,12 +25,11 @@ public interface OutputChannelMapper {
 
   OutputChannelModel toModel(OutputChannelDto outputChannelDto);
 
-  @Named("outputChannelDtoToOutputChannelModelShallow")
+  @Named("toModelShallow")
   @Mapping(target = "encoder", ignore = true)
-  OutputChannelModel outputChannelDtoToOutputChannelModelShallow(OutputChannelDto outputChannelDto);
+  OutputChannelModel toModelShallow(OutputChannelDto outputChannelDto);
 
-  @Named("outputChannelDtosToOutputChannelModelsShallow")
-  @IterableMapping(qualifiedByName = "outputChannelDtoToOutputChannelModelShallow")
-  List<OutputChannelModel> outputChannelDtosToOutputChannelModelsShallow(
-      Set<OutputChannelDto> outputChannelDto);
+  @Named("toModelsShallow")
+  @IterableMapping(qualifiedByName = "toModelShallow")
+  List<OutputChannelModel> toModelsShallow(Set<OutputChannelDto> outputChannelDto);
 }

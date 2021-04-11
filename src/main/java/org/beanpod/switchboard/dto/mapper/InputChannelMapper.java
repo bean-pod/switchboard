@@ -25,12 +25,11 @@ public interface InputChannelMapper {
 
   InputChannelModel toModel(InputChannelDto inputChannelDto);
 
-  @Named("inputChannelDtoToInputChannelModelShallow")
+  @Named("toModelShallow")
   @Mapping(target = "decoder", ignore = true)
-  InputChannelModel inputChannelDtoToInputChannelModelShallow(InputChannelDto inputChannelDto);
+  InputChannelModel toModelShallow(InputChannelDto inputChannelDto);
 
-  @Named("inputChannelDtoSetToInputChannelModelListShallow")
-  @IterableMapping(qualifiedByName = "inputChannelDtoToInputChannelModelShallow")
-  List<InputChannelModel> inputChannelDtoSetToInputChannelModelListShallow(
-      Set<InputChannelDto> value);
+  @Named("toModelsShallow")
+  @IterableMapping(qualifiedByName = "toModelShallow")
+  List<InputChannelModel> toModelsShallow(Set<InputChannelDto> value);
 }
