@@ -161,15 +161,9 @@ describe("<CreateStreamPageContents/> class component", () => {
         disableLifecycleMethods: true
       });
 
-      const setSendersSpy = jest.spyOn(
-        wrapper.instance(),
-        "setSenders"
-      );
+      const setSendersSpy = jest.spyOn(wrapper.instance(), "setSenders");
 
-      const setReceiversSpy = jest.spyOn(
-        wrapper.instance(),
-        "setReceivers"
-      )
+      const setReceiversSpy = jest.spyOn(wrapper.instance(), "setReceivers");
 
       wrapper.instance().componentDidMount();
 
@@ -186,7 +180,7 @@ describe("<CreateStreamPageContents/> class component", () => {
     beforeEach(() => {
       DeviceApi.getSenders.mockResolvedValue([]);
       DeviceApi.getReceivers.mockResolvedValue([]);
-      
+
       wrapper = Enzyme.shallow(<CreateStreamPageContents />);
     });
     it("setSenders() function should set the state", () => {
