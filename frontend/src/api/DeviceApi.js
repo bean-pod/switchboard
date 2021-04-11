@@ -24,6 +24,9 @@ export async function getSenders() {
     .then((senders) => {
       return Promise.resolve(
         senders.data.map((sender) => {
+          const status =
+            sender.device.status.charAt(0).toUpperCase() +
+            sender.device.status.slice(1);
           let channels = [];
           if (sender.output) {
             channels = sender.output.map((output) => {
@@ -45,7 +48,7 @@ export async function getSenders() {
             sender.device.publicIpAddress,
             sender.device.privateIpAddress,
             sender.device.displayName,
-            getStatus(sender.lastCommunication),
+            status,
             channels,
             "encoder",
             sender.device.configurationInstance
@@ -61,6 +64,9 @@ export async function getReceivers() {
     .then((receivers) => {
       return Promise.resolve(
         receivers.data.map((receiver) => {
+          const status =
+            receiver.device.status.charAt(0).toUpperCase() +
+            receiver.device.status.slice(1);
           let channels = [];
           if (receiver.input) {
             channels = receiver.input.map((input) => {
@@ -82,7 +88,7 @@ export async function getReceivers() {
             receiver.device.publicIpAddress,
             receiver.device.privateIpAddress,
             receiver.device.displayName,
-            getStatus(receiver.lastCommunication),
+            status,
             channels,
             "decoder",
             receiver.device.configurationInstance
