@@ -31,10 +31,7 @@ describe("<DashboardButton/> Component", () => {
       const link = wrapper.find(NavLink);
       expect(link).toHaveLength(1);
       const linkProps = link.props();
-      expect(linkProps.activeClassName).toBe(expected.activeClassName);
-      expect(linkProps.className).toBe(expected.className);
-      expect(linkProps.color).toBe(expected.color);
-      expect(linkProps.to).toStrictEqual(expected.to);
+      expect(linkProps).toMatchObject(expected);
     });
     it("Contains 1 WithStyles() wrapped Button component", () => {
       const linkChild = wrapper.find(NavLink).first().children().first();
