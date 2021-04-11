@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import { getSenders, getReceivers } from "../api/DeviceApi";
 import DeviceTableTitle from "./DeviceTableTitle";
@@ -22,6 +23,8 @@ export default class DeviceListPageContents extends React.Component {
   }
 
   componentDidMount() {
+    const { selectedState } = this.props;
+    this.handleChange(selectedState.passedState);
     getSenders()
       .then(this.handleSendersChange)
       .catch((error) => {
@@ -75,3 +78,13 @@ export default class DeviceListPageContents extends React.Component {
     return <DevicesTable devices={this.getDevices()} title={this.getTitle()} />;
   }
 }
+
+DeviceListPageContents.defaultProps = {
+  selectedState: { passedState: 0 }
+};
+
+DeviceListPageContents.propTypes = {
+  selectedState: PropTypes.shape({
+    passedState: PropTypes.number
+  })
+};
