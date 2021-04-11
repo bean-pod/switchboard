@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "./dashboard.css";
-import { Link, Button, withStyles } from "@material-ui/core";
+import { NavLink } from "react-router-dom";
+import { Button, withStyles } from "@material-ui/core";
 
 export default function DashboardButton(props) {
-  const { href, children } = props;
+  const { href, children, selected } = props;
 
   const StyledButton = withStyles({
     root: {
@@ -20,17 +21,29 @@ export default function DashboardButton(props) {
     }
   })(Button);
   return (
-    <Link color="inherit" href={href}>
+    <NavLink 
+      activeClassName="hideLinkStyle"
+      className="hideLinkStyle"
+      color="inherit"
+      to={{
+        pathname: href,
+        state: { selected }
+      }}
+    >
       <StyledButton>{children}</StyledButton>
-    </Link>
+    </NavLink>
   );
 }
 
+DashboardButton.defaultProps = {
+  selected: 0
+};
 DashboardButton.propTypes = {
   href: PropTypes.string.isRequired,
   children: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
-  ]).isRequired
+  ]).isRequired,
+  selected: PropTypes.number
 };
