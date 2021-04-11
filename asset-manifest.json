@@ -1,12 +1,12 @@
 {
   "files": {
     "main.css": "/Home/static/css/main.486c5605.chunk.css",
-    "main.js": "/Home/static/js/main.9776e127.chunk.js",
-    "main.js.map": "/Home/static/js/main.9776e127.chunk.js.map",
+    "main.js": "/Home/static/js/main.ed19710d.chunk.js",
+    "main.js.map": "/Home/static/js/main.ed19710d.chunk.js.map",
     "runtime-main.js": "/Home/static/js/runtime-main.7303beee.js",
     "runtime-main.js.map": "/Home/static/js/runtime-main.7303beee.js.map",
-    "static/js/2.53f8b4a0.chunk.js": "/Home/static/js/2.53f8b4a0.chunk.js",
-    "static/js/2.53f8b4a0.chunk.js.map": "/Home/static/js/2.53f8b4a0.chunk.js.map",
+    "static/js/2.1754255a.chunk.js": "/Home/static/js/2.1754255a.chunk.js",
+    "static/js/2.1754255a.chunk.js.map": "/Home/static/js/2.1754255a.chunk.js.map",
     "static/js/3.8a5dce8e.chunk.js": "/Home/static/js/3.8a5dce8e.chunk.js",
     "static/js/3.8a5dce8e.chunk.js.map": "/Home/static/js/3.8a5dce8e.chunk.js.map",
     "static/js/4.f780afff.chunk.js": "/Home/static/js/4.f780afff.chunk.js",
@@ -15,15 +15,15 @@
     "static/js/5.bd105218.chunk.js.map": "/Home/static/js/5.bd105218.chunk.js.map",
     "index.html": "/Home/index.html",
     "static/css/main.486c5605.chunk.css.map": "/Home/static/css/main.486c5605.chunk.css.map",
-    "static/js/2.53f8b4a0.chunk.js.LICENSE.txt": "/Home/static/js/2.53f8b4a0.chunk.js.LICENSE.txt",
+    "static/js/2.1754255a.chunk.js.LICENSE.txt": "/Home/static/js/2.1754255a.chunk.js.LICENSE.txt",
     "static/js/3.8a5dce8e.chunk.js.LICENSE.txt": "/Home/static/js/3.8a5dce8e.chunk.js.LICENSE.txt",
     "static/js/4.f780afff.chunk.js.LICENSE.txt": "/Home/static/js/4.f780afff.chunk.js.LICENSE.txt",
     "static/js/5.bd105218.chunk.js.LICENSE.txt": "/Home/static/js/5.bd105218.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.7303beee.js",
-    "static/js/2.53f8b4a0.chunk.js",
+    "static/js/2.1754255a.chunk.js",
     "static/css/main.486c5605.chunk.css",
-    "static/js/main.9776e127.chunk.js"
+    "static/js/main.ed19710d.chunk.js"
   ]
 }
