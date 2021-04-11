@@ -5,9 +5,11 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.beanpod.switchboard.dao.DeviceDaoImpl;
 import org.beanpod.switchboard.dao.LogDaoImpl;
 import org.beanpod.switchboard.dao.StreamLogDaoImpl;
 import org.beanpod.switchboard.dao.UserDaoImpl;
+import org.beanpod.switchboard.dto.DeviceDto;
 import org.beanpod.switchboard.dto.mapper.LogMapper;
 import org.beanpod.switchboard.dto.mapper.StreamLogMapper;
 import org.beanpod.switchboard.entity.UserEntity;
@@ -36,6 +38,7 @@ public class LogController implements LogApi {
   private final StreamLogService streamLogService;
   private final StreamLogMapper streamLogMapper;
   private final HttpServletRequest request;
+  private final DeviceDaoImpl deviceDao;
 
   @Override
   public ResponseEntity<List<StreamLogModel>> retrieveStreamLogs(@PathVariable Long streamId) {
@@ -57,6 +60,12 @@ public class LogController implements LogApi {
 
   @Override
   public ResponseEntity<LogModel> createLog(@Valid CreateLogRequest createLogRequest) {
+    Optional<DeviceDto> deviceLookup = deviceDao.findDevice(createLogRequest.getSerialNumber());
+
+    if (deviceLookup.isEmpty()) {
+      throw new ExceptionType.DeviceNotFoundException(CONTROLLER_NAME);
+    }
+
     return Optional.of(createLogRequest)
         .map(logMapper::toModel)
         .map(logService::createLog)
