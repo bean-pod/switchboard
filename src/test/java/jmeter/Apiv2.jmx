@@ -1060,7 +1060,7 @@ vars.put(&quot;streamId&quot;,String.valueOf(streamId));</stringProp>
             <stringProp name="HTTPSampler.port"></stringProp>
             <stringProp name="HTTPSampler.protocol"></stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/encoder/${streamInput}/streams</stringProp>
+            <stringProp name="HTTPSampler.path">/encoder/${streamInput}/stream</stringProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -1542,7 +1542,7 @@ vars.put(&quot;decoderSerial&quot;,String.valueOf(decoderSerial));</stringProp>
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
                   <stringProp name="Argument.value">{&#xd;
 	&quot;id&quot;:&quot;${streamStat}&quot;,&#xd;
-	&quot;time&quot;: 22,&#xd;
+    &quot;bandwidth&quot;: 23&#xd;
 }&#xd;
 </stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
@@ -1554,7 +1554,7 @@ vars.put(&quot;decoderSerial&quot;,String.valueOf(decoderSerial));</stringProp>
             <stringProp name="HTTPSampler.protocol"></stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
             <stringProp name="HTTPSampler.path">/stream/statistics</stringProp>
-            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <stringProp name="HTTPSampler.method">PUT</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
             <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -1898,7 +1898,7 @@ vars.put(&quot;id&quot;,result);</stringProp>
         <hashTree/>
         <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="Delete Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">true</boolProp>
-          <stringProp name="LoopController.loops">100</stringProp>
+          <stringProp name="LoopController.loops">10</stringProp>
         </LoopController>
         <hashTree>
           <CriticalSectionController guiclass="CriticalSectionControllerGui" testclass="CriticalSectionController" testname="Critical Section Controller" enabled="true">
