@@ -34,13 +34,13 @@ import org.mockito.MockitoAnnotations;
 class EncoderServiceTest {
 
   public static UserEntity user;
+  @Mock HttpServletRequest httpServletRequest;
+  @Mock UserPrincipal userPrincipal;
+  @Mock UserDaoImpl userDao;
   @InjectMocks private EncoderServiceImpl encoderService;
   @Mock private StreamDaoImpl streamDao;
   @Mock private EncoderDaoImpl encoderDao;
   @Mock private DateUtil dateUtil;
-  @Mock HttpServletRequest httpServletRequest;
-  @Mock UserPrincipal userPrincipal;
-  @Mock UserDaoImpl userDao;
 
   @BeforeEach
   void setup() {

@@ -268,24 +268,7 @@ paths:
         - $ref: '#/components/parameters/EncoderSerialNumber'
       responses:
         '200':
-          description: Successful retrieval of the encoder
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EncoderModel'
-
-
-  /encoder/{serialNumber}:
-    get:
-      operationId: retrieveDecoder
-      description: Retrieve a specific encoder
-      tags:
-        - Encoders
-      parameters:
-        - $ref: '#/components/parameters/EncoderSerialNumber'
-      responses:
-        '200':
-          description: Successful retrieval of the encoder
+          description: Successful creation the encoder
           content:
             application/json:
               schema:
@@ -796,6 +779,9 @@ components:
           description: Flag that indicates that the clients should use SRT's Rendezvous mode
           type: boolean
           example: true
+        startDate:
+          type: string
+          format: date-time
 
     StreamsModel:
       description: A list of stream IDs
