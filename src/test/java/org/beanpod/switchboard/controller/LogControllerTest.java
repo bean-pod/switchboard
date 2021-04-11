@@ -103,8 +103,7 @@ class LogControllerTest {
     when(logService.createLog(any())).thenReturn(logDto);
     when(logMapper.toModel((CreateLogRequest) any())).thenReturn(logModel);
     when(logMapper.toModel((LogDto) any())).thenReturn(logModel);
-    when(deviceDao.findDevice(DeviceFixture.SERIAL_NUMBER))
-        .thenReturn(Optional.of(deviceDTO));
+    when(deviceDao.findDevice(DeviceFixture.SERIAL_NUMBER)).thenReturn(Optional.of(deviceDTO));
 
     ResponseEntity<LogModel> responseEntity =
         logController.createLog(LogFixture.getCreateLogRequest());
