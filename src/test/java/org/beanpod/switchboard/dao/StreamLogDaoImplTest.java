@@ -7,8 +7,8 @@ import static org.mockito.Mockito.when;
 import java.util.List;
 import org.beanpod.switchboard.dto.StreamLogDto;
 import org.beanpod.switchboard.dto.mapper.StreamLogMapper;
-import org.beanpod.switchboard.entity.UserEntity;
 import org.beanpod.switchboard.entity.StreamLogEntity;
+import org.beanpod.switchboard.entity.UserEntity;
 import org.beanpod.switchboard.fixture.StreamLogFixture;
 import org.beanpod.switchboard.fixture.UserFixture;
 import org.beanpod.switchboard.repository.LogStreamRepository;
@@ -19,7 +19,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.openapitools.model.StreamLogModel;
 
-public class StreamLogDaoImplTest {
+class StreamLogDaoImplTest {
   @InjectMocks StreamLogDaoImpl streamLogDao;
   @Mock LogStreamRepository logStreamRepository;
   @Mock StreamLogMapper streamLogMapper;

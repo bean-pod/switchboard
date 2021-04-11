@@ -36,15 +36,15 @@ import org.openapitools.model.CreateStreamRequest;
 class StreamServiceTest {
 
   public static UserEntity user;
-  @InjectMocks private StreamServiceImpl streamService;
-  @Mock private StreamDaoImpl streamDao;
-  @Mock private StreamMapper mapper;
   @Mock InputChannelDaoImpl inputChannelDao;
   @Mock OutputChannelDaoImpl outputChannelDao;
-  @Mock private NetworkingUtil networkingUtil;
   @Mock HttpServletRequest httpServletRequest;
   @Mock UserPrincipal userPrincipal;
   @Mock UserDaoImpl userDao;
+  @InjectMocks private StreamServiceImpl streamService;
+  @Mock private StreamDaoImpl streamDao;
+  @Mock private StreamMapper mapper;
+  @Mock private NetworkingUtil networkingUtil;
 
   @BeforeEach
   public void setup() {
