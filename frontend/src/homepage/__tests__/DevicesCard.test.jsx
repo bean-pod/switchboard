@@ -51,11 +51,13 @@ describe("<DevicesCard/> functional component", () => {
     it("First <DashboardButton/> has expected props", () => {
       const props = wrapper.find(DashboardButton).at(0).props();
       expect(props.href).toBe("/Devices");
+      expect(props.passedState).toBe(1);
       expect(props.children).toBe("View Senders");
     });
     describe("Second <DashboardButton/> has expected props", () => {
       const props = wrapper.find(DashboardButton).at(1).props();
       expect(props.href).toBe("/Devices");
+      expect(props.passedState).toBe(2);
       expect(props.children).toBe("View Receivers");
     });
   });
