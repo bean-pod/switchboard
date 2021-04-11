@@ -3,9 +3,10 @@ import PropTypes from "prop-types";
 import { Box, Container, Grid } from "@material-ui/core";
 
 import StreamInfo from "../model/StreamInfo";
-import DashboardCard from "../general/dashboard/DashboardCard";
-import StreamDeviceDetailsCard from "./StreamDeviceDetailsCard";
+import StreamDetailsDeviceCard from "./StreamDetailsDeviceCard";
 import DeleteStreamDialogOpener from "./DeleteStreamDialogOpener";
+import StreamStatisticsCard from "./StreamStatisticsCard";
+import StreamLogCard from "./cards/StreamLogCard";
 
 export default function StreamDetailsPageContents(props) {
   const { stream } = props;
@@ -14,24 +15,24 @@ export default function StreamDetailsPageContents(props) {
     <Container>
       <Grid container spacing={3}>
         <Grid item xs={6}>
-          <StreamDeviceDetailsCard
+          <StreamDetailsDeviceCard
             cardTitle="Sender Details"
             device={stream.sender}
             channel={stream.outputChannel}
           />
         </Grid>
         <Grid item xs={6}>
-          <StreamDeviceDetailsCard
+          <StreamDetailsDeviceCard
             cardTitle="Receiver Details"
             device={stream.receiver}
             channel={stream.inputChannel}
           />
         </Grid>
         <Grid item xs={7}>
-          <DashboardCard title="Logs" />
+          <StreamLogCard streamId={stream.id} />
         </Grid>
         <Grid item xs={5}>
-          <DashboardCard title="Statistics" />
+          <StreamStatisticsCard stream={stream} />
         </Grid>
       </Grid>
       <Box className="alignRightFloatPadded">

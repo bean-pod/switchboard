@@ -37,7 +37,23 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/StreamLogsModel'
-
+  /log/stream:
+    post:
+      operationId: createStreamLog
+      description: Create a stream log
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createStreamLogRequest'
+      responses:
+        '200':
+          description: Successful creation of a stream log
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StreamLogModel'
   /user/sign-up:
     post:
       operationId: sign-up
@@ -214,27 +230,10 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateEncoderRequest'
+              $ref: '#/components/schemas/EncoderModel'
       responses:
         '200':
           description: Successful creation the encoder
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/EncoderModel'
-
-
-  /encoder/{serialNumber}:
-    get:
-      operationId: getEncoderById
-      description: Retrieve a specific encoder
-      tags:
-        - Encoders
-      parameters:
-        - $ref: '#/components/parameters/EncoderSerialNumber'
-      responses:
-        '200':
-          description: Successful retrieval of the encoder
           content:
             application/json:
               schema:
@@ -244,8 +243,6 @@ paths:
       description: Update a encoder's definition
       tags:
         - Encoders
-      parameters:
-        - $ref: '#/components/parameters/EncoderSerialNumber'
       requestBody:
         required: true
         content:
@@ -255,6 +252,23 @@ paths:
       responses:
         '200':
           description: Successful update of the Encoder
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EncoderModel'
+
+
+  /encoder/{serialNumber}:
+    get:
+      operationId: retrieveEncoder
+      description: Retrieve a specific encoder
+      tags:
+        - Encoders
+      parameters:
+        - $ref: '#/components/parameters/EncoderSerialNumber'
+      responses:
+        '200':
+          description: Successful retrieval of the encoder
           content:
             application/json:
               schema:
@@ -269,6 +283,11 @@ paths:
       responses:
         '200':
           description: Successful deletion of the encoder
+          content:
+            application/json:
+              schema:
+                type: string
+                example: 'Encoder with serial number BtmC8ckj deleted'
 
   /encoder/{serialNumber}/stream:
     get:
@@ -575,6 +594,20 @@ components:
           type: string
           example: '1xw1'
 
+    createStreamLogRequest:
+      description: A request to create a new stream log
+      properties:
+        streamId:
+          type: integer
+          example: '123'
+        message:
+          type: string
+          example: 'A log message'
+        dateTime:
+          type: string
+          pattern: '^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T(0[0-9]|1[0-9]|2[0-4])(\+00:00)$'
+          example: '2021-02-04T08:21:23+00:00'
+
     StreamLogModel:
       description: stream log object
       properties:
@@ -656,19 +689,16 @@ components:
         serialNumber:
           type: string
           example: 'BtmC8ckj'
+        lastCommunication:
+          type: string
+          format: date-time
+          example: "2017-07-21T17:32:28Z"
         device:
           $ref: '#/components/schemas/DeviceModel'
         output:
           type: array
           items:
             $ref: '#/components/schemas/OutputChannelModel'
-
-    CreateEncoderRequest:
-      description: A client that sends a video stream
-      properties:
-        serialNumber:
-          type: string
-          example: 'BtmC8ckj'
 
     DecodersModel:
       description: A list of decoder UUIDs
@@ -749,6 +779,9 @@ components:
           description: Flag that indicates that the clients should use SRT's Rendezvous mode
           type: boolean
           example: true
+        startDate:
+          type: string
+          format: date-time
 
     StreamsModel:
       description: A list of stream IDs

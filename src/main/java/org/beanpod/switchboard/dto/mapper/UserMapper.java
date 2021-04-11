@@ -8,13 +8,13 @@ import org.openapitools.model.UserModel;
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
-  UserDto toUserDto(UserEntity userEntity);
+  UserDto toDto(UserEntity userEntity);
 
-  UserDto toUserDto(UserModel userModel);
+  UserDto toDto(UserModel userModel);
 
-  UserModel toUserModel(UserDto userDto);
+  UserEntity toEntity(UserDto userDto);
 
-  UserEntity toUserEntity(UserDto userDto);
+  UserEntity toEntity(UserModel userModel);
 
-  UserEntity toUserEntity(UserModel userModel);
+  UserModel toModel(UserDto userDto);
 }

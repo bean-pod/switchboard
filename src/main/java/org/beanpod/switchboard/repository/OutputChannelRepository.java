@@ -10,5 +10,7 @@ public interface OutputChannelRepository extends JpaRepository<OutputChannelEnti
 
   OutputChannelEntity save(OutputChannelEntity outputChannelEntity);
 
-  Long deleteOutputChannelEntitiesByEncoderDeviceUserAndId(UserEntity user, Long id);
+  OutputChannelEntity findByEncoderDeviceUserAndId(UserEntity user, Long id);
+
+  Long deleteByEncoderDeviceUserAndId(UserEntity user, Long id);
 }

@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.beanpod.switchboard.dao.ChannelDaoImpl;
 import org.beanpod.switchboard.dao.DecoderDaoImpl;
 import org.beanpod.switchboard.dao.EncoderDaoImpl;
+import org.beanpod.switchboard.dao.InputChannelDaoImpl;
+import org.beanpod.switchboard.dao.OutputChannelDaoImpl;
 import org.beanpod.switchboard.dao.UserDaoImpl;
 import org.beanpod.switchboard.dto.ChannelDto;
 import org.beanpod.switchboard.dto.DecoderDto;
@@ -35,6 +37,8 @@ public class ChannelController {
   static final String DELETE = " deleted";
   private final UserDaoImpl userDao;
   private final ChannelDaoImpl channelDao;
+  private final InputChannelDaoImpl inputChannelDao;
+  private final OutputChannelDaoImpl outputChannelDao;
   private final DecoderDaoImpl decoderDao;
   private final EncoderDaoImpl encoderDao;
   private final ChannelMapper channelMapper;
@@ -43,7 +47,7 @@ public class ChannelController {
   @GetMapping
   public List<ChannelDto> retrieveAllChannels() {
     List<ChannelEntity> channelEntities = channelDao.getChannels();
-    return channelMapper.toChannelDtos(channelEntities);
+    return channelMapper.toDtos(channelEntities);
   }
 
   @GetMapping("/{id}")
@@ -79,7 +83,7 @@ public class ChannelController {
             .orElseThrow(() -> new ExceptionType.DeviceNotFoundException(serial));
     InputChannelDto inputChannelDto =
         InputChannelDto.builder().channel(channelDto).decoder(decoderDto).build();
-    return ResponseEntity.ok(channelDao.saveInputChannel(inputChannelDto));
+    return ResponseEntity.ok(inputChannelDao.saveInputChannel(inputChannelDto));
   }
 
   @PostMapping("/output/{id}/encoder/{serial}")
@@ -98,7 +102,7 @@ public class ChannelController {
             .orElseThrow(() -> new ExceptionType.DeviceNotFoundException(serial));
     OutputChannelDto outputChannelDto =
         OutputChannelDto.builder().channel(channelDto).encoder(encoderDto).build();
-    return ResponseEntity.ok(channelDao.saveOutputChannel(outputChannelDto));
+    return ResponseEntity.ok(outputChannelDao.saveOutputChannel(outputChannelDto));
   }
 
   @DeleteMapping("/output/{id}")
@@ -106,7 +110,7 @@ public class ChannelController {
   public ResponseEntity<String> deleteOutputChannel(@PathVariable Long id) {
     UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
 
-    Long response = channelDao.deleteOutputChannelById(user, id);
+    Long response = outputChannelDao.deleteOutputChannelById(user, id);
     if (response != 1) {
       throw new ExceptionType.DeviceNotFoundException(id.toString());
     }
@@ -118,7 +122,7 @@ public class ChannelController {
   public ResponseEntity<String> deleteInputChannel(@PathVariable Long id) {
     UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
 
-    Long response = channelDao.deleteInputChannelById(user, id);
+    Long response = inputChannelDao.deleteInputChannelById(user, id);
     if (response != 1) {
       throw new ExceptionType.DeviceNotFoundException(id.toString());
     }

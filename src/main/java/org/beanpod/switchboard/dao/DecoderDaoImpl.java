@@ -25,21 +25,21 @@ public class DecoderDaoImpl {
     if (decoderDto.isPresent()) {
       decoderMapper.updateDecoderFromDto(decoder, decoderDto.orElse(decoder));
     }
-    return decoderMapper.toDecoderDto(
-        decoderRepository.save(decoderMapper.toDecoderEntity(decoderDto.orElse(decoder))));
+    return decoderMapper.toDto(
+        decoderRepository.save(decoderMapper.toEntity(decoderDto.orElse(decoder))));
   }
 
   public List<DecoderEntity> getDecoders(UserEntity user) {
-    return decoderRepository.findDecoderEntitiesByDeviceUser(user);
+    return decoderRepository.findByDeviceUser(user);
   }
 
   public Optional<DecoderDto> findDecoder(UserEntity user, String serialNumber) {
     return decoderRepository
-        .findDecoderByDeviceUserAndSerialNumber(user, serialNumber)
-        .map(decoderMapper::toDecoderDto);
+        .findByDeviceUserAndSerialNumber(user, serialNumber)
+        .map(decoderMapper::toDto);
   }
 
   public Long deleteDecoder(UserEntity user, String serialNumber) {
-    return decoderRepository.deleteDecoderEntityByDeviceUserAndSerialNumber(user, serialNumber);
+    return decoderRepository.deleteByDeviceUserAndSerialNumber(user, serialNumber);
   }
 }

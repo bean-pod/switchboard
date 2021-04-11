@@ -1,6 +1,5 @@
 import axios from "axios";
 import DeviceInfo from "../model/DeviceInfo";
-import * as SampleData from "./SampleData";
 import OutputChannelInfo from "../model/OutputChannelInfo";
 import InputChannelInfo from "../model/InputChannelInfo";
 import { getAuthorizationHeader } from "./AuthenticationUtil";
@@ -19,11 +18,11 @@ function getStatus(lastCommunicationString) {
   return "Offline";
 }
 
-export function getSenders(callback) {
-  axios
+export async function getSenders() {
+  return axios
     .get(process.env.REACT_APP_ENCODER, getAuthorizationHeader())
     .then((senders) => {
-      callback(
+      return Promise.resolve(
         senders.data.map((sender) => {
           let channels = [];
           if (sender.output) {
@@ -49,21 +48,18 @@ export function getSenders(callback) {
             getStatus(sender.lastCommunication),
             channels,
             "encoder",
-            ["Additional Device details go here"]
+            sender.device.configurationInstance
           );
         })
       );
-    })
-    .catch(() => {
-      SampleData.getSenders(callback);
     });
 }
 
-export function getReceivers(callback) {
-  axios
+export async function getReceivers() {
+  return axios
     .get(process.env.REACT_APP_DECODER, getAuthorizationHeader())
     .then((receivers) => {
-      callback(
+      return Promise.resolve(
         receivers.data.map((receiver) => {
           let channels = [];
           if (receiver.input) {
@@ -89,23 +85,18 @@ export function getReceivers(callback) {
             getStatus(receiver.lastCommunication),
             channels,
             "decoder",
-            ["Additional Device details go here"]
+            receiver.device.configurationInstance
           );
         })
       );
-    })
-    .catch(() => {
-      SampleData.getReceivers(callback);
     });
 }
 
 export function deleteDevice(deviceId) {
-  return axios
-    .delete(
-      `${process.env.REACT_APP_DEVICE}/${deviceId}`,
-      getAuthorizationHeader()
-    )
-    .catch(() => {});
+  return axios.delete(
+    `${process.env.REACT_APP_DEVICE}/${deviceId}`,
+    getAuthorizationHeader()
+  );
 }
 
 export async function updateDeviceName(deviceId, updatedName) {
@@ -120,17 +111,15 @@ export async function updateDeviceName(deviceId, updatedName) {
 }
 
 // https://programmingwithmosh.com/javascript/react-file-upload-proper-server-side-nodejs-easy/
-export async function uploadConfiguration() {
-  // deviceId, configFile) {
-  // const data = new FormData()
-  // data.append('file', configFile)
-  // return axios.put(
-  //   `${process.env.REACT_APP_DEVICE}`,
-  //   {
-  //     serialNumber: deviceId,
-  //     configuration: configFile
-  //   },
-  //   getAuthorizationHeader()
-  // );
-  return Promise.resolve(true);
+export async function uploadConfiguration(deviceId, configFile) {
+  const data = new FormData();
+  data.append("configuration", configFile);
+  const headers = getAuthorizationHeader();
+  // eslint-disable-next-line
+  headers.headers["Content-Type"] = `multipart/form-data; boundary=${data["_boundary"]}` ;
+  return axios.put(
+    `${process.env.REACT_APP_DEVICE}/config/${deviceId}`,
+    data,
+    headers
+  );
 }

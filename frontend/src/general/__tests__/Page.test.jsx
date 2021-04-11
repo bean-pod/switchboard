@@ -1,8 +1,8 @@
 import React from "react";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import { beforeAll, describe, expect, it } from "@jest/globals";
-import { Box, Container } from "@material-ui/core";
+import { beforeEach, describe, expect, it } from "@jest/globals";
+import { Container } from "@material-ui/core";
 import Page from "../Page";
 
 import Title from "../Title";
@@ -17,16 +17,23 @@ describe("<Page/> functional Component", () => {
 
   let wrapper;
 
+  afterEach(() => {
+    wrapper.unmount();
+  });
+
   describe("returns a component that", () => {
     describe("if props do not contain deviceList", () => {
-      beforeAll(() => {
+      beforeEach(() => {
         wrapper = Enzyme.shallow(
-          <Page title={dummyTitle} breadcrumbs={dummyCrumb}>
+          <Page
+            title={dummyTitle}
+            breadcrumbs={dummyCrumb}
+            hasStreamButton={false}
+          >
             {dummyChild}
           </Page>
         );
       });
-      const expectedDeviceList = false;
       it("Contains 1 <HeaderBar/> component with expected props", () => {
         expect(wrapper.find(HeaderBar)).toHaveLength(1);
       });
@@ -39,31 +46,40 @@ describe("<Page/> functional Component", () => {
         expect(crumb.props().breadcrumbs[0][0]).toBe(dummyCrumb[0][0]);
         expect(crumb.props().breadcrumbs[0][1]).toBe(dummyCrumb[0][1]);
       });
-      it("Contains 1 <Box/> component with areaUnderBreacrumbs styling", () => {
-        expect(wrapper.find(Box)).toHaveLength(1);
-        expect(wrapper.find(Box).hasClass("areaUnderBreadcrumbs")).toBe(true);
-      });
       it("Contains 1 <Title/> component with expected props", () => {
-        expect(wrapper.find(Title)).toHaveLength(1);
-        const title = wrapper.find(Title).first();
-        expect(title.props().title).toBe(dummyTitle);
-        expect(title.props().deviceList).toBe(expectedDeviceList);
+        const title = wrapper.find(Title);
+        expect(title).toHaveLength(1);
+
+        const expected = {
+          title: dummyTitle,
+          hasStreamButton: false
+        };
+
+        const titleProps = wrapper.find(Title).props();
+        expect(titleProps.title).toBe(expected.title);
+        expect(titleProps.hasStreamButton).toBe(expected.hasStreamButton);
       });
     });
-    describe("if props contain deviceList", () => {
-      beforeAll(() => {
+    describe("if props contain hasStreamButton", () => {
+      beforeEach(() => {
         wrapper = Enzyme.shallow(
-          <Page title={dummyTitle} breadcrumbs={dummyCrumb} deviceList>
+          <Page title={dummyTitle} breadcrumbs={dummyCrumb} hasStreamButton>
             {dummyChild}
           </Page>
         );
       });
-      const expectedDeviceList = true;
       it("Contains 1 <Title/> component with expected props", () => {
-        expect(wrapper.find(Title)).toHaveLength(1);
-        const title = wrapper.find(Title).first();
-        expect(title.props().title).toBe(dummyTitle);
-        expect(title.props().deviceList).toBe(expectedDeviceList);
+        const title = wrapper.find(Title);
+        expect(title).toHaveLength(1);
+
+        const expected = {
+          title: dummyTitle,
+          hasStreamButton: true
+        };
+
+        const titleProps = title.props();
+        expect(titleProps.title).toBe(expected.title);
+        expect(titleProps.hasStreamButton).toBe(expected.hasStreamButton);
       });
     });
   });

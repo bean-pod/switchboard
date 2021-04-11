@@ -1,56 +1,134 @@
 import React from "react";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import { beforeEach, describe, expect, it } from "@jest/globals";
+import {
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  jest
+} from "@jest/globals";
 import StreamsTableWrapper from "../StreamsTableWrapper";
 import StreamsTable from "../StreamsTable";
 import StreamInfo from "../../model/StreamInfo";
+import * as SnackbarMessage from "../../general/SnackbarMessage";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe("<StreamsTableWrapper/> Component", () => {
-  let wrapper;
-  const dummySource = {
-    getAllStreams() {
-      return Promise.resolve([]);
-    }
-  };
+const snackbarSpy = jest.spyOn(SnackbarMessage, "snackbar");
 
-  describe("Should contain the following components", () => {
+describe("<StreamsTableWrapper/> component", () => {
+  let wrapper;
+  const dummyStream = [new StreamInfo(1, null, null, null, null)];
+  const dummySource = {
+    getAllStreams: jest.fn()
+  };
+  const dummyColumns = [
+    {
+      title: "ID",
+      field: "id"
+    },
+    {
+      title: "Date",
+      field: "date"
+    }
+  ];
+
+  afterEach(() => {
+    wrapper.unmount();
+    jest.clearAllMocks();
+  });
+
+  describe("componentDidMount() function", () => {
     beforeEach(() => {
       wrapper = Enzyme.shallow(
-        <StreamsTableWrapper dataSource={dummySource} />
+        <StreamsTableWrapper dataSource={dummySource} columns={dummyColumns} />,
+        {
+          disableLifecycleMethods: true
+        }
       );
     });
-    it("Contains 1 <StreamsTable/> component", () => {
-      expect(wrapper.find(StreamsTable)).toHaveLength(1);
+
+    it("calls the passed dataSource's getAllStreams()", () => {
+      dummySource.getAllStreams.mockResolvedValue(dummyStream);
+
+      wrapper.instance().componentDidMount();
+
+      expect(dummySource.getAllStreams).toHaveBeenCalledTimes(1);
+    });
+    it("passes the resolved streams to handleStreamsChange()", async () => {
+      dummySource.getAllStreams.mockResolvedValue(dummyStream);
+
+      const handleStreamsSpy = jest.spyOn(
+        wrapper.instance(),
+        "handleStreamsChange"
+      );
+
+      wrapper.instance().componentDidMount();
+
+      await new Promise(setImmediate);
+
+      expect(handleStreamsSpy).toHaveBeenCalledWith(dummyStream);
+    });
+    it("if it rejects, an error snackbar with the caught error message is displayed", async () => {
+      const returnedError = {
+        message: "test"
+      };
+      dummySource.getAllStreams.mockRejectedValue(returnedError);
+
+      wrapper.instance().componentDidMount();
+
+      await new Promise(setImmediate);
+
+      expect(snackbarSpy).toHaveBeenCalledWith(
+        "error",
+        `Failed to fetch streams: ${returnedError.message}`
+      );
     });
   });
 
-  describe("handleStreamsChange()", () => {
+  describe("<StreamsTableWrapper class functions", () => {
     beforeEach(() => {
+      dummySource.getAllStreams.mockResolvedValue(dummyStream);
       wrapper = Enzyme.shallow(
-        <StreamsTableWrapper dataSource={dummySource} />
+        <StreamsTableWrapper dataSource={dummySource} columns={dummyColumns} />
       );
     });
+    describe("handleStreamsChange()", () => {
+      it("should set the state streams", () => {
+        const testValue = [new StreamInfo()];
 
-    afterEach(() => {
-      jest.clearAllMocks();
+        const defaultState = {
+          streams: dummyStream
+        };
+        const expectedState = {
+          streams: testValue
+        };
+
+        expect(wrapper.state()).toStrictEqual(defaultState);
+        wrapper.instance().handleStreamsChange(testValue);
+        expect(wrapper.state()).toStrictEqual(expectedState);
+      });
     });
 
-    it("should set the state", () => {
-      const testValue = [new StreamInfo()];
+    describe("render() function", () => {
+      describe("Should contain the following component", () => {
+        it("contains 1 <StreamsTable/> component with expected props", () => {
+          const table = wrapper.find(StreamsTable);
+          expect(table).toHaveLength(1);
 
-      const defaultState = {
-        streams: []
-      };
-      const expectedState = {
-        streams: testValue
-      };
+          const wrapperProps = wrapper.props();
+          const wrapperState = wrapper.state();
+          const expected = {
+            columns: wrapperProps.columns,
+            streams: wrapperState.streams
+          };
 
-      expect(wrapper.state()).toEqual(defaultState);
-      wrapper.instance().handleStreamsChange(testValue);
-      expect(wrapper.state()).toEqual(expectedState);
+          const tableProps = table.props();
+          expect(tableProps).toStrictEqual(expected);
+        });
+      });
     });
   });
 });

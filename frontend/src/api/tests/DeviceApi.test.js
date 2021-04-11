@@ -18,7 +18,7 @@ describe("DeviceApi", () => {
   });
 
   describe("getSenders", () => {
-    it("Should call axios and return the senders", (done) => {
+    it("Should call axios and return the senders", async () => {
       const sampleSendersResponse = DeviceFixture.getSampleSendersResponse();
       axios.get.mockResolvedValue({ data: sampleSendersResponse });
       authenticationUtil.getAuthorizationHeader = jest
@@ -30,46 +30,39 @@ describe("DeviceApi", () => {
           () => new Date(`${sampleSendersResponse[0].lastCommunication}Z`)
         );
 
-      DeviceApi.getSenders((result) => {
-        try {
-          expect(axios.get).toHaveBeenCalledWith(
-            "http://localhost:8080/encoder",
-            authorizationHeader
-          );
-          expect(result).toEqual(DeviceFixture.getExpectedSendersResponse());
-          done();
-        } catch (error) {
-          done(error);
-        }
-      });
+      const result = await DeviceApi.getSenders();
+      expect(axios.get).toHaveBeenCalledWith(
+        "http://localhost:8080/encoder",
+        authorizationHeader
+      );
+
+      expect(result).toStrictEqual(DeviceFixture.getExpectedSendersResponse());
     });
   });
 
   describe("getReceivers", () => {
-    it("Should call axios and return the receivers", (done) => {
+    it("Should call axios and return the receivers", async () => {
       const sampleReceiversResponse = DeviceFixture.getSampleReceiversResponse();
       axios.get.mockResolvedValue({ data: sampleReceiversResponse });
       authenticationUtil.getAuthorizationHeader = jest
         .fn()
         .mockReturnValue(authorizationHeader);
+
       jest
         .spyOn(global.Date, "now")
         .mockImplementationOnce(
           () => new Date(`${sampleReceiversResponse[0].lastCommunication}Z`)
         );
 
-      DeviceApi.getReceivers((result) => {
-        try {
-          expect(axios.get).toHaveBeenCalledWith(
-            "http://localhost:8080/decoder",
-            authorizationHeader
-          );
-          expect(result).toEqual(DeviceFixture.getExpectedReceiversResponse());
-          done();
-        } catch (error) {
-          done(error);
-        }
-      });
+      const result = await DeviceApi.getReceivers();
+      expect(axios.get).toHaveBeenCalledWith(
+        "http://localhost:8080/decoder",
+        authorizationHeader
+      );
+
+      expect(result).toStrictEqual(
+        DeviceFixture.getExpectedReceiversResponse()
+      );
     });
   });
 
@@ -94,10 +87,38 @@ describe("DeviceApi", () => {
     });
   });
   describe("uploadConfiguration() function", () => {
-    it("Should return a promise that resolves to true", async () => {
-      const result = await DeviceApi.uploadConfiguration();
+    it("Should call axios.put with expected url, data and headers", async () => {
+      axios.put.mockResolvedValue();
 
-      expect(result).toBe(true);
+      authenticationUtil.getAuthorizationHeader = jest
+        .fn()
+        .mockReturnValue(authorizationHeader);
+
+      const dummySerial = "someDeviceId";
+      const dummyConfigFile = new File([], "someFileName");
+
+      const data = new FormData();
+      data.append("configuration", dummyConfigFile);
+
+      const headers = authorizationHeader;
+      // eslint-disable-next-line
+      const dataBoundary = data._boundary;
+
+      headers.headers[
+        "Content-Type"
+      ] = `multipart/form-data; boundary=${dataBoundary}`;
+
+      const expected = {
+        data,
+        headers
+      };
+      await DeviceApi.uploadConfiguration(dummySerial, dummyConfigFile);
+
+      expect(axios.put).toHaveBeenCalledWith(
+        `${process.env.REACT_APP_DEVICE}/config/${dummySerial}`,
+        expected.data,
+        expected.headers
+      );
     });
   });
 });

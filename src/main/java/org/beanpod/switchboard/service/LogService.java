@@ -27,10 +27,10 @@ public class LogService {
             .dateTime(OffsetDateTime.now())
             .serialNumber(serialNumber)
             .build();
-    return logMapper.logEntityToLogDto(logRepository.save(logEntity));
+    return logMapper.toDto(logRepository.save(logEntity));
   }
 
   public LogDto createLog(LogModel logModel) {
-    return logDao.createLog(logMapper.logModelToLogDto(logModel));
+    return logDao.createLog(logMapper.toDto(logModel));
   }
 }
