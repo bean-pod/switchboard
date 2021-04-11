@@ -22,7 +22,6 @@ import org.openapitools.model.CreateStreamRequest;
 import org.openapitools.model.StreamModel;
 import org.openapitools.model.StreamStatModel;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -86,7 +85,6 @@ public class StreamController implements StreamApi {
         .orElseThrow(() -> new ExceptionType.UnknownException(CONTROLLER_NAME));
   }
 
-  @Transactional
   @Override
   @Transactional
   public ResponseEntity<Void> deleteStream(Long id) {
