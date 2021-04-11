@@ -30,8 +30,8 @@ export default class CreateStreamPageContents extends React.Component {
   }
 
   componentDidMount() {
-    getSenders(this.setSenders);
-    getReceivers(this.setReceivers);
+    getSenders().then(this.setSenders);
+    getReceivers().then(this.setReceivers);
   }
 
   setSenders(value) {
