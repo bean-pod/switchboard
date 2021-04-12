@@ -71,7 +71,6 @@ public class ChannelController {
   @Transactional
   public ResponseEntity<InputChannelDto> createInputChannel(
       @PathVariable Long id, @PathVariable String serial) {
-    // TODO change device not found exception to channel not found
     UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
     ChannelDto channelDto =
         channelDao
@@ -90,7 +89,6 @@ public class ChannelController {
   @Transactional
   public ResponseEntity<OutputChannelDto> createOutputChannel(
       @PathVariable Long id, @PathVariable String serial) {
-    // TODO change device not found exception to channel not found
     UserEntity user = userDao.findUser(request.getUserPrincipal().getName());
     ChannelDto channelDto =
         channelDao
