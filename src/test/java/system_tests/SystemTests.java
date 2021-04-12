@@ -28,9 +28,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -72,12 +70,15 @@ public class SystemTests {
   @Test
   @Order(1)
   void testLogin() {
+    // Go to Login Page
     driver.get("http://localhost:3000/login");
 
+    // Log in
     driver.findElement(By.id("username")).sendKeys("admin");
     driver.findElement(By.id("password")).sendKeys("admin");
-    driver.findElement(By.cssSelector(".MuiButton-label")).click();
+    driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
 
+    // Check login
     {
       WebDriverWait wait = new WebDriverWait(driver, 5);
       wait.until(
@@ -90,7 +91,7 @@ public class SystemTests {
 
   @Test
   @Order(2)
-  void testAddEncoder() {
+  void testAddEncoder() throws InterruptedException {
     // Mock sender self-registration
     testRestTemplate.postForObject(
         "http://localhost:8080/device", DeviceFixture.getDeviceModel(), DeviceModel.class);
@@ -100,32 +101,16 @@ public class SystemTests {
         EncoderModel.class);
 
     // Go to List of Senders
-    driver.get("http://localhost:3000/Devices");
-    {
-      WebElement element = driver.findElement(By.xpath("//div[@id='device-table-title-select']"));
-      Actions builder = new Actions(driver);
-      builder.moveToElement(element).clickAndHold().perform();
-    }
-    {
-      WebElement element = driver.findElement(By.xpath("//div[@id='menu-']/div[3]/ul/li"));
-      Actions builder = new Actions(driver);
-      builder.moveToElement(element).release().perform();
-    }
-    driver.findElement(By.cssSelector("body")).click();
-    driver.findElement(By.xpath("//li[contains(.,'Senders')]")).click();
+    Thread.sleep(1000);
+    driver.findElement(By.xpath("//span[contains(.,'View Senders')]")).click();
 
     // Check for encoder
+    Thread.sleep(3000);
     WebElement encodersTable = driver.findElement(By.tagName("table")); // find encoders table
-
-    {
-      WebDriverWait wait = new WebDriverWait(driver, 5);
-      wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName("tr")));
-    }
-
-    List<WebElement> devicesRows =
+    List<WebElement> encodersRows =
         encodersTable.findElements(By.tagName("tr")); // find all tr elements inside found table
     boolean assertValue =
-        devicesRows.stream()
+        encodersRows.stream()
             .anyMatch(
                 row ->
                     row.getText()
@@ -139,18 +124,16 @@ public class SystemTests {
 
   @Test
   @Order(3)
-  void testDeviceCreatedLog() {
+  void testDeviceCreatedLog() throws InterruptedException {
     // Go to list of logs
-    driver.get("http://localhost:3000/Logs");
+    Thread.sleep(1000);
+    driver.findElement(By.xpath("//p[contains(.,'Home')]")).click();
+    Thread.sleep(1000);
+    driver.findElement(By.xpath("//span[contains(.,'View All')]")).click();
 
     // Check for device created log
-    WebElement logsTable = driver.findElement(By.tagName("table"));
-
-    {
-      WebDriverWait wait = new WebDriverWait(driver, 5);
-      wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName("tr")));
-    }
-
+    Thread.sleep(3000);
+    WebElement logsTable = driver.findElement(By.tagName("table")); // find logs table
     List<WebElement> logsRows =
         logsTable.findElements(By.tagName("tr")); // find all tr elements inside found table
     boolean assertValue =
@@ -170,7 +153,7 @@ public class SystemTests {
 
   @Test
   @Order(4)
-  void testAddDecoder() {
+  void testAddDecoder() throws InterruptedException {
     // mock receiver self-registration
     testRestTemplate.postForObject(
         "http://localhost:8080/decoder",
@@ -178,32 +161,18 @@ public class SystemTests {
         DecoderModel.class);
 
     // Go to List of Receivers
-    driver.get("http://localhost:3000/Devices");
-    {
-      WebElement element = driver.findElement(By.xpath("//div[@id='device-table-title-select']"));
-      Actions builder = new Actions(driver);
-      builder.moveToElement(element).clickAndHold().perform();
-    }
-    {
-      WebElement element = driver.findElement(By.xpath("//div[@id='menu-']/div[3]/ul/li[2]"));
-      Actions builder = new Actions(driver);
-      builder.moveToElement(element).release().perform();
-    }
-    driver.findElement(By.cssSelector("body")).click();
-    driver.findElement(By.xpath("//li[contains(.,'Receivers')]")).click();
+    Thread.sleep(1000);
+    driver.findElement(By.xpath("//p[contains(.,'Home')]")).click();
+    Thread.sleep(1000);
+    driver.findElement(By.xpath("//span[contains(.,'View Receivers')]")).click();
 
     // Check for decoder
-    WebElement decodersTable = driver.findElement(By.tagName("table")); // find encoders table
-
-    {
-      WebDriverWait wait = new WebDriverWait(driver, 5);
-      wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName("tr")));
-    }
-
-    List<WebElement> devicesRows =
+    Thread.sleep(3000);
+    WebElement decodersTable = driver.findElement(By.tagName("table")); // find decoders table
+    List<WebElement> decodersRows =
         decodersTable.findElements(By.tagName("tr")); // find all tr elements inside found table
     boolean assertValue =
-        devicesRows.stream()
+        decodersRows.stream()
             .anyMatch(
                 row ->
                     row.getText()
@@ -217,154 +186,77 @@ public class SystemTests {
 
   @Test
   @Order(5)
-  void testCreateStream() {
+  void testCreateStream() throws InterruptedException {
     // Go to create stream page
-    driver.get("http://localhost:3000/Streams/New");
+    Thread.sleep(1000);
+    driver.findElement(By.xpath("//a[contains(@href, '/Streams/New')]")).click();
 
     // Create new stream
-    {
-      WebElement element =
-          driver.findElement(
-              By.xpath("//div[@id='root']/div[2]/div[3]/div/div/div/div/button/span"));
-      Actions builder = new Actions(driver);
-      builder.moveToElement(element).perform();
-    }
+    Thread.sleep(1000);
     driver
         .findElement(By.xpath("//div[@id='root']/div[2]/div[3]/div/div/div/div/button/span"))
         .click();
-    {
-      WebElement element = driver.findElement(By.tagName("body"));
-      Actions builder = new Actions(driver);
-      builder.moveToElement(element, 0, 0).perform();
-    }
+    Thread.sleep(1000);
     driver
         .findElement(By.xpath("//div[@id='dialog']/div[3]/div/div[2]/div/div/ul/div/div/span"))
         .click();
-    {
-      WebElement element =
-          driver.findElement(By.xpath("//div[@id='dialog']/div[3]/div/div[3]/button[2]/span"));
-      Actions builder = new Actions(driver);
-      builder.moveToElement(element).perform();
-    }
+    Thread.sleep(1000);
     driver.findElement(By.xpath("//div[@id='dialog']/div[3]/div/div[3]/button[2]/span")).click();
-    {
-      WebElement element = driver.findElement(By.tagName("body"));
-      Actions builder = new Actions(driver);
-      builder.moveToElement(element, 0, 0).perform();
-    }
+    Thread.sleep(1000);
     driver
         .findElement(By.xpath("//div[@id='dialog']/div[3]/div/div[2]/div/div[2]/ul/div/div/span"))
         .click();
-    {
-      WebElement element =
-          driver.findElement(By.xpath("//div[@id='dialog']/div[3]/div/div[3]/button[2]/span"));
-      Actions builder = new Actions(driver);
-      builder.moveToElement(element).perform();
-    }
+    Thread.sleep(1000);
     driver.findElement(By.xpath("//div[@id='dialog']/div[3]/div/div[3]/button[2]/span")).click();
-    {
-      WebElement element = driver.findElement(By.tagName("body"));
-      Actions builder = new Actions(driver);
-      builder.moveToElement(element, 0, 0).perform();
-    }
-    {
-      WebElement element =
-          driver.findElement(By.xpath("//div[@id='dialog']/div[3]/div/div[3]/button[2]/span"));
-      Actions builder = new Actions(driver);
-      builder.moveToElement(element).perform();
-    }
+    Thread.sleep(1000);
     driver.findElement(By.xpath("//div[@id='dialog']/div[3]/div/div[3]/button[2]/span")).click();
-    {
-      WebElement element =
-          driver.findElement(
-              By.xpath("//div[@id='root']/div[2]/div[3]/div[3]/div/div/div/button/span"));
-      Actions builder = new Actions(driver);
-      builder.moveToElement(element).perform();
-    }
+    Thread.sleep(1000);
     driver
         .findElement(By.xpath("//div[@id='root']/div[2]/div[3]/div[3]/div/div/div/button/span"))
         .click();
-    {
-      WebElement element = driver.findElement(By.tagName("body"));
-      Actions builder = new Actions(driver);
-      builder.moveToElement(element, 0, 0).perform();
-    }
+    Thread.sleep(1000);
     driver
         .findElement(By.xpath("//div[@id='dialog']/div[3]/div/div[2]/div/div/ul/div/div/span"))
         .click();
-    {
-      WebElement element =
-          driver.findElement(By.xpath("//div[@id='dialog']/div[3]/div/div[3]/button[2]/span"));
-      Actions builder = new Actions(driver);
-      builder.moveToElement(element).perform();
-    }
+    Thread.sleep(1000);
     driver.findElement(By.xpath("//div[@id='dialog']/div[3]/div/div[3]/button[2]/span")).click();
-    {
-      WebElement element = driver.findElement(By.tagName("body"));
-      Actions builder = new Actions(driver);
-      builder.moveToElement(element, 0, 0).perform();
-    }
+    Thread.sleep(1000);
     driver
         .findElement(By.xpath("//div[@id='dialog']/div[3]/div/div[2]/div/div[2]/ul/div/div/span"))
         .click();
-    {
-      WebElement element =
-          driver.findElement(By.xpath("//div[@id='dialog']/div[3]/div/div[3]/button[2]/span"));
-      Actions builder = new Actions(driver);
-      builder.moveToElement(element).perform();
-    }
+    Thread.sleep(1000);
     driver.findElement(By.xpath("//div[@id='dialog']/div[3]/div/div[3]/button[2]/span")).click();
+    Thread.sleep(1000);
     driver.findElement(By.xpath("//div[@id='dialog']/div[3]/div/div[3]/button[2]/span")).click();
-    {
-      WebElement element =
-          driver.findElement(By.xpath("//div[@id='root']/div[2]/div[3]/div[4]/button/span"));
-      Actions builder = new Actions(driver);
-      builder.moveToElement(element).perform();
-    }
+    Thread.sleep(1000);
     driver.findElement(By.xpath("//div[@id='root']/div[2]/div[3]/div[4]/button/span")).click();
-    {
-      WebElement element = driver.findElement(By.tagName("body"));
-      Actions builder = new Actions(driver);
-      builder.moveToElement(element, 0, 0).perform();
-    }
 
     // Go to view streams page
-    driver.get("http://localhost:3000/Streams");
+    Thread.sleep(1000);
+    driver.findElement(By.xpath("//p[contains(.,'Active Streams')]")).click();
 
     // Check for stream creation
-    {
-      WebDriverWait wait = new WebDriverWait(driver, 5);
-      wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName("table")));
-    }
-
+    Thread.sleep(3000);
     WebElement streamsTable = driver.findElement(By.tagName("table")); // find streams table
-
-    {
-      WebDriverWait wait = new WebDriverWait(driver, 5);
-      wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName("td")));
-    }
-
-    List<WebElement> devicesRows =
-        streamsTable.findElements(By.tagName("td")); // find all td elements inside found table
-    boolean assertValue = devicesRows.stream().anyMatch(data -> data.getText().contains("Online"));
+    List<WebElement> streamsRows =
+        streamsTable.findElements(By.tagName("tr")); // find all tr elements inside found table
+    boolean assertValue = streamsRows.stream().anyMatch(row -> row.getText().contains("Online"));
 
     assertTrue(assertValue);
   }
 
   @Test
   @Order(6)
-  void testStreamStartedLog() {
+  void testStreamStartedLog() throws InterruptedException {
     // Go to list of logs
-    driver.get("http://localhost:3000/Logs");
+    Thread.sleep(1000);
+    driver.findElement(By.xpath("//p[contains(.,'Home')]")).click();
+    Thread.sleep(1000);
+    driver.findElement(By.xpath("//span[contains(.,'View All')]")).click();
 
     // Check for stream started log
-    WebElement logsTable = driver.findElement(By.tagName("table"));
-
-    {
-      WebDriverWait wait = new WebDriverWait(driver, 5);
-      wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName("tr")));
-    }
-
+    Thread.sleep(3000);
+    WebElement logsTable = driver.findElement(By.tagName("table")); // find logs table
     List<WebElement> logsRows =
         logsTable.findElements(By.tagName("tr")); // find all tr elements inside found table
     boolean assertValue =
@@ -401,104 +293,84 @@ public class SystemTests {
 
   @Test
   @Order(7)
-  void testDeleteStream() {
+  void testDeleteStream() throws InterruptedException {
     // Go to view streams page
-    driver.get("http://localhost:3000/Streams");
+    Thread.sleep(1000);
+    driver.findElement(By.xpath("//p[contains(.,'Home')]")).click();
+    Thread.sleep(1000);
+    driver.findElement(By.xpath("//button[contains(.,'See More')]")).click();
 
-    // Go to details page of previously created stream to perform delete action
-    {
-      WebElement element = driver.findElement(By.cssSelector(".MuiTableCell-root > a path"));
-      Actions builder = new Actions(driver);
-      builder.moveToElement(element).perform();
-    }
-    driver.findElement(By.cssSelector(".MuiTableCell-root > a path")).click();
-    {
-      WebElement element = driver.findElement(By.cssSelector(".MuiButton-containedSecondary"));
-      Actions builder = new Actions(driver);
-      builder.moveToElement(element).perform();
-    }
-    {
-      WebElement element = driver.findElement(By.tagName("body"));
-      Actions builder = new Actions(driver);
-      builder.moveToElement(element, 0, 0).perform();
-    }
-    {
-      WebElement element =
-          driver.findElement(By.cssSelector(".MuiButton-containedSecondary > .MuiButton-label"));
-      Actions builder = new Actions(driver);
-      builder.moveToElement(element).perform();
-    }
-    driver.findElement(By.cssSelector(".MuiButton-containedSecondary > .MuiButton-label")).click();
-    {
-      WebElement element = driver.findElement(By.tagName("body"));
-      Actions builder = new Actions(driver);
-      builder.moveToElement(element, 0, 0).perform();
-    }
-    driver.findElement(By.cssSelector(".MuiButton-textSecondary > .MuiButton-label")).click();
-
-    // Go to view streams page
-    driver.get("http://localhost:3000/Streams");
+    // Delete previously created stream
+    Thread.sleep(1000);
+    driver.findElement(By.cssSelector(".MuiTableCell-root > a .MuiSvgIcon-root")).click();
+    Thread.sleep(1000);
+    driver.findElement(By.xpath("//div[@id='root']/div[2]/div[3]/div[2]/button/span")).click();
+    Thread.sleep(1000);
+    driver.findElement(By.xpath("//div[@id='dialog']/div[3]/div/div[3]/button[2]/span")).click();
 
     // Check for stream deletion
-    {
-      WebDriverWait wait = new WebDriverWait(driver, 5);
-      wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName("table")));
-    }
-
+    Thread.sleep(3000);
     WebElement streamsTable = driver.findElement(By.tagName("table")); // find streams table
-    List<WebElement> devicesRows =
-        streamsTable.findElements(By.tagName("td")); // find all td elements inside found table
-    boolean assertValue = devicesRows.stream().anyMatch(data -> data.getText().contains("Online"));
+    List<WebElement> streamsRows =
+        streamsTable.findElements(By.tagName("tr")); // find all tr elements inside found table
+    boolean assertValue = streamsRows.stream().anyMatch(row -> row.getText().contains("Online"));
 
     assertFalse(assertValue);
   }
 
   @Test
   @Order(8)
-  void testRenameDevice() {
+  void testRenameDevice() throws InterruptedException {
     String rename = "Renamed Device";
 
     // Go to List of Senders
-    driver.get("http://localhost:3000/Devices");
+    Thread.sleep(1000);
+    driver.findElement(By.xpath("//p[contains(.,'Home')]")).click();
+    Thread.sleep(1000);
+    driver.findElement(By.xpath("//span[contains(.,'View Senders')]")).click();
 
     // View Sender Device Details
-    driver.findElement(By.cssSelector(".MuiIconButton-sizeSmall path")).click();
-    driver.findElement(By.linkText("View Details")).click();
-    {
-      WebElement element = driver.findElement(By.cssSelector("#editBtn .MuiSvgIcon-root"));
-      Actions builder = new Actions(driver);
-      builder.moveToElement(element).perform();
-    }
+    Thread.sleep(1000);
+    driver.findElement(By.cssSelector(".MuiTableCell-root > a .MuiSvgIcon-root")).click();
 
     // Rename Sender Device
+    Thread.sleep(1000);
     driver.findElement(By.cssSelector("#editBtn .MuiSvgIcon-root")).click();
-    driver.findElement(By.id("deviceName")).click();
+    Thread.sleep(1000);
+    driver
+        .findElement(
+            By.xpath(
+                "//div[@id='root']/div[2]/div[3]/div/div/div/div/div/div/div/div/table/tbody/tr/td[2]"))
+        .click();
+    driver.findElement(By.id("deviceName")).clear();
     driver.findElement(By.id("deviceName")).sendKeys(rename);
+    Thread.sleep(1000);
     driver.findElement(By.cssSelector("#confirmEditBtn path")).click();
 
     // Go to List of Senders
-    driver.get("http://localhost:3000/Devices");
+    Thread.sleep(1000);
+    driver.findElement(By.xpath("//p[contains(.,'Home')]")).click();
+    Thread.sleep(1000);
+    driver.findElement(By.xpath("//span[contains(.,'View Senders')]")).click();
 
     // Check for renamed Sender
+    Thread.sleep(3000);
     WebElement encodersTable = driver.findElement(By.tagName("table")); // find encoders table
-
-    {
-      WebDriverWait wait = new WebDriverWait(driver, 5);
-      wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName("tr")));
-    }
-
-    List<WebElement> devicesRows =
+    List<WebElement> encodersRows =
         encodersTable.findElements(By.tagName("tr")); // find all tr elements inside found table
-    boolean assertValue = devicesRows.stream().anyMatch(row -> row.getText().contains(rename));
+    boolean assertValue = encodersRows.stream().anyMatch(row -> row.getText().contains(rename));
 
     assertTrue(assertValue);
   }
 
   @Test
   @Order(9)
-  void testCreateUser() {
+  void testCreateUser() throws InterruptedException {
     // Go to create user page
-    driver.get("http://localhost:3000/Admin/New");
+    Thread.sleep(1000);
+    driver.findElement(By.xpath("//p[contains(.,'Home')]")).click();
+    Thread.sleep(1000);
+    driver.findElement(By.xpath("//span[contains(.,'Create a User')]")).click();
 
     // Enter new user credentials
     driver.findElement(By.id("username")).sendKeys("user1");
@@ -506,25 +378,17 @@ public class SystemTests {
     driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
 
     // Sign out
-    {
-      WebElement element = driver.findElement(By.cssSelector("#acctBtn .MuiSvgIcon-root"));
-      Actions builder = new Actions(driver);
-      builder.moveToElement(element).perform();
-    }
+    Thread.sleep(1000);
     driver.findElement(By.cssSelector("#acctBtn .MuiSvgIcon-root")).click();
-    {
-      WebElement element = driver.findElement(By.tagName("body"));
-      Actions builder = new Actions(driver);
-      builder.moveToElement(element, 0, 0).perform();
-    }
-    driver.findElement(By.cssSelector(".MuiTypography-colorError")).click();
+    Thread.sleep(1000);
+    driver.findElement(By.xpath("//p[contains(.,'Logout')]")).click();
 
     // Sign in with new user
     driver.findElement(By.id("username")).sendKeys("user1");
     driver.findElement(By.id("password")).sendKeys("user1");
     driver.findElement(By.id("password")).sendKeys(Keys.ENTER);
 
-    // Assert homepage
+    // Check login
     {
       WebDriverWait wait = new WebDriverWait(driver, 5);
       wait.until(
@@ -537,70 +401,17 @@ public class SystemTests {
 
   @Test
   @Order(10)
-  void testRestrictAccessToDevices() {
-    // Go to List of Senders
-    driver.get("http://localhost:3000/Devices");
-    {
-      WebElement element = driver.findElement(By.xpath("//div[@id='device-table-title-select']"));
-      Actions builder = new Actions(driver);
-      builder.moveToElement(element).clickAndHold().perform();
-    }
-    {
-      WebElement element = driver.findElement(By.xpath("//div[@id='menu-']/div[3]/ul/li"));
-      Actions builder = new Actions(driver);
-      builder.moveToElement(element).release().perform();
-    }
-    driver.findElement(By.cssSelector("body")).click();
-    driver.findElement(By.xpath("//li[contains(.,'Senders')]")).click();
-
-    // Check for admin encoder not to be present
-    WebElement encodersTable = driver.findElement(By.tagName("table")); // find encoders table
-
-    {
-      WebDriverWait wait = new WebDriverWait(driver, 5);
-      wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName("tr")));
-    }
-
-    List<WebElement> encodersRows =
-        encodersTable.findElements(By.tagName("tr")); // find all tr elements inside found table
-    boolean assertEncoderValue =
-        encodersRows.stream()
-            .anyMatch(
-                row ->
-                    row.getText()
-                        .contains(
-                            EncoderFixture.getEncoderModelWithOutputChannel()
-                                .getDevice()
-                                .getDisplayName()));
-
-    assertFalse(assertEncoderValue);
-
+  void testRestrictAccessToDevices() throws InterruptedException {
     // Go to List of Receivers
-    driver.get("http://localhost:3000/Devices");
-    {
-      WebElement element = driver.findElement(By.xpath("//div[@id='device-table-title-select']"));
-      Actions builder = new Actions(driver);
-      builder.moveToElement(element).clickAndHold().perform();
-    }
-    {
-      WebElement element = driver.findElement(By.xpath("//div[@id='menu-']/div[3]/ul/li[2]"));
-      Actions builder = new Actions(driver);
-      builder.moveToElement(element).release().perform();
-    }
-    driver.findElement(By.cssSelector("body")).click();
-    driver.findElement(By.xpath("//li[contains(.,'Receivers')]")).click();
+    Thread.sleep(1000);
+    driver.findElement(By.xpath("//span[contains(.,'View Receivers')]")).click();
 
     // Check for admin decoder not to be present
+    Thread.sleep(3000);
     WebElement decodersTable = driver.findElement(By.tagName("table")); // find encoders table
-
-    {
-      WebDriverWait wait = new WebDriverWait(driver, 5);
-      wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName("tr")));
-    }
-
     List<WebElement> decodersRows =
         decodersTable.findElements(By.tagName("tr")); // find all tr elements inside found table
-    boolean assertDecoderValue =
+    boolean assertValue =
         decodersRows.stream()
             .anyMatch(
                 row ->
@@ -610,6 +421,6 @@ public class SystemTests {
                                 .getDevice()
                                 .getDisplayName()));
 
-    assertFalse(assertDecoderValue);
+    assertFalse(assertValue);
   }
 }
